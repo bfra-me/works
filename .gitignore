@@ -1,4 +1,8 @@
 *-debug.log
 *-error.log
-/yarn.lock
+.nyc_output
+lib
+yarn.lock
 node_modules
+oclif.manifest.json
+*.tsbuildinfo
