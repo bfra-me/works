@@ -2,7 +2,7 @@
 *-error.log
 .nyc_output
 lib
-yarn.lock
+package-lock.json
 node_modules
 oclif.manifest.json
 *.tsbuildinfo

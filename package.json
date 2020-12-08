@@ -4,7 +4,7 @@
   "description": "bfra.me tools and components",
   "scripts": {
     "build": "tsc -b packages",
-    "watch": "npm run build -- --watch",
+    "watch": "yarn build --watch",
     "clean": "rimraf \"packages/**/lib\" \"**/*.tsbuildinfo\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -27,8 +27,11 @@
     ]
   },
   "devDependencies": {
+    "@types/node": ">=10",
+    "eslint": "^6.8.0",
     "lerna": "^3.22.1",
     "rimraf": "^3.0.2",
+    "ts-node": "^9.1.1",
     "typescript": "^4.1.2"
   }
 }
