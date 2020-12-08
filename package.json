@@ -1,0 +1,23 @@
+{
+  "name": "@bfra.me/works",
+  "private": true,
+  "description": "bfra.me tools and components",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bfra.me",
+    "Build Frameworks",
+    "CLI",
+    "Components",
+    "Tools"
+  ],
+  "author": "bfra.me <contact@bfra.me>",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "lerna": "^3.22.1"
+  }
+}
