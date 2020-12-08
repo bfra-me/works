@@ -12,7 +12,7 @@
     "Components",
     "Tools"
   ],
-  "author": "bfra.me <contact@bfra.me>",
+  "author": "Marcus R. Brown <contact@bfra.me>",
   "license": "MIT",
   "workspaces": [
     "packages/*"
