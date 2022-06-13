@@ -16,7 +16,7 @@
   "devDependencies": {
     "@oclif/dev-cli": "^1.25.1",
     "eslint-config-oclif": "^3.1.0",
-    "eslint-config-oclif-typescript": "^0.1.0",
+    "eslint-config-oclif-typescript": "^0.2.0",
     "globby": "^10.0.2"
   },
   "engines": {
