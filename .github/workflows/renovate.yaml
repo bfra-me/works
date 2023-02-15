@@ -1,0 +1,37 @@
+---
+# Renovate this repository if this workflow file or the Renovate configuration file is changed.
+name: Renovate
+
+'on':
+  pull_request:
+    paths:
+      - '.github/workflows/renovate.yaml'
+      - '.github/renovate.json'
+    types:
+      - opened
+      - reopened
+      - synchronize
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/renovate.yaml'
+      - '.github/renovate.json'
+  workflow_dispatch:
+    inputs:
+      print_config:
+        description: Log the fully-resolved Renovate config for each repository, plus fully-resolved presets.
+        required: false
+        type: boolean
+        default: false
+
+permissions: {}
+
+jobs:
+  Renovate:
+    uses: bfra-me/renovate-config/.github/workflows/renovate.yaml@main
+    with:
+      autodiscover: false
+      dry_run: ${{ github.event_name == 'pull_request' && true }}
+      print_config: ${{ inputs.print_config || false }}
+    secrets: inherit
