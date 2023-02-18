@@ -8,16 +8,16 @@
   },
   "bugs": "https://github.com/bfra-me/works/issues",
   "dependencies": {
-    "@oclif/command": "^1.8.0",
-    "@oclif/config": "^1.17.0",
-    "@oclif/plugin-help": "^3.2.0",
-    "tslib": "^1.14.1"
+    "@oclif/command": "1.8.22",
+    "@oclif/config": "1.18.8",
+    "@oclif/plugin-help": "3.3.1",
+    "tslib": "1.14.1"
   },
   "devDependencies": {
-    "@oclif/dev-cli": "^1.25.1",
+    "@oclif/dev-cli": "1.26.10",
     "eslint-config-oclif": "4.0.0",
     "eslint-config-oclif-typescript": "1.0.3",
-    "globby": "^10.0.2"
+    "globby": "10.0.2"
   },
   "engines": {
     "node": ">=10"
