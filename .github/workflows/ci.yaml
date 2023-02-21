@@ -27,7 +27,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: yarn
         env:
-          NODE_VERSION: 18.14.1 # renovate: datasource=node depName=node
+          NODE_VERSION: 18.14.2 # renovate: datasource=node depName=node
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
