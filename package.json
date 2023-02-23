@@ -27,7 +27,7 @@
     ]
   },
   "devDependencies": {
-    "@types/node": "18.14.0",
+    "@types/node": "18.14.1",
     "eslint": "8.34.0",
     "rimraf": "3.0.2",
     "ts-node": "9.1.1",
