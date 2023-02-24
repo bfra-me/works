@@ -1,59 +1,69 @@
 {
   "name": "@bfra.me/cli",
-  "description": "bfra.me command line",
   "version": "0.0.0",
-  "author": "Marcus R. Brown @igetgames",
+  "description": "bfra.me command line",
+  "author": "Marcus R. Brown @marcusrbrown",
   "bin": {
     "bfra.me": "./bin/run"
   },
-  "bugs": "https://github.com/bfra-me/works/issues",
-  "dependencies": {
-    "@oclif/command": "1.8.22",
-    "@oclif/config": "1.18.8",
-    "@oclif/plugin-help": "3.3.1",
-    "tslib": "1.14.1"
-  },
-  "devDependencies": {
-    "@oclif/dev-cli": "1.26.10",
-    "eslint-config-oclif": "4.0.0",
-    "eslint-config-oclif-typescript": "1.0.3",
-    "globby": "10.0.2"
-  },
-  "engines": {
-    "node": ">=10"
-  },
+  "homepage": "https://github.com/bfra-me/works",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "repository": "bfra-me/works",
   "files": [
     "/bin",
-    "/lib",
+    "/dist",
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://github.com/bfra-me/works",
+  "dependencies": {
+    "@oclif/core": "^2",
+    "@oclif/plugin-help": "^5",
+    "@oclif/plugin-plugins": "^2.3.2"
+  },
+  "devDependencies": {
+    "@oclif/test": "^2.3.6",
+    "@types/chai": "^4",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.18.12",
+    "chai": "^4",
+    "eslint": "^7.32.0",
+    "eslint-config-oclif": "4.0.0",
+    "eslint-config-oclif-typescript": "1.0.3",
+    "mocha": "^9",
+    "oclif": "^3",
+    "shx": "^0.3.3",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.5"
+  },
+  "oclif": {
+    "bin": "bfra.me",
+    "dirname": "bframe",
+    "commands": "./dist/commands",
+    "plugins": [
+      "@oclif/plugin-help",
+      "@oclif/plugin-plugins"
+    ],
+    "topicSeparator": " ",
+    "topics": {
+      "hello": {
+        "description": "Say hello to the world and others"
+      }
+    }
+  },
+  "scripts": {
+    "build": "shx rm -rf dist && tsc -b",
+    "lint": "eslint . --ext .ts --config .eslintrc",
+    "postpack": "shx rm -f oclif.manifest.json",
+    "posttest": "yarn lint",
+    "prepack": "yarn build && oclif manifest && oclif readme",
+    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
+    "version": "oclif readme && git add README.md"
+  },
+  "bugs": "https://github.com/bfra-me/works/issues",
   "keywords": [
     "oclif"
   ],
-  "license": "MIT",
-  "main": "lib/index.js",
-  "oclif": {
-    "commands": "./lib/commands",
-    "bin": "bfra.me",
-    "plugins": [
-      "@oclif/plugin-help"
-    ]
-  },
-  "repository": "bfra-me/works",
-  "scripts": {
-    "postpack": "rimraf oclif.manifest.json",
-    "posttest": "eslint . --ext .ts",
-    "prepack": "rimraf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
-    "test": "echo NO TESTS",
-    "version": "oclif-dev readme && git add README.md"
-  },
-  "types": "lib/index.d.ts",
-  "eslintConfig": {
-    "extends": [
-      "oclif",
-      "oclif-typescript"
-    ]
-  }
+  "types": "dist/index.d.ts"
 }
