@@ -5,8 +5,8 @@
   "scripts": {
     "build": "tsc -b packages",
     "watch": "yarn build --watch",
-    "clean": "rimraf \"packages/**/lib\" \"**/*.tsbuildinfo\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rimraf \"packages/**/dist\" \"**/*.tsbuildinfo\"",
+    "test": "yarn workspaces run test"
   },
   "keywords": [
     "bfra.me",
@@ -23,7 +23,7 @@
   "eslintConfig": {
     "ignorePatterns": [
       "node_modules",
-      "lib"
+      "dists"
     ]
   },
   "devDependencies": {
