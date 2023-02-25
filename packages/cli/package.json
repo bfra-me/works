@@ -17,7 +17,7 @@
     "/oclif.manifest.json"
   ],
   "dependencies": {
-    "@oclif/core": "2.3.0",
+    "@oclif/core": "2.3.1",
     "@oclif/plugin-help": "5.2.5",
     "@oclif/plugin-plugins": "2.3.2"
   },
