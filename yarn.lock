@@ -520,10 +520,10 @@
     supports-color "^8.1.1"
     tslib "^2"
 
-"@oclif/core@2.5.0", "@oclif/core@^2.1.1", "@oclif/core@^2.1.7", "@oclif/core@^2.3.0", "@oclif/core@^2.4.0":
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-2.5.0.tgz#ade1ff5cf0c2f46851eb101a036ba03e54146d9d"
-  integrity sha512-gHDqrJ3orSm9eV+EacNnw1hlbBie3BAUAenWLWKa7TfJHyfseVhLGV8skkb8uA9MTRAAESJNxWAADh0gIbtZKg==
+"@oclif/core@2.5.1", "@oclif/core@^2.1.1", "@oclif/core@^2.1.7", "@oclif/core@^2.3.0", "@oclif/core@^2.4.0":
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-2.5.1.tgz#0a45b050426fd9b650b70ef53cfc46bb6f6b1a18"
+  integrity sha512-5s+SbsffV3XQ5pgv7h8/iLF116TfCLwsu9+/rZXEWypgsfvR8Z6anzVpbpGJxIYWHl9XLrm/viCwZVp3WtbnlQ==
   dependencies:
     "@types/cli-progress" "^3.11.0"
     ansi-escapes "^4.3.2"
