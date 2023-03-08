@@ -520,10 +520,10 @@
     supports-color "^8.1.1"
     tslib "^2"
 
-"@oclif/core@2.5.1", "@oclif/core@^2.1.1", "@oclif/core@^2.1.7", "@oclif/core@^2.3.0", "@oclif/core@^2.4.0":
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-2.5.1.tgz#0a45b050426fd9b650b70ef53cfc46bb6f6b1a18"
-  integrity sha512-5s+SbsffV3XQ5pgv7h8/iLF116TfCLwsu9+/rZXEWypgsfvR8Z6anzVpbpGJxIYWHl9XLrm/viCwZVp3WtbnlQ==
+"@oclif/core@2.5.2", "@oclif/core@^2.1.1", "@oclif/core@^2.1.7", "@oclif/core@^2.3.0", "@oclif/core@^2.4.0":
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-2.5.2.tgz#c2d1f2d6e4907a8047b76085ff56add2567e8893"
+  integrity sha512-cISZd6JbWHRBnnR89WnlstU5z1qd1Ur582n1l7IE9wb0g1ep3wauo8K3Pfj/GICV18pNpDycNmCK2QqaJCYw9A==
   dependencies:
     "@types/cli-progress" "^3.11.0"
     ansi-escapes "^4.3.2"
@@ -549,6 +549,7 @@
     strip-ansi "^6.0.1"
     supports-color "^8.1.1"
     supports-hyperlinks "^2.2.0"
+    ts-node "^10.9.1"
     tslib "^2.5.0"
     widest-line "^3.1.0"
     wordwrap "^1.0.0"
@@ -4809,7 +4810,7 @@ treeverse@^1.0.4:
   resolved "https://registry.yarnpkg.com/treeverse/-/treeverse-1.0.4.tgz#a6b0ebf98a1bca6846ddc7ecbc900df08cb9cd5f"
   integrity sha512-whw60l7r+8ZU8Tu/Uc2yxtc4ZTZbR/PF3u1IPNKGQ6p8EICLb3Z2lAgoqw9bqYd8IkgnsaOcLzYHFckjqNsf0g==
 
-ts-node@10.9.1:
+ts-node@10.9.1, ts-node@^10.9.1:
   version "10.9.1"
   resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-10.9.1.tgz#e73de9102958af9e1f0b168a6ff320e25adcff4b"
   integrity sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==
