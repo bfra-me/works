@@ -19,7 +19,7 @@
   "dependencies": {
     "@oclif/core": "2.5.2",
     "@oclif/plugin-help": "5.2.7",
-    "@oclif/plugin-plugins": "2.3.2"
+    "@oclif/plugin-plugins": "2.4.0"
   },
   "devDependencies": {
     "@oclif/test": "2.3.9",
