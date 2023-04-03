@@ -1,12 +1,14 @@
 {
   "name": "@bfra.me/works",
   "private": true,
+  "packageManager": "pnpm@8.1.0",
   "description": "bfra.me tools and components",
   "scripts": {
-    "build": "tsc -b packages",
-    "watch": "yarn build --watch",
+    "build": "pnpm -r run build",
+    "watch": "pnpm run build --watch",
     "clean": "rimraf \"packages/**/dist\" \"**/*.tsbuildinfo\"",
-    "test": "yarn workspaces run test"
+    "lint": "pnpm -r run --parallel lint",
+    "test": "pnpm -r run --parallel test"
   },
   "keywords": [
     "bfra.me",
@@ -17,9 +19,6 @@
   ],
   "author": "Marcus R. Brown <contact@bfra.me>",
   "license": "MIT",
-  "workspaces": [
-    "packages/*"
-  ],
   "eslintConfig": {
     "ignorePatterns": [
       "node_modules",

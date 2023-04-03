@@ -4,6 +4,7 @@
 dist
 lib
 package-lock.json
+yarn.lock
 node_modules
 oclif.manifest.json
 *.tsbuildinfo

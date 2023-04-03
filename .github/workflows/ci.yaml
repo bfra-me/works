@@ -6,7 +6,7 @@ name: CI
   push:
     branches: [main, "renovate/**"]
   pull_request:
-    types: [opened, reopened, synchronize]
+    branches: [main]
   workflow_dispatch:
 
 concurrency:
@@ -14,23 +14,30 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  ci:
+  test:
+    name: Test
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@c3b53f6a16e57305370b4ae5a540c2077a1d50dd # v2.2.4
+
       - name: Setup Node ${{ env.NODE_VERSION }}
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
         with:
+          cache: pnpm
           node-version: ${{ env.NODE_VERSION }}
-          cache: yarn
         env:
           NODE_VERSION: 18.15.0 # renovate: datasource=node depName=node
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
-      - name: Build
-        run: yarn build
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Run tests
+        run: pnpm run test
