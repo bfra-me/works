@@ -31,7 +31,7 @@ jobs:
           cache: pnpm
           node-version: ${{ env.NODE_VERSION }}
         env:
-          NODE_VERSION: 18.15.0 # renovate: datasource=node depName=node
+          NODE_VERSION: 18.16.0 # renovate: datasource=node depName=node
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
