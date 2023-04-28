@@ -4,7 +4,12 @@
   "packageRules": [
     {
       "matchManagers": ["npm"],
-      "extends": [":pinAllExceptPeerDependencies"]
+      "extends": [":pinAllExceptPeerDependencies"],
+  "postUpgradeTasks": {
+    "commands": ["pnpm install", "pnpm prettier --write ."],
+    "fileFilters": ["**/**"],
+    "executionMode": "branch"
+  }
     },
     {
       "matchDepTypes": ["engines", "peerDependencies"],
