@@ -4,12 +4,7 @@
   "packageRules": [
     {
       "matchManagers": ["npm"],
-      "extends": [":pinAllExceptPeerDependencies"],
-  "postUpgradeTasks": {
-    "commands": ["pnpm install", "pnpm prettier --write ."],
-    "fileFilters": ["**/**"],
-    "executionMode": "branch"
-  }
+      "extends": [":pinAllExceptPeerDependencies"]
     },
     {
       "matchDepTypes": ["engines", "peerDependencies"],
@@ -19,5 +14,10 @@
       "matchPackageNames": ["node"],
       "rangeStrategy": "replace"
     }
-  ]
+  ],
+  "postUpgradeTasks": {
+    "commands": ["pnpm install --frozen-lockfile", "pnpm prettier --write ."],
+    "fileFilters": ["**/**"],
+    "executionMode": "branch"
+  }
 }
