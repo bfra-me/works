@@ -1,7 +1,4 @@
 {
   "files": [],
-  "references": [
-    { "path": "cli" },
-    { "path": "create" }
-  ]
+  "references": [{"path": "cli"}, {"path": "create"}]
 }

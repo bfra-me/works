@@ -1,0 +1,13 @@
+bracketSpacing: false
+singleQuote: true
+tabWidth: 2
+overrides:
+  - files:
+      - '*.json'
+    options:
+      singleQuote: false
+      trailingComma: none
+  - files:
+      - '.vscode/*.json'
+    options:
+      tabWidth: 4
