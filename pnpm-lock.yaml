@@ -5,8 +5,8 @@ importers:
   .:
     devDependencies:
       '@types/node':
-        specifier: 18.16.11
-        version: 18.16.11
+        specifier: 18.16.12
+        version: 18.16.12
       eslint:
         specifier: 8.40.0
         version: 8.40.0
@@ -18,7 +18,7 @@ importers:
         version: 5.0.0
       ts-node:
         specifier: 10.9.1
-        version: 10.9.1(@types/node@18.16.11)(typescript@5.0.4)
+        version: 10.9.1(@types/node@18.16.12)(typescript@5.0.4)
       typescript:
         specifier: 5.0.4
         version: 5.0.4
@@ -142,8 +142,8 @@ packages:
     resolution: {integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==}
     dev: true
 
-  /@types/node@18.16.11:
-    resolution: {integrity: sha512-yCnrJruhy5kqKDVi+shQlQ/bdeESTUr2zUeihKkoxG6IMQaZUjZjqnHHwaYr1nv5/X+WtLZ8gPYgWlCTevOXrg==}
+  /@types/node@18.16.12:
+    resolution: {integrity: sha512-tIRrjbY9C277MOfP8M3zjMIhtMlUJ6YVqkGgLjz+74jVsdf4/UjC6Hku4+1N0BS0qyC0JAS6tJLUk9H6JUKviQ==}
     dev: true
 
   /acorn-jsx@5.3.2(acorn@8.8.2):
@@ -744,7 +744,7 @@ packages:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
     dev: true
 
-  /ts-node@10.9.1(@types/node@18.16.11)(typescript@5.0.4):
+  /ts-node@10.9.1(@types/node@18.16.12)(typescript@5.0.4):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -763,7 +763,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.3
-      '@types/node': 18.16.11
+      '@types/node': 18.16.12
       acorn: 8.8.2
       acorn-walk: 8.2.0
       arg: 4.1.3
