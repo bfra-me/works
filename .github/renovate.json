@@ -16,8 +16,7 @@
     }
   ],
   "postUpgradeTasks": {
-    "commands": ["pnpm install --frozen-lockfile", "pnpm prettier --write ."],
-    "fileFilters": ["**/**"],
+    "commands": ["corepack enable", "pnpm install --frozen-lockfile", "pnpm prettier --write ."],
     "executionMode": "branch"
   }
 }
