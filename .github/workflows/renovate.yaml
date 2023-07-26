@@ -29,7 +29,7 @@ permissions: {}
 
 jobs:
   Renovate:
-    uses: bfra-me/renovate-config/.github/workflows/renovate.yaml@cd72bb2a00ec105126ddf03f16f69e1380e0e0ea # v1.15.0
+    uses: bfra-me/renovate-config/.github/workflows/renovate.yaml@f2f7889b89a6774d6a4f8a06a729375a7e3f24db # v1.15.1
     with:
       autodiscover: false
       dry_run: ${{ github.ref != format('refs/heads/{0}', github.event.repository.default_branch) }}
