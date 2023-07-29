@@ -16,7 +16,11 @@
     }
   ],
   "postUpgradeTasks": {
-    "commands": ["npm install -g pnpm@8", "pnpm install --frozen-lockfile", "pnpm run format"],
+    "commands": [
+      "npm install -g pnpm@8",
+      "pnpm install --frozen-lockfile",
+      "pnpm run format"
+    ],
     "executionMode": "branch"
   }
 }
