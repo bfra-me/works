@@ -8,6 +8,8 @@
     "watch": "pnpm run build --watch",
     "clean": "rimraf \"packages/**/dist\" \"**/*.tsbuildinfo\"",
     "lint": "pnpm -r run --parallel lint",
+    "check-format": "pnpm prettier --check .",
+    "format": "pnpm prettier --write .",
     "test": "pnpm -r run --parallel test"
   },
   "keywords": [
