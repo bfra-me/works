@@ -21,6 +21,7 @@
       "pnpm install --frozen-lockfile",
       "pnpm run format"
     ],
-    "executionMode": "branch"
+    "executionMode": "branch",
+    "fileFilters": ["**/*"],
   }
 }
