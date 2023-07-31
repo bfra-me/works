@@ -1,27 +1,27 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["local>bfra-me/renovate-config", ":prConcurrentLimitNone"],
-  "packageRules": [
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: ['local>bfra-me/renovate-config', ':prConcurrentLimitNone'],
+  packageRules: [
     {
-      "matchManagers": ["npm"],
-      "extends": [":pinAllExceptPeerDependencies"]
+      matchManagers: ['npm'],
+      extends: [':pinAllExceptPeerDependencies'],
     },
     {
-      "matchDepTypes": ["engines", "peerDependencies"],
-      "rangeStrategy": "update-lockfile"
+      matchDepTypes: ['engines', 'peerDependencies'],
+      rangeStrategy: 'update-lockfile',
     },
     {
-      "matchPackageNames": ["node"],
-      "rangeStrategy": "replace"
-    }
+      matchPackageNames: ['node'],
+      rangeStrategy: 'replace',
+    },
   ],
-  "postUpgradeTasks": {
-    "commands": [
-      "npm install -g pnpm@8",
-      "pnpm install --frozen-lockfile",
-      "pnpm run format"
+  postUpgradeTasks: {
+    commands: [
+      'npm install -g pnpm@8',
+      'pnpm install --frozen-lockfile',
+      'pnpm run format',
     ],
-    "executionMode": "branch",
-    "fileFilters": ["**/*"],
-  }
+    executionMode: 'branch',
+    fileFilters: ['**/*'],
+  },
 }
