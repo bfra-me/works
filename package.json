@@ -28,7 +28,7 @@
     ]
   },
   "devDependencies": {
-    "@types/node": "18.17.11",
+    "@types/node": "18.17.12",
     "eslint": "8.48.0",
     "prettier": "3.0.2",
     "rimraf": "5.0.1",
