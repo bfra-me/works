@@ -53,7 +53,7 @@ jobs:
     if: needs.should-renovate.outputs.renovate == 'true'
     name: Renovate
     needs: should-renovate
-    uses: bfra-me/renovate-config/.github/workflows/renovate.yaml@9a3bdca2894e1b9cc60cf4334ea51d9751f0d1d7 # v1.22.0
+    uses: bfra-me/renovate-config/.github/workflows/renovate.yaml@d6e3031defb9dab1a52fef00ccab044ce0b8ec8f # v1.23.0
     with:
       autodiscover: false
       branch: ${{ github.head_ref }}
