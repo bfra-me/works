@@ -56,7 +56,6 @@ jobs:
     uses: bfra-me/renovate-config/.github/workflows/renovate.yaml@f2bb7ac82c5becc73f89a91b5747a674ee992cd9 # v1.24.0
     with:
       autodiscover: false
-      branch: ${{ github.head_ref }}
       dry_run: false
       print_config: ${{ inputs.print_config || false }}
     secrets: inherit
