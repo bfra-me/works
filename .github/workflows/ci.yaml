@@ -25,13 +25,11 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598 # v2.4.0
 
-      - name: Setup Node ${{ env.NODE_VERSION }}
+      - name: Setup Node.js
         uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # v3.8.1
         with:
           cache: pnpm
-          node-version: ${{ env.NODE_VERSION }}
-        env:
-          NODE_VERSION: 18.18.0 # renovate: datasource=node depName=node
+          node-version-file: '.node-version'
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
