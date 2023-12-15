@@ -1,8 +1,8 @@
 {
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   extends: [
-    'github>bfra-me/renovate-config#v2.2.1',
-    'github>bfra-me/renovate-config:automerge/prForCI#v2.2.1',
+    'github>bfra-me/renovate-config#v2.2.3',
+    'github>bfra-me/renovate-config:automerge/prForCI#v2.2.3',
   ],
   packageRules: [
     {
