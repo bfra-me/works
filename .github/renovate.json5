@@ -1,6 +1,6 @@
 {
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
-  extends: ['github>bfra-me/renovate-config#v2.4.1'],
+  extends: ['github>bfra-me/renovate-config#v2.5.0'],
   packageRules: [
     {
       matchManagers: ['npm'],
