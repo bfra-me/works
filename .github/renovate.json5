@@ -1,20 +1,6 @@
 {
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
-  extends: ['github>bfra-me/renovate-config#v2.5.0'],
-  packageRules: [
-    {
-      matchManagers: ['npm'],
-      extends: [':pinAllExceptPeerDependencies'],
-    },
-    {
-      matchDepTypes: ['engines', 'peerDependencies'],
-      rangeStrategy: 'update-lockfile',
-    },
-    {
-      matchPackageNames: ['node'],
-      rangeStrategy: 'replace',
-    },
-  ],
+  extends: ['github>bfra-me/renovate-config#v2.5.3'],
   postUpgradeTasks: {
     commands: [
       'npm install -g pnpm@8',
