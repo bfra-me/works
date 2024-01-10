@@ -1,7 +1,7 @@
 {
   "name": "@bfra.me/works",
   "private": true,
-  "packageManager": "pnpm@8.14.0",
+  "packageManager": "pnpm@8.14.1",
   "description": "bfra.me tools and components",
   "scripts": {
     "build": "pnpm -r run build",
