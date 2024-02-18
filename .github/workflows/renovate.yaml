@@ -60,7 +60,7 @@ jobs:
         run: echo 'renovate=true' >> $GITHUB_OUTPUT
       - name: Renovate
         if: steps.should-renovate.outputs.renovate == 'true'
-        uses: bfra-me/renovate-action@032610d49c9c0e759d756dc121529677cf806d80 # v2.7.34
+        uses: bfra-me/renovate-action@aab025357e40a3018eb93e1791c36a966e0cc8e1 # v2.7.35
         with:
           branch: ${{ github.ref != 'refs/heads/main' && github.ref_name || '' }}
           cache: ${{ github.event_name == 'push' && contains('["main", "renovate/reconfigure"]', github.ref_name) }}
