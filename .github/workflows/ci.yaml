@@ -3,10 +3,11 @@
 name: CI
 
 'on':
+  merge_group:
   push:
     branches: [main, 'renovate/**']
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, synchronize, reopened, ready_for_review]
   workflow_dispatch:
 
 concurrency:
