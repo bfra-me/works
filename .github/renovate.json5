@@ -1,6 +1,9 @@
 {
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
-  extends: ['github>bfra-me/renovate-config#v3.0.6'],
+  extends: [
+    'github>bfra-me/renovate-config#v3.0.6',
+    'github>bfra-me/renovate-config:internal.json5#v3.0.6',
+  ],
   postUpgradeTasks: {
     commands: [
       'npm install -g pnpm@8',
