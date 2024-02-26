@@ -1,0 +1,30 @@
+{
+  "name": "@bfra.me/tsconfig",
+  "description": "Shared TypeScript configuration for bfra.me",
+  "version": "0.1.0",
+  "author": "Marcus R. Brown <contact@bfra.me>",
+  "license": "MIT",
+  "main": "tsconfig.json",
+  "homepage": "https://github.com/bfra-me/works/blob/main/packages/tsconfig#readme",
+  "repository": "https://github.com/bfra-me/works/blob/main/packages/tsconfig",
+  "bugs": "https://github.com/bfra-me/works/issues",
+  "keywords": [
+    "bfra.me",
+    "typescript",
+    "tsconfig",
+    "config",
+    "shared"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "tsconfig.json"
+  ],
+  "exports": {
+    ".": "./tsconfig.json"
+  },
+  "devDependencies": {
+    "@bfra.me/tsconfig": "workspace:*"
+  }
+}

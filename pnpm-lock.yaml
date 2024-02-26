@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      '@bfra.me/tsconfig':
+        specifier: workspace:*
+        version: link:packages/tsconfig
       '@tsconfig/strictest':
         specifier: 2.0.3
         version: 2.0.3
@@ -29,6 +32,12 @@ importers:
       typescript:
         specifier: 5.3.3
         version: 5.3.3
+
+  packages/tsconfig:
+    devDependencies:
+      '@bfra.me/tsconfig':
+        specifier: workspace:*
+        version: 'link:'
 
 packages:
 
