@@ -1,4 +1,8 @@
 {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "cSpell.words": ["bfra", "frameworkers"]
+
+    "cSpell.words": ["bfra", "frameworkers"],
+
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "typescript.tsdk": "node_modules/typescript/lib"
 }

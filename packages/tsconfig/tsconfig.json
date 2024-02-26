@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "@bfra.me/tsconfig",
+  "extends": "@tsconfig/strictest/tsconfig.json",
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "incremental": true,
+    "module": "ESNext",
+    "moduleResolution": "NodeNext",
+    "noImplicitAny": true,
+    "preserveConstEnums": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "target": "ESNext",
+    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"
+  },
+  "exclude": ["node_modules"]
+}

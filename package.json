@@ -6,7 +6,7 @@
   "scripts": {
     "build": "pnpm -r run build",
     "watch": "pnpm run build --watch",
-    "clean": "rimraf \"packages/**/dist\" \"**/*.tsbuildinfo\"",
+    "clean": "rimraf \"packages/**/lib\" \"**/*.tsbuildinfo\"",
     "lint": "pnpm -r run --parallel lint",
     "check-format": "prettier --check .",
     "format": "prettier --write .",
@@ -23,11 +23,13 @@
   "license": "MIT",
   "eslintConfig": {
     "ignorePatterns": [
-      "node_modules",
-      "dists"
+      "lib",
+      "dist",
+      "node_modules"
     ]
   },
   "devDependencies": {
+    "@bfra.me/tsconfig": "workspace:*",
     "@tsconfig/strictest": "2.0.3",
     "@types/node": "20.11.20",
     "eslint": "8.56.0",
