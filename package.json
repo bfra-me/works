@@ -13,8 +13,8 @@
     "check-format": "prettier --check .",
     "format": "prettier --write .",
     "test": "pnpm -r run --parallel test",
-    "publish-changesets": "changesets publish",
-    "version-changesets": "changesets version"
+    "publish-changesets": "changeset publish",
+    "version-changesets": "changeset version"
   },
   "keywords": [
     "bfra.me",
