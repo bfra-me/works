@@ -4,6 +4,7 @@
     'github>bfra-me/renovate-config#v3.1.2',
     'github>bfra-me/renovate-config:internal.json5#v3.1.2',
   ],
+  addLabels: ['{{{parentDir}}}'],
   postUpgradeTasks: {
     commands: [
       'npm install -g pnpm@8',
