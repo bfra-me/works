@@ -11,8 +11,11 @@ name: CI
   workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow }}-$${{ github.run_id || github.ref }}
-  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+permissions:
+  contents: read
 
 jobs:
   test:
@@ -43,3 +46,51 @@ jobs:
 
       - name: Run tests
         run: pnpm run test
+
+  release:
+    name: Release
+    if: github.repository == 'bfra-me/works' && github.event_name == 'push' && github.ref =='refs/heads/main'
+    needs:
+      - test
+    runs-on: ubuntu-latest
+    steps:
+      - id: get-workflow-access-token
+        name: Get Workflow Access Token
+        uses: peter-murray/workflow-application-token-action@dc0413987a085fa17d19df9e47d4677cf81ffef3 # v3.0.0
+        with:
+          application_id: ${{ secrets.APPLICATION_ID }}
+          application_private_key: ${{ secrets.APPLICATION_PRIVATE_KEY }}
+          permissions: 'contents:write, issues:write, pull_requests:write'
+      - name: Setup Git user
+        run: |
+          git config --global user.email '118100583+bfra-me[bot]@users.noreply.github.com'
+          git config --global user.name 'bfra-me[bot]'
+      - name: Checkout repository
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          fetch-depth: 0
+          token: ${{ steps.get-workflow-access-token.outputs.token }}
+      - name: Setup Node.js
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+        with:
+          cache: pnpm
+          node-version-file: '.node-version'
+      - name: Enable corepack
+        run: corepack enable
+      - name: Install dependencies and build packages
+        env:
+          HUSKY: 0
+        run: pnpm bootstrap
+      - name: Perform a dry run of `pnpm publish`
+        run: pnpm -r publish --dry-run
+      - name: Create Release Pull Request or Publish to npm
+        uses: changesets/action@e2f8e964d080ae97c874b19e27b12e0a8620fb6c # v1.4.6
+        with:
+          commit: 'chore(changesets): publish packages'
+          publish: pnpm publish-changesets
+          setupGitUser: false
+          title: 'chore(🦋📦): publish packages'
+          version: pnpm version-changesets
+        env:
+          GITHUB_TOKEN: ${{ steps.get-workflow-access-token.outputs.token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

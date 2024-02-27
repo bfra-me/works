@@ -1,16 +1,20 @@
 {
   "name": "@bfra.me/works",
+  "version": "0.0.0",
   "private": true,
   "packageManager": "pnpm@8.15.4",
   "description": "bfra.me tools and components",
   "scripts": {
+    "bootstrap": "pnpm install --frozen-lockfile && pnpm -r build",
     "build": "pnpm -r run build",
     "watch": "pnpm run build --watch",
-    "clean": "rimraf \"packages/**/lib\" \"**/*.tsbuildinfo\"",
+    "clean": "rimraf \"packages/**/lib\" \"**/tsbuildinfo.json\"",
     "lint": "pnpm -r run --parallel lint",
     "check-format": "prettier --check .",
     "format": "prettier --write .",
-    "test": "pnpm -r run --parallel test"
+    "test": "pnpm -r run --parallel test",
+    "publish-changesets": "changesets publish",
+    "version-changesets": "changesets version"
   },
   "keywords": [
     "bfra.me",
@@ -30,6 +34,8 @@
   },
   "devDependencies": {
     "@bfra.me/tsconfig": "workspace:*",
+    "@changesets/cli": "2.27.1",
+    "@swisspost/design-system-changelog-github": "1.0.2",
     "@tsconfig/strictest": "2.0.3",
     "@types/node": "20.11.20",
     "eslint": "8.56.0",
