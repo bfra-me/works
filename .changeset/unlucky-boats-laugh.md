@@ -2,4 +2,4 @@
 "@bfra.me/tsconfig": minor
 ---
 
-Add @changesets/cli and changesets/action
+Add `@changesets/cli` and `changesets/action`
