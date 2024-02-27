@@ -26,5 +26,8 @@
   },
   "devDependencies": {
     "@bfra.me/tsconfig": "workspace:*"
+  },
+  "peerDependencies": {
+    "@tsconfig/strictest": "*"
   }
 }

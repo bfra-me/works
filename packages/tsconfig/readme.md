@@ -4,6 +4,8 @@
 
 ## Install
 
+The main `tsconfig.json` config file extends from [@tsconfig/strictest](https://npmjs.com/package/@tsconfig/strictest) which is installed as a peer dependency.
+
 ### NPM
 
 ```sh

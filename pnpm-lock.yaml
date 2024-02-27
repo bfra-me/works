@@ -17,9 +17,6 @@ importers:
       '@swisspost/design-system-changelog-github':
         specifier: 1.0.2
         version: 1.0.2
-      '@tsconfig/strictest':
-        specifier: 2.0.3
-        version: 2.0.3
       '@types/node':
         specifier: 20.11.20
         version: 20.11.20
@@ -40,6 +37,10 @@ importers:
         version: 5.3.3
 
   packages/tsconfig:
+    dependencies:
+      '@tsconfig/strictest':
+        specifier: '*'
+        version: 2.0.3
     devDependencies:
       '@bfra.me/tsconfig':
         specifier: workspace:*
@@ -445,7 +446,7 @@ packages:
 
   /@tsconfig/strictest@2.0.3:
     resolution: {integrity: sha512-MroLvRhMbqtXI5WBSwoomro6OQS4xnCoudUrMb20JO0vLKUs0bAaCEcvM/immEBSJjFAK1l6jW1oAO8q3Ancrg==}
-    dev: true
+    dev: false
 
   /@types/minimist@1.2.5:
     resolution: {integrity: sha512-hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==}
@@ -2721,3 +2722,6 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+time:
+  /@tsconfig/strictest@2.0.3: '2024-02-09T04:11:59.280Z'
