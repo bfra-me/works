@@ -21,6 +21,6 @@ jobs:
   renovate:
     name: Renovate
     secrets: inherit
-    uses: bfra-me/.github/.github/workflows/renovate.yaml@v1.6.1
+    uses: bfra-me/.github/.github/workflows/renovate.yaml@0c13f7b3216031b03a2bf5d7232ea13f910f21a5 # v1.6.2
     with:
       print_config: ${{ inputs.print_config || false }}
