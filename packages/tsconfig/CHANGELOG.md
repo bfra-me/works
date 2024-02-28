@@ -1,5 +1,15 @@
 # @bfra.me/tsconfig
 
+## 0.2.0
+
+### Minor Changes
+
+- @bfra.me/tsconfig: Disable declaration maps (by [@marcusrbrown](https://github.com/marcusrbrown) with [#114](https://github.com/bfra-me/works/pull/114))
+
+### Patch Changes
+
+- @bfra.me/tsconfig: Use correct `module` option when `moduleResolution` is "NodeNext". (by [@marcusrbrown](https://github.com/marcusrbrown) with [#112](https://github.com/bfra-me/works/pull/112))
+
 ## 0.1.1
 
 ### Patch Changes
