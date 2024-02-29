@@ -18,8 +18,8 @@ importers:
         specifier: 1.0.2
         version: 1.0.2
       '@types/node':
-        specifier: 20.11.23
-        version: 20.11.23
+        specifier: 20.11.24
+        version: 20.11.24
       eslint:
         specifier: 8.57.0
         version: 8.57.0
@@ -31,7 +31,7 @@ importers:
         version: 5.0.5
       ts-node:
         specifier: 10.9.2
-        version: 10.9.2(@types/node@20.11.23)(typescript@5.3.3)
+        version: 10.9.2(@types/node@20.11.24)(typescript@5.3.3)
       typescript:
         specifier: 5.3.3
         version: 5.3.3
@@ -464,8 +464,8 @@ packages:
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
     dev: true
 
-  /@types/node@20.11.23:
-    resolution: {integrity: sha512-ZUarKKfQuRILSNYt32FuPL20HS7XwNT7/uRwSV8tiHWfyyVwDLYZNF6DZKc2bove++pgfsXn9sUwII/OsQ82cQ==}
+  /@types/node@20.11.24:
+    resolution: {integrity: sha512-Kza43ewS3xoLgCEpQrsT+xRo/EJej1y0kVYGiLFE1NEODXGzTfwiC6tXTLMQskn1X4/Rjlh0MQUvx9W+L9long==}
     dependencies:
       undici-types: 5.26.5
     dev: true
@@ -2438,7 +2438,7 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /ts-node@10.9.2(@types/node@20.11.23)(typescript@5.3.3):
+  /ts-node@10.9.2(@types/node@20.11.24)(typescript@5.3.3):
     resolution: {integrity: sha512-f0FFpIdcHgn8zcPSbf1dRevwt047YMnaiJM3u2w2RewrB+fob/zePZcrOyQoLMMO7aBIddLcQIEK5dYjkLnGrQ==}
     hasBin: true
     peerDependencies:
@@ -2457,7 +2457,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 20.11.23
+      '@types/node': 20.11.24
       acorn: 8.11.3
       acorn-walk: 8.3.2
       arg: 4.1.3
@@ -2764,7 +2764,7 @@ time:
   /@changesets/cli@2.27.1: '2023-11-28T11:18:23.079Z'
   /@swisspost/design-system-changelog-github@1.0.2: '2022-11-22T09:41:10.082Z'
   /@tsconfig/strictest@2.0.3: '2024-02-09T04:11:59.280Z'
-  /@types/node@20.11.23: '2024-02-29T11:38:46.402Z'
+  /@types/node@20.11.24: '2024-02-29T15:36:00.780Z'
   /ajv-draft-04@1.0.0: '2021-05-23T15:48:18.254Z'
   /ajv@8.12.0: '2023-01-03T14:19:23.766Z'
   /eslint@8.57.0: '2024-02-23T20:39:43.282Z'
