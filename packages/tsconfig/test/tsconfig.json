@@ -4,5 +4,5 @@
     "baseUrl": "./",
     "outDir": "lib"
   },
-  "include": ["*.ts"]
+  "include": ["*.test.ts"]
 }
