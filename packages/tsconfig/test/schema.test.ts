@@ -1,10 +1,8 @@
 import assert from 'node:assert'
 import {promises as fs} from 'node:fs'
 import {test} from 'node:test'
-import ajv, {type JSONSchemaType} from 'ajv-draft-04'
+import Ajv, {type JSONSchemaType} from 'ajv-draft-04'
 import type {TsConfigJson} from 'type-fest'
-
-const Ajv = ajv.default
 
 test('validates against tsconfig.json schema', async () => {
   const tsconfig = JSON.parse(await fs.readFile('tsconfig.json', 'utf8'))
