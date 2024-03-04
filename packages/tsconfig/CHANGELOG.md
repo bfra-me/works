@@ -1,5 +1,11 @@
 # @bfra.me/tsconfig
 
+## 0.2.1
+
+### Patch Changes
+
+- Set `module` to **ESNext** and `moduleResolution` to **Node** to fix ESM-first default (by [@marcusrbrown](https://github.com/marcusrbrown) with [#134](https://github.com/bfra-me/works/pull/134))
+
 ## 0.2.0
 
 ### Minor Changes
