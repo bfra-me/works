@@ -1,8 +1,8 @@
 {
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   extends: [
-    'github>bfra-me/renovate-config#v3.4.5',
-    'github>bfra-me/renovate-config:internal.json5#v3.4.5',
+    'github>bfra-me/renovate-config#v3.5.0',
+    'github>bfra-me/renovate-config:internal.json5#v3.5.0',
   ],
   addLabels: ['{{{parentDir}}}'],
   postUpgradeTasks: {
