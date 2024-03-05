@@ -4,6 +4,5 @@
     "baseUrl": "./",
     "outDir": "lib"
   },
-  "exclude": ["schema.test.ts"],
   "include": ["*.test.ts"]
 }
