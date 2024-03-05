@@ -17,7 +17,8 @@
     "shared"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
   "files": [
     "tsconfig.json"
