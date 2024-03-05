@@ -1,5 +1,11 @@
 # @bfra.me/tsconfig
 
+## 0.2.3
+
+### Patch Changes
+
+- Set `$schema` to raw GitHub URL to avoid issues if SchemaStore is unavailable. (by [@marcusrbrown](https://github.com/marcusrbrown) with [#139](https://github.com/bfra-me/works/pull/139))
+
 ## 0.2.2
 
 ### Patch Changes
