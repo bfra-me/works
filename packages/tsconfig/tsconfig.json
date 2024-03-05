@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
+  "$schema": "https://github.com/SchemaStore/schemastore/raw/master/src/schemas/json/tsconfig.json",
   "display": "@bfra.me/tsconfig",
   "extends": "@tsconfig/strictest/tsconfig.json",
   "compilerOptions": {
