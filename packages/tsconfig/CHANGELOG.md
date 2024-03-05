@@ -1,5 +1,11 @@
 # @bfra.me/tsconfig
 
+## 0.2.2
+
+### Patch Changes
+
+- Enable provenance for publishing to NPM (by [@marcusrbrown](https://github.com/marcusrbrown) with [#136](https://github.com/bfra-me/works/pull/136))
+
 ## 0.2.1
 
 ### Patch Changes
