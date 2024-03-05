@@ -7,7 +7,11 @@
   "type": "module",
   "main": "tsconfig.json",
   "homepage": "https://github.com/bfra-me/works/blob/main/packages/tsconfig#readme",
-  "repository": "https://github.com/bfra-me/works/blob/main/packages/tsconfig",
+  "repository": {
+    "directory": "packages/tsconfig",
+    "type": "git",
+    "url": "https://github.com/bfra-me/works.git"
+  },
   "bugs": "https://github.com/bfra-me/works/issues",
   "keywords": [
     "bfra.me",
