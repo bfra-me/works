@@ -1,7 +1,7 @@
 {
   "name": "@bfra.me/tsconfig",
   "description": "Shared TypeScript configuration for bfra.me",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": "Marcus R. Brown <contact@bfra.me>",
   "license": "MIT",
   "type": "module",
