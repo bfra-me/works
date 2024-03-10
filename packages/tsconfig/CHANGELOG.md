@@ -1,5 +1,13 @@
 # @bfra.me/tsconfig
 
+## 0.2.4
+
+### Patch Changes
+
+- Build: Fix `clean` scripts (by [@marcusrbrown](https://github.com/marcusrbrown) with [#145](https://github.com/bfra-me/works/pull/145))
+
+- Remove `tsBuildInfoFile`; add `lib` with "ESNext" (by [@marcusrbrown](https://github.com/marcusrbrown) with [#143](https://github.com/bfra-me/works/pull/143))
+
 ## 0.2.3
 
 ### Patch Changes
