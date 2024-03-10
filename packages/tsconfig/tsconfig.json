@@ -10,14 +10,14 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "incremental": true,
+    "lib": ["ESNext"],
     "module": "ESNext",
     "moduleResolution": "Node",
     "noImplicitAny": true,
     "preserveConstEnums": true,
     "resolveJsonModule": true,
     "sourceMap": true,
-    "target": "ESNext",
-    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"
+    "target": "ESNext"
   },
   "exclude": ["node_modules"]
 }
