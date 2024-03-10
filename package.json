@@ -8,7 +8,7 @@
     "bootstrap": "pnpm install --frozen-lockfile && pnpm -r build",
     "build": "pnpm -r run build",
     "watch": "pnpm run build --watch",
-    "clean": "rimraf \"packages/**/lib\" \"**/tsconfig.tsbuildinfo\"",
+    "clean": "rimraf --glob \"packages/**/lib\" \"**/*.tsbuildinfo\"",
     "lint": "pnpm -r run --parallel lint",
     "check-format": "prettier --check .",
     "format": "prettier --write .",

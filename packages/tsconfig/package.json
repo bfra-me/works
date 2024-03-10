@@ -41,8 +41,7 @@
     "@tsconfig/strictest": "*"
   },
   "scripts": {
-    "clean": "rimraf ./node_modules/.cache/tsbuildinfo.json ./test/lib",
-    "test": "pnpm clean && pnpm compile-tests && pnpm run-tests",
+    "test": "pnpm compile-tests && pnpm run-tests",
     "compile-tests": "tsc --project ./test",
     "run-tests": "node --test ./test/lib/*.test.js"
   }
