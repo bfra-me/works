@@ -1,8 +1,7 @@
 {
   "extends": "@bfra.me/tsconfig",
   "compilerOptions": {
-    "outDir": "lib",
-    "rootDir": "src"
+    "outDir": "lib"
   },
   "include": ["**/src/**/*.ts", "typings/**/*.d.ts"]
 }
