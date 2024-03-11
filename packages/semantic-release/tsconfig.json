@@ -1,6 +1,9 @@
 {
   "extends": "@bfra.me/tsconfig",
   "compilerOptions": {
+    "composite": false,
+    "incremental": false,
+    "noEmit": true,
     "outDir": "lib",
     "rootDir": "src"
   },

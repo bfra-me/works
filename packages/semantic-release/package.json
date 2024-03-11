@@ -7,7 +7,16 @@
   "type": "module",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "homepage": "https://github.com/bfra-me/works/blob/main/packages/tsconfig#readme",
+  "exports": {
+    ".": {
+      "import": {
+        "default": "./lib/index.js",
+        "types": "./lib/index.d.ts"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "homepage": "https://github.com/bfra-me/works/blob/main/packages/semantic-release#readme",
   "repository": {
     "directory": "packages/semantic-release",
     "type": "git",
@@ -27,25 +36,20 @@
   },
   "files": [
     "lib",
-    "src",
     "tsconfig.json",
     "!*.map"
   ],
-  "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "types": "./lib/index.d.ts"
-    }
-  },
   "devDependencies": {
     "@bfra.me/semantic-release": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
-    "semantic-release": "23.0.2"
+    "@swc/core": "1.4.6",
+    "semantic-release": "23.0.2",
+    "tsup": "8.0.2"
   },
   "peerDependencies": {
     "semantic-release": ">=23"
   },
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsup"
   }
 }
