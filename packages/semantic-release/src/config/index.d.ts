@@ -1,11 +1,12 @@
 import type {BranchSpec} from 'semantic-release'
+import type {LiteralUnion} from 'type-fest'
 import type {Plugin} from './plugin'
-import type {LiteralUnion} from '../utilities'
 
 export interface CustomExtends {}
 
 export type KnownExtends = LiteralUnion<
-  '@bfra.me/semantic-release' | 'semantic-release-monorepo' | keyof CustomExtends
+  '@bfra.me/semantic-release' | 'semantic-release-monorepo' | keyof CustomExtends,
+  string
 >
 
 export type Extends = KnownExtends | KnownExtends[]

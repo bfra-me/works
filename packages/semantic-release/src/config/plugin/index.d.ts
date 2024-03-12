@@ -1,6 +1,6 @@
+import type {LiteralUnion} from 'type-fest'
 import type {PluginSpec} from './plugin-spec'
 import type {SemanticReleasePlugins} from './semantic-release'
-import type {LiteralUnion} from '../../utilities'
 
 /**
  * This is a special exported interface for other packages to declare
@@ -39,7 +39,7 @@ export type PluginConfig<TSpec extends PluginSpec> = TSpec extends [string, infe
   ? TConfig
   : never
 
-export type PluginName = LiteralUnion<keyof KnownPlugins>
+export type PluginName = LiteralUnion<keyof KnownPlugins, string>
 
 export type Plugin<TLookup extends any = PluginName> = TLookup extends keyof KnownPlugins
   ? PluginSpec<[TLookup, PluginConfig<KnownPlugins[TLookup]>]>

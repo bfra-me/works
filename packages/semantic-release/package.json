@@ -44,7 +44,8 @@
     "@bfra.me/tsconfig": "workspace:*",
     "@swc/core": "1.4.6",
     "semantic-release": "23.0.2",
-    "tsup": "8.0.2"
+    "tsup": "8.0.2",
+    "type-fest": "4.12.0"
   },
   "peerDependencies": {
     "semantic-release": ">=23"
