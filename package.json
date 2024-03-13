@@ -12,7 +12,7 @@
     "lint": "pnpm -r run --parallel lint",
     "check-format": "prettier --check .",
     "format": "prettier --write .",
-    "test": "pnpm -r run --parallel test",
+    "test": "pnpm -r run test",
     "publish-changesets": "changeset publish",
     "version-changesets": "changeset version"
   },

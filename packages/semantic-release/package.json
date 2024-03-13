@@ -52,6 +52,7 @@
     "semantic-release": ">=23"
   },
   "scripts": {
-    "build": "tsup"
+    "build": "tsup-node",
+    "test": "vitest --typecheck"
   }
 }
