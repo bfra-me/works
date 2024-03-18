@@ -1,5 +1,11 @@
 # @bfra.me/tsconfig
 
+## 0.2.5
+
+### Patch Changes
+
+- `package.json`: Update `homepage`, add `keywords`, and extend `exports` (by [@marcusrbrown](https://github.com/marcusrbrown) with [#148](https://github.com/bfra-me/works/pull/148))
+
 ## 0.2.4
 
 ### Patch Changes

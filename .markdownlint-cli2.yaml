@@ -3,9 +3,9 @@ config:
   MD013: false
   MD033:
     allowed_elements: [a, h3, img, p]
-#  MD041: false
+  MD041: false
 
 globs:
   - '**/*.md'
-  - '!.changeset'
+  - '!.changeset/**'
   - '!**/node_modules'
