@@ -16,7 +16,7 @@
     },
     "./package.json": "./package.json"
   },
-  "homepage": "https://github.com/bfra-me/works/blob/main/packages/semantic-release#readme",
+  "homepage": "https://github.com/bfra-me/works/tree/main/packages/semantic-release#readme",
   "repository": {
     "directory": "packages/semantic-release",
     "type": "git",
@@ -53,6 +53,6 @@
   },
   "scripts": {
     "build": "tsup-node",
-    "test": "vitest --typecheck"
+    "test": "pnpm build && vitest --typecheck"
   }
 }
