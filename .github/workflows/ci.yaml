@@ -5,7 +5,6 @@ name: CI
 'on':
   merge_group:
   push:
-    branches: [main, 'renovate/**']
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
   workflow_dispatch:
@@ -64,6 +63,7 @@ jobs:
           application_id: ${{ secrets.APPLICATION_ID }}
           application_private_key: ${{ secrets.APPLICATION_PRIVATE_KEY }}
           permissions: 'contents:write, issues:write, pull_requests:write'
+          revoke_token: true
       - name: Setup Git user
         run: |
           git config --global user.email '118100583+bfra-me[bot]@users.noreply.github.com'
