@@ -1,4 +1,4 @@
-import type {SemanticReleaseConfig} from './config'
+import type {SemanticReleaseConfig} from './types'
 
 /**
  * Define semantic-release global config.
@@ -10,4 +10,4 @@ export function defineConfig(config: SemanticReleaseConfig): SemanticReleaseConf
   return config
 }
 
-export type * from './config'
+export type * from './types'
