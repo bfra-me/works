@@ -11,6 +11,9 @@ importers:
 
   .:
     dependencies:
+      '@bfra.me/prettier-config':
+        specifier: workspace:*
+        version: link:packages/prettier-config
       '@bfra.me/tsconfig':
         specifier: workspace:*
         version: link:packages/tsconfig
@@ -41,6 +44,15 @@ importers:
       typescript:
         specifier: 5.4.2
         version: 5.4.2
+
+  packages/prettier-config:
+    devDependencies:
+      '@bfra.me/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      prettier:
+        specifier: 3.2.5
+        version: 3.2.5
 
   packages/tsconfig:
     devDependencies:
@@ -2298,7 +2310,6 @@ packages:
     resolution: {integrity: sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A==}
     engines: {node: '>=14'}
     hasBin: true
-    dev: false
 
   /proto-list@1.2.4:
     resolution: {integrity: sha512-vtK/94akxsTMhe0/cbfpR+syPuszcuwhqVjJq26CuNDgFGj682oRBXOP5MJpv2r7JtE8MsiepGIqvvOTBwn2vA==}

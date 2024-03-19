@@ -38,6 +38,7 @@
     }
   },
   "dependencies": {
+    "@bfra.me/prettier-config": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
     "@changesets/cli": "2.27.1",
     "@manypkg/cli": "0.21.3",
