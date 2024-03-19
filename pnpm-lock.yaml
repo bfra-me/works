@@ -72,8 +72,8 @@ importers:
         specifier: 8.0.2
         version: 8.0.2(@swc/core@1.4.6)(ts-node@10.9.2)(typescript@5.4.2)
       type-fest:
-        specifier: 4.12.0
-        version: 4.12.0
+        specifier: 4.13.0
+        version: 4.13.0
       vitest:
         specifier: 1.3.1
         version: 1.3.1(@types/node@20.11.29)
@@ -4938,11 +4938,6 @@ packages:
     engines: {node: '>=14.16'}
     dev: true
 
-  /type-fest@4.12.0:
-    resolution: {integrity: sha512-5Y2/pp2wtJk8o08G0CMkuFPCO354FGwk/vbidxrdhRGZfd0tFnb4Qb8anp9XxXriwBgVPjdWbKpGl4J9lJY2jQ==}
-    engines: {node: '>=16'}
-    dev: true
-
   /type-fest@4.13.0:
     resolution: {integrity: sha512-nKO1N9IFeTec3jnNe/3nZlX+RzwZsvT3c4akWC3IlhYGQbRSPFMBe87vmoaymS3hW2l/rs+4ptDDTxzcbqAcmA==}
     engines: {node: '>=16'}
@@ -5425,7 +5420,6 @@ time:
   /semantic-release@23.0.2: '2024-02-07T14:06:52.658Z'
   /ts-node@10.9.2: '2023-12-08T12:04:46.154Z'
   /tsup@8.0.2: '2024-02-10T07:03:10.525Z'
-  /type-fest@4.12.0: '2024-03-08T16:48:41.102Z'
   /type-fest@4.13.0: '2024-03-19T08:24:40.969Z'
   /typescript@5.4.2: '2024-03-06T18:14:58.798Z'
   /vitest@1.3.1: '2024-02-20T13:48:51.971Z'
