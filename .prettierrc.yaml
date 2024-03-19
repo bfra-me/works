@@ -1,11 +1,1 @@
-arrowParens: avoid
-bracketSpacing: false
-overrides:
-  - files:
-      - '.vscode/*.json'
-    options:
-      tabWidth: 4
-singleQuote: true
-semi: false
-printWidth: 100
-tabWidth: 2
+'@bfra.me/prettier-config'

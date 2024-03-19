@@ -1,0 +1,50 @@
+{
+  "name": "@bfra.me/prettier-config",
+  "description": "Shared Prettier configuration for bfra.me",
+  "version": "0.0.0",
+  "author": "Marcus R. Brown <contact@bfra.me>",
+  "license": "MIT",
+  "type": "module",
+  "main": "prettier.config.js",
+  "types": "prettier.config.d.ts",
+  "homepage": "https://github.com/bfra-me/works/tree/main/packages/prettier-config#readme",
+  "repository": {
+    "directory": "packages/prettier-config",
+    "type": "git",
+    "url": "https://github.com/bfra-me/works.git"
+  },
+  "bugs": "https://github.com/bfra-me/works/issues",
+  "keywords": [
+    "bfra.me",
+    "works",
+    "prettier",
+    "prettier-config",
+    "config",
+    "shared"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "files": [
+    "prettier.config.*",
+    "!*.map"
+  ],
+  "exports": {
+    ".": {
+      "import": "./prettier.config.js",
+      "types": "./prettier.config.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "devDependencies": {
+    "@bfra.me/tsconfig": "workspace:*",
+    "prettier": "3.2.5"
+  },
+  "peerDependencies": {
+    "prettier": "^3.0.0"
+  },
+  "scripts": {
+    "build": "tsc && prettier --log-level silent --write prettier.config.*"
+  }
+}
