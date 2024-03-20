@@ -69,8 +69,8 @@ importers:
         specifier: 1.0.0
         version: 1.0.0(ajv@8.12.0)
       type-fest:
-        specifier: 4.13.0
-        version: 4.13.0
+        specifier: 4.13.1
+        version: 4.13.1
 
 packages:
 
@@ -2858,8 +2858,8 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
-  /type-fest@4.13.0:
-    resolution: {integrity: sha512-nKO1N9IFeTec3jnNe/3nZlX+RzwZsvT3c4akWC3IlhYGQbRSPFMBe87vmoaymS3hW2l/rs+4ptDDTxzcbqAcmA==}
+  /type-fest@4.13.1:
+    resolution: {integrity: sha512-ASMgM+Vf2cLwDMt1KXSkMUDSYCxtckDJs8zsaVF/mYteIsiARKCVtyXtcK38mIKbLTctZP8v6GMqdNaeI3fo7g==}
     engines: {node: '>=16'}
     dev: true
 
@@ -3131,5 +3131,5 @@ time:
   /prettier@3.2.5: '2024-02-04T05:38:11.623Z'
   /rimraf@5.0.5: '2023-09-27T06:04:07.772Z'
   /ts-node@10.9.2: '2023-12-08T12:04:46.154Z'
-  /type-fest@4.13.0: '2024-03-19T08:24:40.969Z'
+  /type-fest@4.13.1: '2024-03-20T08:08:48.892Z'
   /typescript@5.4.2: '2024-03-06T18:14:58.798Z'
