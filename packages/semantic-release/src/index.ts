@@ -1,2 +1,2 @@
-export {defineConfig} from './config'
+export * from './config'
 export type * from './types'
