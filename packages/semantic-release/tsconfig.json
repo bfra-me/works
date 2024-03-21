@@ -1,0 +1,10 @@
+{
+  "extends": "@bfra.me/tsconfig",
+  "compilerOptions": {
+    "composite": false,
+    "incremental": false,
+    "noEmit": true,
+    "outDir": "lib"
+  },
+  "exclude": ["lib", "node_modules"]
+}
