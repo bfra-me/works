@@ -43,7 +43,7 @@
     "@bfra.me/semantic-release": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
     "@swc/core": "1.4.8",
-    "semantic-release": "23.0.2",
+    "semantic-release": "23.0.5",
     "tsup": "8.0.2",
     "type-fest": "4.13.1",
     "vitest": "1.3.1"
