@@ -1,7 +1,7 @@
 {
   "name": "@bfra.me/tsconfig",
   "description": "Shared TypeScript configuration for bfra.me",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "author": "Marcus R. Brown <contact@bfra.me>",
   "license": "MIT",
   "type": "module",
@@ -38,7 +38,7 @@
     "@tsconfig/strictest": "2.0.3",
     "ajv": "8.12.0",
     "ajv-draft-04": "1.0.0",
-    "type-fest": "4.13.0"
+    "type-fest": "4.13.1"
   },
   "peerDependencies": {
     "@tsconfig/strictest": "*"

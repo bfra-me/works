@@ -1,5 +1,11 @@
 # @bfra.me/tsconfig
 
+## 0.3.0
+
+### Minor Changes
+
+- Enable `verbatimModuleSyntax`; remove `exclude` item. (by [@marcusrbrown](https://github.com/marcusrbrown) with [#156](https://github.com/bfra-me/works/pull/156))
+
 ## 0.2.5
 
 ### Patch Changes
