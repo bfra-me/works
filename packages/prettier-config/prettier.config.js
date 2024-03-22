@@ -63,7 +63,11 @@ const config = {
           ...parsers['json-stringify'],
           preprocess(text, options) {
             if (/package.*json$/u.test(options.filepath)) {
-              return format(JSON.parse(text))
+              return format(JSON.parse(text), {
+                tabWidth: options.tabWidth,
+                useTabs: options.useTabs === true,
+                ...(options['prettier-package-json'] ?? {}),
+              })
             }
             return text
           },

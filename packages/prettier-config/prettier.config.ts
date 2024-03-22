@@ -1,6 +1,6 @@
 import type {Config, ParserOptions} from 'prettier'
 import {parsers} from 'prettier/plugins/babel'
-import {format} from 'prettier-package-json'
+import {format, type Options as PrettierPackageJsonOptions} from 'prettier-package-json'
 
 /**
  * Shared Prettier configuration for bfra.me projects.
@@ -71,7 +71,12 @@ const config: Config = {
 
           preprocess(text: string, options: ParserOptions) {
             if (/package.*json$/u.test(options.filepath)) {
-              return format(JSON.parse(text))
+              return format(JSON.parse(text), {
+                tabWidth: options.tabWidth,
+                useTabs: options.useTabs === true,
+                ...((options['prettier-package-json'] ??
+                  {}) as Partial<PrettierPackageJsonOptions>),
+              })
             }
             return text
           },
