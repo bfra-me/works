@@ -1,3 +1,5 @@
+import {parsers} from 'prettier/plugins/babel'
+import {format} from 'prettier-package-json'
 /**
  * Shared Prettier configuration for bfra.me projects.
  */
@@ -54,6 +56,21 @@ const config = {
       },
     },
   ],
+  plugins: [
+    {
+      parsers: {
+        'json-stringify': {
+          ...parsers['json-stringify'],
+          preprocess(text, options) {
+            if (/package.*json$/u.test(options.filepath)) {
+              return format(JSON.parse(text))
+            }
+            return text
+          },
+        },
+      },
+    },
+  ],
 }
 export default config
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHJldHRpZXIuY29uZmlnLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsicHJldHRpZXIuY29uZmlnLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBOztHQUVHO0FBQ0gsTUFBTSxNQUFNLEdBQVc7SUFDckIsV0FBVyxFQUFFLE9BQU87SUFDcEIsY0FBYyxFQUFFLEtBQUs7SUFDckIsU0FBUyxFQUFFLE1BQU07SUFDakIsVUFBVSxFQUFFLEdBQUc7SUFDZixJQUFJLEVBQUUsS0FBSztJQUNYLFdBQVcsRUFBRSxJQUFJO0lBRWpCLFNBQVMsRUFBRTtRQUNULCtCQUErQjtRQUMvQixzRUFBc0U7UUFDdEU7WUFDRSxLQUFLLEVBQUUsQ0FBQyxnQkFBZ0IsQ0FBQztZQUN6QixPQUFPLEVBQUU7Z0JBQ1AsUUFBUSxFQUFFLENBQUM7YUFDWjtTQUNGO1FBRUQsWUFBWTtRQUNaLDhDQUE4QztRQUM5QyxpREFBaUQ7UUFDakQ7WUFDRSxLQUFLLEVBQUUsQ0FBQyxNQUFNLENBQUM7WUFDZixPQUFPLEVBQUU7Z0JBQ1AsU0FBUyxFQUFFLE9BQU87Z0JBQ2xCLFdBQVcsRUFBRSxLQUFLO2FBQ25CO1NBQ0Y7UUFFRCwrR0FBK0c7UUFDL0csNEZBQTRGO1FBQzVGO1lBQ0UsS0FBSyxFQUFFO2dCQUNMLG9CQUFvQjtnQkFDcEIsWUFBWTtnQkFDWixXQUFXO2dCQUNYLGdCQUFnQjtnQkFDaEIsV0FBVztnQkFDWCxrQkFBa0I7Z0JBQ2xCLGFBQWE7Z0JBQ2IsYUFBYTtnQkFDYixlQUFlO2dCQUNmLHdCQUF3QjtnQkFDeEIscUJBQXFCO2dCQUNyQixxQkFBcUI7Z0JBRXJCLGtCQUFrQjtnQkFDbEIsa0JBQWtCO2dCQUNsQixhQUFhO2dCQUNiLGFBQWE7Z0JBQ2IsWUFBWTthQUNiO1lBQ0QsT0FBTyxFQUFFO2dCQUNQLGFBQWEsRUFBRSxJQUFJO2FBQ3BCO1NBQ0Y7S0FDRjtDQUNGLENBQUE7QUFFRCxlQUFlLE1BQU0sQ0FBQSJ9
+//# sourceMappingURL=prettier.config.js.map

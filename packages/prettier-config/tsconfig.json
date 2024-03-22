@@ -2,8 +2,6 @@
   "$schema": "http://json.schemastore.org/tsconfig",
   "extends": "@bfra.me/tsconfig",
   "compilerOptions": {
-    "inlineSourceMap": true,
-    "sourceMap": false,
     "outDir": ".",
     "rootDir": "."
   },

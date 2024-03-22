@@ -38,6 +38,7 @@
     "./package.json": "./package.json"
   },
   "devDependencies": {
+    "@bfra.me/prettier-config": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
     "prettier": "3.2.5"
   },
@@ -45,6 +46,9 @@
     "prettier": "^3.0.0"
   },
   "scripts": {
-    "build": "tsc && prettier --log-level silent --write prettier.config.*"
+    "build": "tsc && prettier --log-level silent --ignore-unknown --write prettier.config.*"
+  },
+  "dependencies": {
+    "prettier-package-json": "2.8.0"
   }
 }

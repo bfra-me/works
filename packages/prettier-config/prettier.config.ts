@@ -1,4 +1,6 @@
-import type {Config} from 'prettier'
+import type {Config, ParserOptions} from 'prettier'
+import {parsers} from 'prettier/plugins/babel'
+import {format} from 'prettier-package-json'
 
 /**
  * Shared Prettier configuration for bfra.me projects.
@@ -57,6 +59,23 @@ const config: Config = {
       ],
       options: {
         requirePragma: true,
+      },
+    },
+  ],
+
+  plugins: [
+    {
+      parsers: {
+        'json-stringify': {
+          ...parsers['json-stringify'],
+
+          preprocess(text: string, options: ParserOptions) {
+            if (/package.*json$/u.test(options.filepath)) {
+              return format(JSON.parse(text))
+            }
+            return text
+          },
+        },
       },
     },
   ],
