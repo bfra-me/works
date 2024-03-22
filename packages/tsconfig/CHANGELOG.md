@@ -1,5 +1,11 @@
 # @bfra.me/tsconfig
 
+## 0.3.1
+
+### Patch Changes
+
+- Format `package.json` using (unreleased) @bfra.me/prettier-config options (by [@marcusrbrown](https://github.com/marcusrbrown) with [#160](https://github.com/bfra-me/works/pull/160))
+
 ## 0.3.0
 
 ### Minor Changes
