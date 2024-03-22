@@ -1,41 +1,21 @@
 {
+  "private": true,
   "name": "@bfra.me/works",
   "version": "0.0.0",
-  "private": true,
-  "packageManager": "pnpm@8.15.5",
   "description": "bfra.me tools and components",
+  "license": "MIT",
+  "author": "Marcus R. Brown <contact@bfra.me>",
   "scripts": {
     "bootstrap": "pnpm install --frozen-lockfile && pnpm -r build",
     "build": "pnpm -r run build",
-    "watch": "pnpm run build --watch",
-    "clean": "rimraf --glob \"packages/**/lib\" \"**/*.tsbuildinfo\"",
-    "lint": "manypkg check && pnpm -r run --parallel lint",
     "check-format": "prettier --check .",
+    "clean": "rimraf --glob \"packages/**/lib\" \"**/*.tsbuildinfo\"",
     "format": "prettier --write .",
-    "test": "pnpm -r run test",
+    "lint": "manypkg check && pnpm -r run --parallel lint",
     "publish-changesets": "changeset publish",
-    "version-changesets": "changeset version"
-  },
-  "keywords": [
-    "bfra.me",
-    "Build Frameworks",
-    "CLI",
-    "Components",
-    "Tools"
-  ],
-  "author": "Marcus R. Brown <contact@bfra.me>",
-  "license": "MIT",
-  "eslintConfig": {
-    "ignorePatterns": [
-      "lib",
-      "dist",
-      "node_modules"
-    ]
-  },
-  "pnpm": {
-    "overrides": {
-      "read-pkg-up@^11": "npm:read-package-up"
-    }
+    "test": "pnpm -r run test",
+    "version-changesets": "changeset version",
+    "watch": "pnpm run build --watch"
   },
   "dependencies": {
     "@bfra.me/prettier-config": "workspace:*",
@@ -49,5 +29,25 @@
     "rimraf": "5.0.5",
     "ts-node": "10.9.2",
     "typescript": "5.4.3"
+  },
+  "keywords": [
+    "Build Frameworks",
+    "CLI",
+    "Components",
+    "Tools",
+    "bfra.me"
+  ],
+  "eslintConfig": {
+    "ignorePatterns": [
+      "lib",
+      "dist",
+      "node_modules"
+    ]
+  },
+  "packageManager": "pnpm@8.15.5",
+  "pnpm": {
+    "overrides": {
+      "read-pkg-up@^11": "npm:read-package-up"
+    }
   }
 }
