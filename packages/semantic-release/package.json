@@ -1,12 +1,17 @@
 {
   "name": "@bfra.me/semantic-release",
-  "description": "Semantic Release shareable configuration and plugins for bfra.me.",
   "version": "0.1.0",
-  "author": "Marcus R. Brown <contact@bfra.me>",
+  "description": "Semantic Release shareable configuration and plugins for bfra.me.",
   "license": "MIT",
+  "author": "Marcus R. Brown <contact@bfra.me>",
+  "homepage": "https://github.com/bfra-me/works/tree/main/packages/semantic-release#readme",
+  "repository": {
+    "directory": "packages/semantic-release",
+    "type": "git",
+    "url": "https://github.com/bfra-me/works.git"
+  },
+  "bugs": "https://github.com/bfra-me/works/issues",
   "type": "module",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
   "exports": {
     ".": {
       "import": {
@@ -16,29 +21,20 @@
     },
     "./package.json": "./package.json"
   },
-  "homepage": "https://github.com/bfra-me/works/tree/main/packages/semantic-release#readme",
-  "repository": {
-    "directory": "packages/semantic-release",
-    "type": "git",
-    "url": "https://github.com/bfra-me/works.git"
-  },
-  "bugs": "https://github.com/bfra-me/works/issues",
-  "keywords": [
-    "bfra.me",
-    "typescript",
-    "semantic-release",
-    "config",
-    "shared"
-  ],
-  "publishConfig": {
-    "access": "public",
-    "provenance": true
-  },
+  "main": "lib/index.js",
   "files": [
     "lib",
     "tsconfig.json",
     "!*.map"
   ],
+  "scripts": {
+    "build": "tsup-node",
+    "test": "pnpm build && vitest --typecheck"
+  },
+  "types": "lib/index.d.ts",
+  "peerDependencies": {
+    "semantic-release": ">=23"
+  },
   "devDependencies": {
     "@bfra.me/semantic-release": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
@@ -48,11 +44,15 @@
     "type-fest": "4.13.1",
     "vitest": "1.4.0"
   },
-  "peerDependencies": {
-    "semantic-release": ">=23"
-  },
-  "scripts": {
-    "build": "tsup-node",
-    "test": "pnpm build && vitest --typecheck"
+  "keywords": [
+    "bfra.me",
+    "config",
+    "semantic-release",
+    "shared",
+    "typescript"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }

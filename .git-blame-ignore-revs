@@ -1,0 +1,10 @@
+# This file is used to ignore revisions when using `git blame`
+# https://git-scm.com/docs/git-blame#Documentation/git-blame.txt-blameignoreRevsFile
+#
+# To use this file:
+# 1. Add the full commit SHA of a revision to ignore on a new line
+# 2. Configure `git` to ignore blame using this file:
+#    `git config blame.ignoreRevsFile .git-blame-ignore-revs`
+
+# chore: format all package.json files (#160)
+aa7d21641e71854ad6f2f7b736963e2a8f669b2a

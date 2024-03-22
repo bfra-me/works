@@ -1,12 +1,9 @@
 {
   "name": "@bfra.me/prettier-config",
-  "description": "Shared Prettier configuration for bfra.me",
   "version": "0.1.0",
-  "author": "Marcus R. Brown <contact@bfra.me>",
+  "description": "Shared Prettier configuration for bfra.me",
   "license": "MIT",
-  "type": "module",
-  "main": "prettier.config.js",
-  "types": "prettier.config.d.ts",
+  "author": "Marcus R. Brown <contact@bfra.me>",
   "homepage": "https://github.com/bfra-me/works/tree/main/packages/prettier-config#readme",
   "repository": {
     "directory": "packages/prettier-config",
@@ -14,22 +11,7 @@
     "url": "https://github.com/bfra-me/works.git"
   },
   "bugs": "https://github.com/bfra-me/works/issues",
-  "keywords": [
-    "bfra.me",
-    "works",
-    "prettier",
-    "prettier-config",
-    "config",
-    "shared"
-  ],
-  "publishConfig": {
-    "access": "public",
-    "provenance": true
-  },
-  "files": [
-    "prettier.config.*",
-    "!*.map"
-  ],
+  "type": "module",
   "exports": {
     ".": {
       "import": "./prettier.config.js",
@@ -37,18 +19,36 @@
     },
     "./package.json": "./package.json"
   },
+  "main": "prettier.config.js",
+  "files": [
+    "prettier.config.*",
+    "!*.map"
+  ],
+  "scripts": {
+    "build": "tsc && prettier --log-level silent --ignore-unknown --write prettier.config.*"
+  },
+  "types": "prettier.config.d.ts",
+  "dependencies": {
+    "prettier-package-json": "2.8.0"
+  },
+  "peerDependencies": {
+    "prettier": "^3.0.0"
+  },
   "devDependencies": {
     "@bfra.me/prettier-config": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
     "prettier": "3.2.5"
   },
-  "peerDependencies": {
-    "prettier": "^3.0.0"
-  },
-  "scripts": {
-    "build": "tsc && prettier --log-level silent --ignore-unknown --write prettier.config.*"
-  },
-  "dependencies": {
-    "prettier-package-json": "2.8.0"
+  "keywords": [
+    "bfra.me",
+    "config",
+    "prettier",
+    "prettier-config",
+    "shared",
+    "works"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }
