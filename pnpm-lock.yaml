@@ -5472,23 +5472,3 @@ packages:
     resolution: {integrity: sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==}
     engines: {node: '>=12.20'}
     dev: true
-
-time:
-  /@changesets/cli@2.27.1: '2023-11-28T11:18:23.079Z'
-  /@manypkg/cli@0.21.3: '2024-03-15T00:57:45.583Z'
-  /@swc/core@1.4.8: '2024-03-14T06:08:24.079Z'
-  /@swisspost/design-system-changelog-github@1.0.2: '2022-11-22T09:41:10.082Z'
-  /@tsconfig/strictest@2.0.3: '2024-02-09T04:11:59.280Z'
-  /@types/node@20.11.30: '2024-03-19T12:41:32.071Z'
-  /ajv-draft-04@1.0.0: '2021-05-23T15:48:18.254Z'
-  /ajv@8.12.0: '2023-01-03T14:19:23.766Z'
-  /eslint@8.57.0: '2024-02-23T20:39:43.282Z'
-  /prettier-package-json@2.8.0: '2022-12-23T23:32:54.272Z'
-  /prettier@3.2.5: '2024-02-04T05:38:11.623Z'
-  /rimraf@5.0.5: '2023-09-27T06:04:07.772Z'
-  /semantic-release@23.0.5: '2024-03-18T13:53:08.013Z'
-  /ts-node@10.9.2: '2023-12-08T12:04:46.154Z'
-  /tsup@8.0.2: '2024-02-10T07:03:10.525Z'
-  /type-fest@4.13.1: '2024-03-20T08:08:48.892Z'
-  /typescript@5.4.3: '2024-03-20T19:30:57.636Z'
-  /vitest@1.4.0: '2024-03-15T10:31:19.381Z'

@@ -8,6 +8,8 @@
 
     "cSpell.words": ["bfra", "frameworkers"],
 
+    "prettier.enable": true,
+
     "typescript.enablePromptUseWorkspaceTsdk": true,
     "typescript.tsdk": "node_modules/typescript/lib"
 }
