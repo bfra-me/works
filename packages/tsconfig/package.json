@@ -1,11 +1,9 @@
 {
   "name": "@bfra.me/tsconfig",
-  "description": "Shared TypeScript configuration for bfra.me",
   "version": "0.3.0",
-  "author": "Marcus R. Brown <contact@bfra.me>",
+  "description": "Shared TypeScript configuration for bfra.me",
   "license": "MIT",
-  "type": "module",
-  "main": "tsconfig.json",
+  "author": "Marcus R. Brown <contact@bfra.me>",
   "homepage": "https://github.com/bfra-me/works/tree/main/packages/tsconfig#readme",
   "repository": {
     "directory": "packages/tsconfig",
@@ -13,25 +11,23 @@
     "url": "https://github.com/bfra-me/works.git"
   },
   "bugs": "https://github.com/bfra-me/works/issues",
-  "keywords": [
-    "bfra.me",
-    "works",
-    "typescript",
-    "tsconfig",
-    "config",
-    "shared"
-  ],
-  "publishConfig": {
-    "access": "public",
-    "provenance": true
-  },
-  "files": [
-    "tsconfig.json"
-  ],
+  "type": "module",
   "exports": {
     ".": "./tsconfig.json",
     "./package.json": "./package.json",
     "./tsconfig.json": "./tsconfig.json"
+  },
+  "main": "tsconfig.json",
+  "files": [
+    "tsconfig.json"
+  ],
+  "scripts": {
+    "compile-tests": "tsc --project ./test",
+    "run-tests": "node --test ./test/lib/*.test.js",
+    "test": "pnpm compile-tests && pnpm run-tests"
+  },
+  "peerDependencies": {
+    "@tsconfig/strictest": "*"
   },
   "devDependencies": {
     "@bfra.me/tsconfig": "workspace:*",
@@ -40,12 +36,16 @@
     "ajv-draft-04": "1.0.0",
     "type-fest": "4.13.1"
   },
-  "peerDependencies": {
-    "@tsconfig/strictest": "*"
-  },
-  "scripts": {
-    "test": "pnpm compile-tests && pnpm run-tests",
-    "compile-tests": "tsc --project ./test",
-    "run-tests": "node --test ./test/lib/*.test.js"
+  "keywords": [
+    "bfra.me",
+    "config",
+    "shared",
+    "tsconfig",
+    "typescript",
+    "works"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }
