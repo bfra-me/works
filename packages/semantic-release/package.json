@@ -41,7 +41,7 @@
     "@swc/core": "1.4.8",
     "semantic-release": "23.0.5",
     "tsup": "8.0.2",
-    "type-fest": "4.13.1",
+    "type-fest": "4.14.0",
     "vitest": "1.4.0"
   },
   "keywords": [
