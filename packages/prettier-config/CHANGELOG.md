@@ -1,5 +1,11 @@
 # @bfra.me/prettier-config
 
+## 0.2.1
+
+### Patch Changes
+
+- Update `files` globs for `overrides1` that use `requirePragma` to ignore files (by [@marcusrbrown](https://github.com/marcusrbrown) with [#163](https://github.com/bfra-me/works/pull/163))
+
 ## 0.2.0
 
 ### Minor Changes
