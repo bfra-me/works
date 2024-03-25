@@ -43,7 +43,6 @@ const config: Config = {
         '**/lib/**',
         '**/coverage/**',
         '**/out/**',
-        '**/.changeset/**',
         '**/.idea/**',
         '**/.nuxt/**',
         '**/.vercel/**',
@@ -51,11 +50,16 @@ const config: Config = {
         '**/.vite-inspect/**',
         '**/__snapshots__/**',
 
+        '**/.changeset/*.md',
         '**/CHANGELOG*.md',
         '**/changelog*.md',
         '**/LICENSE*',
         '**/license*',
         '**/*.min.*',
+
+        'package-lock.json',
+        'pnpm-lock.yaml',
+        'yarn.lock',
       ],
       options: {
         requirePragma: true,
