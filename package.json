@@ -49,5 +49,6 @@
     "overrides": {
       "read-pkg-up@^11": "npm:read-package-up"
     }
-  }
+  },
+  "prettier": "@bfra.me/prettier-config"
 }
