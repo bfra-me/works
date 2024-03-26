@@ -1,5 +1,11 @@
 # @bfra.me/prettier-config
 
+## 0.2.2
+
+### Patch Changes
+
+- Call `preprocess()` on the `json-stringify` parser if it's defined (by [@marcusrbrown](https://github.com/marcusrbrown) with [#165](https://github.com/bfra-me/works/pull/165))
+
 ## 0.2.1
 
 ### Patch Changes
