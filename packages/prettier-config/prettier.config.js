@@ -1,5 +1,6 @@
 import {parsers} from 'prettier/plugins/babel'
 import {format} from 'prettier-package-json'
+const jsonStringifyParser = parsers['json-stringify']
 /**
  * Shared Prettier configuration for bfra.me projects.
  */
@@ -63,10 +64,13 @@ const config = {
     {
       parsers: {
         'json-stringify': {
-          ...parsers['json-stringify'],
+          ...jsonStringifyParser,
           preprocess(text, options) {
+            if (jsonStringifyParser.preprocess) {
+              text = jsonStringifyParser.preprocess(text, options)
+            }
             if (/package.*json$/u.test(options.filepath)) {
-              return format(JSON.parse(text), {
+              text = format(JSON.parse(text), {
                 tabWidth: options.tabWidth,
                 useTabs: options.useTabs === true,
                 ...(options['prettier-package-json'] ?? {}),
