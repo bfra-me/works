@@ -6,7 +6,7 @@
   "license": "MIT",
   "author": "Marcus R. Brown <contact@bfra.me>",
   "scripts": {
-    "bootstrap": "pnpm install --frozen-lockfile && pnpm -r build",
+    "bootstrap": "pnpm install && pnpm -r build",
     "build": "pnpm -r run build",
     "check-format": "prettier --check .",
     "clean": "rimraf --glob \"packages/**/lib\" \"**/*.tsbuildinfo\"",
