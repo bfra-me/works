@@ -26,6 +26,10 @@ runs:
     - if: steps.cache-node-modules.outputs.cache-hit != 'true' || steps.setup-node.outputs.cache-hit != 'true'
       env:
         HUSKY: '0'
-      name: Install dependencies and build packages
-      run: pnpm run bootstrap
+      name: Install dependencies
+      run: pnpm install
+      shell: 'bash -Eeuo pipefail {0}'
+
+    - name: Build packages
+      run: pnpm run build
       shell: 'bash -Eeuo pipefail {0}'
