@@ -8,8 +8,8 @@
   automergeType: 'pr',
   postUpgradeTasks: {
     commands: [
-      'npm install -g pnpm@8',
-      'pnpm install --frozen-lockfile',
+      'corepack enable',
+      'pnpm run bootstrap',
       'git checkout -- .npmrc',
       'pnpm run format',
     ],
