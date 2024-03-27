@@ -23,7 +23,7 @@ runs:
         path: '**/node_modules'
         restore-keys: node-${{ steps.setup-node.outputs.node-version }}-modules-${{ runner.os }}-
 
-    - if: steps.cache-node-modules.outputs.cache-hit != 'true' || steps.setup-node.outputs.cache-hit != true
+    - if: steps.cache-node-modules.outputs.cache-hit != 'true' || steps.setup-node.outputs.cache-hit != 'true'
       env:
         HUSKY: '0'
       name: Install dependencies and build packages
