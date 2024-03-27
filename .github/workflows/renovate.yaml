@@ -18,7 +18,6 @@ name: Renovate
         default: false
   workflow_run:
     workflows: ['CI']
-    branches: ['renovate/**']
     types: [completed]
 
 jobs:

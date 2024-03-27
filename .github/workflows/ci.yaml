@@ -5,6 +5,7 @@ name: CI
 'on':
   merge_group:
   push:
+    branches: [main]
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
   workflow_dispatch:
@@ -22,22 +23,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@a3252b78c470c02df07e9d59298aecedc3ccdd6d # v3.0.0
-
-      - name: Setup Node.js
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
-        with:
-          cache: pnpm
-          node-version-file: '.node-version'
-
-      - name: Install dependencies and build packages
-        env:
-          HUSKY: 0
-        run: pnpm bootstrap
+      - name: Prepare job
+        uses: ./.github/actions/prepare
 
       - name: Check formatting
         run: pnpm run check-format
@@ -66,28 +56,24 @@ jobs:
           application_private_key: ${{ secrets.APPLICATION_PRIVATE_KEY }}
           permissions: 'contents:write, issues:write, pull_requests:write'
           revoke_token: true
+
       - name: Setup Git user
         run: |
           git config --global user.email '118100583+bfra-me[bot]@users.noreply.github.com'
           git config --global user.name 'bfra-me[bot]'
+
       - name: Checkout repository
         uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
         with:
           fetch-depth: 0
           token: ${{ steps.get-workflow-access-token.outputs.token }}
-      - name: Enable corepack
-        run: corepack enable
-      - name: Setup Node.js
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
-        with:
-          cache: pnpm
-          node-version-file: '.node-version'
-      - name: Install dependencies and build packages
-        env:
-          HUSKY: 0
-        run: pnpm bootstrap
+
+      - name: Prepare job
+        uses: ./.github/actions/prepare
+
       - name: Perform a dry run of `pnpm publish`
         run: pnpm -r publish --dry-run
+
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@aba318e9165b45b7948c60273e0b72fce0a64eb9 # v1.4.7
         with:
