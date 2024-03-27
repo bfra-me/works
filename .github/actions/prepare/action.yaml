@@ -1,0 +1,35 @@
+name: Prepare Job
+description: Prepare the job by installing required tools and dependencies
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Enable Corepack
+      run: corepack enable
+      shell: 'bash -Eeuo pipefail {0}'
+
+    - id: setup-node
+      name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        cache: 'pnpm'
+        node-version-file: '.node-version'
+
+    - id: cache-node-modules
+      name: Cache node_modules
+      uses: actions/cache@v4
+      with:
+        key: node-${{ steps.setup-node.outputs.node-version }}-modules-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+        path: '**/node_modules'
+        restore-keys: node-${{ steps.setup-node.outputs.node-version }}-modules-${{ runner.os }}-
+
+    - if: steps.cache-node-modules.outputs.cache-hit != 'true' || steps.setup-node.outputs.cache-hit != 'true'
+      env:
+        HUSKY: '0'
+      name: Install dependencies
+      run: pnpm install
+      shell: 'bash -Eeuo pipefail {0}'
+
+    - name: Build packages
+      run: pnpm run build
+      shell: 'bash -Eeuo pipefail {0}'
