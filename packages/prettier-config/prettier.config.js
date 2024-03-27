@@ -1,6 +1,5 @@
-import {parsers} from 'prettier/plugins/babel'
-import {format} from 'prettier-package-json'
-const jsonStringifyParser = parsers['json-stringify']
+import {createRequire} from 'module'
+const {resolve} = createRequire(import.meta.url)
 /**
  * Shared Prettier configuration for bfra.me projects.
  */
@@ -60,28 +59,7 @@ const config = {
       },
     },
   ],
-  plugins: [
-    {
-      parsers: {
-        'json-stringify': {
-          ...jsonStringifyParser,
-          preprocess(text, options) {
-            if (jsonStringifyParser.preprocess) {
-              text = jsonStringifyParser.preprocess(text, options)
-            }
-            if (/package.*json$/u.test(options.filepath)) {
-              text = format(JSON.parse(text), {
-                tabWidth: options.tabWidth,
-                useTabs: options.useTabs === true,
-                ...(options['prettier-package-json'] ?? {}),
-              })
-            }
-            return text
-          },
-        },
-      },
-    },
-  ],
+  plugins: ['@bfra.me/prettier-plugins/package-json'].map(plugin => resolve(plugin)),
 }
 export default config
 //# sourceMappingURL=prettier.config.js.map

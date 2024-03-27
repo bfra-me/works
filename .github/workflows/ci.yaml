@@ -34,8 +34,10 @@ jobs:
           cache: pnpm
           node-version-file: '.node-version'
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Install dependencies and build packages
+        env:
+          HUSKY: 0
+        run: pnpm bootstrap
 
       - name: Check formatting
         run: pnpm run check-format
