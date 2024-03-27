@@ -10,14 +10,14 @@ runs:
 
     - id: setup-node
       name: Setup Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4
       with:
         cache: 'pnpm'
         node-version-file: '.node-version'
 
     - id: cache-node-modules
       name: Cache node_modules
-      uses: actions/cache@v4
+      uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
       with:
         key: node-${{ steps.setup-node.outputs.node-version }}-modules-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
         path: '**/node_modules'
