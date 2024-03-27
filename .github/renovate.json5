@@ -7,12 +7,7 @@
   addLabels: ['{{{parentDir}}}'],
   automergeType: 'pr',
   postUpgradeTasks: {
-    commands: [
-      'corepack enable',
-      'pnpm run bootstrap',
-      'git checkout -- .npmrc',
-      'pnpm run format',
-    ],
+    commands: ['pnpm run bootstrap', 'git checkout -- .npmrc', 'pnpm run format'],
     executionMode: 'branch',
   },
 }
