@@ -1,5 +1,16 @@
 # @bfra.me/prettier-config
 
+## 0.3.0
+
+### Minor Changes
+
+- Add `@bfra.me/prettier-plugins` and move inline `package.json` plugin from `@bfra.me/prettier-config` (by [@marcusrbrown](https://github.com/marcusrbrown) with [#168](https://github.com/bfra-me/works/pull/168))
+
+### Patch Changes
+
+- Updated dependencies:
+  - @bfra.me/prettier-plugins@0.1.0
+
 ## 0.2.2
 
 ### Patch Changes
