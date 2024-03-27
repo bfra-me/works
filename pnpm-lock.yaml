@@ -110,8 +110,8 @@ importers:
         specifier: workspace:*
         version: 'link:'
       '@tsconfig/strictest':
-        specifier: 2.0.4
-        version: 2.0.4
+        specifier: 2.0.5
+        version: 2.0.5
       ajv:
         specifier: 8.12.0
         version: 8.12.0
@@ -1460,8 +1460,8 @@ packages:
   /@tsconfig/node16@1.0.4:
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
 
-  /@tsconfig/strictest@2.0.4:
-    resolution: {integrity: sha512-/VKO/oufDOvAE48KGzZOEXFBKtR3PnGlb4cJoRtw3Ax5tYwaWnaNgyTJDviIbvjlnn82WMfTNvhegFkj5Xt2UA==}
+  /@tsconfig/strictest@2.0.5:
+    resolution: {integrity: sha512-ec4tjL2Rr0pkZ5hww65c+EEPYwxOi4Ryv+0MtjeaSQRJyq322Q27eOQiFbuNgw2hpL4hB1/W/HBGk3VKS43osg==}
     dev: true
 
   /@types/estree@1.0.5:
@@ -5730,7 +5730,7 @@ time:
   /@manypkg/cli@0.21.3: '2024-03-15T00:57:45.583Z'
   /@swc/core@1.4.11: '2024-03-26T06:58:54.861Z'
   /@swisspost/design-system-changelog-github@1.0.2: '2022-11-22T09:41:10.082Z'
-  /@tsconfig/strictest@2.0.4: '2024-03-24T04:12:22.502Z'
+  /@tsconfig/strictest@2.0.5: '2024-03-27T04:14:45.977Z'
   /@types/node@20.11.30: '2024-03-19T12:41:32.071Z'
   /ajv-draft-04@1.0.0: '2021-05-23T15:48:18.254Z'
   /ajv@8.12.0: '2023-01-03T14:19:23.766Z'
