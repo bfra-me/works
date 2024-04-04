@@ -39,8 +39,8 @@ importers:
         specifier: 5.0.5
         version: 5.0.5
       typescript:
-        specifier: 5.4.3
-        version: 5.4.3
+        specifier: 5.4.4
+        version: 5.4.4
 
   packages/prettier-config:
     dependencies:
@@ -75,7 +75,7 @@ importers:
         version: 3.2.5
       tsup:
         specifier: 8.0.2
-        version: 8.0.2(@swc/core@1.4.12)(typescript@5.4.3)
+        version: 8.0.2(@swc/core@1.4.12)(typescript@5.4.4)
 
   packages/semantic-release:
     devDependencies:
@@ -90,10 +90,10 @@ importers:
         version: 1.4.12
       semantic-release:
         specifier: 23.0.7
-        version: 23.0.7(typescript@5.4.3)
+        version: 23.0.7(typescript@5.4.4)
       tsup:
         specifier: 8.0.2
-        version: 8.0.2(@swc/core@1.4.12)(typescript@5.4.3)
+        version: 8.0.2(@swc/core@1.4.12)(typescript@5.4.4)
       type-fest:
         specifier: 4.15.0
         version: 4.15.0
@@ -1212,7 +1212,7 @@ packages:
       import-from-esm: 1.3.3
       lodash-es: 4.17.21
       micromatch: 4.0.5
-      semantic-release: 23.0.7(typescript@5.4.3)
+      semantic-release: 23.0.7(typescript@5.4.4)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1243,7 +1243,7 @@ packages:
       lodash-es: 4.17.21
       mime: 4.0.1
       p-filter: 4.1.0
-      semantic-release: 23.0.7(typescript@5.4.3)
+      semantic-release: 23.0.7(typescript@5.4.4)
       url-join: 5.0.0
     transitivePeerDependencies:
       - supports-color
@@ -1266,7 +1266,7 @@ packages:
       rc: 1.2.8
       read-pkg: 9.0.1
       registry-auth-token: 5.0.2
-      semantic-release: 23.0.7(typescript@5.4.3)
+      semantic-release: 23.0.7(typescript@5.4.4)
       semver: 7.6.0
       tempy: 3.1.0
     dev: true
@@ -1287,7 +1287,7 @@ packages:
       into-stream: 7.0.0
       lodash-es: 4.17.21
       read-pkg-up: /read-package-up@11.0.0
-      semantic-release: 23.0.7(typescript@5.4.3)
+      semantic-release: 23.0.7(typescript@5.4.4)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -2070,7 +2070,7 @@ packages:
       yaml: 1.10.2
     dev: false
 
-  /cosmiconfig@9.0.0(typescript@5.4.3):
+  /cosmiconfig@9.0.0(typescript@5.4.4):
     resolution: {integrity: sha512-itvL5h8RETACmOTFc4UfIyB2RfEHi71Ax6E/PivVxq9NseKbOWpeyHEOIbmAw1rs8Ak0VursQNww7lf7YtUwzg==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -2083,7 +2083,7 @@ packages:
       import-fresh: 3.3.0
       js-yaml: 4.1.0
       parse-json: 5.2.0
-      typescript: 5.4.3
+      typescript: 5.4.4
     dev: true
 
   /cross-spawn@5.1.0:
@@ -4647,7 +4647,7 @@ packages:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
     dev: false
 
-  /semantic-release@23.0.7(typescript@5.4.3):
+  /semantic-release@23.0.7(typescript@5.4.4):
     resolution: {integrity: sha512-PFxXQE57zrYiCbWKkdsVUF08s0SifEw3WhDhrN47ZEUWQiLl21FI9Dg/H8g7i/lPx0IkF6u7PjJbgxPceXKBeg==}
     engines: {node: '>=20.8.1'}
     hasBin: true
@@ -4658,7 +4658,7 @@ packages:
       '@semantic-release/npm': 12.0.0(semantic-release@23.0.7)
       '@semantic-release/release-notes-generator': 13.0.0(semantic-release@23.0.7)
       aggregate-error: 5.0.0
-      cosmiconfig: 9.0.0(typescript@5.4.3)
+      cosmiconfig: 9.0.0(typescript@5.4.4)
       debug: 4.3.4
       env-ci: 11.0.0
       execa: 8.0.1
@@ -5179,7 +5179,7 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: true
 
-  /tsup@8.0.2(@swc/core@1.4.12)(typescript@5.4.3):
+  /tsup@8.0.2(@swc/core@1.4.12)(typescript@5.4.4):
     resolution: {integrity: sha512-NY8xtQXdH7hDUAZwcQdY/Vzlw9johQsaqf7iwZ6g1DOUlFYQ5/AtVAjTvihhEyeRlGo4dLRVHtrRaL35M1daqQ==}
     engines: {node: '>=18'}
     hasBin: true
@@ -5213,7 +5213,7 @@ packages:
       source-map: 0.8.0-beta.0
       sucrase: 3.35.0
       tree-kill: 1.2.2
-      typescript: 5.4.3
+      typescript: 5.4.4
     transitivePeerDependencies:
       - supports-color
       - ts-node
@@ -5324,8 +5324,8 @@ packages:
       possible-typed-array-names: 1.0.0
     dev: false
 
-  /typescript@5.4.3:
-    resolution: {integrity: sha512-KrPd3PKaCLr78MalgiwJnA25Nm8HAmdwN3mYUYZgG/wizIo9EainNVQI9/yDavtVFRN2h3k8uf3GLHuhDMgEHg==}
+  /typescript@5.4.4:
+    resolution: {integrity: sha512-dGE2Vv8cpVvw28v8HCPqyb08EzbBURxDpuhJvTrusShUfGnhHBafDsLdS1EhhxyL6BJQE+2cT3dDPAv+MQ6oLw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -5756,5 +5756,5 @@ time:
   /semantic-release@23.0.7: '2024-04-03T17:57:01.529Z'
   /tsup@8.0.2: '2024-02-10T07:03:10.525Z'
   /type-fest@4.15.0: '2024-04-03T06:22:34.950Z'
-  /typescript@5.4.3: '2024-03-20T19:30:57.636Z'
+  /typescript@5.4.4: '2024-04-04T18:00:15.661Z'
   /vitest@1.4.0: '2024-03-15T10:31:19.381Z'
