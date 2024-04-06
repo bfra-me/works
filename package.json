@@ -11,7 +11,8 @@
     "check-format": "prettier --check .",
     "clean": "rimraf --glob \"packages/**/lib\" \"**/*.tsbuildinfo\"",
     "format": "prettier --write .",
-    "lint": "manypkg check && pnpm -r run --parallel lint",
+    "lint": "manypkg check && pnpm run lint-packages && pnpm -r run --parallel lint",
+    "lint-packages": "pnpm -r --no-bail exec publint",
     "publish-changesets": "changeset publish",
     "test": "pnpm -r run test",
     "version-changesets": "changeset version",
@@ -26,6 +27,7 @@
     "@types/node": "20.12.5",
     "eslint": "8.57.0",
     "prettier": "3.2.5",
+    "publint": "0.2.7",
     "rimraf": "5.0.5",
     "typescript": "5.4.4"
   },
