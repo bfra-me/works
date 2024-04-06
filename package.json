@@ -5,6 +5,7 @@
   "description": "bfra.me tools and components",
   "license": "MIT",
   "author": "Marcus R. Brown <contact@bfra.me>",
+  "type": "module",
   "scripts": {
     "bootstrap": "pnpm install && pnpm -r build",
     "build": "pnpm -r run build",
@@ -12,7 +13,7 @@
     "clean": "rimraf --glob \"packages/**/lib\" \"**/*.tsbuildinfo\"",
     "format": "prettier --write .",
     "lint": "manypkg check && pnpm run lint-packages && pnpm -r run --parallel lint",
-    "lint-packages": "pnpm -r --no-bail exec publint",
+    "lint-packages": "pnpm -r --include-workspace-root --no-bail exec publint",
     "publish-changesets": "changeset publish",
     "test": "pnpm -r run test",
     "version-changesets": "changeset version",
