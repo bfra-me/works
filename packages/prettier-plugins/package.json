@@ -14,12 +14,12 @@
   "type": "module",
   "exports": {
     ".": {
-      "default": "./lib/index.js",
-      "types": "./lib/index.d.ts"
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
     },
     "./package-json": {
-      "default": "./lib/package-json/index.js",
-      "types": "./lib/package-json/index.d.ts"
+      "types": "./lib/package-json/index.d.ts",
+      "default": "./lib/package-json/index.js"
     },
     "./package.json": "./package.json"
   },

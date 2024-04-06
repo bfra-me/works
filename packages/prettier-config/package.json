@@ -14,8 +14,8 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./prettier.config.js",
-      "types": "./prettier.config.d.ts"
+      "types": "./prettier.config.d.ts",
+      "import": "./prettier.config.js"
     },
     "./package.json": "./package.json"
   },
