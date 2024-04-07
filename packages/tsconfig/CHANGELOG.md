@@ -1,5 +1,15 @@
 # @bfra.me/tsconfig
 
+## 0.4.0
+
+### Minor Changes
+
+- Use concrete module and target options instead of using "\*Next" (i.e., ESNext, NodeNext, etc.) (by [@marcusrbrown](https://github.com/marcusrbrown) with [#188](https://github.com/bfra-me/works/pull/188))
+
+### Patch Changes
+
+- Modify for new @bfra.me/tsconfig `compilerOptions` (by [@marcusrbrown](https://github.com/marcusrbrown) with [#188](https://github.com/bfra-me/works/pull/188))
+
 ## 0.3.1
 
 ### Patch Changes
