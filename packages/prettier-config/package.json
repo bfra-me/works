@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/prettier-config",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Shared Prettier configuration for bfra.me",
   "license": "MIT",
   "author": "Marcus R. Brown <contact@bfra.me>",

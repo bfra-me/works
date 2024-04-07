@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/semantic-release",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Semantic Release shareable configuration and plugins for bfra.me.",
   "license": "MIT",
   "author": "Marcus R. Brown <contact@bfra.me>",
