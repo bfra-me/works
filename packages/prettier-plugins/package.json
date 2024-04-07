@@ -13,17 +13,12 @@
   "bugs": "https://github.com/bfra-me/works/issues",
   "type": "module",
   "exports": {
-    ".": {
-      "types": "./lib/index.d.ts",
-      "default": "./lib/index.js"
-    },
-    "./package-json": {
-      "types": "./lib/package-json/index.d.ts",
-      "default": "./lib/package-json/index.js"
+    "./*": {
+      "types": "./lib/*.d.ts",
+      "default": "./lib/*.js"
     },
     "./package.json": "./package.json"
   },
-  "main": "lib/index.js",
   "files": [
     "lib",
     "!**/*.map"

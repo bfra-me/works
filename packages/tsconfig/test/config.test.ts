@@ -20,6 +20,6 @@ describe('config', () => {
       `Error parsing tsconfig.json: ${parsed.errors.map(e => e.messageText).join(', ')}`,
     )
 
-    assert(parsed.options.target === ts.ScriptTarget.ESNext, 'target must be ESNext')
+    assert(parsed.options.target === ts.ScriptTarget.ES2022, 'target must be ES2022')
   })
 })
