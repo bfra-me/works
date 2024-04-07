@@ -1,4 +1,4 @@
-import type {SemanticReleaseConfig} from './types'
+import type {SemanticReleaseConfig} from './types.js'
 
 /**
  * Define semantic-release global config.

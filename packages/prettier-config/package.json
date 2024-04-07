@@ -25,7 +25,8 @@
     "!*.map"
   ],
   "scripts": {
-    "build": "tsc && prettier --log-level silent --ignore-unknown --write prettier.config.*"
+    "format": "prettier --log-level error --ignore-unknown --write prettier.config.*",
+    "build": "tsc --build && pnpm run format"
   },
   "types": "prettier.config.d.ts",
   "dependencies": {

@@ -1,6 +1,6 @@
 import type {LiteralUnion} from 'type-fest'
-import type {PluginSpec} from './plugin-spec'
-import type {SemanticReleasePlugins} from './semantic-release'
+import type {PluginSpec} from './plugin-spec.d.ts'
+import type {SemanticReleasePlugins} from './plugin/semantic-release.d.ts'
 
 /**
  * This is a special exported interface for other packages to declare

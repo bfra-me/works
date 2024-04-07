@@ -1,6 +1,6 @@
 import type {BranchSpec} from 'semantic-release'
 import type {LiteralUnion} from 'type-fest'
-import type {Plugin} from './plugin'
+import type {Plugin} from './types/plugin.d.ts'
 
 export interface CustomExtends {}
 
