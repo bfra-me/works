@@ -5,7 +5,7 @@
     "incremental": false,
     "noEmit": true,
     "outDir": "lib",
-    "rootDir": ".",
+    "rootDir": "."
   },
   "exclude": ["lib", "node_modules"]
 }
