@@ -29,7 +29,7 @@
   "sideEffects": false,
   "types": "lib/index.d.ts",
   "dependencies": {
-    "prettier-package-json": "2.8.0"
+    "sort-package-json": "2.10.0"
   },
   "peerDependencies": {
     "prettier": "^3.0.0"

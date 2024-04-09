@@ -1,25 +1,53 @@
-import type {Parser, ParserOptions} from 'prettier'
+import type {Parser, SupportOption} from 'prettier'
+import prettier from 'prettier'
 import {parsers as babelParsers} from 'prettier/plugins/babel'
-import {format, type Options as PrettierPackageJsonOptions} from 'prettier-package-json'
+import {sortPackageJson} from 'sort-package-json'
 
-const jsonStringifyParser = babelParsers['json-stringify']
+type SortPackageJsonOptions = NonNullable<Parameters<typeof sortPackageJson>[1]>
 
-export const parsers = {
+interface PluginOptions {
+  /** Custom ordering array or comparator function. */
+  sortPackageJsonSortOrder: SortPackageJsonOptions['sortOrder']
+}
+
+declare module 'prettier' {
+  interface RequiredOptions extends PluginOptions {}
+}
+
+export const options: Record<keyof PluginOptions, SupportOption> = {
+  sortPackageJsonSortOrder: {
+    category: 'Format',
+    type: 'string',
+    description: 'Custom ordering array.',
+    default: [{value: []}],
+    array: true,
+  },
+}
+
+const parser = babelParsers['json-stringify']
+
+export const parsers: Record<string, Parser> = {
   'json-stringify': {
-    ...jsonStringifyParser,
+    ...parser,
 
-    preprocess(text: string, options: ParserOptions) {
-      if (jsonStringifyParser.preprocess) {
-        text = jsonStringifyParser.preprocess(text, options)
+    async parse(text, options) {
+      const {filepath} = options
+      if (/package.*json$/u.test(filepath)) {
+        // Format the text with prettier to avoid any parsing errors
+        text = await prettier.format(text, {filepath})
+
+        if (parser.preprocess) {
+          text = parser.preprocess(text, options)
+        }
+
+        const sortOrder = options?.sortPackageJsonSortOrder
+        text = sortPackageJson(
+          text,
+          (sortOrder && sortOrder.length > 0 ? {sortOrder} : {}) as SortPackageJsonOptions,
+        )
       }
-      if (/package.*json$/u.test(options.filepath)) {
-        text = format(JSON.parse(text), {
-          tabWidth: options.tabWidth,
-          useTabs: options.useTabs === true,
-          ...((options['prettier-package-json'] ?? {}) as Partial<PrettierPackageJsonOptions>),
-        })
-      }
-      return text
+
+      return parser.parse(text, options)
     },
   },
-} satisfies Record<string, Parser>
+}
