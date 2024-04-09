@@ -2,15 +2,23 @@
   "name": "@bfra.me/prettier-config",
   "version": "0.3.1",
   "description": "Shared Prettier configuration for bfra.me",
+  "keywords": [
+    "bfra.me",
+    "config",
+    "prettier",
+    "prettier-config",
+    "shared",
+    "works"
+  ],
+  "homepage": "https://github.com/bfra-me/works/tree/main/packages/prettier-config#readme",
+  "bugs": "https://github.com/bfra-me/works/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bfra-me/works.git",
+    "directory": "packages/prettier-config"
+  },
   "license": "MIT",
   "author": "Marcus R. Brown <contact@bfra.me>",
-  "homepage": "https://github.com/bfra-me/works/tree/main/packages/prettier-config#readme",
-  "repository": {
-    "directory": "packages/prettier-config",
-    "type": "git",
-    "url": "https://github.com/bfra-me/works.git"
-  },
-  "bugs": "https://github.com/bfra-me/works/issues",
   "type": "module",
   "exports": {
     ".": {
@@ -20,6 +28,7 @@
     "./package.json": "./package.json"
   },
   "main": "prettier.config.js",
+  "types": "prettier.config.d.ts",
   "files": [
     "prettier.config.*",
     "!*.map"
@@ -28,26 +37,17 @@
     "build": "tsc --build && pnpm run format",
     "format": "prettier --log-level error --ignore-unknown --write prettier.config.*"
   },
-  "types": "prettier.config.d.ts",
   "dependencies": {
     "@bfra.me/prettier-plugins": "workspace:*"
-  },
-  "peerDependencies": {
-    "prettier": "^3.0.0"
   },
   "devDependencies": {
     "@bfra.me/prettier-config": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
     "prettier": "3.2.5"
   },
-  "keywords": [
-    "bfra.me",
-    "config",
-    "prettier",
-    "prettier-config",
-    "shared",
-    "works"
-  ],
+  "peerDependencies": {
+    "prettier": "^3.0.0"
+  },
   "publishConfig": {
     "access": "public",
     "provenance": true

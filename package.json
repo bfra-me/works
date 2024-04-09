@@ -1,8 +1,15 @@
 {
-  "private": true,
   "name": "@bfra.me/works",
   "version": "0.0.0",
+  "private": true,
   "description": "bfra.me tools and components",
+  "keywords": [
+    "Build Frameworks",
+    "CLI",
+    "Components",
+    "Tools",
+    "bfra.me"
+  ],
   "license": "MIT",
   "author": "Marcus R. Brown <contact@bfra.me>",
   "type": "module",
@@ -19,6 +26,14 @@
     "version-changesets": "changeset version",
     "watch": "pnpm run build --watch"
   },
+  "prettier": "@bfra.me/prettier-config",
+  "eslintConfig": {
+    "ignorePatterns": [
+      "lib",
+      "dist",
+      "node_modules"
+    ]
+  },
   "dependencies": {
     "@bfra.me/prettier-config": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
@@ -32,25 +47,10 @@
     "rimraf": "5.0.5",
     "typescript": "5.4.4"
   },
-  "keywords": [
-    "Build Frameworks",
-    "CLI",
-    "Components",
-    "Tools",
-    "bfra.me"
-  ],
-  "eslintConfig": {
-    "ignorePatterns": [
-      "lib",
-      "dist",
-      "node_modules"
-    ]
-  },
   "packageManager": "pnpm@8.15.6",
   "pnpm": {
     "overrides": {
       "read-pkg-up@^11": "npm:read-package-up"
     }
-  },
-  "prettier": "@bfra.me/prettier-config"
+  }
 }
