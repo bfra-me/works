@@ -42,8 +42,8 @@ importers:
         specifier: 5.0.5
         version: 5.0.5
       typescript:
-        specifier: 5.4.4
-        version: 5.4.4
+        specifier: 5.4.5
+        version: 5.4.5
 
   packages/prettier-config:
     dependencies:
@@ -78,7 +78,7 @@ importers:
         version: 3.2.5
       tsup:
         specifier: 8.0.2
-        version: 8.0.2(@swc/core@1.4.13)(typescript@5.4.4)
+        version: 8.0.2(@swc/core@1.4.13)(typescript@5.4.5)
 
   packages/semantic-release:
     devDependencies:
@@ -93,10 +93,10 @@ importers:
         version: 1.4.13
       semantic-release:
         specifier: 23.0.8
-        version: 23.0.8(typescript@5.4.4)
+        version: 23.0.8(typescript@5.4.5)
       tsup:
         specifier: 8.0.2
-        version: 8.0.2(@swc/core@1.4.13)(typescript@5.4.4)
+        version: 8.0.2(@swc/core@1.4.13)(typescript@5.4.5)
       type-fest:
         specifier: 4.15.0
         version: 4.15.0
@@ -1225,7 +1225,7 @@ packages:
       import-from-esm: 1.3.3
       lodash-es: 4.17.21
       micromatch: 4.0.5
-      semantic-release: 23.0.8(typescript@5.4.4)
+      semantic-release: 23.0.8(typescript@5.4.5)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1256,7 +1256,7 @@ packages:
       lodash-es: 4.17.21
       mime: 4.0.1
       p-filter: 4.1.0
-      semantic-release: 23.0.8(typescript@5.4.4)
+      semantic-release: 23.0.8(typescript@5.4.5)
       url-join: 5.0.0
     transitivePeerDependencies:
       - supports-color
@@ -1279,7 +1279,7 @@ packages:
       rc: 1.2.8
       read-pkg: 9.0.1
       registry-auth-token: 5.0.2
-      semantic-release: 23.0.8(typescript@5.4.4)
+      semantic-release: 23.0.8(typescript@5.4.5)
       semver: 7.6.0
       tempy: 3.1.0
     dev: true
@@ -1300,7 +1300,7 @@ packages:
       into-stream: 7.0.0
       lodash-es: 4.17.21
       read-pkg-up: /read-package-up@11.0.0
-      semantic-release: 23.0.8(typescript@5.4.4)
+      semantic-release: 23.0.8(typescript@5.4.5)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -2060,7 +2060,7 @@ packages:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
     dev: true
 
-  /cosmiconfig@9.0.0(typescript@5.4.4):
+  /cosmiconfig@9.0.0(typescript@5.4.5):
     resolution: {integrity: sha512-itvL5h8RETACmOTFc4UfIyB2RfEHi71Ax6E/PivVxq9NseKbOWpeyHEOIbmAw1rs8Ak0VursQNww7lf7YtUwzg==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -2073,7 +2073,7 @@ packages:
       import-fresh: 3.3.0
       js-yaml: 4.1.0
       parse-json: 5.2.0
-      typescript: 5.4.4
+      typescript: 5.4.5
     dev: true
 
   /cross-spawn@5.1.0:
@@ -4713,7 +4713,7 @@ packages:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
     dev: false
 
-  /semantic-release@23.0.8(typescript@5.4.4):
+  /semantic-release@23.0.8(typescript@5.4.5):
     resolution: {integrity: sha512-yZkuWcTTfh5h/DrR4Q4QvJSARJdb6wjwn/sN0qKMYEkvwaVFek8YWfrgtL8oWaRdl0fLte0Y1wWMzLbwoaII1g==}
     engines: {node: '>=20.8.1'}
     hasBin: true
@@ -4724,7 +4724,7 @@ packages:
       '@semantic-release/npm': 12.0.0(semantic-release@23.0.8)
       '@semantic-release/release-notes-generator': 13.0.0(semantic-release@23.0.8)
       aggregate-error: 5.0.0
-      cosmiconfig: 9.0.0(typescript@5.4.4)
+      cosmiconfig: 9.0.0(typescript@5.4.5)
       debug: 4.3.4
       env-ci: 11.0.0
       execa: 8.0.1
@@ -5260,7 +5260,7 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: true
 
-  /tsup@8.0.2(@swc/core@1.4.13)(typescript@5.4.4):
+  /tsup@8.0.2(@swc/core@1.4.13)(typescript@5.4.5):
     resolution: {integrity: sha512-NY8xtQXdH7hDUAZwcQdY/Vzlw9johQsaqf7iwZ6g1DOUlFYQ5/AtVAjTvihhEyeRlGo4dLRVHtrRaL35M1daqQ==}
     engines: {node: '>=18'}
     hasBin: true
@@ -5294,7 +5294,7 @@ packages:
       source-map: 0.8.0-beta.0
       sucrase: 3.35.0
       tree-kill: 1.2.2
-      typescript: 5.4.4
+      typescript: 5.4.5
     transitivePeerDependencies:
       - supports-color
       - ts-node
@@ -5405,8 +5405,8 @@ packages:
       possible-typed-array-names: 1.0.0
     dev: false
 
-  /typescript@5.4.4:
-    resolution: {integrity: sha512-dGE2Vv8cpVvw28v8HCPqyb08EzbBURxDpuhJvTrusShUfGnhHBafDsLdS1EhhxyL6BJQE+2cT3dDPAv+MQ6oLw==}
+  /typescript@5.4.5:
+    resolution: {integrity: sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -5816,3 +5816,23 @@ packages:
     resolution: {integrity: sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==}
     engines: {node: '>=12.20'}
     dev: true
+
+time:
+  /@changesets/cli@2.27.1: '2023-11-28T11:18:23.079Z'
+  /@manypkg/cli@0.21.3: '2024-03-15T00:57:45.583Z'
+  /@swc/core@1.4.13: '2024-04-09T07:53:49.068Z'
+  /@swisspost/design-system-changelog-github@1.0.2: '2022-11-22T09:41:10.082Z'
+  /@tsconfig/strictest@2.0.5: '2024-03-27T04:14:45.977Z'
+  /@types/node@20.12.7: '2024-04-09T21:07:26.258Z'
+  /ajv-draft-04@1.0.0: '2021-05-23T15:48:18.254Z'
+  /ajv@8.12.0: '2023-01-03T14:19:23.766Z'
+  /eslint@8.57.0: '2024-02-23T20:39:43.282Z'
+  /prettier@3.2.5: '2024-02-04T05:38:11.623Z'
+  /publint@0.2.7: '2023-12-23T05:31:00.940Z'
+  /rimraf@5.0.5: '2023-09-27T06:04:07.772Z'
+  /semantic-release@23.0.8: '2024-04-09T21:14:10.911Z'
+  /sort-package-json@2.10.0: '2024-03-30T00:34:42.521Z'
+  /tsup@8.0.2: '2024-02-10T07:03:10.525Z'
+  /type-fest@4.15.0: '2024-04-03T06:22:34.950Z'
+  /typescript@5.4.5: '2024-04-10T14:25:19.427Z'
+  /vitest@1.4.0: '2024-03-15T10:31:19.381Z'
