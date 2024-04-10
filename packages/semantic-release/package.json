@@ -42,8 +42,8 @@
   "devDependencies": {
     "@bfra.me/semantic-release": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
-    "@swc/core": "1.4.12",
-    "semantic-release": "23.0.7",
+    "@swc/core": "1.4.13",
+    "semantic-release": "23.0.8",
     "tsup": "8.0.2",
     "type-fest": "4.15.0",
     "vitest": "1.4.0"
