@@ -2,44 +2,6 @@
   "name": "@bfra.me/prettier-plugins",
   "version": "0.1.1",
   "description": "Plugins for Prettier used across bfra.me.",
-  "license": "MIT",
-  "author": "Marcus R. Brown <contact@bfra.me>",
-  "homepage": "https://github.com/bfra-me/works/tree/main/packages/prettier-plugins#readme",
-  "repository": {
-    "directory": "packages/prettier-plugins",
-    "type": "git",
-    "url": "https://github.com/bfra-me/works.git"
-  },
-  "bugs": "https://github.com/bfra-me/works/issues",
-  "type": "module",
-  "exports": {
-    "./*": {
-      "types": "./lib/*.d.ts",
-      "default": "./lib/*.js"
-    },
-    "./package.json": "./package.json"
-  },
-  "files": [
-    "lib",
-    "!**/*.map"
-  ],
-  "scripts": {
-    "build": "tsup"
-  },
-  "sideEffects": false,
-  "types": "lib/index.d.ts",
-  "dependencies": {
-    "prettier-package-json": "2.8.0"
-  },
-  "peerDependencies": {
-    "prettier": "^3.0.0"
-  },
-  "devDependencies": {
-    "@bfra.me/prettier-plugins": "workspace:*",
-    "@bfra.me/tsconfig": "workspace:*",
-    "prettier": "3.2.5",
-    "tsup": "8.0.2"
-  },
   "keywords": [
     "bfra.me",
     "plugins",
@@ -48,6 +10,44 @@
     "shared",
     "works"
   ],
+  "homepage": "https://github.com/bfra-me/works/tree/main/packages/prettier-plugins#readme",
+  "bugs": "https://github.com/bfra-me/works/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bfra-me/works.git",
+    "directory": "packages/prettier-plugins"
+  },
+  "license": "MIT",
+  "author": "Marcus R. Brown <contact@bfra.me>",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    "./*": {
+      "types": "./lib/*.d.ts",
+      "default": "./lib/*.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "!**/*.map"
+  ],
+  "scripts": {
+    "build": "tsup"
+  },
+  "dependencies": {
+    "sort-package-json": "2.10.0"
+  },
+  "devDependencies": {
+    "@bfra.me/prettier-plugins": "workspace:*",
+    "@bfra.me/tsconfig": "workspace:*",
+    "prettier": "3.2.5",
+    "tsup": "8.0.2"
+  },
+  "peerDependencies": {
+    "prettier": "^3.0.0"
+  },
   "publishConfig": {
     "access": "public",
     "provenance": true
