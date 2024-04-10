@@ -1,5 +1,11 @@
 # @bfra.me/tsconfig
 
+## 0.4.1
+
+### Patch Changes
+
+- Format `package.json` with latest `@bfra.me/prettier-plugins` (by [@marcusrbrown](https://github.com/marcusrbrown) with [#192](https://github.com/bfra-me/works/pull/192))
+
 ## 0.4.0
 
 ### Minor Changes

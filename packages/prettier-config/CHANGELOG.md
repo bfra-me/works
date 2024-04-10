@@ -1,5 +1,13 @@
 # @bfra.me/prettier-config
 
+## 0.3.2
+
+### Patch Changes
+
+- Format `package.json` with latest `@bfra.me/prettier-plugins` (by [@marcusrbrown](https://github.com/marcusrbrown) with [#192](https://github.com/bfra-me/works/pull/192))
+- Updated dependencies:
+  - @bfra.me/prettier-plugins@0.2.0
+
 ## 0.3.1
 
 ### Patch Changes
