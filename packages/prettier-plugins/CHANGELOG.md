@@ -1,5 +1,15 @@
 # @bfra.me/prettier-plugins
 
+## 0.2.0
+
+### Minor Changes
+
+- Switch to [`sort-package-json`](https://github.com/keithamus/sort-package-json) in the `package-json` plugin (by [@marcusrbrown](https://github.com/marcusrbrown) with [#192](https://github.com/bfra-me/works/pull/192))
+
+### Patch Changes
+
+- Format `package.json` with latest `@bfra.me/prettier-plugins` (by [@marcusrbrown](https://github.com/marcusrbrown) with [#192](https://github.com/bfra-me/works/pull/192))
+
 ## 0.1.1
 
 ### Patch Changes
