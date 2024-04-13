@@ -1,4 +1,5 @@
 {
-  "extends": "@bfra.me/tsconfig",
-  "exclude": ["node_modules", "**/lib/*"]
+  "compilerOptions": {"noEmit": true, "composite": false, "declaration": false},
+  "exclude": ["node_modules", "**/lib/*"],
+  "extends": "@bfra.me/tsconfig"
 }

@@ -15,7 +15,7 @@ describe('schema', () => {
       return t.skip(`Could not fetch ${SCHEMA_URL}, skipping`)
     }
     const schema = (await response.json()) as JSONSchemaType<TsConfigJson>
-    const ajv = new Ajv.default({
+    const ajv = new Ajv({
       strict: false,
       keywords: ['allowTrailingCommas', 'markdownDescription', 'markdownEnumDescriptions'],
     })
