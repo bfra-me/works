@@ -47,7 +47,7 @@
     "rimraf": "5.0.5",
     "typescript": "5.4.5"
   },
-  "packageManager": "pnpm@8.15.6",
+  "packageManager": "pnpm@8.15.7",
   "pnpm": {
     "overrides": {
       "read-pkg-up@^11": "npm:read-package-up"
