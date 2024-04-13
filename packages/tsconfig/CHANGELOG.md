@@ -1,5 +1,11 @@
 # @bfra.me/tsconfig
 
+## 0.5.0
+
+### Minor Changes
+
+- Set `module` to `ESNext` and `moduleResolution` to `Bundler` (by [@marcusrbrown](https://github.com/marcusrbrown) with [#199](https://github.com/bfra-me/works/pull/199))
+
 ## 0.4.1
 
 ### Patch Changes
