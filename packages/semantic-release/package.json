@@ -45,7 +45,7 @@
     "@swc/core": "1.4.16",
     "semantic-release": "23.0.8",
     "tsup": "8.0.2",
-    "type-fest": "4.15.0",
+    "type-fest": "4.16.0",
     "vitest": "1.5.0"
   },
   "peerDependencies": {
