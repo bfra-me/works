@@ -98,8 +98,8 @@ importers:
         specifier: 8.0.2
         version: 8.0.2(@swc/core@1.5.0)(typescript@5.4.5)
       type-fest:
-        specifier: 4.16.0
-        version: 4.16.0
+        specifier: 4.17.0
+        version: 4.17.0
       vitest:
         specifier: 1.5.0
         version: 1.5.0(@types/node@20.12.7)
@@ -119,8 +119,8 @@ importers:
         specifier: 1.0.0
         version: 1.0.0(ajv@8.12.0)
       type-fest:
-        specifier: 4.16.0
-        version: 4.16.0
+        specifier: 4.17.0
+        version: 4.17.0
 
 packages:
 
@@ -4207,7 +4207,7 @@ packages:
     dependencies:
       '@babel/code-frame': 7.24.2
       index-to-position: 0.1.2
-      type-fest: 4.16.0
+      type-fest: 4.17.0
     dev: true
 
   /parse5-htmlparser2-tree-adapter@6.0.1:
@@ -4442,7 +4442,7 @@ packages:
     dependencies:
       find-up-simple: 1.0.0
       read-pkg: 9.0.1
-      type-fest: 4.16.0
+      type-fest: 4.17.0
     dev: true
 
   /read-pkg-up@7.0.1:
@@ -4471,7 +4471,7 @@ packages:
       '@types/normalize-package-data': 2.4.4
       normalize-package-data: 6.0.0
       parse-json: 8.1.0
-      type-fest: 4.16.0
+      type-fest: 4.17.0
       unicorn-magic: 0.1.0
     dev: true
 
@@ -5302,8 +5302,8 @@ packages:
     engines: {node: '>=12.20'}
     dev: true
 
-  /type-fest@4.16.0:
-    resolution: {integrity: sha512-z7Rf5PXxIhbI6eJBTwdqe5bO02nUUmctq4WqviFSstBAWV0YNtEQRhEnZw73WJ8sZOqgFG6Jdl8gYZu7NBJZnA==}
+  /type-fest@4.17.0:
+    resolution: {integrity: sha512-9flrz1zkfLRH3jO3bLflmTxryzKMxVa7841VeMgBaNQGY6vH4RCcpN/sQLB7mQQYh1GZ5utT2deypMuCy4yicw==}
     engines: {node: '>=16'}
     dev: true
 
@@ -5784,6 +5784,6 @@ time:
   /semantic-release@23.0.8: '2024-04-09T21:14:10.911Z'
   /sort-package-json@2.10.0: '2024-03-30T00:34:42.521Z'
   /tsup@8.0.2: '2024-02-10T07:03:10.525Z'
-  /type-fest@4.16.0: '2024-04-22T08:47:12.864Z'
+  /type-fest@4.17.0: '2024-04-24T07:45:37.212Z'
   /typescript@5.4.5: '2024-04-10T14:25:19.427Z'
   /vitest@1.5.0: '2024-04-11T17:48:21.429Z'
