@@ -1,20 +1,18 @@
-import type {Parser, SupportOption} from 'prettier'
+import type {Parser, ParserOptions, SupportOption} from 'prettier'
 import prettier from 'prettier'
 import {parsers as babelParsers} from 'prettier/plugins/babel'
 import {sortPackageJson} from 'sort-package-json'
 
 type SortPackageJsonOptions = NonNullable<Parameters<typeof sortPackageJson>[1]>
 
-interface PluginOptions {
+export type PrettierPackageJsonOptions = {
   /** Custom ordering array or comparator function. */
   sortPackageJsonSortOrder: SortPackageJsonOptions['sortOrder']
 }
 
-declare module 'prettier' {
-  interface RequiredOptions extends PluginOptions {}
-}
+export type PrettierOptions = ParserOptions & PrettierPackageJsonOptions
 
-export const options: Record<keyof PluginOptions, SupportOption> = {
+export const options = {
   sortPackageJsonSortOrder: {
     category: 'Format',
     type: 'string',
@@ -22,15 +20,16 @@ export const options: Record<keyof PluginOptions, SupportOption> = {
     default: [{value: []}],
     array: true,
   },
-}
+} satisfies Record<keyof PrettierPackageJsonOptions, SupportOption>
 
 const parser = babelParsers['json-stringify']
 
-export const parsers: Record<string, Parser> = {
+export const parsers = {
   'json-stringify': {
     ...parser,
 
-    async parse(text, options) {
+    // @ts-expect-error - options
+    async parse(text: string, options: PrettierOptions) {
       const {filepath} = options
       if (/package.*json$/u.test(filepath)) {
         // Format the text with prettier to avoid any parsing errors
@@ -50,4 +49,4 @@ export const parsers: Record<string, Parser> = {
       return parser.parse(text, options)
     },
   },
-}
+} satisfies Record<string, Parser>
