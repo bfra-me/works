@@ -1,5 +1,11 @@
 # @bfra.me/prettier-plugins
 
+## 0.2.1
+
+### Patch Changes
+
+- Add types to increase coverage and verbosity. (by [@marcusrbrown](https://github.com/marcusrbrown) with [#227](https://github.com/bfra-me/works/pull/227))
+
 ## 0.2.0
 
 ### Minor Changes
