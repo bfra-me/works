@@ -1,5 +1,12 @@
 # @bfra.me/prettier-config
 
+## 0.3.3
+
+### Patch Changes
+
+- Updated dependencies:
+  - @bfra.me/prettier-plugins@0.2.1
+
 ## 0.3.2
 
 ### Patch Changes
