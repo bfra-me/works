@@ -39,8 +39,8 @@ importers:
         specifier: 0.2.7
         version: 0.2.7
       rimraf:
-        specifier: 5.0.5
-        version: 5.0.5
+        specifier: 5.0.6
+        version: 5.0.6
       typescript:
         specifier: 5.4.5
         version: 5.4.5
@@ -4583,8 +4583,8 @@ packages:
       glob: 7.2.3
     dev: false
 
-  /rimraf@5.0.5:
-    resolution: {integrity: sha512-CqDakW+hMe/Bz202FPEymy68P+G50RfMQK+Qo5YUqc9SPipvbGjCGKd0RSKEelbsfQuw3g5NZDSrlZZAJurH1A==}
+  /rimraf@5.0.6:
+    resolution: {integrity: sha512-X72SgyOf+1lFnGM6gYcmZ4+jMOwuT4E4SajKQzUIlI7EoR5eFHMhS/wf8Ll0mN+w2bxcIVldrJQ6xT7HFQywjg==}
     engines: {node: '>=14'}
     hasBin: true
     dependencies:
@@ -5778,7 +5778,7 @@ time:
   /eslint@8.57.0: '2024-02-23T20:39:43.282Z'
   /prettier@3.2.5: '2024-02-04T05:38:11.623Z'
   /publint@0.2.7: '2023-12-23T05:31:00.940Z'
-  /rimraf@5.0.5: '2023-09-27T06:04:07.772Z'
+  /rimraf@5.0.6: '2024-05-10T17:13:21.898Z'
   /semantic-release@23.0.8: '2024-04-09T21:14:10.911Z'
   /sort-package-json@2.10.0: '2024-03-30T00:34:42.521Z'
   /tsup@8.0.2: '2024-02-10T07:03:10.525Z'
