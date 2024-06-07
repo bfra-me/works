@@ -98,8 +98,8 @@ importers:
         specifier: 8.1.0
         version: 8.1.0(@swc/core@1.5.25)(postcss@8.4.38)(typescript@5.4.5)
       type-fest:
-        specifier: 4.19.0
-        version: 4.19.0
+        specifier: 4.20.0
+        version: 4.20.0
       vitest:
         specifier: 1.6.0
         version: 1.6.0(@types/node@20.14.2)
@@ -119,8 +119,8 @@ importers:
         specifier: 1.0.0
         version: 1.0.0(ajv@8.16.0)
       type-fest:
-        specifier: 4.19.0
-        version: 4.19.0
+        specifier: 4.20.0
+        version: 4.20.0
 
 packages:
 
@@ -3084,8 +3084,8 @@ packages:
     resolution: {integrity: sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==}
     engines: {node: '>=12.20'}
 
-  type-fest@4.19.0:
-    resolution: {integrity: sha512-CN2l+hWACRiejlnr68vY0/7734Kzu+9+TOslUXbSCQ1ruY9XIHDBSceVXCcHm/oXrdzhtLMMdJEKfemf1yXiZQ==}
+  type-fest@4.20.0:
+    resolution: {integrity: sha512-MBh+PHUHHisjXf4tlx0CFWoMdjx8zCMLJHOjnV1prABYZFHqtFOyauCIK2/7w4oIfwkF8iNhLtnJEfVY2vn3iw==}
     engines: {node: '>=16'}
 
   typed-array-buffer@1.0.2:
@@ -5708,7 +5708,7 @@ snapshots:
     dependencies:
       '@babel/code-frame': 7.24.6
       index-to-position: 0.1.2
-      type-fest: 4.19.0
+      type-fest: 4.20.0
 
   parse-ms@4.0.0: {}
 
@@ -5839,7 +5839,7 @@ snapshots:
     dependencies:
       find-up-simple: 1.0.0
       read-pkg: 9.0.1
-      type-fest: 4.19.0
+      type-fest: 4.20.0
 
   read-pkg-up@7.0.1:
     dependencies:
@@ -5859,7 +5859,7 @@ snapshots:
       '@types/normalize-package-data': 2.4.4
       normalize-package-data: 6.0.1
       parse-json: 8.1.0
-      type-fest: 4.19.0
+      type-fest: 4.20.0
       unicorn-magic: 0.1.0
 
   read-yaml-file@1.1.0:
@@ -6366,7 +6366,7 @@ snapshots:
 
   type-fest@2.19.0: {}
 
-  type-fest@4.19.0: {}
+  type-fest@4.20.0: {}
 
   typed-array-buffer@1.0.2:
     dependencies:
