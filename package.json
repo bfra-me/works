@@ -37,7 +37,7 @@
   "dependencies": {
     "@bfra.me/prettier-config": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
-    "@changesets/cli": "2.27.5",
+    "@changesets/cli": "2.27.6",
     "@manypkg/cli": "0.21.4",
     "@swisspost/design-system-changelog-github": "1.0.2",
     "@types/node": "20.14.8",
