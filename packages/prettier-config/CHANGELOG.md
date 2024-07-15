@@ -1,5 +1,12 @@
 # @bfra.me/prettier-config
 
+## 0.4.0
+### Minor Changes
+
+
+
+- Add `100-proof` (aliased to default) and `120-proof` Prettier config presets (by [@marcusrbrown](https://github.com/marcusrbrown) with [#334](https://github.com/bfra-me/works/pull/334))
+
 ## 0.3.3
 
 ### Patch Changes
