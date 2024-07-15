@@ -25,17 +25,20 @@
       "types": "./prettier.config.d.ts",
       "import": "./prettier.config.js"
     },
+    "./100-proof": "./prettier.config.js",
+    "./120-proof": "./120-proof.js",
     "./package.json": "./package.json"
   },
   "main": "prettier.config.js",
   "types": "prettier.config.d.ts",
   "files": [
-    "prettier.config.*",
+    "*.js",
+    "*.ts",
     "!*.map"
   ],
   "scripts": {
     "build": "tsc --build && pnpm run format",
-    "format": "prettier --log-level error --ignore-unknown --write prettier.config.*"
+    "format": "prettier --ignore-path .prettierignore --log-level log --write ."
   },
   "dependencies": {
     "@bfra.me/prettier-plugins": "workspace:*"

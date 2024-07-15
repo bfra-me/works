@@ -6,6 +6,8 @@
     "editor.formatOnSave": true,
     "editor.formatOnType": false,
 
+    "explorer.fileNesting.enabled": false,
+
     "cSpell.words": ["bfra", "frameworkers"],
 
     "prettier.enable": true,
