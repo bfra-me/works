@@ -1,8 +1,8 @@
 {
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   extends: [
-    'github>bfra-me/renovate-config#v3',
-    'github>bfra-me/renovate-config:internal.json5#v3',
+    'github>bfra-me/renovate-config#v3.7.7',
+    'github>bfra-me/renovate-config:internal.json5#v3.7.7',
   ],
   addLabels: ['{{{parentDir}}}'],
   automergeType: 'pr',
