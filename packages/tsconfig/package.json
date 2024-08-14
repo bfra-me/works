@@ -34,15 +34,14 @@
     "run-tests": "node --test ./test/lib/*.test.js",
     "test": "pnpm compile-tests && pnpm run-tests"
   },
+  "dependencies": {
+    "@tsconfig/strictest": "2.0.5"
+  },
   "devDependencies": {
     "@bfra.me/tsconfig": "workspace:*",
-    "@tsconfig/strictest": "2.0.5",
     "ajv": "8.17.1",
     "ajv-draft-04": "1.0.0",
     "type-fest": "4.24.0"
-  },
-  "peerDependencies": {
-    "@tsconfig/strictest": "*"
   },
   "publishConfig": {
     "access": "public",
