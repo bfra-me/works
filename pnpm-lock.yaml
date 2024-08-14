@@ -105,13 +105,14 @@ importers:
         version: 2.0.2(@types/node@20.14.10)
 
   packages/tsconfig:
+    dependencies:
+      '@tsconfig/strictest':
+        specifier: 2.0.5
+        version: 2.0.5
     devDependencies:
       '@bfra.me/tsconfig':
         specifier: workspace:*
         version: 'link:'
-      '@tsconfig/strictest':
-        specifier: 2.0.5
-        version: 2.0.5
       ajv:
         specifier: 8.17.1
         version: 8.17.1
