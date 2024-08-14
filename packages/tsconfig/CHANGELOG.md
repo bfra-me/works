@@ -1,5 +1,12 @@
 # @bfra.me/tsconfig
 
+## 0.6.0
+### Minor Changes
+
+
+
+- Move `@tsconfig/strictest` from `peerDependencies` to `dependencies` (by [@marcusrbrown](https://github.com/marcusrbrown) with [#358](https://github.com/bfra-me/works/pull/358))
+
 ## 0.5.0
 
 ### Minor Changes
