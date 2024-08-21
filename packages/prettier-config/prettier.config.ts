@@ -18,7 +18,7 @@ const config: Config = {
     // VS Code configuration files:
     // Use 4 spaces for indentation to match the default VS Code settings.
     {
-      files: ['.vscode/*.json'],
+      files: ['.vscode/*.json', '.devcontainer/**/devcontainer*.json'],
       options: {
         tabWidth: 4,
       },
@@ -54,6 +54,7 @@ const config: Config = {
         '**/.changeset/*.md',
         '**/CHANGELOG*.md',
         '**/changelog*.md',
+        '**/devcontainer-lock.json',
         '**/LICENSE*',
         '**/license*',
         '**/*.min.*',
