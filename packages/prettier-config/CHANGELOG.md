@@ -1,5 +1,12 @@
 # @bfra.me/prettier-config
 
+## 0.4.1
+### Patch Changes
+
+
+
+- Add override for Dev Container properties (devcontainer.json, devcontainer-*.json) (by [@marcusrbrown](https://github.com/marcusrbrown) with [#363](https://github.com/bfra-me/works/pull/363))
+
 ## 0.4.0
 ### Minor Changes
 
