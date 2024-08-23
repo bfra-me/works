@@ -1,5 +1,12 @@
 # @bfra.me/prettier-plugins
 
+## 0.3.0
+### Minor Changes
+
+
+
+- Export fully-qualified Prettier `Plugin` and improve typings (by [@marcusrbrown](https://github.com/marcusrbrown) with [#365](https://github.com/bfra-me/works/pull/365))
+
 ## 0.2.1
 
 ### Patch Changes

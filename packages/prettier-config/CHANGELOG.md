@@ -1,5 +1,17 @@
 # @bfra.me/prettier-config
 
+## 0.5.0
+### Minor Changes
+
+
+
+- Resolve installed Prettier plugins to `Plugin` objects; improve typings (by [@marcusrbrown](https://github.com/marcusrbrown) with [#365](https://github.com/bfra-me/works/pull/365))
+
+### Patch Changes
+
+- Updated dependencies:
+  - @bfra.me/prettier-plugins@0.3.0
+
 ## 0.4.1
 ### Patch Changes
 
