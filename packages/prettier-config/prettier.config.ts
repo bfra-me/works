@@ -1,7 +1,10 @@
-import {createRequire} from 'module'
+import {resolve} from './plugins.js'
 import type {Config} from 'prettier'
 
-const {resolve} = createRequire(import.meta.url)
+import {createRequire} from 'module'
+
+const require = createRequire(import.meta.url)
+const resolvePlugin = resolve.bind(null, require.resolve)
 
 /**
  * Shared Prettier configuration for bfra.me projects.
@@ -15,6 +18,44 @@ const config: Config = {
   singleQuote: true,
 
   overrides: [
+    // Adapted from https://github.com/sxzz/prettier-config/blob/1e5cc3021e5816aceebe0b90af1d530239442ecf/index.js.
+    // Require a pragma for paths typically not under version control or written by build tools.
+    {
+      files: [
+        '**/node_modules/**',
+        '**/dist/**',
+        '**/lib/**',
+        '**/coverage/**',
+        '**/out/**',
+        '**/temp/**',
+        '**/.idea/**',
+        '**/.next/**',
+        '**/.nuxt/**',
+        '**/.output/**',
+        '**/.vercel/**',
+        '**/.vitepress/cache/**',
+        '**/.vite-inspect/**',
+        '**/__snapshots__/**',
+
+        '**/auto-import?(s).d.ts',
+        '**/.changeset/*.md',
+        '**/CHANGELOG*.md',
+        '**/changelog*.md',
+        '**/components.d.ts',
+        '**/devcontainer-lock.json',
+        '**/LICENSE*',
+        '**/license*',
+        '**/*.min.*',
+        '**/package-lock.json',
+        '**/pnpm-lock.yaml',
+        '**/typed-router.d.ts',
+        '**/yarn.lock',
+      ],
+      options: {
+        requirePragma: true,
+      },
+    },
+
     // VS Code configuration files:
     // Use 4 spaces for indentation to match the default VS Code settings.
     {
@@ -34,42 +75,9 @@ const config: Config = {
         singleQuote: false,
       },
     },
-
-    // Adapted from https://github.com/sxzz/prettier-config/blob/1e5cc3021e5816aceebe0b90af1d530239442ecf/index.js.
-    // Require a pragma for paths typically not under version control or written by build tools.
-    {
-      files: [
-        '**/node_modules/**',
-        '**/dist/**',
-        '**/lib/**',
-        '**/coverage/**',
-        '**/out/**',
-        '**/.idea/**',
-        '**/.nuxt/**',
-        '**/.vercel/**',
-        '**/.vitepress/cache/**',
-        '**/.vite-inspect/**',
-        '**/__snapshots__/**',
-
-        '**/.changeset/*.md',
-        '**/CHANGELOG*.md',
-        '**/changelog*.md',
-        '**/devcontainer-lock.json',
-        '**/LICENSE*',
-        '**/license*',
-        '**/*.min.*',
-
-        'package-lock.json',
-        'pnpm-lock.yaml',
-        'yarn.lock',
-      ],
-      options: {
-        requirePragma: true,
-      },
-    },
   ],
 
-  plugins: ['@bfra.me/prettier-plugins/package-json'].map(plugin => resolve(plugin)),
+  plugins: ['@bfra.me/prettier-plugins/package-json'].map(resolvePlugin),
 }
 
 export default config
