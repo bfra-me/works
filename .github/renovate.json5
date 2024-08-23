@@ -1,13 +1,25 @@
 {
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   extends: [
-    'github>bfra-me/renovate-config#3.9.2',
-    'github>bfra-me/renovate-config:internal.json5#3.9.2',
+    'security:openssf-scorecard',
+
+    'github>bfra-me/renovate-config#v3.9.2',
+    'github>bfra-me/renovate-config:internal.json5#v3.9.2',
   ],
   addLabels: ['{{{parentDir}}}'],
   automergeType: 'pr',
+  packageRules: [
+    {
+      description: 'Keep the bfra-me/renovate-config preset pinned.',
+      matchPackageNames: ['bfra-me/renovate-config'],
+      rangeStrategy: 'pin',
+      updatePinnedDependencies: false,
+    },
+  ],
   postUpgradeTasks: {
-    commands: ['pnpm run bootstrap', 'git checkout -- .npmrc', 'pnpm run format'],
+    commands: ['pnpm run bootstrap'],
     executionMode: 'branch',
   },
+  prCreation: 'not-pending',
+  rebaseWhen: 'auto',
 }
