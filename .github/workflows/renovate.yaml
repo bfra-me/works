@@ -11,20 +11,21 @@ name: Renovate
     branches: ['**']
   workflow_dispatch:
     inputs:
-      print_config:
+      print-config:
         description: Log the fully-resolved Renovate config for each repository, plus fully-resolved presets.
         required: false
         type: boolean
         default: false
   workflow_run:
     workflows: ['CI']
-    branches: ['renovate/**']
-    types: [completed]
+    branches: ['main']
+    types: ['completed']
 
 jobs:
   renovate:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     name: Renovate
     secrets: inherit
     uses: bfra-me/.github/.github/workflows/renovate.yaml@f0d65ebf9ea4f371005e8d651c893d4951efaac5 # v1.10.0
     with:
-      print_config: ${{ inputs.print_config || false }}
+      print_config: ${{ inputs.print-config || false }}
