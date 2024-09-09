@@ -36,6 +36,7 @@ const config: Config = {
         '**/.vitepress/cache/**',
         '**/.vite-inspect/**',
         '**/__snapshots__/**',
+        '**/test/fixtures/**',
 
         '**/auto-import?(s).d.ts',
         '**/.changeset/*.md',
