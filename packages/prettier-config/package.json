@@ -37,8 +37,9 @@
     "!*.map"
   ],
   "scripts": {
-    "build": "tsc --build && pnpm run format",
-    "format": "prettier --ignore-path .prettierignore --log-level log --write ."
+    "build": "tsup && pnpm run format",
+    "format": "prettier --ignore-path .prettierignore --log-level log --write .",
+    "test": "vitest"
   },
   "dependencies": {
     "@bfra.me/prettier-plugins": "workspace:*"
@@ -46,7 +47,13 @@
   "devDependencies": {
     "@bfra.me/prettier-config": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
-    "prettier": "3.3.3"
+    "@types/fs-extra": "11.0.4",
+    "execa": "9.3.1",
+    "fast-glob": "3.3.2",
+    "fs-extra": "11.2.0",
+    "prettier": "3.3.3",
+    "tsup": "8.2.0",
+    "vitest": "2.0.2"
   },
   "peerDependencies": {
     "prettier": "^3.0.0"
