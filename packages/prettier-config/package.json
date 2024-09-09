@@ -27,6 +27,7 @@
     },
     "./100-proof": "./prettier.config.js",
     "./120-proof": "./120-proof.js",
+    "./semi/*": "./*.js?semi=\"true\"",
     "./package.json": "./package.json"
   },
   "main": "prettier.config.js",
