@@ -1,5 +1,12 @@
 # @bfra.me/prettier-config
 
+## 0.6.0
+### Minor Changes
+
+
+
+- Add tests and use `tsup` to build (by [@marcusrbrown](https://github.com/marcusrbrown) with [#378](https://github.com/bfra-me/works/pull/378))
+
 ## 0.5.0
 ### Minor Changes
 
