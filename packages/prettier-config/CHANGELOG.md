@@ -1,5 +1,15 @@
 # @bfra.me/prettier-config
 
+## 0.7.0
+### Minor Changes
+
+
+
+- Add prefixed presets (e.g., `.../semi/120-proof` => `.../120-proof.js?semi=true`) (by [@marcusrbrown](https://github.com/marcusrbrown) with [#380](https://github.com/bfra-me/works/pull/380))
+
+
+- Add prefixed presets (e.g. `import config from '@bfra.me/prettier-config/[preset]/semi'`) (by [@marcusrbrown](https://github.com/marcusrbrown) with [#380](https://github.com/bfra-me/works/pull/380))
+
 ## 0.6.0
 ### Minor Changes
 
