@@ -20,7 +20,7 @@
     "clean": "rimraf --glob \"packages/**/lib\" \"**/*.tsbuildinfo\"",
     "format": "prettier --write .",
     "lint": "manypkg check && pnpm run lint-packages && pnpm -r run --parallel lint",
-    "lint-packages": "pnpm -r --include-workspace-root --no-bail exec publint",
+    "lint-packages": "pnpm -r --include-workspace-root --no-bail --filter=!@bfra.me/prettier-config exec publint",
     "publish-changesets": "changeset publish",
     "test": "pnpm -r run test",
     "version-changesets": "changeset version",
