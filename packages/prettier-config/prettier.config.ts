@@ -6,6 +6,8 @@ import {createRequire} from 'module'
 const require = createRequire(import.meta.url)
 const resolvePlugin = resolve.bind(null, require.resolve)
 
+const {searchParams: params} = new URL(import.meta.url)
+
 /**
  * Shared Prettier configuration for bfra.me projects.
  */
@@ -14,7 +16,7 @@ const config: Config = {
   bracketSpacing: false,
   endOfLine: 'auto',
   printWidth: 100,
-  semi: false,
+  semi: params.has('semi', 'true'),
   singleQuote: true,
 
   overrides: [

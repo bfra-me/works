@@ -1,7 +1,7 @@
 import prettierConfig from '@bfra.me/prettier-config'
 import type {Config} from 'prettier'
 
-const params = new URL(import.meta.url).searchParams
+const {searchParams: params} = new URL(import.meta.url)
 const preset = {
   semi: params.has('semi') || prettierConfig.semi || false,
   printWidth: 120,
