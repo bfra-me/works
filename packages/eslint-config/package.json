@@ -24,6 +24,7 @@
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
+      "source": "./src/index.ts",
       "import": "./lib/index.js"
     },
     "./package.json": "./package.json"
@@ -33,10 +34,11 @@
   "files": [
     "src",
     "lib",
-    "!*.map"
+    "!**/*.map"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "pnpm run generate-types && tsup",
+    "generate-types": "tsx ./scripts/generate-types.ts",
     "lint": "eslint --flag unstable_ts_config .",
     "test": "vitest"
   },

@@ -1,7 +1,7 @@
 import eslint from '@eslint/js'
-import type {Linter} from 'eslint'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
+import type {Config} from './types'
 
 export default tseslint.config(
   eslint.configs.recommended,
@@ -83,4 +83,6 @@ export default tseslint.config(
       '@typescript-eslint/unbound-method': 'error',
     },
   },
-) as Linter.Config[]
+) as Config[]
+
+export * from './types'

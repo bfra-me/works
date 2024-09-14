@@ -28,13 +28,6 @@
     "watch": "pnpm run build --watch"
   },
   "prettier": "@bfra.me/prettier-config",
-  "eslintConfig": {
-    "ignorePatterns": [
-      "lib",
-      "dist",
-      "node_modules"
-    ]
-  },
   "dependencies": {
     "@bfra.me/prettier-config": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
