@@ -14,10 +14,11 @@
   "author": "Marcus R. Brown <contact@bfra.me>",
   "type": "module",
   "scripts": {
-    "bootstrap": "pnpm install && pnpm run clean && pnpm -r build",
+    "bootstrap": "pnpm run clean && pnpm install && pnpm -r build",
     "build": "pnpm -r run build",
     "check-format": "prettier --check .",
-    "clean": "rimraf --glob \"packages/**/lib\" \"**/*.tsbuildinfo\"",
+    "clean": "rimraf --glob \"**/node_modules\" \"packages/**/lib\" \"**/*.tsbuildinfo\"",
+    "dev": "pnpm --recursive --parallel --stream run dev",
     "format": "prettier --write .",
     "lint": "manypkg check && pnpm run lint-packages && pnpm -r run --parallel lint",
     "lint-packages": "pnpm -r --include-workspace-root --no-bail --filter=!@bfra.me/prettier-config exec publint",
