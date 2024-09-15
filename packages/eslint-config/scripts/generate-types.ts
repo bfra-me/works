@@ -3,16 +3,15 @@ import {builtinRules} from 'eslint/use-at-your-own-risk'
 import {flatConfigsToRulesDTS} from 'eslint-typegen/core'
 import eslintConfig from '../src'
 
-const configs = [
-  ...eslintConfig,
-  {
+const configs = await eslintConfig
+  .prepend({
     plugins: {
       '': {
         rules: Object.fromEntries(builtinRules.entries()),
       },
     },
-  },
-]
+  })
+  .toConfigs()
 
 let dts = await flatConfigsToRulesDTS(configs, {
   exportTypeName: 'Rules',
@@ -33,6 +32,9 @@ export type Config = Linter.Config<Linter.RulesRecord & Rules>
  * Contains the names of all the configurations in this package.
  */
 export type ConfigNames = ${configNames.map(name => `'${name}'`).join(' | ')}
+
+import type {FlatConfigComposer} from 'eslint-flat-config-utils'
+export type ComposableConfig = FlatConfigComposer<Config, ConfigNames>
 
 `
 

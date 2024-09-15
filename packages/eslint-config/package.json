@@ -44,6 +44,7 @@
   },
   "prettier": "@bfra.me/prettier-config",
   "dependencies": {
+    "eslint-flat-config-utils": "0.4.0",
     "globals": "15.9.0",
     "typescript-eslint": "8.5.0"
   },

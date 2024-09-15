@@ -10,6 +10,10 @@
     "editor.formatOnSave": true,
     "editor.formatOnType": false,
 
+    "eslint.options": {
+        "flags": ["unstable_ts_config"]
+    },
+
     "explorer.fileNesting.enabled": false,
 
     "cSpell.words": ["bfra", "frameworkers"],

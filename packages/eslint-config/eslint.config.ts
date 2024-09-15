@@ -1,3 +1,3 @@
-import eslintConfig from './src'
+import {defineConfig} from './src'
 
-export default eslintConfig
+export default defineConfig()

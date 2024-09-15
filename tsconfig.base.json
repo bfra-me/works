@@ -1,0 +1,4 @@
+{
+  "extends": "@bfra.me/tsconfig",
+  "exclude": ["node_modules", "lib"]
+}

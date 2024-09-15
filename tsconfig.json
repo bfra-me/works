@@ -1,5 +1,8 @@
 {
-  "compilerOptions": {"noEmit": true, "composite": false, "declaration": false},
-  "exclude": ["node_modules", "**/lib/*"],
-  "extends": "@bfra.me/tsconfig"
+  "extends": "tsconfig.base.json",
+  "compilerOptions": {
+    "composite": false,
+    "declaration": false,
+    "noEmit": true
+  }
 }
