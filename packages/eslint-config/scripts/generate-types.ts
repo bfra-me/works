@@ -1,17 +1,15 @@
 import fs from 'node:fs/promises'
 import {builtinRules} from 'eslint/use-at-your-own-risk'
 import {flatConfigsToRulesDTS} from 'eslint-typegen/core'
-import eslintConfig from '../src'
+import {defineConfig} from '../src/define-config'
 
-const configs = await eslintConfig
-  .prepend({
-    plugins: {
-      '': {
-        rules: Object.fromEntries(builtinRules.entries()),
-      },
+const configs = await defineConfig({
+  plugins: {
+    '': {
+      rules: Object.fromEntries(builtinRules.entries()),
     },
-  })
-  .toConfigs()
+  },
+}).toConfigs()
 
 let dts = await flatConfigsToRulesDTS(configs, {
   exportTypeName: 'Rules',
@@ -31,7 +29,7 @@ export type Config = Linter.Config<Linter.RulesRecord & Rules>
 /**
  * Contains the names of all the configurations in this package.
  */
-export type ConfigNames = ${configNames.map(name => `'${name}'`).join(' | ')}
+export type ConfigNames = ${configNames.length > 0 ? configNames.map(name => `'${name}'`).join(' | ') : 'never'}
 
 import type {FlatConfigComposer} from 'eslint-flat-config-utils'
 export type ComposableConfig = FlatConfigComposer<Config, ConfigNames>
