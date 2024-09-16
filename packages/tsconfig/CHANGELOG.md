@@ -1,5 +1,12 @@
 # @bfra.me/tsconfig
 
+## 0.7.0
+### Minor Changes
+
+
+
+- Set the `target` to 'ESNext"; set `skipLibChecks` to true (by [@marcusrbrown](https://github.com/marcusrbrown) with [#388](https://github.com/bfra-me/works/pull/388))
+
 ## 0.6.0
 ### Minor Changes
 

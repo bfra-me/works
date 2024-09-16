@@ -1,5 +1,14 @@
 # @bfra.me/prettier-config
 
+## 0.7.1
+### Patch Changes
+
+
+
+- Remove unnecessary files from the published package (by [@marcusrbrown](https://github.com/marcusrbrown) with [#386](https://github.com/bfra-me/works/pull/386))
+- Updated dependencies:
+  - @bfra.me/prettier-plugins@0.3.0
+
 ## 0.7.0
 ### Minor Changes
 
