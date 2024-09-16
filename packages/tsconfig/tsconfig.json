@@ -16,8 +16,9 @@
     "noImplicitAny": true,
     "preserveConstEnums": true,
     "resolveJsonModule": true,
+    "skipLibCheck": true,
     "sourceMap": true,
-    "target": "ES2022",
+    "target": "ESNext",
     "verbatimModuleSyntax": true
   }
 }
