@@ -5,6 +5,8 @@ import ts from 'typescript'
 
 const {sys, findConfigFile, readConfigFile, parseJsonConfigFileContent} = ts
 
+const ExpectedScriptTarget = ts.ScriptTarget.ESNext
+
 describe('config', () => {
   it('contains valid configuration', async () => {
     const tsconfigPath = findConfigFile(process.cwd(), sys.fileExists)
@@ -20,6 +22,6 @@ describe('config', () => {
       `Error parsing tsconfig.json: ${parsed.errors.map(e => e.messageText).join(', ')}`,
     )
 
-    assert(parsed.options.target === ts.ScriptTarget.ES2022, 'target must be ES2022')
+    assert(parsed.options.target === ExpectedScriptTarget, 'target must match expected value')
   })
 })
