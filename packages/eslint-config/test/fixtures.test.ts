@@ -6,7 +6,7 @@ import fg from 'fast-glob'
 import {existsSync} from 'node:fs'
 import fs from 'fs-extra'
 import {afterAll, beforeAll, it} from 'vitest'
-import type {Config} from '@bfra.me/eslint-config'
+import {GLOB_TS, GLOB_TSX, type Config} from '@bfra.me/eslint-config'
 
 const cleanup = () => fs.rm('test/_fixtures', {force: true, recursive: true})
 
@@ -39,6 +39,7 @@ import {defineConfig} from '@bfra.me/eslint-config'
 
 export default defineConfig(
   ${JSON.stringify(options)},
+  {files: ['${GLOB_TS}', '${GLOB_TSX}'], rules: {'@typescript-eslint/explicit-function-return-type': 'off'}},
   ...${JSON.stringify(configs) ?? []},
 )
 `,

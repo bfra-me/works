@@ -9,5 +9,5 @@
     "noEmit": true
   },
   "include": ["**/*.ts"],
-  "exclude": ["node_modules", "./test/fixtures/**/*.*", "./test/_fixtures/**/*.*"]
+  "exclude": ["node_modules", "test/fixtures/**", "test/_fixtures/**"]
 }
