@@ -37,9 +37,10 @@ function testPreset(name: string, options: Record<string, unknown>, ...configs: 
 // @eslint-disable
 import {defineConfig} from '@bfra.me/eslint-config'
 
-export default defineConfig({
+export default defineConfig(
+  ${JSON.stringify(options)},
   ...${JSON.stringify(configs) ?? []},
-})
+)
 `,
       )
 
