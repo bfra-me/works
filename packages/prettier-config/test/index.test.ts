@@ -40,6 +40,7 @@ function testPreset(name: string, preset?: string, ...configs: Prettier.Config[]
       await fs.writeFile(
         config,
         `
+// @eslint-disable
 import prettierConfig from '@bfra.me/prettier-config${preset ? `/${preset}` : ''}'
 
 const config = {
