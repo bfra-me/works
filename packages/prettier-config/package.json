@@ -37,7 +37,8 @@
   "files": [
     "*.js",
     "*.ts",
-    "!*.map"
+    "!**/*.map",
+    "!tsup.config.ts"
   ],
   "scripts": {
     "build": "tsup && pnpm run format",
