@@ -1,9 +1,12 @@
 import {type Awaitable, FlatConfigComposer} from 'eslint-flat-config-utils'
 import type {Linter} from 'eslint'
+import type {FlatGitignoreOptions} from 'eslint-config-flat-gitignore'
 import {isPackageExists} from 'local-pkg'
 import type {ParserOptions} from '@typescript-eslint/types'
-import {ignores, typescript} from './configs'
+import {ignores, imports, javascript, perfectionist, typescript} from './configs'
 import type {ComposableConfig, Config, ConfigNames} from './types'
+import * as Env from './env'
+import {interopDefault} from './plugins'
 
 type AllowedConfigForOptions = Omit<Config, 'files'>
 
@@ -25,6 +28,13 @@ export interface OptionsFiles {
    * Override the `files` option to provide custom globs.
    */
   files?: Config['files']
+}
+
+export interface OptionsIsInEditor {
+  /**
+   * Enable editor specific rules.
+   */
+  isInEditor?: boolean
 }
 
 export interface OptionsOverrides {
@@ -74,9 +84,21 @@ export type OptionsTypeScript =
 
 export type Options = {
   /**
+   * Enable gitignore support.
+   *
+   * @see https://github.com/antfu/eslint-config-flat-gitignore
+   * @default true
+   */
+  gitignore?: boolean | FlatGitignoreOptions
+
+  isInEditor?: boolean
+
+  javascript?: OptionsOverrides
+
+  /**
    * Enable TypeScript support.
    *
-   * Passing an object to enable TypeScript Language Server support.
+   * Pass options to enable support for the TypeScript language and project services.
    *
    * @default auto-detect based on the dependencies
    */
@@ -87,10 +109,39 @@ export function defineConfig(
   options: Options = {},
   ...userConfigs: Awaitable<Config | Config[] | FlatConfigComposer | Linter.Config[]>[]
 ): ComposableConfig {
-  const {typescript: enableTypeScript = isPackageExists('typescript')} = options
+  const {
+    gitignore: enableGitignore = true,
+    typescript: enableTypeScript = isPackageExists('typescript'),
+  } = options
+
+  const isInEditor = options.isInEditor ?? Env.isInEditor
+  if (isInEditor)
+    console.log(
+      '[@bfra.me/eslint-config] Editor specific config is enabled. Some rules may be disabled.',
+    )
+
   const configs: Awaitable<Config[]>[] = []
 
-  configs.push(ignores(options.ignores))
+  if (enableGitignore) {
+    const gitignoreOptions: FlatGitignoreOptions =
+      typeof enableGitignore !== 'boolean' ? enableGitignore : {strict: false}
+
+    configs.push(
+      interopDefault(import('eslint-config-flat-gitignore')).then(p => [
+        p({
+          name: '@bfra.me/gitignore',
+          ...gitignoreOptions,
+        }),
+      ]),
+    )
+  }
+
+  configs.push(
+    ignores(options.ignores),
+    javascript({isInEditor, overrides: getOverrides(options, 'javascript')}),
+    imports(),
+    perfectionist(),
+  )
 
   const typescriptOptions = resolveSubOptions(options, 'typescript')
   // const tsconfigPath ='tsconfigPath' in typescriptOptions ? typescriptOptions.tsconfigPath : undefined

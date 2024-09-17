@@ -1,2 +1,5 @@
 export * from './ignores'
+export * from './imports'
+export * from './javascript'
+export * from './perfectionist'
 export * from './typescript'

@@ -6,3 +6,7 @@ export async function interopDefault<T>(
   const resolved = await m
   return (resolved as any).default || resolved
 }
+
+export {default as importX} from 'eslint-plugin-import-x'
+export {default as perfectionist} from 'eslint-plugin-perfectionist'
+export {default as unusedImports} from 'eslint-plugin-unused-imports'

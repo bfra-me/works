@@ -2,7 +2,7 @@ import fs from 'node:fs/promises'
 import {builtinRules} from 'eslint/use-at-your-own-risk'
 import {concat} from 'eslint-flat-config-utils'
 import {flatConfigsToRulesDTS} from 'eslint-typegen/core'
-import {ignores, typescript} from '../src/configs'
+import {ignores, imports, javascript, perfectionist, typescript} from '../src/configs'
 
 const configs = await concat(
   {
@@ -13,12 +13,16 @@ const configs = await concat(
     },
   },
   ignores(),
+  imports(),
+  javascript(),
+  perfectionist(),
   typescript(),
 )
 
 let dts = await flatConfigsToRulesDTS(configs, {
   exportTypeName: 'Rules',
   includeAugmentation: false,
+  includeIgnoreComments: false,
 })
 
 const configNames = configs.map(config => config.name).filter(Boolean) as string[]
