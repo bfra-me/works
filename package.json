@@ -17,7 +17,7 @@
     "bootstrap": "pnpm install --frozen-lockfile --prefer-offline && pnpm run clean && pnpm -r build",
     "build": "pnpm -r run build",
     "check-format": "prettier --check .",
-    "clean": "rimraf --glob \"packages/**/lib\" \"**/*.tsbuildinfo\"",
+    "clean": "rimraf --glob \"packages/*/lib\" \"**/*.tsbuildinfo\"",
     "format": "prettier --write .",
     "lint": "manypkg check && pnpm run lint-packages && pnpm -r run --parallel lint",
     "lint-packages": "pnpm -r --include-workspace-root --no-bail --filter=!@bfra.me/prettier-config exec publint",
