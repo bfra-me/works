@@ -1,6 +1,6 @@
-# Continuous Integration jobs for this repository.
+# Continuous Integration jobs for changes pointed to main.
 ---
-name: CI
+name: Main
 
 'on':
   merge_group:
@@ -19,8 +19,8 @@ permissions:
   contents: read
 
 jobs:
-  test:
-    name: Test
+  ci:
+    name: CI
     runs-on: ubuntu-latest
 
     steps:
@@ -43,7 +43,7 @@ jobs:
     name: Release
     if: github.repository == 'bfra-me/works' && github.ref == 'refs/heads/main'
     needs:
-      - test
+      - ci
     permissions:
       contents: read
       id-token: write
