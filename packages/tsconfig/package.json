@@ -34,9 +34,6 @@
     "run-tests": "node --test ./test/lib/*.test.js",
     "test": "pnpm compile-tests && pnpm run-tests"
   },
-  "dependencies": {
-    "@tsconfig/strictest": "2.0.5"
-  },
   "devDependencies": {
     "@bfra.me/tsconfig": "workspace:*",
     "ajv": "8.17.1",
