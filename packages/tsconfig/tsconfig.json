@@ -12,8 +12,8 @@
     "exactOptionalPropertyTypes": true,
     "experimentalDecorators": true,
     "isolatedModules": true,
-    "lib": ["ES2022"],
-    "module": "ESNext",
+    "lib": ["ES2023"],
+    "module": "Preserve",
     "moduleResolution": "Bundler",
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
@@ -28,7 +28,7 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "ESNext",
+    "target": "ES2022",
     "verbatimModuleSyntax": true
   }
 }
