@@ -5,15 +5,15 @@ description: Prepare the job by installing required tools and dependencies
 runs:
   using: 'composite'
   steps:
-    - name: Enable Corepack
-      run: corepack enable
-      shell: 'bash -Eeuo pipefail {0}'
-
     - id: setup-node
       name: Setup Node.js
       uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
       with:
         node-version-file: '.node-version'
+
+    - uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2
+      with:
+        run_install: false
 
     - name: Install dependencies and build packages
       uses: ./.github/actions/pnpm-install
