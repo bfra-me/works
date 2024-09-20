@@ -22,7 +22,7 @@
     "lint": "manypkg check && pnpm run lint-packages && pnpm -r run --parallel lint",
     "lint-packages": "pnpm -r --include-workspace-root --no-bail --filter=!@bfra.me/prettier-config exec publint",
     "publish-changesets": "changeset publish",
-    "test": "pnpm -r run test",
+    "test": "CI=1 pnpm -r run test",
     "version-changesets": "changeset version",
     "watch": "pnpm run build --watch"
   },
