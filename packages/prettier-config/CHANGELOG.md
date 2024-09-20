@@ -1,5 +1,14 @@
 # @bfra.me/prettier-config
 
+## 0.7.2
+### Patch Changes
+
+
+
+- Remove `checkJs`, `composite`, and `incremental` compiler options; use relative paths for `extends` (by [@marcusrbrown](https://github.com/marcusrbrown) with [#394](https://github.com/bfra-me/works/pull/394))
+- Updated dependencies:
+  - @bfra.me/prettier-plugins@0.3.1
+
 ## 0.7.1
 ### Patch Changes
 

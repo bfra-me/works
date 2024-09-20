@@ -1,5 +1,12 @@
 # @bfra.me/semantic-release
 
+## 0.1.4
+### Patch Changes
+
+
+
+- Remove `checkJs`, `composite`, and `incremental` compiler options; use relative paths for `extends` (by [@marcusrbrown](https://github.com/marcusrbrown) with [#394](https://github.com/bfra-me/works/pull/394))
+
 ## 0.1.3
 
 ### Patch Changes
