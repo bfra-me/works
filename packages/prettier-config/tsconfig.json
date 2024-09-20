@@ -1,14 +1,10 @@
 {
   "$schema": "http://json.schemastore.org/tsconfig",
-  "extends": "@bfra.me/tsconfig",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "composite": false,
-    "declaration": true,
-    "incremental": false,
     "outDir": ".",
     "rootDir": ".",
     "sourceMap": false
   },
-  "include": ["**/*.ts"],
-  "exclude": ["node_modules", "./test/fixtures/**/*.*", "./test/_fixtures/**/*.*"]
+  "include": ["./*.ts"]
 }

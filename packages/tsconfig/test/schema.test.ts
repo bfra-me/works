@@ -2,14 +2,16 @@ import assert from 'node:assert'
 import {promises as fs} from 'node:fs'
 import {describe, it} from 'node:test'
 import Ajv, {type JSONSchemaType} from 'ajv-draft-04'
-import type {TsConfigJson} from 'type-fest'
+import type {Jsonify, TsConfigJson} from 'type-fest'
 
 const SCHEMA_URL = 'https://json.schemastore.org/tsconfig'
 
 describe('schema', () => {
   it('validates against tsconfig.json schema', async t => {
-    const tsconfig = JSON.parse(await fs.readFile('tsconfig.json', 'utf8'))
-    const schemaUrl = (tsconfig['$schema'] ?? SCHEMA_URL) as string
+    const tsconfig = JSON.parse(await fs.readFile('tsconfig.json', 'utf8')) as Jsonify<
+      TsConfigJson & {['$schema']?: string}
+    >
+    const schemaUrl = tsconfig.$schema ?? SCHEMA_URL
     const response = await fetch(schemaUrl)
     if (!response.ok) {
       return t.skip(`Could not fetch ${SCHEMA_URL}, skipping`)
