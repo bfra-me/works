@@ -1,0 +1,35 @@
+---
+# Based on https://gist.github.com/belgattitude/838b2eba30c324f1f0033a797bab2e31
+name: Install pnpm
+description: Setup pnpm and install dependencies
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Expose pnpm config(s) through "$GITHUB_OUTPUT"
+      id: pnpm-config
+      shell: 'bash -Eeuo pipefail {0}'
+      run: |
+        echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+    - name: Cache rotation keys
+      id: cache-rotation
+      shell: 'bash -Eeuo pipefail {0}'
+      run: |
+        echo "YEAR_MONTH=$(/bin/date -u "+%Y%m")" >> $GITHUB_OUTPUT
+
+    - uses: actions/cache@v3
+      name: Setup pnpm cache
+      with:
+        path: ${{ steps.pnpm-config.outputs.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-cache-${{ steps.cache-rotation.outputs.YEAR_MONTH }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-cache-${{ steps.cache-rotation.outputs.YEAR_MONTH }}-
+
+    - name: Bootstrap monorepo
+      env:
+        HUSKY: '0'
+      run: |
+        # Use the bootstrap script to install dependencies and build packages
+        pnpm bootstrap
+      shell: 'bash -Eeuo pipefail {0}'

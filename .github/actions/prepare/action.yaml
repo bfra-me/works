@@ -1,3 +1,4 @@
+---
 name: Prepare Job
 description: Prepare the job by installing required tools and dependencies
 
@@ -12,24 +13,7 @@ runs:
       name: Setup Node.js
       uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
       with:
-        cache: 'pnpm'
         node-version-file: '.node-version'
 
-    - id: cache-node-modules
-      name: Cache node_modules
-      uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
-      with:
-        key: node-${{ steps.setup-node.outputs.node-version }}-modules-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
-        path: '**/node_modules'
-        restore-keys: node-${{ steps.setup-node.outputs.node-version }}-modules-${{ runner.os }}-
-
-    - if: steps.cache-node-modules.outputs.cache-hit != 'true' || steps.setup-node.outputs.cache-hit != 'true'
-      env:
-        HUSKY: '0'
-      name: Install dependencies
-      run: pnpm install
-      shell: 'bash -Eeuo pipefail {0}'
-
-    - name: Build packages
-      run: pnpm run build
-      shell: 'bash -Eeuo pipefail {0}'
+    - name: Install dependencies and build packages
+      uses: ./.github/actions/pnpm-install

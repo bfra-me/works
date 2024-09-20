@@ -14,7 +14,7 @@
   "author": "Marcus R. Brown <contact@bfra.me>",
   "type": "module",
   "scripts": {
-    "bootstrap": "pnpm install && pnpm run clean && pnpm -r build",
+    "bootstrap": "rimraf --glob \"**/node_modules\" && pnpm install --frozen-lockfile --prefer-offline && pnpm run clean && pnpm -r build",
     "build": "pnpm -r run build",
     "check-format": "prettier --check .",
     "clean": "rimraf --glob \"packages/**/lib\" \"**/*.tsbuildinfo\"",
