@@ -22,7 +22,7 @@
     "lint": "manypkg check && pnpm run lint-packages && pnpm -r run --parallel lint",
     "lint-packages": "pnpm -r --include-workspace-root --no-bail --filter=!@bfra.me/prettier-config exec publint",
     "publish-changesets": "changeset publish",
-    "test": "pnpm -r run test",
+    "test": "CI=1 pnpm -r run test",
     "version-changesets": "changeset version",
     "watch": "pnpm run build --watch"
   },
@@ -41,13 +41,13 @@
     "@manypkg/cli": "0.21.4",
     "@swisspost/design-system-changelog-github": "1.0.2",
     "@types/node": "20.16.1",
-    "eslint": "9.10.0",
+    "eslint": "9.11.0",
     "prettier": "3.3.3",
     "publint": "0.2.8",
     "rimraf": "6.0.1",
     "typescript": "5.6.2"
   },
-  "packageManager": "pnpm@9.10.0",
+  "packageManager": "pnpm@9.11.0",
   "pnpm": {
     "overrides": {
       "read-pkg-up@^11": "npm:read-package-up"
