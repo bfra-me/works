@@ -5,7 +5,7 @@ import ts from 'typescript'
 
 const {sys, findConfigFile, readConfigFile, parseJsonConfigFileContent} = ts
 
-const ExpectedScriptTarget = ts.ScriptTarget.ESNext
+const ExpectedScriptTarget = ts.ScriptTarget.ES2022
 
 describe('config', () => {
   it('contains valid configuration', async () => {
