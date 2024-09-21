@@ -1,5 +1,25 @@
 # @bfra.me/tsconfig
 
+## 0.8.0
+### Minor Changes
+
+
+
+- Merge @tsconfig/strictest/tsconfig.json into the base tsconfig.json (by [@marcusrbrown](https://github.com/marcusrbrown) with [#394](https://github.com/bfra-me/works/pull/394))
+
+
+- Use explicit `target` and `lib`; set `module` to preserve (by [@marcusrbrown](https://github.com/marcusrbrown) with [#394](https://github.com/bfra-me/works/pull/394))
+
+
+- Remove `checkJs`, `composite`, and `incremental` compiler options; use relative paths for `extends` (by [@marcusrbrown](https://github.com/marcusrbrown) with [#394](https://github.com/bfra-me/works/pull/394))
+
+## 0.7.0
+### Minor Changes
+
+
+
+- Set the `target` to 'ESNext"; set `skipLibChecks` to true (by [@marcusrbrown](https://github.com/marcusrbrown) with [#388](https://github.com/bfra-me/works/pull/388))
+
 ## 0.6.0
 ### Minor Changes
 

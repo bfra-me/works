@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/prettier-plugins",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Plugins for Prettier used across bfra.me.",
   "keywords": [
     "bfra.me",
@@ -43,7 +43,7 @@
     "@bfra.me/prettier-plugins": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
     "prettier": "3.3.3",
-    "tsup": "8.2.0"
+    "tsup": "8.3.0"
   },
   "peerDependencies": {
     "prettier": "^3.0.0"

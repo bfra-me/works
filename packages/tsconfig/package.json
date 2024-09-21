@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/tsconfig",
-  "version": "0.6.0",
+  "version": "0.8.0",
   "description": "Shared TypeScript configuration for bfra.me",
   "keywords": [
     "bfra.me",
@@ -33,9 +33,6 @@
     "compile-tests": "tsc --project ./test",
     "run-tests": "node --test ./test/lib/*.test.js",
     "test": "pnpm compile-tests && pnpm run-tests"
-  },
-  "dependencies": {
-    "@tsconfig/strictest": "2.0.5"
   },
   "devDependencies": {
     "@bfra.me/tsconfig": "workspace:*",

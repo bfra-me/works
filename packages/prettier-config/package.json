@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/prettier-config",
-  "version": "0.7.0",
+  "version": "0.7.2",
   "description": "Shared Prettier configuration for bfra.me",
   "keywords": [
     "bfra.me",
@@ -52,11 +52,11 @@
     "@bfra.me/prettier-config": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
     "@types/fs-extra": "11.0.4",
-    "execa": "9.3.1",
+    "execa": "9.4.0",
     "fast-glob": "3.3.2",
     "fs-extra": "11.2.0",
     "prettier": "3.3.3",
-    "tsup": "8.2.0",
+    "tsup": "8.3.0",
     "vitest": "2.1.0"
   },
   "peerDependencies": {

@@ -1,8 +1,4 @@
 {
-  "extends": "./tsconfig.base.json",
-  "compilerOptions": {
-    "composite": false,
-    "declaration": false,
-    "noEmit": true
-  }
+  "extends": "./packages/tsconfig/tsconfig.json",
+  "exclude": ["node_modules", "lib", "**/test/fixtures/**/*"]
 }

@@ -5,15 +5,15 @@ import ts from 'typescript'
 
 const {sys, findConfigFile, readConfigFile, parseJsonConfigFileContent} = ts
 
-const ExpectedScriptTarget = ts.ScriptTarget.ESNext
+const ExpectedScriptTarget = ts.ScriptTarget.ES2022
 
 describe('config', () => {
   it('contains valid configuration', async () => {
-    const tsconfigPath = findConfigFile(process.cwd(), sys.fileExists)
+    const tsconfigPath = findConfigFile(process.cwd(), fileName => sys.fileExists(fileName))
     if (!tsconfigPath) {
       throw new Error('No tsconfig.json file found')
     }
-    const {config: tsconfig, error} = readConfigFile(tsconfigPath, sys.readFile)
+    const {config: tsconfig, error} = readConfigFile(tsconfigPath, path => sys.readFile(path))
     assert(error === undefined, `Error reading tsconfig.json: ${error?.messageText}`)
 
     const parsed = parseJsonConfigFileContent(tsconfig, sys, path.dirname(tsconfigPath))
