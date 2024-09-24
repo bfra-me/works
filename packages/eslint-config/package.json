@@ -38,6 +38,7 @@
   ],
   "scripts": {
     "build": "pnpm run generate-types && tsup",
+    "dev": "eslint-config-inspector --config ./eslint-inspector.config.ts",
     "generate-types": "tsx ./scripts/generate-types.ts",
     "lint": "eslint --flag unstable_ts_config .",
     "test": "vitest"

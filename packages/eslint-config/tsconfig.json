@@ -1,6 +1,6 @@
 {
   "$schema": "http://json.schemastore.org/tsconfig",
-  "extends": "../../tsconfig.base.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "composite": false,
@@ -9,6 +9,5 @@
     "noEmit": true,
     "noPropertyAccessFromIndexSignature": false
   },
-  "include": ["**/*.ts"],
-  "exclude": ["node_modules", "./test/fixtures/**", "./test/_fixtures/**"]
+  "include": ["**/*.ts"]
 }

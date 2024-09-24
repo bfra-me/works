@@ -1,4 +1,0 @@
-{
-  "extends": "@bfra.me/tsconfig",
-  "exclude": ["node_modules", "lib", "test/fixtures/**", "test/_fixtures/**"]
-}
