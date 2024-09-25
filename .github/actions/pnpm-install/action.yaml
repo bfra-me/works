@@ -19,15 +19,12 @@ runs:
     - id: cache-config
       name: Configure cache
       run: |
-        pnpm_store_path=("$(pnpm config get store-dir --silent)")
-        pnpm_store_path+=("$(pnpm store path --silent)")
+        pnpm_store_path="$(pnpm store path --silent)"
         if [ -z "pnpm_store_path" ]; then
           echo "Failed to get pnpm store path"
           exit 1
         fi
-        for path in "${pnpm_store_path[@]}"; do
-          mkdir -p "$path" || exit 1
-        done
+        mkdir -p "pnpm_store_path" || exit 1
         echo "path=$pnpm_store_path" >> $GITHUB_OUTPUT
         year_month=$(date -u '+%Y%m')
         base_key="${{ runner.os }}-pnpm-cache-v${year_month}"
