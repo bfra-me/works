@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
 
       - name: Prepare job
-        uses: ./.github/actions/prepare
+        uses: ./.github/actions/pnpm-install
 
       - name: Check formatting
         run: pnpm run check-format
@@ -70,7 +70,7 @@ jobs:
           token: ${{ steps.get-workflow-access-token.outputs.token }}
 
       - name: Prepare job
-        uses: ./.github/actions/prepare
+        uses: ./.github/actions/pnpm-install
 
       - name: Perform a dry run of `pnpm publish`
         run: pnpm -r publish --dry-run
