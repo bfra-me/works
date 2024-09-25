@@ -9,15 +9,15 @@ runs:
     - id: cache-config
       name: Configure cache
       run: |
-        local pnpm_store_path=$(pnpm store path --silent)
+        pnpm_store_path=$(pnpm store path --silent)
         if [ -z "$store_path" ]; then
           echo "Failed to get pnpm store path"
           exit 1
         fi
         mkdir -p $pnpm_store_path || exit 1
         echo "pnpm-store-path=$pnpm_store_path" >> $GITHUB_OUTPUT
-        local year_month=$(date -u '+%Y%m')
-        local base_key="${{ runner.os }}-pnpm-cache-v${year_month}-"
+        year_month=$(date -u '+%Y%m')
+        base_key="${{ runner.os }}-pnpm-cache-v${year_month}-"
         echo "key=${base_key}-${{ hashFiles('**/pnpm-lock.yaml') }}" >> $GITHUB_OUTPUT
         echo "restore-keys=${base_key}-" >> $GITHUB_OUTPUT
       shell: 'bash -Eeuo pipefail {0}'
