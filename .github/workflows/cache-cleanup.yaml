@@ -11,9 +11,10 @@ name: Cache Cleanup
 
 jobs:
   cleanup:
+    name: Cleanup cache
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code
+      - name: Checkout repository
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
 
       - id: cache-info
@@ -32,7 +33,7 @@ jobs:
           echo "branch=$BRANCH" >> $GITHUB_OUTPUT
           if [ -n "$BRANCH" ]; then
             # Get cache keys that don't include the branch's SHA (if not a PR)
-            gh actions-cache list -R ${{ github.repository }} -B $BRANCH --order asc --sort last-use | cut -f 1 > cache-keys.txt
+            gh actions-cache list -R ${{ github.repository }} -B $BRANCH --order asc --sort last-used | cut -f 1 > cache-keys.txt
             [ -z "${{ github.event.pull_request }}" ] && grep -v ${{ github.sha }} cache-keys.txt > cache-keys.txt.tmp && mv cache-keys.txt.tmp cache-keys.txt
             echo cache-keys="$(cat cache-keys.txt | tr '\n' ' ')" >> $GITHUB_OUTPUT
           fi
