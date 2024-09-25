@@ -1,4 +1,4 @@
-import prettierConfig from '@bfra.me/prettier-config'
+import prettierConfig from './prettier.config.js'
 import type {Config} from 'prettier'
 
 const {searchParams: params} = new URL(import.meta.url)
