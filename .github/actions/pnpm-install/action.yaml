@@ -9,7 +9,7 @@ runs:
     - id: cache-config
       name: Configure cache
       run: |
-        pnpm_store_path=$(pnpm store path --silent)
+        pnpm_store_path=$(pnpm config get store-dir --silent)
         if [ -z "pnpm_store_path" ]; then
           echo "Failed to get pnpm store path"
           exit 1
