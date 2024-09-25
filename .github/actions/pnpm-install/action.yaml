@@ -30,9 +30,9 @@ runs:
         done
         echo "path=$pnpm_store_path" >> $GITHUB_OUTPUT
         year_month=$(date -u '+%Y%m')
-        base_key="${{ runner.os }}-pnpm-cache-v${year_month}-"
+        base_key="${{ runner.os }}-pnpm-cache-v${year_month}"
         echo "key=${base_key}-${{ hashFiles('**/pnpm-lock.yaml') }}" >> $GITHUB_OUTPUT
-        echo "restore-keys=${base_key}" >> $GITHUB_OUTPUT
+        echo "restore-keys=${base_key}-" >> $GITHUB_OUTPUT
       shell: 'bash -Eeuo pipefail {0}'
 
     - name: Setup pnpm cache
