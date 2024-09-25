@@ -25,8 +25,8 @@ runs:
           echo "Failed to get pnpm store path"
           exit 1
         fi
-        for pnpm_store_path in "${pnpm_store_path[@]}"; do
-          mkdir -p "$pnpm_store_path" || exit 1
+        for path in "${pnpm_store_path[@]}"; do
+          mkdir -p "$path" || exit 1
         done
         echo "path=$pnpm_store_path" >> $GITHUB_OUTPUT
         year_month=$(date -u '+%Y%m')
