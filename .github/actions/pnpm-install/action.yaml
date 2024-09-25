@@ -6,25 +6,28 @@ description: Setup pnpm and install dependencies
 runs:
   using: 'composite'
   steps:
-    - id: pnpm-config
-      name: Expose pnpm config(s) through "$GITHUB_OUTPUT"
+    - id: cache-config
+      name: Configure cache
       run: |
-        echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
-      shell: 'bash -Eeuo pipefail {0}'
-
-    - id: cache-rotation
-      name: Cache rotation keys
-      run: |
-        echo "YEAR_MONTH=$(/bin/date -u "+%Y%m")" >> $GITHUB_OUTPUT
+        local pnpm_store_path=$(pnpm store path --silent)
+        if [ -z "$store_path" ]; then
+          echo "Failed to get pnpm store path"
+          exit 1
+        fi
+        mkdir -p $pnpm_store_path || exit 1
+        echo "pnpm-store-path=$pnpm_store_path" >> $GITHUB_OUTPUT
+        local year_month=$(date -u '+%Y%m')
+        local base_key="${{ runner.os }}-pnpm-cache-v${year_month}-"
+        echo "key=${base_key}-${{ hashFiles('**/pnpm-lock.yaml') }}" >> $GITHUB_OUTPUT
+        echo "restore-keys=${base_key}-" >> $GITHUB_OUTPUT
       shell: 'bash -Eeuo pipefail {0}'
 
     - name: Setup pnpm cache
       uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
       with:
-        path: ${{ steps.pnpm-config.outputs.STORE_PATH }}
-        key: ${{ runner.os }}-pnpm-store-cache-${{ steps.cache-rotation.outputs.YEAR_MONTH }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-        restore-keys: |
-          ${{ runner.os }}-pnpm-store-cache-${{ steps.cache-rotation.outputs.YEAR_MONTH }}-
+        key: ${{ steps.cache-config.outputs.key }}
+        path: ${{ steps.cache-config.outputs.pnpm-store-path }}
+        restore-keys: ${{ steps.cache-config.outputs.restore-keys }}
 
     - name: Bootstrap monorepo
       env:
