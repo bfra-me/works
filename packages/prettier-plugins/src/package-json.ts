@@ -1,34 +1,45 @@
-import type {Parser, ParserOptions, Plugin, SupportOption} from 'prettier'
+import type {
+  ParserOptions as PrettierParserOptions,
+  SupportOption,
+  SupportOptions as PrettierSupportOptions,
+} from 'prettier'
 import prettier from 'prettier'
 import {parsers as babelParsers} from 'prettier/plugins/babel'
+import {languages as estreeLanguages} from 'prettier/plugins/estree'
 import {sortPackageJson} from 'sort-package-json'
 
-export type SortPackageJsonOptions = NonNullable<Parameters<typeof sortPackageJson>[1]>
+type SortPackageJsonOptions = NonNullable<Parameters<typeof sortPackageJson>[1]>
 
 export type PrettierPackageJsonOptions = {
   /** Custom ordering array or comparator function. */
   sortPackageJsonSortOrder?: SortPackageJsonOptions['sortOrder']
 }
 
-export type PrettierOptions = ParserOptions & PrettierPackageJsonOptions
+export type ParserOptions<T = any> = PrettierParserOptions<T> & PrettierPackageJsonOptions
 
-export const options = {
+const languages = estreeLanguages.filter(({name}) => name === 'JSON.stringify')
+
+export type SupportOptions = PrettierSupportOptions & {
+  [_ in keyof PrettierPackageJsonOptions]: SupportOption
+}
+
+const options: SupportOptions = {
   sortPackageJsonSortOrder: {
-    category: 'Format',
+    category: 'JavaScript',
     type: 'string',
     description: 'Custom ordering array.',
     default: [{value: [] as string[]}],
     array: true,
   },
-} satisfies Record<keyof PrettierPackageJsonOptions, SupportOption>
+}
 
 const parser = babelParsers['json-stringify']
 
-export const parsers = {
+const parsers: Partial<typeof babelParsers> = {
   'json-stringify': {
     ...parser,
 
-    async parse(text: string, options: PrettierOptions) {
+    async parse(text: string, options: ParserOptions) {
       const {filepath} = options
       if (/package.*json$/u.test(filepath)) {
         // Format the text with prettier to avoid any parsing errors
@@ -48,11 +59,6 @@ export const parsers = {
       return parser.parse(text, options)
     },
   },
-} satisfies Record<string, Parser>
-
-const PackageJsonPlugin: Plugin<string> = {
-  parsers,
-  options,
 }
 
-export default PackageJsonPlugin
+export {languages, options, parsers}
