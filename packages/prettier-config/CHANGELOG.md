@@ -1,5 +1,14 @@
 # @bfra.me/prettier-config
 
+## 0.7.3
+### Patch Changes
+
+
+
+- Refactor and add `languages` to the `package-json` plugin; improve types (by [@marcusrbrown](https://github.com/marcusrbrown) with [#407](https://github.com/bfra-me/works/pull/407))
+- Updated dependencies:
+  - @bfra.me/prettier-plugins@0.4.0
+
 ## 0.7.2
 ### Patch Changes
 
