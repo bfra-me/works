@@ -1,23 +1,14 @@
 import type {Plugin} from 'prettier'
+import * as PluginPackageJson from '@bfra.me/prettier-plugins/package-json'
 
-export type InteropDefault<T> = T extends {default: infer U} ? U : T
-
-function interopDefault<T>(m: T): InteropDefault<T> {
-  return (m as any).default || m
-}
-
-import {default as pluginPackageJson} from '@bfra.me/prettier-plugins/package-json'
 const resolvedPlugins: Record<string, Plugin> = {
-  '@bfra.me/prettier-plugins/package-json': interopDefault(pluginPackageJson),
+  '@bfra.me/prettier-plugins/package-json': PluginPackageJson,
 }
 
-export const resolve = <T extends Plugin>(
-  resolver: (id: string) => string,
-  plugin: string,
-): string | T => {
+export const resolve = (resolver: (id: string) => string, plugin: string): string | Plugin => {
   try {
     if (resolvedPlugins[plugin]) {
-      return resolvedPlugins[plugin] as unknown as T
+      return resolvedPlugins[plugin]
     }
     return resolver(plugin)
   } finally {

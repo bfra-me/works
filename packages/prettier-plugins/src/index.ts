@@ -1,1 +1,3 @@
-export * from './package-json.js'
+import * as PluginPackageJson from './package-json.js'
+
+export {PluginPackageJson}
