@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/prettier-config",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "Shared Prettier configuration for bfra.me",
   "keywords": [
     "bfra.me",
@@ -22,27 +22,26 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./prettier.config.d.ts",
-      "import": "./prettier.config.js"
+      "types": "./lib/prettier.config.d.ts",
+      "import": "./lib/prettier.config.js"
     },
-    "./100-proof": "./prettier.config.js",
-    "./120-proof": "./120-proof.js",
-    "./semi/*": "./*.js?semi=true",
-    "./semi": "./prettier.config.js?semi=true",
-    "./*/semi": "./*.js?semi=true",
+    "./100-proof": "./lib/prettier.config.js",
+    "./120-proof": "./lib/120-proof.js",
+    "./semi/*": "./lib/*.js?semi=true",
+    "./semi": "./lib/prettier.config.js?semi=true",
+    "./*/semi": "./lib/*.js?semi=true",
     "./package.json": "./package.json"
   },
-  "main": "prettier.config.js",
-  "types": "prettier.config.d.ts",
+  "main": "./lib/prettier.config.js",
+  "types": "./lib/prettier.config.d.ts",
   "files": [
-    "*.js",
-    "*.ts",
+    "lib",
+    "src",
     "!**/*.map",
     "!tsup.config.ts"
   ],
   "scripts": {
-    "build": "tsup && pnpm run format",
-    "format": "prettier --ignore-path .prettierignore --log-level log --write .",
+    "build": "tsup",
     "test": "vitest"
   },
   "dependencies": {

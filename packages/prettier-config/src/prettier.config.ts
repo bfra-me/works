@@ -34,6 +34,7 @@ const config: Config = {
         '**/.next/**',
         '**/.nuxt/**',
         '**/.output/**',
+        '**/.tsup/**',
         '**/.vercel/**',
         '**/.vitepress/cache/**',
         '**/.vite-inspect/**',

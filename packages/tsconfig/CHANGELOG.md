@@ -1,5 +1,12 @@
 # @bfra.me/tsconfig
 
+## 0.8.1
+### Patch Changes
+
+
+
+- Add `allowJs` to `compilerOptions` (by [@marcusrbrown](https://github.com/marcusrbrown) with [#401](https://github.com/bfra-me/works/pull/401))
+
 ## 0.8.0
 ### Minor Changes
 
