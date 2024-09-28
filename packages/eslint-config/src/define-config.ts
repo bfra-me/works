@@ -3,25 +3,18 @@ import type {Linter} from 'eslint'
 import type {FlatGitignoreOptions} from 'eslint-config-flat-gitignore'
 import {isPackageExists} from 'local-pkg'
 import type {ParserOptions} from '@typescript-eslint/types'
+import type {UnionToTuple} from 'type-fest'
 import {ignores, imports, javascript, perfectionist, typescript} from './configs'
 import type {ComposableConfig, Config, ConfigNames} from './types'
 import * as Env from './env'
 import {interopDefault} from './plugins'
 
+// These are merged into the Options interface
 type AllowedConfigForOptions = Omit<Config, 'files'>
 
-type ConfigProperties = (keyof AllowedConfigForOptions)[]
-
-const AllowedConfigPropertiesForOptions = [
-  'name',
-  'ignores',
-  'languageOptions',
-  'linterOptions',
-  'processor',
-  'plugins',
-  'rules',
-  'settings',
-] as const satisfies ConfigProperties
+const AllowedConfigPropertiesForOptions = Object.keys({}) as UnionToTuple<
+  keyof AllowedConfigForOptions
+>
 
 export interface OptionsFiles {
   /**
@@ -105,9 +98,18 @@ export type Options = {
   typescript?: OptionsTypeScript | boolean
 } & AllowedConfigForOptions
 
-export function defineConfig(
+/**
+ * Define a new ESLint config.
+ *
+ * @param options - Options to configure the ESLint config.
+ * @param userConfigs - Additional ESLint configs to include.
+ * @returns A composable ESLint config.
+ */
+export async function defineConfig(
   options: Options = {},
-  ...userConfigs: Awaitable<Config | Config[] | FlatConfigComposer | Linter.Config[]>[]
+  ...userConfigs: Awaitable<Config | Config[] | FlatConfigComposer<any, any> | Linter.Config[]>[]
+  // @ts-expect-error - TypeScript insists that the return type should be `Promise<T>`, but it's actually
+  // `FlatConfigComposer<>` which acts like a `Promise<T>`.
 ): ComposableConfig {
   const {
     gitignore: enableGitignore = true,
