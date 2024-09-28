@@ -89,6 +89,10 @@ export async function typescript(
           {'ts-expect-error': 'allow-with-description'},
         ],
         '@typescript-eslint/consistent-type-assertions': 'error',
+        '@typescript-eslint/consistent-type-imports': [
+          'error',
+          {disallowTypeAnnotations: false, fixStyle: 'inline-type-imports'},
+        ],
         '@typescript-eslint/explicit-function-return-type': [
           'error',
           {
@@ -104,7 +108,7 @@ export async function typescript(
           },
         ],
         '@typescript-eslint/no-array-constructor': 'error',
-        '@typescript-eslint/no-empty-interface': 'error',
+        '@typescript-eslint/no-empty-object-type': ['error', {allowInterfaces: 'always'}],
         '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/no-extraneous-class': 'error',
         '@typescript-eslint/no-inferrable-types': 'error',
@@ -114,7 +118,6 @@ export async function typescript(
         '@typescript-eslint/no-require-imports': 'error',
         '@typescript-eslint/no-unused-vars': 'error',
         '@typescript-eslint/no-useless-constructor': 'error',
-        '@typescript-eslint/no-var-requires': 'error',
         '@typescript-eslint/prefer-for-of': 'warn',
         '@typescript-eslint/prefer-function-type': 'warn',
 

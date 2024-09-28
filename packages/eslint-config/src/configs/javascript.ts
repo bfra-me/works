@@ -41,7 +41,6 @@ export async function javascript(
       rules: {
         camelcase: 'off',
         'no-unused-vars': 'off',
-        semi: 'off',
 
         'unused-imports/no-unused-imports': isInEditor ? 'off' : 'error',
         'unused-imports/no-unused-vars': [
