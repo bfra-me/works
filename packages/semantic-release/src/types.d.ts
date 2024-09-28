@@ -14,7 +14,7 @@ export type Extends = KnownExtends | KnownExtends[]
 export interface SemanticReleaseConfig {
   extends?: Extends
 
-  branches: ReadonlyArray<BranchSpec> | BranchSpec
+  branches: readonly BranchSpec[] | BranchSpec
 
   repositoryUrl?: string
 
