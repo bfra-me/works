@@ -8,7 +8,7 @@ import fs from 'fs-extra'
 import {afterAll, beforeAll, it} from 'vitest'
 import type Prettier from 'prettier'
 
-const cleanup = () => fs.rm('test/_fixtures', {force: true, recursive: true})
+const cleanup = async () => fs.rm('test/_fixtures', {force: true, recursive: true})
 
 beforeAll(async () => {
   await cleanup()

@@ -6,6 +6,6 @@ import type {SemanticReleaseConfig} from './types.js'
  * @param config Semantic Release configuration
  * @returns Semantic Release configuration
  */
-export function defineConfig(config: SemanticReleaseConfig) {
+export function defineConfig(config: SemanticReleaseConfig): SemanticReleaseConfig {
   return config
 }
