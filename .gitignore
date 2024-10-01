@@ -12,5 +12,4 @@ oclif.manifest.json
 *.js.map
 _fixtures
 .DS_Store
-packages/eslint-config/src/types.ts
 .tsup

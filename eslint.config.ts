@@ -14,11 +14,19 @@ export default defineConfig(
       },
       tsconfigPath: './tsconfig.json',
     },
+    vitest: true,
   },
-  [
-    {
-      files: ['**/*.test.ts'],
-      rules: {'@typescript-eslint/explicit-function-return-type': 'off'},
+  {
+    name: '@bfra.me/works/eslint-config',
+    files: ['packages/eslint-config/src/**/*.ts'],
+    rules: {
+      'perfectionist/sort-objects': [
+        'error',
+        {
+          customGroups: {top: ['name']},
+          groups: ['top', 'unknown'],
+        },
+      ],
     },
-  ],
+  },
 )

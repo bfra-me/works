@@ -4,7 +4,7 @@ import type {FlatGitignoreOptions} from 'eslint-config-flat-gitignore'
 import {isPackageExists} from 'local-pkg'
 import type {ParserOptions} from '@typescript-eslint/types'
 import type {UnionToTuple} from 'type-fest'
-import {ignores, imports, javascript, perfectionist, typescript} from './configs'
+import {ignores, imports, javascript, perfectionist, typescript, vitest} from './configs'
 import type {ComposableConfig, Config, ConfigNames} from './types'
 import * as Env from './env'
 import {interopDefault} from './plugins'
@@ -75,7 +75,7 @@ export type OptionsTypeScript =
   | (OptionsTypeScriptParserOptions & OptionsOverrides)
   | (OptionsTypeScriptWithTypes & OptionsOverrides)
 
-export type Options = {
+type CombinedOptions = {
   /**
    * Enable gitignore support.
    *
@@ -89,6 +89,13 @@ export type Options = {
   javascript?: OptionsOverrides
 
   /**
+   * Enable support for vitest.
+   *
+   * @default false
+   */
+  vitest?: boolean | OptionsOverrides
+
+  /**
    * Enable TypeScript support.
    *
    * Pass options to enable support for the TypeScript language and project services.
@@ -97,6 +104,10 @@ export type Options = {
    */
   typescript?: OptionsTypeScript | boolean
 } & AllowedConfigForOptions
+
+export type Options = {
+  [K in keyof CombinedOptions]: CombinedOptions[K]
+}
 
 /**
  * Define a new ESLint config.
@@ -157,6 +168,14 @@ export async function defineConfig(
     )
   }
 
+  if (options.vitest) {
+    configs.push(
+      vitest({
+        overrides: getOverrides(options, 'vitest'),
+      }),
+    )
+  }
+
   const optionsConfig = AllowedConfigPropertiesForOptions.reduce((config, key) => {
     if (key in options) {
       config[key] = options[key] as any
@@ -176,16 +195,16 @@ export async function defineConfig(
   return composer
 }
 
-export type ResolvedOptions<T> = T extends boolean ? never : NonNullable<T>
+type ResolvedOptions<T> = T extends boolean ? never : NonNullable<T>
 
-export function resolveSubOptions<K extends keyof Options>(
+function resolveSubOptions<K extends keyof Options>(
   options: Options,
   key: K,
 ): ResolvedOptions<Options[K]> {
   return typeof options[key] === 'boolean' ? ({} as any) : options[key] || {}
 }
 
-export function getOverrides<K extends keyof Options>(options: Options, key: K): Config['rules'] {
+function getOverrides<K extends keyof Options>(options: Options, key: K): Config['rules'] {
   const sub = resolveSubOptions(options, key)
   return 'overrides' in sub ? (sub.overrides as Config['rules']) : {}
 }

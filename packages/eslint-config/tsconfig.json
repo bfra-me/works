@@ -9,5 +9,5 @@
     "noEmit": true,
     "noPropertyAccessFromIndexSignature": false
   },
-  "include": ["**/*.ts"]
+  "include": ["./src/**/*.ts"]
 }

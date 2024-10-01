@@ -4,6 +4,6 @@ export * from './configs'
 export * from './define-config'
 export * from './env'
 export * from './globs'
-export * from './types'
+export * from './types.d'
 
 export default defineConfig()
