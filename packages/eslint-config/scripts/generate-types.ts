@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises'
 import {builtinRules} from 'eslint/use-at-your-own-risk'
 import {flatConfigsToRulesDTS} from 'eslint-typegen/core'
-import {defineConfig} from '../src'
+import {defineConfig} from '../src/define-config'
 
 const configs = await defineConfig({
   plugins: {

@@ -17,7 +17,7 @@
     "bootstrap": "pnpm run clean && pnpm install --frozen-lockfile --prefer-offline && pnpm run build",
     "build": "pnpm -r run build",
     "check-format": "prettier --check .",
-    "clean": "pnpx rimraf --glob \"**/node_modules/**/!(.pnpm)\" \"packages/*/lib\" \"**/*.tsbuildinfo\"",
+    "clean": "pnpx rimraf --glob \"**/node_modules/**/!(.pnpm)\" \"packages/*/lib\" \"packages/eslint-config/src/types.d.ts\" \"**/*.tsbuildinfo\"",
     "dev": "pnpm --recursive --parallel --stream run dev",
     "format": "prettier --write .",
     "inspect-eslint-config": "eslint-config-inspector --config eslint.config.ts",
