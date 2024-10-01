@@ -10,3 +10,6 @@ oclif.manifest.json
 *.tsbuildinfo
 *.d.ts.map
 *.js.map
+_fixtures
+.DS_Store
+.tsup
