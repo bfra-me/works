@@ -2,12 +2,12 @@
   "$schema": "http://json.schemastore.org/tsconfig",
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
     "composite": false,
     "esModuleInterop": true,
     "incremental": false,
     "noEmit": true,
-    "noPropertyAccessFromIndexSignature": false
+    "noPropertyAccessFromIndexSignature": false,
+    "outDir": "./lib"
   },
   "include": ["./src/**/*.ts"]
 }

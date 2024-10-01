@@ -1,24 +1,16 @@
 import fs from 'node:fs/promises'
 import {builtinRules} from 'eslint/use-at-your-own-risk'
-import {concat} from 'eslint-flat-config-utils'
 import {flatConfigsToRulesDTS} from 'eslint-typegen/core'
-import {ignores, imports, javascript, perfectionist, vitest, typescript} from '../src/configs'
+import {defineConfig} from '../src'
 
-const configs = await concat(
-  {
-    plugins: {
-      '': {
-        rules: Object.fromEntries(builtinRules.entries()),
-      },
+const configs = await defineConfig({
+  plugins: {
+    '': {
+      rules: Object.fromEntries(builtinRules.entries()),
     },
   },
-  ignores(),
-  imports(),
-  javascript(),
-  perfectionist(),
-  typescript(),
-  vitest(),
-)
+  vitest: true,
+})
 
 let dts = await flatConfigsToRulesDTS(configs, {
   exportTypeName: 'Rules',

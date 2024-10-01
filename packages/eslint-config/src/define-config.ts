@@ -4,7 +4,18 @@ import type {FlatGitignoreOptions} from 'eslint-config-flat-gitignore'
 import {isPackageExists} from 'local-pkg'
 import type {ParserOptions} from '@typescript-eslint/types'
 import type {UnionToTuple} from 'type-fest'
-import {ignores, imports, javascript, perfectionist, typescript, vitest} from './configs'
+import {
+  command,
+  epilogue,
+  eslintComments,
+  ignores,
+  imports,
+  javascript,
+  jsdoc,
+  perfectionist,
+  typescript,
+  vitest,
+} from './configs'
 import type {ComposableConfig, Config, ConfigNames} from './types'
 import * as Env from './env'
 import {interopDefault} from './plugins'
@@ -152,7 +163,10 @@ export async function defineConfig(
   configs.push(
     ignores(options.ignores),
     javascript({isInEditor, overrides: getOverrides(options, 'javascript')}),
+    eslintComments(),
+    jsdoc(),
     imports(),
+    command(),
     perfectionist(),
   )
 
@@ -175,6 +189,9 @@ export async function defineConfig(
       }),
     )
   }
+
+  // Epilogue config is always added last
+  configs.push(epilogue())
 
   const optionsConfig = AllowedConfigPropertiesForOptions.reduce((config, key) => {
     if (key in options) {
