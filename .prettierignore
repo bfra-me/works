@@ -1,2 +1,2 @@
 **/lib
-packages/eslint-config/src/types.d.ts
+packages/eslint-config/src/types.ts

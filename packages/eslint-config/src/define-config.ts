@@ -16,7 +16,7 @@ import {
   typescript,
   vitest,
 } from './configs'
-import type {ComposableConfig, Config, ConfigNames} from './types'
+import type {Config, ConfigNames} from './types'
 import * as Env from './env'
 import {interopDefault} from './plugins'
 
@@ -132,7 +132,7 @@ export async function defineConfig(
   ...userConfigs: Awaitable<Config | Config[] | FlatConfigComposer<any, any> | Linter.Config[]>[]
   // @ts-expect-error - TypeScript insists that the return type should be `Promise<T>`, but it's actually
   // `FlatConfigComposer<>` which acts like a `Promise<T>`.
-): ComposableConfig {
+): FlatConfigComposer<Config, ConfigNames> {
   const {
     gitignore: enableGitignore = true,
     typescript: enableTypeScript = isPackageExists('typescript'),
@@ -204,10 +204,7 @@ export async function defineConfig(
     configs.push([optionsConfig])
   }
 
-  const composer = new FlatConfigComposer<Config, ConfigNames>().append(
-    ...configs,
-    ...(userConfigs as any),
-  )
+  const composer = new FlatConfigComposer<Config, ConfigNames>(...configs, ...(userConfigs as any))
 
   return composer
 }
