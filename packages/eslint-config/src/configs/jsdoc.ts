@@ -4,6 +4,7 @@ import type {Config} from '../types'
 export async function jsdoc(): Promise<Config[]> {
   return [
     {
+      name: '@bfra.me/jsdoc',
       plugins: {jsdoc: _jsdoc},
       rules: {
         'jsdoc/check-access': 'warn',
