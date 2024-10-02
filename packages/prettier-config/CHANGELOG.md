@@ -1,5 +1,12 @@
 # @bfra.me/prettier-config
 
+## 0.7.4
+### Patch Changes
+
+
+
+- Remove the `**/lib/**` from the list of files with `requirePragma` set to true (by [@marcusrbrown](https://github.com/marcusrbrown) with [#417](https://github.com/bfra-me/works/pull/417))
+
 ## 0.7.3
 ### Patch Changes
 
