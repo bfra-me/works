@@ -26,7 +26,6 @@ const config: Config = {
       files: [
         '**/node_modules/**',
         '**/dist/**',
-        '**/lib/**',
         '**/coverage/**',
         '**/out/**',
         '**/temp/**',
