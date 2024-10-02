@@ -2,6 +2,7 @@ import {defineConfig} from './packages/eslint-config'
 
 export default defineConfig(
   {
+    name: '@bfra.me/works',
     ignores: ['**/test/fixtures', '**/test/_fixtures'],
     typescript: {
       parserOptions: {
@@ -28,5 +29,9 @@ export default defineConfig(
         },
       ],
     },
+  },
+  {
+    name: '@bfra.me/works/eslint-config/types',
+    ignores: ['packages/eslint-config/src/types.ts'],
   },
 )
