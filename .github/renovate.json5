@@ -16,7 +16,7 @@
       updatePinnedDependencies: false,
     },
   ],
-  'patch:': {
+  patch: {
     automerge: true,
     enabled: true,
   },
