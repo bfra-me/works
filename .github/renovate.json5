@@ -16,6 +16,10 @@
       updatePinnedDependencies: false,
     },
   ],
+  'patch:': {
+    automerge: true,
+    enabled: true,
+  },
   postUpgradeTasks: {
     commands: ['pnpm run bootstrap'],
     executionMode: 'branch',
