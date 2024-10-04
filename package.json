@@ -20,7 +20,7 @@
     "clean": "pnpx rimraf --glob \"**/node_modules/**/!(.pnpm)\" \"packages/*/lib\" \"packages/eslint-config/src/types?(.d).ts\" \"**/*.tsbuildinfo\"",
     "dev": "pnpm --recursive --parallel --stream run dev",
     "format": "prettier --write .",
-    "inspect-eslint-config": "eslint-config-inspector --config eslint.config.ts",
+    "inspect-eslint-config": "eslint-config-inspector --config eslint.config.ts --open false",
     "lint": "manypkg check && pnpm run lint-packages && pnpm run lint-source && pnpm -r run --parallel lint",
     "lint-packages": "pnpm -r --include-workspace-root --no-bail --filter=!@bfra.me/prettier-config exec publint",
     "lint-source": "eslint --flag unstable_ts_config .",

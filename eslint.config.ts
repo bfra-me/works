@@ -31,7 +31,10 @@ export default defineConfig(
     },
   },
   {
-    name: '@bfra.me/works/eslint-config/types',
-    ignores: ['packages/eslint-config/src/types.ts'],
+    name: '@bfra.me/works/eslint-config/ignores',
+    ignores: [
+      'packages/eslint-config/.eslint-config-inspector/',
+      'packages/eslint-config/src/types.ts',
+    ],
   },
 )

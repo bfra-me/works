@@ -1,2 +1,3 @@
 **/lib
+packages/eslint-config/.eslint-config-inspector
 packages/eslint-config/src/types.ts
