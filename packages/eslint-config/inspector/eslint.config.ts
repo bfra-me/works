@@ -1,4 +1,4 @@
-import {defineConfig} from '../src'
+import {defineConfig} from '..'
 
 export default defineConfig({
   vitest: true,
