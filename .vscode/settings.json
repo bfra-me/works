@@ -12,7 +12,7 @@
     "editor.formatOnType": false,
 
     "eslint.options": {
-        "flags": ["unstable_ts_config"]
+        "flags": ["unstable_config_lookup_from_file", "unstable_ts_config"]
     },
 
     "explorer.fileNesting.enabled": false,
