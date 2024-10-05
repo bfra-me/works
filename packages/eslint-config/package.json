@@ -38,7 +38,8 @@
   ],
   "scripts": {
     "build": "pnpm run generate-types && tsup",
-    "dev": "eslint-config-inspector --config ./inspector/eslint.config.ts",
+    "build-inspector": "eslint-config-inspector build --config ./inspector/eslint.config.ts",
+    "dev": "eslint-config-inspector --config ./inspector/eslint.config.ts --open false",
     "generate-types": "tsx ./scripts/generate-types.ts",
     "test": "vitest"
   },
@@ -62,12 +63,12 @@
     "@bfra.me/prettier-config": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
     "@eslint/config-inspector": "0.5.4",
-    "@eslint/js": "9.11.1",
+    "@eslint/js": "9.12.0",
     "@types/eslint__js": "8.42.3",
     "@types/fs-extra": "11.0.4",
     "@types/node": "20.16.1",
     "@vitest/eslint-plugin": "1.1.4",
-    "eslint": "9.11.1",
+    "eslint": "9.12.0",
     "eslint-plugin-no-only-tests": "3.3.0",
     "eslint-typegen": "0.3.2",
     "execa": "9.4.0",
@@ -77,7 +78,6 @@
     "prettier": "3.3.3",
     "tsup": "8.3.0",
     "tsx": "4.19.1",
-    "type-fest": "4.26.0",
     "vitest": "2.1.0"
   },
   "peerDependencies": {
