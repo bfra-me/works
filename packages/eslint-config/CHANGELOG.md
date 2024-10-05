@@ -1,5 +1,21 @@
 # @bfra.me/eslint-config
 
+## 0.3.0
+### Minor Changes
+
+
+
+- Add `@bfra.me/epilogue` configs to override rules for specific types of files (by [@marcusrbrown](https://github.com/marcusrbrown) with [#434](https://github.com/bfra-me/works/pull/434))
+
+
+- Upgrade to jiti v2. (by [@marcusrbrown](https://github.com/marcusrbrown) with [#427](https://github.com/bfra-me/works/pull/427))
+
+### Patch Changes
+
+
+
+- Fix an issue that prevented `Config` values passed in `Options` to `defineConfig` from being merged to the `Config` array (by [@marcusrbrown](https://github.com/marcusrbrown) with [#432](https://github.com/bfra-me/works/pull/432))
+
 ## 0.2.0
 ### Minor Changes
 
