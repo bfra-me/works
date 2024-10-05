@@ -5,22 +5,22 @@ import {flatConfigsToRulesDTS} from 'eslint-typegen/core'
 import type vitest from '@vitest/eslint-plugin'
 import {defineConfig} from '../src/define-config'
 
-let configs = await defineConfig({
-  plugins: {
-    '': {
-      rules: Object.fromEntries(builtinRules.entries()),
+const configs = await composer(
+  defineConfig({
+    plugins: {
+      '': {
+        rules: Object.fromEntries(builtinRules),
+      },
     },
-  },
-  vitest: true,
-})
-
-// TODO: The `vitest/valid-title` rule breaks the generated types if saved as a .ts instead of a .d.ts file.
-// HACK: Remove the rule before passing the config to the type generator.
-configs = await composer(configs).override('@bfra.me/vitest/plugin', config => {
+    vitest: true,
+  }),
+  // TODO: The `vitest/valid-title` rule breaks the generated types if saved as a .ts instead of a .d.ts file.
+).override('@bfra.me/vitest/plugin', config => {
   const {
     plugins: {vitest: vitestPlugin},
   } = config as {plugins: {vitest: typeof vitest}}
   if (vitestPlugin.rules && 'valid-title' in vitestPlugin.rules) {
+    // HACK: Remove the rule before passing the config to the type generator.
     delete (vitestPlugin.rules as {[key: string]: unknown})['valid-title']
   }
   return config

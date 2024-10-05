@@ -3,7 +3,6 @@ import type {Linter} from 'eslint'
 import type {FlatGitignoreOptions} from 'eslint-config-flat-gitignore'
 import {isPackageExists} from 'local-pkg'
 import type {ParserOptions} from '@typescript-eslint/types'
-import type {UnionToTuple} from 'type-fest'
 import {
   command,
   epilogue,
@@ -23,9 +22,17 @@ import {interopDefault} from './plugins'
 // These are merged into the Options interface
 type AllowedConfigForOptions = Omit<Config, 'files'>
 
-const AllowedConfigPropertiesForOptions = Object.keys({}) as UnionToTuple<
-  keyof AllowedConfigForOptions
->
+const AllowedConfigPropertiesForOptions = [
+  'name',
+  'ignores',
+  'language',
+  'languageOptions',
+  'linterOptions',
+  'plugins',
+  'processor',
+  'rules',
+  'settings',
+] satisfies (keyof AllowedConfigForOptions)[]
 
 export interface OptionsFiles {
   /**
@@ -193,12 +200,13 @@ export async function defineConfig(
   // Epilogue config is always added last
   configs.push(epilogue())
 
-  const optionsConfig = AllowedConfigPropertiesForOptions.reduce((config, key) => {
-    if (key in options) {
-      config[key] = options[key] as any
-    }
-    return config
-  }, {} as Config)
+  const optionsConfig = AllowedConfigPropertiesForOptions.reduce(
+    (config, key) => ({
+      ...config,
+      ...(key in options ? {[key]: options[key]} : {}),
+    }),
+    {} as Config,
+  )
 
   if (Object.keys(optionsConfig).length) {
     configs.push([optionsConfig])
