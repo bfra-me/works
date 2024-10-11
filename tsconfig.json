@@ -1,4 +1,7 @@
 {
   "extends": "./packages/tsconfig/tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
   "exclude": ["node_modules", "lib", "**/test/fixtures/**/*"]
 }
