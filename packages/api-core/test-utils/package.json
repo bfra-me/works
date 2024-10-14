@@ -1,7 +1,7 @@
 {
-  "private": true,
   "name": "@api/test-utils",
-  "version": "7.0.0-beta.6",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
     "lint:types": "tsc --noEmit"
   },
@@ -9,12 +9,11 @@
     "caseless": "^0.12.0",
     "datauri": "^4.1.0",
     "formdata-to-string": "^2.0.1",
-    "vitest": "^1.1.1"
+    "vitest": "2.1.0"
   },
   "devDependencies": {
-    "@types/caseless": "^0.12.3",
+    "@types/caseless": "0.12.5",
     "oas": "^24.0.0",
-    "typescript": "^5.2.2"
-  },
-  "prettier": "@readme/eslint-config/prettier"
+    "typescript": "5.6.2"
+  }
 }

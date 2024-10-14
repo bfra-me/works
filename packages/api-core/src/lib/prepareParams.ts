@@ -1,25 +1,25 @@
-import type { ReadStream } from 'node:fs';
-import type { Operation } from 'oas/operation';
-import type { ParameterObject, SchemaObject } from 'oas/types';
+import type {ReadStream} from 'node:fs'
+import type {Operation} from 'oas/operation'
+import type {ParameterObject, SchemaObject} from 'oas/types'
 
-import fs from 'node:fs';
-import path from 'node:path';
-import stream from 'node:stream';
+import fs from 'node:fs'
+import path from 'node:path'
+import stream from 'node:stream'
 
-import caseless from 'caseless';
-import DatauriParser from 'datauri/parser.js';
-import datauri from 'datauri/sync.js';
+import caseless from 'caseless'
+import DatauriParser from 'datauri/parser.js'
+import datauri from 'datauri/sync.js'
 // `get-stream` is included in our bundle, see `tsup.config.ts`
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { getStreamAsBuffer } from 'get-stream';
-import lodashMerge from 'lodash.merge';
-import removeUndefinedObjects from 'remove-undefined-objects';
+import {getStreamAsBuffer} from 'get-stream'
+import lodashMerge from 'lodash.merge'
+import removeUndefinedObjects from 'remove-undefined-objects'
 
-import getJSONSchemaDefaults from './getJSONSchemaDefaults.js';
+import getJSONSchemaDefaults from './getJSONSchemaDefaults.js'
 
 // These headers are normally only defined by the OpenAPI definition but we allow the user to
 // manually supply them in their `metadata` parameter if they wish.
-const specialHeaders = ['accept', 'authorization'];
+const specialHeaders = ['accept', 'authorization']
 
 /**
  * Extract all available parameters from an operations Parameter Object into a digestable array
@@ -31,44 +31,46 @@ const specialHeaders = ['accept', 'authorization'];
 function digestParameters(parameters: ParameterObject[]): Record<string, ParameterObject> {
   return parameters.reduce((prev, param) => {
     if ('$ref' in param || 'allOf' in param || 'anyOf' in param || 'oneOf' in param) {
-      throw new Error("The OpenAPI document for this operation wasn't dereferenced before processing.");
+      throw new Error(
+        "The OpenAPI document for this operation wasn't dereferenced before processing.",
+      )
     } else if (param.name in prev) {
       throw new Error(
         `The operation you are using has the same parameter, ${param.name}, spread across multiple entry points. We unfortunately can't handle this right now.`,
-      );
+      )
     }
 
-    return Object.assign(prev, { [param.name]: param });
-  }, {});
+    return Object.assign(prev, {[param.name]: param})
+  }, {})
 }
 
 // https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_isempty
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isEmpty(obj: any) {
-  return [Object, Array].includes((obj || {}).constructor) && !Object.entries(obj || {}).length;
+  return [Object, Array].includes((obj || {}).constructor) && !Object.entries(obj || {}).length
 }
 
 function isObject(thing: unknown) {
   if (thing instanceof stream.Readable) {
-    return false;
+    return false
   }
 
-  return typeof thing === 'object' && thing !== null && !Array.isArray(thing);
+  return typeof thing === 'object' && thing !== null && !Array.isArray(thing)
 }
 
 function isPrimitive(obj: unknown) {
-  return obj === null || typeof obj === 'number' || typeof obj === 'string';
+  return obj === null || typeof obj === 'number' || typeof obj === 'string'
 }
 
 function merge(src: unknown, target: unknown) {
   if (Array.isArray(target)) {
     // @todo we need to add support for merging array defaults with array body/metadata arguments
-    return target;
+    return target
   } else if (!isObject(target)) {
-    return target;
+    return target
   }
 
-  return lodashMerge(src, target);
+  return lodashMerge(src, target)
 }
 
 /**
@@ -79,10 +81,10 @@ function merge(src: unknown, target: unknown) {
 function processFile(
   paramName: string | undefined,
   file: ReadStream | string,
-): Promise<{ base64?: string; buffer?: Buffer; filename: string; paramName?: string } | undefined> {
+): Promise<{base64?: string; buffer?: Buffer; filename: string; paramName?: string} | undefined> {
   if (typeof file === 'string') {
     // In order to support relative pathed files, we need to attempt to resolve them.
-    const resolvedFile = path.resolve(file);
+    const resolvedFile = path.resolve(file)
 
     return new Promise((resolve, reject) => {
       fs.stat(resolvedFile, async err => {
@@ -95,37 +97,37 @@ function processFile(
             // We also can't really regex to see if `file` *looks*` like a path because one should be
             // able to pass in a relative `owlbert.png` (instead of `./owlbert.png`) and though that
             // doesn't *look* like a path, it is one that should still work.
-            return resolve(undefined);
+            return resolve(undefined)
           }
 
-          return reject(err);
+          return reject(err)
         }
 
-        const fileMetadata = await datauri(resolvedFile);
-        const payloadFilename = encodeURIComponent(path.basename(resolvedFile));
+        const fileMetadata = await datauri(resolvedFile)
+        const payloadFilename = encodeURIComponent(path.basename(resolvedFile))
 
         return resolve({
           paramName,
           base64: fileMetadata?.content?.replace(';base64', `;name=${payloadFilename};base64`),
           filename: payloadFilename,
           buffer: fileMetadata.buffer,
-        });
-      });
-    });
+        })
+      })
+    })
   } else if (file instanceof stream.Readable) {
     return getStreamAsBuffer(file).then(buffer => {
-      const filePath = file.path as string;
-      const parser = new DatauriParser();
-      const base64 = parser.format(filePath, buffer).content;
-      const payloadFilename = encodeURIComponent(path.basename(filePath));
+      const filePath = file.path as string
+      const parser = new DatauriParser()
+      const base64 = parser.format(filePath, buffer).content
+      const payloadFilename = encodeURIComponent(path.basename(filePath))
 
       return {
         paramName,
         base64: base64?.replace(';base64', `;name=${payloadFilename};base64`),
         filename: payloadFilename,
         buffer,
-      };
-    });
+      }
+    })
   }
 
   return Promise.reject(
@@ -134,7 +136,7 @@ function processFile(
         ? `The data supplied for the \`${paramName}\` request body parameter is not a file handler that we support.`
         : 'The data supplied for the request body payload is not a file handler that we support.',
     ),
-  );
+  )
 }
 
 /**
@@ -143,10 +145,14 @@ function processFile(
  * with `@readme/oas-to-har`.
  *
  */
-export default async function prepareParams(operation: Operation, body?: unknown, metadata?: Record<string, unknown>) {
-  let metadataIntersected = false;
-  const digestedParameters = digestParameters(operation.getParameters());
-  const jsonSchema = operation.getParametersAsJSONSchema();
+export default async function prepareParams(
+  operation: Operation,
+  body?: unknown,
+  metadata?: Record<string, unknown>,
+) {
+  let metadataIntersected = false
+  const digestedParameters = digestParameters(operation.getParameters())
+  const jsonSchema = operation.getParametersAsJSONSchema()
 
   /**
    * It might be common for somebody to run `sdk.findPetsByStatus({ status: 'available' }, {})`, in
@@ -158,10 +164,10 @@ export default async function prepareParams(operation: Operation, body?: unknown
    * @see {@link https://github.com/readmeio/api/issues/449}
    */
   // eslint-disable-next-line no-param-reassign
-  metadata = removeUndefinedObjects(metadata);
+  metadata = removeUndefinedObjects(metadata)
 
   if (!jsonSchema && (body !== undefined || metadata !== undefined)) {
-    let throwNoParamsError = true;
+    let throwNoParamsError = true
 
     // If this operation doesn't have any parameters for us to transform to JSON Schema but they've
     // sent us either an `Accept` or `Authorization` header (or both) we should let them do that.
@@ -171,10 +177,10 @@ export default async function prepareParams(operation: Operation, body?: unknown
     if (body !== undefined) {
       if (typeof body === 'object' && body !== null && !Array.isArray(body)) {
         if (Object.keys(body).length <= 2) {
-          const bodyParams = caseless(body);
+          const bodyParams = caseless(body)
 
           if (specialHeaders.some(header => bodyParams.has(header))) {
-            throwNoParamsError = false;
+            throwNoParamsError = false
           }
         }
       }
@@ -183,27 +189,27 @@ export default async function prepareParams(operation: Operation, body?: unknown
     if (throwNoParamsError) {
       throw new Error(
         "You supplied metadata and/or body data for this operation but it doesn't have any documented parameters or request payloads. If you think this is an error please contact support for the API you're using.",
-      );
+      )
     }
   }
 
-  const jsonSchemaDefaults = jsonSchema ? getJSONSchemaDefaults(jsonSchema) : {};
+  const jsonSchemaDefaults = jsonSchema ? getJSONSchemaDefaults(jsonSchema) : {}
 
   const params: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    body?: any;
-    cookie?: Record<string, boolean | number | string>;
-    files?: Record<string, Buffer>;
+    body?: any
+    cookie?: Record<string, boolean | number | string>
+    files?: Record<string, Buffer>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    formData?: any;
-    header?: Record<string, boolean | number | string>;
-    path?: Record<string, boolean | number | string>;
-    query?: Record<string, boolean | number | string>;
+    formData?: any
+    header?: Record<string, boolean | number | string>
+    path?: Record<string, boolean | number | string>
+    query?: Record<string, boolean | number | string>
     server?: {
-      selected: number;
-      variables: Record<string, number | string>;
-    };
-  } = jsonSchemaDefaults;
+      selected: number
+      variables: Record<string, number | string>
+    }
+  } = jsonSchemaDefaults
 
   // If a body argument was supplied we need to do a bit of work to see if it's actually a body
   // argument or metadata because the library lets you supply either a body, metadata, or body with
@@ -212,70 +218,70 @@ export default async function prepareParams(operation: Operation, body?: unknown
     if (Array.isArray(body) || isPrimitive(body)) {
       // If the body param is an array or a primitive then we know it's absolutely a body because
       // metadata can only ever be undefined or an object.
-      params.body = merge(params.body, body);
+      params.body = merge(params.body, body)
     } else if (typeof metadata === 'undefined') {
       // No metadata was explicitly provided so we need to analyze the body to determine if it's a
       // body or should be actually be treated as metadata.
-      const headerParams = caseless({});
+      const headerParams = caseless({})
       Object.entries(digestedParameters).forEach(([paramName, param]) => {
         // Headers are sent case-insensitive so we need to make sure that we're properly
         // matching them when detecting what our incoming payload looks like.
         if (param.in === 'header') {
-          headerParams.set(paramName, '');
+          headerParams.set(paramName, '')
         }
-      });
+      })
 
       // `Accept` and `Authorization` headers can't be defined as normal parameters but we should
       // always allow the user to supply them if they wish.
       specialHeaders.forEach(header => {
         if (!headerParams.has(header)) {
-          headerParams.set(header, '');
+          headerParams.set(header, '')
         }
-      });
+      })
 
       const intersection = Object.keys(body as NonNullable<unknown>).filter(value => {
         if (Object.keys(digestedParameters).includes(value)) {
-          return true;
+          return true
         } else if (headerParams.has(value)) {
-          return true;
+          return true
         }
 
-        return false;
-      }).length;
+        return false
+      }).length
 
       // If more than 25% of the body intersects with the parameters that we've got on hand, then
       // we should treat it as a metadata object and organize into parameters.
       if (intersection && intersection / Object.keys(body as NonNullable<unknown>).length > 0.25) {
         /* eslint-disable no-param-reassign */
-        metadataIntersected = true;
-        metadata = merge(params.body, body) as Record<string, unknown>;
-        body = undefined;
+        metadataIntersected = true
+        metadata = merge(params.body, body) as Record<string, unknown>
+        body = undefined
         /* eslint-enable no-param-reassign */
       } else {
         // For all other cases, we should just treat the supplied body as a body.
-        params.body = merge(params.body, body);
+        params.body = merge(params.body, body)
       }
     } else {
       // Body and metadata were both supplied.
-      params.body = merge(params.body, body);
+      params.body = merge(params.body, body)
     }
   }
 
   if (!operation.hasRequestBody()) {
     // If this operation doesn't have any documented request body then we shouldn't be sending
     // anything.
-    delete params.body;
+    delete params.body
   } else {
-    if (!('body' in params)) params.body = {};
+    if (!('body' in params)) params.body = {}
 
     // We need to retrieve the request body for this operation to search for any `binary` format
     // data that the user wants to send so we know what we need to prepare for the final API
     // request.
-    const payloadJsonSchema = jsonSchema.find(js => js.type === 'body');
+    const payloadJsonSchema = jsonSchema.find(js => js.type === 'body')
     if (payloadJsonSchema) {
-      if (!params.files) params.files = {};
+      if (!params.files) params.files = {}
 
-      const conversions = [];
+      const conversions = []
 
       // @todo add support for `type: array`, `oneOf` and `anyOf`
       if (payloadJsonSchema.schema?.properties) {
@@ -283,11 +289,11 @@ export default async function prepareParams(operation: Operation, body?: unknown
           .filter(([, schema]: [string, SchemaObject]) => schema?.format === 'binary')
           .filter(([prop]) => Object.keys(params.body).includes(prop))
           .forEach(([prop]) => {
-            conversions.push(processFile(prop, params.body[prop]));
-          });
+            conversions.push(processFile(prop, params.body[prop]))
+          })
       } else if (payloadJsonSchema.schema?.type === 'string') {
         if (payloadJsonSchema.schema?.format === 'binary') {
-          conversions.push(processFile(undefined, params.body));
+          conversions.push(processFile(undefined, params.body))
         }
       }
 
@@ -300,77 +306,79 @@ export default async function prepareParams(operation: Operation, body?: unknown
               // the full string content of the file so since we don't have any filenames to
               // work with we shouldn't do any additional handling to the `body` or `files`
               // parameters.
-              return;
+              return
             }
 
             if (fileMetadata.paramName) {
-              params.body[fileMetadata.paramName] = fileMetadata.base64;
+              params.body[fileMetadata.paramName] = fileMetadata.base64
             } else {
-              params.body = fileMetadata.base64;
+              params.body = fileMetadata.base64
             }
 
             if (fileMetadata.buffer && params?.files) {
-              params.files[fileMetadata.filename] = fileMetadata.buffer;
+              params.files[fileMetadata.filename] = fileMetadata.buffer
             }
-          });
-        });
+          })
+        })
     }
   }
 
   // Form data should be placed within `formData` instead of `body` for it to properly get picked
   // up by `fetch-har`.
   if (operation.isFormUrlEncoded()) {
-    params.formData = merge(params.formData, params.body);
-    delete params.body;
+    params.formData = merge(params.formData, params.body)
+    delete params.body
   }
 
   // Only spend time trying to organize metadata into parameters if we were able to digest
   // parameters out of the operation schema. If we couldn't digest anything, but metadata was
   // supplied then we wouldn't know how to send it in the request!
   if (typeof metadata !== 'undefined') {
-    if (!('cookie' in params)) params.cookie = {};
-    if (!('header' in params)) params.header = {};
-    if (!('path' in params)) params.path = {};
-    if (!('query' in params)) params.query = {};
+    if (!('cookie' in params)) params.cookie = {}
+    if (!('header' in params)) params.header = {}
+    if (!('path' in params)) params.path = {}
+    if (!('query' in params)) params.query = {}
 
     Object.entries(digestedParameters).forEach(([paramName, param]) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      let value: any;
-      let metadataHeaderParam;
+      let value: any
+      let metadataHeaderParam
       if (typeof metadata === 'object' && !isEmpty(metadata)) {
         if (paramName in metadata) {
-          value = metadata[paramName];
-          metadataHeaderParam = paramName;
+          value = metadata[paramName]
+          metadataHeaderParam = paramName
         } else if (param.in === 'header') {
           // Headers are sent case-insensitive so we need to make sure that we're properly
           // matching them when detecting what our incoming payload looks like.
-          metadataHeaderParam = Object.keys(metadata).find(k => k.toLowerCase() === paramName.toLowerCase()) || '';
-          value = metadata[metadataHeaderParam];
+          metadataHeaderParam =
+            Object.keys(metadata).find(k => k.toLowerCase() === paramName.toLowerCase()) || ''
+          value = metadata[metadataHeaderParam]
         }
       }
 
       if (value === undefined) {
-        return;
+        return
       }
 
       /* eslint-disable no-param-reassign */
       switch (param.in) {
         case 'path':
-          (params.path as NonNullable<typeof params.path>)[paramName] = value;
-          if (metadata?.[paramName]) delete metadata[paramName];
-          break;
+          ;(params.path as NonNullable<typeof params.path>)[paramName] = value
+          if (metadata?.[paramName]) delete metadata[paramName]
+          break
         case 'query':
-          (params.query as NonNullable<typeof params.query>)[paramName] = value;
-          if (metadata?.[paramName]) delete metadata[paramName];
-          break;
+          ;(params.query as NonNullable<typeof params.query>)[paramName] = value
+          if (metadata?.[paramName]) delete metadata[paramName]
+          break
         case 'header':
-          (params.header as NonNullable<typeof params.header>)[paramName.toLowerCase()] = value;
-          if (metadataHeaderParam && metadata?.[metadataHeaderParam]) delete metadata[metadataHeaderParam];
-          break;
+          ;(params.header as NonNullable<typeof params.header>)[paramName.toLowerCase()] = value
+          if (metadataHeaderParam && metadata?.[metadataHeaderParam])
+            delete metadata[metadataHeaderParam]
+          break
         case 'cookie':
-          (params.cookie as NonNullable<typeof params.cookie>)[paramName] = value;
-          if (metadata?.[paramName]) delete metadata[paramName];
-          break;
+          ;(params.cookie as NonNullable<typeof params.cookie>)[paramName] = value
+          if (metadata?.[paramName]) delete metadata[paramName]
+          break
         default: // no-op
       }
       /* eslint-enable no-param-reassign */
@@ -380,10 +388,10 @@ export default async function prepareParams(operation: Operation, body?: unknown
       // data payload for `x-www-form-urlencoded` requests.
       if (metadataIntersected && operation.isFormUrlEncoded()) {
         if (paramName in params.formData) {
-          delete params.formData[paramName];
+          delete params.formData[paramName]
         }
       }
-    });
+    })
 
     // If there's any leftover metadata that hasn't been moved into form data for this request we
     // need to move it or else it'll get tossed.
@@ -395,23 +403,23 @@ export default async function prepareParams(operation: Operation, body?: unknown
         // or specify a custom auth header (maybe we can't handle their auth case right) this is the
         // only way with this library that they can do that.
         specialHeaders.forEach(headerName => {
-          const headerParam = Object.keys(metadata || {}).find(m => m.toLowerCase() === headerName);
+          const headerParam = Object.keys(metadata || {}).find(m => m.toLowerCase() === headerName)
           if (headerParam) {
             // this if-statement below is a typeguard
             if (typeof metadata === 'object') {
               // this if-statement below is a typeguard
               if (typeof params.header === 'object') {
-                params.header[headerName] = metadata[headerParam] as string;
+                params.header[headerName] = metadata[headerParam] as string
               }
               // eslint-disable-next-line no-param-reassign
-              delete metadata[headerParam];
+              delete metadata[headerParam]
             }
           }
-        });
+        })
       }
 
       if (operation.isFormUrlEncoded()) {
-        params.formData = merge(params.formData, metadata);
+        params.formData = merge(params.formData, metadata)
       } else {
         // Any other remaining unused metadata will be unused because we don't know where to place
         // it in the request.
@@ -419,11 +427,13 @@ export default async function prepareParams(operation: Operation, body?: unknown
     }
   }
 
-  (['body', 'cookie', 'files', 'formData', 'header', 'path', 'query'] as const).forEach((type: keyof typeof params) => {
-    if (type in params && isEmpty(params[type])) {
-      delete params[type];
-    }
-  });
+  ;(['body', 'cookie', 'files', 'formData', 'header', 'path', 'query'] as const).forEach(
+    (type: keyof typeof params) => {
+      if (type in params && isEmpty(params[type])) {
+        delete params[type]
+      }
+    },
+  )
 
-  return params;
+  return params
 }

@@ -1,59 +1,59 @@
-import type { ConfigOptions } from './types.js';
-import type { AuthForHAR, DataForHAR } from '@readme/oas-to-har/lib/types';
-import type { Har } from 'har-format';
-import type { Operation } from 'oas/operation';
-import type { HttpMethods, OASDocument } from 'oas/types';
+import type {ConfigOptions} from './types.js'
+import type {AuthForHAR, DataForHAR} from '@readme/oas-to-har/lib/types'
+import type {Har} from 'har-format'
+import type {Operation} from 'oas/operation'
+import type {HttpMethods, OASDocument} from 'oas/types'
 
-import oasToHar from '@readme/oas-to-har';
-import fetchHar from 'fetch-har';
-import Oas from 'oas';
+import oasToHar from '@readme/oas-to-har'
+import fetchHar from 'fetch-har'
+import Oas from 'oas'
 
-import FetchError from './errors/fetchError.js';
-import { parseResponse, prepareAuth, prepareParams, prepareServer } from './lib/index.js';
+import FetchError from './errors/fetchError.js'
+import {parseResponse, prepareAuth, prepareParams, prepareServer} from './lib/index.js'
 
 export default class APICore {
-  spec!: Oas;
+  spec!: Oas
 
-  private auth: (number | string)[] = [];
+  private auth: (number | string)[] = []
 
   private server:
     | false
     | {
-        url: string;
-        variables?: Record<string, number | string>;
-      } = false;
+        url: string
+        variables?: Record<string, number | string>
+      } = false
 
-  private config: ConfigOptions = {};
+  private config: ConfigOptions = {}
 
-  private userAgent!: string;
+  private userAgent!: string
 
   constructor(definition?: OASDocument | Record<string, unknown>, userAgent?: string) {
-    if (definition) this.spec = Oas.init(definition);
-    if (userAgent) this.userAgent = userAgent;
+    if (definition) this.spec = Oas.init(definition)
+    if (userAgent) this.userAgent = userAgent
   }
 
   setSpec(spec: Oas) {
-    this.spec = spec;
+    this.spec = spec
   }
 
   setConfig(config: ConfigOptions) {
-    this.config = config;
-    return this;
+    this.config = config
+    return this
   }
 
   setUserAgent(userAgent: string) {
-    this.userAgent = userAgent;
-    return this;
+    this.userAgent = userAgent
+    return this
   }
 
   setAuth(...values: number[] | string[]) {
-    this.auth = values;
-    return this;
+    this.auth = values
+    return this
   }
 
   setServer(url: string, variables: Record<string, number | string> = {}) {
-    this.server = { url, variables };
-    return this;
+    this.server = {url, variables}
+    return this
   }
 
   async fetch<HTTPStatus extends number = number>(
@@ -62,9 +62,9 @@ export default class APICore {
     body?: unknown,
     metadata?: Record<string, unknown>,
   ) {
-    const operation = this.spec.operation(path, method);
+    const operation = this.spec.operation(path, method)
 
-    return this.fetchOperation<HTTPStatus>(operation, body, metadata);
+    return this.fetchOperation<HTTPStatus>(operation, body, metadata)
   }
 
   /**
@@ -73,7 +73,7 @@ export default class APICore {
    * @internal
    */
   getHARForRequest(operation: Operation, data: DataForHAR, auth: AuthForHAR) {
-    return oasToHar(this.spec, operation, data, auth);
+    return oasToHar(this.spec, operation, data, auth)
   }
 
   async fetchOperation<HTTPStatus extends number = number>(
@@ -81,27 +81,28 @@ export default class APICore {
     body?: unknown,
     metadata?: Record<string, unknown>,
   ) {
+    // eslint-disable-next-line @typescript-eslint/promise-function-async
     return prepareParams(operation, body, metadata).then(params => {
-      const data = { ...params };
+      const data = {...params}
 
       // If `sdk.server()` has been issued data then we need to do some extra work to figure out
       // how to use that supplied server, and also handle any server variables that were sent
       // alongside it.
       if (this.server) {
-        const preparedServer = prepareServer(this.spec, this.server.url, this.server.variables);
+        const preparedServer = prepareServer(this.spec, this.server.url, this.server.variables)
         if (preparedServer) {
-          data.server = preparedServer;
+          data.server = preparedServer
         }
       }
 
-      const har = this.getHARForRequest(operation, data, prepareAuth(this.auth, operation));
+      const har = this.getHARForRequest(operation, data, prepareAuth(this.auth, operation))
 
-      let timeoutSignal: NodeJS.Timeout;
-      const init: RequestInit = {};
+      let timeoutSignal: NodeJS.Timeout
+      const init: RequestInit = {}
       if (this.config.timeout) {
-        const controller = new AbortController();
-        timeoutSignal = setTimeout(() => controller.abort(), this.config.timeout);
-        init.signal = controller.signal;
+        const controller = new AbortController()
+        timeoutSignal = setTimeout(() => controller.abort(), this.config.timeout)
+        init.signal = controller.signal
       }
 
       return fetchHar(har as Har, {
@@ -110,7 +111,7 @@ export default class APICore {
         userAgent: this.userAgent,
       })
         .then(async (res: Response) => {
-          const parsed = await parseResponse<HTTPStatus>(res);
+          const parsed = await parseResponse<HTTPStatus>(res)
 
           if (res.status >= 400 && res.status <= 599) {
             throw new FetchError<typeof parsed.status, typeof parsed.data>(
@@ -118,16 +119,16 @@ export default class APICore {
               parsed.data,
               parsed.headers,
               parsed.res,
-            );
+            )
           }
 
-          return parsed;
+          return parsed
         })
         .finally(() => {
           if (this.config.timeout) {
-            clearTimeout(timeoutSignal);
+            clearTimeout(timeoutSignal)
           }
-        });
-    });
+        })
+    })
   }
 }

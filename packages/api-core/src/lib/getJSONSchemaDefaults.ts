@@ -1,7 +1,7 @@
-import type { SchemaWrapper } from 'oas/operation/get-parameters-as-json-schema';
-import type { SchemaObject } from 'oas/types';
+import type {SchemaWrapper} from 'oas/operation/get-parameters-as-json-schema'
+import type {SchemaObject} from 'oas/types'
 
-import traverse from 'json-schema-traverse';
+import traverse from 'json-schema-traverse'
 
 /**
  * Run through a JSON Schema object and compose up an object containing default data for any schema
@@ -15,29 +15,32 @@ import traverse from 'json-schema-traverse';
  */
 export default function getJSONSchemaDefaults(jsonSchemas: SchemaWrapper[]) {
   return jsonSchemas
-    .map(({ type: payloadType, schema: jsonSchema }) => {
-      const defaults: Record<string, unknown> = {};
+    .map(({type: payloadType, schema: jsonSchema}) => {
+      const defaults: Record<string, unknown> = {}
       traverse(
         jsonSchema,
         (
           schema: SchemaObject,
           pointer: string,
-          rootSchema: SchemaObject,
+          _rootSchema: SchemaObject,
           parentPointer?: string,
-          parentKeyword?: string,
+          _parentKeyword?: string,
           parentSchema?: SchemaObject,
           indexProperty?: number | string,
         ) => {
           if (!pointer.startsWith('/properties/')) {
-            return;
+            return
           }
 
-          if (Array.isArray(parentSchema?.required) && parentSchema?.required.includes(String(indexProperty))) {
+          if (
+            Array.isArray(parentSchema?.required) &&
+            parentSchema?.required.includes(String(indexProperty))
+          ) {
             if (schema.type === 'object' && indexProperty) {
-              defaults[indexProperty] = {};
+              defaults[indexProperty] = {}
             }
 
-            let destination = defaults;
+            let destination = defaults
             if (parentPointer) {
               // To map nested objects correct we need to pick apart the parent pointer.
               parentPointer
@@ -45,30 +48,30 @@ export default function getJSONSchemaDefaults(jsonSchemas: SchemaWrapper[]) {
                 .split('/')
                 .forEach((subSchema: string) => {
                   if (subSchema === '') {
-                    return;
+                    return
                   }
 
-                  destination = (destination?.[subSchema] as Record<string, unknown>) || {};
-                });
+                  destination = (destination?.[subSchema] as Record<string, unknown>) || {}
+                })
             }
 
             if (schema.default !== undefined) {
               if (indexProperty !== undefined) {
-                destination[indexProperty] = schema.default;
+                destination[indexProperty] = schema.default
               }
             }
           }
         },
-      );
+      )
 
       if (!Object.keys(defaults).length) {
-        return {};
+        return {}
       }
 
       return {
         // @todo should we filter out empty and undefined objects from here with `remove-undefined-objects`?
         [payloadType]: defaults,
-      };
+      }
     })
-    .reduce((prev, next) => Object.assign(prev, next));
+    .reduce((prev, next) => Object.assign(prev, next))
 }

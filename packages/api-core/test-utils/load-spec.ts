@@ -4,5 +4,5 @@
  * for doing so.
  */
 export function loadSpec(spec: string) {
-  return import(spec).then(({ default: data }) => JSON.stringify(data)).then(JSON.parse);
+  return import(spec).then(({default: data}) => JSON.stringify(data)).then(JSON.parse)
 }

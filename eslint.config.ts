@@ -10,6 +10,7 @@ export default defineConfig(
           './tsconfig.eslint.json',
           './packages/*/tsconfig.json',
           './packages/*/tsconfig.eslint.json',
+          './packages/api-core/test-utils/tsconfig.json',
         ],
         projectService: false,
       },

@@ -1,10 +1,17 @@
-/* eslint-disable import/no-extraneous-dependencies, node/no-extraneous-import */
-import type { Options } from 'tsup';
+import type {Options} from 'tsup'
 
-import { defineConfig } from 'tsup';
+import {defineConfig} from 'tsup'
 
-// eslint-disable-next-line import/no-relative-packages
-import config from '../../tsup.config.js';
+const config: Options = {
+  cjsInterop: true,
+  clean: true,
+  dts: true,
+  format: ['esm'],
+  minify: false,
+  shims: true,
+  sourcemap: true,
+  splitting: true,
+}
 
 export default defineConfig((options: Options) => ({
   ...options,
@@ -21,4 +28,4 @@ export default defineConfig((options: Options) => ({
   ],
 
   silent: !options.watch,
-}));
+}))

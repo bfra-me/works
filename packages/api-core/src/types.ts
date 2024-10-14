@@ -1,11 +1,11 @@
-export { FromSchema } from 'json-schema-to-ts';
+export type {FromSchema} from 'json-schema-to-ts'
 
 export interface ConfigOptions {
   /**
    * Override the default `fetch` request timeout of 30 seconds. This number should be represented
    * in milliseconds.
    */
-  timeout?: number;
+  timeout?: number
 }
 
 /**
@@ -13,13 +13,16 @@ export interface ConfigOptions {
  */
 type Enumerate<N extends number, Acc extends number[] = []> = Acc['length'] extends N
   ? Acc[number]
-  : Enumerate<N, [...Acc, Acc['length']]>;
+  : Enumerate<N, [...Acc, Acc['length']]>
 
-export type HTTPMethodRange<F extends number, T extends number> = Exclude<Enumerate<T>, Enumerate<F>>;
+export type HTTPMethodRange<F extends number, T extends number> = Exclude<
+  Enumerate<T>,
+  Enumerate<F>
+>
 
 export interface FetchResponse<HTTPStatus, Data> {
-  data: Data;
-  headers: Headers;
-  res: Response;
-  status: HTTPStatus;
+  data: Data
+  headers: Headers
+  res: Response
+  status: HTTPStatus
 }
