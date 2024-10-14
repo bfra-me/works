@@ -35,11 +35,10 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "attw": "attw --pack --format table-flipped",
-    "prebuild": "rm -rf dist/",
     "build": "tsup",
     "lint:types": "tsc --noEmit",
     "prepack": "pnpm run build",
-    "test": "vitest run --coverage"
+    "test": "vitest"
   },
   "dependencies": {
     "@readme/oas-to-har": "^23.2.0",
