@@ -1,3 +1,6 @@
 **/lib
+!packages/api-core/src/lib/
+!packages/api-core/test/lib/
+packages/api-core/test-utils/sdks/
 packages/eslint-config/.eslint-config-inspector
 packages/eslint-config/src/types.ts

@@ -17,7 +17,7 @@
 
     "explorer.fileNesting.enabled": false,
 
-    "cSpell.words": ["bfra", "frameworkers"],
+    "cSpell.words": ["bfra", "frameworkers", "readmeio"],
 
     "prettier.enable": true,
 

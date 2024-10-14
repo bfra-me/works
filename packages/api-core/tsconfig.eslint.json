@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": ["eslint.config.ts", "test/**/*.ts", "tsup.config.ts", "vitest.config.ts"]
+}

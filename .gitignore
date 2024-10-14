@@ -3,6 +3,8 @@
 .nyc_output
 dist
 lib
+!packages/api-core/src/lib/
+!packages/api-core/test/lib/
 package-lock.json
 yarn.lock
 node_modules
