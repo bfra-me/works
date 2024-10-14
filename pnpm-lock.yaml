@@ -201,8 +201,8 @@ importers:
         specifier: 20.16.1
         version: 20.16.1
       '@typescript-eslint/types':
-        specifier: 8.8.1
-        version: 8.8.1
+        specifier: 8.9.0
+        version: 8.9.0
       '@vitest/eslint-plugin':
         specifier: 1.1.4
         version: 1.1.4(@typescript-eslint/utils@8.8.1(eslint@9.12.0(jiti@2.3.1))(typescript@5.6.2))(eslint@9.12.0(jiti@2.3.1))(typescript@5.6.2)(vitest@2.1.3(@types/node@20.16.1))
@@ -1362,6 +1362,10 @@ packages:
 
   '@typescript-eslint/types@8.8.1':
     resolution: {integrity: sha512-WCcTP4SDXzMd23N27u66zTKMuEevH4uzU8C9jf0RO4E04yVHgQgW+r+TeVTNnO1KIfrL8ebgVVYYMMO3+jC55Q==}
+    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@typescript-eslint/types@8.9.0':
+    resolution: {integrity: sha512-SjgkvdYyt1FAPhU9c6FiYCXrldwYYlIQLkuc+LfAhCna6ggp96ACncdtlbn8FmnG72tUkXclrDExOpEYf1nfJQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@typescript-eslint/typescript-estree@8.8.0':
@@ -5252,6 +5256,8 @@ snapshots:
 
   '@typescript-eslint/types@8.8.1': {}
 
+  '@typescript-eslint/types@8.9.0': {}
+
   '@typescript-eslint/typescript-estree@8.8.0(typescript@5.6.2)':
     dependencies:
       '@typescript-eslint/types': 8.8.0
@@ -5986,7 +5992,7 @@ snapshots:
 
   eslint-plugin-perfectionist@3.8.0(eslint@9.12.0(jiti@2.3.1))(typescript@5.6.2):
     dependencies:
-      '@typescript-eslint/types': 8.8.1
+      '@typescript-eslint/types': 8.9.0
       '@typescript-eslint/utils': 8.8.1(eslint@9.12.0(jiti@2.3.1))(typescript@5.6.2)
       eslint: 9.12.0(jiti@2.3.1)
       minimatch: 9.0.5
