@@ -1,5 +1,12 @@
 # @bfra.me/api-core
 
+## 0.1.1
+### Patch Changes
+
+
+
+- Remove unnecessary files from the output package (by [@marcusrbrown](https://github.com/marcusrbrown) with [#454](https://github.com/bfra-me/works/pull/454))
+
 ## 0.1.0
 ### Minor Changes
 
