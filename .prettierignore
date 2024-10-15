@@ -1,4 +1,6 @@
-**/lib
+**/coverage/
+**/dist/
+**/lib/
 !packages/api-core/src/lib/
 !packages/api-core/test/lib/
 packages/api-core/test-utils/sdks/
