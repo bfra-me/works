@@ -33,6 +33,11 @@
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "!**/*.map"
+  ],
   "scripts": {
     "attw": "attw --pack --format table-flipped",
     "build": "tsup",
