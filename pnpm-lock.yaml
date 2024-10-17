@@ -78,8 +78,8 @@ importers:
         specifier: ^4.6.2
         version: 4.6.2
       oas:
-        specifier: ^24.0.0
-        version: 24.9.0
+        specifier: ^25.0.0
+        version: 25.0.0
       remove-undefined-objects:
         specifier: ^5.0.0
         version: 5.0.0
@@ -128,8 +128,8 @@ importers:
         specifier: 0.12.5
         version: 0.12.5
       oas:
-        specifier: ^24.0.0
-        version: 24.9.0
+        specifier: ^25.0.0
+        version: 25.0.0
       typescript:
         specifier: 5.6.2
         version: 5.6.2
@@ -3027,6 +3027,10 @@ packages:
     resolution: {integrity: sha512-2FOtIq9kB5G1F61aCaDv+7aDwMk2W41MgKphaaGYM2O57MkY9eaoTypJv1WoXEOQg7tKtGX8xFa+eExcVxiWbw==}
     engines: {node: '>=18'}
 
+  oas@25.0.0:
+    resolution: {integrity: sha512-c6lTjnpcfC/nC86J+qKeUoxDAGbxDrFqVEDDAp04iOFS9ciuVhb+Ri0EauKG6T161klsw3+/l7f9Rsh7SGDEiw==}
+    engines: {node: '>=18'}
+
   object-assign@4.1.1:
     resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
     engines: {node: '>=0.10.0'}
@@ -3213,6 +3217,10 @@ packages:
 
   path-to-regexp@7.2.0:
     resolution: {integrity: sha512-0W4AcUxPpFlcS8ql8ZEmFwaI0X5WshUVAFdXe3PBurrt18DK8bvSS+UKHvJUAfGILco/nTtc/E4LcPNfVysfwQ==}
+    engines: {node: '>=16'}
+
+  path-to-regexp@8.2.0:
+    resolution: {integrity: sha512-TdrF7fW9Rphjq4RjrW0Kp2AW0Ahwu9sRGTkS6bvDi0SCwZlEZYmcfDbEsTz8RVk0EHIS/Vd1bv3JhG+1xZuAyQ==}
     engines: {node: '>=16'}
 
   path-type@4.0.0:
@@ -6858,6 +6866,21 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
+  oas@25.0.0:
+    dependencies:
+      '@readme/json-schema-ref-parser': 1.2.0
+      '@types/json-schema': 7.0.15
+      json-schema-merge-allof: 0.8.1
+      jsonpath-plus: 9.0.0
+      jsonpointer: 5.0.1
+      memoizee: 0.4.17
+      oas-normalize: 11.1.2
+      openapi-types: 12.1.3
+      path-to-regexp: 8.2.0
+      remove-undefined-objects: 5.0.0
+    transitivePeerDependencies:
+      - encoding
+
   object-assign@4.1.1: {}
 
   object-inspect@1.13.2: {}
@@ -7023,6 +7046,8 @@ snapshots:
       minipass: 7.1.2
 
   path-to-regexp@7.2.0: {}
+
+  path-to-regexp@8.2.0: {}
 
   path-type@4.0.0: {}
 
