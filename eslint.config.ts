@@ -1,41 +1,21 @@
 import {defineConfig} from './packages/eslint-config'
 
-export default defineConfig(
-  {
-    name: '@bfra.me/works',
-    ignores: ['**/test/fixtures', '**/test/_fixtures'],
-    typescript: {
-      parserOptions: {
-        project: [
-          './tsconfig.eslint.json',
-          './packages/*/tsconfig.json',
-          './packages/*/tsconfig.eslint.json',
-          './packages/api-core/test-utils/tsconfig.json',
-        ],
-        projectService: false,
-      },
-      tsconfigPath: './tsconfig.json',
-    },
-    vitest: true,
-  },
-  {
-    name: '@bfra.me/works/eslint-config',
-    files: ['packages/eslint-config/src/**/*.ts'],
-    rules: {
-      'perfectionist/sort-objects': [
-        'error',
-        {
-          customGroups: {top: ['name']},
-          groups: ['top', 'unknown'],
-        },
+export const config = defineConfig({
+  name: '@bfra.me/works',
+  ignores: ['**/test/fixtures', '**/test/_fixtures'],
+  typescript: {
+    parserOptions: {
+      project: [
+        './tsconfig.eslint.json',
+        './packages/*/tsconfig.json',
+        './packages/*/tsconfig.eslint.json',
+        './packages/api-core/test-utils/tsconfig.json',
       ],
+      projectService: false,
     },
+    tsconfigPath: './tsconfig.json',
   },
-  {
-    name: '@bfra.me/works/eslint-config/ignores',
-    ignores: [
-      'packages/eslint-config/.eslint-config-inspector/',
-      'packages/eslint-config/src/types.ts',
-    ],
-  },
-)
+  vitest: true,
+})
+
+export default config
