@@ -1,5 +1,6 @@
 import {defineConfig} from './define-config'
 
+export * from './compose-config'
 export * from './configs'
 export * from './define-config'
 export * from './env'
