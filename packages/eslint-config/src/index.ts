@@ -7,4 +7,5 @@ export * from './env'
 export * from './globs'
 export * from './types'
 
-export default defineConfig()
+export const config = defineConfig()
+export default config
