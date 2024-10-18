@@ -1,5 +1,15 @@
 # @bfra.me/eslint-config
 
+## 0.3.1
+### Patch Changes
+
+
+
+- Add a named export for the default config and move the ESLint config that pertains to `eslint-config` into the package, as the monorepo passes the `unstable_config_lookup_from_file` feature flag to ESLint. (by [@marcusrbrown](https://github.com/marcusrbrown) with [#465](https://github.com/bfra-me/works/pull/465))
+
+
+- Add the `composeConfig` function as an alias to `composer`. `composeConfig` is closed over the `Config` and `ConfigNames` type arguments supplied to `FlatConfigComposer`. (by [@marcusrbrown](https://github.com/marcusrbrown) with [#463](https://github.com/bfra-me/works/pull/463))
+
 ## 0.3.0
 ### Minor Changes
 
