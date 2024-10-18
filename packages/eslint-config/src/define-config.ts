@@ -1,8 +1,7 @@
-import {type Awaitable, FlatConfigComposer} from 'eslint-flat-config-utils'
-import type {Linter} from 'eslint'
 import type {FlatGitignoreOptions} from 'eslint-config-flat-gitignore'
 import {isPackageExists} from 'local-pkg'
 import type {ParserOptions} from '@typescript-eslint/types'
+import {composeConfig} from './compose-config'
 import {
   command,
   epilogue,
@@ -15,7 +14,7 @@ import {
   typescript,
   vitest,
 } from './configs'
-import type {Config, ConfigNames} from './types'
+import type {Config, FlatConfigComposer, ResolvableFlatConfig} from './types'
 import * as Env from './env'
 import {interopDefault} from './plugins'
 
@@ -136,10 +135,10 @@ export type Options = {
  */
 export async function defineConfig(
   options: Options = {},
-  ...userConfigs: Awaitable<Config | Config[] | FlatConfigComposer<any, any> | Linter.Config[]>[]
+  ...userConfigs: ResolvableFlatConfig[]
   // @ts-expect-error - TypeScript insists that the return type should be `Promise<T>`, but it's actually
   // `FlatConfigComposer<>` which acts like a `Promise<T>`.
-): FlatConfigComposer<Config, ConfigNames> {
+): FlatConfigComposer {
   const {
     gitignore: enableGitignore = true,
     typescript: enableTypeScript = isPackageExists('typescript'),
@@ -151,15 +150,15 @@ export async function defineConfig(
       '[@bfra.me/eslint-config] Editor specific config is enabled. Some rules may be disabled.',
     )
 
-  const configs: Awaitable<Config[]>[] = []
+  const configs: (Config[] | Promise<Config[]>)[] = []
 
   if (enableGitignore) {
     const gitignoreOptions: FlatGitignoreOptions =
       typeof enableGitignore !== 'boolean' ? enableGitignore : {strict: false}
 
     configs.push(
-      interopDefault(import('eslint-config-flat-gitignore')).then(p => [
-        p({
+      interopDefault(import('eslint-config-flat-gitignore')).then(ignore => [
+        ignore({
           name: '@bfra.me/gitignore',
           ...gitignoreOptions,
         }),
@@ -212,9 +211,7 @@ export async function defineConfig(
     configs.push([optionsConfig])
   }
 
-  const composer = new FlatConfigComposer<Config, ConfigNames>(...configs, ...(userConfigs as any))
-
-  return composer
+  return composeConfig(...configs, ...userConfigs)
 }
 
 type ResolvedOptions<T> = T extends boolean ? never : NonNullable<T>
