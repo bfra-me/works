@@ -15,9 +15,17 @@
   ],
   packageRules: [
     {
-      description: 'Keep the bfra-me/renovate-config preset pinned.',
+      description: 'Enable SemVer digest pinning of bfra.me Renovate config presets.',
+      matchDatasources: ['github-tags'],
       matchPackageNames: ['bfra-me/renovate-config'],
-      rangeStrategy: 'pin',
+      updatePinnedDependencies: false,
+    },
+    {
+      description: 'Enable SemVer digest pinning of bfra.me Renovate config presets.',
+      matchDatasources: ['github-tags'],
+      matchPackageNames: ['bfra-me/renovate-config'],
+      matchUpdateTypes: ['major'],
+      updatePinnedDependencies: true,
     },
   ],
   patch: {
