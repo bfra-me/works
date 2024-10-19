@@ -32,6 +32,7 @@
     automerge: true,
     enabled: true,
   },
+  platformAutomerge: false,
   postUpgradeTasks: {
     commands: ['pnpm run bootstrap'],
     executionMode: 'branch',
