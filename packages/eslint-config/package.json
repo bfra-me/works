@@ -68,7 +68,7 @@
     "@types/fs-extra": "11.0.4",
     "@types/node": "20.16.13",
     "@typescript-eslint/types": "8.10.0",
-    "@vitest/eslint-plugin": "1.1.4",
+    "@vitest/eslint-plugin": "1.1.7",
     "eslint": "9.13.0",
     "eslint-plugin-no-only-tests": "3.3.0",
     "eslint-typegen": "0.3.2",
