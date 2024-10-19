@@ -51,7 +51,7 @@
     "@bfra.me/prettier-config": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
     "@types/fs-extra": "11.0.4",
-    "execa": "9.4.0",
+    "execa": "9.4.1",
     "fast-glob": "3.3.2",
     "fs-extra": "11.2.0",
     "prettier": "3.3.3",
