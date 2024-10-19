@@ -2,23 +2,22 @@
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   extends: [
     'security:openssf-scorecard',
-
-    'github>bfra-me/renovate-config#v3.9.2',
-    'github>bfra-me/renovate-config:internal.json5#v3.9.2',
+    'github>bfra-me/renovate-config#v3',
+    'github>bfra-me/renovate-config:internal.json5#v3',
   ],
   addLabels: ['{{{parentDir}}}'],
   automergeType: 'pr',
+  ignorePaths: [
+    '**/node_modules/**',
+    '**/test/**',
+    '**/dist/**',
+    'packages/api-core/test-utils/sdks/**',
+  ],
   packageRules: [
     {
       description: 'Keep the bfra-me/renovate-config preset pinned.',
       matchPackageNames: ['bfra-me/renovate-config'],
       rangeStrategy: 'pin',
-      updatePinnedDependencies: false,
-    },
-    {
-      description: 'Disable updates of `sdk` packages under packages/api-core/test-utils',
-      matchFileNames: ['packages/api-core/test-utils/sdks/**/package.json'],
-      enabled: false,
     },
   ],
   patch: {
