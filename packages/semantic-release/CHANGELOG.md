@@ -1,5 +1,12 @@
 # @bfra.me/semantic-release
 
+## 0.1.5
+### Patch Changes
+
+
+
+- Update bundling and packaging to be consistent with other packages. (by [@marcusrbrown](https://github.com/marcusrbrown) with [#468](https://github.com/bfra-me/works/pull/468))
+
 ## 0.1.4
 ### Patch Changes
 
