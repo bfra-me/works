@@ -87,6 +87,12 @@ importers:
       '@api/test-utils':
         specifier: workspace:*
         version: link:test-utils
+      '@bfra.me/api-core':
+        specifier: workspace:*
+        version: 'link:'
+      '@bfra.me/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
       '@readme/oas-examples':
         specifier: ^5.12.0
         version: 5.18.2
