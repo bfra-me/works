@@ -1,11 +1,11 @@
 import {defineConfig} from 'tsup'
 
+// @keep-sorted
 export default defineConfig({
-  bundle: false,
-  entry: ['src/**/*.ts', 'src/**/*.d.ts'],
-  format: ['esm'],
-  dts: true,
   clean: true,
-  sourcemap: true,
+  dts: true,
+  entry: ['src/index.ts'],
+  format: ['esm'],
   outDir: 'lib',
+  sourcemap: true,
 })

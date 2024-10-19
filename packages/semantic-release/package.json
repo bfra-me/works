@@ -33,7 +33,7 @@
   "files": [
     "lib",
     "tsconfig.json",
-    "!*.map"
+    "!**/*.map"
   ],
   "scripts": {
     "build": "tsup-node",
