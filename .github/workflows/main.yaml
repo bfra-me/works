@@ -51,12 +51,11 @@ jobs:
     steps:
       - id: get-workflow-access-token
         name: Get Workflow Access Token
-        uses: peter-murray/workflow-application-token-action@dc0413987a085fa17d19df9e47d4677cf81ffef3 # v3.0.0
+        uses: actions/create-github-app-token@5d869da34e18e7287c1daad50e0b8ea0f506ce69 # v1.11.0
         with:
-          application_id: ${{ secrets.APPLICATION_ID }}
-          application_private_key: ${{ secrets.APPLICATION_PRIVATE_KEY }}
-          permissions: 'contents:write, issues:write, pull_requests:write'
-          revoke_token: true
+          app-id: ${{ secrets.APPLICATION_ID }}
+          private-key: ${{ secrets.APPLICATION_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
 
       - name: Setup Git user
         run: |
