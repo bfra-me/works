@@ -37,7 +37,7 @@
     "@changesets/cli": "2.27.9",
     "@eslint/config-inspector": "0.5.5",
     "@manypkg/cli": "0.22.0",
-    "@microsoft/api-extractor": "7.47.9",
+    "@microsoft/api-extractor": "7.47.11",
     "@swisspost/design-system-changelog-github": "1.0.2",
     "@types/node": "20.16.13",
     "eslint": "9.13.0",
