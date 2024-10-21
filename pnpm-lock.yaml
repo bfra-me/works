@@ -128,7 +128,7 @@ importers:
         version: 4.1.0
       formdata-to-string:
         specifier: ^2.0.1
-        version: 2.0.1
+        version: 2.0.2
     devDependencies:
       '@types/caseless':
         specifier: 0.12.5
@@ -2292,8 +2292,8 @@ packages:
     resolution: {integrity: sha512-Ld2g8rrAyMYFXBhEqMz8ZAHBi4J4uS1i/CxGMDnjyFWddMXLVcDp051DZfu+t7+ab7Wv6SMqpWmyFIj5UbfFvg==}
     engines: {node: '>=14'}
 
-  formdata-to-string@2.0.1:
-    resolution: {integrity: sha512-eYn0QERLogyNY9t9at3omp6YWmfu7YFFEYYDgKhEXRMsHDLq6iVpQVDBaLVMx64AWMFQrfo+GVHPWvORxaCiUQ==}
+  formdata-to-string@2.0.2:
+    resolution: {integrity: sha512-OxurQikLgzU3+AhBCb2Or7pV2+dQWMSi1r4ZmhGMZ/WxVLOfUCqB2hqK5EwTGSzN9O/dx9uw5Mln/vtG1t0XbQ==}
     engines: {node: '>=18'}
     deprecated: This library is no longer in development.
 
@@ -6289,7 +6289,7 @@ snapshots:
       cross-spawn: 7.0.3
       signal-exit: 4.1.0
 
-  formdata-to-string@2.0.1: {}
+  formdata-to-string@2.0.2: {}
 
   from2@2.3.0:
     dependencies:
