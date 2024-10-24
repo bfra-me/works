@@ -95,7 +95,7 @@ importers:
         version: link:../eslint-config
       '@readme/oas-examples':
         specifier: ^5.12.0
-        version: 5.12.0
+        version: 5.18.2
       '@types/caseless':
         specifier: 0.12.5
         version: 0.12.5
@@ -1137,8 +1137,8 @@ packages:
   '@readme/json-schema-ref-parser@1.2.0':
     resolution: {integrity: sha512-Bt3QVovFSua4QmHa65EHUmh2xS0XJ3rgTEUPH998f4OW4VVJke3BuS16f+kM0ZLOGdvIrzrPRqwihuv5BAjtrA==}
 
-  '@readme/oas-examples@5.12.0':
-    resolution: {integrity: sha512-qFBl1HJVHOW9x+9k6Egi9zr0wHXitqsZnSjAiBExDFIH6aS9vLEkKehDdVnntcjnYi6HzmIG5Z/iDZb7q56P8g==}
+  '@readme/oas-examples@5.18.2':
+    resolution: {integrity: sha512-ENAqUaKGLVM7u0KIwuWAqER2D2Fcc8w0EpGOD9BbjVeOnVNQg4gSFvr6zNQtblu5i/D1m3upKqBMeSPIhocXJg==}
 
   '@readme/oas-to-har@23.2.0':
     resolution: {integrity: sha512-aocSIDhxqgQX/rWOjO+0+0hy2DRYV8jraq9RP1JS9IGQIzoC40syhqtIwvl6TWbV+4LTLQRks3JsKTUOaTtjSA==}
@@ -4968,7 +4968,7 @@ snapshots:
       call-me-maybe: 1.0.2
       js-yaml: 4.1.0
 
-  '@readme/oas-examples@5.12.0': {}
+  '@readme/oas-examples@5.18.2': {}
 
   '@readme/oas-to-har@23.2.0':
     dependencies:
