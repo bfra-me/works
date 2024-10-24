@@ -39,7 +39,7 @@
     "@manypkg/cli": "0.22.0",
     "@microsoft/api-extractor": "7.47.11",
     "@swisspost/design-system-changelog-github": "1.0.2",
-    "@types/node": "20.16.13",
+    "@types/node": "20.17.0",
     "eslint": "9.13.0",
     "prettier": "3.3.3",
     "publint": "0.2.11",
