@@ -37,7 +37,7 @@
     "build": "tsup"
   },
   "dependencies": {
-    "sort-package-json": "2.10.0"
+    "sort-package-json": "2.10.1"
   },
   "devDependencies": {
     "@bfra.me/prettier-plugins": "workspace:*",
