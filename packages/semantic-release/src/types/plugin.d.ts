@@ -3,26 +3,26 @@ import type {PluginSpec} from './plugin-spec.d.ts'
 import type {SemanticReleasePlugins} from './plugin/semantic-release.d.ts'
 
 /**
- * This is a special exported interface for other packages to declare
- * additional types that should bail out for eslint rules. For example
- * `semantic-release-license` can declare it like so in its `d.ts`:
- *
- * ```ts
- * declare module '@bfra-me/semantic-release' {
- *   export interface CustomPluginConfig {
- *     /**
- *      * The path to your license path.
- *      *
- *      * \@see [Options](https://github.com/cbhq/semantic-release-license/tree/latest#options)
- *      *\/
- *     'semantic-release-license': {
- *       license: {
- *         path?: string;
- *       }
- *     }
- *   }
- * }
- * ```
+ This is a special exported interface for other packages to declare
+ additional types that should bail out for eslint rules. For example
+ `semantic-release-license` can declare it like so in its `d.ts`:
+
+ ```ts
+ declare module '@bfra-me/semantic-release' {
+   export interface CustomPluginConfig {
+     /**
+      The path to your license path.
+
+      \@see [Options](https://github.com/cbhq/semantic-release-license/tree/latest#options)
+      *\/
+     'semantic-release-license': {
+       license: {
+         path?: string;
+       }
+     }
+   }
+ }
+ ```
  */
 export interface CustomPluginConfig {}
 
