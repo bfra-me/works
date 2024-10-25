@@ -42,6 +42,11 @@
       matchUpdateTypes: ['major'],
       updatePinnedDependencies: true,
     },
+    {
+      description: 'Pin fetch-mock to version 11.',
+      matchPackageNames: ['fetch-mock'],
+      allowedVersions: ['^11.0.0'],
+    },
   ],
   patch: {
     automerge: true,
