@@ -23,6 +23,7 @@
     "fix": "manypkg fix && pnpm lint-source --fix",
     "format": "prettier --write .",
     "inspect-eslint-config": "eslint-config-inspector --config eslint.config.ts --open false",
+    "postinstall": "pnpm build-essential",
     "install-quickly": "pnpm install --frozen-lockfile --ignore-scripts --prefer-offline --silent",
     "lint": "manypkg check && pnpm lint-packages && pnpm lint-source",
     "prelint-packages": "pnpm build",
