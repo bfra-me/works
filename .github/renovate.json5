@@ -20,14 +20,12 @@
       matchSourceUrls: ['https://github.com/readmeio/oas'],
       matchUpdateTypes: ['digest', 'patch', 'minor', 'major'],
       groupName: '@readmeio/oas monorepo',
-      groupSlug: 'readmeio-oas-monorepo',
     },
     {
       description: 'Group packages from @readmeio/api monorepo together.',
       matchSourceUrls: ['https://github.com/readmeio/api'],
       matchUpdateTypes: ['digest', 'patch', 'minor', 'major'],
       groupName: '@readmeio/api monorepo',
-      groupSlug: 'readmeio-api-monorepo',
     },
     {
       description: 'Enable SemVer digest pinning of bfra.me Renovate config presets.',
