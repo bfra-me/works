@@ -58,7 +58,7 @@ importers:
     dependencies:
       '@readme/oas-to-har':
         specifier: ^23.2.0
-        version: 23.2.0
+        version: 23.2.27
       caseless:
         specifier: ^0.12.0
         version: 0.12.0
@@ -1148,8 +1148,8 @@ packages:
   '@readme/oas-examples@5.18.2':
     resolution: {integrity: sha512-ENAqUaKGLVM7u0KIwuWAqER2D2Fcc8w0EpGOD9BbjVeOnVNQg4gSFvr6zNQtblu5i/D1m3upKqBMeSPIhocXJg==}
 
-  '@readme/oas-to-har@23.2.0':
-    resolution: {integrity: sha512-aocSIDhxqgQX/rWOjO+0+0hy2DRYV8jraq9RP1JS9IGQIzoC40syhqtIwvl6TWbV+4LTLQRks3JsKTUOaTtjSA==}
+  '@readme/oas-to-har@23.2.27':
+    resolution: {integrity: sha512-RIfVbQ1J3rDWXY5/IxJBP0YG/IkRWt8FDhgPewd5nP44+l88/Ie+4XbVwyFCJcYLv8cVw0bn+crEq8aX3Fk49g==}
     engines: {node: '>=18'}
 
   '@readme/openapi-parser@2.6.0':
@@ -2767,6 +2767,11 @@ packages:
   jsonfile@6.1.0:
     resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
 
+  jsonpath-plus@10.1.0:
+    resolution: {integrity: sha512-gHfV1IYqH8uJHYVTs8BJX1XKy2/rR93+f8QQi0xhx95aCiXn1ettYAd5T+7FU6wfqyDoX/wy0pm/fL3jOKJ9Lg==}
+    engines: {node: '>=18.0.0'}
+    hasBin: true
+
   jsonpath-plus@9.0.0:
     resolution: {integrity: sha512-bqE77VIDStrOTV/czspZhTn+o27Xx9ZJRGVkdVShEtPoqsIx5yALv3lWVU6y+PqYvWPJNWE7ORCQheQkEe0DDA==}
     engines: {node: '>=14.0.0'}
@@ -2838,9 +2843,6 @@ packages:
   lodash.escaperegexp@4.1.2:
     resolution: {integrity: sha512-TM9YBvyC84ZxE3rgfefxUWiQKLilstD6k7PTGt6wfbtXF8ixIJLOL3VYyV/z+ZiPLsVxAsKAFVwWlWeb2Y8Yyw==}
 
-  lodash.get@4.4.2:
-    resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
-
   lodash.isplainobject@4.0.6:
     resolution: {integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==}
 
@@ -2849,9 +2851,6 @@ packages:
 
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
-
-  lodash.set@4.3.2:
-    resolution: {integrity: sha512-4hNPN5jlm/N/HLMCO43v8BXKq9Z7QdAGc/VGrRD61w8gN9g/6jF9A4L1pbUgBLCffi0w9VsXfTOij5x8iTyFvg==}
 
   lodash.sortby@4.7.0:
     resolution: {integrity: sha512-HDWXG8isMntAyRF5vZ7xKuEvOhT4AhlRt/3czTSjvGUxjYCBVRQY48ViDHyfYz9VIoBkW4TMGQNapx+l3RUwdA==}
@@ -3177,6 +3176,10 @@ packages:
     resolution: {integrity: sha512-2FOtIq9kB5G1F61aCaDv+7aDwMk2W41MgKphaaGYM2O57MkY9eaoTypJv1WoXEOQg7tKtGX8xFa+eExcVxiWbw==}
     engines: {node: '>=18'}
 
+  oas@25.0.3:
+    resolution: {integrity: sha512-6a1qnCPhqaU/awhQSfMLwVIC7xZRO3JhO/s6x/ctscq76LUknxuIS1s2x0/mtxYg+DBFJPIXAQET4KyosuaNtw==}
+    engines: {node: '>=18'}
+
   object-assign@4.1.1:
     resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
     engines: {node: '>=0.10.0'}
@@ -3366,6 +3369,10 @@ packages:
 
   path-to-regexp@7.2.0:
     resolution: {integrity: sha512-0W4AcUxPpFlcS8ql8ZEmFwaI0X5WshUVAFdXe3PBurrt18DK8bvSS+UKHvJUAfGILco/nTtc/E4LcPNfVysfwQ==}
+    engines: {node: '>=16'}
+
+  path-to-regexp@8.2.0:
+    resolution: {integrity: sha512-TdrF7fW9Rphjq4RjrW0Kp2AW0Ahwu9sRGTkS6bvDi0SCwZlEZYmcfDbEsTz8RVk0EHIS/Vd1bv3JhG+1xZuAyQ==}
     engines: {node: '>=16'}
 
   path-type@4.0.0:
@@ -4986,12 +4993,10 @@ snapshots:
 
   '@readme/oas-examples@5.18.2': {}
 
-  '@readme/oas-to-har@23.2.0':
+  '@readme/oas-to-har@23.2.27':
     dependencies:
       '@readme/data-urls': 3.0.0
-      lodash.get: 4.4.2
-      lodash.set: 4.3.2
-      oas: 24.9.0
+      oas: 25.0.3
       qs: 6.13.0
       remove-undefined-objects: 5.0.0
     transitivePeerDependencies:
@@ -6753,6 +6758,12 @@ snapshots:
     optionalDependencies:
       graceful-fs: 4.2.11
 
+  jsonpath-plus@10.1.0:
+    dependencies:
+      '@jsep-plugin/assignment': 1.2.1(jsep@1.3.9)
+      '@jsep-plugin/regex': 1.0.3(jsep@1.3.9)
+      jsep: 1.3.9
+
   jsonpath-plus@9.0.0:
     dependencies:
       '@jsep-plugin/assignment': 1.2.1(jsep@1.3.9)
@@ -6817,15 +6828,11 @@ snapshots:
 
   lodash.escaperegexp@4.1.2: {}
 
-  lodash.get@4.4.2: {}
-
   lodash.isplainobject@4.0.6: {}
 
   lodash.isstring@4.0.1: {}
 
   lodash.merge@4.6.2: {}
-
-  lodash.set@4.3.2: {}
 
   lodash.sortby@4.7.0: {}
 
@@ -7086,6 +7093,21 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
+  oas@25.0.3:
+    dependencies:
+      '@readme/json-schema-ref-parser': 1.2.0
+      '@types/json-schema': 7.0.15
+      json-schema-merge-allof: 0.8.1
+      jsonpath-plus: 10.1.0
+      jsonpointer: 5.0.1
+      memoizee: 0.4.17
+      oas-normalize: 11.1.3
+      openapi-types: 12.1.3
+      path-to-regexp: 8.2.0
+      remove-undefined-objects: 5.0.0
+    transitivePeerDependencies:
+      - encoding
+
   object-assign@4.1.1: {}
 
   object-inspect@1.13.2: {}
@@ -7253,6 +7275,8 @@ snapshots:
       minipass: 7.1.2
 
   path-to-regexp@7.2.0: {}
+
+  path-to-regexp@8.2.0: {}
 
   path-type@4.0.0: {}
 
