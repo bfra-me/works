@@ -54,7 +54,7 @@
   },
   platformAutomerge: false,
   postUpgradeTasks: {
-    commands: ['pnpm bootstrap', 'pnpm fix', 'pnpm format'],
+    commands: ['pnpm install --frozen-lockfile', 'pnpm fix', 'pnpm format'],
     executionMode: 'branch',
   },
   prCreation: 'not-pending',
