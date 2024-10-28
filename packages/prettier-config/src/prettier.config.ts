@@ -1,22 +1,37 @@
-import {resolve} from './plugins.js'
+import {createRequire} from 'node:module'
 import type {Config} from 'prettier'
-
-import {createRequire} from 'module'
+import {resolve} from './plugins.js'
 
 const require = createRequire(import.meta.url)
 const resolvePlugin = resolve.bind(null, require.resolve)
+const {searchParams} = new URL(import.meta.url)
 
-const {searchParams: params} = new URL(import.meta.url)
+type RequiredConfig = Required<Config>
 
 /**
  * Shared Prettier configuration for bfra.me projects.
  */
-const config: Config = {
+export interface DefaultConfig extends Config {
+  /** @default avoid */
+  arrowParens: 'avoid' | RequiredConfig['arrowParens']
+  /** @default false */
+  bracketSpacing: false | boolean
+  /** @default auto */
+  endOfLine: 'auto' | RequiredConfig['endOfLine']
+  /** @default 100 */
+  printWidth: 100 | number
+  /** @default false */
+  semi: false | boolean
+  /** @default true */
+  singleQuote: true | boolean
+}
+
+const config = {
   arrowParens: 'avoid',
   bracketSpacing: false,
   endOfLine: 'auto',
   printWidth: 100,
-  semi: params.has('semi', 'true'),
+  semi: searchParams.has('semi', 'true'),
   singleQuote: true,
 
   overrides: [
@@ -81,6 +96,6 @@ const config: Config = {
   ],
 
   plugins: ['@bfra.me/prettier-plugins/package-json'].map(resolvePlugin),
-}
+} as DefaultConfig
 
 export default config
