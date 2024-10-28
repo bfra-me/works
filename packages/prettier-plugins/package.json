@@ -14,7 +14,7 @@
   "bugs": "https://github.com/bfra-me/works/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bfra-me/works.git",
+    "url": "git+https://github.com/bfra-me/works.git",
     "directory": "packages/prettier-plugins"
   },
   "license": "MIT",
@@ -24,13 +24,14 @@
   "exports": {
     "./*": {
       "types": "./lib/*.d.ts",
+      "source": "./src/*.ts",
       "default": "./lib/*.js"
     },
     "./package.json": "./package.json"
   },
-  "types": "lib/index.d.ts",
   "files": [
     "lib",
+    "src",
     "!**/*.map"
   ],
   "scripts": {
@@ -43,7 +44,8 @@
     "@bfra.me/prettier-plugins": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
     "prettier": "3.3.3",
-    "tsup": "8.3.4"
+    "tsup": "8.3.4",
+    "type-fest": "4.26.1"
   },
   "peerDependencies": {
     "prettier": "^3.0.0"
