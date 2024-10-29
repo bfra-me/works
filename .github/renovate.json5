@@ -14,6 +14,7 @@
     '**/dist/**',
     'packages/api-core/test-utils/sdks/**',
   ],
+  ignorePresets: ['mergeConfidence:age-confidence-badges', 'mergeConfidence:all-badges'],
   packageRules: [
     {
       description: 'Group packages from @readmeio/oas monorepo together.',
@@ -47,6 +48,38 @@
       matchPackageNames: ['fetch-mock'],
       allowedVersions: '<12.0.0',
     },
+    {
+      description: 'Show Merge Confidence, OpenSSF Scorecard, and Sourcegraph badges for Renovate dependencies.',
+      matchDatasources: ['go', 'maven', 'npm', 'nuget', 'packagist', 'pypi', 'rubygems'],
+      matchUpdateTypes: ['patch', 'minor', 'major'],
+      prBodyColumns: [
+        'Package',
+        'Type',
+        'Update',
+        'Change',
+        'Pending',
+        'Age',
+        'Confidence',
+        'Sourcegraph',
+      ],
+    },
+    {
+      description: 'Show Merge Confidence, OpenSSF Scorecard, and Sourcegraph badges for Renovate dependencies.',
+      matchDatasources: ['go', 'maven', 'npm', 'nuget', 'packagist', 'pypi', 'rubygems'],
+      matchUpdateTypes: ['patch', 'minor', 'major'],
+      matchSourceUrls: ['https://github.com/**'],
+      prBodyColumns: [
+        'Package',
+        'Type',
+        'Update',
+        'Change',
+        'Pending',
+        'OpenSSF',
+        'Age',
+        'Confidence',
+        'Sourcegraph',
+      ],
+    },
   ],
   patch: {
     automerge: true,
@@ -56,6 +89,9 @@
   postUpgradeTasks: {
     commands: ['pnpm install --frozen-lockfile', 'pnpm fix', 'pnpm format'],
     executionMode: 'branch',
+  },
+  prBodyDefinitions: {
+    Sourcegraph: '[![code search for "{{{depName}}}"](https://sourcegraph.com/search/badge?q=repo:%5Egithub%5C.com/{{{repository}}}%24+case:yes+-file:package%28-lock%29%3F%5C.json+{{{depName}}}&label=matches)](https://sourcegraph.com/search?q=repo:%5Egithub%5C.com/{{{repository}}}%24+case:yes+-file:package%28-lock%29%3F%5C.json+{{{depName}}})',
   },
   prCreation: 'not-pending',
   rebaseWhen: 'auto',

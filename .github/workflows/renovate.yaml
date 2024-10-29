@@ -6,7 +6,7 @@ name: Renovate
   issues:
     types: [edited]
   pull_request:
-    types: [edited, labeled]
+    types: [edited]
   push:
     branches: ['**']
   workflow_dispatch:
