@@ -45,7 +45,7 @@
   },
   "prettier": "@bfra.me/prettier-config",
   "dependencies": {
-    "@eslint-community/eslint-plugin-eslint-comments": "4.4.0",
+    "@eslint-community/eslint-plugin-eslint-comments": "4.4.1",
     "eslint-config-flat-gitignore": "0.3.0",
     "eslint-flat-config-utils": "0.4.0",
     "eslint-plugin-command": "0.2.6",
