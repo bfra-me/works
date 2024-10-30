@@ -7,13 +7,13 @@
     "lint:types": "tsc --noEmit"
   },
   "dependencies": {
-    "caseless": "^0.12.0",
-    "datauri": "^4.1.0",
-    "formdata-to-string": "^2.0.1"
+    "caseless": "0.12.0",
+    "datauri": "4.1.0",
+    "formdata-to-string": "2.0.2"
   },
   "devDependencies": {
     "@types/caseless": "0.12.5",
-    "oas": "^24.0.0",
+    "oas": "25.0.3",
     "typescript": "5.6.3",
     "vitest": "2.1.3"
   }
