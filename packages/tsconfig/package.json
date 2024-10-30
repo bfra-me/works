@@ -14,7 +14,7 @@
   "bugs": "https://github.com/bfra-me/works/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bfra-me/works.git",
+    "url": "git+https://github.com/bfra-me/works.git",
     "directory": "packages/tsconfig"
   },
   "license": "MIT",
