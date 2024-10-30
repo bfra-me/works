@@ -1,5 +1,20 @@
 # @bfra.me/prettier-config
 
+## 0.8.0
+### Minor Changes
+
+
+- Consolidate exports and types in `index.ts`; cleanup config. ([#537](https://github.com/bfra-me/works/pull/537))
+
+
+### Patch Changes
+
+
+- Clean up type definitions and package exports. ([#542](https://github.com/bfra-me/works/pull/542))
+
+- Updated dependencies [[`e315626`](https://github.com/bfra-me/works/commit/e315626ce5073c6f03dc136209ef467f06ce073e)]:
+  - @bfra.me/prettier-plugins@0.5.0
+
 ## 0.7.4
 ### Patch Changes
 

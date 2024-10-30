@@ -1,5 +1,11 @@
 # @bfra.me/tsconfig
 
+## 0.9.0
+### Minor Changes
+
+
+- Enable [declaration maps](https://www.typescriptlang.org/tsconfig/#declarationMap). ([#535](https://github.com/bfra-me/works/pull/535))
+
 ## 0.8.1
 ### Patch Changes
 
