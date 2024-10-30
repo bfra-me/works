@@ -3,9 +3,7 @@
   "access": "public",
   "baseBranch": "main",
   "bumpVersionsWithWorkspaceProtocolOnly": true,
-  "changelog": ["@swisspost/design-system-changelog-github", {"repo": "bfra-me/works"}],
+  "changelog": ["@svitejs/changesets-changelog-github-compact", {"repo": "bfra-me/works"}],
   "commit": false,
-  "fixed": [],
-  "ignore": [],
-  "linked": []
+  "updateInternalDependencies": "patch"
 }
