@@ -1,5 +1,11 @@
 # @bfra.me/prettier-plugins
 
+## 0.5.0
+### Minor Changes
+
+
+- Clean up type definitions and package exports. ([#542](https://github.com/bfra-me/works/pull/542))
+
 ## 0.4.0
 ### Minor Changes
 

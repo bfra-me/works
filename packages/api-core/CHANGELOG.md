@@ -1,5 +1,14 @@
 # @bfra.me/api-core
 
+## 0.1.2
+### Patch Changes
+
+
+- Update oas to v25 and @readme/oas-to-har to v4. ([#549](https://github.com/bfra-me/works/pull/549))
+
+
+- Pin dependencies. ([#549](https://github.com/bfra-me/works/pull/549))
+
 ## 0.1.1
 ### Patch Changes
 
