@@ -5,5 +5,12 @@
   "bumpVersionsWithWorkspaceProtocolOnly": true,
   "changelog": ["@svitejs/changesets-changelog-github-compact", {"repo": "bfra-me/works"}],
   "commit": false,
+  "fixed": [],
+  "ignore": [],
+  "linked": [],
+  "privatePackages": {
+    "tag": false,
+    "version": true
+  },
   "updateInternalDependencies": "patch"
 }
