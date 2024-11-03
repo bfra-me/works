@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.3.2
+### Patch Changes
+
+
+- Updated dependency `@eslint/config-inspector` to `0.5.6`. ([#567](https://github.com/bfra-me/works/pull/567))
+
 ## 0.3.1
 ### Patch Changes
 
