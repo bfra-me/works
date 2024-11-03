@@ -12,6 +12,9 @@ const configs = await composer(
         rules: Object.fromEntries(builtinRules),
       },
     },
+    typescript: {
+      tsconfigPath: 'tsconfig.json',
+    },
     vitest: true,
   }),
   // TODO: The `vitest/valid-title` rule breaks the generated types if saved as a .ts instead of a .d.ts file.
@@ -28,8 +31,6 @@ const configs = await composer(
 
 const rulesTypeName = 'Rules'
 const configNames = configs.map(config => config.name).filter(Boolean) as string[]
-const configNamesDts =
-  configNames.length > 0 ? `${configNames.map(name => `'${name}'`).join(' | ')}` : 'never'
 const configType = `Linter.Config<Linter.RulesRecord & ${rulesTypeName}>`
 
 let dts = await flatConfigsToRulesDTS(configs, {
@@ -64,7 +65,8 @@ export type Config = ${configType}
  */
 export type FlatConfigComposer<
   Config extends Linter.Config = ${configType},
-  ConfigNames extends string = ${configNamesDts} | (string & Record<never, never>)
+  ConfigNames extends string =
+    ${configNames.length > 0 ? `${configNames.map(name => `'${name}'`).join(' |\n    ')}` : 'never'}
 > = FCUTypes.FlatConfigComposer<Config, ConfigNames>
 
 /**
