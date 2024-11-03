@@ -31,7 +31,6 @@ const configs = await composer(
 
 const rulesTypeName = 'Rules'
 const configNames = configs.map(config => config.name).filter(Boolean) as string[]
-const configType = `Linter.Config<Linter.RulesRecord & ${rulesTypeName}>`
 
 let dts = await flatConfigsToRulesDTS(configs, {
   exportTypeName: rulesTypeName,
@@ -54,7 +53,7 @@ import type * as FCUTypes from 'eslint-flat-config-utils'
  * Each configuration object contains all of the information ESLint needs to execute on a set of files.
  * @see https://eslint.org/docs/latest/use/configure/configuration-files#configuration-objects
 */
-export type Config = ${configType}
+export interface Config<R extends Linter.RulesRecord = Linter.RulesRecord & ${rulesTypeName}> extends Linter.Config<R> {}
 
 /**
  * Defines a 'composer' for ESLint flat configurations.
@@ -64,10 +63,10 @@ export type Config = ${configType}
  * @see https://jsr.io/@antfu/eslint-flat-config-utils/doc/~/FlatConfigComposer
  */
 export type FlatConfigComposer<
-  Config extends Linter.Config = ${configType},
+  C extends Linter.Config = Config,
   ConfigNames extends string =
     ${configNames.length > 0 ? `${configNames.map(name => `'${name}'`).join(' |\n    ')}` : 'never'}
-> = FCUTypes.FlatConfigComposer<Config, ConfigNames>
+> = FCUTypes.FlatConfigComposer<C, ConfigNames>
 
 /**
  * Represents a value that resolves to one or more ESLint flat configurations.
@@ -75,8 +74,8 @@ export type FlatConfigComposer<
  * @see https://jsr.io/@antfu/eslint-flat-config-utils/doc/~/ResolvableFlatConfig
  */
 export type ResolvableFlatConfig<
-  Config extends Linter.Config = ${configType}
-> = FCUTypes.ResolvableFlatConfig<Config>
+  C extends Linter.Config = Config
+> = FCUTypes.ResolvableFlatConfig<C>
 
 export type * from './define-config'
 

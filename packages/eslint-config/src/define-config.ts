@@ -92,39 +92,39 @@ export type OptionsTypeScript =
   | (OptionsTypeScriptParserOptions & OptionsOverrides)
   | (OptionsTypeScriptWithTypes & OptionsOverrides)
 
-type CombinedOptions = {
-  /**
-   * Enable gitignore support.
-   *
-   * @see https://github.com/antfu/eslint-config-flat-gitignore
-   * @default true
-   */
-  gitignore?: boolean | FlatGitignoreOptions
+type Flatten<T> = T extends object ? {[K in keyof T]: T[K]} : T
 
-  isInEditor?: boolean
+export type Options = Flatten<
+  {
+    /**
+     * Enable gitignore support.
+     *
+     * @see https://github.com/antfu/eslint-config-flat-gitignore
+     * @default true
+     */
+    gitignore?: boolean | FlatGitignoreOptions
 
-  javascript?: OptionsOverrides
+    isInEditor?: boolean
 
-  /**
-   * Enable support for vitest.
-   *
-   * @default false
-   */
-  vitest?: boolean | OptionsOverrides
+    javascript?: OptionsOverrides
 
-  /**
-   * Enable TypeScript support.
-   *
-   * Pass options to enable support for the TypeScript language and project services.
-   *
-   * @default auto-detect based on the dependencies
-   */
-  typescript?: OptionsTypeScript | boolean
-} & AllowedConfigForOptions
+    /**
+     * Enable support for vitest.
+     *
+     * @default false
+     */
+    vitest?: boolean | OptionsOverrides
 
-export type Options = {
-  [K in keyof CombinedOptions]: CombinedOptions[K]
-}
+    /**
+     * Enable TypeScript support.
+     *
+     * Pass options to enable support for the TypeScript language and project services.
+     *
+     * @default auto-detect based on the dependencies
+     */
+    typescript?: OptionsTypeScript | boolean
+  } & Omit<Config, 'files'>
+>
 
 /**
  * Define a new ESLint config.
