@@ -6,9 +6,10 @@ name: Create Renovate Changeset
   pull_request_target:
 
 jobs:
-  generate-changeset:
+  create-changeset:
+    name: Create Renovate Changeset
     runs-on: ubuntu-latest
-    if: contains(github.actor, '[bot]') && github.repository == 'bfa-me/works'
+    if: github.repository == 'bfra-me/works' && ( github.actor == 'bfra-me[bot]' || github.actor == 'renovate[bot]' )
     steps:
       - id: get-workflow-access-token
         name: Get Workflow Access Token
