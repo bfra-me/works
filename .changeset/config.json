@@ -10,7 +10,7 @@
   "linked": [],
   "privatePackages": {
     "tag": false,
-    "version": true
+    "version": false
   },
   "updateInternalDependencies": "patch"
 }
