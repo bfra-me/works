@@ -1,7 +1,14 @@
 import {GLOB_TESTS} from '../globs'
 import {interopDefault} from '../plugins'
-import type {Config, OptionsFiles, OptionsIsInEditor, OptionsOverrides} from '../types'
+import type {OptionsFiles, OptionsIsInEditor, OptionsOverrides} from '../options'
+import type {Config} from '../types'
 
+/**
+ * Provides ESLint configurations for testing with Vitest.
+ *
+ * @param options - The configuration options.
+ * @returns The ESLint configurations.
+ */
 export async function vitest(
   options: OptionsFiles & OptionsIsInEditor & OptionsOverrides = {},
 ): Promise<Config[]> {

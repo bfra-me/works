@@ -46,7 +46,6 @@ dts =
 
 import type {FlatConfigComposer, ResolvableFlatConfig} from 'eslint-flat-config-utils'
 export type {Arrayable, Awaitable, FlatConfigComposer, ResolvableFlatConfig} from 'eslint-flat-config-utils'
-export type * from './options'
 ` +
   dts +
   `

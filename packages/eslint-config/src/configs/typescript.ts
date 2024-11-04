@@ -2,12 +2,12 @@ import process from 'node:process'
 import {GLOB_TS, GLOB_TSX} from '../globs'
 import {interopDefault} from '../plugins'
 import type {
-  Config,
   OptionsFiles,
   OptionsOverrides,
   OptionsTypeScriptParserOptions,
   OptionsTypeScriptWithTypes,
-} from '../types'
+} from '../options'
+import type {Config} from '../types'
 
 const TypeAwareRules: Config['rules'] = {
   '@typescript-eslint/await-thenable': 'error',
