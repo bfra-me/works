@@ -1,5 +1,11 @@
 # @bfra.me/create
 
+## 0.1.1
+### Patch Changes
+
+
+- Updated dependency `ts-essentials` to `10.0.3`. ([#588](https://github.com/bfra-me/works/pull/588))
+
 ## 0.1.0
 ### Minor Changes
 

@@ -1,5 +1,11 @@
 # @bfra.me/works
 
+## 0.0.3
+### Patch Changes
+
+- Updated dependencies [[`c2d94e0`](https://github.com/bfra-me/works/commit/c2d94e03f47d49e7eb07841c449ef2358396c809)]:
+  - @bfra.me/eslint-config@0.4.1
+
 ## 0.0.2
 ### Patch Changes
 
