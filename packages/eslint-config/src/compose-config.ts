@@ -1,8 +1,5 @@
 import {composer} from 'eslint-flat-config-utils'
-import type {FlatConfigComposer} from './types'
-
-type InferConfig<T> = T extends FlatConfigComposer<infer U> ? U : never
-type InferConfigNames<T> = T extends FlatConfigComposer<any, infer U> ? U : never
+import type {AwaitableFlatConfig, Config, ConfigComposer, ConfigNames} from './types'
 
 /**
  * Composes an ESLint configuration object from the provided flat configurations.
@@ -10,7 +7,6 @@ type InferConfigNames<T> = T extends FlatConfigComposer<any, infer U> ? U : neve
  * @param configs - The configuration names to compose.
  * @returns The composed ESLint configuration object.
  */
-export const composeConfig = composer<
-  InferConfig<FlatConfigComposer>,
-  InferConfigNames<FlatConfigComposer>
->
+// @ts-expect-error - TypeScript insists that the return type should be `Promise<T>`, but it's aa type which acts like a `Promise<T>`.
+export const composeConfig = async (...configs: AwaitableFlatConfig[]): ConfigComposer =>
+  composer<Config, ConfigNames>(...configs)

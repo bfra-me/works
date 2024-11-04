@@ -14,7 +14,7 @@ import {
   typescript,
   vitest,
 } from './configs'
-import type {Config, FlatConfigComposer, ResolvableFlatConfig} from './types'
+import type {AwaitableFlatConfig, Config, ConfigComposer} from './types'
 import * as Env from './env'
 import {interopDefault} from './plugins'
 
@@ -48,6 +48,9 @@ export interface OptionsIsInEditor {
 }
 
 export interface OptionsOverrides {
+  /**
+   * Override rules.
+   */
   overrides?: Config['rules']
 }
 
@@ -135,10 +138,10 @@ export type Options = Flatten<
  */
 export async function defineConfig(
   options: Options = {},
-  ...userConfigs: ResolvableFlatConfig[]
+  ...userConfigs: AwaitableFlatConfig[]
   // @ts-expect-error - TypeScript insists that the return type should be `Promise<T>`, but it's actually
   // `FlatConfigComposer<>` which acts like a `Promise<T>`.
-): FlatConfigComposer {
+): ConfigComposer {
   const {
     gitignore: enableGitignore = true,
     typescript: enableTypeScript = isPackageExists('typescript'),
