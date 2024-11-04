@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.4.2
+### Patch Changes
+
+
+- Export the types used to create the config types. ([#589](https://github.com/bfra-me/works/pull/589))
+
 ## 0.4.1
 ### Patch Changes
 
