@@ -14,7 +14,7 @@ import {
   typescript,
   vitest,
 } from './configs'
-import type {AwaitableFlatConfig, Config, ConfigComposer} from './types'
+import type {AwaitableFlatConfig, Config, ConfigComposer, Flatten} from './types'
 import * as Env from './env'
 import {interopDefault} from './plugins'
 
@@ -94,8 +94,6 @@ export interface OptionsTypeScriptWithTypes {
 export type OptionsTypeScript =
   | (OptionsTypeScriptParserOptions & OptionsOverrides)
   | (OptionsTypeScriptWithTypes & OptionsOverrides)
-
-type Flatten<T> = T extends object ? {[K in keyof T]: T[K]} : T
 
 export type Options = Flatten<
   {

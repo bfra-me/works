@@ -78,6 +78,12 @@ export type ConfigComposer = FlatConfigComposer<
  * Defines the names of the available ESLint configurations.
  */
 export type ConfigNames = ${configNames.length > 0 ? `\n  ${configNames.map(name => `'${name}'`).join(' |\n  ')}` : 'never'}
+
+/**
+ * Recursively flattens an object type to a mapped type with the same keys and values.
+ * If the input type is a function, it is returned as-is.
+ */
+export type Flatten<T> = T extends Function ? T : {[K in keyof T]: T[K]} & {}
 `
 
 await fs.writeFile('src/types.ts', dts)
