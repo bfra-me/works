@@ -5,7 +5,7 @@ export * from './configs'
 export * from './define-config'
 export * from './env'
 export * from './globs'
-export * from './types'
+export * from './options'
 
 export const config = defineConfig()
 export default config

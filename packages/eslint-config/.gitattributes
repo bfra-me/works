@@ -1,0 +1,2 @@
+src/*.d.ts linguist-generated=true
+src/rules.d.ts -diff linguist-generated=true

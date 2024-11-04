@@ -1,6 +1,5 @@
 import type {FlatGitignoreOptions} from 'eslint-config-flat-gitignore'
 import {isPackageExists} from 'local-pkg'
-import type {ParserOptions} from '@typescript-eslint/types'
 import {composeConfig} from './compose-config'
 import {
   command,
@@ -14,9 +13,10 @@ import {
   typescript,
   vitest,
 } from './configs'
-import type {Config, FlatConfigComposer, ResolvableFlatConfig} from './types'
+import type {AwaitableFlatConfig, Config, ConfigComposer} from './config'
 import * as Env from './env'
 import {interopDefault} from './plugins'
+import type {Options} from './options'
 
 // These are merged into the Options interface
 type AllowedConfigForOptions = Omit<Config, 'files'>
@@ -33,99 +33,6 @@ const AllowedConfigPropertiesForOptions = [
   'settings',
 ] satisfies (keyof AllowedConfigForOptions)[]
 
-export interface OptionsFiles {
-  /**
-   * Override the `files` option to provide custom globs.
-   */
-  files?: Config['files']
-}
-
-export interface OptionsIsInEditor {
-  /**
-   * Enable editor specific rules.
-   */
-  isInEditor?: boolean
-}
-
-export interface OptionsOverrides {
-  overrides?: Config['rules']
-}
-
-export interface OptionsTypeScriptParserOptions {
-  /**
-   * Additional parser options specific tos TypeScript.
-   */
-  parserOptions?: Partial<ParserOptions>
-
-  /**
-   * Override type aware rules.
-   */
-  typeAware?: {
-    /**
-     * Glob patterns for files that should be type aware.
-     * @default ['**\/*.{ts,tsx}']
-     */
-    files?: Config['files']
-
-    /**
-     * Glob patterns for files that should not be type aware.
-     * @default ['**\/*.md\/**', '**\/*.astro/*.ts']
-     */
-    ignores?: Config['ignores']
-  }
-}
-
-export interface OptionsTypeScriptWithTypes {
-  /**
-   * When this options is provided, type aware rules will be enabled.
-   * @see https://typescript-eslint.io/linting/typed-linting/
-   */
-  tsconfigPath?: string
-
-  /**
-   * Override type aware rules.
-   */
-  typeAware?: OptionsOverrides
-}
-
-export type OptionsTypeScript =
-  | (OptionsTypeScriptParserOptions & OptionsOverrides)
-  | (OptionsTypeScriptWithTypes & OptionsOverrides)
-
-type CombinedOptions = {
-  /**
-   * Enable gitignore support.
-   *
-   * @see https://github.com/antfu/eslint-config-flat-gitignore
-   * @default true
-   */
-  gitignore?: boolean | FlatGitignoreOptions
-
-  isInEditor?: boolean
-
-  javascript?: OptionsOverrides
-
-  /**
-   * Enable support for vitest.
-   *
-   * @default false
-   */
-  vitest?: boolean | OptionsOverrides
-
-  /**
-   * Enable TypeScript support.
-   *
-   * Pass options to enable support for the TypeScript language and project services.
-   *
-   * @default auto-detect based on the dependencies
-   */
-  typescript?: OptionsTypeScript | boolean
-} & AllowedConfigForOptions
-
-export type Options = {
-  [K in keyof CombinedOptions]: CombinedOptions[K]
-}
-
 /**
  * Define a new ESLint config.
  *
@@ -135,10 +42,10 @@ export type Options = {
  */
 export async function defineConfig(
   options: Options = {},
-  ...userConfigs: ResolvableFlatConfig[]
+  ...userConfigs: AwaitableFlatConfig[]
   // @ts-expect-error - TypeScript insists that the return type should be `Promise<T>`, but it's actually
   // `FlatConfigComposer<>` which acts like a `Promise<T>`.
-): FlatConfigComposer {
+): ConfigComposer {
   const {
     gitignore: enableGitignore = true,
     typescript: enableTypeScript = isPackageExists('typescript'),
