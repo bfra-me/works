@@ -7,7 +7,7 @@ import type {
   OptionsTypeScriptParserOptions,
   OptionsTypeScriptWithTypes,
 } from '../options'
-import type {Config} from '../types'
+import type {Config} from '../config'
 
 const TypeAwareRules: Config['rules'] = {
   '@typescript-eslint/await-thenable': 'error',

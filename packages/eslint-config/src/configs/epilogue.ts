@@ -1,5 +1,5 @@
 import {GLOB_SRC, GLOB_SRC_EXT} from '../globs'
-import type {Config} from '../types'
+import type {Config} from '../config'
 
 export async function epilogue(): Promise<Config[]> {
   return [

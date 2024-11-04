@@ -1,4 +1,4 @@
-import type {Config} from '../types'
+import type {Config} from '../config'
 import {GLOB_EXCLUDE} from '../globs'
 
 export async function ignores(ignores: string[] = []): Promise<Config[]> {

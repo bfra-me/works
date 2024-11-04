@@ -13,7 +13,7 @@ import {
   typescript,
   vitest,
 } from './configs'
-import type {AwaitableFlatConfig, Config, ConfigComposer} from './types'
+import type {AwaitableFlatConfig, Config, ConfigComposer} from './config'
 import * as Env from './env'
 import {interopDefault} from './plugins'
 import type {Options} from './options'

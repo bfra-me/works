@@ -1,7 +1,7 @@
 import {GLOB_TESTS} from '../globs'
 import {interopDefault} from '../plugins'
 import type {OptionsFiles, OptionsIsInEditor, OptionsOverrides} from '../options'
-import type {Config} from '../types'
+import type {Config} from '../config'
 
 /**
  * Provides ESLint configurations for testing with Vitest.

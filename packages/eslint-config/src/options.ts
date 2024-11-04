@@ -1,6 +1,12 @@
 import type {ParserOptions} from '@typescript-eslint/types'
-import type {Config, Flatten} from './types'
+import type {Config} from './config'
 import type {FlatGitignoreOptions} from 'eslint-config-flat-gitignore'
+
+/**
+ * Recursively flattens an object type to a mapped type with the same keys and values.
+ * If the input type is a function, it is returned as-is.
+ */
+export type Flatten<T> = T extends Function ? T : {[K in keyof T]: T[K]} & {}
 
 export interface OptionsFiles {
   /**
