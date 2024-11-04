@@ -1,10 +1,24 @@
 import {GLOB_TESTS} from '../globs'
 import {interopDefault} from '../plugins'
-import type {Config, OptionsFiles, OptionsIsInEditor, OptionsOverrides} from '../types'
+import type {Flatten, OptionsFiles, OptionsIsInEditor, OptionsOverrides} from '../options'
+import type {Config} from '../config'
 
-export async function vitest(
-  options: OptionsFiles & OptionsIsInEditor & OptionsOverrides = {},
-): Promise<Config[]> {
+/**
+ * Represents the options for the Vitest ESLint configuration.
+ * This type is a flattened union of the {@link OptionsFiles}, {@link OptionsIsInEditor}, and {@link OptionsOverrides} types.
+ */
+export type VitestOptions = Flatten<OptionsFiles & OptionsIsInEditor & OptionsOverrides>
+
+/**
+ * Generates an ESLint configuration for the Vitest testing framework.
+ *
+ * @param options - The options for configuring the Vitest ESLint configuration.
+ * @param options.files - The glob pattern(s) to match test files.
+ * @param options.isInEditor - Whether the code is being executed in an editor environment.
+ * @param options.overrides - Additional rule overrides to apply.
+ * @returns An array of ESLint configurations for the Vitest testing framework.
+ */
+export async function vitest(options: VitestOptions = {}): Promise<Config[]> {
   const {files = GLOB_TESTS, isInEditor = false, overrides = {}} = options
 
   const [vitestPlugin, noOnlyTests] = await Promise.all([

@@ -1,4 +1,4 @@
-import type {Config} from '../types'
+import type {Config} from '../config'
 import {eslintComments as _eslintComments} from '../plugins'
 
 export async function eslintComments(): Promise<Config[]> {

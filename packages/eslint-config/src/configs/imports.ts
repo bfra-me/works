@@ -1,4 +1,4 @@
-import type {Config} from '../types'
+import type {Config} from '../config'
 import {importX as pluginImportX} from '../plugins'
 
 export async function imports(): Promise<Config[]> {
