@@ -3151,6 +3151,11 @@ export interface Rules {
    */
   'vitest/valid-expect'?: Linter.RuleEntry<VitestValidExpect>
   /**
+   * enforce valid titles
+   * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/valid-title.md
+   */
+  'vitest/valid-title'?: Linter.RuleEntry<VitestValidTitle>
+  /**
    * Require parentheses around immediate `function` invocations
    * @see https://eslint.org/docs/latest/rules/wrap-iife
    * @deprecated
@@ -7013,6 +7018,15 @@ type VitestValidExpect = []|[{
   asyncMatchers?: string[]
   minArgs?: number
   maxArgs?: number
+}]
+// ----- vitest/valid-title -----
+type VitestValidTitle = []|[{
+  ignoreTypeOfDescribeName?: boolean
+  allowArguments?: boolean
+  disallowedWords?: string[]
+  [k: string]: (string | [string]|[string, string] | {
+    [k: string]: (string | [string]|[string, string]) | undefined
+  })
 }]
 // ----- wrap-iife -----
 type WrapIife = []|[("outside" | "inside" | "any")]|[("outside" | "inside" | "any"), {
