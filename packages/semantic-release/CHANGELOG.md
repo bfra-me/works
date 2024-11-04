@@ -1,5 +1,11 @@
 # @bfra.me/semantic-release
 
+## 0.1.6
+### Patch Changes
+
+
+- Updated dependency `@swc/core` to `1.7.42`. ([#575](https://github.com/bfra-me/works/pull/575))
+
 ## 0.1.5
 ### Patch Changes
 

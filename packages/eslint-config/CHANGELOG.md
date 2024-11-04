@@ -1,5 +1,29 @@
 # @bfra.me/eslint-config
 
+## 0.4.0
+### Minor Changes
+
+
+- Overhaul and refactor types and type generation. ([#578](https://github.com/bfra-me/works/pull/578))
+
+
+### Patch Changes
+
+
+- Updated dependency `@types/node` to `20.17.5`. ([#579](https://github.com/bfra-me/works/pull/579))
+
+
+- Updated dependency `@types/node` to `20.17.4`. ([#577](https://github.com/bfra-me/works/pull/577))
+
+
+- Updated dependency `@types/node` to `22.8.6`. ([#580](https://github.com/bfra-me/works/pull/580))
+
+
+- Add epilogue override for sources of CLIs. ([#578](https://github.com/bfra-me/works/pull/578))
+
+
+- Add missing config names for TypeScript typed linting. ([#578](https://github.com/bfra-me/works/pull/578))
+
 ## 0.3.2
 ### Patch Changes
 
