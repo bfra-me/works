@@ -3,8 +3,7 @@ import type {Config} from './config'
 import type {FlatGitignoreOptions} from 'eslint-config-flat-gitignore'
 
 /**
- * Recursively flattens an object type to a mapped type with the same keys and values.
- * If the input type is a function, it is returned as-is.
+  Flattens an object type to a mapped type with the same keys and values.
  */
 export type Flatten<T> = T extends Function ? T : {[K in keyof T]: T[K]} & {}
 
@@ -70,6 +69,9 @@ export type OptionsTypeScript =
   | (OptionsTypeScriptParserOptions & OptionsOverrides)
   | (OptionsTypeScriptWithTypes & OptionsOverrides)
 
+/**
+  Options passed to {@link defineConfig} to customize the configuration.
+*/
 export type Options = Flatten<
   {
     /**

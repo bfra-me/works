@@ -2,6 +2,7 @@ import process from 'node:process'
 import {GLOB_TS, GLOB_TSX} from '../globs'
 import {interopDefault} from '../plugins'
 import type {
+  Flatten,
   OptionsFiles,
   OptionsOverrides,
   OptionsTypeScriptParserOptions,
@@ -23,12 +24,30 @@ const TypeAwareRules: Config['rules'] = {
   '@typescript-eslint/unbound-method': 'error',
 }
 
-export async function typescript(
-  options: OptionsFiles &
-    OptionsOverrides &
-    OptionsTypeScriptParserOptions &
-    OptionsTypeScriptWithTypes = {},
-): Promise<Config[]> {
+/**
+ * Represents the options for configuring the TypeScript ESLint configuration.
+ * This type is a union of several other option types, including:
+ * - {@link OptionsFiles}: Options related to the files to be linted
+ * - {@link OptionsOverrides}: Options for overriding the default configuration
+ * - {@link OptionsTypeScriptParserOptions}: Options for the TypeScript parser
+ * - {@link OptionsTypeScriptWithTypes}: Options related to type-aware linting
+ */
+export type TypeScriptOptions = Flatten<
+  OptionsFiles & OptionsOverrides & OptionsTypeScriptParserOptions & OptionsTypeScriptWithTypes
+>
+
+/**
+ * Generates a TypeScript ESLint configuration based on the provided options.
+ *
+ * The configuration includes:
+ * - TypeScript-specific plugins and rules
+ * - Options for type-aware linting (if a tsconfig.json file is provided)
+ * - Overrides for the default configuration
+ *
+ * @param options - The options for configuring the TypeScript ESLint configuration.
+ * @returns An array of ESLint configurations.
+ */
+export async function typescript(options: TypeScriptOptions = {}): Promise<Config[]> {
   const {overrides = {}, parserOptions = {}, typeAware = {overrides: {}}} = options
   const files = options.files ?? [GLOB_TS, GLOB_TSX]
   const typeAwareFiles = typeAware.files ?? [GLOB_TS, GLOB_TSX]
