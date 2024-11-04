@@ -14,7 +14,7 @@
   "author": "Marcus R. Brown <contact@bfra.me>",
   "type": "module",
   "scripts": {
-    "bootstrap": "pnpm clean && pnpm install-quickly && pnpm build-essential",
+    "bootstrap": "pnpm install-quickly && pnpm build-essential",
     "build": "pnpm -r --stream run build",
     "build-essential": "pnpm -r --filter=\"@bfra.me/*-config...\" --stream run build",
     "check-format": "prettier --check .",
@@ -23,7 +23,6 @@
     "fix": "manypkg fix && pnpm lint-source --fix",
     "format": "prettier --write .",
     "inspect-eslint-config": "eslint-config-inspector --config eslint.config.ts --open false",
-    "postinstall": "pnpm build-essential",
     "install-quickly": "pnpm install --frozen-lockfile --ignore-scripts --prefer-offline --silent",
     "lint": "manypkg check && pnpm lint-packages && pnpm lint-source",
     "prelint-packages": "pnpm build",
