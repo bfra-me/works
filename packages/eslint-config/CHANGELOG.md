@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.4.1
+### Patch Changes
+
+
+- Updated dependency `jiti` to `2.4.0`. ([#586](https://github.com/bfra-me/works/pull/586))
+
 ## 0.4.0
 ### Minor Changes
 
