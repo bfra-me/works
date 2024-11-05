@@ -49,6 +49,7 @@
   "scripts": {
     "build": "tsup",
     "postbuild": "prettier --config ./prettier.config.js --ignore-path .prettierignore --log-level warn --write .",
+    "prepack": "pnpm run build",
     "test": "pnpm --filter-prod=\"{.}...\" --loglevel error run build && vitest"
   },
   "dependencies": {

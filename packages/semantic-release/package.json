@@ -37,6 +37,7 @@
   ],
   "scripts": {
     "build": "tsup-node",
+    "prepack": "pnpm run build",
     "test": "pnpm build && vitest --typecheck"
   },
   "devDependencies": {
