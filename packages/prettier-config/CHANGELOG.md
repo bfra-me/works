@@ -1,5 +1,11 @@
 # @bfra.me/prettier-config
 
+## 0.9.0
+### Minor Changes
+
+
+- Ship a bundled config as the default; simplify everything. ([#593](https://github.com/bfra-me/works/pull/593))
+
 ## 0.8.0
 ### Minor Changes
 

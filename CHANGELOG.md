@@ -1,5 +1,15 @@
 # @bfra.me/works
 
+## 0.0.5
+### Patch Changes
+
+
+- Updated dependency `eslint` to `9.14.0`. ([#591](https://github.com/bfra-me/works/pull/591))
+  Updated dependency `@eslint/js` to `9.14.0`.
+- Updated dependencies [[`292e4fb`](https://github.com/bfra-me/works/commit/292e4fb775b1e02de40af510e8b0561444a99739), [`31940e1`](https://github.com/bfra-me/works/commit/31940e12088a326d4e8d2605f678439585767ec9), [`31940e1`](https://github.com/bfra-me/works/commit/31940e12088a326d4e8d2605f678439585767ec9)]:
+  - @bfra.me/eslint-config@0.4.3
+  - @bfra.me/prettier-config@0.9.0
+
 ## 0.0.4
 ### Patch Changes
 
