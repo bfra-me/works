@@ -1,13 +1,9 @@
-import {createRequire} from 'node:module'
 import type * as prettier from 'prettier'
-import {resolve} from './plugins.js'
 
 export type Writable<T> = {
   -readonly [K in keyof T]: T[K] extends object ? {[J in keyof T[K]]: Writable<T[K][J]>} : T[K]
 } & {}
 
-const require = createRequire(import.meta.url)
-const resolvePlugin = resolve.bind(null, require.resolve)
 const {searchParams} = new URL(import.meta.url)
 
 const config = {
@@ -79,9 +75,7 @@ const config = {
     },
   ] as prettier.Config['overrides'],
 
-  plugins: (await Promise.all(
-    ['@bfra.me/prettier-plugins/package-json'].map(resolvePlugin),
-  )) as prettier.Config['plugins'],
+  plugins: ['@bfra.me/prettier-plugins/package-json'],
 } as const
 
 /**
