@@ -41,9 +41,9 @@
     "build-inspector": "eslint-config-inspector build --config ./eslint.config.ts",
     "dev": "eslint-config-inspector --config ./eslint.config.ts --open false",
     "generate-types": "tsx ./scripts/generate-types.ts",
+    "prepack": "pnpm run build",
     "test": "pnpm --filter-prod=\"{.}...\" --loglevel error run build && vitest"
   },
-  "prettier": "@bfra.me/prettier-config",
   "dependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "4.4.1",
     "eslint-config-flat-gitignore": "0.3.0",

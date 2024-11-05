@@ -35,7 +35,8 @@
     "!**/*.map"
   ],
   "scripts": {
-    "build": "tsup"
+    "build": "tsup",
+    "prepack": "pnpm run build"
   },
   "dependencies": {
     "sort-package-json": "2.10.1"

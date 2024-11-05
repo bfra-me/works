@@ -26,6 +26,7 @@
   },
   "scripts": {
     "build": "tsup",
+    "prepack": "pnpm run build",
     "start": "node dist/index.js",
     "test": "vitest"
   },
