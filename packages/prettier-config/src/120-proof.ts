@@ -1,17 +1,14 @@
-import defaultConfig, {type DefaultConfig} from './prettier.config.js'
-
-/**
- * Shared Prettier configuration for bfra.me projects with `printWidth` set to 120 characters.
- */
-export interface $120ProofConfig extends DefaultConfig {
-  /** @default 120 */
-  printWidth: 120 | DefaultConfig['printWidth']
-}
+import defaultConfig, {type Writable} from './prettier.config.js'
 
 const $120ProofConfig = {
   ...defaultConfig,
   printWidth: 120,
   semi: new URL(import.meta.url).searchParams.has('semi', 'true') || defaultConfig.semi,
-} as $120ProofConfig
+} as const
 
-export default $120ProofConfig
+/**
+ * Shared Prettier configuration for bfra.me projects with `printWidth` set to 120 characters.
+ */
+type $120ProofConfig = Writable<typeof $120ProofConfig>
+
+export default $120ProofConfig as $120ProofConfig
