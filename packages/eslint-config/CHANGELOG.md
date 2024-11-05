@@ -1,5 +1,14 @@
 # @bfra.me/eslint-config
 
+## 0.4.3
+### Patch Changes
+
+
+- Updated dependency `eslint` to `9.14.0`. ([#591](https://github.com/bfra-me/works/pull/591))
+  Updated dependency `@eslint/js` to `9.14.0`.
+
+- Export missing type definitions. ([#593](https://github.com/bfra-me/works/pull/593))
+
 ## 0.4.2
 ### Patch Changes
 
