@@ -1,4 +1,4 @@
-import {defineConfig} from './packages/eslint-config'
+import {defineConfig} from './packages/eslint-config/src'
 
 export const config = defineConfig({
   name: '@bfra.me/works',
