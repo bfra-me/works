@@ -22,8 +22,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
-      "import": "./lib/index.js"
+      "types": "./lib/prettier.config.d.ts",
+      "source": "./src/prettier.config.ts",
+      "import": "./prettier.config.js"
+    },
+    "./*": {
+      "types": "./lib/*.d.ts",
+      "source": "./src/*.ts",
+      "import": "./lib/*.js"
     },
     "./100-proof": "./lib/prettier.config.js",
     "./120-proof": "./lib/120-proof.js",
@@ -32,16 +38,18 @@
     "./*/semi": "./lib/*.js?semi=true",
     "./package.json": "./package.json"
   },
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
+  "main": "./prettier.config.js",
+  "types": "./lib/prettier.config.d.ts",
   "files": [
     "lib",
     "src",
+    "prettier.config.js",
     "!**/*.map"
   ],
   "scripts": {
     "build": "tsup",
-    "test": "vitest"
+    "postbuild": "prettier --config ./prettier.config.js --ignore-path .prettierignore --log-level warn --write .",
+    "test": "pnpm --filter-prod=\"{.}...\" --loglevel error run build && vitest"
   },
   "dependencies": {
     "@bfra.me/prettier-plugins": "workspace:*"
