@@ -1,7 +1,7 @@
 import type {Plugin} from 'prettier'
 import * as PluginPackageJson from '@bfra.me/prettier-plugins/package-json'
 
-const resolvedPlugins: Record<string, Plugin> = {
+const resolvedPlugins: Record<string, string | Plugin<any>> = {
   '@bfra.me/prettier-plugins/package-json': PluginPackageJson,
 }
 
@@ -12,17 +12,10 @@ export async function resolve(
   try {
     if (!resolvedPlugins[plugin]) {
       const resolved = resolver(plugin)
-      const resolvedPlugin = await interopDefault(import(resolved))
-      resolvedPlugins[plugin] = resolvedPlugin
+      resolvedPlugins[plugin] = resolved
     }
     return resolvedPlugins[plugin] ?? plugin
   } catch {
     return plugin
   }
-}
-
-async function interopDefault<T>(
-  m: T | PromiseLike<T>,
-): Promise<T extends {default: infer U} ? U : T> {
-  return ((await m) as any).default || (await m)
 }
