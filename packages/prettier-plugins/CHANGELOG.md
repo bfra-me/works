@@ -1,5 +1,11 @@
 # @bfra.me/prettier-plugins
 
+## 0.5.1
+### Patch Changes
+
+
+- Add `prepack` scripts. ([#595](https://github.com/bfra-me/works/pull/595))
+
 ## 0.5.0
 ### Minor Changes
 

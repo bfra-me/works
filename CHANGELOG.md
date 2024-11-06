@@ -1,5 +1,12 @@
 # @bfra.me/works
 
+## 0.0.6
+### Patch Changes
+
+- Updated dependencies [[`1ce3903`](https://github.com/bfra-me/works/commit/1ce39032ce4c2597936897145896e71fde5fc09a), [`84e62f0`](https://github.com/bfra-me/works/commit/84e62f0deb91b42f361ae456f2bc48a75a1f2639), [`84e62f0`](https://github.com/bfra-me/works/commit/84e62f0deb91b42f361ae456f2bc48a75a1f2639)]:
+  - @bfra.me/prettier-config@0.9.1
+  - @bfra.me/eslint-config@0.4.4
+
 ## 0.0.5
 ### Patch Changes
 

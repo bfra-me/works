@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.4.4
+### Patch Changes
+
+
+- Add `prepack` scripts. ([#595](https://github.com/bfra-me/works/pull/595))
+
 ## 0.4.3
 ### Patch Changes
 

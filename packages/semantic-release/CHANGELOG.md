@@ -1,5 +1,11 @@
 # @bfra.me/semantic-release
 
+## 0.1.7
+### Patch Changes
+
+
+- Add `prepack` scripts. ([#595](https://github.com/bfra-me/works/pull/595))
+
 ## 0.1.6
 ### Patch Changes
 
