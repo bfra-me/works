@@ -1,5 +1,11 @@
 # @bfra.me/create
 
+## 0.1.2
+### Patch Changes
+
+
+- Add `prepack` scripts. ([#595](https://github.com/bfra-me/works/pull/595))
+
 ## 0.1.1
 ### Patch Changes
 

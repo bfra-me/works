@@ -1,5 +1,20 @@
 # @bfra.me/prettier-config
 
+## 0.9.1
+### Patch Changes
+
+
+- Add `prepack` scripts. ([#595](https://github.com/bfra-me/works/pull/595))
+
+
+- Remove the async plugin loader. ([#597](https://github.com/bfra-me/works/pull/597))
+
+
+- Revert to the previous plugin resolver. ([#597](https://github.com/bfra-me/works/pull/597))
+
+- Updated dependencies [[`1ce3903`](https://github.com/bfra-me/works/commit/1ce39032ce4c2597936897145896e71fde5fc09a)]:
+  - @bfra.me/prettier-plugins@0.5.1
+
 ## 0.9.0
 ### Minor Changes
 
