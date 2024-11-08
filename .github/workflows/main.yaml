@@ -71,7 +71,7 @@ jobs:
         uses: ./.github/actions/pnpm-install
 
       - name: Perform a dry run of `pnpm publish`
-        run: pnpm -r publish --dry-run
+        run: pnpm -r publish --dry-run --publish-branch ${{ github.head_ref}}
 
       - name: Create Release Pull Request or Publish to npm
         if: github.ref == 'refs/heads/main'
