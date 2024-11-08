@@ -39,7 +39,7 @@ jobs:
 
   release:
     name: Release
-    if: github.repository == 'bfra-me/works' && github.ref == 'refs/heads/main'
+    if: github.repository == 'bfra-me/works'
     needs:
       - ci
     permissions:
@@ -64,6 +64,7 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
+          ref: ${{ github.head_ref }}
           token: ${{ steps.get-workflow-access-token.outputs.token }}
 
       - name: Prepare job
@@ -73,6 +74,7 @@ jobs:
         run: pnpm -r publish --dry-run
 
       - name: Create Release Pull Request or Publish to npm
+        if: github.ref == 'refs/heads/main'
         uses: changesets/action@c8bada60c408975afd1a20b3db81d6eee6789308 # v1.4.9
         with:
           commit: 'chore(changesets): publish packages'
