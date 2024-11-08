@@ -1,5 +1,18 @@
 # @bfra.me/works
 
+## 0.0.7
+### Patch Changes
+
+
+- Updated dependency `@types/node` to `22.8.7`. ([#598](https://github.com/bfra-me/works/pull/598))
+
+
+- Updated dependency `@types/node` to `22.9.0`. ([#603](https://github.com/bfra-me/works/pull/603))
+
+- Updated dependencies [[`e7633cf`](https://github.com/bfra-me/works/commit/e7633cf33339342992be6a10bb1b6bb1627817ec), [`b5f26e1`](https://github.com/bfra-me/works/commit/b5f26e156e4edc7d160f87c924fd8a65ae9db391), [`ab8b0a2`](https://github.com/bfra-me/works/commit/ab8b0a2ee4eb987eb7dded4a8a43ddd8ea07ecce), [`234613f`](https://github.com/bfra-me/works/commit/234613f67aaa2e17b72597ecd5844be17bdc2fc9), [`68e8cd0`](https://github.com/bfra-me/works/commit/68e8cd0aef3d96caa03a006175bbf9d0c5152002)]:
+  - @bfra.me/eslint-config@0.4.5
+  - @bfra.me/prettier-config@0.9.2
+
 ## 0.0.6
 ### Patch Changes
 
