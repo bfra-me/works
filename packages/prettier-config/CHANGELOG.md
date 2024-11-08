@@ -1,5 +1,11 @@
 # @bfra.me/prettier-config
 
+## 0.9.3
+### Patch Changes
+
+
+- Update `prepack` scripts to build package dependencies. ([#607](https://github.com/bfra-me/works/pull/607))
+
 ## 0.9.2
 ### Patch Changes
 

@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.4.6
+### Patch Changes
+
+
+- Update `prepack` scripts to build package dependencies. ([#607](https://github.com/bfra-me/works/pull/607))
+
 ## 0.4.5
 ### Patch Changes
 
