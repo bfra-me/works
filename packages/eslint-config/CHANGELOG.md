@@ -1,5 +1,21 @@
 # @bfra.me/eslint-config
 
+## 0.4.5
+### Patch Changes
+
+
+- Updated dependency `@types/node` to `22.8.7`. ([#598](https://github.com/bfra-me/works/pull/598))
+
+
+- Updated dependency `@types/node` to `22.9.0`. ([#603](https://github.com/bfra-me/works/pull/603))
+
+
+- Updated dependency `globals` to `15.12.0`. ([#601](https://github.com/bfra-me/works/pull/601))
+
+
+- Updated dependency `typescript-eslint` to `8.13.0`. ([#602](https://github.com/bfra-me/works/pull/602))
+  Updated dependency `@typescript-eslint/types` to `8.13.0`.
+
 ## 0.4.4
 ### Patch Changes
 
