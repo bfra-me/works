@@ -6957,7 +6957,7 @@ type VitestConsistentTestIt = []|[{
 }]
 // ----- vitest/expect-expect -----
 type VitestExpectExpect = []|[{
-  assertFunctionNames?: []|[string]
+  assertFunctionNames?: string[]
   additionalTestBlockFunctions?: string[]
 }]
 // ----- vitest/max-expects -----
