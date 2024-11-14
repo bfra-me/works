@@ -3685,6 +3685,8 @@ type TypescriptEslintNoConfusingVoidExpression = []|[{
   ignoreArrowShorthand?: boolean
   
   ignoreVoidOperator?: boolean
+  
+  ignoreVoidReturningFunctions?: boolean
 }]
 // ----- @typescript-eslint/no-duplicate-type-constituents -----
 type TypescriptEslintNoDuplicateTypeConstituents = []|[{
