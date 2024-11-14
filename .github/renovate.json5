@@ -50,17 +50,22 @@
       allowedVersions: '<12.0.0',
     },
     {
-      description: 'Show Merge Confidence, OpenSSF Scorecard, and Sourcegraph badges for Renovate dependencies.',
-      matchDatasources: ['go', 'maven', 'npm', 'nuget', 'packagist', 'pypi', 'rubygems'],
-      matchUpdateTypes: ['patch', 'minor', 'major'],
-      prBodyColumns: ['Package', 'Update', 'Change', 'Age', 'Confidence', 'Sourcegraph'],
+      description: 'Schedule the update frequency of SWC packages to once every two weeks.',
+      matchPackageNames: ['@swc/**'],
+      schedule: ['every 2 weeks'],
     },
     {
       description: 'Show Merge Confidence, OpenSSF Scorecard, and Sourcegraph badges for Renovate dependencies.',
       matchDatasources: ['go', 'maven', 'npm', 'nuget', 'packagist', 'pypi', 'rubygems'],
-      matchUpdateTypes: ['patch', 'minor', 'major'],
+      matchUpdateTypes: ['pin', 'patch', 'minor', 'major'],
+      prBodyColumns: ['Package', 'Change', 'Age', 'Confidence', 'Sourcegraph'],
+    },
+    {
+      description: 'Show Merge Confidence, OpenSSF Scorecard, and Sourcegraph badges for Renovate dependencies.',
+      matchDatasources: ['go', 'maven', 'npm', 'nuget', 'packagist', 'pypi', 'rubygems'],
+      matchUpdateTypes: ['pin', 'patch', 'minor', 'major'],
       matchSourceUrls: ['https://github.com/**'],
-      prBodyColumns: ['Package', 'Update', 'Change', 'Age', 'Confidence', 'OpenSSF', 'Sourcegraph'],
+      prBodyColumns: ['Package', 'Change', 'Age', 'Confidence', 'OpenSSF', 'Sourcegraph'],
     },
   ],
   patch: {
@@ -73,7 +78,7 @@
     executionMode: 'branch',
   },
   prBodyDefinitions: {
-    Sourcegraph: '[![code search for "{{{depName}}}"](https://sourcegraph.com/search/badge?q=repo:%5Egithub%5C.com/{{{repository}}}%24+case:yes+-file:package%28-lock%29%3F%5C.json+{{{depName}}}&label=matches)](https://sourcegraph.com/search?q=repo:%5Egithub%5C.com/{{{repository}}}%24+case:yes+-file:package%28-lock%29%3F%5C.json+{{{depName}}})',
+    Sourcegraph: '[![code search for "{{{depName}}}"](https://sourcegraph.com/search/badge?q=repo:%5Egithub%5C.com/{{{encodeURIComponent repository}}}%24+case:yes+-file:package%28-lock%29%3F%5C.json%7Cyarn%5C.lock%7Cpnpm-lock%5C.yaml+{{{encodeURIComponent depName}}}&label=matches)](https://sourcegraph.com/search?q=repo:%5Egithub%5C.com/{{{encodeURIComponent repository}}}%24+case:yes+-file:package%28-lock%29%3F%5C.json%7Cyarn%5C.lock%7Cpnpm-lock%5C.yaml+{{{encodeURIComponent depName}}})',
   },
   prCreation: 'not-pending',
   rebaseWhen: 'auto',
