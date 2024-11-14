@@ -52,7 +52,7 @@
     {
       description: 'Schedule the update frequency of SWC packages to once every two weeks.',
       matchPackageNames: ['@swc/**'],
-      schedule: ['every 2 weeks'],
+      schedule: ['every 2 weeks on Sunday at 00:00'],
     },
     {
       description: 'Show Merge Confidence, OpenSSF Scorecard, and Sourcegraph badges for Renovate dependencies.',
