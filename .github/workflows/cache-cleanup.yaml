@@ -14,6 +14,8 @@ permissions: {}
 jobs:
   cleanup:
     name: Cleanup cache
+    permissions:
+      actions: write
     runs-on: ubuntu-latest
     env:
       BRANCH: >-
@@ -24,15 +26,11 @@ jobs:
         }}
     steps:
       - if: env.BRANCH != ''
-        name: Cleanup stale cache entries on ${{ env.BRANCH }}
+        name: Deleting workflow caches on ${{ env.BRANCH }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh extension install actions/gh-actions-cache
-          # Get cache keys that don't include the branch's SHA (if not a PR)
-          gh actions-cache list -R ${{ github.repository }} -B $BRANCH --order asc --sort last-used | cut -f 1 > cache-keys.txt
-          [ -z "${{ github.event.pull_request }}" ] && grep -v ${{ github.sha }} cache-keys.txt > cache-keys.txt.tmp && mv cache-keys.txt.tmp cache-keys.txt
-          CACHE_KEYS="$(cat cache-keys.txt | tr '\n' ' ')"
+          CACHE_KEYS="$(gh cache list -R ${{ github.repository }} --ref $BRANCH --limit 100 --order asc --sort last_accessed_at | cut -f 2 | tr '\n' ' ')"
           for key in $CACHE_KEYS; do
-            gh actions-cache delete $key -R ${{ github.repository }} -B $BRANCH --confirm
+            gh cache delete $key -R ${{ github.repository }}
           done
