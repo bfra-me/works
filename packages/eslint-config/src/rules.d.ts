@@ -3151,6 +3151,11 @@ export interface Rules {
    */
   'vitest/valid-expect'?: Linter.RuleEntry<VitestValidExpect>
   /**
+   * Require promises that have expectations in their chain to be valid
+   * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/valid-expect-in-promise.md
+   */
+  'vitest/valid-expect-in-promise'?: Linter.RuleEntry<[]>
+  /**
    * enforce valid titles
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/valid-title.md
    */
