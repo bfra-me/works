@@ -327,8 +327,8 @@ importers:
         specifier: 8.3.5
         version: 8.3.5(@microsoft/api-extractor@7.47.11(@types/node@22.9.0))(@swc/core@1.9.2)(jiti@2.4.0)(postcss@8.4.47)(tsx@4.19.2)(typescript@5.6.3)
       type-fest:
-        specifier: 4.26.1
-        version: 4.26.1
+        specifier: 4.27.0
+        version: 4.27.0
 
   packages/semantic-release:
     devDependencies:
@@ -348,8 +348,8 @@ importers:
         specifier: 8.3.5
         version: 8.3.5(@microsoft/api-extractor@7.47.11(@types/node@22.9.0))(@swc/core@1.9.2)(jiti@2.4.0)(postcss@8.4.47)(tsx@4.19.2)(typescript@5.6.3)
       type-fest:
-        specifier: 4.26.1
-        version: 4.26.1
+        specifier: 4.27.0
+        version: 4.27.0
       vitest:
         specifier: 2.1.5
         version: 2.1.5(@types/node@22.9.0)
@@ -366,8 +366,8 @@ importers:
         specifier: 1.0.0
         version: 1.0.0(ajv@8.17.1)
       type-fest:
-        specifier: 4.26.1
-        version: 4.26.1
+        specifier: 4.27.0
+        version: 4.27.0
 
 packages:
 
@@ -3997,8 +3997,8 @@ packages:
     resolution: {integrity: sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==}
     engines: {node: '>=12.20'}
 
-  type-fest@4.26.1:
-    resolution: {integrity: sha512-yOGpmOAL7CkKe/91I5O3gPICmJNLJ1G4zFYVAsRHg7M64biSnPtRj0WNQt++bRkjYOqjWXrhnUw1utzmVErAdg==}
+  type-fest@4.27.0:
+    resolution: {integrity: sha512-3IMSWgP7C5KSQqmo1wjhKrwsvXAtF33jO3QY+Uy++ia7hqvgSK6iXbbg5PbDBc1P2ZbNEDgejOrN4YooXvhwCw==}
     engines: {node: '>=16'}
 
   type@2.7.3:
@@ -7212,7 +7212,7 @@ snapshots:
     dependencies:
       '@babel/code-frame': 7.26.2
       index-to-position: 0.1.2
-      type-fest: 4.26.1
+      type-fest: 4.27.0
 
   parse-ms@4.0.0: {}
 
@@ -7340,14 +7340,14 @@ snapshots:
     dependencies:
       find-up-simple: 1.0.0
       read-pkg: 9.0.1
-      type-fest: 4.26.1
+      type-fest: 4.27.0
 
   read-pkg@9.0.1:
     dependencies:
       '@types/normalize-package-data': 2.4.4
       normalize-package-data: 6.0.2
       parse-json: 8.1.0
-      type-fest: 4.26.1
+      type-fest: 4.27.0
       unicorn-magic: 0.1.0
 
   read-yaml-file@1.1.0:
@@ -7870,7 +7870,7 @@ snapshots:
 
   type-fest@2.19.0: {}
 
-  type-fest@4.26.1: {}
+  type-fest@4.27.0: {}
 
   type@2.7.3: {}
 
