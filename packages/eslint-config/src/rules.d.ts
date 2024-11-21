@@ -423,6 +423,11 @@ export interface Rules {
    */
   '@typescript-eslint/no-unsafe-return'?: Linter.RuleEntry<[]>
   /**
+   * Disallow type assertions that narrow a type
+   * @see https://typescript-eslint.io/rules/no-unsafe-type-assertion
+   */
+  '@typescript-eslint/no-unsafe-type-assertion'?: Linter.RuleEntry<[]>
+  /**
    * Require unary negation to take a number
    * @see https://typescript-eslint.io/rules/no-unsafe-unary-minus
    */
@@ -579,6 +584,11 @@ export interface Rules {
    * @see https://typescript-eslint.io/rules/promise-function-async
    */
   '@typescript-eslint/promise-function-async'?: Linter.RuleEntry<TypescriptEslintPromiseFunctionAsync>
+  /**
+   * Enforce that `get()` types should be assignable to their equivalent `set()` type
+   * @see https://typescript-eslint.io/rules/related-getter-setter-pairs
+   */
+  '@typescript-eslint/related-getter-setter-pairs'?: Linter.RuleEntry<[]>
   /**
    * Require `Array#sort` and `Array#toSorted` calls to always provide a `compareFunction`
    * @see https://typescript-eslint.io/rules/require-array-sort-compare
