@@ -39,7 +39,7 @@
     "prepack": "pnpm run build"
   },
   "dependencies": {
-    "sort-package-json": "2.10.1"
+    "sort-package-json": "2.11.0"
   },
   "devDependencies": {
     "@bfra.me/prettier-plugins": "workspace:*",
