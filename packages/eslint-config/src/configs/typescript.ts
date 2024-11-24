@@ -102,6 +102,7 @@ export async function typescript(options: TypeScriptOptions = {}): Promise<Confi
       rules: {
         ...tselint.configs.eslintRecommended.rules,
 
+        '@typescript-eslint/no-namespace': 'error',
         '@typescript-eslint/array-type': 'error',
         '@typescript-eslint/ban-ts-comment': [
           'error',
@@ -132,7 +133,6 @@ export async function typescript(options: TypeScriptOptions = {}): Promise<Confi
         '@typescript-eslint/no-extraneous-class': 'error',
         '@typescript-eslint/no-inferrable-types': 'error',
         '@typescript-eslint/no-misused-new': 'error',
-        '@typescript-eslint/no-namespace': 'error',
         '@typescript-eslint/no-non-null-assertion': 'warn',
         '@typescript-eslint/no-require-imports': 'error',
         '@typescript-eslint/no-unused-vars': 'error',
