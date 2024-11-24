@@ -1,5 +1,37 @@
 # @bfra.me/works
 
+## 0.0.9
+### Patch Changes
+
+
+- Updated dependency `packageManager` to `pnpm@9.14.2`. ([#638](https://github.com/bfra-me/works/pull/638))
+
+
+- Updated dependency `packageManager` to `pnpm@9.13.1`. ([#627](https://github.com/bfra-me/works/pull/627))
+
+
+- Updated dependency `@changesets/cli` to `2.27.10`. ([#637](https://github.com/bfra-me/works/pull/637))
+
+
+- Updated dependency `packageManager` to `pnpm@9.13.2`. ([#628](https://github.com/bfra-me/works/pull/628))
+
+
+- Updated dependency `eslint` to `9.15.0`. ([#631](https://github.com/bfra-me/works/pull/631))
+  Updated dependency `@eslint/js` to `9.15.0`.
+
+- Updated dependency `@types/node` to `22.9.1`. ([#635](https://github.com/bfra-me/works/pull/635))
+
+
+- Updated dependency `packageManager` to `pnpm@9.14.1`. ([#636](https://github.com/bfra-me/works/pull/636))
+
+
+- Updated dependency `packageManager` to `pnpm@9.13.0`. ([#625](https://github.com/bfra-me/works/pull/625))
+
+- Updated dependencies [[`f7f249d`](https://github.com/bfra-me/works/commit/f7f249d1100c8d43c0b4b373227a98d4b53aeab7), [`ec48fc8`](https://github.com/bfra-me/works/commit/ec48fc8656da3637e7139696f8b784f8d49f1840), [`cea297d`](https://github.com/bfra-me/works/commit/cea297d45c7dff8c42ac488104cbd83785244d92), [`983e826`](https://github.com/bfra-me/works/commit/983e826ec1a6068ce7edc4546eac8227aa29ed4d), [`b702d49`](https://github.com/bfra-me/works/commit/b702d496e75e61138a0aaabbe2a9adcb238ba4f9), [`e4300ab`](https://github.com/bfra-me/works/commit/e4300abc0db9f5ee6cff1cac35690f903f0894aa), [`a46f4ea`](https://github.com/bfra-me/works/commit/a46f4ea3547256502d7fb45bae195e76e021643c), [`74e035c`](https://github.com/bfra-me/works/commit/74e035c86f78d2c3ee6c4a7e51837a654e676549), [`48bf14e`](https://github.com/bfra-me/works/commit/48bf14e02a9ac153eb24c75f320844220733dbd1), [`a8d7707`](https://github.com/bfra-me/works/commit/a8d77072acd34c6e2833b1a828ba00a88d814d2b), [`011faf9`](https://github.com/bfra-me/works/commit/011faf9c1c9b31036caf954c6f538823dcc26717), [`dea4025`](https://github.com/bfra-me/works/commit/dea4025e2815bed2c8bdfb3254b248ded883596d)]:
+  - @bfra.me/eslint-config@0.4.7
+  - @bfra.me/tsconfig@0.9.1
+  - @bfra.me/prettier-config@0.9.4
+
 ## 0.0.8
 ### Patch Changes
 

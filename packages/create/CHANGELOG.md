@@ -1,5 +1,15 @@
 # @bfra.me/create
 
+## 0.1.4
+### Patch Changes
+
+
+- Updated dependency `@types/node` to `22.9.1`. ([#635](https://github.com/bfra-me/works/pull/635))
+
+
+- Updated dependency `vitest` to `2.1.5`. ([#626](https://github.com/bfra-me/works/pull/626))
+  Updated dependency `@vitest/coverage-v8` to `2.1.5`.
+
 ## 0.1.3
 ### Patch Changes
 

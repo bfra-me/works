@@ -1,5 +1,20 @@
 # @bfra.me/semantic-release
 
+## 0.1.9
+### Patch Changes
+
+
+- Updated dependency `@swc/core` to `1.9.2`. ([#615](https://github.com/bfra-me/works/pull/615))
+
+
+- Updated dependency `type-fest` to `4.27.0`. ([#629](https://github.com/bfra-me/works/pull/629))
+
+
+- Updated dependency `vitest` to `2.1.5`. ([#626](https://github.com/bfra-me/works/pull/626))
+  Updated dependency `@vitest/coverage-v8` to `2.1.5`.
+
+- Updated dependency `@swc/core` to `1.9.1`. ([#609](https://github.com/bfra-me/works/pull/609))
+
 ## 0.1.8
 ### Patch Changes
 
