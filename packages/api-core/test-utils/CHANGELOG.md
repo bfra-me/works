@@ -1,5 +1,15 @@
 # @api/test-utils
 
+## 0.1.2
+### Patch Changes
+
+
+- Updated dependency `vitest` to `2.1.5`. ([#626](https://github.com/bfra-me/works/pull/626))
+  Updated dependency `@vitest/coverage-v8` to `2.1.5`.
+
+- Updated dependency `@readme/oas-to-har` to `24.0.2`. ([#640](https://github.com/bfra-me/works/pull/640))
+  Updated dependency `oas` to `25.0.4`.
+
 ## 0.1.1
 ### Patch Changes
 

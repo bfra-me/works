@@ -1,5 +1,41 @@
 # @bfra.me/eslint-config
 
+## 0.4.7
+### Patch Changes
+
+
+- Updated dependency `eslint-plugin-import-x` to `4.4.3`. ([#639](https://github.com/bfra-me/works/pull/639))
+
+
+- Updated dependency `typescript-eslint` to `8.14.0`. ([#619](https://github.com/bfra-me/works/pull/619))
+  Updated dependency `@typescript-eslint/types` to `8.14.0`.
+
+- Updated dependency `@vitest/eslint-plugin` to `1.1.8`. ([#614](https://github.com/bfra-me/works/pull/614))
+
+
+- Updated dependency `eslint` to `9.15.0`. ([#631](https://github.com/bfra-me/works/pull/631))
+  Updated dependency `@eslint/js` to `9.15.0`.
+
+- Updated dependency `@vitest/eslint-plugin` to `1.1.10`. ([#624](https://github.com/bfra-me/works/pull/624))
+
+
+- Updated dependency `@types/node` to `22.9.1`. ([#635](https://github.com/bfra-me/works/pull/635))
+
+
+- Updated dependency `vitest` to `2.1.5`. ([#626](https://github.com/bfra-me/works/pull/626))
+  Updated dependency `@vitest/coverage-v8` to `2.1.5`.
+
+- Updated dependency `local-pkg` to `0.5.1`. ([#633](https://github.com/bfra-me/works/pull/633))
+
+
+- Updated dependency `typescript-eslint` to `8.15.0`. ([#632](https://github.com/bfra-me/works/pull/632))
+  Updated dependency `@typescript-eslint/types` to `8.15.0`.
+
+- Updated dependency `eslint-plugin-jsdoc` to `50.5.0`. ([#623](https://github.com/bfra-me/works/pull/623))
+
+
+- Updated dependency `eslint-plugin-import-x` to `4.4.2`. ([#622](https://github.com/bfra-me/works/pull/622))
+
 ## 0.4.6
 ### Patch Changes
 

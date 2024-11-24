@@ -1,5 +1,14 @@
 # @bfra.me/prettier-plugins
 
+## 0.5.2
+### Patch Changes
+
+
+- Updated dependency `type-fest` to `4.27.0`. ([#629](https://github.com/bfra-me/works/pull/629))
+
+
+- Updated dependency `sort-package-json` to `2.11.0`. ([#634](https://github.com/bfra-me/works/pull/634))
+
 ## 0.5.1
 ### Patch Changes
 
