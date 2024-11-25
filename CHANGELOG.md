@@ -1,5 +1,14 @@
 # @bfra.me/works
 
+## 0.0.10
+### Patch Changes
+
+
+- Updated dependency `@microsoft/api-extractor` to `7.47.12`. ([#646](https://github.com/bfra-me/works/pull/646))
+
+
+- Updated dependency `@manypkg/cli` to `0.23.0`. ([#644](https://github.com/bfra-me/works/pull/644))
+
 ## 0.0.9
 ### Patch Changes
 
