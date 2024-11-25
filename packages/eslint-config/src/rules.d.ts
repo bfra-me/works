@@ -2516,16 +2516,15 @@ export interface Rules {
    */
   'perfectionist/sort-array-includes'?: Linter.RuleEntry<PerfectionistSortArrayIncludes>
   /**
-   * Enforce sorted Astro attributes.
-   * @see https://perfectionist.dev/rules/sort-astro-attributes
-   * @deprecated
-   */
-  'perfectionist/sort-astro-attributes'?: Linter.RuleEntry<PerfectionistSortAstroAttributes>
-  /**
    * Enforce sorted classes.
    * @see https://perfectionist.dev/rules/sort-classes
    */
   'perfectionist/sort-classes'?: Linter.RuleEntry<PerfectionistSortClasses>
+  /**
+   * Enforce sorted decorators.
+   * @see https://perfectionist.dev/rules/sort-decorators
+   */
+  'perfectionist/sort-decorators'?: Linter.RuleEntry<PerfectionistSortDecorators>
   /**
    * Enforce sorted TypeScript enums.
    * @see https://perfectionist.dev/rules/sort-enums
@@ -2536,6 +2535,11 @@ export interface Rules {
    * @see https://perfectionist.dev/rules/sort-exports
    */
   'perfectionist/sort-exports'?: Linter.RuleEntry<PerfectionistSortExports>
+  /**
+   * Enforce sorted heritage clauses.
+   * @see https://perfectionist.dev/rules/sort-heritage-clauses
+   */
+  'perfectionist/sort-heritage-clauses'?: Linter.RuleEntry<PerfectionistSortHeritageClauses>
   /**
    * Enforce sorted imports.
    * @see https://perfectionist.dev/rules/sort-imports
@@ -2562,6 +2566,11 @@ export interface Rules {
    */
   'perfectionist/sort-maps'?: Linter.RuleEntry<PerfectionistSortMaps>
   /**
+   * Enforce sorted modules.
+   * @see https://perfectionist.dev/rules/sort-modules
+   */
+  'perfectionist/sort-modules'?: Linter.RuleEntry<PerfectionistSortModules>
+  /**
    * Enforce sorted named exports.
    * @see https://perfectionist.dev/rules/sort-named-exports
    */
@@ -2587,12 +2596,6 @@ export interface Rules {
    */
   'perfectionist/sort-sets'?: Linter.RuleEntry<PerfectionistSortSets>
   /**
-   * Enforce sorted Svelte attributes.
-   * @see https://perfectionist.dev/rules/sort-svelte-attributes
-   * @deprecated
-   */
-  'perfectionist/sort-svelte-attributes'?: Linter.RuleEntry<PerfectionistSortSvelteAttributes>
-  /**
    * Enforce sorted switch cases.
    * @see https://perfectionist.dev/rules/sort-switch-case
    */
@@ -2607,12 +2610,6 @@ export interface Rules {
    * @see https://perfectionist.dev/rules/sort-variable-declarations
    */
   'perfectionist/sort-variable-declarations'?: Linter.RuleEntry<PerfectionistSortVariableDeclarations>
-  /**
-   * Enforce sorted Vue attributes.
-   * @see https://perfectionist.dev/rules/sort-vue-attributes
-   * @deprecated
-   */
-  'perfectionist/sort-vue-attributes'?: Linter.RuleEntry<PerfectionistSortVueAttributes>
   /**
    * Require using arrow functions for callbacks
    * @see https://eslint.org/docs/latest/rules/prefer-arrow-callback
@@ -6289,61 +6286,26 @@ type PaddingLineBetweenStatements = {
 // ----- perfectionist/sort-array-includes -----
 type PerfectionistSortArrayIncludes = []|[{
   
-  type?: ("alphabetical" | "natural" | "line-length")
-  
-  order?: ("asc" | "desc")
-  
-  matcher?: ("minimatch" | "regex")
-  
-  ignoreCase?: boolean
-  
-  specialCharacters?: ("remove" | "trim" | "keep")
+  partitionByComment?: (string[] | boolean | string)
   
   groupKind?: ("mixed" | "literals-first" | "spreads-first")
   
-  partitionByComment?: (string[] | boolean | string)
-  
   partitionByNewLine?: boolean
-}]
-// ----- perfectionist/sort-astro-attributes -----
-type PerfectionistSortAstroAttributes = []|[{
-  
-  type?: ("alphabetical" | "natural" | "line-length")
-  
-  order?: ("asc" | "desc")
-  
-  matcher?: ("minimatch" | "regex")
-  
-  ignoreCase?: boolean
   
   specialCharacters?: ("remove" | "trim" | "keep")
   
-  groups?: (string | string[])[]
+  ignoreCase?: boolean
   
-  customGroups?: {
-    [k: string]: (string | string[]) | undefined
-  }
+  locales?: (string | string[])
+  
+  order?: ("asc" | "desc")
+  
+  type?: ("alphabetical" | "natural" | "line-length")
 }]
 // ----- perfectionist/sort-classes -----
 type PerfectionistSortClasses = []|[{
   
-  type?: ("alphabetical" | "natural" | "line-length")
-  
-  order?: ("asc" | "desc")
-  
-  matcher?: ("minimatch" | "regex")
-  
-  ignoreCase?: boolean
-  
-  specialCharacters?: ("remove" | "trim" | "keep")
-  
-  partitionByComment?: (string[] | boolean | string)
-  
-  groups?: (string | string[])[]
-  
   customGroups?: ({
-    [k: string]: (string | string[]) | undefined
-  } | ({
     
     groupName?: string
     
@@ -6352,15 +6314,15 @@ type PerfectionistSortClasses = []|[{
     order?: ("desc" | "asc")
     anyOf?: {
       
-      selector?: ("accessor-property" | "index-signature" | "constructor" | "static-block" | "get-method" | "set-method" | "function-property" | "property" | "method")
-      
-      modifiers?: ("protected" | "private" | "public" | "static" | "abstract" | "override" | "readonly" | "decorated" | "declare" | "optional")[]
-      
-      elementNamePattern?: string
+      modifiers?: ("async" | "protected" | "private" | "public" | "static" | "abstract" | "override" | "readonly" | "decorated" | "declare" | "optional")[]
       
       elementValuePattern?: string
       
       decoratorNamePattern?: string
+      
+      selector?: ("accessor-property" | "index-signature" | "constructor" | "static-block" | "get-method" | "set-method" | "function-property" | "property" | "method")
+      
+      elementNamePattern?: string
     }[]
   } | {
     
@@ -6370,91 +6332,169 @@ type PerfectionistSortClasses = []|[{
     
     order?: ("desc" | "asc")
     
-    selector?: ("accessor-property" | "index-signature" | "constructor" | "static-block" | "get-method" | "set-method" | "function-property" | "property" | "method")
-    
-    modifiers?: ("protected" | "private" | "public" | "static" | "abstract" | "override" | "readonly" | "decorated" | "declare" | "optional")[]
-    
-    elementNamePattern?: string
+    modifiers?: ("async" | "protected" | "private" | "public" | "static" | "abstract" | "override" | "readonly" | "decorated" | "declare" | "optional")[]
     
     elementValuePattern?: string
     
     decoratorNamePattern?: string
-  })[])
+    
+    selector?: ("accessor-property" | "index-signature" | "constructor" | "static-block" | "get-method" | "set-method" | "function-property" | "property" | "method")
+    
+    elementNamePattern?: string
+  })[]
+  
+  ignoreCallbackDependenciesPatterns?: string[]
+  
+  partitionByComment?: (string[] | boolean | string)
+  
+  partitionByNewLine?: boolean
+  
+  specialCharacters?: ("remove" | "trim" | "keep")
+  
+  newlinesBetween?: ("ignore" | "always" | "never")
+  
+  ignoreCase?: boolean
+  
+  locales?: (string | string[])
+  
+  groups?: (string | string[])[]
+  
+  order?: ("asc" | "desc")
+  
+  type?: ("alphabetical" | "natural" | "line-length")
+}]
+// ----- perfectionist/sort-decorators -----
+type PerfectionistSortDecorators = []|[{
+  
+  partitionByComment?: (string[] | boolean | string)
+  
+  sortOnParameters?: boolean
+  
+  sortOnProperties?: boolean
+  
+  sortOnAccessors?: boolean
+  
+  sortOnMethods?: boolean
+  
+  sortOnClasses?: boolean
+  
+  specialCharacters?: ("remove" | "trim" | "keep")
+  
+  customGroups?: {
+    [k: string]: (string | string[]) | undefined
+  }
+  
+  ignoreCase?: boolean
+  
+  locales?: (string | string[])
+  
+  groups?: (string | string[])[]
+  
+  order?: ("asc" | "desc")
+  
+  type?: ("alphabetical" | "natural" | "line-length")
 }]
 // ----- perfectionist/sort-enums -----
 type PerfectionistSortEnums = []|[{
   
-  type?: ("alphabetical" | "natural" | "line-length")
-  
-  order?: ("asc" | "desc")
-  
-  matcher?: ("minimatch" | "regex")
-  
-  ignoreCase?: boolean
-  
-  specialCharacters?: ("remove" | "trim" | "keep")
-  
-  sortByValue?: boolean
+  partitionByComment?: (string[] | boolean | string)
   
   forceNumericSort?: boolean
   
-  partitionByComment?: (string[] | boolean | string)
+  sortByValue?: boolean
   
   partitionByNewLine?: boolean
+  
+  specialCharacters?: ("remove" | "trim" | "keep")
+  
+  ignoreCase?: boolean
+  
+  locales?: (string | string[])
+  
+  order?: ("asc" | "desc")
+  
+  type?: ("alphabetical" | "natural" | "line-length")
 }]
 // ----- perfectionist/sort-exports -----
 type PerfectionistSortExports = []|[{
   
-  type?: ("alphabetical" | "natural" | "line-length")
-  
-  order?: ("asc" | "desc")
-  
-  matcher?: ("minimatch" | "regex")
-  
-  ignoreCase?: boolean
-  
-  specialCharacters?: ("remove" | "trim" | "keep")
-  
   partitionByComment?: (string[] | boolean | string)
+  
+  groupKind?: ("mixed" | "values-first" | "types-first")
   
   partitionByNewLine?: boolean
   
-  groupKind?: ("mixed" | "values-first" | "types-first")
+  specialCharacters?: ("remove" | "trim" | "keep")
+  
+  ignoreCase?: boolean
+  
+  locales?: (string | string[])
+  
+  order?: ("asc" | "desc")
+  
+  type?: ("alphabetical" | "natural" | "line-length")
+}]
+// ----- perfectionist/sort-heritage-clauses -----
+type PerfectionistSortHeritageClauses = []|[{
+  
+  specialCharacters?: ("remove" | "trim" | "keep")
+  
+  customGroups?: {
+    [k: string]: (string | string[]) | undefined
+  }
+  
+  ignoreCase?: boolean
+  
+  locales?: (string | string[])
+  
+  groups?: (string | string[])[]
+  
+  order?: ("asc" | "desc")
+  
+  type?: ("alphabetical" | "natural" | "line-length")
 }]
 // ----- perfectionist/sort-imports -----
 type PerfectionistSortImports = []|[_PerfectionistSortImportsSortImports]
 type _PerfectionistSortImportsSortImports = (_PerfectionistSortImportsMaxLineLengthRequiresLineLengthType & {
   
-  type?: ("alphabetical" | "natural" | "line-length")
-  
-  order?: ("asc" | "desc")
-  
-  matcher?: ("minimatch" | "regex")
-  
-  ignoreCase?: boolean
-  
-  specialCharacters?: ("remove" | "trim" | "keep")
-  
-  internalPattern?: string[]
-  
-  sortSideEffects?: boolean
-  
-  newlinesBetween?: ("ignore" | "always" | "never")
-  
-  maxLineLength?: number
-  
-  groups?: (string | string[])[]
-  
   customGroups?: {
-    type?: {
+    
+    value?: {
       [k: string]: unknown | undefined
     }
-    value?: {
+    
+    type?: {
       [k: string]: unknown | undefined
     }
   }
   
+  partitionByComment?: (string[] | boolean | string)
+  
+  internalPattern?: string[]
+  
+  maxLineLength?: number
+  
+  sortSideEffects?: boolean
+  
   environment?: ("node" | "bun")
+  
+  tsconfigRootDir?: string
+  
+  partitionByNewLine?: boolean
+  
+  specialCharacters?: ("remove" | "trim" | "keep")
+  
+  newlinesBetween?: ("ignore" | "always" | "never")
+  
+  ignoreCase?: boolean
+  
+  locales?: (string | string[])
+  
+  groups?: (string | string[])[]
+  
+  order?: ("asc" | "desc")
+  
+  type?: ("alphabetical" | "natural" | "line-length")
 })
 type _PerfectionistSortImportsMaxLineLengthRequiresLineLengthType = ({
   [k: string]: unknown | undefined
@@ -6466,284 +6506,317 @@ interface _PerfectionistSortImports_IsLineLength {
 // ----- perfectionist/sort-interfaces -----
 type PerfectionistSortInterfaces = []|[{
   
-  type?: ("alphabetical" | "natural" | "line-length")
-  
-  order?: ("asc" | "desc")
-  
-  matcher?: ("minimatch" | "regex")
-  
-  ignoreCase?: boolean
-  
-  specialCharacters?: ("remove" | "trim" | "keep")
-  
   ignorePattern?: string[]
   
-  partitionByComment?: (boolean | string | string[])
-  
-  partitionByNewLine?: boolean
+  partitionByComment?: (string[] | boolean | string)
   
   groupKind?: ("mixed" | "optional-first" | "required-first")
   
-  groups?: (string | string[])[]
+  partitionByNewLine?: boolean
+  
+  specialCharacters?: ("remove" | "trim" | "keep")
+  
+  newlinesBetween?: ("ignore" | "always" | "never")
   
   customGroups?: {
     [k: string]: (string | string[]) | undefined
   }
+  
+  ignoreCase?: boolean
+  
+  locales?: (string | string[])
+  
+  groups?: (string | string[])[]
+  
+  order?: ("asc" | "desc")
+  
+  type?: ("alphabetical" | "natural" | "line-length")
 }]
 // ----- perfectionist/sort-intersection-types -----
 type PerfectionistSortIntersectionTypes = []|[{
   
-  type?: ("alphabetical" | "natural" | "line-length")
-  
-  order?: ("asc" | "desc")
-  
-  matcher?: ("minimatch" | "regex")
-  
-  ignoreCase?: boolean
-  
-  specialCharacters?: ("remove" | "trim" | "keep")
-  
-  groups?: (string | string[])[]
-  
   partitionByComment?: (string[] | boolean | string)
   
   partitionByNewLine?: boolean
+  
+  specialCharacters?: ("remove" | "trim" | "keep")
+  
+  newlinesBetween?: ("ignore" | "always" | "never")
+  
+  ignoreCase?: boolean
+  
+  locales?: (string | string[])
+  
+  groups?: (string | string[])[]
+  
+  order?: ("asc" | "desc")
+  
+  type?: ("alphabetical" | "natural" | "line-length")
 }]
 // ----- perfectionist/sort-jsx-props -----
 type PerfectionistSortJsxProps = []|[{
   
-  type?: ("alphabetical" | "natural" | "line-length")
-  
-  order?: ("asc" | "desc")
-  
-  matcher?: ("minimatch" | "regex")
-  
-  ignoreCase?: boolean
-  
-  specialCharacters?: ("remove" | "trim" | "keep")
-  
   ignorePattern?: string[]
   
-  groups?: (string | string[])[]
+  specialCharacters?: ("remove" | "trim" | "keep")
   
   customGroups?: {
     [k: string]: (string | string[]) | undefined
   }
+  
+  ignoreCase?: boolean
+  
+  locales?: (string | string[])
+  
+  groups?: (string | string[])[]
+  
+  order?: ("asc" | "desc")
+  
+  type?: ("alphabetical" | "natural" | "line-length")
 }]
 // ----- perfectionist/sort-maps -----
 type PerfectionistSortMaps = []|[{
   
-  type?: ("alphabetical" | "natural" | "line-length")
+  partitionByComment?: (string[] | boolean | string)
   
-  order?: ("asc" | "desc")
+  partitionByNewLine?: boolean
   
-  matcher?: ("minimatch" | "regex")
+  specialCharacters?: ("remove" | "trim" | "keep")
   
   ignoreCase?: boolean
   
-  specialCharacters?: ("remove" | "trim" | "keep")
+  locales?: (string | string[])
+  
+  order?: ("asc" | "desc")
+  
+  type?: ("alphabetical" | "natural" | "line-length")
+}]
+// ----- perfectionist/sort-modules -----
+type PerfectionistSortModules = []|[{
+  
+  customGroups?: ({
+    
+    groupName?: string
+    
+    type?: ("alphabetical" | "line-length" | "natural" | "unsorted")
+    
+    order?: ("desc" | "asc")
+    anyOf?: {
+      
+      modifiers?: ("async" | "declare" | "decorated" | "default" | "export")[]
+      
+      elementValuePattern?: string
+      
+      decoratorNamePattern?: string
+      
+      selector?: ("enum" | "function" | "interface" | "type" | "class")
+      
+      elementNamePattern?: string
+    }[]
+  } | {
+    
+    groupName?: string
+    
+    type?: ("alphabetical" | "line-length" | "natural" | "unsorted")
+    
+    order?: ("desc" | "asc")
+    
+    modifiers?: ("async" | "declare" | "decorated" | "default" | "export")[]
+    
+    elementValuePattern?: string
+    
+    decoratorNamePattern?: string
+    
+    selector?: ("enum" | "function" | "interface" | "type" | "class")
+    
+    elementNamePattern?: string
+  })[]
   
   partitionByComment?: (string[] | boolean | string)
   
   partitionByNewLine?: boolean
+  
+  specialCharacters?: ("remove" | "trim" | "keep")
+  
+  newlinesBetween?: ("ignore" | "always" | "never")
+  
+  ignoreCase?: boolean
+  
+  locales?: (string | string[])
+  
+  groups?: (string | string[])[]
+  
+  order?: ("asc" | "desc")
+  
+  type?: ("alphabetical" | "natural" | "line-length")
 }]
 // ----- perfectionist/sort-named-exports -----
 type PerfectionistSortNamedExports = []|[{
   
-  type?: ("alphabetical" | "natural" | "line-length")
-  
-  order?: ("asc" | "desc")
-  
-  matcher?: ("minimatch" | "regex")
-  
-  ignoreCase?: boolean
-  
-  specialCharacters?: ("remove" | "trim" | "keep")
+  partitionByComment?: (string[] | boolean | string)
   
   groupKind?: ("mixed" | "values-first" | "types-first")
   
-  partitionByComment?: (string[] | boolean | string)
-  
   partitionByNewLine?: boolean
+  
+  specialCharacters?: ("remove" | "trim" | "keep")
+  
+  ignoreCase?: boolean
+  
+  locales?: (string | string[])
+  
+  order?: ("asc" | "desc")
+  
+  type?: ("alphabetical" | "natural" | "line-length")
 }]
 // ----- perfectionist/sort-named-imports -----
 type PerfectionistSortNamedImports = []|[{
   
-  type?: ("alphabetical" | "natural" | "line-length")
-  
-  order?: ("asc" | "desc")
-  
-  matcher?: ("minimatch" | "regex")
-  
-  ignoreCase?: boolean
-  
-  specialCharacters?: ("remove" | "trim" | "keep")
-  
-  ignoreAlias?: boolean
+  partitionByComment?: (string[] | boolean | string)
   
   groupKind?: ("mixed" | "values-first" | "types-first")
   
-  partitionByComment?: (string[] | boolean | string)
+  ignoreAlias?: boolean
   
   partitionByNewLine?: boolean
+  
+  specialCharacters?: ("remove" | "trim" | "keep")
+  
+  ignoreCase?: boolean
+  
+  locales?: (string | string[])
+  
+  order?: ("asc" | "desc")
+  
+  type?: ("alphabetical" | "natural" | "line-length")
 }]
 // ----- perfectionist/sort-object-types -----
 type PerfectionistSortObjectTypes = []|[{
   
-  type?: ("alphabetical" | "natural" | "line-length")
-  
-  order?: ("asc" | "desc")
-  
-  matcher?: ("minimatch" | "regex")
-  
-  ignoreCase?: boolean
-  
-  specialCharacters?: ("remove" | "trim" | "keep")
-  
   partitionByComment?: (string[] | boolean | string)
-  
-  partitionByNewLine?: boolean
   
   groupKind?: ("mixed" | "required-first" | "optional-first")
   
-  groups?: (string | string[])[]
+  partitionByNewLine?: boolean
+  
+  specialCharacters?: ("remove" | "trim" | "keep")
+  
+  newlinesBetween?: ("ignore" | "always" | "never")
   
   customGroups?: {
     [k: string]: (string | string[]) | undefined
   }
+  
+  ignoreCase?: boolean
+  
+  locales?: (string | string[])
+  
+  groups?: (string | string[])[]
+  
+  order?: ("asc" | "desc")
+  
+  type?: ("alphabetical" | "natural" | "line-length")
 }]
 // ----- perfectionist/sort-objects -----
 type PerfectionistSortObjects = []|[{
   
-  type?: ("alphabetical" | "natural" | "line-length")
-  
-  order?: ("asc" | "desc")
-  
-  matcher?: ("minimatch" | "regex")
-  
-  ignoreCase?: boolean
-  
-  specialCharacters?: ("remove" | "trim" | "keep")
+  ignorePattern?: string[]
   
   partitionByComment?: (string[] | boolean | string)
   
-  partitionByNewLine?: boolean
+  destructureOnly?: boolean
   
   styledComponents?: boolean
   
-  destructureOnly?: boolean
+  partitionByNewLine?: boolean
   
-  ignorePattern?: string[]
+  specialCharacters?: ("remove" | "trim" | "keep")
   
-  groups?: (string | string[])[]
+  newlinesBetween?: ("ignore" | "always" | "never")
   
   customGroups?: {
     [k: string]: (string | string[]) | undefined
   }
+  
+  ignoreCase?: boolean
+  
+  locales?: (string | string[])
+  
+  groups?: (string | string[])[]
+  
+  order?: ("asc" | "desc")
+  
+  type?: ("alphabetical" | "natural" | "line-length")
 }]
 // ----- perfectionist/sort-sets -----
 type PerfectionistSortSets = []|[{
   
-  type?: ("alphabetical" | "natural" | "line-length")
-  
-  order?: ("asc" | "desc")
-  
-  matcher?: ("minimatch" | "regex")
-  
-  ignoreCase?: boolean
-  
-  specialCharacters?: ("remove" | "trim" | "keep")
+  partitionByComment?: (string[] | boolean | string)
   
   groupKind?: ("mixed" | "literals-first" | "spreads-first")
   
-  partitionByComment?: (string[] | boolean | string)
-  
   partitionByNewLine?: boolean
-}]
-// ----- perfectionist/sort-svelte-attributes -----
-type PerfectionistSortSvelteAttributes = []|[{
-  
-  type?: ("alphabetical" | "natural" | "line-length")
-  
-  order?: ("asc" | "desc")
-  
-  matcher?: ("minimatch" | "regex")
-  
-  ignoreCase?: boolean
   
   specialCharacters?: ("remove" | "trim" | "keep")
   
-  groups?: (string | string[])[]
+  ignoreCase?: boolean
   
-  customGroups?: {
-    [k: string]: (string | string[]) | undefined
-  }
+  locales?: (string | string[])
+  
+  order?: ("asc" | "desc")
+  
+  type?: ("alphabetical" | "natural" | "line-length")
 }]
 // ----- perfectionist/sort-switch-case -----
 type PerfectionistSortSwitchCase = []|[{
   
-  type?: ("alphabetical" | "natural" | "line-length")
-  
-  order?: ("asc" | "desc")
+  specialCharacters?: ("remove" | "trim" | "keep")
   
   ignoreCase?: boolean
   
-  specialCharacters?: ("remove" | "trim" | "keep")
+  locales?: (string | string[])
+  
+  order?: ("asc" | "desc")
+  
+  type?: ("alphabetical" | "natural" | "line-length")
 }]
 // ----- perfectionist/sort-union-types -----
 type PerfectionistSortUnionTypes = []|[{
   
-  type?: ("alphabetical" | "natural" | "line-length")
-  
-  order?: ("asc" | "desc")
-  
-  matcher?: ("minimatch" | "regex")
-  
-  ignoreCase?: boolean
-  
-  specialCharacters?: ("remove" | "trim" | "keep")
-  
-  groups?: (string | string[])[]
-  
   partitionByComment?: (string[] | boolean | string)
   
   partitionByNewLine?: boolean
+  
+  specialCharacters?: ("remove" | "trim" | "keep")
+  
+  newlinesBetween?: ("ignore" | "always" | "never")
+  
+  ignoreCase?: boolean
+  
+  locales?: (string | string[])
+  
+  groups?: (string | string[])[]
+  
+  order?: ("asc" | "desc")
+  
+  type?: ("alphabetical" | "natural" | "line-length")
 }]
 // ----- perfectionist/sort-variable-declarations -----
 type PerfectionistSortVariableDeclarations = []|[{
   
-  type?: ("alphabetical" | "natural" | "line-length")
-  
-  order?: ("asc" | "desc")
-  
-  matcher?: ("minimatch" | "regex")
-  
-  ignoreCase?: boolean
-  
-  specialCharacters?: ("remove" | "trim" | "keep")
-  
   partitionByComment?: (string[] | boolean | string)
   
   partitionByNewLine?: boolean
-}]
-// ----- perfectionist/sort-vue-attributes -----
-type PerfectionistSortVueAttributes = []|[{
-  
-  type?: ("alphabetical" | "natural" | "line-length")
-  
-  order?: ("asc" | "desc")
-  
-  matcher?: ("minimatch" | "regex")
-  
-  ignoreCase?: boolean
   
   specialCharacters?: ("remove" | "trim" | "keep")
   
-  groups?: (string | string[])[]
+  ignoreCase?: boolean
   
-  customGroups?: {
-    [k: string]: (string | string[]) | undefined
-  }
+  locales?: (string | string[])
+  
+  order?: ("asc" | "desc")
+  
+  type?: ("alphabetical" | "natural" | "line-length")
 }]
 // ----- prefer-arrow-callback -----
 type PreferArrowCallback = []|[{
