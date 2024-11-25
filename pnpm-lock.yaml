@@ -10,7 +10,7 @@ overrides:
 importers:
 
   .:
-    dependencies:
+    devDependencies:
       '@bfra.me/eslint-config':
         specifier: workspace:*
         version: link:packages/eslint-config
