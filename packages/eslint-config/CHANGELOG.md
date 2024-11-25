@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.4.8
+### Patch Changes
+
+
+- Updated dependency `eslint-plugin-perfectionist` to `4.0.3`. ([#642](https://github.com/bfra-me/works/pull/642))
+
 ## 0.4.7
 ### Patch Changes
 
