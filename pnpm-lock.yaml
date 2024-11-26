@@ -30,8 +30,8 @@ importers:
         specifier: 0.23.0
         version: 0.23.0
       '@microsoft/api-extractor':
-        specifier: 7.47.12
-        version: 7.47.12(@types/node@22.9.3)
+        specifier: 7.48.0
+        version: 7.48.0(@types/node@22.9.3)
       '@svitejs/changesets-changelog-github-compact':
         specifier: 1.2.0
         version: 1.2.0
@@ -166,7 +166,7 @@ importers:
         version: 10.0.3(typescript@5.6.3)
       tsup:
         specifier: 8.3.5
-        version: 8.3.5(@microsoft/api-extractor@7.47.12(@types/node@22.9.3))(@swc/core@1.9.2)(jiti@2.4.0)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.6.3)
+        version: 8.3.5(@microsoft/api-extractor@7.48.0(@types/node@22.9.3))(@swc/core@1.9.2)(jiti@2.4.0)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.6.3)
       typescript:
         specifier: 5.6.3
         version: 5.6.3
@@ -266,7 +266,7 @@ importers:
         version: 3.3.3
       tsup:
         specifier: 8.3.5
-        version: 8.3.5(@microsoft/api-extractor@7.47.12(@types/node@22.9.3))(@swc/core@1.9.2)(jiti@2.4.0)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.6.3)
+        version: 8.3.5(@microsoft/api-extractor@7.48.0(@types/node@22.9.3))(@swc/core@1.9.2)(jiti@2.4.0)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.6.3)
       tsx:
         specifier: 4.19.2
         version: 4.19.2
@@ -303,7 +303,7 @@ importers:
         version: 3.3.3
       tsup:
         specifier: 8.3.5
-        version: 8.3.5(@microsoft/api-extractor@7.47.12(@types/node@22.9.3))(@swc/core@1.9.2)(jiti@2.4.0)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.6.3)
+        version: 8.3.5(@microsoft/api-extractor@7.48.0(@types/node@22.9.3))(@swc/core@1.9.2)(jiti@2.4.0)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.6.3)
       vitest:
         specifier: 2.1.5
         version: 2.1.5(@types/node@22.9.3)
@@ -325,7 +325,7 @@ importers:
         version: 3.3.3
       tsup:
         specifier: 8.3.5
-        version: 8.3.5(@microsoft/api-extractor@7.47.12(@types/node@22.9.3))(@swc/core@1.9.2)(jiti@2.4.0)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.6.3)
+        version: 8.3.5(@microsoft/api-extractor@7.48.0(@types/node@22.9.3))(@swc/core@1.9.2)(jiti@2.4.0)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.6.3)
       type-fest:
         specifier: 4.27.0
         version: 4.27.0
@@ -346,7 +346,7 @@ importers:
         version: 24.2.0(typescript@5.6.3)
       tsup:
         specifier: 8.3.5
-        version: 8.3.5(@microsoft/api-extractor@7.47.12(@types/node@22.9.3))(@swc/core@1.9.2)(jiti@2.4.0)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.6.3)
+        version: 8.3.5(@microsoft/api-extractor@7.48.0(@types/node@22.9.3))(@swc/core@1.9.2)(jiti@2.4.0)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.6.3)
       type-fest:
         specifier: 4.27.0
         version: 4.27.0
@@ -1074,18 +1074,18 @@ packages:
     resolution: {integrity: sha512-3lBouSuF7CqlseLB+FKES0K4FQ02JrbEoRtJhxnsyB1s5v4AP03gsoohN8jp7DcOImhaR9scYdztq3/sLfk/qQ==}
     engines: {node: '>=14.18.0'}
 
-  '@microsoft/api-extractor-model@7.29.9':
-    resolution: {integrity: sha512-/DaMfUjiswmrnLjHCorVzWGbW5rmeTGDo+H0QcvcarJ14SjNVmFWiRKzscN4B2y9AyllqeXMPgwbtSFAdAkpMQ==}
+  '@microsoft/api-extractor-model@7.30.0':
+    resolution: {integrity: sha512-26/LJZBrsWDKAkOWRiQbdVgcfd1F3nyJnAiJzsAgpouPk7LtOIj7PK9aJtBaw/pUXrkotEg27RrT+Jm/q0bbug==}
 
-  '@microsoft/api-extractor@7.47.12':
-    resolution: {integrity: sha512-YE/h4vE9T1i3oGtgEZC7pHupH/drtGAuQ36iJ1Ua0gQ8NXmPXNKNilkCqzWnX/QvMnr1xSgEjHppWMXEi5YZKQ==}
+  '@microsoft/api-extractor@7.48.0':
+    resolution: {integrity: sha512-FMFgPjoilMUWeZXqYRlJ3gCVRhB7WU/HN88n8OLqEsmsG4zBdX/KQdtJfhq95LQTQ++zfu0Em1LLb73NqRCLYQ==}
     hasBin: true
 
-  '@microsoft/tsdoc-config@0.17.0':
-    resolution: {integrity: sha512-v/EYRXnCAIHxOHW+Plb6OWuUoMotxTN0GLatnpOb1xq0KuTNw/WI3pamJx/UbsoJP5k9MCw1QxvvhPcF9pH3Zg==}
+  '@microsoft/tsdoc-config@0.17.1':
+    resolution: {integrity: sha512-UtjIFe0C6oYgTnad4q1QP4qXwLhe6tIpNTRStJ2RZEPIkqQPREAwE5spzVxsdn9UaEMUqhh0AqSx3X4nWAKXWw==}
 
-  '@microsoft/tsdoc@0.15.0':
-    resolution: {integrity: sha512-HZpPoABogPvjeJOdzCOSJsXeL/SMCBgBZMVC3X3d7YYp2gf31MfxhUoYUNwf1ERPJOnQc0wkFn9trqI6ZEdZuA==}
+  '@microsoft/tsdoc@0.15.1':
+    resolution: {integrity: sha512-4aErSrCR/On/e5G2hDP0wjooqDdauzEbIq8hIkIe5pXV0rtWJZvdCEKL0ykZxex+IxIwBp0eGeV48hQN07dXtw==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -4836,19 +4836,19 @@ snapshots:
       jju: 1.4.0
       js-yaml: 4.1.0
 
-  '@microsoft/api-extractor-model@7.29.9(@types/node@22.9.3)':
+  '@microsoft/api-extractor-model@7.30.0(@types/node@22.9.3)':
     dependencies:
-      '@microsoft/tsdoc': 0.15.0
-      '@microsoft/tsdoc-config': 0.17.0
+      '@microsoft/tsdoc': 0.15.1
+      '@microsoft/tsdoc-config': 0.17.1
       '@rushstack/node-core-library': 5.10.0(@types/node@22.9.3)
     transitivePeerDependencies:
       - '@types/node'
 
-  '@microsoft/api-extractor@7.47.12(@types/node@22.9.3)':
+  '@microsoft/api-extractor@7.48.0(@types/node@22.9.3)':
     dependencies:
-      '@microsoft/api-extractor-model': 7.29.9(@types/node@22.9.3)
-      '@microsoft/tsdoc': 0.15.0
-      '@microsoft/tsdoc-config': 0.17.0
+      '@microsoft/api-extractor-model': 7.30.0(@types/node@22.9.3)
+      '@microsoft/tsdoc': 0.15.1
+      '@microsoft/tsdoc-config': 0.17.1
       '@rushstack/node-core-library': 5.10.0(@types/node@22.9.3)
       '@rushstack/rig-package': 0.5.3
       '@rushstack/terminal': 0.14.3(@types/node@22.9.3)
@@ -4862,14 +4862,14 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@microsoft/tsdoc-config@0.17.0':
+  '@microsoft/tsdoc-config@0.17.1':
     dependencies:
-      '@microsoft/tsdoc': 0.15.0
+      '@microsoft/tsdoc': 0.15.1
       ajv: 8.12.0
       jju: 1.4.0
       resolve: 1.22.8
 
-  '@microsoft/tsdoc@0.15.0': {}
+  '@microsoft/tsdoc@0.15.1': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -7760,7 +7760,7 @@ snapshots:
 
   tslib@2.8.1: {}
 
-  tsup@8.3.5(@microsoft/api-extractor@7.47.12(@types/node@22.9.3))(@swc/core@1.9.2)(jiti@2.4.0)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.6.3):
+  tsup@8.3.5(@microsoft/api-extractor@7.48.0(@types/node@22.9.3))(@swc/core@1.9.2)(jiti@2.4.0)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.6.3):
     dependencies:
       bundle-require: 5.0.0(esbuild@0.24.0)
       cac: 6.7.14
@@ -7779,7 +7779,7 @@ snapshots:
       tinyglobby: 0.2.10
       tree-kill: 1.2.2
     optionalDependencies:
-      '@microsoft/api-extractor': 7.47.12(@types/node@22.9.3)
+      '@microsoft/api-extractor': 7.48.0(@types/node@22.9.3)
       '@swc/core': 1.9.2
       postcss: 8.4.49
       typescript: 5.6.3
