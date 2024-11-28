@@ -1,4 +1,4 @@
-import defaultConfig, {type Writable} from './prettier.config.js'
+import defaultConfig, {type Writable} from './index.js'
 
 const $120ProofConfig = {
   ...defaultConfig,
