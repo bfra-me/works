@@ -12,7 +12,6 @@ export default defineConfig([
     sourcemap: true,
     // Splitting can place code using `import.meta` into a separate chunk, which breaks the preset export mappings.
     splitting: false,
-    target: 'es2022',
   },
   {
     entry: ['./src/index.ts'],
@@ -23,7 +22,5 @@ export default defineConfig([
     outDir: '.',
     shims: true,
     sourcemap: true,
-    target: 'es2022',
-    treeshake: 'safest',
   },
 ])
