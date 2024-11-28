@@ -14,7 +14,7 @@
   "devDependencies": {
     "@types/caseless": "0.12.5",
     "oas": "25.0.4",
-    "typescript": "5.6.3",
+    "typescript": "5.7.2",
     "vitest": "2.1.5"
   }
 }

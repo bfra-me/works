@@ -40,7 +40,7 @@
     "memfs": "4.14.0",
     "ts-essentials": "10.0.3",
     "tsup": "8.3.5",
-    "typescript": "5.6.3",
+    "typescript": "5.7.2",
     "vitest": "2.1.5"
   }
 }
