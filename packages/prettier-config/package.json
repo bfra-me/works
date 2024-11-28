@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/prettier-config",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "description": "Shared Prettier configuration for bfra.me",
   "keywords": [
     "bfra.me",
