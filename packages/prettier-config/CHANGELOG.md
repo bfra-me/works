@@ -1,5 +1,11 @@
 # @bfra.me/prettier-config
 
+## 0.12.0
+### Minor Changes
+
+
+- Bundle Prettier with the bundled config 🤷🏽‍♂️ ([#665](https://github.com/bfra-me/works/pull/665))
+
 ## 0.11.1
 ### Patch Changes
 
