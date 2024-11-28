@@ -1,5 +1,11 @@
 # @bfra.me/prettier-config
 
+## 0.11.1
+### Patch Changes
+
+
+- Remove treeshaking and target build options ([#663](https://github.com/bfra-me/works/pull/663))
+
 ## 0.11.0
 ### Minor Changes
 
