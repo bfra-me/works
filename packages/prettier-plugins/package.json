@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/prettier-plugins",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Plugins for Prettier used across bfra.me.",
   "keywords": [
     "bfra.me",

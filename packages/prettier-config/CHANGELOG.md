@@ -1,5 +1,20 @@
 # @bfra.me/prettier-config
 
+## 0.10.0
+### Minor Changes
+
+
+- Move `prettier.config.js` to `index.js` ([#658](https://github.com/bfra-me/works/pull/658))
+
+
+### Patch Changes
+
+
+- Add banner to improve CJS compatibility ([#658](https://github.com/bfra-me/works/pull/658))
+
+- Updated dependencies [[`779d16d`](https://github.com/bfra-me/works/commit/779d16d80f0636f9284bbcd3afc82ec426688a47), [`dce024c`](https://github.com/bfra-me/works/commit/dce024c7488a7fa40cde749594e54f61a902435f), [`75750d3`](https://github.com/bfra-me/works/commit/75750d39c59665396e5c006585f4b1fa43054721)]:
+  - @bfra.me/prettier-plugins@0.5.3
+
 ## 0.9.4
 ### Patch Changes
 
