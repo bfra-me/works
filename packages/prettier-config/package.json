@@ -24,7 +24,7 @@
     ".": {
       "types": "./lib/index.d.ts",
       "source": "./src/index.ts",
-      "default": "./index.js"
+      "default": "./index.cjs"
     },
     "./*": {
       "types": "./lib/*.d.ts",
@@ -38,18 +38,19 @@
     "./*/semi": "./lib/*.js?semi=true",
     "./package.json": "./package.json"
   },
-  "main": "./index.js",
+  "main": "./index.cjs",
+  "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
     "lib",
     "src",
     "index.json",
-    "index.js",
+    "index.cjs",
     "!**/*.map"
   ],
   "scripts": {
     "build": "tsup",
-    "postbuild": "prettier --config ./index.js --ignore-path .prettierignore --log-level warn --write .",
+    "postbuild": "prettier --config ./index.cjs --ignore-path .prettierignore --log-level warn --write .",
     "prepack": "pnpm --filter-prod=\"{.}...\" --loglevel error run build",
     "test": "pnpm --filter-prod=\"{.}...\" --loglevel error run build && vitest"
   },
