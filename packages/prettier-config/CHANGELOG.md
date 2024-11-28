@@ -1,5 +1,11 @@
 # @bfra.me/prettier-config
 
+## 0.10.1
+### Patch Changes
+
+
+- Output the bundled config as CJS in an attempt to resolve issues with the VS Code Prettier extension. ([#659](https://github.com/bfra-me/works/pull/659))
+
 ## 0.10.0
 ### Minor Changes
 
