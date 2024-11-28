@@ -18,7 +18,7 @@ export default defineConfig([
     banner: {
       js: "import {createRequire}from'node:module';const require=createRequire(import.meta.url);",
     },
-    entry: ['./src/prettier.config.ts'],
+    entry: ['./src/index.ts'],
     format: ['esm'],
     minify: true,
     // Bundle the config and dependencies into a single file.
