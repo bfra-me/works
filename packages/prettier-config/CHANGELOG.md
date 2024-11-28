@@ -1,5 +1,11 @@
 # @bfra.me/prettier-config
 
+## 0.11.0
+### Minor Changes
+
+
+- Switch back to ESM output for the bundled config ([#661](https://github.com/bfra-me/works/pull/661))
+
 ## 0.10.1
 ### Patch Changes
 
