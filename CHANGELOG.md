@@ -1,5 +1,17 @@
 # @bfra.me/works
 
+## 0.0.11
+### Patch Changes
+
+
+- Updated dependency `@types/node` to `22.9.2`. ([#650](https://github.com/bfra-me/works/pull/650))
+
+
+- Updated dependency `@microsoft/api-extractor` to `7.48.0`. ([#651](https://github.com/bfra-me/works/pull/651))
+
+
+- Updated dependency `@types/node` to `22.9.3`. ([#653](https://github.com/bfra-me/works/pull/653))
+
 ## 0.0.10
 ### Patch Changes
 

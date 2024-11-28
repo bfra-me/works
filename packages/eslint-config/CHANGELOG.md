@@ -1,5 +1,14 @@
 # @bfra.me/eslint-config
 
+## 0.4.9
+### Patch Changes
+
+
+- Updated dependency `@types/node` to `22.9.2`. ([#650](https://github.com/bfra-me/works/pull/650))
+
+
+- Updated dependency `@types/node` to `22.9.3`. ([#653](https://github.com/bfra-me/works/pull/653))
+
 ## 0.4.8
 ### Patch Changes
 
