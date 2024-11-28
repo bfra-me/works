@@ -1,5 +1,11 @@
 # @bfra.me/works
 
+## 0.0.12
+### Patch Changes
+
+
+- Delete orphaned changeset file. ([#669](https://github.com/bfra-me/works/pull/669))
+
 ## 0.0.11
 ### Patch Changes
 
