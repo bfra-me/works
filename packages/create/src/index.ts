@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import {run} from '@sxzz/create'
 import type {CreatePackageOptions} from './types.js'
 
 /**
@@ -20,20 +21,15 @@ export async function createPackage(
   // Create target directory
   await fs.mkdir(targetDir, {recursive: true})
 
-  // Read package.json template and replace placeholders
-  const packageJsonTemplate = await fs.readFile(path.join(templateDir, 'package.json'), 'utf-8')
-
-  const packageJsonContent = packageJsonTemplate
-    .replace(/{{packageName}}/g, packageName)
-    .replace(/{{version}}/g, options.version || '1.0.0')
-    .replace(/{{description}}/g, options.description || 'A new package')
-    .replace(/{{author}}/g, options.author || '')
-
-  await fs.writeFile(path.join(targetDir, 'package.json'), packageJsonContent)
-
-  // Copy index.ts template
-  const indexTsTemplate = await fs.readFile(path.join(templateDir, 'index.ts'), 'utf-8')
-  await fs.writeFile(path.join(targetDir, 'index.ts'), indexTsTemplate)
+  await run(targetDir, {
+    templates: [
+      {
+        name: 'default',
+        // Point to the template directory
+        url: `file://${templateDir}`,
+      },
+    ],
+  })
 
   console.log(`Package ${packageName} created successfully.`)
 }
