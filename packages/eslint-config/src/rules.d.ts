@@ -6720,11 +6720,18 @@ type PerfectionistSortObjectTypes = []|[{
 // ----- perfectionist/sort-objects -----
 type PerfectionistSortObjects = []|[{
   
+  destructuredObjects?: (boolean | {
+    
+    groups?: boolean
+  })
+  
   ignorePattern?: string[]
   
   partitionByComment?: (string[] | boolean | string)
   
   destructureOnly?: boolean
+  
+  objectDeclarations?: boolean
   
   styledComponents?: boolean
   
