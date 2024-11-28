@@ -18,9 +18,10 @@ export default defineConfig([
     format: ['esm'],
     minify: true,
     // Bundle the config and dependencies into a single file.
-    noExternal: [/^@bfra.me\//],
+    noExternal: [/^@bfra.me\//, 'prettier'],
     outDir: '.',
     shims: true,
     sourcemap: true,
+    splitting: false,
   },
 ])
