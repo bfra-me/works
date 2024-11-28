@@ -15,6 +15,9 @@ export default defineConfig([
     target: 'es2022',
   },
   {
+    banner: {
+      js: "import {createRequire}from'node:module';const require=createRequire(import.meta.url);",
+    },
     entry: ['./src/prettier.config.ts'],
     format: ['esm'],
     minify: true,
