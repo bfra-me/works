@@ -16,7 +16,7 @@ export default defineConfig([
   },
   {
     entry: ['./src/index.ts'],
-    format: ['cjs'],
+    format: ['esm'],
     minify: true,
     // Bundle the config and dependencies into a single file.
     noExternal: [/^@bfra.me\//],

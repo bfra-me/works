@@ -1,3 +1,3 @@
 * text=auto eol=lf
 
-packages/prettier-config/index.cjs -diff linguist-generated=true
+packages/prettier-config/index.js -diff linguist-generated=true
