@@ -15,17 +15,15 @@ export default defineConfig([
     target: 'es2022',
   },
   {
-    banner: {
-      js: "import {createRequire}from'node:module';const require=createRequire(import.meta.url);",
-    },
     entry: ['./src/index.ts'],
-    format: ['esm'],
+    format: ['cjs'],
     minify: true,
     // Bundle the config and dependencies into a single file.
     noExternal: [/^@bfra.me\//],
     outDir: '.',
+    shims: true,
     sourcemap: true,
     target: 'es2022',
-    treeshake: 'smallest',
+    treeshake: 'safest',
   },
 ])
