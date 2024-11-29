@@ -1,5 +1,29 @@
 # @bfra.me/eslint-config
 
+## 0.4.10
+### Patch Changes
+
+
+- Updated dependency `prettier` to `3.4.0`. ([#677](https://github.com/bfra-me/works/pull/677))
+
+
+- Updated dependency `eslint-plugin-perfectionist` to `4.1.0`. ([#673](https://github.com/bfra-me/works/pull/673))
+
+
+- Updated dependency `eslint-plugin-perfectionist` to `4.1.2`. ([#675](https://github.com/bfra-me/works/pull/675))
+
+
+- Updated dependency `prettier` to `3.4.1`. ([#677](https://github.com/bfra-me/works/pull/677))
+
+
+- Updated dependency `typescript-eslint` to `8.16.0`. ([#671](https://github.com/bfra-me/works/pull/671))
+  Updated dependency `@typescript-eslint/types` to `8.16.0`.
+
+- Updated dependency `@types/node` to `22.9.4`. ([#674](https://github.com/bfra-me/works/pull/674))
+
+
+- Updated dependency `@types/node` to `22.10.0`. ([#676](https://github.com/bfra-me/works/pull/676))
+
 ## 0.4.9
 ### Patch Changes
 

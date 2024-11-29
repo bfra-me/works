@@ -1,5 +1,11 @@
 # @bfra.me/semantic-release
 
+## 0.1.11
+### Patch Changes
+
+
+- Updated dependency `type-fest` to `4.28.1`. ([#682](https://github.com/bfra-me/works/pull/682))
+
 ## 0.1.10
 ### Patch Changes
 

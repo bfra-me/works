@@ -1,5 +1,23 @@
 # @bfra.me/prettier-config
 
+## 0.13.0
+### Minor Changes
+
+
+- Return to prettier.config.js and restructure exports. ([#678](https://github.com/bfra-me/works/pull/678))
+
+
+### Patch Changes
+
+
+- Updated dependency `prettier` to `3.4.0`. ([#677](https://github.com/bfra-me/works/pull/677))
+
+
+- Updated dependency `prettier` to `3.4.1`. ([#677](https://github.com/bfra-me/works/pull/677))
+
+- Updated dependencies [[`8254821`](https://github.com/bfra-me/works/commit/82548212c08705c675207b5eefacd3c10a7ac057), [`c9fa4fb`](https://github.com/bfra-me/works/commit/c9fa4fb4ebe598777e681d055fb82366077f0f2a), [`8254821`](https://github.com/bfra-me/works/commit/82548212c08705c675207b5eefacd3c10a7ac057), [`2834ed9`](https://github.com/bfra-me/works/commit/2834ed9f28a81264a9c299c4b710c758f5503634)]:
+  - @bfra.me/prettier-plugins@0.5.4
+
 ## 0.12.0
 ### Minor Changes
 

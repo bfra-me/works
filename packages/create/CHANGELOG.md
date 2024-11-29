@@ -1,5 +1,14 @@
 # @bfra.me/create
 
+## 0.1.6
+### Patch Changes
+
+
+- Updated dependency `@types/node` to `22.9.4`. ([#674](https://github.com/bfra-me/works/pull/674))
+
+
+- Updated dependency `@types/node` to `22.10.0`. ([#676](https://github.com/bfra-me/works/pull/676))
+
 ## 0.1.5
 ### Patch Changes
 
