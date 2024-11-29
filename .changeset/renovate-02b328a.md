@@ -1,5 +1,4 @@
 ---
-'@bfra.me/works': patch
 '@bfra.me/eslint-config': patch
 '@bfra.me/prettier-config': patch
 '@bfra.me/prettier-plugins': patch
