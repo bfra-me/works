@@ -1,5 +1,4 @@
 ---
-'@bfra.me/works': patch
 '@bfra.me/create': patch
 '@bfra.me/eslint-config': patch
 ---
