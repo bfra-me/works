@@ -46,7 +46,7 @@
     "@bfra.me/tsconfig": "workspace:*",
     "prettier": "3.3.3",
     "tsup": "8.3.5",
-    "type-fest": "4.28.0"
+    "type-fest": "4.28.1"
   },
   "peerDependencies": {
     "prettier": "^3.0.0"
