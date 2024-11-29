@@ -30,7 +30,7 @@
     "version-changesets": "changeset version",
     "watch": "pnpm run build --watch"
   },
-  "prettier": "@bfra.me/prettier-config",
+  "prettier": "@bfra.me/prettier-config/prettier.config",
   "devDependencies": {
     "@bfra.me/eslint-config": "workspace:*",
     "@bfra.me/prettier-config": "workspace:*",

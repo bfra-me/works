@@ -79,7 +79,7 @@ const config = {
     },
   ] as prettier.Config['overrides'],
 
-  plugins: ['@bfra.me/prettier-plugins/package-json'].map(resolvePlugin),
+  plugins: await Promise.all(['@bfra.me/prettier-plugins/package-json'].map(resolvePlugin)),
 } as const
 
 /**

@@ -3,5 +3,5 @@ import config from '../../eslint.config'
 
 export default composeConfig(config, {
   name: '@bfra.me/prettier-config/bundled',
-  ignores: ['index.js'],
+  ignores: ['prettier.config.js'],
 })

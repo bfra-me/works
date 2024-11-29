@@ -24,33 +24,29 @@
     ".": {
       "types": "./lib/index.d.ts",
       "source": "./src/index.ts",
-      "default": "./index.js"
-    },
-    "./*": {
-      "types": "./lib/*.d.ts",
-      "source": "./src/*.ts",
-      "default": "./lib/*.js"
+      "default": "./lib/index.js"
     },
     "./100-proof": "./lib/index.js",
     "./120-proof": "./lib/120-proof.js",
     "./semi/*": "./lib/*.js?semi=true",
     "./semi": "./lib/index.js?semi=true",
     "./*/semi": "./lib/*.js?semi=true",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./prettier.config": "./prettier.config.js"
   },
-  "main": "./index.js",
+  "main": "./lib/index.js",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
     "lib",
     "src",
     "index.json",
-    "index.js",
+    "prettier.config.js",
     "!**/*.map"
   ],
   "scripts": {
     "build": "tsup",
-    "postbuild": "prettier --config ./index.js --ignore-path .prettierignore --log-level warn --write .",
+    "postbuild": "prettier --config ./prettier.config.js --ignore-path .prettierignore --log-level warn --write .",
     "prepack": "pnpm --filter-prod=\"{.}...\" --loglevel error run build",
     "test": "pnpm --filter-prod=\"{.}...\" --loglevel error run build && vitest"
   },
