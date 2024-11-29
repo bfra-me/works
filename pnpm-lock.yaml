@@ -42,8 +42,8 @@ importers:
         specifier: 9.15.0
         version: 9.15.0(jiti@2.4.0)
       prettier:
-        specifier: 3.3.3
-        version: 3.3.3
+        specifier: 3.4.1
+        version: 3.4.1
       publint:
         specifier: 0.2.12
         version: 0.2.12
@@ -262,8 +262,8 @@ importers:
         specifier: 2.4.0
         version: 2.4.0
       prettier:
-        specifier: 3.3.3
-        version: 3.3.3
+        specifier: 3.4.1
+        version: 3.4.1
       tsup:
         specifier: 8.3.5
         version: 8.3.5(@microsoft/api-extractor@7.48.0(@types/node@22.10.0))(@swc/core@1.9.2)(jiti@2.4.0)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)
@@ -299,8 +299,8 @@ importers:
         specifier: 11.2.0
         version: 11.2.0
       prettier:
-        specifier: 3.3.3
-        version: 3.3.3
+        specifier: 3.4.1
+        version: 3.4.1
       tsup:
         specifier: 8.3.5
         version: 8.3.5(@microsoft/api-extractor@7.48.0(@types/node@22.10.0))(@swc/core@1.9.2)(jiti@2.4.0)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)
@@ -321,8 +321,8 @@ importers:
         specifier: workspace:*
         version: link:../tsconfig
       prettier:
-        specifier: 3.3.3
-        version: 3.3.3
+        specifier: 3.4.1
+        version: 3.4.1
       tsup:
         specifier: 8.3.5
         version: 8.3.5(@microsoft/api-extractor@7.48.0(@types/node@22.10.0))(@swc/core@1.9.2)(jiti@2.4.0)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)
@@ -3454,8 +3454,8 @@ packages:
     engines: {node: '>=10.13.0'}
     hasBin: true
 
-  prettier@3.3.3:
-    resolution: {integrity: sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew==}
+  prettier@3.4.1:
+    resolution: {integrity: sha512-G+YdqtITVZmOJje6QkXQWzl3fSfMxFwm1tjTyo9exhkmWSqC4Yhd1+lug++IlR2mvRVAxEDDWYkQdeSztajqgg==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -7245,7 +7245,7 @@ snapshots:
 
   prettier@2.8.8: {}
 
-  prettier@3.3.3: {}
+  prettier@3.4.1: {}
 
   pretty-ms@9.2.0:
     dependencies:

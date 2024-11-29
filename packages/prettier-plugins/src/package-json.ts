@@ -1,6 +1,6 @@
 import prettier from 'prettier'
 import {parsers as babelParsers} from 'prettier/plugins/babel'
-import * as estree from 'prettier/plugins/estree'
+import estree from 'prettier/plugins/estree'
 import {sortPackageJson} from 'sort-package-json'
 import type {Writable as Writeable} from 'type-fest'
 
