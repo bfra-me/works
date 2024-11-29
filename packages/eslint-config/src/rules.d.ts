@@ -4958,6 +4958,7 @@ type JsdocInformativeDocs = []|[{
 }]
 // ----- jsdoc/lines-before-block -----
 type JsdocLinesBeforeBlock = []|[{
+  checkBlockStarts?: boolean
   excludedTags?: string[]
   ignoreSameLine?: boolean
   lines?: number
