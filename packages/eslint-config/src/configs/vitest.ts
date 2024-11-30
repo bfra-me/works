@@ -1,7 +1,7 @@
+import type {Config} from '../config'
+import type {Flatten, OptionsFiles, OptionsIsInEditor, OptionsOverrides} from '../options'
 import {GLOB_TESTS} from '../globs'
 import {interopDefault} from '../plugins'
-import type {Flatten, OptionsFiles, OptionsIsInEditor, OptionsOverrides} from '../options'
-import type {Config} from '../config'
 
 /**
  * Represents the options for the Vitest ESLint configuration.

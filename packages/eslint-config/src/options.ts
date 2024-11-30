@@ -1,6 +1,6 @@
 import type {ParserOptions} from '@typescript-eslint/types'
-import type {Config} from './config'
 import type {FlatGitignoreOptions} from 'eslint-config-flat-gitignore'
+import type {Config} from './config'
 
 /**
   Flattens an object type to a mapped type with the same keys and values.

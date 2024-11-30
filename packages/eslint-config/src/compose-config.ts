@@ -1,5 +1,5 @@
-import {composer} from 'eslint-flat-config-utils'
 import type {AwaitableFlatConfig, Config, ConfigComposer, ConfigNames} from './config'
+import {composer} from 'eslint-flat-config-utils'
 
 /**
  * Composes an ESLint configuration object from the provided flat configurations.

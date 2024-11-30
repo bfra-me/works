@@ -1,5 +1,5 @@
-import {jsdoc as _jsdoc} from '../plugins'
 import type {Config} from '../config'
+import {jsdoc as _jsdoc} from '../plugins'
 
 export async function jsdoc(): Promise<Config[]> {
   return [
