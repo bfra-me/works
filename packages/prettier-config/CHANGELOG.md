@@ -1,5 +1,11 @@
 # @bfra.me/prettier-config
 
+## 0.13.2
+### Patch Changes
+
+
+- Fix linter errors. ([#691](https://github.com/bfra-me/works/pull/691))
+
 ## 0.13.1
 ### Patch Changes
 

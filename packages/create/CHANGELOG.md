@@ -1,5 +1,11 @@
 # @bfra.me/create
 
+## 0.1.8
+### Patch Changes
+
+
+- Fix linter errors. ([#691](https://github.com/bfra-me/works/pull/691))
+
 ## 0.1.7
 ### Patch Changes
 
