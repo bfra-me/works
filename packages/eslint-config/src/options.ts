@@ -173,6 +173,11 @@ export type Options = Flatten<
     perfectionist?: boolean | OptionsPerfectionist
 
     /**
+     * Options to override the behavior of the Prettier code formatter.
+     */
+    prettier?: boolean | OptionsOverrides
+
+    /**
      * Enable TypeScript support.
      *
      * Pass options to enable support for the TypeScript language and project services.

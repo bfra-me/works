@@ -12,6 +12,7 @@ import {
   javascript,
   jsdoc,
   perfectionist,
+  prettier,
   typescript,
   vitest,
 } from './configs'
@@ -49,6 +50,7 @@ export async function defineConfig(
   const {
     gitignore: enableGitignore = true,
     perfectionist: enablePerfectionist = true,
+    prettier: enablePrettier = isPackageExists('prettier'),
     typescript: enableTypeScript = isPackageExists('typescript'),
   } = options
 
@@ -82,6 +84,15 @@ export async function defineConfig(
     imports(),
     command(),
   )
+
+  if (enablePrettier) {
+    configs.push(
+      prettier({
+        isInEditor,
+        overrides: getOverrides(options, 'prettier'),
+      }),
+    )
+  }
 
   if (enablePerfectionist) {
     configs.push(
