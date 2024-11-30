@@ -14,6 +14,14 @@ export async function perfectionist(): Promise<Config[]> {
         perfectionist: pluginPerfectionist as any,
       },
       rules: {
+        'perfectionist/sort-named-exports': [
+          'error',
+          {groupKind: 'values-first', order: 'asc', type: 'natural'},
+        ],
+        'perfectionist/sort-named-imports': [
+          'error',
+          {groupKind: 'values-first', order: 'asc', type: 'natural'},
+        ],
         'perfectionist/sort-exports': ['error', {type: 'natural'}],
       },
     },
