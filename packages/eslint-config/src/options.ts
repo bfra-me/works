@@ -43,6 +43,33 @@ export interface OptionsOverrides {
 }
 
 /**
+ * Options for configuring the Perfectionist sorting behavior.
+ */
+export interface OptionsPerfectionist {
+  /**
+   * Whether to sort named exports.
+   *
+   * @default true
+   */
+  sortNamedExports?: boolean
+  /**
+   * Whether to sort named imports.
+   * @default true
+   */
+  sortNamedImports?: boolean
+  /**
+   * Whether to sort exports.
+   * @default true
+   */
+  sortExports?: boolean
+  /**
+   * Whether to sort imports.
+   * @default true
+   */
+  sortImports?: boolean
+}
+
+/**
  * Provides options to configure the TypeScript parser and type-aware linting rules.
  *
  * The `parserOptions` property allows specifying additional options to be passed to the TypeScript parser.
@@ -139,6 +166,11 @@ export type Options = Flatten<
      * Options to override the behavior of JavaScript-related rules.
      */
     javascript?: OptionsOverrides
+
+    /**
+     * Options to override the behavior of Perfectionist sorting rules.
+     */
+    perfectionist?: boolean | OptionsPerfectionist
 
     /**
      * Options to override the behavior of the Prettier code formatter.

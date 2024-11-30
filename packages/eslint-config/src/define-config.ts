@@ -49,6 +49,7 @@ export async function defineConfig(
 ): ConfigComposer {
   const {
     gitignore: enableGitignore = true,
+    perfectionist: enablePerfectionist = true,
     prettier: enablePrettier = isPackageExists('prettier'),
     typescript: enableTypeScript = isPackageExists('typescript'),
   } = options
@@ -82,7 +83,6 @@ export async function defineConfig(
     jsdoc(),
     imports(),
     command(),
-    perfectionist(),
   )
 
   if (enablePrettier) {
@@ -90,6 +90,16 @@ export async function defineConfig(
       prettier({
         isInEditor,
         overrides: getOverrides(options, 'prettier'),
+      }),
+    )
+  }
+
+  if (enablePerfectionist) {
+    configs.push(
+      perfectionist({
+        isInEditor,
+        overrides: getOverrides(options, 'perfectionist'),
+        ...resolveSubOptions(options, 'perfectionist'),
       }),
     )
   }
