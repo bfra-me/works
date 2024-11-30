@@ -1,0 +1,5 @@
+[env]
+_.path = [
+    # adds a path relative to the mise.toml, not PWD
+    "./node_modules/.bin",
+]
