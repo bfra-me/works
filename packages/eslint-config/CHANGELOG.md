@@ -1,5 +1,14 @@
 # @bfra.me/eslint-config
 
+## 0.7.0
+### Minor Changes
+
+
+- Add options to override or disable the Perfectionist config. ([#693](https://github.com/bfra-me/works/pull/693))
+
+
+- Add a configuration preset for Prettier to format whilst linting. ([#695](https://github.com/bfra-me/works/pull/695))
+
 ## 0.6.0
 ### Minor Changes
 
