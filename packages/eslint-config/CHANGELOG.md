@@ -1,5 +1,23 @@
 # @bfra.me/eslint-config
 
+## 0.5.0
+### Minor Changes
+
+
+- Add rules for sorting named exports and imports. ([#690](https://github.com/bfra-me/works/pull/690))
+
+
+### Patch Changes
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.1.11`. ([#689](https://github.com/bfra-me/works/pull/689))
+
+
+- Updated dependency `vitest` to `2.1.6`. ([#686](https://github.com/bfra-me/works/pull/686))
+  Updated dependency `@vitest/coverage-v8` to `2.1.6`.
+
+- Updated dependency `eslint-plugin-jsdoc` to `50.6.0`. ([#688](https://github.com/bfra-me/works/pull/688))
+
 ## 0.4.10
 ### Patch Changes
 

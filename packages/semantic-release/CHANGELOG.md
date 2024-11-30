@@ -1,5 +1,12 @@
 # @bfra.me/semantic-release
 
+## 0.1.12
+### Patch Changes
+
+
+- Updated dependency `vitest` to `2.1.6`. ([#686](https://github.com/bfra-me/works/pull/686))
+  Updated dependency `@vitest/coverage-v8` to `2.1.6`.
+
 ## 0.1.11
 ### Patch Changes
 
