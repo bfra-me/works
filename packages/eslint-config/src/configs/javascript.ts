@@ -1,7 +1,7 @@
-import {unusedImports as pluginUnusedImports} from '../plugins'
-import type {Flatten, OptionsIsInEditor, OptionsOverrides} from '../options'
 import type {Config} from '../config'
+import type {Flatten, OptionsIsInEditor, OptionsOverrides} from '../options'
 import globals from 'globals'
+import {unusedImports as pluginUnusedImports} from '../plugins'
 
 /**
  * Represents the options for configuring the JavaScript ESLint configuration.

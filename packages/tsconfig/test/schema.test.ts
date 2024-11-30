@@ -1,8 +1,8 @@
+import type {Jsonify, TsConfigJson} from 'type-fest'
 import assert from 'node:assert'
 import {promises as fs} from 'node:fs'
 import {describe, it} from 'node:test'
 import Ajv, {type JSONSchemaType} from 'ajv-draft-04'
-import type {Jsonify, TsConfigJson} from 'type-fest'
 
 const SCHEMA_URL = 'https://json.schemastore.org/tsconfig'
 

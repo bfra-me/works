@@ -1,5 +1,5 @@
-import {composeConfig} from '../eslint-config/src'
 import {config} from '../../eslint.config'
+import {composeConfig} from '../eslint-config/src'
 
 export default composeConfig(
   config,

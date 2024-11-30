@@ -1,7 +1,7 @@
-import {createPackage} from '../src'
-import {beforeEach, describe, expect, it, vi as vitest} from 'vitest'
-import {fs, vol} from 'memfs'
 import {URL} from 'node:url'
+import {fs, vol} from 'memfs'
+import {beforeEach, describe, expect, it, vi as vitest} from 'vitest'
+import {createPackage} from '../src'
 
 const src = new URL('../src', import.meta.url).pathname
 

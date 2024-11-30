@@ -1,5 +1,5 @@
-import {createRequire} from 'node:module'
 import type * as prettier from 'prettier'
+import {createRequire} from 'node:module'
 import {resolve} from './plugins.js'
 
 export type Writable<T> = {

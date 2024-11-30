@@ -2,11 +2,11 @@
 
 // This file implements the command-line interface for the create utility.
 
-import yargs from 'yargs/yargs'
-import {hideBin} from 'yargs/helpers'
-import {createPackage} from './index.js'
-import type {CreatePackageOptions} from './types.js'
 import type {ArgumentsCamelCase} from 'yargs'
+import type {CreatePackageOptions} from './types.js'
+import {hideBin} from 'yargs/helpers'
+import yargs from 'yargs/yargs'
+import {createPackage} from './index.js'
 
 /**
  * Implements the command-line interface for the create utility.
