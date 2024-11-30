@@ -48,6 +48,7 @@ export async function defineConfig(
 ): ConfigComposer {
   const {
     gitignore: enableGitignore = true,
+    perfectionist: enablePerfectionist = true,
     typescript: enableTypeScript = isPackageExists('typescript'),
   } = options
 
@@ -80,8 +81,17 @@ export async function defineConfig(
     jsdoc(),
     imports(),
     command(),
-    perfectionist(),
   )
+
+  if (enablePerfectionist) {
+    configs.push(
+      perfectionist({
+        isInEditor,
+        overrides: getOverrides(options, 'perfectionist'),
+        ...resolveSubOptions(options, 'perfectionist'),
+      }),
+    )
+  }
 
   const typescriptOptions = resolveSubOptions(options, 'typescript')
   // const tsconfigPath ='tsconfigPath' in typescriptOptions ? typescriptOptions.tsconfigPath : undefined
