@@ -1,5 +1,17 @@
 # @bfra.me/eslint-config
 
+## 0.6.0
+### Minor Changes
+
+
+- Add a rule for sorting imports. ([#691](https://github.com/bfra-me/works/pull/691))
+
+
+### Patch Changes
+
+
+- Fix linter errors. ([#691](https://github.com/bfra-me/works/pull/691))
+
 ## 0.5.0
 ### Minor Changes
 
