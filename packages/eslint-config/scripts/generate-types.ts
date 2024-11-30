@@ -27,7 +27,7 @@ const configDts = `import type {Linter} from 'eslint'
 import type {FlatConfigComposer, ResolvableFlatConfig} from 'eslint-flat-config-utils'
 import type {${rulesTypeName}} from './rules'
 
-export type {FlatConfigComposer, ResolvableFlatConfig, ${rulesTypeName}}
+export type {FlatConfigComposer, ResolvableFlatConfig}
 
 /**
  * Represents a value that resolves to one or more ESLint flat configurations.

@@ -2682,6 +2682,10 @@ export interface Rules {
    */
   'prefer-template'?: Linter.RuleEntry<[]>
   /**
+   * @see https://github.com/prettier/eslint-plugin-prettier#options
+   */
+  'prettier/prettier'?: Linter.RuleEntry<PrettierPrettier>
+  /**
    * Require quotes around object literal property names
    * @see https://eslint.org/docs/latest/rules/quote-props
    * @deprecated
@@ -6875,6 +6879,18 @@ type PreferReflect = []|[{
 // ----- prefer-regex-literals -----
 type PreferRegexLiterals = []|[{
   disallowRedundantWrapping?: boolean
+}]
+// ----- prettier/prettier -----
+type PrettierPrettier = []|[{
+  [k: string]: unknown | undefined
+}]|[{
+  [k: string]: unknown | undefined
+}, {
+  usePrettierrc?: boolean
+  fileInfoOptions?: {
+    [k: string]: unknown | undefined
+  }
+  [k: string]: unknown | undefined
 }]
 // ----- quote-props -----
 type QuoteProps = ([]|[("always" | "as-needed" | "consistent" | "consistent-as-needed")] | []|[("always" | "as-needed" | "consistent" | "consistent-as-needed")]|[("always" | "as-needed" | "consistent" | "consistent-as-needed"), {

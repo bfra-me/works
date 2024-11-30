@@ -12,6 +12,7 @@ import {
   javascript,
   jsdoc,
   perfectionist,
+  prettier,
   typescript,
   vitest,
 } from './configs'
@@ -48,6 +49,7 @@ export async function defineConfig(
 ): ConfigComposer {
   const {
     gitignore: enableGitignore = true,
+    prettier: enablePrettier = isPackageExists('prettier'),
     typescript: enableTypeScript = isPackageExists('typescript'),
   } = options
 
@@ -82,6 +84,15 @@ export async function defineConfig(
     command(),
     perfectionist(),
   )
+
+  if (enablePrettier) {
+    configs.push(
+      prettier({
+        isInEditor,
+        overrides: getOverrides(options, 'prettier'),
+      }),
+    )
+  }
 
   const typescriptOptions = resolveSubOptions(options, 'typescript')
   // const tsconfigPath ='tsconfigPath' in typescriptOptions ? typescriptOptions.tsconfigPath : undefined
