@@ -40,7 +40,7 @@
     "@manypkg/cli": "0.23.0",
     "@microsoft/api-extractor": "7.48.0",
     "@svitejs/changesets-changelog-github-compact": "1.2.0",
-    "@types/node": "22.10.0",
+    "@types/node": "22.10.1",
     "eslint": "9.15.0",
     "prettier": "3.4.1",
     "publint": "0.2.12",
