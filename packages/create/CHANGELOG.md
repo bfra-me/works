@@ -1,5 +1,11 @@
 # @bfra.me/create
 
+## 0.2.0
+### Minor Changes
+
+
+- Use @sxzz/create for downloading templates ([#657](https://github.com/bfra-me/works/pull/657))
+
 ## 0.1.9
 ### Patch Changes
 
