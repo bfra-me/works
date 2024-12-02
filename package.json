@@ -14,7 +14,7 @@
   "author": "Marcus R. Brown <contact@bfra.me>",
   "type": "module",
   "scripts": {
-    "bootstrap": "pnpm install --prefer-frozen-lockfile --ignore-scripts --prefer-offline --loglevel error",
+    "bootstrap": "pnpm install --no-frozen-lockfile --ignore-scripts --prefer-offline --loglevel error",
     "build": "pnpm -r --stream run build && pnpm lint-packages",
     "check-format": "prettier --config ./package.json --check .",
     "clean": "pnpx rimraf --glob \"**/node_modules/**/!(.pnpm)\" \"packages/*/lib\" \"packages/api-core/dist\" \"packages/eslint-config/src/types?(.d).ts\" \"**/*.tsbuildinfo\"",
@@ -27,7 +27,7 @@
     "lint-source": "eslint --flag unstable_config_lookup_from_file --flag unstable_ts_config .",
     "publish-changesets": "changeset publish",
     "test": "pnpm -r --parallel --aggregate-output run test",
-    "version-changesets": "changeset version",
+    "version-changesets": "changeset version && pnpm install --no-frozen-lockfile",
     "watch": "pnpm run build --watch"
   },
   "prettier": "@bfra.me/prettier-config/prettier.config",
