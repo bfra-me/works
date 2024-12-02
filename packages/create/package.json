@@ -36,18 +36,19 @@
   ],
   "scripts": {
     "build": "tsup",
+    "dev": "jiti src/cli.ts",
     "prepack": "pnpm run build",
     "start": "node dist/index.js",
     "test": "vitest || true"
   },
   "dependencies": {
+    "@clack/prompts": "0.8.2",
     "@sxzz/create": "0.11.0",
-    "fs-extra": "11.2.0",
-    "yargs": "17.7.2"
+    "cac": "6.7.14",
+    "consola": "3.2.3"
   },
   "devDependencies": {
     "@types/node": "22.10.1",
-    "@types/yargs": "17.0.33",
     "memfs": "4.14.0",
     "ts-essentials": "10.0.3",
     "tsup": "8.3.5",
