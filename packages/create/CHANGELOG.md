@@ -1,5 +1,36 @@
 # @bfra.me/create
 
+## 0.1.8
+### Patch Changes
+
+
+- Fix linter errors. ([#691](https://github.com/bfra-me/works/pull/691))
+
+## 0.1.7
+### Patch Changes
+
+
+- Updated dependency `vitest` to `2.1.6`. ([#686](https://github.com/bfra-me/works/pull/686))
+  Updated dependency `@vitest/coverage-v8` to `2.1.6`.
+
+## 0.1.6
+### Patch Changes
+
+
+- Updated dependency `@types/node` to `22.9.4`. ([#674](https://github.com/bfra-me/works/pull/674))
+
+
+- Updated dependency `@types/node` to `22.10.0`. ([#676](https://github.com/bfra-me/works/pull/676))
+
+## 0.1.5
+### Patch Changes
+
+
+- Updated dependency `@types/node` to `22.9.2`. ([#650](https://github.com/bfra-me/works/pull/650))
+
+
+- Updated dependency `@types/node` to `22.9.3`. ([#653](https://github.com/bfra-me/works/pull/653))
+
 ## 0.1.4
 ### Patch Changes
 

@@ -1,5 +1,33 @@
 # @bfra.me/semantic-release
 
+## 0.1.13
+### Patch Changes
+
+
+- Fix linter errors. ([#691](https://github.com/bfra-me/works/pull/691))
+
+## 0.1.12
+### Patch Changes
+
+
+- Updated dependency `vitest` to `2.1.6`. ([#686](https://github.com/bfra-me/works/pull/686))
+  Updated dependency `@vitest/coverage-v8` to `2.1.6`.
+
+## 0.1.11
+### Patch Changes
+
+
+- Updated dependency `type-fest` to `4.28.1`. ([#682](https://github.com/bfra-me/works/pull/682))
+
+## 0.1.10
+### Patch Changes
+
+
+- Updated dependency `type-fest` to `4.28.0`. ([#656](https://github.com/bfra-me/works/pull/656))
+
+
+- Updated dependency `type-fest` to `4.27.1`. ([#654](https://github.com/bfra-me/works/pull/654))
+
 ## 0.1.9
 ### Patch Changes
 

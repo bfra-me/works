@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/works",
-  "version": "0.0.10",
+  "version": "0.0.0-development",
   "private": true,
   "description": "bfra.me tools and components",
   "keywords": [
@@ -30,7 +30,7 @@
     "version-changesets": "changeset version",
     "watch": "pnpm run build --watch"
   },
-  "prettier": "@bfra.me/prettier-config",
+  "prettier": "@bfra.me/prettier-config/prettier.config",
   "devDependencies": {
     "@bfra.me/eslint-config": "workspace:*",
     "@bfra.me/prettier-config": "workspace:*",
@@ -40,15 +40,15 @@
     "@manypkg/cli": "0.23.0",
     "@microsoft/api-extractor": "7.48.0",
     "@svitejs/changesets-changelog-github-compact": "1.2.0",
-    "@types/node": "22.9.3",
+    "@types/node": "22.10.1",
     "eslint": "9.15.0",
-    "prettier": "3.3.3",
+    "prettier": "3.4.1",
     "publint": "0.2.12",
     "rimraf": "6.0.1",
     "ts-essentials": "10.0.3",
-    "typescript": "5.6.3"
+    "typescript": "5.7.2"
   },
-  "packageManager": "pnpm@9.14.2",
+  "packageManager": "pnpm@9.14.3",
   "pnpm": {
     "overrides": {
       "read-pkg-up@^11": "npm:read-package-up"

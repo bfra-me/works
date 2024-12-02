@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/prettier-config",
-  "version": "0.9.4",
+  "version": "0.13.2",
   "description": "Shared Prettier configuration for bfra.me",
   "keywords": [
     "bfra.me",
@@ -22,24 +22,21 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./lib/prettier.config.d.ts",
-      "source": "./src/prettier.config.ts",
-      "import": "./prettier.config.js"
+      "types": "./lib/index.d.ts",
+      "source": "./src/index.ts",
+      "default": "./lib/index.js"
     },
-    "./*": {
-      "types": "./lib/*.d.ts",
-      "source": "./src/*.ts",
-      "import": "./lib/*.js"
-    },
-    "./100-proof": "./lib/prettier.config.js",
+    "./100-proof": "./lib/index.js",
     "./120-proof": "./lib/120-proof.js",
     "./semi/*": "./lib/*.js?semi=true",
-    "./semi": "./lib/prettier.config.js?semi=true",
+    "./semi": "./lib/index.js?semi=true",
     "./*/semi": "./lib/*.js?semi=true",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./prettier.config": "./prettier.config.js"
   },
-  "main": "./prettier.config.js",
-  "types": "./lib/prettier.config.d.ts",
+  "main": "./lib/index.js",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "files": [
     "lib",
     "src",
@@ -63,9 +60,9 @@
     "execa": "9.5.1",
     "fast-glob": "3.3.2",
     "fs-extra": "11.2.0",
-    "prettier": "3.3.3",
+    "prettier": "3.4.1",
     "tsup": "8.3.5",
-    "vitest": "2.1.5"
+    "vitest": "2.1.6"
   },
   "peerDependencies": {
     "prettier": "^3.0.0"

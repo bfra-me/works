@@ -1,6 +1,4 @@
-import process from 'node:process'
-import {GLOB_TS, GLOB_TSX} from '../globs'
-import {interopDefault} from '../plugins'
+import type {Config} from '../config'
 import type {
   Flatten,
   OptionsFiles,
@@ -8,7 +6,9 @@ import type {
   OptionsTypeScriptParserOptions,
   OptionsTypeScriptWithTypes,
 } from '../options'
-import type {Config} from '../config'
+import process from 'node:process'
+import {GLOB_TS, GLOB_TSX} from '../globs'
+import {interopDefault} from '../plugins'
 
 const TypeAwareRules: Config['rules'] = {
   '@typescript-eslint/await-thenable': 'error',

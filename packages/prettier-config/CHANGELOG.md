@@ -1,5 +1,75 @@
 # @bfra.me/prettier-config
 
+## 0.13.2
+### Patch Changes
+
+
+- Fix linter errors. ([#691](https://github.com/bfra-me/works/pull/691))
+
+## 0.13.1
+### Patch Changes
+
+
+- Updated dependency `vitest` to `2.1.6`. ([#686](https://github.com/bfra-me/works/pull/686))
+  Updated dependency `@vitest/coverage-v8` to `2.1.6`.
+
+## 0.13.0
+### Minor Changes
+
+
+- Return to prettier.config.js and restructure exports. ([#678](https://github.com/bfra-me/works/pull/678))
+
+
+### Patch Changes
+
+
+- Updated dependency `prettier` to `3.4.0`. ([#677](https://github.com/bfra-me/works/pull/677))
+
+
+- Updated dependency `prettier` to `3.4.1`. ([#677](https://github.com/bfra-me/works/pull/677))
+
+- Updated dependencies [[`8254821`](https://github.com/bfra-me/works/commit/82548212c08705c675207b5eefacd3c10a7ac057), [`c9fa4fb`](https://github.com/bfra-me/works/commit/c9fa4fb4ebe598777e681d055fb82366077f0f2a), [`8254821`](https://github.com/bfra-me/works/commit/82548212c08705c675207b5eefacd3c10a7ac057), [`2834ed9`](https://github.com/bfra-me/works/commit/2834ed9f28a81264a9c299c4b710c758f5503634)]:
+  - @bfra.me/prettier-plugins@0.5.4
+
+## 0.12.0
+### Minor Changes
+
+
+- Bundle Prettier with the bundled config 🤷🏽‍♂️ ([#665](https://github.com/bfra-me/works/pull/665))
+
+## 0.11.1
+### Patch Changes
+
+
+- Remove treeshaking and target build options ([#663](https://github.com/bfra-me/works/pull/663))
+
+## 0.11.0
+### Minor Changes
+
+
+- Switch back to ESM output for the bundled config ([#661](https://github.com/bfra-me/works/pull/661))
+
+## 0.10.1
+### Patch Changes
+
+
+- Output the bundled config as CJS in an attempt to resolve issues with the VS Code Prettier extension. ([#659](https://github.com/bfra-me/works/pull/659))
+
+## 0.10.0
+### Minor Changes
+
+
+- Move `prettier.config.js` to `index.js` ([#658](https://github.com/bfra-me/works/pull/658))
+
+
+### Patch Changes
+
+
+- Add banner to improve CJS compatibility ([#658](https://github.com/bfra-me/works/pull/658))
+
+- Updated dependencies [[`779d16d`](https://github.com/bfra-me/works/commit/779d16d80f0636f9284bbcd3afc82ec426688a47), [`dce024c`](https://github.com/bfra-me/works/commit/dce024c7488a7fa40cde749594e54f61a902435f), [`75750d3`](https://github.com/bfra-me/works/commit/75750d39c59665396e5c006585f4b1fa43054721)]:
+  - @bfra.me/prettier-plugins@0.5.3
+
 ## 0.9.4
 ### Patch Changes
 

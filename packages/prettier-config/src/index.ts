@@ -1,5 +1,5 @@
-import {createRequire} from 'node:module'
 import type * as prettier from 'prettier'
+import {createRequire} from 'node:module'
 import {resolve} from './plugins.js'
 
 export type Writable<T> = {
@@ -79,7 +79,7 @@ const config = {
     },
   ] as prettier.Config['overrides'],
 
-  plugins: ['@bfra.me/prettier-plugins/package-json'].map(resolvePlugin),
+  plugins: await Promise.all(['@bfra.me/prettier-plugins/package-json'].map(resolvePlugin)),
 } as const
 
 /**

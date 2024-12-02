@@ -1,4 +1,6 @@
 import type {FlatGitignoreOptions} from 'eslint-config-flat-gitignore'
+import type {AwaitableFlatConfig, Config, ConfigComposer} from './config'
+import type {Options} from './options'
 import {isPackageExists} from 'local-pkg'
 import {composeConfig} from './compose-config'
 import {
@@ -10,13 +12,12 @@ import {
   javascript,
   jsdoc,
   perfectionist,
+  prettier,
   typescript,
   vitest,
 } from './configs'
-import type {AwaitableFlatConfig, Config, ConfigComposer} from './config'
 import * as Env from './env'
 import {interopDefault} from './plugins'
-import type {Options} from './options'
 
 // These are merged into the Options interface
 type AllowedConfigForOptions = Omit<Config, 'files'>
@@ -48,6 +49,8 @@ export async function defineConfig(
 ): ConfigComposer {
   const {
     gitignore: enableGitignore = true,
+    perfectionist: enablePerfectionist = true,
+    prettier: enablePrettier = isPackageExists('prettier'),
     typescript: enableTypeScript = isPackageExists('typescript'),
   } = options
 
@@ -80,8 +83,26 @@ export async function defineConfig(
     jsdoc(),
     imports(),
     command(),
-    perfectionist(),
   )
+
+  if (enablePrettier) {
+    configs.push(
+      prettier({
+        isInEditor,
+        overrides: getOverrides(options, 'prettier'),
+      }),
+    )
+  }
+
+  if (enablePerfectionist) {
+    configs.push(
+      perfectionist({
+        isInEditor,
+        overrides: getOverrides(options, 'perfectionist'),
+        ...resolveSubOptions(options, 'perfectionist'),
+      }),
+    )
+  }
 
   const typescriptOptions = resolveSubOptions(options, 'typescript')
   // const tsconfigPath ='tsconfigPath' in typescriptOptions ? typescriptOptions.tsconfigPath : undefined

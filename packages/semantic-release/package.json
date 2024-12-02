@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/semantic-release",
-  "version": "0.1.9",
+  "version": "0.1.13",
   "description": "Semantic Release shareable configuration and plugins for bfra.me.",
   "keywords": [
     "bfra.me",
@@ -46,8 +46,8 @@
     "@swc/core": "1.9.2",
     "semantic-release": "24.2.0",
     "tsup": "8.3.5",
-    "type-fest": "4.28.0",
-    "vitest": "2.1.5"
+    "type-fest": "4.29.0",
+    "vitest": "2.1.6"
   },
   "peerDependencies": {
     "semantic-release": ">=23"

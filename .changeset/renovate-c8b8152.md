@@ -4,4 +4,4 @@
 '@bfra.me/tsconfig': patch
 ---
 
-Updated dependency `type-fest` to `4.27.1`.
+Updated dependency `type-fest` to `4.29.0`.

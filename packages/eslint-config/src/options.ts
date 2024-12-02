@@ -1,6 +1,6 @@
 import type {ParserOptions} from '@typescript-eslint/types'
-import type {Config} from './config'
 import type {FlatGitignoreOptions} from 'eslint-config-flat-gitignore'
+import type {Config} from './config'
 
 /**
   Flattens an object type to a mapped type with the same keys and values.
@@ -40,6 +40,33 @@ export interface OptionsOverrides {
    * Override rules.
    */
   overrides?: Config['rules']
+}
+
+/**
+ * Options for configuring the Perfectionist sorting behavior.
+ */
+export interface OptionsPerfectionist {
+  /**
+   * Whether to sort named exports.
+   *
+   * @default true
+   */
+  sortNamedExports?: boolean
+  /**
+   * Whether to sort named imports.
+   * @default true
+   */
+  sortNamedImports?: boolean
+  /**
+   * Whether to sort exports.
+   * @default true
+   */
+  sortExports?: boolean
+  /**
+   * Whether to sort imports.
+   * @default true
+   */
+  sortImports?: boolean
 }
 
 /**
@@ -139,6 +166,16 @@ export type Options = Flatten<
      * Options to override the behavior of JavaScript-related rules.
      */
     javascript?: OptionsOverrides
+
+    /**
+     * Options to override the behavior of Perfectionist sorting rules.
+     */
+    perfectionist?: boolean | OptionsPerfectionist
+
+    /**
+     * Options to override the behavior of the Prettier code formatter.
+     */
+    prettier?: boolean | OptionsOverrides
 
     /**
      * Enable TypeScript support.

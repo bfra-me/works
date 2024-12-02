@@ -1,5 +1,77 @@
 # @bfra.me/eslint-config
 
+## 0.7.0
+### Minor Changes
+
+
+- Add options to override or disable the Perfectionist config. ([#693](https://github.com/bfra-me/works/pull/693))
+
+
+- Add a configuration preset for Prettier to format whilst linting. ([#695](https://github.com/bfra-me/works/pull/695))
+
+## 0.6.0
+### Minor Changes
+
+
+- Add a rule for sorting imports. ([#691](https://github.com/bfra-me/works/pull/691))
+
+
+### Patch Changes
+
+
+- Fix linter errors. ([#691](https://github.com/bfra-me/works/pull/691))
+
+## 0.5.0
+### Minor Changes
+
+
+- Add rules for sorting named exports and imports. ([#690](https://github.com/bfra-me/works/pull/690))
+
+
+### Patch Changes
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.1.11`. ([#689](https://github.com/bfra-me/works/pull/689))
+
+
+- Updated dependency `vitest` to `2.1.6`. ([#686](https://github.com/bfra-me/works/pull/686))
+  Updated dependency `@vitest/coverage-v8` to `2.1.6`.
+
+- Updated dependency `eslint-plugin-jsdoc` to `50.6.0`. ([#688](https://github.com/bfra-me/works/pull/688))
+
+## 0.4.10
+### Patch Changes
+
+
+- Updated dependency `prettier` to `3.4.0`. ([#677](https://github.com/bfra-me/works/pull/677))
+
+
+- Updated dependency `eslint-plugin-perfectionist` to `4.1.0`. ([#673](https://github.com/bfra-me/works/pull/673))
+
+
+- Updated dependency `eslint-plugin-perfectionist` to `4.1.2`. ([#675](https://github.com/bfra-me/works/pull/675))
+
+
+- Updated dependency `prettier` to `3.4.1`. ([#677](https://github.com/bfra-me/works/pull/677))
+
+
+- Updated dependency `typescript-eslint` to `8.16.0`. ([#671](https://github.com/bfra-me/works/pull/671))
+  Updated dependency `@typescript-eslint/types` to `8.16.0`.
+
+- Updated dependency `@types/node` to `22.9.4`. ([#674](https://github.com/bfra-me/works/pull/674))
+
+
+- Updated dependency `@types/node` to `22.10.0`. ([#676](https://github.com/bfra-me/works/pull/676))
+
+## 0.4.9
+### Patch Changes
+
+
+- Updated dependency `@types/node` to `22.9.2`. ([#650](https://github.com/bfra-me/works/pull/650))
+
+
+- Updated dependency `@types/node` to `22.9.3`. ([#653](https://github.com/bfra-me/works/pull/653))
+
 ## 0.4.8
 ### Patch Changes
 

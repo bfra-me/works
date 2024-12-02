@@ -1,12 +1,12 @@
 // Based on https://github.com/antfu/eslint-config/blob/c8ac6da90c9479e9a431a3e2cd42d6c2b37dc333/test/fixtures.test.ts
 
+import {existsSync} from 'node:fs'
 import {join, resolve} from 'path'
+import {GLOB_TS, GLOB_TSX, type Config} from '@bfra.me/eslint-config'
 import {execa} from 'execa'
 import fg from 'fast-glob'
-import {existsSync} from 'node:fs'
 import fs from 'fs-extra'
 import {afterAll, beforeAll, it} from 'vitest'
-import {GLOB_TS, GLOB_TSX, type Config} from '@bfra.me/eslint-config'
 
 const cleanup = async () => fs.rm('test/_fixtures', {force: true, recursive: true})
 

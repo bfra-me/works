@@ -5,7 +5,7 @@ import type {Linter} from 'eslint'
 import type {FlatConfigComposer, ResolvableFlatConfig} from 'eslint-flat-config-utils'
 import type {Rules} from './rules'
 
-export type {FlatConfigComposer, ResolvableFlatConfig, Rules}
+export type {FlatConfigComposer, ResolvableFlatConfig}
 
 /**
  * Represents a value that resolves to one or more ESLint flat configurations.
@@ -39,6 +39,7 @@ export type ConfigNames =
   | '@bfra.me/jsdoc'
   | '@bfra.me/imports'
   | '@bfra.me/command'
+  | '@bfra.me/prettier'
   | '@bfra.me/perfectionist'
   | '@bfra.me/typescript/plugins'
   | '@bfra.me/typescript/parser'

@@ -1,5 +1,32 @@
 # @bfra.me/prettier-plugins
 
+## 0.5.4
+### Patch Changes
+
+
+- Updated dependency `prettier` to `3.4.0`. ([#677](https://github.com/bfra-me/works/pull/677))
+
+
+- Updated dependency `type-fest` to `4.28.1`. ([#682](https://github.com/bfra-me/works/pull/682))
+
+
+- Updated dependency `prettier` to `3.4.1`. ([#677](https://github.com/bfra-me/works/pull/677))
+
+
+- Remove `experimentalDts` tsup config ([#680](https://github.com/bfra-me/works/pull/680))
+
+## 0.5.3
+### Patch Changes
+
+
+- Updated dependency `type-fest` to `4.28.0`. ([#656](https://github.com/bfra-me/works/pull/656))
+
+
+- Updated dependency `type-fest` to `4.27.1`. ([#654](https://github.com/bfra-me/works/pull/654))
+
+
+- Updated dependency `sort-package-json` to `2.12.0`. ([#655](https://github.com/bfra-me/works/pull/655))
+
 ## 0.5.2
 ### Patch Changes
 
