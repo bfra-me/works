@@ -48,7 +48,7 @@
     "ts-essentials": "10.0.3",
     "typescript": "5.7.2"
   },
-  "packageManager": "pnpm@9.14.3",
+  "packageManager": "pnpm@9.14.4",
   "pnpm": {
     "overrides": {
       "read-pkg-up@^11": "npm:read-package-up"
