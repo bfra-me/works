@@ -1,5 +1,11 @@
 # @bfra.me/tsconfig
 
+## 0.9.4
+### Patch Changes
+
+
+- Updated dependency `type-fest` to `4.29.0`. ([#697](https://github.com/bfra-me/works/pull/697))
+
 ## 0.9.3
 ### Patch Changes
 
