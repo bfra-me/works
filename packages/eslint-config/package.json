@@ -56,7 +56,7 @@
     "globals": "15.13.0",
     "is-in-ci": "1.0.0",
     "local-pkg": "0.5.1",
-    "typescript-eslint": "8.16.0"
+    "typescript-eslint": "8.17.0"
   },
   "devDependencies": {
     "@bfra.me/eslint-config": "workspace:*",
@@ -67,7 +67,7 @@
     "@types/eslint-config-prettier": "6.11.3",
     "@types/fs-extra": "11.0.4",
     "@types/node": "22.10.1",
-    "@typescript-eslint/types": "8.16.0",
+    "@typescript-eslint/types": "8.17.0",
     "@vitest/eslint-plugin": "1.1.14",
     "eslint": "9.16.0",
     "eslint-config-prettier": "9.1.0",

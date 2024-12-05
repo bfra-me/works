@@ -4139,6 +4139,10 @@ type TypescriptEslintPreferOptionalChain = []|[{
 type TypescriptEslintPreferPromiseRejectErrors = []|[{
   
   allowEmptyReject?: boolean
+  
+  allowThrowingAny?: boolean
+  
+  allowThrowingUnknown?: boolean
 }]
 // ----- @typescript-eslint/prefer-readonly -----
 type TypescriptEslintPreferReadonly = []|[{
