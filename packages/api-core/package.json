@@ -63,11 +63,11 @@
     "@readme/oas-examples": "5.18.2",
     "@types/caseless": "0.12.5",
     "@types/lodash.merge": "4.6.9",
-    "@vitest/coverage-v8": "2.1.6",
+    "@vitest/coverage-v8": "2.1.7",
     "fetch-mock": "11.1.5",
     "get-stream": "9.0.1",
     "typescript": "5.7.2",
-    "vitest": "2.1.6"
+    "vitest": "2.1.7"
   },
   "engines": {
     "node": ">=18"
