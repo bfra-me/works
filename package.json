@@ -42,7 +42,7 @@
     "@svitejs/changesets-changelog-github-compact": "1.2.0",
     "@types/node": "22.10.1",
     "eslint": "9.16.0",
-    "prettier": "3.4.1",
+    "prettier": "3.4.2",
     "publint": "0.2.12",
     "rimraf": "6.0.1",
     "ts-essentials": "10.0.3",
