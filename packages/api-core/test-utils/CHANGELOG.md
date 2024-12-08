@@ -1,5 +1,12 @@
 # @api/test-utils
 
+## 0.1.5
+### Patch Changes
+
+
+- Updated dependency `@readme/oas-to-har` to `24.0.3`. ([#727](https://github.com/bfra-me/works/pull/727))
+  Updated dependency `oas` to `25.1.0`.
+
 ## 0.1.4
 ### Patch Changes
 
