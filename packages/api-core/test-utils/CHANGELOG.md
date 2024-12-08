@@ -1,5 +1,15 @@
 # @api/test-utils
 
+## 0.1.4
+### Patch Changes
+
+
+- Updated dependency `vitest` to `2.1.8`. ([#719](https://github.com/bfra-me/works/pull/719))
+  Updated dependency `@vitest/coverage-v8` to `2.1.8`.
+
+- Updated dependency `vitest` to `2.1.7`. ([#717](https://github.com/bfra-me/works/pull/717))
+  Updated dependency `@vitest/coverage-v8` to `2.1.7`.
+
 ## 0.1.3
 ### Patch Changes
 

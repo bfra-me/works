@@ -1,5 +1,20 @@
 # @bfra.me/semantic-release
 
+## 0.1.15
+### Patch Changes
+
+
+- Updated dependency `vitest` to `2.1.8`. ([#719](https://github.com/bfra-me/works/pull/719))
+  Updated dependency `@vitest/coverage-v8` to `2.1.8`.
+
+- Updated dependency `type-fest` to `4.30.0`. ([#722](https://github.com/bfra-me/works/pull/722))
+
+
+- Updated dependency `vitest` to `2.1.7`. ([#717](https://github.com/bfra-me/works/pull/717))
+  Updated dependency `@vitest/coverage-v8` to `2.1.7`.
+
+- Updated dependency `type-fest` to `4.29.1`. ([#716](https://github.com/bfra-me/works/pull/716))
+
 ## 0.1.14
 ### Patch Changes
 
