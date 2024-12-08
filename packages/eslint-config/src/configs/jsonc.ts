@@ -24,8 +24,6 @@ export async function jsonc(options: JsoncOptions): Promise<Config[]> {
         parser: parserJsonc,
       },
       rules: {
-        ...(pluginJsonc.configs['recommended-with-jsonc'].rules as Record<string, any>),
-
         ...overrides,
       },
     },
