@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/create",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A command line utility to create new packages from customizable templates.",
   "keywords": [
     "cli",

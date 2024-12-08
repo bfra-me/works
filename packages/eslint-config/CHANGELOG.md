@@ -1,5 +1,47 @@
 # @bfra.me/eslint-config
 
+## 0.8.0
+### Minor Changes
+
+
+- Add a preset to handle linting JSON, JSON5, and JSONC files. ([#726](https://github.com/bfra-me/works/pull/726))
+
+
+### Patch Changes
+
+
+- Updated dependency `vitest` to `2.1.8`. ([#719](https://github.com/bfra-me/works/pull/719))
+  Updated dependency `@vitest/coverage-v8` to `2.1.8`.
+
+- Updated dependency `prettier` to `3.4.2`. ([#725](https://github.com/bfra-me/works/pull/725))
+
+
+- Updated dependency `globals` to `15.13.0`. ([#714](https://github.com/bfra-me/works/pull/714))
+
+
+- Updated dependency `eslint` to `9.16.0`. ([#709](https://github.com/bfra-me/works/pull/709))
+  Updated dependency `@eslint/js` to `9.16.0`.
+
+- Updated dependency `eslint-plugin-import-x` to `4.5.0`. ([#723](https://github.com/bfra-me/works/pull/723))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.1.13`. ([#713](https://github.com/bfra-me/works/pull/713))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.1.14`. ([#718](https://github.com/bfra-me/works/pull/718))
+
+
+- Updated dependency `vitest` to `2.1.7`. ([#717](https://github.com/bfra-me/works/pull/717))
+  Updated dependency `@vitest/coverage-v8` to `2.1.7`.
+
+- Updated dependency `typescript-eslint` to `8.17.0`. ([#721](https://github.com/bfra-me/works/pull/721))
+  Updated dependency `@typescript-eslint/types` to `8.17.0`.
+
+- Updated dependency `eslint-plugin-perfectionist` to `4.2.0`. ([#724](https://github.com/bfra-me/works/pull/724))
+
+
+- Updated dependency `jiti` to `2.4.1`. ([#706](https://github.com/bfra-me/works/pull/706))
+
 ## 0.7.1
 ### Patch Changes
 

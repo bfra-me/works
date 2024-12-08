@@ -1,5 +1,20 @@
 # @bfra.me/prettier-config
 
+## 0.13.4
+### Patch Changes
+
+
+- Updated dependency `vitest` to `2.1.8`. ([#719](https://github.com/bfra-me/works/pull/719))
+  Updated dependency `@vitest/coverage-v8` to `2.1.8`.
+
+- Updated dependency `prettier` to `3.4.2`. ([#725](https://github.com/bfra-me/works/pull/725))
+
+
+- Updated dependency `vitest` to `2.1.7`. ([#717](https://github.com/bfra-me/works/pull/717))
+  Updated dependency `@vitest/coverage-v8` to `2.1.7`.
+- Updated dependencies [[`ce6aac8`](https://github.com/bfra-me/works/commit/ce6aac82f11ddbe181c1869e0595e390ea633f62), [`c76108f`](https://github.com/bfra-me/works/commit/c76108f0f8947f75a55a22a3673bc6d3edc578e0), [`c2584e6`](https://github.com/bfra-me/works/commit/c2584e641cb49e5c8b678f15ce3d47cb3b908f33)]:
+  - @bfra.me/prettier-plugins@0.5.6
+
 ## 0.13.3
 ### Patch Changes
 

@@ -1,5 +1,17 @@
 # @bfra.me/prettier-plugins
 
+## 0.5.6
+### Patch Changes
+
+
+- Updated dependency `prettier` to `3.4.2`. ([#725](https://github.com/bfra-me/works/pull/725))
+
+
+- Updated dependency `type-fest` to `4.30.0`. ([#722](https://github.com/bfra-me/works/pull/722))
+
+
+- Updated dependency `type-fest` to `4.29.1`. ([#716](https://github.com/bfra-me/works/pull/716))
+
 ## 0.5.5
 ### Patch Changes
 

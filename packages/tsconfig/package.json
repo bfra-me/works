@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/tsconfig",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "description": "Shared TypeScript configuration for bfra.me",
   "keywords": [
     "bfra.me",
