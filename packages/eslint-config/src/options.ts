@@ -168,6 +168,11 @@ export type Options = Flatten<
     javascript?: OptionsOverrides
 
     /**
+     * Options to override the behavior of linting JSON, JSON5 and JSONC files.
+     */
+    jsonc?: boolean | OptionsOverrides
+
+    /**
      * Options to override the behavior of Perfectionist sorting rules.
      */
     perfectionist?: boolean | OptionsPerfectionist

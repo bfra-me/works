@@ -51,10 +51,12 @@
     "eslint-plugin-command": "0.2.6",
     "eslint-plugin-import-x": "4.5.0",
     "eslint-plugin-jsdoc": "50.6.0",
+    "eslint-plugin-jsonc": "2.18.2",
     "eslint-plugin-perfectionist": "4.2.0",
     "eslint-plugin-unused-imports": "4.1.4",
     "globals": "15.13.0",
     "is-in-ci": "1.0.0",
+    "jsonc-eslint-parser": "2.4.0",
     "local-pkg": "0.5.1",
     "typescript-eslint": "8.17.0"
   },

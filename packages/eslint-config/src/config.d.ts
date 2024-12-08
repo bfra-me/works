@@ -48,6 +48,8 @@ export type ConfigNames =
   | '@bfra.me/typescript/type-aware-rules'
   | '@bfra.me/vitest/plugin'
   | '@bfra.me/vitest/rules'
+  | '@bfra.me/jsonc/plugins'
+  | '@bfra.me/jsonc'
   | '@bfra.me/epilogue/cli'
   | '@bfra.me/epilogue/configs'
   | '@bfra.me/epilogue/scripts'

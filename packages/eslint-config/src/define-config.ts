@@ -11,6 +11,7 @@ import {
   imports,
   javascript,
   jsdoc,
+  jsonc,
   perfectionist,
   prettier,
   typescript,
@@ -122,6 +123,10 @@ export async function defineConfig(
         overrides: getOverrides(options, 'vitest'),
       }),
     )
+  }
+
+  if (options.jsonc ?? true) {
+    configs.push(jsonc({overrides: getOverrides(options, 'jsonc')}))
   }
 
   // Epilogue config is always added last
