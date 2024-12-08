@@ -60,8 +60,8 @@ importers:
   packages/api-core:
     dependencies:
       '@readme/oas-to-har':
-        specifier: 24.0.2
-        version: 24.0.2
+        specifier: 24.0.3
+        version: 24.0.3
       caseless:
         specifier: 0.12.0
         version: 0.12.0
@@ -81,8 +81,8 @@ importers:
         specifier: 4.6.2
         version: 4.6.2
       oas:
-        specifier: 25.0.4
-        version: 25.0.4
+        specifier: 25.1.0
+        version: 25.1.0
       remove-undefined-objects:
         specifier: 5.0.0
         version: 5.0.0
@@ -137,8 +137,8 @@ importers:
         specifier: 0.12.5
         version: 0.12.5
       oas:
-        specifier: 25.0.4
-        version: 25.0.4
+        specifier: 25.1.0
+        version: 25.1.0
       typescript:
         specifier: 5.7.2
         version: 5.7.2
@@ -1233,8 +1233,8 @@ packages:
   '@readme/oas-examples@5.18.2':
     resolution: {integrity: sha512-ENAqUaKGLVM7u0KIwuWAqER2D2Fcc8w0EpGOD9BbjVeOnVNQg4gSFvr6zNQtblu5i/D1m3upKqBMeSPIhocXJg==}
 
-  '@readme/oas-to-har@24.0.2':
-    resolution: {integrity: sha512-gg3pNe4sjionEwO+9Hklw2lpVf1GnD3XdSIHjNOg0pCsfvPSuli7tBvRwL7nnirdi9hck3JAo80praVIKWq4rw==}
+  '@readme/oas-to-har@24.0.3':
+    resolution: {integrity: sha512-Eop5BFq9DglZj6o636lZpxjCzrNJoxvP5WlvBJBx2iLkdiTsr4OdoG17uVEkaNXuPxyLXMtd1PIQAOTWOui9Zg==}
     engines: {node: '>=18'}
 
   '@readme/openapi-parser@2.6.0':
@@ -3326,8 +3326,8 @@ packages:
   oas-validator@5.0.8:
     resolution: {integrity: sha512-cu20/HE5N5HKqVygs3dt94eYJfBi0TsZvPVXDhbXQHiEityDN+RROTleefoKRKKJ9dFAF2JBkDHgvWj0sjKGmw==}
 
-  oas@25.0.4:
-    resolution: {integrity: sha512-7xVFOBPB4VJM+RLnxbNdmUsr2y9ExLfSgy7+zDzkHKTWEPaPsRPp6PBRZ78OeOmO8d9T23sjLisNWR7N7/Ue7Q==}
+  oas@25.1.0:
+    resolution: {integrity: sha512-Apwuv3ApqgtXLghaIysQE44d3dOPfv3deeKdk3kx8yErYkm+1Pqy5ZQiBHb5eBj9OlHE9hJUzaZy2L5kI4q0gg==}
     engines: {node: '>=18'}
 
   object-assign@4.1.1:
@@ -5175,10 +5175,10 @@ snapshots:
 
   '@readme/oas-examples@5.18.2': {}
 
-  '@readme/oas-to-har@24.0.2':
+  '@readme/oas-to-har@24.0.3':
     dependencies:
       '@readme/data-urls': 3.0.0
-      oas: 25.0.4
+      oas: 25.1.0
       qs: 6.13.1
       remove-undefined-objects: 5.0.0
     transitivePeerDependencies:
@@ -7329,7 +7329,7 @@ snapshots:
       should: 13.2.3
       yaml: 1.10.2
 
-  oas@25.0.4:
+  oas@25.1.0:
     dependencies:
       '@readme/json-schema-ref-parser': 1.2.0
       '@types/json-schema': 7.0.15
