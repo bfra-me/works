@@ -61,8 +61,7 @@
     "fast-glob": "3.3.2",
     "fs-extra": "11.2.0",
     "prettier": "3.4.2",
-    "tsup": "8.3.5",
-    "vitest": "2.1.8"
+    "tsup": "8.3.5"
   },
   "peerDependencies": {
     "prettier": "^3.0.0"

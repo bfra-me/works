@@ -56,6 +56,9 @@ importers:
       typescript:
         specifier: 5.7.2
         version: 5.7.2
+      vitest:
+        specifier: 2.1.8
+        version: 2.1.8(@types/node@22.10.1)
 
   packages/api-core:
     dependencies:
@@ -88,7 +91,7 @@ importers:
         version: 5.0.0
     devDependencies:
       '@api/test-utils':
-        specifier: workspace:*
+        specifier: ./test-utils
         version: link:test-utils
       '@bfra.me/api-core':
         specifier: workspace:*
@@ -117,34 +120,6 @@ importers:
       typescript:
         specifier: 5.7.2
         version: 5.7.2
-      vitest:
-        specifier: 2.1.8
-        version: 2.1.8(@types/node@22.10.1)
-
-  packages/api-core/test-utils:
-    dependencies:
-      caseless:
-        specifier: 0.12.0
-        version: 0.12.0
-      datauri:
-        specifier: 4.1.0
-        version: 4.1.0
-      formdata-to-string:
-        specifier: 2.0.2
-        version: 2.0.2
-    devDependencies:
-      '@types/caseless':
-        specifier: 0.12.5
-        version: 0.12.5
-      oas:
-        specifier: 25.1.0
-        version: 25.1.0
-      typescript:
-        specifier: 5.7.2
-        version: 5.7.2
-      vitest:
-        specifier: 2.1.8
-        version: 2.1.8(@types/node@22.10.1)
 
   packages/create:
     dependencies:
@@ -176,9 +151,6 @@ importers:
       typescript:
         specifier: 5.7.2
         version: 5.7.2
-      vitest:
-        specifier: 2.1.8
-        version: 2.1.8(@types/node@22.10.1)
 
   packages/eslint-config:
     dependencies:
@@ -282,18 +254,12 @@ importers:
       jiti:
         specifier: 2.4.1
         version: 2.4.1
-      prettier:
-        specifier: 3.4.2
-        version: 3.4.2
       tsup:
         specifier: 8.3.5
         version: 8.3.5(@microsoft/api-extractor@7.48.0(@types/node@22.10.1))(@swc/core@1.9.2)(jiti@2.4.1)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)
       tsx:
         specifier: 4.19.2
         version: 4.19.2
-      vitest:
-        specifier: 2.1.8
-        version: 2.1.8(@types/node@22.10.1)
 
   packages/prettier-config:
     dependencies:
@@ -325,9 +291,6 @@ importers:
       tsup:
         specifier: 8.3.5
         version: 8.3.5(@microsoft/api-extractor@7.48.0(@types/node@22.10.1))(@swc/core@1.9.2)(jiti@2.4.1)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)
-      vitest:
-        specifier: 2.1.8
-        version: 2.1.8(@types/node@22.10.1)
 
   packages/prettier-plugins:
     dependencies:
@@ -371,9 +334,6 @@ importers:
       type-fest:
         specifier: 4.30.0
         version: 4.30.0
-      vitest:
-        specifier: 2.1.8
-        version: 2.1.8(@types/node@22.10.1)
 
   packages/tsconfig:
     devDependencies:
@@ -2431,11 +2391,6 @@ packages:
   foreground-child@3.3.0:
     resolution: {integrity: sha512-Ld2g8rrAyMYFXBhEqMz8ZAHBi4J4uS1i/CxGMDnjyFWddMXLVcDp051DZfu+t7+ab7Wv6SMqpWmyFIj5UbfFvg==}
     engines: {node: '>=14'}
-
-  formdata-to-string@2.0.2:
-    resolution: {integrity: sha512-OxurQikLgzU3+AhBCb2Or7pV2+dQWMSi1r4ZmhGMZ/WxVLOfUCqB2hqK5EwTGSzN9O/dx9uw5Mln/vtG1t0XbQ==}
-    engines: {node: '>=18'}
-    deprecated: This library is no longer in development.
 
   from2@2.3.0:
     resolution: {integrity: sha512-OMcX/4IC/uqEPVgGeyfN22LJk6AZrMkRZHxcHBMBvHScDGgwTm2GT2Wkgtocyd3JfZffjj2kYUDXXII0Fk9W0g==}
@@ -6522,8 +6477,6 @@ snapshots:
     dependencies:
       cross-spawn: 7.0.6
       signal-exit: 4.1.0
-
-  formdata-to-string@2.0.2: {}
 
   from2@2.3.0:
     dependencies:

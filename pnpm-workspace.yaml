@@ -1,4 +1,4 @@
 packages:
   - '.'
   - 'packages/*'
-  - 'packages/api-core/test-utils'
+  - '!packages/api-core/test-utils'
