@@ -67,8 +67,6 @@
     "@eslint/config-inspector": "0.5.6",
     "@eslint/js": "9.16.0",
     "@types/eslint-config-prettier": "6.11.3",
-    "@types/fs-extra": "11.0.4",
-    "@types/node": "22.10.1",
     "@typescript-eslint/types": "8.17.0",
     "@vitest/eslint-plugin": "1.1.14",
     "eslint": "9.16.0",
@@ -76,9 +74,6 @@
     "eslint-plugin-no-only-tests": "3.3.0",
     "eslint-plugin-prettier": "5.2.1",
     "eslint-typegen": "0.3.2",
-    "execa": "9.5.1",
-    "fast-glob": "3.3.2",
-    "fs-extra": "11.2.0",
     "jiti": "2.4.1",
     "tsup": "8.3.5",
     "tsx": "4.19.2"
