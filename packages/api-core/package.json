@@ -57,7 +57,7 @@
     "remove-undefined-objects": "5.0.0"
   },
   "devDependencies": {
-    "@api/test-utils": "workspace:*",
+    "@api/test-utils": "file:./test-utils",
     "@bfra.me/api-core": "workspace:*",
     "@bfra.me/eslint-config": "workspace:*",
     "@readme/oas-examples": "5.18.2",
@@ -66,8 +66,7 @@
     "@vitest/coverage-v8": "2.1.8",
     "fetch-mock": "11.1.5",
     "get-stream": "9.0.1",
-    "typescript": "5.7.2",
-    "vitest": "2.1.8"
+    "typescript": "5.7.2"
   },
   "engines": {
     "node": ">=18"

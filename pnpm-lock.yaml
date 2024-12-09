@@ -56,6 +56,9 @@ importers:
       typescript:
         specifier: 5.7.2
         version: 5.7.2
+      vitest:
+        specifier: 2.1.8
+        version: 2.1.8(@types/node@22.10.1)
 
   packages/api-core:
     dependencies:
@@ -88,8 +91,8 @@ importers:
         version: 5.0.0
     devDependencies:
       '@api/test-utils':
-        specifier: workspace:*
-        version: link:test-utils
+        specifier: file:./test-utils
+        version: file:packages/api-core/test-utils
       '@bfra.me/api-core':
         specifier: workspace:*
         version: 'link:'
@@ -117,34 +120,6 @@ importers:
       typescript:
         specifier: 5.7.2
         version: 5.7.2
-      vitest:
-        specifier: 2.1.8
-        version: 2.1.8(@types/node@22.10.1)
-
-  packages/api-core/test-utils:
-    dependencies:
-      caseless:
-        specifier: 0.12.0
-        version: 0.12.0
-      datauri:
-        specifier: 4.1.0
-        version: 4.1.0
-      formdata-to-string:
-        specifier: 2.0.2
-        version: 2.0.2
-    devDependencies:
-      '@types/caseless':
-        specifier: 0.12.5
-        version: 0.12.5
-      oas:
-        specifier: 25.1.0
-        version: 25.1.0
-      typescript:
-        specifier: 5.7.2
-        version: 5.7.2
-      vitest:
-        specifier: 2.1.8
-        version: 2.1.8(@types/node@22.10.1)
 
   packages/create:
     dependencies:
@@ -176,9 +151,6 @@ importers:
       typescript:
         specifier: 5.7.2
         version: 5.7.2
-      vitest:
-        specifier: 2.1.8
-        version: 2.1.8(@types/node@22.10.1)
 
   packages/eslint-config:
     dependencies:
@@ -282,18 +254,12 @@ importers:
       jiti:
         specifier: 2.4.1
         version: 2.4.1
-      prettier:
-        specifier: 3.4.2
-        version: 3.4.2
       tsup:
         specifier: 8.3.5
         version: 8.3.5(@microsoft/api-extractor@7.48.0(@types/node@22.10.1))(@swc/core@1.9.2)(jiti@2.4.1)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)
       tsx:
         specifier: 4.19.2
         version: 4.19.2
-      vitest:
-        specifier: 2.1.8
-        version: 2.1.8(@types/node@22.10.1)
 
   packages/prettier-config:
     dependencies:
@@ -325,9 +291,6 @@ importers:
       tsup:
         specifier: 8.3.5
         version: 8.3.5(@microsoft/api-extractor@7.48.0(@types/node@22.10.1))(@swc/core@1.9.2)(jiti@2.4.1)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)
-      vitest:
-        specifier: 2.1.8
-        version: 2.1.8(@types/node@22.10.1)
 
   packages/prettier-plugins:
     dependencies:
@@ -371,9 +334,6 @@ importers:
       type-fest:
         specifier: 4.30.0
         version: 4.30.0
-      vitest:
-        specifier: 2.1.8
-        version: 2.1.8(@types/node@22.10.1)
 
   packages/tsconfig:
     devDependencies:
@@ -398,6 +358,9 @@ packages:
 
   '@antfu/utils@0.7.10':
     resolution: {integrity: sha512-+562v9k4aI80m1+VuMHehNJWLOFjBnXn3tdOitzD0il5b7smkSBal4+a3oKiQTbrwMmN/TBUMDvbdoWDehgOww==}
+
+  '@api/test-utils@file:packages/api-core/test-utils':
+    resolution: {directory: packages/api-core/test-utils, type: directory}
 
   '@apidevtools/json-schema-ref-parser@11.7.2':
     resolution: {integrity: sha512-4gY54eEGEstClvEkGnwVkTkrx0sqwemEFG5OSRRn3tD91XH0+Q8XIkYIfo7IwEWPpJZwILb9GUXeShtplRc/eA==}
@@ -4392,6 +4355,12 @@ snapshots:
       '@jridgewell/trace-mapping': 0.3.25
 
   '@antfu/utils@0.7.10': {}
+
+  '@api/test-utils@file:packages/api-core/test-utils':
+    dependencies:
+      caseless: 0.12.0
+      datauri: 4.1.0
+      formdata-to-string: 2.0.2
 
   '@apidevtools/json-schema-ref-parser@11.7.2':
     dependencies:
