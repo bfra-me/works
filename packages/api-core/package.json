@@ -57,7 +57,7 @@
     "remove-undefined-objects": "5.0.0"
   },
   "devDependencies": {
-    "@api/test-utils": "./test-utils",
+    "@api/test-utils": "file:./test-utils",
     "@bfra.me/api-core": "workspace:*",
     "@bfra.me/eslint-config": "workspace:*",
     "@readme/oas-examples": "5.18.2",
