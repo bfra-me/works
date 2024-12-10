@@ -117,6 +117,7 @@ export async function typescript(options: TypeScriptOptions = {}): Promise<Confi
           'error',
           {
             allowExpressions: true,
+            allowFunctionsWithoutTypeParameters: true,
             allowHigherOrderFunctions: true,
             allowIIFEs: true,
           },
