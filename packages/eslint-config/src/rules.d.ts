@@ -4502,6 +4502,8 @@ type TypescriptEslintSwitchExhaustivenessCheck = []|[{
   
   considerDefaultExhaustiveForUnions?: boolean
   
+  defaultCaseCommentPattern?: string
+  
   requireDefaultForNonUnion?: boolean
 }]
 // ----- @typescript-eslint/triple-slash-reference -----
