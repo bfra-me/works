@@ -1,5 +1,26 @@
 # @bfra.me/eslint-config
 
+## 0.10.0
+### Minor Changes
+
+
+- Add built-in support and presets for Markdown, RegExp, TOML, and YAML languages. ([#744](https://github.com/bfra-me/works/pull/744))
+
+
+### Patch Changes
+
+
+- Apply linter fixes. ([#744](https://github.com/bfra-me/works/pull/744))
+
+
+- Updated dependency `@eslint/config-inspector` to `0.6.0`. ([#746](https://github.com/bfra-me/works/pull/746))
+
+
+- Updated dependency `typescript-eslint` to `8.18.0`. ([#741](https://github.com/bfra-me/works/pull/741))
+  Updated dependency `@typescript-eslint/types` to `8.18.0`.
+
+- Updated dependency `@vitest/eslint-plugin` to `1.1.15`. ([#745](https://github.com/bfra-me/works/pull/745))
+
 ## 0.9.0
 ### Minor Changes
 
