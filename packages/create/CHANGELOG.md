@@ -1,5 +1,17 @@
 # @bfra.me/create
 
+## 0.2.2
+### Patch Changes
+
+
+- Fix tests. ([#736](https://github.com/bfra-me/works/pull/736))
+
+
+- Apply linter fixes. ([#744](https://github.com/bfra-me/works/pull/744))
+
+
+- Updated dependency `memfs` to `4.15.0`. ([#740](https://github.com/bfra-me/works/pull/740))
+
 ## 0.2.1
 ### Patch Changes
 
