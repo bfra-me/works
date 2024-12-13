@@ -28,6 +28,34 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
       name: '@bfra.me/markdown/overrides',
       files: [GLOB_MARKDOWN_CODE],
       rules: {
+        '@typescript-eslint/no-namespace': 'off',
+        '@typescript-eslint/comma-dangle': 'off',
+        '@typescript-eslint/consistent-type-imports': 'off',
+        '@typescript-eslint/explicit-function-return-type': 'off',
+        '@typescript-eslint/no-extraneous-class': 'off',
+        '@typescript-eslint/no-redeclare': 'off',
+        '@typescript-eslint/no-require-imports': 'off',
+        '@typescript-eslint/no-unused-expressions': 'off',
+        '@typescript-eslint/no-unused-vars': 'off',
+        '@typescript-eslint/no-use-before-define': 'off',
+
+        'import-x/newline-after-import': 'off',
+
+        'no-alert': 'off',
+        'no-console': 'off',
+        'no-labels': 'off',
+        'no-lone-blocks': 'off',
+        'no-restricted-imports': 'off',
+        'no-restricted-syntax': 'off',
+        'no-undef': 'off',
+        'no-unused-expressions': 'off',
+        'no-unused-labels': 'off',
+
+        'no-unused-vars': 'off',
+
+        'unused-imports/no-unused-imports': 'off',
+        'unused-imports/no-unused-vars': 'off',
+
         ...overrides,
       },
     },
