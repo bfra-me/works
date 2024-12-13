@@ -1,7 +1,7 @@
 ---
 name: Create Renovate Changeset
 
-'on':
+on:
   merge_group:
   pull_request_target:
 

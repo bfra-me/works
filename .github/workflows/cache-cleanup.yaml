@@ -2,7 +2,7 @@
 # https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows#force-deleting-cache-entries
 name: Cache Cleanup
 
-'on':
+on:
   pull_request:
     types: [closed]
   schedule:

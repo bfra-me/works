@@ -5,7 +5,7 @@ export default composeConfig(
   config,
   {
     name: '@bfra.me/eslint-config/ignores',
-    ignores: ['.eslint-config-inspector/', 'src/rules.d.ts'],
+    ignores: ['.eslint-config-inspector/', 'lib', 'src/rules.d.ts'],
   },
   {
     name: '@bfra.me/eslint-config',

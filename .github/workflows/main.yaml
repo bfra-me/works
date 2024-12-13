@@ -2,7 +2,7 @@
 ---
 name: Main
 
-'on':
+on:
   merge_group:
   push:
     branches: [main]
