@@ -59,7 +59,7 @@ create my-new-package --template my-template --description "This is my new packa
 
 You can also use `@bfra.me/create` programmatically:
 
-```typescript
+```js
 import {createPackage} from "@bfra.me/create"
 
 await createPackage("my-new-package", {

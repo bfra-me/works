@@ -1779,6 +1779,34 @@ export interface Rules {
    */
   'logical-assignment-operators'?: Linter.RuleEntry<LogicalAssignmentOperators>
   /**
+   * Require languages for fenced code blocks.
+   */
+  'markdown/fenced-code-language'?: Linter.RuleEntry<MarkdownFencedCodeLanguage>
+  /**
+   * Enforce heading levels increment by one.
+   */
+  'markdown/heading-increment'?: Linter.RuleEntry<[]>
+  /**
+   * Disallow duplicate headings in the same document.
+   */
+  'markdown/no-duplicate-headings'?: Linter.RuleEntry<[]>
+  /**
+   * Disallow empty links.
+   */
+  'markdown/no-empty-links'?: Linter.RuleEntry<[]>
+  /**
+   * Disallow HTML tags.
+   */
+  'markdown/no-html'?: Linter.RuleEntry<MarkdownNoHtml>
+  /**
+   * Disallow invalid label references.
+   */
+  'markdown/no-invalid-label-refs'?: Linter.RuleEntry<[]>
+  /**
+   * Disallow missing label references.
+   */
+  'markdown/no-missing-label-refs'?: Linter.RuleEntry<[]>
+  /**
    * Enforce a maximum number of classes per file
    * @see https://eslint.org/docs/latest/rules/max-classes-per-file
    */
@@ -2923,6 +2951,416 @@ export interface Rules {
    */
   'radix'?: Linter.RuleEntry<Radix>
   /**
+   * disallow confusing quantifiers
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/confusing-quantifier.html
+   */
+  'regexp/confusing-quantifier'?: Linter.RuleEntry<[]>
+  /**
+   * enforce consistent escaping of control characters
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/control-character-escape.html
+   */
+  'regexp/control-character-escape'?: Linter.RuleEntry<[]>
+  /**
+   * enforce single grapheme in string literal
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/grapheme-string-literal.html
+   */
+  'regexp/grapheme-string-literal'?: Linter.RuleEntry<[]>
+  /**
+   * enforce consistent usage of hexadecimal escape
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/hexadecimal-escape.html
+   */
+  'regexp/hexadecimal-escape'?: Linter.RuleEntry<RegexpHexadecimalEscape>
+  /**
+   * enforce into your favorite case
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/letter-case.html
+   */
+  'regexp/letter-case'?: Linter.RuleEntry<RegexpLetterCase>
+  /**
+   * enforce match any character style
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/match-any.html
+   */
+  'regexp/match-any'?: Linter.RuleEntry<RegexpMatchAny>
+  /**
+   * enforce use of escapes on negation
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/negation.html
+   */
+  'regexp/negation'?: Linter.RuleEntry<[]>
+  /**
+   * disallow elements that contradict assertions
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-contradiction-with-assertion.html
+   */
+  'regexp/no-contradiction-with-assertion'?: Linter.RuleEntry<[]>
+  /**
+   * disallow control characters
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-control-character.html
+   */
+  'regexp/no-control-character'?: Linter.RuleEntry<[]>
+  /**
+   * disallow duplicate characters in the RegExp character class
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-dupe-characters-character-class.html
+   */
+  'regexp/no-dupe-characters-character-class'?: Linter.RuleEntry<[]>
+  /**
+   * disallow duplicate disjunctions
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-dupe-disjunctions.html
+   */
+  'regexp/no-dupe-disjunctions'?: Linter.RuleEntry<RegexpNoDupeDisjunctions>
+  /**
+   * disallow alternatives without elements
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-empty-alternative.html
+   */
+  'regexp/no-empty-alternative'?: Linter.RuleEntry<[]>
+  /**
+   * disallow capturing group that captures empty.
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-empty-capturing-group.html
+   */
+  'regexp/no-empty-capturing-group'?: Linter.RuleEntry<[]>
+  /**
+   * disallow character classes that match no characters
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-empty-character-class.html
+   */
+  'regexp/no-empty-character-class'?: Linter.RuleEntry<[]>
+  /**
+   * disallow empty group
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-empty-group.html
+   */
+  'regexp/no-empty-group'?: Linter.RuleEntry<[]>
+  /**
+   * disallow empty lookahead assertion or empty lookbehind assertion
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-empty-lookarounds-assertion.html
+   */
+  'regexp/no-empty-lookarounds-assertion'?: Linter.RuleEntry<[]>
+  /**
+   * disallow empty string literals in character classes
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-empty-string-literal.html
+   */
+  'regexp/no-empty-string-literal'?: Linter.RuleEntry<[]>
+  /**
+   * disallow escape backspace (`[\b]`)
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-escape-backspace.html
+   */
+  'regexp/no-escape-backspace'?: Linter.RuleEntry<[]>
+  /**
+   * disallow unnecessary nested lookaround assertions
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-extra-lookaround-assertions.html
+   */
+  'regexp/no-extra-lookaround-assertions'?: Linter.RuleEntry<[]>
+  /**
+   * disallow invalid regular expression strings in `RegExp` constructors
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-invalid-regexp.html
+   */
+  'regexp/no-invalid-regexp'?: Linter.RuleEntry<[]>
+  /**
+   * disallow invisible raw character
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-invisible-character.html
+   */
+  'regexp/no-invisible-character'?: Linter.RuleEntry<[]>
+  /**
+   * disallow lazy quantifiers at the end of an expression
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-lazy-ends.html
+   */
+  'regexp/no-lazy-ends'?: Linter.RuleEntry<RegexpNoLazyEnds>
+  /**
+   * disallow legacy RegExp features
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-legacy-features.html
+   */
+  'regexp/no-legacy-features'?: Linter.RuleEntry<RegexpNoLegacyFeatures>
+  /**
+   * disallow capturing groups that do not behave as one would expect
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-misleading-capturing-group.html
+   */
+  'regexp/no-misleading-capturing-group'?: Linter.RuleEntry<RegexpNoMisleadingCapturingGroup>
+  /**
+   * disallow multi-code-point characters in character classes and quantifiers
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-misleading-unicode-character.html
+   */
+  'regexp/no-misleading-unicode-character'?: Linter.RuleEntry<RegexpNoMisleadingUnicodeCharacter>
+  /**
+   * disallow missing `g` flag in patterns used in `String#matchAll` and `String#replaceAll`
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-missing-g-flag.html
+   */
+  'regexp/no-missing-g-flag'?: Linter.RuleEntry<RegexpNoMissingGFlag>
+  /**
+   * disallow non-standard flags
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-non-standard-flag.html
+   */
+  'regexp/no-non-standard-flag'?: Linter.RuleEntry<[]>
+  /**
+   * disallow obscure character ranges
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-obscure-range.html
+   */
+  'regexp/no-obscure-range'?: Linter.RuleEntry<RegexpNoObscureRange>
+  /**
+   * disallow octal escape sequence
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-octal.html
+   */
+  'regexp/no-octal'?: Linter.RuleEntry<[]>
+  /**
+   * disallow optional assertions
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-optional-assertion.html
+   */
+  'regexp/no-optional-assertion'?: Linter.RuleEntry<[]>
+  /**
+   * disallow backreferences that reference a group that might not be matched
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-potentially-useless-backreference.html
+   */
+  'regexp/no-potentially-useless-backreference'?: Linter.RuleEntry<[]>
+  /**
+   * disallow standalone backslashes (`\`)
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-standalone-backslash.html
+   */
+  'regexp/no-standalone-backslash'?: Linter.RuleEntry<[]>
+  /**
+   * disallow exponential and polynomial backtracking
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-super-linear-backtracking.html
+   */
+  'regexp/no-super-linear-backtracking'?: Linter.RuleEntry<RegexpNoSuperLinearBacktracking>
+  /**
+   * disallow quantifiers that cause quadratic moves
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-super-linear-move.html
+   */
+  'regexp/no-super-linear-move'?: Linter.RuleEntry<RegexpNoSuperLinearMove>
+  /**
+   * disallow trivially nested assertions
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-trivially-nested-assertion.html
+   */
+  'regexp/no-trivially-nested-assertion'?: Linter.RuleEntry<[]>
+  /**
+   * disallow nested quantifiers that can be rewritten as one quantifier
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-trivially-nested-quantifier.html
+   */
+  'regexp/no-trivially-nested-quantifier'?: Linter.RuleEntry<[]>
+  /**
+   * disallow unused capturing group
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-unused-capturing-group.html
+   */
+  'regexp/no-unused-capturing-group'?: Linter.RuleEntry<RegexpNoUnusedCapturingGroup>
+  /**
+   * disallow assertions that are known to always accept (or reject)
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-useless-assertions.html
+   */
+  'regexp/no-useless-assertions'?: Linter.RuleEntry<[]>
+  /**
+   * disallow useless backreferences in regular expressions
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-useless-backreference.html
+   */
+  'regexp/no-useless-backreference'?: Linter.RuleEntry<[]>
+  /**
+   * disallow character class with one character
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-useless-character-class.html
+   */
+  'regexp/no-useless-character-class'?: Linter.RuleEntry<RegexpNoUselessCharacterClass>
+  /**
+   * disallow useless `$` replacements in replacement string
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-useless-dollar-replacements.html
+   */
+  'regexp/no-useless-dollar-replacements'?: Linter.RuleEntry<[]>
+  /**
+   * disallow unnecessary escape characters in RegExp
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-useless-escape.html
+   */
+  'regexp/no-useless-escape'?: Linter.RuleEntry<[]>
+  /**
+   * disallow unnecessary regex flags
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-useless-flag.html
+   */
+  'regexp/no-useless-flag'?: Linter.RuleEntry<RegexpNoUselessFlag>
+  /**
+   * disallow unnecessarily non-greedy quantifiers
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-useless-lazy.html
+   */
+  'regexp/no-useless-lazy'?: Linter.RuleEntry<[]>
+  /**
+   * disallow unnecessary non-capturing group
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-useless-non-capturing-group.html
+   */
+  'regexp/no-useless-non-capturing-group'?: Linter.RuleEntry<RegexpNoUselessNonCapturingGroup>
+  /**
+   * disallow quantifiers that can be removed
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-useless-quantifier.html
+   */
+  'regexp/no-useless-quantifier'?: Linter.RuleEntry<[]>
+  /**
+   * disallow unnecessary character ranges
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-useless-range.html
+   */
+  'regexp/no-useless-range'?: Linter.RuleEntry<[]>
+  /**
+   * disallow unnecessary elements in expression character classes
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-useless-set-operand.html
+   */
+  'regexp/no-useless-set-operand'?: Linter.RuleEntry<[]>
+  /**
+   * disallow string disjunction of single characters in `\q{...}`
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-useless-string-literal.html
+   */
+  'regexp/no-useless-string-literal'?: Linter.RuleEntry<[]>
+  /**
+   * disallow unnecessary `{n,m}` quantifier
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-useless-two-nums-quantifier.html
+   */
+  'regexp/no-useless-two-nums-quantifier'?: Linter.RuleEntry<[]>
+  /**
+   * disallow quantifiers with a maximum of zero
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/no-zero-quantifier.html
+   */
+  'regexp/no-zero-quantifier'?: Linter.RuleEntry<[]>
+  /**
+   * disallow the alternatives of lookarounds that end with a non-constant quantifier
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/optimal-lookaround-quantifier.html
+   */
+  'regexp/optimal-lookaround-quantifier'?: Linter.RuleEntry<[]>
+  /**
+   * require optimal quantifiers for concatenated quantifiers
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/optimal-quantifier-concatenation.html
+   */
+  'regexp/optimal-quantifier-concatenation'?: Linter.RuleEntry<RegexpOptimalQuantifierConcatenation>
+  /**
+   * enforce using character class
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/prefer-character-class.html
+   */
+  'regexp/prefer-character-class'?: Linter.RuleEntry<RegexpPreferCharacterClass>
+  /**
+   * enforce using `\d`
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/prefer-d.html
+   */
+  'regexp/prefer-d'?: Linter.RuleEntry<RegexpPreferD>
+  /**
+   * enforces escape of replacement `$` character (`$$`).
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/prefer-escape-replacement-dollar-char.html
+   */
+  'regexp/prefer-escape-replacement-dollar-char'?: Linter.RuleEntry<[]>
+  /**
+   * prefer lookarounds over capturing group that do not replace
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/prefer-lookaround.html
+   */
+  'regexp/prefer-lookaround'?: Linter.RuleEntry<RegexpPreferLookaround>
+  /**
+   * enforce using named backreferences
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/prefer-named-backreference.html
+   */
+  'regexp/prefer-named-backreference'?: Linter.RuleEntry<[]>
+  /**
+   * enforce using named capture groups
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/prefer-named-capture-group.html
+   */
+  'regexp/prefer-named-capture-group'?: Linter.RuleEntry<[]>
+  /**
+   * enforce using named replacement
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/prefer-named-replacement.html
+   */
+  'regexp/prefer-named-replacement'?: Linter.RuleEntry<RegexpPreferNamedReplacement>
+  /**
+   * enforce using `+` quantifier
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/prefer-plus-quantifier.html
+   */
+  'regexp/prefer-plus-quantifier'?: Linter.RuleEntry<[]>
+  /**
+   * prefer predefined assertion over equivalent lookarounds
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/prefer-predefined-assertion.html
+   */
+  'regexp/prefer-predefined-assertion'?: Linter.RuleEntry<[]>
+  /**
+   * enforce using quantifier
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/prefer-quantifier.html
+   */
+  'regexp/prefer-quantifier'?: Linter.RuleEntry<[]>
+  /**
+   * enforce using `?` quantifier
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/prefer-question-quantifier.html
+   */
+  'regexp/prefer-question-quantifier'?: Linter.RuleEntry<[]>
+  /**
+   * enforce using character class range
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/prefer-range.html
+   */
+  'regexp/prefer-range'?: Linter.RuleEntry<RegexpPreferRange>
+  /**
+   * enforce that `RegExp#exec` is used instead of `String#match` if no global flag is provided
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/prefer-regexp-exec.html
+   */
+  'regexp/prefer-regexp-exec'?: Linter.RuleEntry<[]>
+  /**
+   * enforce that `RegExp#test` is used instead of `String#match` and `RegExp#exec`
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/prefer-regexp-test.html
+   */
+  'regexp/prefer-regexp-test'?: Linter.RuleEntry<[]>
+  /**
+   * enforce using result array `groups`
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/prefer-result-array-groups.html
+   */
+  'regexp/prefer-result-array-groups'?: Linter.RuleEntry<RegexpPreferResultArrayGroups>
+  /**
+   * prefer character class set operations instead of lookarounds
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/prefer-set-operation.html
+   */
+  'regexp/prefer-set-operation'?: Linter.RuleEntry<[]>
+  /**
+   * enforce using `*` quantifier
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/prefer-star-quantifier.html
+   */
+  'regexp/prefer-star-quantifier'?: Linter.RuleEntry<[]>
+  /**
+   * enforce use of unicode codepoint escapes
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/prefer-unicode-codepoint-escapes.html
+   */
+  'regexp/prefer-unicode-codepoint-escapes'?: Linter.RuleEntry<[]>
+  /**
+   * enforce using `\w`
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/prefer-w.html
+   */
+  'regexp/prefer-w'?: Linter.RuleEntry<[]>
+  /**
+   * enforce the use of the `u` flag
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/require-unicode-regexp.html
+   */
+  'regexp/require-unicode-regexp'?: Linter.RuleEntry<[]>
+  /**
+   * enforce the use of the `v` flag
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/require-unicode-sets-regexp.html
+   */
+  'regexp/require-unicode-sets-regexp'?: Linter.RuleEntry<[]>
+  /**
+   * require simplify set operations
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/simplify-set-operations.html
+   */
+  'regexp/simplify-set-operations'?: Linter.RuleEntry<[]>
+  /**
+   * sort alternatives if order doesn't matter
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/sort-alternatives.html
+   */
+  'regexp/sort-alternatives'?: Linter.RuleEntry<[]>
+  /**
+   * enforces elements order in character class
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/sort-character-class-elements.html
+   */
+  'regexp/sort-character-class-elements'?: Linter.RuleEntry<RegexpSortCharacterClassElements>
+  /**
+   * require regex flags to be sorted
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/sort-flags.html
+   */
+  'regexp/sort-flags'?: Linter.RuleEntry<[]>
+  /**
+   * disallow not strictly valid regular expressions
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/strict.html
+   */
+  'regexp/strict'?: Linter.RuleEntry<[]>
+  /**
+   * enforce consistent usage of unicode escape or unicode codepoint escape
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/unicode-escape.html
+   */
+  'regexp/unicode-escape'?: Linter.RuleEntry<RegexpUnicodeEscape>
+  /**
+   * enforce consistent naming of unicode properties
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/unicode-property.html
+   */
+  'regexp/unicode-property'?: Linter.RuleEntry<RegexpUnicodeProperty>
+  /**
+   * use the `i` flag if it simplifies the pattern
+   * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/use-ignore-case.html
+   */
+  'regexp/use-ignore-case'?: Linter.RuleEntry<[]>
+  /**
    * Disallow assignments that can lead to race conditions due to usage of `await` or `yield`
    * @see https://eslint.org/docs/latest/rules/require-atomic-updates
    */
@@ -3045,6 +3483,117 @@ export interface Rules {
    * @deprecated
    */
   'template-tag-spacing'?: Linter.RuleEntry<TemplateTagSpacing>
+  /**
+   * enforce linebreaks after opening and before closing array brackets
+   * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/array-bracket-newline.html
+   */
+  'toml/array-bracket-newline'?: Linter.RuleEntry<TomlArrayBracketNewline>
+  /**
+   * enforce consistent spacing inside array brackets
+   * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/array-bracket-spacing.html
+   */
+  'toml/array-bracket-spacing'?: Linter.RuleEntry<TomlArrayBracketSpacing>
+  /**
+   * enforce line breaks between array elements
+   * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/array-element-newline.html
+   */
+  'toml/array-element-newline'?: Linter.RuleEntry<TomlArrayElementNewline>
+  /**
+   * enforce consistent comma style in array
+   * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/comma-style.html
+   */
+  'toml/comma-style'?: Linter.RuleEntry<TomlCommaStyle>
+  /**
+   * enforce consistent indentation
+   * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/indent.html
+   */
+  'toml/indent'?: Linter.RuleEntry<TomlIndent>
+  /**
+   * enforce consistent spacing inside braces
+   * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/inline-table-curly-spacing.html
+   */
+  'toml/inline-table-curly-spacing'?: Linter.RuleEntry<TomlInlineTableCurlySpacing>
+  /**
+   * enforce consistent spacing between keys and values in key/value pairs
+   * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/key-spacing.html
+   */
+  'toml/key-spacing'?: Linter.RuleEntry<TomlKeySpacing>
+  /**
+   * disallow defining pair keys out-of-order
+   * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/keys-order.html
+   */
+  'toml/keys-order'?: Linter.RuleEntry<[]>
+  /**
+   * disallow mixed data types in array
+   * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/no-mixed-type-in-array.html
+   */
+  'toml/no-mixed-type-in-array'?: Linter.RuleEntry<TomlNoMixedTypeInArray>
+  /**
+   * disallow hexadecimal, octal and binary integer
+   * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/no-non-decimal-integer.html
+   */
+  'toml/no-non-decimal-integer'?: Linter.RuleEntry<TomlNoNonDecimalInteger>
+  /**
+   * disallow spacing around infix operators
+   * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/no-space-dots.html
+   */
+  'toml/no-space-dots'?: Linter.RuleEntry<[]>
+  /**
+   * disallow number separators that to not enhance readability.
+   * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/no-unreadable-number-separator.html
+   */
+  'toml/no-unreadable-number-separator'?: Linter.RuleEntry<[]>
+  /**
+   * require or disallow padding lines between pairs
+   * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/padding-line-between-pairs.html
+   */
+  'toml/padding-line-between-pairs'?: Linter.RuleEntry<[]>
+  /**
+   * require or disallow padding lines between tables
+   * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/padding-line-between-tables.html
+   */
+  'toml/padding-line-between-tables'?: Linter.RuleEntry<[]>
+  /**
+   * disallow precision of fractional seconds greater than the specified value.
+   * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/precision-of-fractional-seconds.html
+   */
+  'toml/precision-of-fractional-seconds'?: Linter.RuleEntry<TomlPrecisionOfFractionalSeconds>
+  /**
+   * disallow precision of integer greater than the specified value.
+   * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/precision-of-integer.html
+   */
+  'toml/precision-of-integer'?: Linter.RuleEntry<TomlPrecisionOfInteger>
+  /**
+   * require or disallow quotes around keys
+   * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/quoted-keys.html
+   */
+  'toml/quoted-keys'?: Linter.RuleEntry<TomlQuotedKeys>
+  /**
+   * require spacing around equals sign
+   * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/space-eq-sign.html
+   * @deprecated
+   */
+  'toml/space-eq-sign'?: Linter.RuleEntry<[]>
+  /**
+   * enforce consistent spacing after the `#` in a comment
+   * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/spaced-comment.html
+   */
+  'toml/spaced-comment'?: Linter.RuleEntry<TomlSpacedComment>
+  /**
+   * enforce consistent spacing inside table brackets
+   * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/table-bracket-spacing.html
+   */
+  'toml/table-bracket-spacing'?: Linter.RuleEntry<TomlTableBracketSpacing>
+  /**
+   * disallow defining tables out-of-order
+   * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/tables-order.html
+   */
+  'toml/tables-order'?: Linter.RuleEntry<[]>
+  /**
+   * disallow parsing errors in Vue custom blocks
+   * @see https://ota-meshi.github.io/eslint-plugin-toml/rules/vue-custom-block/no-parsing-error.html
+   */
+  'toml/vue-custom-block/no-parsing-error'?: Linter.RuleEntry<[]>
   /**
    * Require or disallow Unicode byte order mark (BOM)
    * @see https://eslint.org/docs/latest/rules/unicode-bom
@@ -3409,6 +3958,146 @@ export interface Rules {
    * @deprecated
    */
   'yield-star-spacing'?: Linter.RuleEntry<YieldStarSpacing>
+  /**
+   * require or disallow block style mappings.
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/block-mapping.html
+   */
+  'yml/block-mapping'?: Linter.RuleEntry<YmlBlockMapping>
+  /**
+   * enforce consistent line breaks after `:` indicator
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/block-mapping-colon-indicator-newline.html
+   */
+  'yml/block-mapping-colon-indicator-newline'?: Linter.RuleEntry<YmlBlockMappingColonIndicatorNewline>
+  /**
+   * enforce consistent line breaks after `?` indicator
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/block-mapping-question-indicator-newline.html
+   */
+  'yml/block-mapping-question-indicator-newline'?: Linter.RuleEntry<YmlBlockMappingQuestionIndicatorNewline>
+  /**
+   * require or disallow block style sequences.
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/block-sequence.html
+   */
+  'yml/block-sequence'?: Linter.RuleEntry<YmlBlockSequence>
+  /**
+   * enforce consistent line breaks after `-` indicator
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/block-sequence-hyphen-indicator-newline.html
+   */
+  'yml/block-sequence-hyphen-indicator-newline'?: Linter.RuleEntry<YmlBlockSequenceHyphenIndicatorNewline>
+  /**
+   * enforce YAML file extension
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/file-extension.html
+   */
+  'yml/file-extension'?: Linter.RuleEntry<YmlFileExtension>
+  /**
+   * enforce consistent line breaks inside braces
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/flow-mapping-curly-newline.html
+   */
+  'yml/flow-mapping-curly-newline'?: Linter.RuleEntry<YmlFlowMappingCurlyNewline>
+  /**
+   * enforce consistent spacing inside braces
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/flow-mapping-curly-spacing.html
+   */
+  'yml/flow-mapping-curly-spacing'?: Linter.RuleEntry<YmlFlowMappingCurlySpacing>
+  /**
+   * enforce linebreaks after opening and before closing flow sequence brackets
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/flow-sequence-bracket-newline.html
+   */
+  'yml/flow-sequence-bracket-newline'?: Linter.RuleEntry<YmlFlowSequenceBracketNewline>
+  /**
+   * enforce consistent spacing inside flow sequence brackets
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/flow-sequence-bracket-spacing.html
+   */
+  'yml/flow-sequence-bracket-spacing'?: Linter.RuleEntry<YmlFlowSequenceBracketSpacing>
+  /**
+   * enforce consistent indentation
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/indent.html
+   */
+  'yml/indent'?: Linter.RuleEntry<YmlIndent>
+  /**
+   * enforce naming convention to key names
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/key-name-casing.html
+   */
+  'yml/key-name-casing'?: Linter.RuleEntry<YmlKeyNameCasing>
+  /**
+   * enforce consistent spacing between keys and values in mapping pairs
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/key-spacing.html
+   */
+  'yml/key-spacing'?: Linter.RuleEntry<YmlKeySpacing>
+  /**
+   * disallow empty document
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/no-empty-document.html
+   */
+  'yml/no-empty-document'?: Linter.RuleEntry<[]>
+  /**
+   * disallow empty mapping keys
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/no-empty-key.html
+   */
+  'yml/no-empty-key'?: Linter.RuleEntry<[]>
+  /**
+   * disallow empty mapping values
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/no-empty-mapping-value.html
+   */
+  'yml/no-empty-mapping-value'?: Linter.RuleEntry<[]>
+  /**
+   * disallow empty sequence entries
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/no-empty-sequence-entry.html
+   */
+  'yml/no-empty-sequence-entry'?: Linter.RuleEntry<[]>
+  /**
+   * disallow irregular whitespace
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/no-irregular-whitespace.html
+   */
+  'yml/no-irregular-whitespace'?: Linter.RuleEntry<YmlNoIrregularWhitespace>
+  /**
+   * disallow multiple empty lines
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/no-multiple-empty-lines.html
+   */
+  'yml/no-multiple-empty-lines'?: Linter.RuleEntry<YmlNoMultipleEmptyLines>
+  /**
+   * disallow tabs for indentation.
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/no-tab-indent.html
+   */
+  'yml/no-tab-indent'?: Linter.RuleEntry<[]>
+  /**
+   * disallow trailing zeros for floats
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/no-trailing-zeros.html
+   */
+  'yml/no-trailing-zeros'?: Linter.RuleEntry<[]>
+  /**
+   * require or disallow plain style scalar.
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/plain-scalar.html
+   */
+  'yml/plain-scalar'?: Linter.RuleEntry<YmlPlainScalar>
+  /**
+   * enforce the consistent use of either double, or single quotes
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/quotes.html
+   */
+  'yml/quotes'?: Linter.RuleEntry<YmlQuotes>
+  /**
+   * disallow mapping keys other than strings
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/require-string-key.html
+   */
+  'yml/require-string-key'?: Linter.RuleEntry<[]>
+  /**
+   * require mapping keys to be sorted
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/sort-keys.html
+   */
+  'yml/sort-keys'?: Linter.RuleEntry<YmlSortKeys>
+  /**
+   * require sequence values to be sorted
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/sort-sequence-values.html
+   */
+  'yml/sort-sequence-values'?: Linter.RuleEntry<YmlSortSequenceValues>
+  /**
+   * enforce consistent spacing after the `#` in a comment
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/spaced-comment.html
+   */
+  'yml/spaced-comment'?: Linter.RuleEntry<YmlSpacedComment>
+  /**
+   * disallow parsing errors in Vue custom blocks
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/vue-custom-block/no-parsing-error.html
+   */
+  'yml/vue-custom-block/no-parsing-error'?: Linter.RuleEntry<[]>
   /**
    * Require or disallow "Yoda" conditions
    * @see https://eslint.org/docs/latest/rules/yoda
@@ -6180,6 +6869,14 @@ type LinesBetweenClassMembers = []|[({
 type LogicalAssignmentOperators = (([]|["always"]|["always", {
   enforceForIfStatements?: boolean
 }] | ["never"]) & unknown[])
+// ----- markdown/fenced-code-language -----
+type MarkdownFencedCodeLanguage = []|[{
+  required?: string[]
+}]
+// ----- markdown/no-html -----
+type MarkdownNoHtml = []|[{
+  allowed?: string[]
+}]
 // ----- max-classes-per-file -----
 type MaxClassesPerFile = []|[(number | {
   ignoreExpressions?: boolean
@@ -7444,6 +8141,124 @@ type Quotes = []|[("single" | "double" | "backtick")]|[("single" | "double" | "b
 })]
 // ----- radix -----
 type Radix = []|[("always" | "as-needed")]
+// ----- regexp/hexadecimal-escape -----
+type RegexpHexadecimalEscape = []|[("always" | "never")]
+// ----- regexp/letter-case -----
+type RegexpLetterCase = []|[{
+  caseInsensitive?: ("lowercase" | "uppercase" | "ignore")
+  unicodeEscape?: ("lowercase" | "uppercase" | "ignore")
+  hexadecimalEscape?: ("lowercase" | "uppercase" | "ignore")
+  controlEscape?: ("lowercase" | "uppercase" | "ignore")
+}]
+// ----- regexp/match-any -----
+type RegexpMatchAny = []|[{
+  
+  allows?: [("[\\s\\S]" | "[\\S\\s]" | "[^]" | "dotAll"), ...(("[\\s\\S]" | "[\\S\\s]" | "[^]" | "dotAll"))[]]
+}]
+// ----- regexp/no-dupe-disjunctions -----
+type RegexpNoDupeDisjunctions = []|[{
+  report?: ("all" | "trivial" | "interesting")
+  reportExponentialBacktracking?: ("none" | "certain" | "potential")
+  reportUnreachable?: ("certain" | "potential")
+}]
+// ----- regexp/no-lazy-ends -----
+type RegexpNoLazyEnds = []|[{
+  ignorePartial?: boolean
+}]
+// ----- regexp/no-legacy-features -----
+type RegexpNoLegacyFeatures = []|[{
+  staticProperties?: ("input" | "$_" | "lastMatch" | "$&" | "lastParen" | "$+" | "leftContext" | "$`" | "rightContext" | "$'" | "$1" | "$2" | "$3" | "$4" | "$5" | "$6" | "$7" | "$8" | "$9")[]
+  prototypeMethods?: ("compile")[]
+}]
+// ----- regexp/no-misleading-capturing-group -----
+type RegexpNoMisleadingCapturingGroup = []|[{
+  reportBacktrackingEnds?: boolean
+}]
+// ----- regexp/no-misleading-unicode-character -----
+type RegexpNoMisleadingUnicodeCharacter = []|[{
+  fixable?: boolean
+}]
+// ----- regexp/no-missing-g-flag -----
+type RegexpNoMissingGFlag = []|[{
+  strictTypes?: boolean
+}]
+// ----- regexp/no-obscure-range -----
+type RegexpNoObscureRange = []|[{
+  allowed?: (("all" | "alphanumeric") | [("all" | "alphanumeric")] | [("alphanumeric" | string), ...(("alphanumeric" | string))[]])
+}]
+// ----- regexp/no-super-linear-backtracking -----
+type RegexpNoSuperLinearBacktracking = []|[{
+  report?: ("certain" | "potential")
+}]
+// ----- regexp/no-super-linear-move -----
+type RegexpNoSuperLinearMove = []|[{
+  report?: ("certain" | "potential")
+  ignoreSticky?: boolean
+  ignorePartial?: boolean
+}]
+// ----- regexp/no-unused-capturing-group -----
+type RegexpNoUnusedCapturingGroup = []|[{
+  fixable?: boolean
+  allowNamed?: boolean
+}]
+// ----- regexp/no-useless-character-class -----
+type RegexpNoUselessCharacterClass = []|[{
+  ignores?: string[]
+}]
+// ----- regexp/no-useless-flag -----
+type RegexpNoUselessFlag = []|[{
+  ignore?: ("i" | "m" | "s" | "g" | "y")[]
+  strictTypes?: boolean
+}]
+// ----- regexp/no-useless-non-capturing-group -----
+type RegexpNoUselessNonCapturingGroup = []|[{
+  allowTop?: (boolean | ("always" | "never" | "partial"))
+}]
+// ----- regexp/optimal-quantifier-concatenation -----
+type RegexpOptimalQuantifierConcatenation = []|[{
+  capturingGroups?: ("ignore" | "report")
+}]
+// ----- regexp/prefer-character-class -----
+type RegexpPreferCharacterClass = []|[{
+  minAlternatives?: number
+}]
+// ----- regexp/prefer-d -----
+type RegexpPreferD = []|[{
+  insideCharacterClass?: ("ignore" | "range" | "d")
+}]
+// ----- regexp/prefer-lookaround -----
+type RegexpPreferLookaround = []|[{
+  lookbehind?: boolean
+  strictTypes?: boolean
+}]
+// ----- regexp/prefer-named-replacement -----
+type RegexpPreferNamedReplacement = []|[{
+  strictTypes?: boolean
+}]
+// ----- regexp/prefer-range -----
+type RegexpPreferRange = []|[{
+  target?: (("all" | "alphanumeric") | [("all" | "alphanumeric")] | [("alphanumeric" | string), ...(("alphanumeric" | string))[]])
+}]
+// ----- regexp/prefer-result-array-groups -----
+type RegexpPreferResultArrayGroups = []|[{
+  strictTypes?: boolean
+}]
+// ----- regexp/sort-character-class-elements -----
+type RegexpSortCharacterClassElements = []|[{
+  order?: ("\\s" | "\\w" | "\\d" | "\\p" | "*" | "\\q" | "[]")[]
+}]
+// ----- regexp/unicode-escape -----
+type RegexpUnicodeEscape = []|[("unicodeCodePointEscape" | "unicodeEscape")]
+// ----- regexp/unicode-property -----
+type RegexpUnicodeProperty = []|[{
+  generalCategory?: ("always" | "never" | "ignore")
+  key?: ("short" | "long" | "ignore")
+  property?: (("short" | "long" | "ignore") | {
+    binary?: ("short" | "long" | "ignore")
+    generalCategory?: ("short" | "long" | "ignore")
+    script?: ("short" | "long" | "ignore")
+  })
+}]
 // ----- require-atomic-updates -----
 type RequireAtomicUpdates = []|[{
   allowProperties?: boolean
@@ -7542,6 +8357,130 @@ type SwitchColonSpacing = []|[{
 type TemplateCurlySpacing = []|[("always" | "never")]
 // ----- template-tag-spacing -----
 type TemplateTagSpacing = []|[("always" | "never")]
+// ----- toml/array-bracket-newline -----
+type TomlArrayBracketNewline = []|[(("always" | "never" | "consistent") | {
+  multiline?: boolean
+  minItems?: (number | null)
+})]
+// ----- toml/array-bracket-spacing -----
+type TomlArrayBracketSpacing = []|[("always" | "never")]|[("always" | "never"), {
+  singleValue?: boolean
+  objectsInArrays?: boolean
+  arraysInArrays?: boolean
+}]
+// ----- toml/array-element-newline -----
+type TomlArrayElementNewline = []|[(_TomlArrayElementNewlineBasicConfig | {
+  ArrayExpression?: _TomlArrayElementNewlineBasicConfig
+  ArrayPattern?: _TomlArrayElementNewlineBasicConfig
+  TOMLArray?: _TomlArrayElementNewlineBasicConfig
+})]
+type _TomlArrayElementNewlineBasicConfig = (("always" | "never" | "consistent") | {
+  multiline?: boolean
+  minItems?: (number | null)
+})
+// ----- toml/comma-style -----
+type TomlCommaStyle = []|[("first" | "last")]|[("first" | "last"), {
+  exceptions?: {
+    [k: string]: boolean | undefined
+  }
+}]
+// ----- toml/indent -----
+type TomlIndent = []|[("tab" | number)]|[("tab" | number), {
+  subTables?: number
+  keyValuePairs?: number
+}]
+// ----- toml/inline-table-curly-spacing -----
+type TomlInlineTableCurlySpacing = []|[("always" | "never")]|[("always" | "never"), {
+  arraysInObjects?: boolean
+  objectsInObjects?: boolean
+}]
+// ----- toml/key-spacing -----
+type TomlKeySpacing = []|[({
+  align?: (("equal" | "value") | {
+    on?: ("equal" | "value")
+    mode?: ("strict" | "minimum")
+    beforeEqual?: boolean
+    afterEqual?: boolean
+  })
+  mode?: ("strict" | "minimum")
+  beforeEqual?: boolean
+  afterEqual?: boolean
+} | {
+  singleLine?: {
+    mode?: ("strict" | "minimum")
+    beforeEqual?: boolean
+    afterEqual?: boolean
+  }
+  multiLine?: {
+    align?: (("equal" | "value") | {
+      on?: ("equal" | "value")
+      mode?: ("strict" | "minimum")
+      beforeEqual?: boolean
+      afterEqual?: boolean
+    })
+    mode?: ("strict" | "minimum")
+    beforeEqual?: boolean
+    afterEqual?: boolean
+  }
+} | {
+  singleLine?: {
+    mode?: ("strict" | "minimum")
+    beforeEqual?: boolean
+    afterEqual?: boolean
+  }
+  multiLine?: {
+    mode?: ("strict" | "minimum")
+    beforeEqual?: boolean
+    afterEqual?: boolean
+  }
+  align?: {
+    on?: ("equal" | "value")
+    mode?: ("strict" | "minimum")
+    beforeEqual?: boolean
+    afterEqual?: boolean
+  }
+})]
+// ----- toml/no-mixed-type-in-array -----
+type TomlNoMixedTypeInArray = []|[{
+  typeMap?: {
+    string?: string
+    boolean?: string
+    integer?: string
+    float?: string
+    offsetDateTime?: string
+    localDateTime?: string
+    localDate?: string
+    localTime?: string
+    array?: string
+    inlineTable?: string
+  }
+}]
+// ----- toml/no-non-decimal-integer -----
+type TomlNoNonDecimalInteger = []|[{
+  allowHexadecimal?: boolean
+  allowOctal?: boolean
+  allowBinary?: boolean
+}]
+// ----- toml/precision-of-fractional-seconds -----
+type TomlPrecisionOfFractionalSeconds = []|[{
+  max?: number
+}]
+// ----- toml/precision-of-integer -----
+type TomlPrecisionOfInteger = []|[{
+  maxBit?: number
+}]
+// ----- toml/quoted-keys -----
+type TomlQuotedKeys = []|[{
+  prefer?: ("as-needed" | "always")
+  numbers?: boolean
+}]
+// ----- toml/spaced-comment -----
+type TomlSpacedComment = []|[("always" | "never")]|[("always" | "never"), {
+  exceptions?: string[]
+  markers?: string[]
+}]
+// ----- toml/table-bracket-spacing -----
+type TomlTableBracketSpacing = []|[("always" | "never")]
 // ----- unicode-bom -----
 type UnicodeBom = []|[("always" | "never")]
 // ----- unused-imports/no-unused-imports -----
@@ -7706,6 +8645,213 @@ type YieldStarSpacing = []|[(("before" | "after" | "both" | "neither") | {
   before?: boolean
   after?: boolean
 })]
+// ----- yml/block-mapping -----
+type YmlBlockMapping = []|[(("always" | "never") | {
+  singleline?: ("always" | "never" | "ignore")
+  multiline?: ("always" | "never" | "ignore")
+})]
+// ----- yml/block-mapping-colon-indicator-newline -----
+type YmlBlockMappingColonIndicatorNewline = []|[("always" | "never")]
+// ----- yml/block-mapping-question-indicator-newline -----
+type YmlBlockMappingQuestionIndicatorNewline = []|[("always" | "never")]
+// ----- yml/block-sequence -----
+type YmlBlockSequence = []|[(("always" | "never") | {
+  singleline?: ("always" | "never" | "ignore")
+  multiline?: ("always" | "never" | "ignore")
+})]
+// ----- yml/block-sequence-hyphen-indicator-newline -----
+type YmlBlockSequenceHyphenIndicatorNewline = []|[("always" | "never")]|[("always" | "never"), {
+  nestedHyphen?: ("always" | "never")
+  blockMapping?: ("always" | "never")
+}]
+// ----- yml/file-extension -----
+type YmlFileExtension = []|[{
+  extension?: ("yaml" | "yml")
+  caseSensitive?: boolean
+}]
+// ----- yml/flow-mapping-curly-newline -----
+type YmlFlowMappingCurlyNewline = []|[(("always" | "never") | {
+  multiline?: boolean
+  minProperties?: number
+  consistent?: boolean
+})]
+// ----- yml/flow-mapping-curly-spacing -----
+type YmlFlowMappingCurlySpacing = []|[("always" | "never")]|[("always" | "never"), {
+  arraysInObjects?: boolean
+  objectsInObjects?: boolean
+}]
+// ----- yml/flow-sequence-bracket-newline -----
+type YmlFlowSequenceBracketNewline = []|[(("always" | "never" | "consistent") | {
+  multiline?: boolean
+  minItems?: (number | null)
+})]
+// ----- yml/flow-sequence-bracket-spacing -----
+type YmlFlowSequenceBracketSpacing = []|[("always" | "never")]|[("always" | "never"), {
+  singleValue?: boolean
+  objectsInArrays?: boolean
+  arraysInArrays?: boolean
+}]
+// ----- yml/indent -----
+type YmlIndent = []|[number]|[number, {
+  indentBlockSequences?: boolean
+  indicatorValueIndent?: number
+}]
+// ----- yml/key-name-casing -----
+type YmlKeyNameCasing = []|[{
+  camelCase?: boolean
+  PascalCase?: boolean
+  SCREAMING_SNAKE_CASE?: boolean
+  "kebab-case"?: boolean
+  snake_case?: boolean
+  ignores?: string[]
+}]
+// ----- yml/key-spacing -----
+type YmlKeySpacing = []|[({
+  align?: (("colon" | "value") | {
+    on?: ("colon" | "value")
+    mode?: ("strict" | "minimum")
+    beforeColon?: boolean
+    afterColon?: boolean
+  })
+  mode?: ("strict" | "minimum")
+  beforeColon?: boolean
+  afterColon?: boolean
+} | {
+  singleLine?: {
+    mode?: ("strict" | "minimum")
+    beforeColon?: boolean
+    afterColon?: boolean
+  }
+  multiLine?: {
+    align?: (("colon" | "value") | {
+      on?: ("colon" | "value")
+      mode?: ("strict" | "minimum")
+      beforeColon?: boolean
+      afterColon?: boolean
+    })
+    mode?: ("strict" | "minimum")
+    beforeColon?: boolean
+    afterColon?: boolean
+  }
+} | {
+  singleLine?: {
+    mode?: ("strict" | "minimum")
+    beforeColon?: boolean
+    afterColon?: boolean
+  }
+  multiLine?: {
+    mode?: ("strict" | "minimum")
+    beforeColon?: boolean
+    afterColon?: boolean
+  }
+  align?: {
+    on?: ("colon" | "value")
+    mode?: ("strict" | "minimum")
+    beforeColon?: boolean
+    afterColon?: boolean
+  }
+})]
+// ----- yml/no-irregular-whitespace -----
+type YmlNoIrregularWhitespace = []|[{
+  skipComments?: boolean
+  skipQuotedScalars?: boolean
+}]
+// ----- yml/no-multiple-empty-lines -----
+type YmlNoMultipleEmptyLines = []|[{
+  max: number
+  maxEOF?: number
+  maxBOF?: number
+}]
+// ----- yml/plain-scalar -----
+type YmlPlainScalar = []|[("always" | "never")]|[("always" | "never"), {
+  ignorePatterns?: string[]
+  overrides?: {
+    mappingKey?: ("always" | "never" | null)
+  }
+}]
+// ----- yml/quotes -----
+type YmlQuotes = []|[{
+  prefer?: ("double" | "single")
+  avoidEscape?: boolean
+}]
+// ----- yml/sort-keys -----
+type YmlSortKeys = ([{
+  pathPattern: string
+  hasProperties?: string[]
+  order: ((string | {
+    keyPattern?: string
+    order?: {
+      type?: ("asc" | "desc")
+      caseSensitive?: boolean
+      natural?: boolean
+    }
+  })[] | {
+    type?: ("asc" | "desc")
+    caseSensitive?: boolean
+    natural?: boolean
+  })
+  minKeys?: number
+  allowLineSeparatedGroups?: boolean
+}, ...({
+  pathPattern: string
+  hasProperties?: string[]
+  order: ((string | {
+    keyPattern?: string
+    order?: {
+      type?: ("asc" | "desc")
+      caseSensitive?: boolean
+      natural?: boolean
+    }
+  })[] | {
+    type?: ("asc" | "desc")
+    caseSensitive?: boolean
+    natural?: boolean
+  })
+  minKeys?: number
+  allowLineSeparatedGroups?: boolean
+})[]] | []|[("asc" | "desc")]|[("asc" | "desc"), {
+  caseSensitive?: boolean
+  natural?: boolean
+  minKeys?: number
+  allowLineSeparatedGroups?: boolean
+}])
+// ----- yml/sort-sequence-values -----
+type YmlSortSequenceValues = [{
+  pathPattern: string
+  order: ((string | {
+    valuePattern?: string
+    order?: {
+      type?: ("asc" | "desc")
+      caseSensitive?: boolean
+      natural?: boolean
+    }
+  })[] | {
+    type?: ("asc" | "desc")
+    caseSensitive?: boolean
+    natural?: boolean
+  })
+  minValues?: number
+}, ...({
+  pathPattern: string
+  order: ((string | {
+    valuePattern?: string
+    order?: {
+      type?: ("asc" | "desc")
+      caseSensitive?: boolean
+      natural?: boolean
+    }
+  })[] | {
+    type?: ("asc" | "desc")
+    caseSensitive?: boolean
+    natural?: boolean
+  })
+  minValues?: number
+})[]]
+// ----- yml/spaced-comment -----
+type YmlSpacedComment = []|[("always" | "never")]|[("always" | "never"), {
+  exceptions?: string[]
+  markers?: string[]
+}]
 // ----- yoda -----
 type Yoda = []|[("always" | "never")]|[("always" | "never"), {
   exceptRange?: boolean

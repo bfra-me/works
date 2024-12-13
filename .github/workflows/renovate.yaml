@@ -2,7 +2,7 @@
 # Renovate this repository if Renovate-specific tasks are checked or if dispatched.
 name: Renovate
 
-'on':
+on:
   issues:
     types: [edited]
   pull_request:
@@ -17,9 +17,9 @@ name: Renovate
         type: boolean
         default: false
   workflow_run:
-    workflows: ['Main']
-    branches: ['main']
-    types: ['completed']
+    workflows: [Main]
+    branches: [main]
+    types: [completed]
 
 jobs:
   renovate:

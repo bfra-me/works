@@ -12,10 +12,14 @@ import {
   javascript,
   jsdoc,
   jsonc,
+  markdown,
   perfectionist,
   prettier,
+  regexp,
+  toml,
   typescript,
   vitest,
+  yaml,
 } from './configs'
 import * as Env from './env'
 import {interopDefault} from './plugins'
@@ -52,6 +56,7 @@ export async function defineConfig(
     gitignore: enableGitignore = true,
     perfectionist: enablePerfectionist = true,
     prettier: enablePrettier = isPackageExists('prettier'),
+    regexp: enableRegexp = true,
     typescript: enableTypeScript = isPackageExists('typescript'),
   } = options
 
@@ -117,6 +122,10 @@ export async function defineConfig(
     )
   }
 
+  if (enableRegexp) {
+    configs.push(regexp({overrides: getOverrides(options, 'regexp')}))
+  }
+
   if (options.vitest) {
     configs.push(
       vitest({
@@ -127,6 +136,33 @@ export async function defineConfig(
 
   if (options.jsonc ?? true) {
     configs.push(jsonc({overrides: getOverrides(options, 'jsonc')}))
+  }
+
+  if (options.toml ?? true) {
+    configs.push(
+      toml({
+        overrides: getOverrides(options, 'toml'),
+        prettier: enablePrettier,
+      }),
+    )
+  }
+
+  if (options.yaml ?? true) {
+    configs.push(
+      yaml({
+        overrides: getOverrides(options, 'yaml'),
+        prettier: enablePrettier,
+      }),
+    )
+  }
+
+  if (options.markdown ?? true) {
+    configs.push(
+      markdown({
+        overrides: getOverrides(options, 'markdown'),
+        prettier: enablePrettier,
+      }),
+    )
   }
 
   // Epilogue config is always added last

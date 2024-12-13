@@ -26,7 +26,7 @@ yarn add --dev @bfra.me/eslint-config eslint
 
 Add or update your `eslint.config.js` file to include the following:
 
-```ts
+```js
 import preset from "@bfra.me/eslint-config"
 
 export default preset()
