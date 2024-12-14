@@ -1,13 +1,13 @@
 import type {Config} from '../config'
 import type {Flatten, OptionsIsInEditor, OptionsOverrides} from '../options'
 import globals from 'globals'
+import {GLOB_JSX, GLOB_TSX} from '../globs'
 import {unusedImports as pluginUnusedImports} from '../plugins'
 
 /**
  * Represents the options for configuring the JavaScript ESLint configuration.
- * This type is a combination of the {@link OptionsIsInEditor} and {@link OptionsOverrides} types.
  */
-export type JavaScriptOptions = Flatten<OptionsIsInEditor & OptionsOverrides>
+export type JavaScriptOptions = Flatten<OptionsIsInEditor & OptionsOverrides & {jsx?: boolean}>
 
 /**
  * Configures the JavaScript ESLint configuration with the specified options.
@@ -18,7 +18,7 @@ export type JavaScriptOptions = Flatten<OptionsIsInEditor & OptionsOverrides>
  * @returns An array of ESLint configurations.
  */
 export async function javascript(options: JavaScriptOptions = {}): Promise<Config[]> {
-  const {isInEditor = false, overrides = {}} = options
+  const {isInEditor = false, jsx = true, overrides = {}} = options
   return [
     {
       name: '@bfra.me/javascript/options',
@@ -70,5 +70,21 @@ export async function javascript(options: JavaScriptOptions = {}): Promise<Confi
         ...overrides,
       },
     },
+
+    ...(jsx
+      ? [
+          {
+            name: '@bfra.me/jsx',
+            files: [GLOB_JSX, GLOB_TSX],
+            languageOptions: {
+              parserOptions: {
+                ecmaFeatures: {
+                  jsx: true,
+                },
+              },
+            },
+          },
+        ]
+      : []),
   ]
 }

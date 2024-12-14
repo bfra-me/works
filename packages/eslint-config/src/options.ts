@@ -182,6 +182,13 @@ export type Options = Flatten<
     jsonc?: boolean | OptionsOverrides
 
     /**
+     * Options to override the behavior of linting JSX files.
+     *
+     * @default true
+     */
+    jsx?: boolean
+
+    /**
      * Options to override the behavior of linting Markdown files.
      */
     markdown?: boolean | (OptionsOverrides & OptionsPrettier)
