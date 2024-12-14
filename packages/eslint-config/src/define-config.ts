@@ -54,6 +54,7 @@ export async function defineConfig(
 ): ConfigComposer {
   const {
     gitignore: enableGitignore = true,
+    jsx: enableJsx = true,
     perfectionist: enablePerfectionist = true,
     prettier: enablePrettier = isPackageExists('prettier'),
     regexp: enableRegexp = true,
@@ -84,7 +85,7 @@ export async function defineConfig(
 
   configs.push(
     ignores(options.ignores),
-    javascript({isInEditor, overrides: getOverrides(options, 'javascript')}),
+    javascript({isInEditor, jsx: enableJsx, overrides: getOverrides(options, 'javascript')}),
     eslintComments(),
     jsdoc(),
     imports(),
