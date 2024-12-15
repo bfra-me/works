@@ -1,5 +1,29 @@
 # @bfra.me/eslint-config
 
+## 0.11.0
+### Minor Changes
+
+
+- Add eslint-plugin-unicorn with config. ([#752](https://github.com/bfra-me/works/pull/752))
+
+
+- Add config preset for JSX files. ([#749](https://github.com/bfra-me/works/pull/749))
+
+
+- Enable my preferred unicorn rules. ([#753](https://github.com/bfra-me/works/pull/753))
+
+
+### Patch Changes
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `50.6.1`. ([#748](https://github.com/bfra-me/works/pull/748))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.1.16`. ([#751](https://github.com/bfra-me/works/pull/751))
+
+
+- Apply linter fixes. ([#753](https://github.com/bfra-me/works/pull/753))
+
 ## 0.10.0
 ### Minor Changes
 

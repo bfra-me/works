@@ -1,5 +1,11 @@
 # @bfra.me/api-core
 
+## 0.1.8
+### Patch Changes
+
+
+- Apply linter fixes. ([#753](https://github.com/bfra-me/works/pull/753))
+
 ## 0.1.7
 ### Patch Changes
 
