@@ -18,6 +18,7 @@ import {
   regexp,
   toml,
   typescript,
+  unicorn,
   vitest,
   yaml,
 } from './configs'
@@ -59,6 +60,7 @@ export async function defineConfig(
     prettier: enablePrettier = isPackageExists('prettier'),
     regexp: enableRegexp = true,
     typescript: enableTypeScript = isPackageExists('typescript'),
+    unicorn: enableUnicorn = true,
   } = options
 
   const isInEditor = options.isInEditor ?? Env.isInEditor
@@ -109,6 +111,10 @@ export async function defineConfig(
         ...resolveSubOptions(options, 'perfectionist'),
       }),
     )
+  }
+
+  if (enableUnicorn) {
+    configs.push(unicorn({overrides: getOverrides(options, 'unicorn')}))
   }
 
   const typescriptOptions = resolveSubOptions(options, 'typescript')
