@@ -223,6 +223,13 @@ export type Options = Flatten<
     typescript?: OptionsTypeScript | boolean
 
     /**
+     * Enable or override unicorn rules.
+     *
+     * @default true
+     */
+    unicorn?: boolean | OptionsOverrides
+
+    /**
      * Enable support for vitest.
      *
      * @default false

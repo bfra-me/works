@@ -42,6 +42,7 @@ export type ConfigNames =
   | '@bfra.me/command'
   | '@bfra.me/prettier'
   | '@bfra.me/perfectionist'
+  | '@bfra.me/unicorn'
   | '@bfra.me/typescript/plugins'
   | '@bfra.me/typescript/parser'
   | '@bfra.me/typescript/type-aware-parser'
