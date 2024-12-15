@@ -6,7 +6,7 @@ export function HelloWorld({greeting = 'hello', greeted = '"World"', silent = fa
   // TODO: Don't use random in render
   let num = Math.floor(Math.random() * 1e7)
     .toString()
-    .replace(/\.\d+/g, '')
+    .replaceAll(/\.\d+/g, '')
 
   return (
     <div className="HelloWorld" title={`You are visitor number ${num}`} onMouseOver={onMouseOver}>
