@@ -20,7 +20,7 @@
       "import": "./dist/index.js"
     },
     "./errors/fetchError": {
-      "import": "./dist/errors/fetchError.js"
+      "import": "./dist/errors/FetchError.js"
     },
     "./lib": {
       "import": "./dist/lib/index.js"

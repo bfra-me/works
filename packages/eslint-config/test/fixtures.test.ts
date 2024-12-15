@@ -2,7 +2,7 @@
 
 import type {Config, Options} from '../src'
 import {existsSync} from 'node:fs'
-import {join, resolve} from 'path'
+import {join, resolve} from 'node:path'
 import {execa} from 'execa'
 import fg from 'fast-glob'
 import fs from 'fs-extra'
