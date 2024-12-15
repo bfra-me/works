@@ -5,7 +5,7 @@ import datauri from 'datauri'
 import fetchMock from 'fetch-mock'
 import {afterEach, beforeEach, describe, expect, it} from 'vitest'
 
-import FetchError from '../src/errors/fetchError.js'
+import FetchError from '../src/errors/FetchError.js'
 import APICore from '../src/index.js'
 
 describe('APICore', () => {
@@ -85,12 +85,12 @@ describe('APICore', () => {
         await petstore
           .fetch('/pets/{id}', 'delete', undefined, {id: petId})
           .then(() => assert.fail())
-          .catch(err => {
-            expect(err).toBeInstanceOf(FetchError)
-            expect(err.status).toBe(404)
-            expect(err.data).toBe('Could not find that pet.')
-            expect(err.headers).toHaveHeader('content-type', /text\/plain/)
-            expect(err.res.constructor.name).toBe('Response')
+          .catch(error => {
+            expect(error).toBeInstanceOf(FetchError)
+            expect(error.status).toBe(404)
+            expect(error.data).toBe('Could not find that pet.')
+            expect(error.headers).toHaveHeader('content-type', /text\/plain/)
+            expect(error.res.constructor.name).toBe('Response')
           })
       })
     })

@@ -6,8 +6,8 @@ export function HelloWorld({
 
       // TODO: Don't use random in render
   let num = Math
-  .floor (Math.random() * 1E+7).toString()
-    .replace(/\.\d+/g, "")
+  .floor (Math.random() * 1e+7).toString()
+    .replaceAll(/\.\d+/g, "")
 
   return <div className='HelloWorld' title={`You are visitor number ${ num }`} onMouseOver={onMouseOver}>
     <strong>{ greeting.slice( 0, 1 ).toUpperCase() + greeting.slice(1).toLowerCase() }</strong>

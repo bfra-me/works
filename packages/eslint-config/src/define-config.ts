@@ -73,7 +73,7 @@ export async function defineConfig(
 
   if (enableGitignore) {
     const gitignoreOptions: FlatGitignoreOptions =
-      typeof enableGitignore !== 'boolean' ? enableGitignore : {strict: false}
+      enableGitignore === true ? {strict: false} : enableGitignore
 
     configs.push(
       interopDefault(import('eslint-config-flat-gitignore')).then(ignore => [

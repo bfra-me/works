@@ -8,7 +8,7 @@ import oasToHar from '@readme/oas-to-har'
 import fetchHar from 'fetch-har'
 import Oas from 'oas'
 
-import FetchError from './errors/fetchError.js'
+import FetchError from './errors/FetchError.js'
 import {parseResponse, prepareAuth, prepareParams, prepareServer} from './lib/index.js'
 
 export default class APICore {

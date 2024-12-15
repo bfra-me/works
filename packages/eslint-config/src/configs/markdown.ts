@@ -69,7 +69,7 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
               'prettier/prettier': [
                 'error',
                 {
-                  ...(typeof prettier !== 'boolean' ? prettier : {}),
+                  ...(prettier === true ? {} : prettier),
                   embeddedLanguageFormatting: 'off',
                   parser: 'markdown',
                 },

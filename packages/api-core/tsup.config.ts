@@ -17,7 +17,7 @@ export default defineConfig((options: Options) => ({
   ...options,
   ...config,
 
-  entry: ['src/errors/fetchError.ts', 'src/lib/index.ts', 'src/index.ts', 'src/types.ts'],
+  entry: ['src/errors/FetchError.ts', 'src/lib/index.ts', 'src/index.ts', 'src/types.ts'],
 
   noExternal: [
     // These dependencies are ESM-only but because we're building for ESM **and** CJS we can't
