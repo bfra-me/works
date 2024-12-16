@@ -11,7 +11,7 @@ const people: Person[] = [
   age: 35 }
 ];
 
- 
+// eslint-disable-next-line no-console
 const log = console.log
 
 // Use a for...of loop to iterate over the array
@@ -73,7 +73,7 @@ const dog = new Dog('Buddy');
 dog.bark();
 
 const fn = (): string => {
-  return 'hello' + 1
+  return `hello${  1}`
 }
 
 log(car1, car2, favoriteFruit, numericValue, fn())
