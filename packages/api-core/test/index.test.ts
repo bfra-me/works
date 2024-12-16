@@ -1,5 +1,6 @@
 import assert from 'node:assert'
 
+import {Buffer} from 'node:buffer'
 import {loadSpec, responses as mockResponse} from '@api/test-utils'
 import datauri from 'datauri'
 import fetchMock from 'fetch-mock'

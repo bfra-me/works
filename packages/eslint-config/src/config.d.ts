@@ -37,6 +37,7 @@ export type ConfigNames =
   | '@bfra.me/javascript/rules'
   | '@bfra.me/jsx'
   | '@bfra.me/eslint-comments/rules'
+  | '@bfra.me/node'
   | '@bfra.me/jsdoc'
   | '@bfra.me/imports'
   | '@bfra.me/command'

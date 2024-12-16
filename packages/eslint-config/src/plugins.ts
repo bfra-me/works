@@ -12,6 +12,7 @@ export async function interopDefault<T>(
 export {default as eslintComments} from '@eslint-community/eslint-plugin-eslint-comments'
 export {default as importX} from 'eslint-plugin-import-x'
 export {default as jsdoc} from 'eslint-plugin-jsdoc'
+export {default as node} from 'eslint-plugin-n'
 export {default as perfectionist} from 'eslint-plugin-perfectionist'
 export {default as unicorn} from 'eslint-plugin-unicorn'
 export {default as unusedImports} from 'eslint-plugin-unused-imports'
