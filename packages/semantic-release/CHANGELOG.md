@@ -1,5 +1,11 @@
 # @bfra.me/semantic-release
 
+## 0.1.16
+### Patch Changes
+
+
+- Apply linter fixes. ([#760](https://github.com/bfra-me/works/pull/760))
+
 ## 0.1.15
 ### Patch Changes
 

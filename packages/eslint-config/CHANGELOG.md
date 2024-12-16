@@ -1,5 +1,20 @@
 # @bfra.me/eslint-config
 
+## 0.12.0
+### Minor Changes
+
+
+- Extend rules for ES. ([#760](https://github.com/bfra-me/works/pull/760))
+
+
+- Add config for Node.js via `eslint-config-n`. ([#758](https://github.com/bfra-me/works/pull/758))
+
+
+### Patch Changes
+
+
+- Updated dependency `eslint-plugin-perfectionist` to `4.3.0`. ([#755](https://github.com/bfra-me/works/pull/755))
+
 ## 0.11.0
 ### Minor Changes
 
