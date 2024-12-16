@@ -1,6 +1,4 @@
-import type {Options} from 'tsup'
-
-import {defineConfig} from 'tsup'
+import {defineConfig, type Options} from 'tsup'
 
 const config: Options = {
   cjsInterop: true,
