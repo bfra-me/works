@@ -1,5 +1,11 @@
 # @bfra.me/tsconfig
 
+## 0.9.6
+### Patch Changes
+
+
+- Fix linter errors. ([#758](https://github.com/bfra-me/works/pull/758))
+
 ## 0.9.5
 ### Patch Changes
 
