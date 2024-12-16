@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises'
+import process from 'node:process'
 import {run} from '@sxzz/create'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
 import {createPackage} from '../src/index.js'

@@ -1,8 +1,8 @@
+import process from 'node:process'
 import cac from 'cac'
 import consola from 'consola'
 import {name, version} from '../package.json'
 import {createPackage} from './index.js'
-// const {name} = await import('../package.json', {assert: {type: 'json'}})
 
 const cli = cac(name)
 

@@ -1,5 +1,6 @@
 import assert from 'node:assert'
 import path from 'node:path'
+import process from 'node:process'
 import {describe, it} from 'node:test'
 import ts from 'typescript'
 
