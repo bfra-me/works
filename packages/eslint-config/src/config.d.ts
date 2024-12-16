@@ -8,12 +8,6 @@ import type {Rules} from './rules'
 export type {FlatConfigComposer, ResolvableFlatConfig}
 
 /**
- * Represents a value that resolves to one or more ESLint flat configurations.
- * @see https://jsr.io/@antfu/eslint-flat-config-utils/doc/~/ResolvableFlatConfig
- */
-export type AwaitableFlatConfig = ResolvableFlatConfig<Config>
-
-/**
  * Represents the configuration for the linter.
  * This interface extends the {@link Linter.Config} interface, expanding {@link Rules} to include the rules defined in all configurations.
  *
@@ -22,10 +16,10 @@ export type AwaitableFlatConfig = ResolvableFlatConfig<Config>
 export interface Config extends Linter.Config<Linter.RulesRecord & Rules> {}
 
 /**
- * Defines a 'composer' for ESLint flat configurations.
- * @see https://jsr.io/@antfu/eslint-flat-config-utils/doc/~/FlatConfigComposer
+ * Represents a value that resolves to one or more ESLint flat configurations.
+ * @see https://jsr.io/@antfu/eslint-flat-config-utils/doc/~/ResolvableFlatConfig
  */
-export type ConfigComposer = FlatConfigComposer<Config, ConfigNames>
+export type AwaitableFlatConfig = ResolvableFlatConfig<Config>
 
 /**
  * Defines the names of the available ESLint configurations.
@@ -69,3 +63,9 @@ export type ConfigNames =
   | '@bfra.me/epilogue/commonjs'
   | '@bfra.me/epilogue/dts'
   | '@bfra.me/epilogue'
+
+/**
+ * Defines a 'composer' for ESLint flat configurations.
+ * @see https://jsr.io/@antfu/eslint-flat-config-utils/doc/~/FlatConfigComposer
+ */
+export type ConfigComposer = FlatConfigComposer<Config, ConfigNames>
