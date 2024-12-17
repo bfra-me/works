@@ -1,5 +1,12 @@
 # @bfra.me/eslint-config
 
+## 0.12.1
+### Patch Changes
+
+
+- Updated dependency `eslint` to `9.17.0`. ([#761](https://github.com/bfra-me/works/pull/761))
+  Updated dependency `@eslint/js` to `9.17.0`.
+
 ## 0.12.0
 ### Minor Changes
 

@@ -1,5 +1,11 @@
 # @bfra.me/prettier-config
 
+## 0.13.7
+### Patch Changes
+
+
+- Add `80-proof` preset. ([#765](https://github.com/bfra-me/works/pull/765))
+
 ## 0.13.6
 ### Patch Changes
 
