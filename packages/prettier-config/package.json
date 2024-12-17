@@ -26,6 +26,7 @@
       "source": "./src/index.ts",
       "default": "./lib/index.js"
     },
+    "./80-proof": "./lib/80-proof.js",
     "./100-proof": "./lib/index.js",
     "./120-proof": "./lib/120-proof.js",
     "./semi/*": "./lib/*.js?semi=true",

@@ -19,6 +19,7 @@ afterAll(async () => {
 })
 
 testPreset('default')
+testPreset('80-proof', '80-proof')
 testPreset('100-proof', '100-proof')
 testPreset('120-proof', '120-proof')
 
