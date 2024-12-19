@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@types/caseless": "0.12.5",
-    "oas": "25.1.0",
+    "oas": "25.2.0",
     "typescript": "5.7.2"
   }
 }
