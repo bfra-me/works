@@ -179,8 +179,8 @@ importers:
         specifier: 0.2.6
         version: 0.2.6(eslint@9.17.0(jiti@2.4.1))
       eslint-plugin-import-x:
-        specifier: 4.5.0
-        version: 4.5.0(eslint@9.17.0(jiti@2.4.1))(typescript@5.7.2)
+        specifier: 4.5.1
+        version: 4.5.1(eslint@9.17.0(jiti@2.4.1))(typescript@5.7.2)
       eslint-plugin-jsdoc:
         specifier: 50.6.1
         version: 50.6.1(eslint@9.17.0(jiti@2.4.1))
@@ -1478,6 +1478,9 @@ packages:
   '@types/debug@4.1.12':
     resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
 
+  '@types/doctrine@0.0.9':
+    resolution: {integrity: sha512-eOIHzCUSH7SMfonMG1LsC2f8vxBFtho6NGBznK41R84YzPuvSBzrhEps33IsQiOW9+VL6NQ9DbjQJznk/S4uRA==}
+
   '@types/eslint-config-prettier@6.11.3':
     resolution: {integrity: sha512-3wXCiM8croUnhg9LdtZUJQwNcQYGWxxdOWDjPe1ykCqJFPVpzAKfs/2dgSoCtAvdPeaponcWPI7mPcGGp9dkKQ==}
 
@@ -2229,8 +2232,8 @@ packages:
     peerDependencies:
       eslint: '>=8'
 
-  eslint-plugin-import-x@4.5.0:
-    resolution: {integrity: sha512-l0OTfnPF8RwmSXfjT75N8d6ZYLVrVYWpaGlgvVkVqFERCI5SyBfDP7QEMr3kt0zWi2sOa9EQ47clbdFsHkF83Q==}
+  eslint-plugin-import-x@4.5.1:
+    resolution: {integrity: sha512-Wyut9jDeHdfZSebiWRmmOYDBov33M0ZZ3x9J/lD1v4M3nBgMNC02XH6Kq271pMxJWqctVRCjA+X5AQJZ2FezoQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0
@@ -5782,6 +5785,8 @@ snapshots:
     dependencies:
       '@types/ms': 0.7.34
 
+  '@types/doctrine@0.0.9': {}
+
   '@types/eslint-config-prettier@6.11.3': {}
 
   '@types/estree@1.0.6': {}
@@ -6608,8 +6613,9 @@ snapshots:
       eslint: 9.17.0(jiti@2.4.1)
       eslint-compat-utils: 0.5.1(eslint@9.17.0(jiti@2.4.1))
 
-  eslint-plugin-import-x@4.5.0(eslint@9.17.0(jiti@2.4.1))(typescript@5.7.2):
+  eslint-plugin-import-x@4.5.1(eslint@9.17.0(jiti@2.4.1))(typescript@5.7.2):
     dependencies:
+      '@types/doctrine': 0.0.9
       '@typescript-eslint/scope-manager': 8.18.1
       '@typescript-eslint/utils': 8.18.1(eslint@9.17.0(jiti@2.4.1))(typescript@5.7.2)
       debug: 4.4.0
