@@ -32,6 +32,7 @@ export async function yaml(options: YamlOptions = {}): Promise<Config[]> {
         parser: parserYaml,
       },
       rules: {
+        ...(pluginYaml.configs.base.overrides[0]?.rules as OptionsOverrides['overrides']),
         ...(pluginYaml.configs.standard.rules as OptionsOverrides['overrides']),
         ...(prettier ? (pluginYaml.configs.prettier.rules as OptionsOverrides['overrides']) : {}),
 
