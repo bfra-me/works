@@ -1,5 +1,29 @@
 # @bfra.me/eslint-config
 
+## 0.12.2
+### Patch Changes
+
+
+- Include base rules from `eslint-plugin-yml` in the YAML config. ([#777](https://github.com/bfra-me/works/pull/777))
+
+
+- Updated dependency `typescript-eslint` to `8.18.1`. ([#768](https://github.com/bfra-me/works/pull/768))
+  Updated dependency `@typescript-eslint/types` to `8.18.1`.
+
+- Updated dependency `eslint-plugin-command` to `0.2.7`. ([#774](https://github.com/bfra-me/works/pull/774))
+
+
+- Updated dependency `jiti` to `2.4.2`. ([#778](https://github.com/bfra-me/works/pull/778))
+
+
+- Updated dependency `eslint-plugin-import-x` to `4.5.1`. ([#773](https://github.com/bfra-me/works/pull/773))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.1.17`. ([#772](https://github.com/bfra-me/works/pull/772))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.1.18`. ([#779](https://github.com/bfra-me/works/pull/779))
+
 ## 0.12.1
 ### Patch Changes
 
