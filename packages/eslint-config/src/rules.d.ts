@@ -4798,7 +4798,7 @@ export interface Rules {
    */
   'vitest/prefer-todo'?: Linter.RuleEntry<[]>
   /**
-   * Prefer `vi.mocked()` over `fn as Mock`
+   * require `vi.mocked()` over `fn as Mock`
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-vi-mocked.md
    */
   'vitest/prefer-vi-mocked'?: Linter.RuleEntry<[]>
@@ -4833,7 +4833,7 @@ export interface Rules {
    */
   'vitest/valid-expect'?: Linter.RuleEntry<VitestValidExpect>
   /**
-   * Require promises that have expectations in their chain to be valid
+   * require promises that have expectations in their chain to be valid
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/valid-expect-in-promise.md
    */
   'vitest/valid-expect-in-promise'?: Linter.RuleEntry<[]>
