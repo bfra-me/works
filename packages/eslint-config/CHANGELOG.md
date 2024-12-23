@@ -1,5 +1,35 @@
 # @bfra.me/eslint-config
 
+## 0.13.0
+### Minor Changes
+
+
+- Move `jiti` to dependencies. ([#796](https://github.com/bfra-me/works/pull/796))
+
+
+### Patch Changes
+
+
+- Updated dependency `eslint-plugin-n` to `17.15.1`. ([#794](https://github.com/bfra-me/works/pull/794))
+
+
+- Updated dependency `globals` to `15.14.0`. ([#782](https://github.com/bfra-me/works/pull/782))
+
+
+- Updated dependency `eslint-plugin-perfectionist` to `4.4.0`. ([#789](https://github.com/bfra-me/works/pull/789))
+
+
+- Updated dependency `eslint-plugin-import-x` to `4.6.0`. ([#785](https://github.com/bfra-me/works/pull/785))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.1.20`. ([#788](https://github.com/bfra-me/works/pull/788))
+
+
+- Updated dependency `eslint-plugin-import-x` to `4.6.1`. ([#786](https://github.com/bfra-me/works/pull/786))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.1.19`. ([#787](https://github.com/bfra-me/works/pull/787))
+
 ## 0.12.2
 ### Patch Changes
 
