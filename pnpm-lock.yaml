@@ -214,6 +214,9 @@ importers:
       is-in-ci:
         specifier: 1.0.0
         version: 1.0.0
+      jiti:
+        specifier: 2.4.2
+        version: 2.4.2
       jsonc-eslint-parser:
         specifier: 2.4.0
         version: 2.4.0
@@ -269,9 +272,6 @@ importers:
       eslint-typegen:
         specifier: 0.3.2
         version: 0.3.2(eslint@9.17.0(jiti@2.4.2))
-      jiti:
-        specifier: 2.4.2
-        version: 2.4.2
       tsup:
         specifier: 8.3.5
         version: 8.3.5(@microsoft/api-extractor@7.48.1(@types/node@22.10.2))(@swc/core@1.9.2)(jiti@2.4.2)(postcss@8.4.49)(tsx@4.19.2)(typescript@5.7.2)(yaml@2.6.1)
