@@ -1,5 +1,14 @@
 # @bfra.me/create
 
+## 0.2.4
+### Patch Changes
+
+
+- Updated dependency `@clack/prompts` to `0.9.0`. ([#790](https://github.com/bfra-me/works/pull/790))
+
+
+- Updated dependency `consola` to `3.3.0`. ([#792](https://github.com/bfra-me/works/pull/792))
+
 ## 0.2.3
 ### Patch Changes
 
