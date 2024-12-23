@@ -62,6 +62,7 @@
     "eslint-plugin-yml": "1.16.0",
     "globals": "15.14.0",
     "is-in-ci": "1.0.0",
+    "jiti": "2.4.2",
     "jsonc-eslint-parser": "2.4.0",
     "local-pkg": "0.5.1",
     "toml-eslint-parser": "0.10.0",
@@ -82,7 +83,6 @@
     "eslint-plugin-no-only-tests": "3.3.0",
     "eslint-plugin-prettier": "5.2.1",
     "eslint-typegen": "0.3.2",
-    "jiti": "2.4.2",
     "tsup": "8.3.5",
     "tsx": "4.19.2"
   },
