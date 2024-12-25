@@ -1,12 +1,15 @@
 import type {Config} from '../config'
 import type {Flatten, OptionsFiles, OptionsOverrides} from '../options'
-import {GLOB_JSON, GLOB_JSON5, GLOB_JSONC} from '../globs'
+import {anyParser} from '../parsers/any-parser'
 import {interopDefault} from '../plugins'
-
+import {requireOf} from '../require-of'
+import {fallback} from './fallback'
 /**
  * Represents the options for configuring JSONC files in the ESLint configuration.
  */
 export type JsoncOptions = Flatten<OptionsFiles & OptionsOverrides>
+
+export const jsoncFiles = ['*.json', '*.json5', '*.jsonc'].flatMap(p => [p, `**/${p}`])
 
 /**
  * Configures the ESLint rules for JSONC files.
@@ -14,26 +17,28 @@ export type JsoncOptions = Flatten<OptionsFiles & OptionsOverrides>
  * @see https://ota-meshi.github.io/eslint-plugin-jsonc/
  */
 export async function jsonc(options: JsoncOptions = {}): Promise<Config[]> {
-  const {files = [GLOB_JSONC, GLOB_JSON, GLOB_JSON5], overrides = {}} = options
-  const [pluginJsonc, parserJsonc] = await Promise.all([
-    interopDefault(import('eslint-plugin-jsonc')),
-    interopDefault(import('jsonc-eslint-parser')),
-  ] as const)
+  const {files = jsoncFiles, overrides = {}} = options
 
-  return [
-    {
-      name: '@bfra.me/jsonc/plugins',
-      plugins: {jsonc: pluginJsonc as any},
+  return requireOf(
+    ['eslint-plugin-jsonc'],
+    async () => {
+      const pluginJsonc = await interopDefault(import('eslint-plugin-jsonc'))
+
+      return [
+        ...(pluginJsonc.configs['flat/base'] as unknown as Config[]),
+        {
+          name: '@bfra.me/jsonc',
+          files,
+          rules: {
+            ...overrides,
+          },
+        },
+      ]
     },
-    {
-      name: '@bfra.me/jsonc',
-      files,
-      languageOptions: {
-        parser: parserJsonc,
-      },
-      rules: {
-        ...overrides,
-      },
-    },
-  ]
+    async missingList =>
+      fallback(missingList, {
+        files,
+        languageOptions: {parser: anyParser},
+      }),
+  )
 }
