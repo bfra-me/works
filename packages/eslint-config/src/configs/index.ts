@@ -1,6 +1,7 @@
 export * from './command'
 export * from './epilogue'
 export * from './eslint-comments'
+export * from './fallback'
 export * from './ignores'
 export * from './imports'
 export * from './javascript'
