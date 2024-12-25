@@ -1,5 +1,23 @@
 # @bfra.me/eslint-config
 
+## 0.14.0
+### Minor Changes
+
+
+- Migrate more config presets to use `requireOf`. ([#804](https://github.com/bfra-me/works/pull/804))
+
+
+- Add support for installing missing package dependencies as applied fixes. ([#800](https://github.com/bfra-me/works/pull/800))
+
+
+- Update prettier config to use `requireOf` and disable for Markdown code blocks. ([#802](https://github.com/bfra-me/works/pull/802))
+
+
+- Add support for JSON schema validation. ([#803](https://github.com/bfra-me/works/pull/803))
+
+
+- Refactor jsonc, toml, and yaml configs to use `require-of`. Remove redundant deps. ([#801](https://github.com/bfra-me/works/pull/801))
+
 ## 0.13.0
 ### Minor Changes
 
