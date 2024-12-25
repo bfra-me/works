@@ -1511,6 +1511,11 @@ export interface Rules {
    */
   'jsdoc/valid-types'?: Linter.RuleEntry<JsdocValidTypes>
   /**
+   * validate object with JSON Schema.
+   * @see https://ota-meshi.github.io/eslint-plugin-json-schema-validator/rules/no-invalid.html
+   */
+  'json-schema-validator/no-invalid'?: Linter.RuleEntry<JsonSchemaValidatorNoInvalid>
+  /**
    * enforce line breaks after opening and before closing array brackets
    * @see https://ota-meshi.github.io/eslint-plugin-jsonc/rules/array-bracket-newline.html
    */
@@ -7128,6 +7133,21 @@ type JsdocTextEscaping = []|[{
 type JsdocValidTypes = []|[{
   allowEmptyNamepaths?: boolean
 }]
+// ----- json-schema-validator/no-invalid -----
+type JsonSchemaValidatorNoInvalid = []|[(string | {
+  schemas?: {
+    name?: string
+    description?: string
+    
+    fileMatch: [string, ...(string)[]]
+    schema: ({
+      [k: string]: unknown | undefined
+    } | string)
+    [k: string]: unknown | undefined
+  }[]
+  useSchemastoreCatalog?: boolean
+  mergeSchemas?: (boolean | [("$schema" | "catalog" | "options"), ("$schema" | "catalog" | "options"), ...(("$schema" | "catalog" | "options"))[]])
+})]
 // ----- jsonc/array-bracket-newline -----
 type JsoncArrayBracketNewline = []|[(("always" | "never" | "consistent") | {
   multiline?: boolean
