@@ -36,7 +36,7 @@ export type ConfigNames =
   | '@bfra.me/imports'
   | '@bfra.me/command'
   | '@bfra.me/prettier'
-  | '@bfra.me/prettier/disable'
+  | '@bfra.me/prettier/overrides'
   | '@bfra.me/perfectionist'
   | '@bfra.me/unicorn'
   | '@bfra.me/typescript/plugins'

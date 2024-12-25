@@ -8,6 +8,34 @@ import {interopDefault} from '../plugins'
  */
 export type MarkdownOptions = Flatten<OptionsFiles & OptionsOverrides & OptionsPrettier>
 
+export const mdFiles = [`*.md`].flatMap(p => [p, `**/${p}`])
+
+export const codeInMdFiles = mdFiles.flatMap(p => [
+  `${p}/*.js`,
+  `${p}/*.jsx`,
+  `${p}/*.cjs`,
+  `${p}/*.mjs`,
+  `${p}/*.ts`,
+  `${p}/*.tsx`,
+  `${p}/*.cts`,
+  `${p}/*.mts`,
+])
+
+export const extInMdFiles = [
+  ...codeInMdFiles,
+  ...mdFiles.flatMap(p => [
+    `${p}/*.json`,
+    `${p}/*.json5`,
+    `${p}/*.jsonc`,
+    `${p}/*.toml`,
+    `${p}/*.yml`,
+    `${p}/*.yaml`,
+    `${p}/*.vue`,
+    `${p}/*.svelte`,
+    `${p}/*.astro`,
+  ]),
+]
+
 /**
  * Configures the ESLint rules for Markdown files.
  * @param options - The configuration options for Markdown files.
