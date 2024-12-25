@@ -4,6 +4,7 @@ import {anyParser} from '../parsers/any-parser'
 import {interopDefault} from '../plugins'
 import {requireOf} from '../require-of'
 import {fallback} from './fallback'
+import {jsonSchema} from './json-schema'
 
 /**
  * Represents the options for configuring TOML files in the ESLint configuration.
@@ -25,7 +26,13 @@ export async function toml(options: TomlOptions = {}): Promise<Config[]> {
       const pluginToml = await interopDefault(import('eslint-plugin-toml'))
 
       return [
-        ...(pluginToml.configs['flat/standard'] as Config[]),
+        ...(pluginToml.configs['flat/standard'] as Config[]).map((config: Config, index) => ({
+          ...config,
+          name: config.plugins
+            ? `@bfra.me/toml/plugins`
+            : `@bfra.me/${config.name || `toml/unnamed${index}`}`,
+        })),
+        ...(await jsonSchema('toml', files as string[])),
         {
           name: '@bfra.me/toml',
           files,

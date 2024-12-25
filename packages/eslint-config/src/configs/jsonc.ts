@@ -4,6 +4,7 @@ import {anyParser} from '../parsers/any-parser'
 import {interopDefault} from '../plugins'
 import {requireOf} from '../require-of'
 import {fallback} from './fallback'
+import {jsonSchema} from './json-schema'
 /**
  * Represents the options for configuring JSONC files in the ESLint configuration.
  */
@@ -25,7 +26,15 @@ export async function jsonc(options: JsoncOptions = {}): Promise<Config[]> {
       const pluginJsonc = await interopDefault(import('eslint-plugin-jsonc'))
 
       return [
-        ...(pluginJsonc.configs['flat/base'] as unknown as Config[]),
+        ...(pluginJsonc.configs['flat/base'] as unknown as Config[]).map(
+          (config: Config, index) => ({
+            ...config,
+            name: config.plugins
+              ? `@bfra.me/jsonc/plugins`
+              : `@bfra.me/${config.name || `jsonc/unnamed${index}`}`,
+          }),
+        ),
+        ...(await jsonSchema('jsonc', files as string[])),
         {
           name: '@bfra.me/jsonc',
           files,

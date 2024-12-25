@@ -7,6 +7,6 @@ import {composer} from 'eslint-flat-config-utils'
  * @param configs - The configuration names to compose.
  * @returns The composed ESLint configuration object.
  */
-// @ts-expect-error - TypeScript insists that the return type should be `Promise<T>`, but it's aa type which acts like a `Promise<T>`.
-export const composeConfig = async (...configs: AwaitableFlatConfig[]): ConfigComposer =>
+// eslint-disable-next-line @typescript-eslint/promise-function-async
+export const composeConfig = (...configs: AwaitableFlatConfig[]): ConfigComposer =>
   composer<Config, ConfigNames>(...configs)
