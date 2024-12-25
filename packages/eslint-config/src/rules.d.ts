@@ -5,6 +5,11 @@ import type { Linter } from 'eslint'
 
 export interface Rules {
   /**
+   * Missing module for config
+   * @see https://github.com/bfra-me/works
+   */
+  '@bfra.me/missing-module-for-config'?: Linter.RuleEntry<BfraMeMissingModuleForConfig>
+  /**
    * Require that function overload signatures be consecutive
    * @see https://typescript-eslint.io/rules/adjacent-overload-signatures
    */
@@ -5008,6 +5013,8 @@ export interface Rules {
 }
 
 /* ======= Declarations ======= */
+// ----- @bfra.me/missing-module-for-config -----
+type BfraMeMissingModuleForConfig = []|[string[]]
 // ----- @typescript-eslint/array-type -----
 type TypescriptEslintArrayType = []|[{
   

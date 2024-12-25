@@ -1,19 +1,23 @@
 import fs from 'node:fs/promises'
 import {flatConfigsToRulesDTS} from 'eslint-typegen/core'
 import {builtinRules} from 'eslint/use-at-your-own-risk'
+import {fallback} from '../src/configs'
 import {defineConfig} from '../src/define-config'
 
-const configs = await defineConfig({
-  plugins: {
-    '': {
-      rules: Object.fromEntries(builtinRules),
+const configs = await defineConfig(
+  {
+    plugins: {
+      '': {
+        rules: Object.fromEntries(builtinRules),
+      },
     },
+    typescript: {
+      tsconfigPath: 'tsconfig.json',
+    },
+    vitest: true,
   },
-  typescript: {
-    tsconfigPath: 'tsconfig.json',
-  },
-  vitest: true,
-})
+  fallback([]),
+)
 
 const rulesTypeName = 'Rules'
 const rulesDts = await flatConfigsToRulesDTS(configs, {

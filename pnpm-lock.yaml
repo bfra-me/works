@@ -223,6 +223,12 @@ importers:
       local-pkg:
         specifier: 0.5.1
         version: 0.5.1
+      package-manager-detector:
+        specifier: 0.2.8
+        version: 0.2.8
+      pkg-dir:
+        specifier: 8.0.0
+        version: 8.0.0
       toml-eslint-parser:
         specifier: 0.10.0
         version: 0.10.0
@@ -3550,8 +3556,8 @@ packages:
     resolution: {integrity: sha512-ua1L4OgXSBdsu1FPb7F3tYH0F48a6kxvod4pLUlGY9COeJAJQNX/sNH2IiEmsxw7lqYiAwrdHMjz1FctOsyDQg==}
     engines: {node: '>=18'}
 
-  package-manager-detector@0.2.7:
-    resolution: {integrity: sha512-g4+387DXDKlZzHkP+9FLt8yKj8+/3tOkPv7DVTJGGRm00RkEWgqbFstX1mXJ4M0VDYhUqsTOiISqNOJnhAu3PQ==}
+  package-manager-detector@0.2.8:
+    resolution: {integrity: sha512-ts9KSdroZisdvKMWVAVCXiKqnqNfXz4+IbrBG8/BWx/TR5le+jfenvoBuIZ6UWM9nz47W7AbD9qYfAwfWMIwzA==}
 
   parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
@@ -3667,6 +3673,10 @@ packages:
   pkg-conf@2.1.0:
     resolution: {integrity: sha512-C+VUP+8jis7EsQZIhDYmS5qlNtjv2yP4SNtjXK9AP1ZcTRlnSfuumaTnRfYZnYgUUYVIKqL0fRvmUGDV2fmp6g==}
     engines: {node: '>=4'}
+
+  pkg-dir@8.0.0:
+    resolution: {integrity: sha512-4peoBq4Wks0riS0z8741NVv+/8IiTvqnZAr8QGgtdifrtpdXbNw/FxRS1l6NFqm4EMzuS0EDqNNx4XGaz8cuyQ==}
+    engines: {node: '>=18'}
 
   pkg-types@1.2.1:
     resolution: {integrity: sha512-sQoqa8alT3nHjGuTjuKgOnvjo4cljkufdtLMnO2LBP/wRwuDlo1tkaEdMxCRhyGRPacv/ztlZgDPm2b7FAmEvw==}
@@ -4655,7 +4665,7 @@ snapshots:
       fs-extra: 7.0.1
       mri: 1.2.0
       p-limit: 2.3.0
-      package-manager-detector: 0.2.7
+      package-manager-detector: 0.2.8
       picocolors: 1.1.1
       resolve-from: 5.0.0
       semver: 7.6.3
@@ -7951,7 +7961,7 @@ snapshots:
       registry-url: 6.0.1
       semver: 7.6.3
 
-  package-manager-detector@0.2.7: {}
+  package-manager-detector@0.2.8: {}
 
   parent-module@1.0.1:
     dependencies:
@@ -8040,6 +8050,10 @@ snapshots:
     dependencies:
       find-up: 2.1.0
       load-json-file: 4.0.0
+
+  pkg-dir@8.0.0:
+    dependencies:
+      find-up-simple: 1.0.0
 
   pkg-types@1.2.1:
     dependencies:
