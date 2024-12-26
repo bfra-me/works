@@ -5071,7 +5071,7 @@ type TypescriptEslintConsistentTypeAssertions = []|[({
   assertionStyle: "never"
 } | {
   
-  assertionStyle: ("as" | "angle-bracket")
+  assertionStyle?: ("as" | "angle-bracket")
   
   objectLiteralTypeAssertions?: ("allow" | "allow-as-parameter" | "never")
 })]
