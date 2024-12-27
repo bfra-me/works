@@ -78,8 +78,10 @@ function installPackageSync(packages: string | string[], options: {cwd: string; 
     {cwd: options.cwd, maxBuffer: Infinity, stdio: 'inherit', windowsHide: true},
   )
 
-  if (result.error) {
-    throw result.error
+  if (result.error || result.status !== 0) {
+    const errorMessage =
+      result.error?.message || `Package installation failed with status ${result.status}`
+    throw new Error(errorMessage)
   }
 
   return `${result.output}`
