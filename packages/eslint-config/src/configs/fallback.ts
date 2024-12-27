@@ -5,6 +5,7 @@ import {interopDefault} from '../plugins'
 export type FallbackOptions = {
   files?: Config['files']
   languageOptions?: Config['languageOptions']
+  name?: Config['name']
 }
 
 export async function fallback(
