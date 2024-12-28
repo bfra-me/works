@@ -1,5 +1,5 @@
 import type {FlatGitignoreOptions} from 'eslint-config-flat-gitignore'
-import type {AwaitableFlatConfig, Config, ConfigComposer} from './config'
+import type {Config, ConfigNames, FlatConfigComposer, ResolvableFlatConfig} from './config'
 import type {Options} from './options'
 import {isPackageExists} from 'local-pkg'
 import {composeConfig} from './compose-config'
@@ -49,12 +49,12 @@ const AllowedConfigPropertiesForOptions = [
  * @param userConfigs - Additional ESLint configs to include.
  * @returns A composable ESLint config.
  */
-export async function defineConfig(
+export async function defineConfig<C extends Config = Config, CN extends ConfigNames = ConfigNames>(
   options: Options = {},
-  ...userConfigs: AwaitableFlatConfig[]
+  ...userConfigs: ResolvableFlatConfig<Config extends C ? C : Config>[]
   // @ts-expect-error - TypeScript insists that the return type should be `Promise<T>`, but it's actually
   // `FlatConfigComposer<>` which acts like a `Promise<T>`.
-): ConfigComposer {
+): FlatConfigComposer<Config extends C ? C : Config, CN> {
   const {
     gitignore: enableGitignore = true,
     jsx: enableJsx = true,
