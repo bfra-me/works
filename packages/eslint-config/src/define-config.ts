@@ -14,6 +14,7 @@ import {
   jsonc,
   markdown,
   node,
+  packageJson,
   perfectionist,
   prettier,
   regexp,
@@ -57,6 +58,7 @@ export async function defineConfig(
   const {
     gitignore: enableGitignore = true,
     jsx: enableJsx = true,
+    packageJson: enablePackageJson = false,
     perfectionist: enablePerfectionist = true,
     prettier: enablePrettier = isPackageExists('prettier'),
     regexp: enableRegexp = true,
@@ -95,6 +97,10 @@ export async function defineConfig(
     imports(),
     command(),
   )
+
+  if (enablePackageJson) {
+    configs.push(packageJson(resolveSubOptions(options, 'packageJson')))
+  }
 
   if (enablePrettier) {
     configs.push(

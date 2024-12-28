@@ -194,6 +194,13 @@ export type Options = Flatten<
     markdown?: boolean | (OptionsOverrides & OptionsPrettier)
 
     /**
+     * Enable support for package.json files.
+     *
+     * @default false
+     */
+    packageJson?: boolean | OptionsFiles
+
+    /**
      * Options to override the behavior of Perfectionist sorting rules.
      */
     perfectionist?: boolean | OptionsPerfectionist

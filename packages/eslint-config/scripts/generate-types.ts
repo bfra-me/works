@@ -6,6 +6,7 @@ import {defineConfig} from '../src/define-config'
 
 const configs = await defineConfig(
   {
+    packageJson: true,
     plugins: {
       '': {
         rules: Object.fromEntries(builtinRules),

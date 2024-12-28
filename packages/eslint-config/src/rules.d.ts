@@ -2706,6 +2706,52 @@ export interface Rules {
    */
   'no-with'?: Linter.RuleEntry<[]>
   /**
+   * require or disallow absolute version of dependency.
+   * @see https://ota-meshi.github.io/eslint-plugin-node-dependencies/rules/absolute-version.html
+   */
+  'node-dependencies/absolute-version'?: Linter.RuleEntry<NodeDependenciesAbsoluteVersion>
+  /**
+   * enforce the versions of the engines of the dependencies to be compatible.
+   * @see https://ota-meshi.github.io/eslint-plugin-node-dependencies/rules/compat-engines.html
+   */
+  'node-dependencies/compat-engines'?: Linter.RuleEntry<NodeDependenciesCompatEngines>
+  /**
+   * disallow having dependencies on deprecate packages.
+   * @see https://ota-meshi.github.io/eslint-plugin-node-dependencies/rules/no-deprecated.html
+   */
+  'node-dependencies/no-deprecated'?: Linter.RuleEntry<NodeDependenciesNoDeprecated>
+  /**
+   * disallow duplicate dependencies.
+   * @see https://ota-meshi.github.io/eslint-plugin-node-dependencies/rules/no-dupe-deps.html
+   */
+  'node-dependencies/no-dupe-deps'?: Linter.RuleEntry<[]>
+  /**
+   * Disallows dependence on the specified package.
+   * @see https://ota-meshi.github.io/eslint-plugin-node-dependencies/rules/no-restricted-deps.html
+   */
+  'node-dependencies/no-restricted-deps'?: Linter.RuleEntry<NodeDependenciesNoRestrictedDeps>
+  /**
+   * require caret(`^`) version instead of range version.
+   * @see https://ota-meshi.github.io/eslint-plugin-node-dependencies/rules/prefer-caret-range-version.html
+   */
+  'node-dependencies/prefer-caret-range-version'?: Linter.RuleEntry<[]>
+  /**
+   * require tilde(`~`) version instead of range version.
+   * @see https://ota-meshi.github.io/eslint-plugin-node-dependencies/rules/prefer-tilde-range-version.html
+   */
+  'node-dependencies/prefer-tilde-range-version'?: Linter.RuleEntry<[]>
+  /**
+   * enforce the versions of the engines of the dependencies to be compatible.
+   * @see https://ota-meshi.github.io/eslint-plugin-node-dependencies/rules/valid-engines.html
+   * @deprecated
+   */
+  'node-dependencies/valid-engines'?: Linter.RuleEntry<NodeDependenciesValidEngines>
+  /**
+   * enforce versions that is valid as a semantic version.
+   * @see https://ota-meshi.github.io/eslint-plugin-node-dependencies/rules/valid-semver.html
+   */
+  'node-dependencies/valid-semver'?: Linter.RuleEntry<[]>
+  /**
    * require `return` statements after callbacks
    * @see https://github.com/eslint-community/eslint-plugin-n/blob/HEAD/docs/rules/callback-return.md
    */
@@ -8304,6 +8350,42 @@ type NoWarningComments = []|[{
   location?: ("start" | "anywhere")
   
   decoration?: [string, ...(string)[]]
+}]
+// ----- node-dependencies/absolute-version -----
+type NodeDependenciesAbsoluteVersion = []|[(("always" | "never") | {
+  dependencies?: ("always" | "never" | "ignore")
+  peerDependencies?: ("always" | "never" | "ignore")
+  optionalDependencies?: ("always" | "never" | "ignore")
+  devDependencies?: ("always" | "never" | "ignore")
+  overridePackages?: {
+    [k: string]: (("always" | "never" | "ignore") | {
+      dependencies?: ("always" | "never" | "ignore")
+      peerDependencies?: ("always" | "never" | "ignore")
+      optionalDependencies?: ("always" | "never" | "ignore")
+      devDependencies?: ("always" | "never" | "ignore")
+    })
+  }
+})]
+// ----- node-dependencies/compat-engines -----
+type NodeDependenciesCompatEngines = []|[{
+  deep?: boolean
+  comparisonType?: ("normal" | "major")
+}]
+// ----- node-dependencies/no-deprecated -----
+type NodeDependenciesNoDeprecated = []|[{
+  devDependencies?: boolean
+}]
+// ----- node-dependencies/no-restricted-deps -----
+type NodeDependenciesNoRestrictedDeps = (string | {
+  package: string
+  version?: string
+  message?: string
+  deep?: ("local" | "server")
+})[]
+// ----- node-dependencies/valid-engines -----
+type NodeDependenciesValidEngines = []|[{
+  deep?: boolean
+  comparisonType?: ("normal" | "major")
 }]
 // ----- node/callback-return -----
 type NodeCallbackReturn = []|[string[]]
