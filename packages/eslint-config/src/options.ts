@@ -1,6 +1,5 @@
 import type {ParserOptions} from '@typescript-eslint/types'
 import type {FlatGitignoreOptions} from 'eslint-config-flat-gitignore'
-import type {Config as PrettierConfig} from 'prettier'
 import type {Config} from './config'
 
 /**
@@ -68,14 +67,6 @@ export interface OptionsPerfectionist {
    * @default true
    */
   sortImports?: boolean
-}
-
-export interface OptionsPrettier {
-  /**
-   * Whether to enable Prettier code formatting.
-   * @default true
-   */
-  prettier?: boolean | PrettierConfig
 }
 
 /**
@@ -191,7 +182,7 @@ export type Options = Flatten<
     /**
      * Options to override the behavior of linting Markdown files.
      */
-    markdown?: boolean | (OptionsOverrides & OptionsPrettier)
+    markdown?: boolean | OptionsOverrides
 
     /**
      * Enable support for package.json files.
@@ -208,7 +199,7 @@ export type Options = Flatten<
     /**
      * Options to override the behavior of the Prettier code formatter.
      */
-    prettier?: boolean | (OptionsOverrides & PrettierConfig)
+    prettier?: boolean | OptionsOverrides
 
     /**
      * Options to override the behavior of RegExp linting rules.
@@ -248,6 +239,6 @@ export type Options = Flatten<
      *
      * @default true
      */
-    yaml?: boolean | (OptionsOverrides & OptionsPrettier)
+    yaml?: boolean | OptionsOverrides
   } & Omit<Config, 'files'>
 >

@@ -1,9 +1,12 @@
 import type {Config} from '../config'
 import type {Flatten, OptionsIsInEditor, OptionsOverrides} from '../options'
+import process from 'node:process'
+import {isPackageExists} from 'local-pkg'
 import {interopDefault} from '../plugins'
 import {requireOf} from '../require-of'
 import {fallback} from './fallback'
-import {extInMdFiles} from './markdown'
+import {extInMdFiles, mdFiles} from './markdown'
+import {tomlFiles} from './toml'
 
 /**
  * Represents the options for the ESLint Prettier configuration.
@@ -20,9 +23,17 @@ export async function prettier(options: PrettierOptions = {}): Promise<Config[]>
   return requireOf(
     ['eslint-config-prettier', 'eslint-plugin-prettier', 'prettier'],
     async () => {
-      const [configPrettier, pluginPrettier] = await Promise.all([
+      // Disable deprecated rules before importing eslint-config-prettier
+      process.env.ESLINT_CONFIG_PRETTIER_NO_DEPRECATED ??= 'true'
+      const [configPrettier, pluginPrettier, pluginJsonc, pluginYaml] = await Promise.all([
         interopDefault(import('eslint-config-prettier')),
         interopDefault(import('eslint-plugin-prettier')),
+        isPackageExists('eslint-plugin-jsonc')
+          ? interopDefault(import('eslint-plugin-jsonc'))
+          : undefined,
+        isPackageExists('eslint-plugin-yml')
+          ? interopDefault(import('eslint-plugin-yml'))
+          : undefined,
       ])
 
       return [
@@ -32,12 +43,45 @@ export async function prettier(options: PrettierOptions = {}): Promise<Config[]>
             prettier: pluginPrettier,
           },
           rules: {
-            ...configPrettier.rules,
-            ...(pluginPrettier.configs?.recommended as Config).rules,
-
             ...(isInEditor ? {} : {'prettier/prettier': 'error'}),
 
+            ...configPrettier.rules,
+
+            ...(pluginJsonc?.configs.prettier.rules as OptionsOverrides['overrides']),
+
+            'toml/array-bracket-newline': 'off',
+            'toml/array-bracket-spacing': 'off',
+            'toml/array-element-newline': 'off',
+            'toml/indent': 'off',
+            'toml/inline-table-curly-spacing': 'off',
+            'toml/key-spacing': 'off',
+            'toml/table-bracket-spacing': 'off',
+
+            ...(pluginYaml?.configs.prettier.rules as OptionsOverrides['overrides']),
+
             ...overrides,
+          },
+        },
+        {
+          name: '@bfra.me/prettier/markdown',
+          files: mdFiles,
+          rules: {
+            'prettier/prettier': [
+              'error',
+              {
+                embeddedLanguageFormatting: 'off',
+                parser: 'markdown',
+              },
+            ],
+          },
+        },
+        {
+          name: '@bfra.me/prettier/toml',
+          files: tomlFiles,
+          rules: {
+            // TODO: Detect if the TOML plugin for Prettier is installed
+            // and if so, use the Prettier rules
+            'prettier/prettier': 'off',
           },
         },
         {
@@ -47,7 +91,7 @@ export async function prettier(options: PrettierOptions = {}): Promise<Config[]>
             'prettier/prettier': 'off',
           },
         },
-      ]
+      ] as Config[]
     },
     fallback,
   )

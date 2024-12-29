@@ -102,15 +102,6 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
     configs.push(packageJson(resolveSubOptions(options, 'packageJson')))
   }
 
-  if (enablePrettier) {
-    configs.push(
-      prettier({
-        isInEditor,
-        overrides: getOverrides(options, 'prettier'),
-      }),
-    )
-  }
-
   if (enablePerfectionist) {
     configs.push(
       perfectionist({
@@ -157,7 +148,6 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
     configs.push(
       toml({
         overrides: getOverrides(options, 'toml'),
-        prettier: enablePrettier,
       }),
     )
   }
@@ -166,7 +156,6 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
     configs.push(
       yaml({
         overrides: getOverrides(options, 'yaml'),
-        prettier: enablePrettier,
       }),
     )
   }
@@ -175,7 +164,15 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
     configs.push(
       markdown({
         overrides: getOverrides(options, 'markdown'),
-        prettier: enablePrettier,
+      }),
+    )
+  }
+
+  if (enablePrettier) {
+    configs.push(
+      prettier({
+        isInEditor,
+        overrides: getOverrides(options, 'prettier'),
       }),
     )
   }

@@ -5,7 +5,7 @@ export default defineConfig({
     js: "import {createRequire} from 'node:module';const require=createRequire(import.meta.url);",
   },
   clean: true,
-  dts: {resolve: [/^prettier$/]},
+  dts: true,
   entry: ['src/index.ts'],
   external: ['eslint-config-prettier', 'eslint-plugin-prettier'],
   format: ['esm'],
