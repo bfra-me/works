@@ -30,9 +30,7 @@
     "tsconfig.json"
   ],
   "scripts": {
-    "compile-tests": "tsc --project ./test",
-    "run-tests": "node --test ./test/lib/*.test.js",
-    "test": "pnpm compile-tests && pnpm run-tests"
+    "test": "vitest"
   },
   "devDependencies": {
     "@bfra.me/tsconfig": "workspace:*",
