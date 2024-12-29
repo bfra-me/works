@@ -1,5 +1,5 @@
 import type {Config} from '../config'
-import type {Flatten, OptionsFiles, OptionsOverrides, OptionsPrettier} from '../options'
+import type {Flatten, OptionsFiles, OptionsOverrides} from '../options'
 import {interopDefault} from '../plugins'
 import {requireOf} from '../require-of'
 import {fallback} from './fallback'
@@ -7,7 +7,7 @@ import {fallback} from './fallback'
 /**
  * Represents the options for configuring Markdown files in the ESLint configuration.
  */
-export type MarkdownOptions = Flatten<OptionsFiles & OptionsOverrides & OptionsPrettier>
+export type MarkdownOptions = Flatten<OptionsFiles & OptionsOverrides>
 
 export const mdFiles = [`*.md`].flatMap(p => [p, `**/${p}`])
 
@@ -43,7 +43,7 @@ export const extInMdFiles = [
  * @see https://eslint.github.io/eslint-plugin-markdown/
  */
 export async function markdown(options: MarkdownOptions = {}): Promise<Config[]> {
-  const {files = mdFiles, overrides = {}, prettier = true} = options
+  const {files = mdFiles, overrides = {}} = options
   return requireOf(
     ['@eslint/markdown'],
     async () => {
@@ -53,6 +53,7 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
           ? pluginMarkdown.configs.processor.map(config => ({
               ...config,
               name: `@bfra.me/${config.name || 'unnamed'}`,
+              ...(config.name?.endsWith('processor') ? {files} : {}),
             }))
           : []),
 
@@ -91,25 +92,6 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
             ...overrides,
           },
         },
-
-        ...(prettier
-          ? [
-              {
-                name: '@bfra.me/markdown/prettier',
-                files,
-                rules: {
-                  'prettier/prettier': [
-                    'error',
-                    {
-                      ...(prettier === true ? {} : prettier),
-                      embeddedLanguageFormatting: 'off',
-                      parser: 'markdown',
-                    },
-                  ] as const,
-                },
-              },
-            ]
-          : []),
       ] as Config[]
     },
     fallback,

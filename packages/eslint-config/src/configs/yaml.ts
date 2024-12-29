@@ -1,5 +1,5 @@
 import type {Config} from '../config'
-import type {Flatten, OptionsFiles, OptionsOverrides, OptionsPrettier} from '../options'
+import type {Flatten, OptionsFiles, OptionsOverrides} from '../options'
 import {anyParser} from '../parsers/any-parser'
 import {interopDefault} from '../plugins'
 import {requireOf} from '../require-of'
@@ -9,7 +9,7 @@ import {jsonSchema} from './json-schema'
 /**
  * Represents the options for configuring YAML files in the ESLint configuration.
  */
-export type YamlOptions = Flatten<OptionsFiles & OptionsOverrides & OptionsPrettier>
+export type YamlOptions = Flatten<OptionsFiles & OptionsOverrides>
 
 export const yamlFiles = ['*.yaml', '*.yml'].flatMap(p => [p, `**/${p}`])
 
@@ -19,7 +19,7 @@ export const yamlFiles = ['*.yaml', '*.yml'].flatMap(p => [p, `**/${p}`])
  * @see https://ota-meshi.github.io/eslint-plugin-yml/
  */
 export async function yaml(options: YamlOptions = {}): Promise<Config[]> {
-  const {files = yamlFiles, overrides = {}, prettier = true} = options
+  const {files = yamlFiles, overrides = {}} = options
   return requireOf(
     ['eslint-plugin-yml'],
     async () => {
@@ -37,10 +37,6 @@ export async function yaml(options: YamlOptions = {}): Promise<Config[]> {
           name: '@bfra.me/yaml',
           files,
           rules: {
-            ...(prettier
-              ? (pluginYaml.configs.prettier.rules as OptionsOverrides['overrides'])
-              : {}),
-
             'yml/no-empty-mapping-value': 'off',
 
             ...overrides,
