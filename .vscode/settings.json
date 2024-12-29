@@ -37,8 +37,6 @@
 
     "cSpell.words": ["bfra", "frameworkers", "readmeio"],
 
-    "prettier.enable": false,
-
     "typescript.enablePromptUseWorkspaceTsdk": true,
     "typescript.tsdk": "node_modules/typescript/lib"
 }

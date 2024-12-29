@@ -26,8 +26,8 @@ export async function vitest(options: VitestOptions = {}): Promise<Config[]> {
 
   return requireOf(
     ['@vitest/eslint-plugin', 'eslint-plugin-no-only-tests'],
-    async () => {
-      const [vitestPlugin, noOnlyTests] = await Promise.all([
+    async (): Promise<Config[]> => {
+      const [vitest, noOnlyTests] = await Promise.all([
         interopDefault(import('@vitest/eslint-plugin')),
         // @ts-expect-error - No types
         interopDefault(import('eslint-plugin-no-only-tests')),
@@ -35,29 +35,37 @@ export async function vitest(options: VitestOptions = {}): Promise<Config[]> {
 
       return [
         {
-          name: '@bfra.me/vitest/plugin',
+          name: '@bfra.me/vitest/plugins',
           plugins: {
             vitest: {
-              ...vitestPlugin,
+              ...vitest,
               rules: {
-                ...vitestPlugin.rules,
+                ...vitest.rules,
                 ...noOnlyTests.rules,
-              } as typeof vitestPlugin.rules,
+              } as typeof vitest.rules,
+            },
+          },
+          settings: {
+            vitest: {
+              typecheck: true,
             },
           },
         },
         {
-          name: '@bfra.me/vitest/rules',
+          ...(vitest.configs?.env ?? {}),
+
+          name: '@bfra.me/vitest',
           files,
 
           rules: {
-            // ...vitestPlugin.configs.recommended.rules,
+            ...(vitest.configs?.recommended.rules ?? {}),
 
             '@typescript-eslint/explicit-function-return-type': 'off',
 
             'no-unused-expressions': 'off',
 
             'vitest/no-only-tests': isInEditor ? 'warn' : 'error',
+            'vitest/valid-title': ['error', {allowArguments: true}],
 
             ...overrides,
           },
