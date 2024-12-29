@@ -1,5 +1,11 @@
 # @bfra.me/create
 
+## 0.2.6
+### Patch Changes
+
+
+- Updated dependency `consola` to `3.3.1`. ([#805](https://github.com/bfra-me/works/pull/805))
+
 ## 0.2.5
 ### Patch Changes
 

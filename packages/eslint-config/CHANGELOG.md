@@ -1,5 +1,41 @@
 # @bfra.me/eslint-config
 
+## 0.15.0
+### Minor Changes
+
+
+- Add a config preset for validating dependencies in package.json files. ([#813](https://github.com/bfra-me/works/pull/813))
+
+
+- Add @vitest/eslint-plugin recommended rules to vitest config. ([#819](https://github.com/bfra-me/works/pull/819))
+
+
+- Simplify Prettier config and extend to JSON[5|C] files. ([#816](https://github.com/bfra-me/works/pull/816))
+
+
+- Refactor package code into separate module; update `missing-module-for-config` rule output. ([#809](https://github.com/bfra-me/works/pull/809))
+
+
+- Simplify types and improve interoperability. ([#815](https://github.com/bfra-me/works/pull/815))
+
+
+### Patch Changes
+
+
+- Wrap remaining configs with `requireOf`. ([#808](https://github.com/bfra-me/works/pull/808))
+
+
+- Improve error handling. ([#810](https://github.com/bfra-me/works/pull/810))
+
+
+- Updated dependency `typescript-eslint` to `8.18.2`. ([#807](https://github.com/bfra-me/works/pull/807))
+  Updated dependency `@typescript-eslint/types` to `8.18.2`.
+
+- Improve types. ([#810](https://github.com/bfra-me/works/pull/810))
+
+
+- Add support for naming the fallback config. ([#811](https://github.com/bfra-me/works/pull/811))
+
 ## 0.14.0
 ### Minor Changes
 
