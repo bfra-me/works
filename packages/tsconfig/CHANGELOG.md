@@ -1,5 +1,11 @@
 # @bfra.me/tsconfig
 
+## 0.9.7
+### Patch Changes
+
+
+- Switch from the Node.js test runner to Vitest. ([#817](https://github.com/bfra-me/works/pull/817))
+
 ## 0.9.6
 ### Patch Changes
 

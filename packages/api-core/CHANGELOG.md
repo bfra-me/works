@@ -1,5 +1,11 @@
 # @bfra.me/api-core
 
+## 0.2.0
+### Minor Changes
+
+
+- Increase engine version range for the `fetch-har` dependency. ([#812](https://github.com/bfra-me/works/pull/812))
+
 ## 0.1.11
 ### Patch Changes
 
