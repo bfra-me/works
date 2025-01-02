@@ -142,7 +142,8 @@ export async function typescript(options: TypeScriptOptions = {}): Promise<Confi
             '@typescript-eslint/no-misused-new': 'error',
             '@typescript-eslint/no-non-null-assertion': 'warn',
             '@typescript-eslint/no-require-imports': 'error',
-            '@typescript-eslint/no-unused-vars': 'error',
+            // This is reported by `unused-imports/no-unused-vars`
+            '@typescript-eslint/no-unused-vars': 'off',
             '@typescript-eslint/no-useless-constructor': 'error',
             '@typescript-eslint/prefer-for-of': 'warn',
             '@typescript-eslint/prefer-function-type': 'warn',
