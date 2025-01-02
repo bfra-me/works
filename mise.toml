@@ -3,3 +3,5 @@ _.path = [
     # adds a path relative to the mise.toml, not PWD
     "./node_modules/.bin",
 ]
+
+NODE_OPTIONS = '--experimental-print-required-tla --no-experimental-require-module --trace-warnings'
