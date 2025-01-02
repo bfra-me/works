@@ -43,7 +43,7 @@ export async function prettier(options: PrettierOptions = {}): Promise<Config[]>
             prettier: pluginPrettier,
           },
           rules: {
-            ...(isInEditor ? {} : {'prettier/prettier': 'error'}),
+            'prettier/prettier': isInEditor ? 'warn' : 'error',
 
             ...configPrettier.rules,
 
