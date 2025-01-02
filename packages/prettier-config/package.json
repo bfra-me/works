@@ -33,7 +33,7 @@
     "./semi": "./lib/index.js?semi=true",
     "./*/semi": "./lib/*.js?semi=true",
     "./package.json": "./package.json",
-    "./prettier.config": "./prettier.config.js"
+    "./prettier.config": "./prettier.config.mjs"
   },
   "main": "./lib/index.js",
   "module": "./lib/index.js",
@@ -42,12 +42,12 @@
     "lib",
     "src",
     "index.json",
-    "prettier.config.js",
+    "prettier.config.mjs",
     "!**/*.map"
   ],
   "scripts": {
     "build": "tsup",
-    "postbuild": "prettier --config ./prettier.config.js --ignore-path .prettierignore --log-level warn --write .",
+    "postbuild": "prettier --config ./prettier.config.mjs --ignore-path .prettierignore --log-level warn --write .",
     "prepack": "pnpm --filter-prod=\"{.}...\" --loglevel error run build",
     "test": "pnpm --filter-prod=\"{.}...\" --loglevel error run build && vitest"
   },

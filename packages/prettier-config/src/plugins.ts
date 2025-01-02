@@ -5,10 +5,7 @@ const resolvedPlugins: Record<string, string | Plugin<any>> = {
   '@bfra.me/prettier-plugins/package-json': PluginPackageJson,
 }
 
-export async function resolve(
-  resolver: (id: string) => string,
-  plugin: string,
-): Promise<string | Plugin<any>> {
+export function resolve(resolver: (id: string) => string, plugin: string): string | Plugin<any> {
   try {
     if (!resolvedPlugins[plugin]) {
       const resolved = resolver(plugin)

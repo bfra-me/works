@@ -19,6 +19,7 @@ export default defineConfig([
     // Bundle the config and dependencies into a single file.
     noExternal: [/^@bfra.me\//],
     outDir: '.',
+    outExtension: () => ({js: '.mjs'}),
     shims: true,
     sourcemap: true,
     splitting: false,

@@ -6,4 +6,4 @@
 packages/api-core/test-utils/sdks/
 packages/eslint-config/.eslint-config-inspector
 packages/eslint-config/src/*.d.ts
-packages/prettier-config/prettier.config.js
+packages/prettier-config/prettier.config.mjs
