@@ -1,5 +1,20 @@
 # @bfra.me/eslint-config
 
+## 0.15.1
+### Patch Changes
+
+
+- Disable conflicting TypeScript rule. ([#829](https://github.com/bfra-me/works/pull/829))
+
+
+- Fix Prettier formatting when ESLint is run in an IDE. ([#828](https://github.com/bfra-me/works/pull/828))
+
+
+- Updated dependency `typescript-eslint` to `8.19.0`. ([#832](https://github.com/bfra-me/works/pull/832))
+  Updated dependency `@typescript-eslint/types` to `8.19.0`.
+
+- Updated dependency `@vitest/eslint-plugin` to `1.1.22`. ([#818](https://github.com/bfra-me/works/pull/818))
+
 ## 0.15.0
 ### Minor Changes
 
