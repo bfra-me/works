@@ -8814,7 +8814,11 @@ type PerfectionistSortArrayIncludes = {
   
   locales?: (string | string[])
   
-  groups?: (string | string[])[]
+  groups?: (string | string[] | {
+    
+    newlinesBetween?: ("ignore" | "always" | "never")
+    [k: string]: unknown | undefined
+  })[]
   
   order?: ("asc" | "desc")
 }[]
@@ -8885,7 +8889,11 @@ type PerfectionistSortClasses = []|[{
   
   locales?: (string | string[])
   
-  groups?: (string | string[])[]
+  groups?: (string | string[] | {
+    
+    newlinesBetween?: ("ignore" | "always" | "never")
+    [k: string]: unknown | undefined
+  })[]
   
   order?: ("asc" | "desc")
 }]
@@ -8922,7 +8930,11 @@ type PerfectionistSortDecorators = []|[{
   
   locales?: (string | string[])
   
-  groups?: (string | string[])[]
+  groups?: (string | string[] | {
+    
+    newlinesBetween?: ("ignore" | "always" | "never")
+    [k: string]: unknown | undefined
+  })[]
   
   order?: ("asc" | "desc")
 }]
@@ -8995,7 +9007,11 @@ type PerfectionistSortHeritageClauses = []|[{
   
   locales?: (string | string[])
   
-  groups?: (string | string[])[]
+  groups?: (string | string[] | {
+    
+    newlinesBetween?: ("ignore" | "always" | "never")
+    [k: string]: unknown | undefined
+  })[]
   
   order?: ("asc" | "desc")
 }]
@@ -9044,7 +9060,11 @@ type _PerfectionistSortImportsSortImports = (_PerfectionistSortImportsMaxLineLen
   
   locales?: (string | string[])
   
-  groups?: (string | string[])[]
+  groups?: (string | string[] | {
+    
+    newlinesBetween?: ("ignore" | "always" | "never")
+    [k: string]: unknown | undefined
+  })[]
   
   order?: ("asc" | "desc")
 })
@@ -9121,7 +9141,11 @@ type PerfectionistSortInterfaces = {
   
   locales?: (string | string[])
   
-  groups?: (string | string[])[]
+  groups?: (string | string[] | {
+    
+    newlinesBetween?: ("ignore" | "always" | "never")
+    [k: string]: unknown | undefined
+  })[]
   
   order?: ("asc" | "desc")
 }[]
@@ -9148,7 +9172,11 @@ type PerfectionistSortIntersectionTypes = []|[{
   
   locales?: (string | string[])
   
-  groups?: (string | string[])[]
+  groups?: (string | string[] | {
+    
+    newlinesBetween?: ("ignore" | "always" | "never")
+    [k: string]: unknown | undefined
+  })[]
   
   order?: ("asc" | "desc")
 }]
@@ -9171,7 +9199,11 @@ type PerfectionistSortJsxProps = []|[{
   
   locales?: (string | string[])
   
-  groups?: (string | string[])[]
+  groups?: (string | string[] | {
+    
+    newlinesBetween?: ("ignore" | "always" | "never")
+    [k: string]: unknown | undefined
+  })[]
   
   order?: ("asc" | "desc")
 }]
@@ -9259,7 +9291,11 @@ type PerfectionistSortModules = []|[{
   
   locales?: (string | string[])
   
-  groups?: (string | string[])[]
+  groups?: (string | string[] | {
+    
+    newlinesBetween?: ("ignore" | "always" | "never")
+    [k: string]: unknown | undefined
+  })[]
   
   order?: ("asc" | "desc")
 }]
@@ -9381,7 +9417,11 @@ type PerfectionistSortObjectTypes = {
   
   locales?: (string | string[])
   
-  groups?: (string | string[])[]
+  groups?: (string | string[] | {
+    
+    newlinesBetween?: ("ignore" | "always" | "never")
+    [k: string]: unknown | undefined
+  })[]
   
   order?: ("asc" | "desc")
 }[]
@@ -9429,7 +9469,11 @@ type PerfectionistSortObjects = {
   
   locales?: (string | string[])
   
-  groups?: (string | string[])[]
+  groups?: (string | string[] | {
+    
+    newlinesBetween?: ("ignore" | "always" | "never")
+    [k: string]: unknown | undefined
+  })[]
   
   order?: ("asc" | "desc")
 }[]
@@ -9489,7 +9533,11 @@ type PerfectionistSortSets = {
   
   locales?: (string | string[])
   
-  groups?: (string | string[])[]
+  groups?: (string | string[] | {
+    
+    newlinesBetween?: ("ignore" | "always" | "never")
+    [k: string]: unknown | undefined
+  })[]
   
   order?: ("asc" | "desc")
 }[]
@@ -9531,7 +9579,11 @@ type PerfectionistSortUnionTypes = []|[{
   
   locales?: (string | string[])
   
-  groups?: (string | string[])[]
+  groups?: (string | string[] | {
+    
+    newlinesBetween?: ("ignore" | "always" | "never")
+    [k: string]: unknown | undefined
+  })[]
   
   order?: ("asc" | "desc")
 }]
