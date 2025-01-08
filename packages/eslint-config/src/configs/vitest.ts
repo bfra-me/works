@@ -65,6 +65,7 @@ export async function vitest(options: VitestOptions = {}): Promise<Config[]> {
             'no-unused-expressions': 'off',
 
             'vitest/no-only-tests': isInEditor ? 'warn' : 'error',
+            // @ts-expect-error - @vitest/eslint-plugin types are incorrect
             'vitest/valid-title': ['error', {allowArguments: true}],
 
             ...overrides,
