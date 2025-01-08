@@ -1,5 +1,38 @@
 # @bfra.me/eslint-config
 
+## 0.16.0
+### Minor Changes
+
+
+- Avoid bundling development dependencies. ([#841](https://github.com/bfra-me/works/pull/841))
+
+
+### Patch Changes
+
+
+- Disable conflicting TypeScript rule. ([#829](https://github.com/bfra-me/works/pull/829))
+
+
+- Fix Prettier formatting when ESLint is run in an IDE. ([#828](https://github.com/bfra-me/works/pull/828))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.1.24`. ([#836](https://github.com/bfra-me/works/pull/836))
+
+
+- Updated dependency `eslint-plugin-perfectionist` to `4.6.0`. ([#839](https://github.com/bfra-me/works/pull/839))
+
+
+- Updated dependency `typescript-eslint` to `8.19.0`. ([#832](https://github.com/bfra-me/works/pull/832))
+  Updated dependency `@typescript-eslint/types` to `8.19.0`.
+
+- Updated dependency `@vitest/eslint-plugin` to `1.1.22`. ([#818](https://github.com/bfra-me/works/pull/818))
+
+
+- Updated dependency `eslint-plugin-perfectionist` to `4.5.0`. ([#835](https://github.com/bfra-me/works/pull/835))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.1.23`. ([#833](https://github.com/bfra-me/works/pull/833))
+
 ## 0.15.0
 ### Minor Changes
 
