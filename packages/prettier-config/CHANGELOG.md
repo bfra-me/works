@@ -1,5 +1,11 @@
 # @bfra.me/prettier-config
 
+## 0.14.0
+### Minor Changes
+
+
+- Remove top-level `await`; change bundled config file extension to .mjs. ([#826](https://github.com/bfra-me/works/pull/826))
+
 ## 0.13.7
 ### Patch Changes
 

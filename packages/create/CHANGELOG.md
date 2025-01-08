@@ -1,5 +1,20 @@
 # @bfra.me/create
 
+## 0.2.7
+### Patch Changes
+
+
+- Updated dependency `memfs` to `4.15.2`. ([#831](https://github.com/bfra-me/works/pull/831))
+
+
+- Updated dependency `consola` to `3.3.2`. ([#820](https://github.com/bfra-me/works/pull/820))
+
+
+- Updated dependency `memfs` to `4.15.3`. ([#834](https://github.com/bfra-me/works/pull/834))
+
+
+- Updated dependency `consola` to `3.3.3`. ([#823](https://github.com/bfra-me/works/pull/823))
+
 ## 0.2.6
 ### Patch Changes
 
