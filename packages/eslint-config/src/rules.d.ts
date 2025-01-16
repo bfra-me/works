@@ -158,7 +158,7 @@ export interface Rules {
    * Disallow using code marked as `@deprecated`
    * @see https://typescript-eslint.io/rules/no-deprecated
    */
-  '@typescript-eslint/no-deprecated'?: Linter.RuleEntry<[]>
+  '@typescript-eslint/no-deprecated'?: Linter.RuleEntry<TypescriptEslintNoDeprecated>
   /**
    * Disallow duplicate class members
    * @see https://typescript-eslint.io/rules/no-dupe-class-members
@@ -276,6 +276,11 @@ export interface Rules {
    * @see https://typescript-eslint.io/rules/no-misused-promises
    */
   '@typescript-eslint/no-misused-promises'?: Linter.RuleEntry<TypescriptEslintNoMisusedPromises>
+  /**
+   * Disallow using the spread operator when it might cause unexpected behavior
+   * @see https://typescript-eslint.io/rules/no-misused-spread
+   */
+  '@typescript-eslint/no-misused-spread'?: Linter.RuleEntry<TypescriptEslintNoMisusedSpread>
   /**
    * Disallow enums from having both number and string members
    * @see https://typescript-eslint.io/rules/no-mixed-enums
@@ -5117,6 +5122,8 @@ type TypescriptEslintConsistentTypeAssertions = []|[({
   assertionStyle: "never"
 } | {
   
+  arrayLiteralTypeAssertions?: ("allow" | "allow-as-parameter" | "never")
+  
   assertionStyle?: ("as" | "angle-bracket")
   
   objectLiteralTypeAssertions?: ("allow" | "allow-as-parameter" | "never")
@@ -5573,6 +5580,22 @@ type TypescriptEslintNoConfusingVoidExpression = []|[{
   
   ignoreVoidReturningFunctions?: boolean
 }]
+// ----- @typescript-eslint/no-deprecated -----
+type TypescriptEslintNoDeprecated = []|[{
+  
+  allow?: (string | {
+    from: "file"
+    name: (string | [string, ...(string)[]])
+    path?: string
+  } | {
+    from: "lib"
+    name: (string | [string, ...(string)[]])
+  } | {
+    from: "package"
+    name: (string | [string, ...(string)[]])
+    package: string
+  })[]
+}]
 // ----- @typescript-eslint/no-duplicate-type-constituents -----
 type TypescriptEslintNoDuplicateTypeConstituents = []|[{
   
@@ -5714,6 +5737,22 @@ type TypescriptEslintNoMisusedPromises = []|[{
     variables?: boolean
   })
 }]
+// ----- @typescript-eslint/no-misused-spread -----
+type TypescriptEslintNoMisusedSpread = []|[{
+  
+  allow?: (string | {
+    from: "file"
+    name: (string | [string, ...(string)[]])
+    path?: string
+  } | {
+    from: "lib"
+    name: (string | [string, ...(string)[]])
+  } | {
+    from: "package"
+    name: (string | [string, ...(string)[]])
+    package: string
+  })[]
+}]
 // ----- @typescript-eslint/no-namespace -----
 type TypescriptEslintNoNamespace = []|[{
   
@@ -5789,7 +5828,7 @@ type TypescriptEslintNoShadow = []|[{
   
   builtinGlobals?: boolean
   
-  hoist?: ("all" | "functions" | "never")
+  hoist?: ("all" | "functions" | "functions-and-types" | "never" | "types")
   
   ignoreFunctionTypeParameterNameValueShadow?: boolean
   
