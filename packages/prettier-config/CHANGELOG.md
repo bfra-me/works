@@ -1,5 +1,11 @@
 # @bfra.me/prettier-config
 
+## 0.14.1
+### Patch Changes
+
+- Updated dependencies [[`86ea129`](https://github.com/bfra-me/works/commit/86ea12910efc6ad5e8e002dafd7d8d38e2a19312), [`1332a44`](https://github.com/bfra-me/works/commit/1332a44bf08d6ade3f010496f53ae072e85ab4f4)]:
+  - @bfra.me/prettier-plugins@0.5.8
+
 ## 0.14.0
 ### Minor Changes
 
