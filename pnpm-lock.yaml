@@ -105,8 +105,8 @@ importers:
         specifier: 25.2.1
         version: 25.2.1
       remove-undefined-objects:
-        specifier: 5.0.0
-        version: 5.0.0
+        specifier: 6.0.0
+        version: 6.0.0
     devDependencies:
       '@api/test-utils':
         specifier: file:./test-utils
@@ -3998,6 +3998,10 @@ packages:
 
   remove-undefined-objects@5.0.0:
     resolution: {integrity: sha512-DE8C17uIWeHaY4SqIkpQpHXm0MIdYHtIqjieWuh0I2PG8YcZRxFE6pqeEhnRetsrQ7Lu9uvSNQkDbg95NLpvnQ==}
+    engines: {node: '>=18'}
+
+  remove-undefined-objects@6.0.0:
+    resolution: {integrity: sha512-8fR4QQFV2xMKTYXazi1944rpr1f+JOzQu58TgUFi3xDu41fDon5qMXtjJ1/nhquOouTtJ621bKDrhE1IlOSP+A==}
     engines: {node: '>=18'}
 
   replace-in-file@8.3.0:
@@ -8621,6 +8625,8 @@ snapshots:
       jsesc: 0.5.0
 
   remove-undefined-objects@5.0.0: {}
+
+  remove-undefined-objects@6.0.0: {}
 
   replace-in-file@8.3.0:
     dependencies:
