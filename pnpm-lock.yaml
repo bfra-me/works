@@ -60,8 +60,8 @@ importers:
         specifier: 3.4.2
         version: 3.4.2
       publint:
-        specifier: 0.2.12
-        version: 0.2.12
+        specifier: 0.3.2
+        version: 0.3.2
       rimraf:
         specifier: 6.0.1
         version: 6.0.1
@@ -1175,6 +1175,10 @@ packages:
   '@pnpm/npm-conf@2.3.1':
     resolution: {integrity: sha512-c83qWb22rNRuB0UaVCI0uRPNRr8Z0FWnEIvT47jiHAmOIUHbBOg5XvV7pM5x+rKn9HRpjxquDbXYSXr3fAKFcw==}
     engines: {node: '>=12'}
+
+  '@publint/pack@0.1.1':
+    resolution: {integrity: sha512-TvCl79Y8v18ZhFGd5mjO1kYPovSBq3+4LVCi5Nfl1JI8fS8i8kXbgQFGwBJRXczim8GlW8c2LMBKTtExYXOy/A==}
+    engines: {node: '>=18'}
 
   '@readme/data-urls@3.0.0':
     resolution: {integrity: sha512-b0L7VWqbLZqOSSAFUrxS5ZwUfec35WDsAwwCH481vYnhk0dWO3nvmNVNCbP8CY4cXqwL1W4uCAnhDz+CUmXM3g==}
@@ -2551,9 +2555,6 @@ packages:
     resolution: {integrity: sha512-V/JgOLFCS+R6Vcq0slCuaeWEdNC3ouDlJMNIsacH2VtALiu9mV4LPrHc5cDl8k5aw6J8jwgWWpiTo5RYhmIzvg==}
     engines: {node: '>= 8'}
 
-  fs.realpath@1.0.0:
-    resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
-
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
@@ -2633,11 +2634,6 @@ packages:
     resolution: {integrity: sha512-9UiX/Bl6J2yaBbxKoEBRm4Cipxgok8kQYcOPEhScPwebu2I0HoQOuYdIO6S3hLuWoZgpDpwQZMzTFxgpkyT76g==}
     engines: {node: 20 || >=22}
     hasBin: true
-
-  glob@8.1.0:
-    resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
-    engines: {node: '>=12'}
-    deprecated: Glob versions prior to v9 are no longer supported
 
   globals@14.0.0:
     resolution: {integrity: sha512-oahGvuMGQlPw/ivIYBjVSrWAfWLBeku5tpPE2fOPLi+WHffIWbuh2tCjhyQhTBPMf5E9jDEH4FOmTYgYwbKwtQ==}
@@ -2763,10 +2759,6 @@ packages:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
     engines: {node: '>=0.10.0'}
 
-  ignore-walk@5.0.1:
-    resolution: {integrity: sha512-yemi4pMf51WKT7khInJqAvsIGzoqYXblnsz0ql8tM+yi1EKYTY1evX4NAbJrLL/Aanr2HyZeluqU+Oi7MGHokw==}
-    engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
-
   ignore@5.3.2:
     resolution: {integrity: sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==}
     engines: {node: '>= 4'}
@@ -2809,10 +2801,6 @@ packages:
   index-to-position@0.1.2:
     resolution: {integrity: sha512-MWDKS3AS1bGCHLBA2VLImJz42f7bJh8wQsTGCzI3j519/CASStoDONUBVz2I/VID0MpiX3SGSnbOD2xUalbE5g==}
     engines: {node: '>=18'}
-
-  inflight@1.0.6:
-    resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
-    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -3375,10 +3363,6 @@ packages:
   minimatch@3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
 
-  minimatch@5.1.6:
-    resolution: {integrity: sha512-lKwV/1brpG6mBUFHtb7NUmtABCb2WZZmm2wNiOA5hAb8VdCS4B3dtMWyvcoViccwAW/COERjXLt0zP1zXUN26g==}
-    engines: {node: '>=10'}
-
   minimatch@8.0.4:
     resolution: {integrity: sha512-W0Wvr9HyFXZRGIDgCicunpQ299OKXs9RgZfaukz4qAW/pJhcpUfupc9c+OObPOFueNy8VSrZgEmDtk6Kh4WzDA==}
     engines: {node: '>=16 || 14 >=14.17'}
@@ -3483,22 +3467,9 @@ packages:
     resolution: {integrity: sha512-IO9QvjUMWxPQQhs60oOu10CRkWCiZzSUkzbXGGV9pviYl1fXYcvkzQ5jV9z8Y6un8ARoVRl4EtC6v6jNqbaJ/w==}
     engines: {node: '>=14.16'}
 
-  npm-bundled@2.0.1:
-    resolution: {integrity: sha512-gZLxXdjEzE/+mOstGDqR6b0EkhJ+kM6fxM6vUuckuctuVPh80Q6pw/rSZj9s4Gex9GxWtIicO1pc8DB9KZWudw==}
-    engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
-
-  npm-normalize-package-bin@2.0.0:
-    resolution: {integrity: sha512-awzfKUO7v0FscrSpRoogyNm0sajikhBWpU0QMrW09AMi9n1PoKU6WaIqUzuJSQnpciZZmJ/jMZ2Egfmb/9LiWQ==}
-    engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
-
   npm-package-arg@10.1.0:
     resolution: {integrity: sha512-uFyyCEmgBfZTtrKk/5xDfHp6+MdrqGotX/VoOyEEl3mBwiEE5FlBaePanazJSVMPT7vKepcjYBY2ztg9A3yPIA==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
-
-  npm-packlist@5.1.3:
-    resolution: {integrity: sha512-263/0NGrn32YFYi4J533qzrQ/krmmrWwhKkzwTuM4f/07ug51odoaNjUexxO4vxlzURHcmYMH1QjvHjsNDKLVg==}
-    engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
-    hasBin: true
 
   npm-run-path@4.0.1:
     resolution: {integrity: sha512-S48WzZW777zhNIrn7gxOlISNAqi9ZC/uQFnRdbeIHhZhCA6UqpkOT8T1G7BvfdgP4Er8gF4sUbaS0i7QvIfCWw==}
@@ -3605,9 +3576,6 @@ packages:
 
   ohash@1.1.4:
     resolution: {integrity: sha512-FlDryZAahJmEF3VR3w1KogSEdWX3WhA5GPakFx4J81kEAiHyLMpdLLElS8n8dfNadMgAne/MywcvmogzscVt4g==}
-
-  once@1.4.0:
-    resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
 
   onetime@5.1.2:
     resolution: {integrity: sha512-kbpaSSGJTWdAY5KPVeMOKXSrPtr8C8C7wodJbcsd51jRnmD+GZu8Y0VoU6Dm5Z4vWr0Ig/1NKuWRKf7j5aaYSg==}
@@ -3908,9 +3876,9 @@ packages:
   proto-list@1.2.4:
     resolution: {integrity: sha512-vtK/94akxsTMhe0/cbfpR+syPuszcuwhqVjJq26CuNDgFGj682oRBXOP5MJpv2r7JtE8MsiepGIqvvOTBwn2vA==}
 
-  publint@0.2.12:
-    resolution: {integrity: sha512-YNeUtCVeM4j9nDiTT2OPczmlyzOkIXNtdDZnSuajAxS/nZ6j3t7Vs9SUB4euQNddiltIwu7Tdd3s+hr08fAsMw==}
-    engines: {node: '>=16'}
+  publint@0.3.2:
+    resolution: {integrity: sha512-fPs7QUbUvwixxPYUUTn0Kqp0rbH5rbiAOZwQOXMkIj+4Nopby1AngodSQmzTkJWTJ5R4uVV8oYmgVIjj+tgv1w==}
+    engines: {node: '>=18'}
     hasBin: true
 
   punycode@2.3.1:
@@ -4712,9 +4680,6 @@ packages:
   wrap-ansi@8.1.0:
     resolution: {integrity: sha512-si7QWI6zUMq56bESFvagtmzMdGOtoxfR+Sez11Mobfc7tm+VkUckk9bW2UeffTGVUbOksxmSw0AA2gs8g71NCQ==}
     engines: {node: '>=12'}
-
-  wrappy@1.0.2:
-    resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
 
   ws@8.18.0:
     resolution: {integrity: sha512-8VbfWfHLbbwu3+N6OKsOMpBdT4kXPDDB9cJk2bJ6mh9ucxdlnNvH1e+roYkKmN9Nxw2yjz7VzeO9oOz2zJ04Pw==}
@@ -5560,6 +5525,8 @@ snapshots:
       '@pnpm/config.env-replace': 1.1.0
       '@pnpm/network.ca-file': 1.0.2
       config-chain: 1.1.13
+
+  '@publint/pack@0.1.1': {}
 
   '@readme/data-urls@3.0.0': {}
 
@@ -7149,8 +7116,6 @@ snapshots:
     dependencies:
       minipass: 3.3.6
 
-  fs.realpath@1.0.0: {}
-
   fsevents@2.3.3:
     optional: true
 
@@ -7246,14 +7211,6 @@ snapshots:
       minipass: 7.1.2
       package-json-from-dist: 1.0.1
       path-scurry: 2.0.0
-
-  glob@8.1.0:
-    dependencies:
-      fs.realpath: 1.0.0
-      inflight: 1.0.6
-      inherits: 2.0.4
-      minimatch: 5.1.6
-      once: 1.4.0
 
   globals@14.0.0: {}
 
@@ -7388,10 +7345,6 @@ snapshots:
     dependencies:
       safer-buffer: 2.1.2
 
-  ignore-walk@5.0.1:
-    dependencies:
-      minimatch: 5.1.6
-
   ignore@5.3.2: {}
 
   image-size@1.0.0:
@@ -7433,11 +7386,6 @@ snapshots:
   indent-string@5.0.0: {}
 
   index-to-position@0.1.2: {}
-
-  inflight@1.0.6:
-    dependencies:
-      once: 1.4.0
-      wrappy: 1.0.2
 
   inherits@2.0.4: {}
 
@@ -8112,10 +8060,6 @@ snapshots:
     dependencies:
       brace-expansion: 1.1.11
 
-  minimatch@5.1.6:
-    dependencies:
-      brace-expansion: 2.0.1
-
   minimatch@8.0.4:
     dependencies:
       brace-expansion: 2.0.1
@@ -8204,25 +8148,12 @@ snapshots:
 
   normalize-url@8.0.1: {}
 
-  npm-bundled@2.0.1:
-    dependencies:
-      npm-normalize-package-bin: 2.0.0
-
-  npm-normalize-package-bin@2.0.0: {}
-
   npm-package-arg@10.1.0:
     dependencies:
       hosted-git-info: 6.1.3
       proc-log: 3.0.0
       semver: 7.6.3
       validate-npm-package-name: 5.0.1
-
-  npm-packlist@5.1.3:
-    dependencies:
-      glob: 8.1.0
-      ignore-walk: 5.0.1
-      npm-bundled: 2.0.1
-      npm-normalize-package-bin: 2.0.0
 
   npm-run-path@4.0.1:
     dependencies:
@@ -8265,10 +8196,6 @@ snapshots:
   object-inspect@1.13.3: {}
 
   ohash@1.1.4: {}
-
-  once@1.4.0:
-    dependencies:
-      wrappy: 1.0.2
 
   onetime@5.1.2:
     dependencies:
@@ -8518,9 +8445,10 @@ snapshots:
 
   proto-list@1.2.4: {}
 
-  publint@0.2.12:
+  publint@0.3.2:
     dependencies:
-      npm-packlist: 5.1.3
+      '@publint/pack': 0.1.1
+      package-manager-detector: 0.2.8
       picocolors: 1.1.1
       sade: 1.8.1
 
@@ -9353,8 +9281,6 @@ snapshots:
       ansi-styles: 6.2.1
       string-width: 5.1.2
       strip-ansi: 7.1.0
-
-  wrappy@1.0.2: {}
 
   ws@8.18.0: {}
 
