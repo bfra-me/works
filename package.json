@@ -48,7 +48,7 @@
     "fast-glob": "3.3.3",
     "fs-extra": "11.3.0",
     "prettier": "3.4.2",
-    "publint": "0.2.12",
+    "publint": "0.3.2",
     "rimraf": "6.0.1",
     "ts-essentials": "10.0.4",
     "type-fest": "4.32.0",
