@@ -1,5 +1,11 @@
 # @bfra.me/api-core
 
+## 0.2.1
+### Patch Changes
+
+
+- Updated dependency `typescript` to `5.7.3`. ([#851](https://github.com/bfra-me/works/pull/851))
+
 ## 0.2.0
 ### Minor Changes
 

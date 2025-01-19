@@ -1,5 +1,23 @@
 # @bfra.me/create
 
+## 0.2.8
+### Patch Changes
+
+
+- Updated dependency `memfs` to `4.17.0`. ([#856](https://github.com/bfra-me/works/pull/856))
+
+
+- Updated dependency `@clack/prompts` to `0.9.1`. ([#854](https://github.com/bfra-me/works/pull/854))
+
+
+- Updated dependency `consola` to `3.4.0`. ([#865](https://github.com/bfra-me/works/pull/865))
+
+
+- Updated dependency `memfs` to `4.16.0`. ([#855](https://github.com/bfra-me/works/pull/855))
+
+
+- Updated dependency `typescript` to `5.7.3`. ([#851](https://github.com/bfra-me/works/pull/851))
+
 ## 0.2.7
 ### Patch Changes
 
