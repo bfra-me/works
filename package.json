@@ -24,7 +24,7 @@
     "inspect-eslint-config": "eslint-config-inspector --config eslint.config.ts --open false",
     "lint": "manypkg check && pnpm lint-source",
     "lint-packages": "pnpm -r --include-workspace-root --parallel --filter=!@bfra.me/prettier-config exec publint",
-    "lint-source": "eslint --flag unstable_config_lookup_from_file --flag unstable_ts_config .",
+    "lint-source": "TIMING=1 eslint --flag unstable_config_lookup_from_file .",
     "publish-changesets": "changeset publish",
     "test": "pnpm -r --parallel --aggregate-output run test",
     "version-changesets": "changeset version && pnpm install --no-frozen-lockfile",
