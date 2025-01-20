@@ -43,7 +43,7 @@
     "build": "tsup",
     "lint:types": "tsc --noEmit",
     "prepack": "pnpm run build",
-    "test": "vitest --coverage"
+    "test": "vitest run --coverage"
   },
   "dependencies": {
     "@readme/oas-to-har": "24.0.5",

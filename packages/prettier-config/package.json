@@ -49,7 +49,7 @@
     "build": "tsup",
     "postbuild": "prettier --config ./prettier.config.mjs --ignore-path .prettierignore --log-level warn --write .",
     "prepack": "pnpm --filter-prod=\"{.}...\" --loglevel error run build",
-    "test": "pnpm --filter-prod=\"{.}...\" --loglevel error run build && vitest"
+    "test": "pnpm --filter-prod=\"{.}...\" --loglevel error run build && vitest run"
   },
   "dependencies": {
     "@bfra.me/prettier-plugins": "workspace:*"

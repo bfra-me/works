@@ -30,7 +30,7 @@
     "tsconfig.json"
   ],
   "scripts": {
-    "test": "vitest"
+    "test": "vitest run"
   },
   "devDependencies": {
     "@bfra.me/tsconfig": "workspace:*",
