@@ -1,7 +1,7 @@
 import type {run} from '@sxzz/create'
 import type {Prettify} from 'ts-essentials'
 
-export type Config = Prettify<NonNullable<Parameters<typeof run>[1]>>
+export type Config = Prettify<NonNullable<Parameters<typeof run>[0]>>
 
 export interface CreatePackageOptions {
   template?: string

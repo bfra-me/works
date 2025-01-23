@@ -18,14 +18,17 @@ export async function createPackage(options: CreatePackageOptions) {
   // Create target directory
   await fs.mkdir(targetDir, {recursive: true})
 
-  await run(targetDir, {
-    templates: [
-      {
-        name: 'default',
-        // Point to the template directory
-        url: `${templateDir}`,
-      },
-    ],
+  await run({
+    projectPath: targetDir,
+    config: {
+      templates: [
+        {
+          name: 'default',
+          // Point to the template directory
+          url: `${templateDir}`,
+        },
+      ],
+    },
   })
 
   console.log(`Package created successfully.`)

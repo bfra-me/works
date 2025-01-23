@@ -35,13 +35,16 @@ describe('createPackage', () => {
     expect(fs.mkdir).toHaveBeenCalledWith('/test/output', {recursive: true})
 
     // Verify run was called with correct arguments
-    expect(run).toHaveBeenCalledWith('/test/output', {
-      templates: [
-        {
-          name: 'default',
-          url: expect.stringContaining('/templates/default'),
-        },
-      ],
+    expect(run).toHaveBeenCalledWith({
+      config: {
+        templates: [
+          {
+            name: 'default',
+            url: expect.stringContaining('/templates/default'),
+          },
+        ],
+      },
+      projectPath: '/test/output',
     })
   })
 
@@ -54,13 +57,16 @@ describe('createPackage', () => {
     await createPackage(options)
 
     expect(fs.mkdir).toHaveBeenCalledWith('/test/output', {recursive: true})
-    expect(run).toHaveBeenCalledWith('/test/output', {
-      templates: [
-        {
-          name: 'default',
-          url: expect.stringContaining('/templates/custom'),
-        },
-      ],
+    expect(run).toHaveBeenCalledWith({
+      config: {
+        templates: [
+          {
+            name: 'default',
+            url: expect.stringContaining('/templates/custom'),
+          },
+        ],
+      },
+      projectPath: '/test/output',
     })
   })
 
@@ -71,13 +77,16 @@ describe('createPackage', () => {
     await createPackage(options)
 
     expect(fs.mkdir).toHaveBeenCalledWith(cwd, {recursive: true})
-    expect(run).toHaveBeenCalledWith(cwd, {
-      templates: [
-        {
-          name: 'default',
-          url: expect.stringContaining('/templates/default'),
-        },
-      ],
+    expect(run).toHaveBeenCalledWith({
+      config: {
+        templates: [
+          {
+            name: 'default',
+            url: expect.stringContaining('/templates/default'),
+          },
+        ],
+      },
+      projectPath: cwd,
     })
   })
 
