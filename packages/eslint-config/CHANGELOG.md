@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.16.3
+### Patch Changes
+
+
+- Updated dependency `eslint-plugin-command` to `2.1.0`. ([#876](https://github.com/bfra-me/works/pull/876))
+
 ## 0.16.2
 ### Patch Changes
 
