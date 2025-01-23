@@ -1,5 +1,11 @@
 # @bfra.me/api-core
 
+## 0.2.2
+### Patch Changes
+
+
+- Updated dependency `remove-undefined-objects` to `6.0.0`. ([#880](https://github.com/bfra-me/works/pull/880))
+
 ## 0.2.1
 ### Patch Changes
 

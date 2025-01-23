@@ -1,5 +1,29 @@
 # @bfra.me/eslint-config
 
+## 0.16.2
+### Patch Changes
+
+
+- Updated dependency `eslint-typegen` to `1.0.0`. ([#872](https://github.com/bfra-me/works/pull/872))
+
+
+- Updated dependency `eslint-config-prettier` to `10.0.1`. ([#871](https://github.com/bfra-me/works/pull/871))
+
+
+- Updated dependency `eslint-config-flat-gitignore` to `1.0.0`. ([#874](https://github.com/bfra-me/works/pull/874))
+
+
+- Updated dependency `eslint-flat-config-utils` to `1.0.0`. ([#875](https://github.com/bfra-me/works/pull/875))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `50.6.2`. ([#883](https://github.com/bfra-me/works/pull/883))
+
+
+- Updated dependency `eslint-plugin-prettier` to `5.2.3`. ([#886](https://github.com/bfra-me/works/pull/886))
+
+
+- Updated dependency `local-pkg` to `1.0.0`. ([#877](https://github.com/bfra-me/works/pull/877))
+
 ## 0.16.1
 ### Patch Changes
 
