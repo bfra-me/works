@@ -1,5 +1,11 @@
 # @bfra.me/prettier-config
 
+## 0.15.0
+### Minor Changes
+
+
+- Remove package.json plugin and fix CJS compatibility. ([#888](https://github.com/bfra-me/works/pull/888))
+
 ## 0.14.1
 ### Patch Changes
 
