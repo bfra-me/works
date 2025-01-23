@@ -4,5 +4,5 @@
   "compilerOptions": {
     "noEmit": true
   },
-  "include": ["./test/**/*.ts", "*.config.ts"]
+  "include": ["./test/**/*.ts", "*.config.ts", "*.cts"]
 }
