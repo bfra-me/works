@@ -1,22 +1,52 @@
-import type * as prettier from 'prettier'
-import {createRequire} from 'node:module'
-import {resolve} from './plugins.js'
+import type {Config} from 'prettier'
 
-export type Writable<T> = {
-  -readonly [K in keyof T]: T[K] extends object ? {[J in keyof T[K]]: Writable<T[K][J]>} : T[K]
-} & {}
+const freeze = <C extends Config = Config>(config: C): Readonly<C> => {
+  return Object.freeze(config)
+}
 
-const require = createRequire(import.meta.url)
-const resolvePlugin = resolve.bind(null, require.resolve)
+const baseConfig = {
+  printWidth: 100,
+  semi: false,
+} as const
+
+// Allow the base config to be overridden by using URL search params.
+//
+// Example:
+//
+// import prettierConfig from "@bfra.me/prettier-config/?printWidth=120&semi=true";
+//
+// This will override the `printWidth` option to `120` and the `semi` option to `true`.
 const {searchParams} = new URL(import.meta.url)
 
+const importConfig = freeze<Config>(
+  Object.fromEntries(
+    Object.entries(baseConfig).map(([key, defaultValue]) => {
+      const param = searchParams.get(key)
+      if (param === null) return [key, defaultValue]
+
+      // Parse the param string to the appropriate type based on the default value
+      switch (typeof defaultValue) {
+        case 'boolean':
+          return [key, param === 'true']
+        case 'number':
+          return [key, Number(param)]
+        default:
+          return [key, param]
+      }
+    }),
+  ),
+)
+
+/**
+ * Shared Prettier configuration for bfra.me projects.
+ */
 const config = {
   arrowParens: 'avoid',
   bracketSpacing: false,
   endOfLine: 'auto',
-  printWidth: 100,
-  semi: searchParams.has('semi', 'true'),
   singleQuote: true,
+
+  ...importConfig,
 
   overrides: [
     // Adapted from https://github.com/sxzz/prettier-config/blob/1e5cc3021e5816aceebe0b90af1d530239442ecf/index.js.
@@ -77,14 +107,7 @@ const config = {
         singleQuote: false,
       },
     },
-  ] as prettier.Config['overrides'],
+  ],
+} as Config
 
-  plugins: ['@bfra.me/prettier-plugins/package-json'].map(resolvePlugin),
-} as const
-
-/**
- * Shared Prettier configuration for bfra.me projects.
- */
-export type Config = Writable<typeof config>
-
-export default config as Config
+export {config as default}

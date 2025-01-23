@@ -24,8 +24,6 @@ testPreset('100-proof', '100-proof')
 testPreset('120-proof', '120-proof')
 
 testPreset('semi', 'semi')
-testPreset('semi-120-proof', 'semi/120-proof')
-testPreset('120-proof-semi', 'semi/120-proof')
 
 function testPreset(name: string, preset?: string, ...configs: Prettier.Config[]) {
   it.concurrent(
