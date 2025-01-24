@@ -1,3 +1,1 @@
-const config = import('./src').then(({default: config}) => config)
-
-module.exports = config
+module.exports = import('./src/default').then(({defaultConfig}) => defaultConfig)

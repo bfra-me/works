@@ -26,12 +26,14 @@
       "source": "./src/index.ts",
       "default": "./lib/index.js"
     },
-    "./prettier.config": "./prettier.config.cjs",
-    "./80-proof": "./lib/index.js?printWidth=80",
-    "./100-proof": "./lib/index.js?printWidth=100",
-    "./120-proof": "./lib/index.js?printWidth=120",
-    "./semi": "./lib/index.js?semi=true",
-    "./package.json": "./package.json"
+    "./80-proof": "./lib/80-proof.js",
+    "./100-proof": "./lib/100-proof.js",
+    "./120-proof": "./lib/120-proof.js",
+    "./default": "./lib/default.js",
+    "./define-config": "./lib/define-config.js",
+    "./semi": "./lib/semi.js",
+    "./package.json": "./package.json",
+    "./prettier.config": "./prettier.config.cjs"
   },
   "main": "./lib/index.js",
   "module": "./lib/index.js",
