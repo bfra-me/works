@@ -1,5 +1,11 @@
 # @bfra.me/prettier-config
 
+## 0.15.1
+### Patch Changes
+
+
+- Remove search params in `package.json` `exports`. ([#898](https://github.com/bfra-me/works/pull/898))
+
 ## 0.15.0
 ### Minor Changes
 

@@ -1,5 +1,15 @@
 # @bfra.me/eslint-config
 
+## 0.16.4
+### Patch Changes
+
+
+- Updated dependency `eslint-plugin-perfectionist` to `4.7.0`. ([#897](https://github.com/bfra-me/works/pull/897))
+
+
+- Updated dependency `typescript-eslint` to `8.21.0`. ([#895](https://github.com/bfra-me/works/pull/895))
+  Updated dependency `@typescript-eslint/types` to `8.21.0`.
+
 ## 0.16.3
 ### Patch Changes
 
