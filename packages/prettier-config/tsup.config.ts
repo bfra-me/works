@@ -4,8 +4,10 @@ export default defineConfig([
   {
     bundle: false,
     clean: true,
-    dts: true,
-    entry: ['./src/index.ts'],
+    dts: {
+      entry: './src/index.ts',
+    },
+    entry: ['./src/*.ts'],
     format: ['esm'],
     outDir: 'lib',
     sourcemap: true,
@@ -21,7 +23,6 @@ export default defineConfig([
     outDir: '.',
     outExtension: () => ({js: '.cjs'}),
     shims: true,
-    sourcemap: true,
     splitting: false,
   },
 ])
