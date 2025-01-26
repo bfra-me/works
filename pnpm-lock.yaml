@@ -81,8 +81,8 @@ importers:
   packages/api-core:
     dependencies:
       '@readme/oas-to-har':
-        specifier: 24.0.5
-        version: 24.0.5
+        specifier: 24.0.6
+        version: 24.0.6
       caseless:
         specifier: 0.12.0
         version: 0.12.0
@@ -102,8 +102,8 @@ importers:
         specifier: 4.6.2
         version: 4.6.2
       oas:
-        specifier: 25.2.1
-        version: 25.2.1
+        specifier: 25.2.2
+        version: 25.2.2
       remove-undefined-objects:
         specifier: 6.0.0
         version: 6.0.0
@@ -1186,8 +1186,8 @@ packages:
   '@readme/oas-examples@5.18.2':
     resolution: {integrity: sha512-ENAqUaKGLVM7u0KIwuWAqER2D2Fcc8w0EpGOD9BbjVeOnVNQg4gSFvr6zNQtblu5i/D1m3upKqBMeSPIhocXJg==}
 
-  '@readme/oas-to-har@24.0.5':
-    resolution: {integrity: sha512-Ez4zMpcKroO6N9NUM9r309KRzF6WlZeQMU7Tsf9BkU6koIiFkuFlaWbYCYxE2lagfTX1hZS9h0HySPsD74c6nw==}
+  '@readme/oas-to-har@24.0.6':
+    resolution: {integrity: sha512-FtVPDrUWGVvjcgIHQk7eERpfS1mYKRiXM8OiLAEtvQ7S0VIp0a5OGW3jtaq5SYfaUEJ0aMbud1l9Egs946NnwQ==}
     engines: {node: '>=18'}
 
   '@rollup/rollup-android-arm-eabi@4.31.0':
@@ -3539,8 +3539,8 @@ packages:
     engines: {node: ^14.16.0 || >=16.10.0}
     hasBin: true
 
-  oas@25.2.1:
-    resolution: {integrity: sha512-56NO/ThEzIQeniJHm12tFIIGaugcdZTxYWiWP0KV8W9DcdWRvk9tvBEKITFp9r62w7W25vobedpiApa9u/Aoxg==}
+  oas@25.2.2:
+    resolution: {integrity: sha512-xWuD4MCOK7EvwxhLXHVjNASUZC0GzVLRSMVsFuq6e3uNstI8ICCLxXfwqrBZgBFG8Q222qdXbhx6aS4QOibBmA==}
     engines: {node: '>=18'}
 
   object-assign@4.1.1:
@@ -5523,10 +5523,10 @@ snapshots:
 
   '@readme/oas-examples@5.18.2': {}
 
-  '@readme/oas-to-har@24.0.5':
+  '@readme/oas-to-har@24.0.6':
     dependencies:
       '@readme/data-urls': 3.0.0
-      oas: 25.2.1
+      oas: 25.2.2
       qs: 6.14.0
       remove-undefined-objects: 5.0.0
 
@@ -8159,7 +8159,7 @@ snapshots:
       pkg-types: 1.3.1
       ufo: 1.5.4
 
-  oas@25.2.1:
+  oas@25.2.2:
     dependencies:
       '@readme/json-schema-ref-parser': 1.2.0
       '@types/json-schema': 7.0.15
