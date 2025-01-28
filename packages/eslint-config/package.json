@@ -84,7 +84,7 @@
     "eslint-plugin-node-dependencies": "0.12.0",
     "eslint-plugin-prettier": "5.2.3",
     "eslint-typegen": "1.0.0",
-    "tsup": "8.3.5",
+    "tsup": "8.3.6",
     "tsx": "4.19.2"
   },
   "peerDependencies": {
