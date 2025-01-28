@@ -46,14 +46,14 @@
     "test": "vitest run --coverage"
   },
   "dependencies": {
-    "@readme/oas-to-har": "24.0.6",
+    "@readme/oas-to-har": "24.0.7",
     "caseless": "0.12.0",
     "datauri": "4.1.0",
     "fetch-har": "11.1.1",
     "json-schema-to-ts": "3.1.1",
     "json-schema-traverse": "1.0.0",
     "lodash.merge": "4.6.2",
-    "oas": "25.2.2",
+    "oas": "25.3.0",
     "remove-undefined-objects": "6.0.0"
   },
   "devDependencies": {
