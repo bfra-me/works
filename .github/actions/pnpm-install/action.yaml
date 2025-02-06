@@ -7,7 +7,7 @@ runs:
   using: composite
   steps:
     - name: Setup pnpm
-      uses: pnpm/action-setup@e303250a2450c28e843bf798954fac81d4835f68
+      uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda
       with:
         run_install: false
 
