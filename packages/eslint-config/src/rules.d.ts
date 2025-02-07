@@ -5868,6 +5868,8 @@ type TypescriptEslintNoUnnecessaryBooleanLiteralCompare = []|[{
   allowComparingNullableBooleansToFalse?: boolean
   
   allowComparingNullableBooleansToTrue?: boolean
+  
+  allowRuleToRunWithoutStrictNullChecksIKnowWhatIAmDoing?: boolean
 }]
 // ----- @typescript-eslint/no-unnecessary-condition -----
 type TypescriptEslintNoUnnecessaryCondition = []|[{
@@ -8993,6 +8995,37 @@ type PerfectionistSortEnums = []|[{
   order?: ("asc" | "desc")
   
   forceNumericSort?: boolean
+  customGroups?: ({
+    [k: string]: (string | string[]) | undefined
+  } | ({
+    
+    groupName?: string
+    
+    type?: ("alphabetical" | "line-length" | "natural" | "unsorted")
+    
+    order?: ("desc" | "asc")
+    
+    newlinesInside?: ("always" | "never")
+    anyOf?: {
+      
+      elementValuePattern?: string
+      
+      elementNamePattern?: string
+    }[]
+  } | {
+    
+    groupName?: string
+    
+    type?: ("alphabetical" | "line-length" | "natural" | "unsorted")
+    
+    order?: ("desc" | "asc")
+    
+    newlinesInside?: ("always" | "never")
+    
+    elementValuePattern?: string
+    
+    elementNamePattern?: string
+  })[])
   
   sortByValue?: boolean
   
@@ -9004,7 +9037,15 @@ type PerfectionistSortEnums = []|[{
   
   partitionByNewLine?: boolean
   
+  newlinesBetween?: ("ignore" | "always" | "never")
+  
   type?: ("alphabetical" | "natural" | "line-length" | "custom")
+  
+  groups?: (string | string[] | {
+    
+    newlinesBetween?: ("ignore" | "always" | "never")
+    [k: string]: unknown | undefined
+  })[]
 }]
 // ----- perfectionist/sort-exports -----
 type PerfectionistSortExports = []|[{
@@ -9395,6 +9436,8 @@ type PerfectionistSortNamedExports = []|[{
   order?: ("asc" | "desc")
   
   groupKind?: ("mixed" | "values-first" | "types-first")
+  
+  ignoreAlias?: boolean
   
   partitionByComment?: (string[] | boolean | string | {
     block?: (string[] | boolean | string)
