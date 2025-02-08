@@ -60,8 +60,8 @@ importers:
         specifier: 3.4.2
         version: 3.4.2
       publint:
-        specifier: 0.3.2
-        version: 0.3.2
+        specifier: 0.3.3
+        version: 0.3.3
       rimraf:
         specifier: 6.0.1
         version: 6.0.1
@@ -3710,8 +3710,8 @@ packages:
   proto-list@1.2.4:
     resolution: {integrity: sha512-vtK/94akxsTMhe0/cbfpR+syPuszcuwhqVjJq26CuNDgFGj682oRBXOP5MJpv2r7JtE8MsiepGIqvvOTBwn2vA==}
 
-  publint@0.3.2:
-    resolution: {integrity: sha512-fPs7QUbUvwixxPYUUTn0Kqp0rbH5rbiAOZwQOXMkIj+4Nopby1AngodSQmzTkJWTJ5R4uVV8oYmgVIjj+tgv1w==}
+  publint@0.3.3:
+    resolution: {integrity: sha512-ybYsZ0sUJWpb+Fn5fp6XFsWF81z73ZRgKV72s7PrxDvrtVMUmMfUl3aiyKv50oz96lCMrwA8hgyJLzavqYu+Bg==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -8196,7 +8196,7 @@ snapshots:
 
   proto-list@1.2.4: {}
 
-  publint@0.3.2:
+  publint@0.3.3:
     dependencies:
       '@publint/pack': 0.1.1
       package-manager-detector: 0.2.9
