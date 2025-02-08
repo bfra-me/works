@@ -1,5 +1,11 @@
 # @bfra.me/prettier-plugins
 
+## 0.5.9
+### Patch Changes
+
+
+- Updated dependency `tsup` to `8.3.6`. ([#915](https://github.com/bfra-me/works/pull/915))
+
 ## 0.5.8
 ### Patch Changes
 
