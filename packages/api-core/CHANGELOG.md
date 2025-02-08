@@ -1,5 +1,15 @@
 # @bfra.me/api-core
 
+## 0.2.3
+### Patch Changes
+
+
+- Updated dependency `@readme/oas-to-har` to `24.0.7`. ([#913](https://github.com/bfra-me/works/pull/913))
+  Updated dependency `oas` to `25.3.0`.
+
+- Updated dependency `@readme/oas-to-har` to `24.0.6`. ([#904](https://github.com/bfra-me/works/pull/904))
+  Updated dependency `oas` to `25.2.2`.
+
 ## 0.2.2
 ### Patch Changes
 
