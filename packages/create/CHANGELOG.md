@@ -1,5 +1,11 @@
 # @bfra.me/create
 
+## 0.3.1
+### Patch Changes
+
+
+- Updated dependency `tsup` to `8.3.6`. ([#915](https://github.com/bfra-me/works/pull/915))
+
 ## 0.3.0
 ### Minor Changes
 
