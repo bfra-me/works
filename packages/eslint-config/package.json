@@ -78,7 +78,7 @@
     "@types/eslint-config-prettier": "6.11.3",
     "@typescript-eslint/types": "8.24.0",
     "@vitest/eslint-plugin": "1.1.28",
-    "eslint": "9.20.0",
+    "eslint": "9.20.1",
     "eslint-config-prettier": "10.0.1",
     "eslint-plugin-no-only-tests": "3.3.0",
     "eslint-plugin-node-dependencies": "0.12.0",
