@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.16.6
+### Patch Changes
+
+
+- Updated dependency `eslint-plugin-yml` to `1.17.0`. ([#969](https://github.com/bfra-me/works/pull/969))
+
 ## 0.16.5
 ### Patch Changes
 
