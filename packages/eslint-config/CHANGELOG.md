@@ -1,5 +1,18 @@
 # @bfra.me/eslint-config
 
+## 0.16.6
+### Patch Changes
+
+
+- Updated dependency `tsx` to `4.19.3`. ([#975](https://github.com/bfra-me/works/pull/975))
+
+
+- Updated dependency `eslint-plugin-yml` to `1.17.0`. ([#969](https://github.com/bfra-me/works/pull/969))
+
+
+- Updated dependency `eslint` to `9.21.0`. ([#979](https://github.com/bfra-me/works/pull/979))
+  Updated dependency `@eslint/js` to `9.21.0`.
+
 ## 0.16.5
 ### Patch Changes
 
