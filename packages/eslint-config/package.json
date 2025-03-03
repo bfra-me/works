@@ -61,7 +61,7 @@
     "eslint-plugin-unicorn": "57.0.0",
     "eslint-plugin-unused-imports": "4.1.4",
     "eslint-plugin-yml": "1.17.0",
-    "globals": "15.15.0",
+    "globals": "16.0.0",
     "is-in-ci": "1.0.0",
     "jiti": "2.4.2",
     "local-pkg": "1.0.0",
