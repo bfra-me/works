@@ -1,5 +1,14 @@
 # @bfra.me/prettier-config
 
+## 0.15.3
+### Patch Changes
+
+
+- Updated dependency `tsup` to `8.4.0`. ([#1000](https://github.com/bfra-me/works/pull/1000))
+
+
+- Updated dependency `prettier` to `3.5.2`. ([#981](https://github.com/bfra-me/works/pull/981))
+
 ## 0.15.2
 ### Patch Changes
 
