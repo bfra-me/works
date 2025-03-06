@@ -64,7 +64,7 @@
     "globals": "15.15.0",
     "is-in-ci": "1.0.0",
     "jiti": "2.4.2",
-    "local-pkg": "1.1.0",
+    "local-pkg": "1.1.1",
     "package-manager-detector": "0.2.11",
     "pkg-dir": "8.0.0",
     "typescript-eslint": "8.25.0"
