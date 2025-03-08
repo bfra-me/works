@@ -60,7 +60,7 @@
     "@api/test-utils": "file:./test-utils",
     "@bfra.me/api-core": "workspace:*",
     "@bfra.me/eslint-config": "workspace:*",
-    "@readme/oas-examples": "5.19.0",
+    "@readme/oas-examples": "5.19.1",
     "@types/caseless": "0.12.5",
     "@types/lodash.merge": "4.6.9",
     "fetch-mock": "11.1.5",
