@@ -142,8 +142,8 @@ importers:
         specifier: 0.10.0
         version: 0.10.0
       '@sxzz/create':
-        specifier: 0.14.2
-        version: 0.14.2
+        specifier: 0.14.3
+        version: 0.14.3
       cac:
         specifier: 6.7.14
         version: 6.7.14
@@ -1307,8 +1307,8 @@ packages:
   '@swc/types@0.1.17':
     resolution: {integrity: sha512-V5gRru+aD8YVyCOMAjMpWR1Ui577DD5KSJsHP8RAxopAH22jFz6GZd/qxqjO6MJHQhcsjvjOFXyDhyLQUnMveQ==}
 
-  '@sxzz/create@0.14.2':
-    resolution: {integrity: sha512-6EkBJMJCrGo2YF7PKEOCHbItP/4nPd57AyfUvI7NoOm3StlKsqAURIuWKGGBCyII1YUgTSAIU32BGx2tQrNqZw==}
+  '@sxzz/create@0.14.3':
+    resolution: {integrity: sha512-fUYqus2hja1RkVcY9KIdV5baHs9rld3cKrHJPPJK3L2xIOW2arXirskihXnMXDOjOgAgS87nqJvZ342bttGptg==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -5527,7 +5527,7 @@ snapshots:
     dependencies:
       '@swc/counter': 0.1.3
 
-  '@sxzz/create@0.14.2':
+  '@sxzz/create@0.14.3':
     dependencies:
       '@antfu/utils': 9.1.0
       '@clack/prompts': 0.10.0
