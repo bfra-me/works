@@ -55,7 +55,7 @@
     "typescript": "5.7.3",
     "vitest": "3.0.8"
   },
-  "packageManager": "pnpm@10.6.0",
+  "packageManager": "pnpm@10.6.1",
   "pnpm": {
     "overrides": {
       "read-pkg-up@^11": "npm:read-package-up"
