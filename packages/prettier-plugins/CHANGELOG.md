@@ -1,5 +1,23 @@
 # @bfra.me/prettier-plugins
 
+## 0.5.10
+### Patch Changes
+
+
+- Updated dependency `sort-package-json` to `2.15.1`. ([#1007](https://github.com/bfra-me/works/pull/1007))
+
+
+- Updated dependency `sort-package-json` to `2.15.0`. ([#1004](https://github.com/bfra-me/works/pull/1004))
+
+
+- Updated dependency `prettier` to `3.5.3`. ([#1010](https://github.com/bfra-me/works/pull/1010))
+
+
+- Updated dependency `tsup` to `8.4.0`. ([#1000](https://github.com/bfra-me/works/pull/1000))
+
+
+- Updated dependency `prettier` to `3.5.2`. ([#981](https://github.com/bfra-me/works/pull/981))
+
 ## 0.5.9
 ### Patch Changes
 
