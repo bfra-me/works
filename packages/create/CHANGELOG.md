@@ -1,5 +1,26 @@
 # @bfra.me/create
 
+## 0.3.2
+### Patch Changes
+
+
+- Updated dependency `@sxzz/create` to `0.14.3`. ([#1019](https://github.com/bfra-me/works/pull/1019))
+
+
+- Updated dependency `@sxzz/create` to `0.14.2`. ([#1011](https://github.com/bfra-me/works/pull/1011))
+
+
+- Updated dependency `tsup` to `8.4.0`. ([#1000](https://github.com/bfra-me/works/pull/1000))
+
+
+- Updated dependency `@clack/prompts` to `0.10.0`. ([#966](https://github.com/bfra-me/works/pull/966))
+
+
+- Updated dependency `@sxzz/create` to `0.14.1`. ([#967](https://github.com/bfra-me/works/pull/967))
+
+
+- Updated dependency `@sxzz/create` to `0.14.4`. ([#1042](https://github.com/bfra-me/works/pull/1042))
+
 ## 0.3.1
 ### Patch Changes
 
