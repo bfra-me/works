@@ -46,7 +46,7 @@
     "@clack/prompts": "0.10.0",
     "@sxzz/create": "0.14.4",
     "cac": "6.7.14",
-    "consola": "3.4.0"
+    "consola": "3.4.1"
   },
   "devDependencies": {
     "memfs": "4.17.0",
