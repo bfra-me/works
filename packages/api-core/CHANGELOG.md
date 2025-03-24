@@ -1,5 +1,17 @@
 # @bfra.me/api-core
 
+## 0.2.4
+### Patch Changes
+
+
+- Updated dependency `@readme/oas-examples` to `5.19.1`. ([#1021](https://github.com/bfra-me/works/pull/1021))
+
+
+- Updated dependency `@readme/oas-examples` to `5.19.0`. ([#1020](https://github.com/bfra-me/works/pull/1020))
+
+
+- Updated dependency `@readme/oas-examples` to `5.19.2`. ([#1024](https://github.com/bfra-me/works/pull/1024))
+
 ## 0.2.3
 ### Patch Changes
 
