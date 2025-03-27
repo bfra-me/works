@@ -16,3 +16,4 @@ _fixtures
 .DS_Store
 .tsup
 bfra.me-*.tgz
+.cache
