@@ -1,9 +1,16 @@
 {
+    "cSpell.words": ["bfra", "frameworkers", "readmeio"],
+
+    "editor.acceptSuggestionOnCommitCharacter": true,
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": "explicit",
         "source.organizeImports": "never"
     },
     "editor.formatOnSave": false,
+    "editor.quickSuggestions": {
+        "strings": true
+    },
+    "editor.suggestSelection": "first",
 
     "eslint.options": {
         "flags": ["unstable_config_lookup_from_file"]
@@ -35,9 +42,13 @@
 
     "explorer.fileNesting.enabled": false,
 
-    "cSpell.words": ["bfra", "frameworkers", "readmeio"],
+    "files.autoSave": "onFocusChange",
+
+    "javascript.updateImportsOnFileMove.enabled": "always",
 
     "typescript.enablePromptUseWorkspaceTsdk": true,
     "typescript.format.enable": false,
-    "typescript.tsdk": "node_modules/typescript/lib"
+    "typescript.preferences.importModuleSpecifier": "non-relative",
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "typescript.updateImportsOnFileMove.enabled": "always"
 }
