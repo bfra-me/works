@@ -1,5 +1,17 @@
 # @bfra.me/create
 
+## 0.4.0
+### Minor Changes
+
+
+- Make `cli` executable and add shebang. ([#1079](https://github.com/bfra-me/works/pull/1079))
+
+
+### Patch Changes
+
+
+- Updated dependency `typescript` to `5.8.2`. ([#1074](https://github.com/bfra-me/works/pull/1074))
+
 ## 0.3.2
 ### Patch Changes
 
