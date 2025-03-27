@@ -201,7 +201,9 @@ function resolveSubOptions<K extends keyof Options>(
   options: Options,
   key: K,
 ): ResolvedOptions<Options[K]> {
-  return typeof options[key] === 'boolean' ? ({} as any) : options[key] || {}
+  return (typeof options[key] === 'boolean' ? {} : (options[key] ?? {})) as ResolvedOptions<
+    Options[K]
+  >
 }
 
 function getOverrides<K extends keyof Options>(options: Options, key: K): Config['rules'] {
