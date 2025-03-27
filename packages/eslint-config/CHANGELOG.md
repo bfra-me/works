@@ -1,5 +1,23 @@
 # @bfra.me/eslint-config
 
+## 0.18.0
+### Minor Changes
+
+
+- Update rules. ([#1079](https://github.com/bfra-me/works/pull/1079))
+
+
+### Patch Changes
+
+
+- Update type cast ([#1080](https://github.com/bfra-me/works/pull/1080))
+
+
+- Updated dependency `eslint` to `9.23.0`. ([#1078](https://github.com/bfra-me/works/pull/1078))
+  Updated dependency `@eslint/js` to `9.23.0`.
+
+- Updated dependency `typescript` to `5.8.2`. ([#1074](https://github.com/bfra-me/works/pull/1074))
+
 ## 0.17.0
 ### Minor Changes
 
