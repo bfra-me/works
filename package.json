@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/works",
-  "version": "0.0.0",
+  "version": "0.0.0-development",
   "private": true,
   "description": "bfra.me tools and components",
   "keywords": [
@@ -14,44 +14,63 @@
   "author": "Marcus R. Brown <contact@bfra.me>",
   "type": "module",
   "scripts": {
-    "bootstrap": "pnpm clean && pnpm install-quickly && pnpm build-essential",
-    "build": "pnpm -r --stream run build",
-    "build-essential": "pnpm -r --filter=\"@bfra.me/*-config...\" --stream run build",
-    "check-format": "prettier --check .",
-    "clean": "pnpx rimraf --glob \"**/node_modules\" \"packages/*/lib\" \"packages/api-core/dist\" \"packages/eslint-config/src/types?(.d).ts\" \"**/*.tsbuildinfo\"",
+    "bootstrap": "pnpm install --prefer-offline --loglevel error",
+    "build": "pnpm -r --stream run build && pnpm lint-packages",
+    "check-format": "prettier --config ./package.json --check .",
+    "clean": "pnpx rimraf --glob \"**/node_modules/**/!(.pnpm)\" \"packages/*/lib\" \"packages/api-core/dist\" \"**/.turbo\" \"**/*.tsbuildinfo\"",
     "dev": "pnpm --recursive --parallel --stream run dev",
     "fix": "manypkg fix && pnpm lint-source --fix",
-    "format": "prettier --write .",
+    "format": "prettier --config ./package.json --write .",
     "inspect-eslint-config": "eslint-config-inspector --config eslint.config.ts --open false",
-    "postinstall": "pnpm build-essential",
-    "install-quickly": "pnpm install --frozen-lockfile --ignore-scripts --prefer-offline --silent",
-    "lint": "manypkg check && pnpm lint-packages && pnpm lint-source",
-    "prelint-packages": "pnpm build",
+    "lint": "manypkg check && pnpm lint-source",
     "lint-packages": "pnpm -r --include-workspace-root --parallel --filter=!@bfra.me/prettier-config exec publint",
-    "lint-source": "eslint --flag unstable_config_lookup_from_file --flag unstable_ts_config .",
+    "lint-source": "eslint --flag unstable_config_lookup_from_file .",
+    "precommit": "lint-staged",
+    "prepare": "husky",
     "publish-changesets": "changeset publish",
-    "test": "pnpm -r run test",
-    "version-changesets": "changeset version",
+    "test": "pnpm -r --parallel --aggregate-output run test",
+    "type-check": "tsc --noEmit",
+    "validate": "pnpm run lint && pnpm run test && pnpm run build",
+    "version-changesets": "changeset version && pnpm install --no-frozen-lockfile",
     "watch": "pnpm run build --watch"
   },
-  "prettier": "@bfra.me/prettier-config",
-  "dependencies": {
+  "lint-staged": {
+    "*.{js,json,jsx,md,toml,ts,tsx,yml,yaml}": [
+      "pnpm lint-source --fix"
+    ],
+    "package.json": [
+      "sort-package-json"
+    ]
+  },
+  "prettier": "@bfra.me/prettier-config/prettier.config",
+  "devDependencies": {
     "@bfra.me/eslint-config": "workspace:*",
     "@bfra.me/prettier-config": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
-    "@changesets/cli": "2.27.9",
-    "@eslint/config-inspector": "0.5.5",
-    "@manypkg/cli": "0.22.0",
-    "@microsoft/api-extractor": "7.47.11",
-    "@swisspost/design-system-changelog-github": "1.0.2",
-    "@types/node": "20.17.0",
-    "eslint": "9.13.0",
-    "prettier": "3.3.3",
-    "publint": "0.2.12",
+    "@changesets/cli": "2.28.1",
+    "@eslint/config-inspector": "1.0.2",
+    "@manypkg/cli": "0.23.0",
+    "@microsoft/api-extractor": "7.51.1",
+    "@svitejs/changesets-changelog-github-compact": "1.2.0",
+    "@types/fs-extra": "11.0.4",
+    "@types/node": "22.13.10",
+    "@vitest/coverage-v8": "3.0.9",
+    "eslint": "9.23.0",
+    "execa": "9.5.2",
+    "fast-glob": "3.3.3",
+    "fs-extra": "11.3.0",
+    "husky": "9.1.7",
+    "lint-staged": "15.4.3",
+    "prettier": "3.5.3",
+    "publint": "0.3.9",
     "rimraf": "6.0.1",
-    "typescript": "5.6.3"
+    "sort-package-json": "3.0.0",
+    "ts-essentials": "10.0.4",
+    "type-fest": "4.37.0",
+    "typescript": "5.7.3",
+    "vitest": "3.0.9"
   },
-  "packageManager": "pnpm@9.12.2",
+  "packageManager": "pnpm@10.6.5",
   "pnpm": {
     "overrides": {
       "read-pkg-up@^11": "npm:read-package-up"

@@ -2,47 +2,35 @@
 # https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows#force-deleting-cache-entries
 name: Cache Cleanup
 
-'on':
+on:
   pull_request:
     types: [closed]
+  schedule:
+    - cron: '0 0 * * 0' # Every Sunday at 00:00
   workflow_dispatch:
+
+permissions: {}
 
 jobs:
   cleanup:
     name: Cleanup cache
+    permissions:
+      actions: write
     runs-on: ubuntu-latest
+    env:
+      BRANCH: >-
+        ${{
+          github.event_name == 'pull_request' && github.event.pull_request.merged && format('refs/pull/{0}/merge', github.event.pull_request.number)
+          || github.event_name != 'pull_request' && github.ref
+          || ''
+        }}
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-
-      - id: cache-info
-        name: Get branch name and cache keys
+      - if: env.BRANCH != ''
+        name: Deleting workflow caches on ${{ env.BRANCH }}
         env:
-          BRANCH: >-
-            ${{
-              github.event_name == 'pull_request' && github.event.pull_request.merged && format('refs/pull/{0}/merge', github.event.pull_request.number)
-              || github.event_name != 'pull_request' && github.ref
-              || ''
-            }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh extension install actions/gh-actions-cache
-
-          echo "branch=$BRANCH" >> $GITHUB_OUTPUT
-          if [ -n "$BRANCH" ]; then
-            # Get cache keys that don't include the branch's SHA (if not a PR)
-            gh actions-cache list -R ${{ github.repository }} -B $BRANCH --order asc --sort last-used | cut -f 1 > cache-keys.txt
-            [ -z "${{ github.event.pull_request }}" ] && grep -v ${{ github.sha }} cache-keys.txt > cache-keys.txt.tmp && mv cache-keys.txt.tmp cache-keys.txt
-            echo cache-keys="$(cat cache-keys.txt | tr '\n' ' ')" >> $GITHUB_OUTPUT
-          fi
-
-      - env:
-          CACHE_KEYS: ${{ steps.cache-info.outputs.cache-keys }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: ${{ steps.cache-info.outputs.branch != '' }}
-        name: Delete stale cache entries from ${{ steps.cache-info.outputs.branch }}
-        run: |
-          set +e
+          CACHE_KEYS="$(gh cache list -R ${{ github.repository }} --ref $BRANCH --limit 100 --order asc --sort last_accessed_at | cut -f 2 | tr '\n' ' ')"
           for key in $CACHE_KEYS; do
-            gh actions-cache delete $key -R ${{ github.repository }} -B ${{ steps.cache-info.outputs.branch }} --confirm
+            gh cache delete $key -R ${{ github.repository }}
           done

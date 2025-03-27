@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/tsconfig",
-  "version": "0.8.1",
+  "version": "0.9.7",
   "description": "Shared TypeScript configuration for bfra.me",
   "keywords": [
     "bfra.me",
@@ -14,7 +14,7 @@
   "bugs": "https://github.com/bfra-me/works/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bfra-me/works.git",
+    "url": "git+https://github.com/bfra-me/works.git",
     "directory": "packages/tsconfig"
   },
   "license": "MIT",
@@ -30,15 +30,12 @@
     "tsconfig.json"
   ],
   "scripts": {
-    "compile-tests": "tsc --project ./test",
-    "run-tests": "node --test ./test/lib/*.test.js",
-    "test": "pnpm compile-tests && pnpm run-tests"
+    "test": "vitest run"
   },
   "devDependencies": {
     "@bfra.me/tsconfig": "workspace:*",
     "ajv": "8.17.1",
-    "ajv-draft-04": "1.0.0",
-    "type-fest": "4.26.1"
+    "ajv-draft-04": "1.0.0"
   },
   "publishConfig": {
     "access": "public",

@@ -1,8 +1,8 @@
+import type {Jsonify, TsConfigJson} from 'type-fest'
 import assert from 'node:assert'
 import {promises as fs} from 'node:fs'
-import {describe, it} from 'node:test'
 import Ajv, {type JSONSchemaType} from 'ajv-draft-04'
-import type {Jsonify, TsConfigJson} from 'type-fest'
+import {describe, it} from 'vitest'
 
 const SCHEMA_URL = 'https://json.schemastore.org/tsconfig'
 
@@ -14,7 +14,7 @@ describe('schema', () => {
     const schemaUrl = tsconfig.$schema ?? SCHEMA_URL
     const response = await fetch(schemaUrl)
     if (!response.ok) {
-      return t.skip(`Could not fetch ${SCHEMA_URL}, skipping`)
+      return t.skip()
     }
     const schema = (await response.json()) as JSONSchemaType<TsConfigJson>
     const ajv = new Ajv({

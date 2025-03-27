@@ -1,14 +1,13 @@
-import {composeConfig} from './src'
 import config from '../../eslint.config'
+import {composeConfig} from './src/compose-config'
 
-export default composeConfig(
-  config,
-  {
-    name: '@bfra.me/works/eslint-config/ignores',
-    ignores: ['.eslint-config-inspector/', 'src/types.ts'],
-  },
-  {
-    name: '@bfra.me/works/eslint-config',
+export default composeConfig(config)
+  .insertAfter('@bfra.me/ignores', {
+    name: '@bfra.me/eslint-config/ignores',
+    ignores: ['.eslint-config-inspector', 'lib', 'src/rules.d.ts'],
+  })
+  .append({
+    name: '@bfra.me/eslint-config',
     files: ['src/**/*.ts'],
     rules: {
       'perfectionist/sort-objects': [
@@ -19,5 +18,4 @@ export default composeConfig(
         },
       ],
     },
-  },
-)
+  })

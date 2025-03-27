@@ -9,3 +9,4 @@ globs:
   - '**/*.md'
   - '!.changeset/**'
   - '!**/node_modules'
+  - '!.cursorrules'

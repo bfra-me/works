@@ -1,8 +1,5 @@
+import type {Config, ConfigNames, FlatConfigComposer, ResolvableFlatConfig} from './config'
 import {composer} from 'eslint-flat-config-utils'
-import type {FlatConfigComposer} from './types'
-
-type InferConfig<T> = T extends FlatConfigComposer<infer U> ? U : never
-type InferConfigNames<T> = T extends FlatConfigComposer<any, infer U> ? U : never
 
 /**
  * Composes an ESLint configuration object from the provided flat configurations.
@@ -10,7 +7,7 @@ type InferConfigNames<T> = T extends FlatConfigComposer<any, infer U> ? U : neve
  * @param configs - The configuration names to compose.
  * @returns The composed ESLint configuration object.
  */
-export const composeConfig = composer<
-  InferConfig<FlatConfigComposer>,
-  InferConfigNames<FlatConfigComposer>
->
+export const composeConfig = <C extends Config = Config, CN extends ConfigNames = ConfigNames>(
+  ...configs: ResolvableFlatConfig<Config extends C ? C : Config>[]
+  // eslint-disable-next-line @typescript-eslint/promise-function-async
+): FlatConfigComposer<Config extends C ? C : Config, CN> => composer(...configs)

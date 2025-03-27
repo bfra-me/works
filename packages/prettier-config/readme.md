@@ -27,7 +27,9 @@ yarn add --dev @bfra.me/prettier-config prettier
 Add the following entry to your `package.json` file:
 
 ```json
-"prettier": "@bfra.me/prettier-config"
+{
+  "prettier": "@bfra.me/prettier-config"
+}
 ```
 
 ## License

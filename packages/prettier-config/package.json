@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/prettier-config",
-  "version": "0.7.4",
+  "version": "0.15.3",
   "description": "Shared Prettier configuration for bfra.me",
   "keywords": [
     "bfra.me",
@@ -14,7 +14,7 @@
   "bugs": "https://github.com/bfra-me/works/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bfra-me/works.git",
+    "url": "git+https://github.com/bfra-me/works.git",
     "directory": "packages/prettier-config"
   },
   "license": "MIT",
@@ -22,41 +22,40 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./lib/prettier.config.d.ts",
-      "import": "./lib/prettier.config.js"
+      "types": "./lib/index.d.ts",
+      "source": "./src/index.ts",
+      "default": "./lib/index.js"
     },
-    "./100-proof": "./lib/prettier.config.js",
+    "./80-proof": "./lib/80-proof.js",
+    "./100-proof": "./lib/100-proof.js",
     "./120-proof": "./lib/120-proof.js",
-    "./semi/*": "./lib/*.js?semi=true",
-    "./semi": "./lib/prettier.config.js?semi=true",
-    "./*/semi": "./lib/*.js?semi=true",
-    "./package.json": "./package.json"
+    "./default": "./lib/default.js",
+    "./define-config": "./lib/define-config.js",
+    "./semi": "./lib/semi.js",
+    "./package.json": "./package.json",
+    "./prettier.config": "./prettier.config.cjs"
   },
-  "main": "./lib/prettier.config.js",
-  "types": "./lib/prettier.config.d.ts",
+  "main": "./lib/index.js",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "files": [
     "lib",
     "src",
-    "!**/*.map",
-    "!tsup.config.ts"
+    "index.json",
+    "prettier.config.cjs",
+    "!**/*.map"
   ],
   "scripts": {
     "build": "tsup",
-    "test": "vitest"
-  },
-  "dependencies": {
-    "@bfra.me/prettier-plugins": "workspace:*"
+    "postbuild": "prettier --config ./prettier.config.cjs --ignore-path .prettierignore --log-level warn --write .",
+    "prepack": "pnpm --filter-prod=\"{.}...\" --loglevel error run build",
+    "test": "pnpm --filter-prod=\"{.}...\" --loglevel error run build && vitest run"
   },
   "devDependencies": {
     "@bfra.me/prettier-config": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
-    "@types/fs-extra": "11.0.4",
-    "execa": "9.4.1",
-    "fast-glob": "3.3.2",
-    "fs-extra": "11.2.0",
-    "prettier": "3.3.3",
-    "tsup": "8.3.0",
-    "vitest": "2.1.3"
+    "prettier": "3.5.3",
+    "tsup": "8.4.0"
   },
   "peerDependencies": {
     "prettier": "^3.0.0"

@@ -2,11 +2,11 @@
 # Renovate this repository if Renovate-specific tasks are checked or if dispatched.
 name: Renovate
 
-'on':
+on:
   issues:
     types: [edited]
   pull_request:
-    types: [edited, labeled]
+    types: [edited]
   push:
     branches: ['**']
   workflow_dispatch:
@@ -17,15 +17,15 @@ name: Renovate
         type: boolean
         default: false
   workflow_run:
-    workflows: ['CI']
-    branches: ['main']
-    types: ['completed']
+    workflows: [Main]
+    branches: [main]
+    types: [completed]
 
 jobs:
   renovate:
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     name: Renovate
     secrets: inherit
-    uses: bfra-me/.github/.github/workflows/renovate.yaml@d6612ed3d94d04df69e773610adf946a74089dbc # v1.11.2
+    uses: bfra-me/.github/.github/workflows/renovate.yaml@b7a51daf008e7b94fbcdb814d67638c8bc25f1fd # v2.3.2
     with:
       print_config: ${{ inputs.print-config || false }}

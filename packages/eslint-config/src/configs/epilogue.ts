@@ -1,14 +1,14 @@
+import type {Config} from '../config'
 import {GLOB_SRC, GLOB_SRC_EXT} from '../globs'
-import type {Config} from '../types'
 
 export async function epilogue(): Promise<Config[]> {
-  // @keep-sorted {"keys":["name"]}
   return [
     {
-      name: '@bfra.me/epilogue/commonjs',
-      files: ['**/*.js', '**/*.cjs'],
+      name: '@bfra.me/epilogue/cli',
+      files: [`**/cli/${GLOB_SRC}`, `**/cli.${GLOB_SRC_EXT}`],
       rules: {
-        '@typescript-eslint/no-require-imports': 'off',
+        '@typescript-eslint/explicit-function-return-type': 'off',
+        'no-console': 'off',
       },
     },
     {
@@ -17,6 +17,21 @@ export async function epilogue(): Promise<Config[]> {
       rules: {
         '@typescript-eslint/explicit-function-return-type': 'off',
         'no-console': 'off',
+      },
+    },
+    {
+      name: '@bfra.me/epilogue/scripts',
+      files: [`**/scripts/${GLOB_SRC}`],
+      rules: {
+        '@typescript-eslint/explicit-function-return-type': 'off',
+        'no-console': 'off',
+      },
+    },
+    {
+      name: '@bfra.me/epilogue/commonjs',
+      files: ['**/*.js', '**/*.cjs'],
+      rules: {
+        '@typescript-eslint/no-require-imports': 'off',
       },
     },
     {
@@ -30,12 +45,7 @@ export async function epilogue(): Promise<Config[]> {
       },
     },
     {
-      name: '@bfra.me/epilogue/scripts',
-      files: [`**/scripts/${GLOB_SRC}`],
-      rules: {
-        '@typescript-eslint/explicit-function-return-type': 'off',
-        'no-console': 'off',
-      },
+      name: '@bfra.me/epilogue',
     },
   ]
 }

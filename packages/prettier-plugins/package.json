@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/prettier-plugins",
-  "version": "0.4.0",
+  "version": "0.5.10",
   "description": "Plugins for Prettier used across bfra.me.",
   "keywords": [
     "bfra.me",
@@ -14,7 +14,7 @@
   "bugs": "https://github.com/bfra-me/works/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bfra-me/works.git",
+    "url": "git+https://github.com/bfra-me/works.git",
     "directory": "packages/prettier-plugins"
   },
   "license": "MIT",
@@ -24,26 +24,28 @@
   "exports": {
     "./*": {
       "types": "./lib/*.d.ts",
+      "source": "./src/*.ts",
       "default": "./lib/*.js"
     },
     "./package.json": "./package.json"
   },
-  "types": "lib/index.d.ts",
   "files": [
     "lib",
+    "src",
     "!**/*.map"
   ],
   "scripts": {
-    "build": "tsup"
+    "build": "tsup",
+    "prepack": "pnpm run build"
   },
   "dependencies": {
-    "sort-package-json": "2.10.1"
+    "sort-package-json": "3.0.0"
   },
   "devDependencies": {
     "@bfra.me/prettier-plugins": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
-    "prettier": "3.3.3",
-    "tsup": "8.3.0"
+    "prettier": "3.5.3",
+    "tsup": "8.4.0"
   },
   "peerDependencies": {
     "prettier": "^3.0.0"

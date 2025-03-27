@@ -1,22 +1,31 @@
-import type {Config} from '../types'
-import {importX as pluginImportX} from '../plugins'
+import type {Config} from '../config'
+import {interopDefault} from '../plugins'
+import {requireOf} from '../require-of'
+import {fallback} from './fallback'
 
 export async function imports(): Promise<Config[]> {
-  return [
-    {
-      name: '@bfra.me/imports',
-      plugins: {
-        'import-x': pluginImportX as any,
-      },
-      rules: {
-        'import-x/first': 'error',
-        'import-x/no-duplicates': 'error',
-        'import-x/no-mutable-exports': 'error',
-        'import-x/no-named-default': 'error',
-        'import-x/no-self-import': 'error',
-        'import-x/no-useless-path-segments': 'error',
-        'import-x/no-webpack-loader-syntax': 'error',
-      },
+  return requireOf(
+    ['eslint-plugin-import-x'],
+    async () => {
+      const pluginImportX = await interopDefault(import('eslint-plugin-import-x'))
+      return [
+        {
+          name: '@bfra.me/imports',
+          plugins: {
+            'import-x': pluginImportX as any,
+          },
+          rules: {
+            'import-x/no-named-default': 'error',
+            'import-x/first': 'error',
+            'import-x/no-duplicates': 'error',
+            'import-x/no-mutable-exports': 'error',
+            'import-x/no-self-import': 'error',
+            'import-x/no-useless-path-segments': 'error',
+            'import-x/no-webpack-loader-syntax': 'error',
+          },
+        },
+      ]
     },
-  ]
+    fallback,
+  )
 }

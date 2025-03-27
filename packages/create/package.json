@@ -1,0 +1,60 @@
+{
+  "name": "@bfra.me/create",
+  "version": "0.3.2",
+  "description": "A command line utility to create new packages from customizable templates.",
+  "keywords": [
+    "cli",
+    "create",
+    "template"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bfra-me/works.git",
+    "directory": "packages/create"
+  },
+  "license": "MIT",
+  "author": "Marcus R. Brown <contact@bfra.me>",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "create": "./dist/cli.js"
+  },
+  "files": [
+    "src",
+    "dist",
+    "!**/*.map"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "jiti src/cli.ts",
+    "prepack": "pnpm run build",
+    "start": "node dist/index.js",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@clack/prompts": "0.10.0",
+    "@sxzz/create": "0.14.4",
+    "cac": "6.7.14",
+    "consola": "3.4.2"
+  },
+  "devDependencies": {
+    "memfs": "4.17.0",
+    "tsup": "8.4.0",
+    "typescript": "5.7.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

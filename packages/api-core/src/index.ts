@@ -1,14 +1,14 @@
-import type {ConfigOptions} from './types.js'
 import type {AuthForHAR, DataForHAR} from '@readme/oas-to-har/lib/types'
 import type {Har} from 'har-format'
 import type {Operation} from 'oas/operation'
 import type {HttpMethods, OASDocument} from 'oas/types'
+import type {ConfigOptions} from './types.js'
 
 import oasToHar from '@readme/oas-to-har'
 import fetchHar from 'fetch-har'
 import Oas from 'oas'
 
-import FetchError from './errors/fetchError.js'
+import FetchError from './errors/FetchError.js'
 import {parseResponse, prepareAuth, prepareParams, prepareServer} from './lib/index.js'
 
 export default class APICore {

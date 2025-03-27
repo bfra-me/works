@@ -1,12 +1,12 @@
 // Based on https://github.com/antfu/eslint-config/blob/c8ac6da90c9479e9a431a3e2cd42d6c2b37dc333/test/fixtures.test.ts
 
-import {join, resolve} from 'path'
+import type {Config, Options} from '../src'
+import {existsSync} from 'node:fs'
+import {join, resolve} from 'node:path'
 import {execa} from 'execa'
 import fg from 'fast-glob'
-import {existsSync} from 'node:fs'
 import fs from 'fs-extra'
 import {afterAll, beforeAll, it} from 'vitest'
-import {GLOB_TS, GLOB_TSX, type Config} from '@bfra.me/eslint-config'
 
 const cleanup = async () => fs.rm('test/_fixtures', {force: true, recursive: true})
 
@@ -18,9 +18,7 @@ afterAll(async () => {
   await cleanup()
 })
 
-testPreset('default', {})
-
-function testPreset(name: string, options: Record<string, unknown>, ...configs: Config[]) {
+function testPreset(name: string, options: Options, ...configs: Config[]) {
   it.concurrent(
     name,
     async ({expect}) => {
@@ -39,7 +37,6 @@ import {defineConfig} from '@bfra.me/eslint-config'
 
 export default defineConfig(
   ${JSON.stringify(options)},
-  {files: ['${GLOB_TS}', '${GLOB_TSX}'], rules: {'@typescript-eslint/explicit-function-return-type': 'off'}},
   ...${JSON.stringify(configs) ?? []},
 )
 `,
@@ -74,3 +71,35 @@ export default defineConfig(
     30_000,
   )
 }
+
+testPreset('default', {})
+
+testPreset('js', {typescript: false})
+
+testPreset('no-prettier', {prettier: false})
+
+testPreset(
+  'ts-override',
+  {
+    typescript: true,
+  },
+  {
+    rules: {
+      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+    },
+  },
+)
+
+testPreset(
+  'ts-strict',
+  {
+    typescript: {
+      tsconfigPath: './tsconfig.json',
+    },
+  },
+  {
+    rules: {
+      '@typescript-eslint/no-unsafe-return': ['off'],
+    },
+  },
+)

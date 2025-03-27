@@ -1,5 +1,59 @@
 # @bfra.me/tsconfig
 
+## 0.9.7
+### Patch Changes
+
+
+- Switch from the Node.js test runner to Vitest. ([#817](https://github.com/bfra-me/works/pull/817))
+
+## 0.9.6
+### Patch Changes
+
+
+- Fix linter errors. ([#758](https://github.com/bfra-me/works/pull/758))
+
+## 0.9.5
+### Patch Changes
+
+
+- Updated dependency `type-fest` to `4.30.0`. ([#722](https://github.com/bfra-me/works/pull/722))
+
+
+- Updated dependency `type-fest` to `4.29.1`. ([#716](https://github.com/bfra-me/works/pull/716))
+
+## 0.9.4
+### Patch Changes
+
+
+- Updated dependency `type-fest` to `4.29.0`. ([#697](https://github.com/bfra-me/works/pull/697))
+
+## 0.9.3
+### Patch Changes
+
+
+- Updated dependency `type-fest` to `4.28.1`. ([#682](https://github.com/bfra-me/works/pull/682))
+
+## 0.9.2
+### Patch Changes
+
+
+- Updated dependency `type-fest` to `4.28.0`. ([#656](https://github.com/bfra-me/works/pull/656))
+
+
+- Updated dependency `type-fest` to `4.27.1`. ([#654](https://github.com/bfra-me/works/pull/654))
+
+## 0.9.1
+### Patch Changes
+
+
+- Updated dependency `type-fest` to `4.27.0`. ([#629](https://github.com/bfra-me/works/pull/629))
+
+## 0.9.0
+### Minor Changes
+
+
+- Enable [declaration maps](https://www.typescriptlang.org/tsconfig/#declarationMap). ([#535](https://github.com/bfra-me/works/pull/535))
+
 ## 0.8.1
 ### Patch Changes
 

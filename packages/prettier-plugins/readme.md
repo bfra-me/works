@@ -27,7 +27,9 @@ yarn add --dev @bfra.me/prettier-plugins prettier
 Add the following entry to your `.prettierrc` file:
 
 ```json
-"plugins": ["@bfra.me/prettier-plugins/package-json"]
+{
+  "plugins": ["@bfra.me/prettier-plugins/package-json"]
+}
 ```
 
 ## License

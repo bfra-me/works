@@ -10,8 +10,9 @@ yarn.lock
 node_modules
 oclif.manifest.json
 *.tsbuildinfo
-*.d.ts.map
-*.js.map
+*.d.[cm]js.map
+*.[cm]js.map
 _fixtures
 .DS_Store
 .tsup
+bfra.me-*.tgz

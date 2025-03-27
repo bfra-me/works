@@ -11,7 +11,15 @@ branches:
     protection:
       required_status_checks:
         strict: false
-        contexts: ['CI', 'Release', 'Renovate / Renovate']
+        contexts:
+          - Analyze
+          - CI
+          - CodeQL
+          - Create Renovate Changeset
+          - Release
+          - Renovate / Renovate
+          - Review Dependencies
+
       enforce_admins: true
       required_pull_request_reviews: null
       restrictions: null

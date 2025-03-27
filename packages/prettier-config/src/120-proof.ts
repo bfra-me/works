@@ -1,18 +1,9 @@
-import prettierConfig from './prettier.config.js'
-import type {Config} from 'prettier'
+import {defaultConfig} from './default.js'
+import {defineConfig} from './define-config.js'
 
-const {searchParams: params} = new URL(import.meta.url)
-const preset = {
-  semi: params.has('semi') || prettierConfig.semi || false,
+export const $120ProofConfig = defineConfig({
+  ...defaultConfig,
   printWidth: 120,
-} as const satisfies Pick<Config, 'printWidth' | 'semi'>
+})
 
-/**
- * Shared Prettier configuration for bfra.me projects with `printWidth` set to 120 characters.
- */
-const config: Config & typeof preset = {
-  ...prettierConfig,
-  ...preset,
-}
-
-export default config
+export default $120ProofConfig

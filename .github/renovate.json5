@@ -3,6 +3,7 @@
   extends: [
     'github>bfra-me/renovate-config#v3',
     'github>bfra-me/renovate-config:internal.json5#v3',
+    'github>sanity-io/renovate-config:semantic-commit-type',
     'security:openssf-scorecard',
     'npm:unpublishSafe',
   ],
@@ -14,6 +15,7 @@
     '**/dist/**',
     'packages/api-core/test-utils/sdks/**',
   ],
+  ignorePresets: ['mergeConfidence:age-confidence-badges', 'mergeConfidence:all-badges'],
   packageRules: [
     {
       description: 'Group packages from @readmeio/oas monorepo together.',
@@ -47,6 +49,24 @@
       matchPackageNames: ['fetch-mock'],
       allowedVersions: '<12.0.0',
     },
+    {
+      description: 'Schedule the update frequency of SWC packages to once every two weeks.',
+      matchPackageNames: ['@swc/**'],
+      schedule: ['every 2 weeks on Sunday at 00:00'],
+    },
+    {
+      description: 'Show Merge Confidence, OpenSSF Scorecard, and GitHub Search badges for Renovate dependencies.',
+      matchDatasources: ['go', 'maven', 'npm', 'nuget', 'packagist', 'pypi', 'rubygems'],
+      matchUpdateTypes: ['pin', 'patch', 'minor', 'major'],
+      prBodyColumns: ['Package', 'Change', 'Age', 'Confidence', 'GitHub'],
+    },
+    {
+      description: 'Show Merge Confidence, OpenSSF Scorecard, and GitHub Search badges for Renovate dependencies.',
+      matchDatasources: ['go', 'maven', 'npm', 'nuget', 'packagist', 'pypi', 'rubygems'],
+      matchUpdateTypes: ['pin', 'patch', 'minor', 'major'],
+      matchSourceUrls: ['https://github.com/**'],
+      prBodyColumns: ['Package', 'Change', 'Age', 'Confidence', 'OpenSSF', 'GitHub'],
+    },
   ],
   patch: {
     automerge: true,
@@ -54,8 +74,11 @@
   },
   platformAutomerge: false,
   postUpgradeTasks: {
-    commands: ['pnpm install --frozen-lockfile', 'pnpm fix', 'pnpm format'],
+    commands: ['pnpm bootstrap', 'pnpm fix'],
     executionMode: 'branch',
+  },
+  prBodyDefinitions: {
+    GitHub: '[![GitHub Code Search for "{{{depName}}}"](https://img.shields.io/badge/code_search-{{{replace "-" "--" depName}}}-2671E5.svg?logo=github)](https://github.com/search?q=repo:{{{encodeURIComponent repository}}}+NOT+path:/package(-lock)%3F%5C.json%7Cyarn%5C.lock%7Cpnpm-lock%5C.yaml/+{{{encodeURIComponent depName}}})',
   },
   prCreation: 'not-pending',
   rebaseWhen: 'auto',
