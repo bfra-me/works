@@ -188,8 +188,8 @@ importers:
         specifier: 3.2.0
         version: 3.2.0(eslint@9.23.0(jiti@2.4.2))
       eslint-plugin-import-x:
-        specifier: 4.9.4
-        version: 4.9.4(eslint@9.23.0(jiti@2.4.2))(typescript@5.8.2)
+        specifier: 4.10.0
+        version: 4.10.0(eslint@9.23.0(jiti@2.4.2))(typescript@5.8.2)
       eslint-plugin-jsdoc:
         specifier: 50.6.9
         version: 50.6.9(eslint@9.23.0(jiti@2.4.2))
@@ -2070,8 +2070,8 @@ packages:
     peerDependencies:
       eslint: '>=8'
 
-  eslint-plugin-import-x@4.9.4:
-    resolution: {integrity: sha512-IPWbN0KBgBCpAiSlUcS17zc1eqMzRlYz15AzsFrw2Qfqt+e0IupxYbvYD96bGLKVlNdkNwa4ggv1skztpaZR/g==}
+  eslint-plugin-import-x@4.10.0:
+    resolution: {integrity: sha512-5ej+0WILhX3D6wkcdsyYmPp10SUIK6fmuZ6KS8nf9MD8CJ6/S/3Dl7m21g+MLeaTMsvcEXo3JunNAbgHwXxs/g==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0
@@ -6418,8 +6418,9 @@ snapshots:
       eslint: 9.23.0(jiti@2.4.2)
       eslint-compat-utils: 0.5.1(eslint@9.23.0(jiti@2.4.2))
 
-  eslint-plugin-import-x@4.9.4(eslint@9.23.0(jiti@2.4.2))(typescript@5.8.2):
+  eslint-plugin-import-x@4.10.0(eslint@9.23.0(jiti@2.4.2))(typescript@5.8.2):
     dependencies:
+      '@pkgr/core': 0.2.0
       '@types/doctrine': 0.0.9
       '@typescript-eslint/utils': 8.29.0(eslint@9.23.0(jiti@2.4.2))(typescript@5.8.2)
       debug: 4.4.0
