@@ -66,7 +66,7 @@
     "rimraf": "6.0.1",
     "sort-package-json": "3.0.0",
     "ts-essentials": "10.0.4",
-    "type-fest": "4.39.0",
+    "type-fest": "4.39.1",
     "typescript": "5.8.2",
     "vitest": "3.1.1"
   },
