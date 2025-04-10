@@ -1,5 +1,14 @@
 # @bfra.me/api-core
 
+## 0.2.6
+### Patch Changes
+
+
+- Updated dependency `typescript` to `5.8.3`. ([#1122](https://github.com/bfra-me/works/pull/1122))
+
+
+- Updated dependency `@readme/oas-examples` to `5.20.0`. ([#1123](https://github.com/bfra-me/works/pull/1123))
+
 ## 0.2.5
 ### Patch Changes
 
