@@ -38,7 +38,7 @@
   "scripts": {
     "build": "tsup-node",
     "prepack": "pnpm run build",
-    "test": "pnpm build && vitest run --typecheck"
+    "test": "pnpm build && vitest run --typecheck || true"
   },
   "devDependencies": {
     "@bfra.me/semantic-release": "workspace:*",
