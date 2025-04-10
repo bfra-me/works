@@ -2,7 +2,7 @@ import {spawnSync} from 'node:child_process'
 import {existsSync} from 'node:fs'
 import {resolve} from 'node:path'
 import process from 'node:process'
-import {detectSync, resolveCommand} from 'package-manager-detector'
+import {resolveCommand, type AgentName} from 'package-manager-detector'
 import {packageDirectorySync} from 'pkg-dir'
 
 const installedModules = new Set<string>()
@@ -87,13 +87,25 @@ function installPackageSync(packages: string | string[], options: {cwd: string; 
   return `${result.output}`
 }
 
-function detectPackageManagerSync(cwd = process.cwd()) {
-  const result = detectSync({
-    cwd,
-    onUnknown(packageManager) {
-      console.warn(`Unknown package manager: ${packageManager}`)
-      return undefined
-    },
-  })
-  return result?.agent || null
+function detectPackageManagerSync(cwd = process.cwd()): AgentName | null {
+  // We cannot reliably convert an async detect() to sync detectSync()
+  // without potentially blocking. The proper fix would be to make this
+  // function async, but that would break API compatibility.
+  // For now, we'll use a simple fallback approach:
+
+  try {
+    // Look for lockfiles directly
+    if (existsSync(resolve(cwd, 'package-lock.json'))) {
+      return 'npm'
+    }
+    if (existsSync(resolve(cwd, 'yarn.lock'))) {
+      return 'yarn'
+    }
+    if (existsSync(resolve(cwd, 'pnpm-lock.yaml'))) {
+      return 'pnpm'
+    }
+    return null
+  } catch {
+    return null
+  }
 }
