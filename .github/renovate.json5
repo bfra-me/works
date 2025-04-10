@@ -14,6 +14,7 @@
     '**/test/**',
     '**/dist/**',
     'packages/api-core/test-utils/sdks/**',
+    'packages/create/**/templates/**',
   ],
   ignorePresets: ['mergeConfidence:age-confidence-badges', 'mergeConfidence:all-badges'],
   packageRules: [
