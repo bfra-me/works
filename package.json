@@ -28,7 +28,7 @@
     "precommit": "lint-staged",
     "prepare": "husky",
     "publish-changesets": "changeset publish",
-    "test": "pnpm -r --parallel --aggregate-output run test",
+    "test": "pnpm -r --parallel --stream --aggregate-output run test",
     "type-check": "tsc --noEmit",
     "validate": "pnpm run lint && pnpm run test && pnpm run build",
     "version-changesets": "changeset version && pnpm install --no-frozen-lockfile",
