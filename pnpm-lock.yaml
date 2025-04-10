@@ -233,8 +233,8 @@ importers:
         specifier: 1.1.1
         version: 1.1.1
       package-manager-detector:
-        specifier: 0.2.11
-        version: 0.2.11
+        specifier: 1.1.0
+        version: 1.1.0
       pkg-dir:
         specifier: 8.0.0
         version: 8.0.0
