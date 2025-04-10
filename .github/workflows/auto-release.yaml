@@ -1,0 +1,115 @@
+name: Auto Release
+
+on:
+  schedule:
+    - cron: '0 18 * * 0' # Run every Sunday at 6 PM UTC
+  workflow_dispatch:
+    inputs:
+      force-release:
+        description: Force release if checks pass
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  manage-release:
+    name: Manage Release PR
+    permissions:
+      contents: write
+      id-token: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - id: get-workflow-access-token
+        name: Get Workflow Access Token
+        uses: actions/create-github-app-token@d72941d797fd3113feb6b93fd0dec494b13a2547 # v1.12.0
+        with:
+          app-id: ${{ secrets.APPLICATION_ID }}
+          private-key: ${{ secrets.APPLICATION_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+
+      - name: Setup Git user
+        run: |
+          git config --global user.email '118100583+bfra-me[bot]@users.noreply.github.com'
+          git config --global user.name 'bfra-me[bot]'
+
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+          token: ${{ steps.get-workflow-access-token.outputs.token }}
+
+      - name: Prepare job
+        uses: ./.github/actions/pnpm-install
+
+      - name: Perform a dry run of `pnpm publish`
+        run: pnpm -r publish --dry-run
+
+      - name: Check for existing release PR
+        id: check-pr
+        env:
+          GH_TOKEN: ${{ steps.get-workflow-access-token.outputs.token }}
+        run: |
+          PR_NUMBER=$(gh pr list \
+            --head "changeset-release/main" \
+            --json number \
+            --jq '.[0].number')
+          if [ -n "$PR_NUMBER" ]; then
+            echo "pr-exists=true" >> $GITHUB_OUTPUT
+            echo "pr-number=$PR_NUMBER" >> $GITHUB_OUTPUT
+
+            # Check PR status
+            STATUS=$(gh pr view $PR_NUMBER --json statusCheckRollup --jq '.statusCheckRollup[].conclusion' | sort -u | grep 'SUCCESS')
+            MERGEABLE=$(gh pr view $PR_NUMBER --json mergeStateStatus --jq '.mergeStateStatus')
+            echo "PR $PR_NUMBER:"
+            echo "- checks status: $STATUS"
+            echo "- mergeable status: $MERGEABLE"
+            if [ "$STATUS" = "SUCCESS" ]; then
+              echo "checks-status=success" >> $GITHUB_OUTPUT
+            elif [ "$STATUS" = "PENDING" ]; then
+              echo "checks-status=pending" >> $GITHUB_OUTPUT
+            else
+              echo "checks-status=failed" >> $GITHUB_OUTPUT
+            fi
+            if [ "$MERGEABLE" = "BEHIND" ] || [ "$MERGEABLE" = "UNKNOWN" ]; then
+              echo "mergeable=false" >> $GITHUB_OUTPUT
+            else
+              echo "mergeable=true" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "pr-exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Release PR
+        if: steps.check-pr.outputs.pr-exists == 'false' || steps.check-pr.outputs.mergeable == 'false'
+        env:
+          GH_REPO: ${{ github.repository }}
+          GITHUB_TOKEN: ${{ steps.get-workflow-access-token.outputs.token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        uses: changesets/action@06245a4e0a36c064a573d4150030f5ec548e4fcc # v1.4.10
+        with:
+          commit: 'chore(changesets): publish packages'
+          publish: pnpm publish-changesets
+          setupGitUser: false
+          title: 'chore(🦋📦): publish packages'
+          version: pnpm version-changesets
+
+      - name: Enable Auto-merge
+        if: >-
+          steps.check-pr.outputs.pr-exists == 'true' &&
+          (
+            steps.check-pr.outputs.checks-status == 'pending' ||
+            steps.check-pr.outputs.checks-status == 'success' ||
+            inputs.force-release == true
+          )
+        env:
+          GH_TOKEN: ${{ steps.get-workflow-access-token.outputs.token }}
+          PR_NUMBER: ${{ steps.check-pr.outputs.pr-number }}
+        run: |
+          gh pr merge $PR_NUMBER --squash --auto
