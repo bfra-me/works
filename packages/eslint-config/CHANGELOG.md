@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.20.0
+### Minor Changes
+
+
+- Remove Jiti. ([#1142](https://github.com/bfra-me/works/pull/1142))
+
 ## 0.19.0
 ### Minor Changes
 
