@@ -42,7 +42,7 @@ export default defineConfig(
 `,
       )
 
-      await execa('pnpx', ['eslint', '--fix', '.'], {
+      await execa('pnpm', ['eslint', '--fix', '.'], {
         cwd: target,
         stdio: 'pipe',
       })
