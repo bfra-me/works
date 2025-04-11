@@ -194,8 +194,8 @@ importers:
         specifier: 50.6.9
         version: 50.6.9(eslint@9.24.0(jiti@2.4.2))
       eslint-plugin-json-schema-validator:
-        specifier: 5.3.1
-        version: 5.3.1(eslint@9.24.0(jiti@2.4.2))
+        specifier: 5.4.0
+        version: 5.4.0(eslint@9.24.0(jiti@2.4.2))
       eslint-plugin-jsonc:
         specifier: 2.20.0
         version: 2.20.0(eslint@9.24.0(jiti@2.4.2))
@@ -2083,8 +2083,8 @@ packages:
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
 
-  eslint-plugin-json-schema-validator@5.3.1:
-    resolution: {integrity: sha512-S5HpOPrpAMXd81TYJbm5iOgy3YirQ+NtHVaii6rmw/iiv5xSu5kPhxiuovoYpL9HSJsyKXJRK597yCy3BLKN8g==}
+  eslint-plugin-json-schema-validator@5.4.0:
+    resolution: {integrity: sha512-fvxqUr5sj4soQIYv14Rf10rUJ2QT2hrJEdL63Luve4LBVH/2u5YClgKJMvB9E9ljQkj0adyRWtZiRmgPGKZnZQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       eslint: '>=6.0.0'
@@ -2849,8 +2849,9 @@ packages:
     resolution: {integrity: sha512-CTUKmIlPJbsWfzRRnOXz+0MjIqvnleIXwFTzz+t9T86HnYX/Rozria6ZVGLktAU9e+NygNljveP+yxqtQp/Q4w==}
     engines: {node: '>=12.0.0'}
 
-  json-schema-migrate@2.0.0:
-    resolution: {integrity: sha512-r38SVTtojDRp4eD6WsCqiE0eNDt4v1WalBXb9cyZYw9ai5cGtBwzRNWjHzJl38w6TxFkXAIA7h+fyX3tnrAFhQ==}
+  json-schema-migrate-x@2.1.0:
+    resolution: {integrity: sha512-idC5B/FLaEsMydSW+I302kEmg9RecqsdG12nAfmgp9SmrqDzmea9wTlE56rQlV3P3cWY6AAcA8/By4gyCQES/A==}
+    engines: {node: '>=0.10.0'}
 
   json-schema-to-ts@3.1.1:
     resolution: {integrity: sha512-+DWg8jCJG2TEnpy7kOm/7/AxaYoaRbjVB4LFZLySZlWn8exGs3A4OLJR966cVvU26N7X9TWxl+Jsw7dzAqKT6g==}
@@ -3215,10 +3216,6 @@ packages:
 
   minimatch@3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
-
-  minimatch@8.0.4:
-    resolution: {integrity: sha512-W0Wvr9HyFXZRGIDgCicunpQ299OKXs9RgZfaukz4qAW/pJhcpUfupc9c+OObPOFueNy8VSrZgEmDtk6Kh4WzDA==}
-    engines: {node: '>=16 || 14 >=14.17'}
 
   minimatch@9.0.5:
     resolution: {integrity: sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow==}
@@ -6472,7 +6469,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-json-schema-validator@5.3.1(eslint@9.24.0(jiti@2.4.2)):
+  eslint-plugin-json-schema-validator@5.4.0(eslint@9.24.0(jiti@2.4.2)):
     dependencies:
       '@eslint-community/eslint-utils': 4.5.1(eslint@9.24.0(jiti@2.4.2))
       ajv: 8.17.1
@@ -6480,10 +6477,10 @@ snapshots:
       eslint: 9.24.0(jiti@2.4.2)
       eslint-compat-utils: 0.6.5(eslint@9.24.0(jiti@2.4.2))
       eslint-json-compat-utils: 0.2.1(eslint@9.24.0(jiti@2.4.2))(jsonc-eslint-parser@2.4.0)
-      json-schema-migrate: 2.0.0
+      json-schema-migrate-x: 2.1.0
       jsonc-eslint-parser: 2.4.0
-      minimatch: 8.0.4
-      synckit: 0.9.2
+      minimatch: 10.0.1
+      synckit: 0.11.2
       toml-eslint-parser: 0.10.0
       tunnel-agent: 0.6.0
       yaml-eslint-parser: 1.3.0
@@ -7322,7 +7319,7 @@ snapshots:
       json-schema-compare: 0.2.2
       lodash: 4.17.21
 
-  json-schema-migrate@2.0.0:
+  json-schema-migrate-x@2.1.0:
     dependencies:
       ajv: 8.17.1
 
@@ -7866,10 +7863,6 @@ snapshots:
   minimatch@3.1.2:
     dependencies:
       brace-expansion: 1.1.11
-
-  minimatch@8.0.4:
-    dependencies:
-      brace-expansion: 2.0.1
 
   minimatch@9.0.5:
     dependencies:
