@@ -68,6 +68,6 @@
     "typescript": "5.8.3"
   },
   "engines": {
-    "node": ">=18.13.0"
+    "node": ">=20"
   }
 }
