@@ -1,5 +1,11 @@
 # @bfra.me/prettier-config
 
+## 0.15.4
+### Patch Changes
+
+
+- Use `pnpm` to execute ESLint. ([#1139](https://github.com/bfra-me/works/pull/1139))
+
 ## 0.15.3
 ### Patch Changes
 

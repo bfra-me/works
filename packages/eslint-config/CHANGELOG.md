@@ -1,5 +1,23 @@
 # @bfra.me/eslint-config
 
+## 0.19.0
+### Minor Changes
+
+
+- Add a workaround for breaking async `detect` change in `package-manager-detector`. ([#1132](https://github.com/bfra-me/works/pull/1132))
+
+
+### Patch Changes
+
+
+- Updated dependency `package-manager-detector` to `1.1.0`. ([#1075](https://github.com/bfra-me/works/pull/1075))
+
+
+- Updated dependency `typescript-eslint` to `8.29.1`. ([#1135](https://github.com/bfra-me/works/pull/1135))
+  Updated dependency `@typescript-eslint/types` to `8.29.1`.
+
+- Use `pnpm` to execute ESLint. ([#1139](https://github.com/bfra-me/works/pull/1139))
+
 ## 0.18.1
 ### Patch Changes
 
