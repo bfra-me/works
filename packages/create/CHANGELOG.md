@@ -1,5 +1,11 @@
 # @bfra.me/create
 
+## 0.4.2
+### Patch Changes
+
+
+- Updated dependency `@clack/prompts` to `0.10.1`. ([#1137](https://github.com/bfra-me/works/pull/1137))
+
 ## 0.4.1
 ### Patch Changes
 

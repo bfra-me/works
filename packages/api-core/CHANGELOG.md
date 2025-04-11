@@ -1,5 +1,17 @@
 # @bfra.me/api-core
 
+## 0.3.0
+### Minor Changes
+
+
+- Update `engines` to require at least Node 20. ([#1141](https://github.com/bfra-me/works/pull/1141))
+
+
+### Patch Changes
+
+
+- Updated dependency `@readme/oas-examples` to `5.20.1`. ([#1136](https://github.com/bfra-me/works/pull/1136))
+
 ## 0.2.6
 ### Patch Changes
 
