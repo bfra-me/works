@@ -20,6 +20,8 @@ concurrency:
 jobs:
   manage-release:
     name: Manage Release PR
+    env:
+      PUBLISH_REF: changeset-release/main
     permissions:
       contents: write
       id-token: write
@@ -43,13 +45,14 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
+          ref: ${{ env.PUBLISH_REF }}
           token: ${{ steps.get-workflow-access-token.outputs.token }}
 
       - name: Prepare job
         uses: ./.github/actions/pnpm-install
 
       - name: Perform a dry run of `pnpm publish`
-        run: pnpm -r publish --dry-run
+        run: pnpm -r publish --dry-run --publish-branch ${{ env.PUBLISH_REF }}
 
       - name: Check for existing release PR
         id: check-pr
@@ -57,9 +60,10 @@ jobs:
           GH_TOKEN: ${{ steps.get-workflow-access-token.outputs.token }}
         run: |
           PR_NUMBER=$(gh pr list \
-            --head "changeset-release/main" \
+            --head "$PUBLISH_REF" \
             --json number \
-            --jq '.[0].number')
+            --jq '.[0].number' \
+            --state open)
           if [ -n "$PR_NUMBER" ]; then
             echo "pr-exists=true" >> $GITHUB_OUTPUT
             echo "pr-number=$PR_NUMBER" >> $GITHUB_OUTPUT
