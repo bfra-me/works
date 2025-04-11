@@ -39,6 +39,19 @@ runs:
         path: ${{ steps.cache-config.outputs.path }}
         restore-keys: ${{ steps.cache-config.outputs.restore-keys }}
 
+    - id: cache-development
+      name: Restore development related caches
+      uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+      with:
+        key: ${{ runner.os }}-development-cache-${{ hashFiles('**/pnpm-lock.yaml', '**/*.ts') }}
+        path: |
+          .cache
+          **/.tsup
+          **/.turbo
+          **/coverage
+          **/tsconfig.tsbuildinfo
+        restore-keys: ${{ runner.os }}-development-cache-
+
     - name: Bootstrap monorepo
       env:
         HUSKY: '0'
@@ -46,13 +59,3 @@ runs:
         # Use the bootstrap script to install dependencies and build packages
         pnpm bootstrap
       shell: 'bash -Eeuo pipefail {0}'
-
-    - id: cache-development
-      name: Restore development related caches
-      uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
-      with:
-        key: development-cache-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-        path: |
-          .cache
-          **/tsconfig.tsbuildinfo
-        save-always: true
