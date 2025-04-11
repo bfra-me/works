@@ -127,8 +127,8 @@ importers:
         specifier: workspace:*
         version: link:../eslint-config
       '@readme/oas-examples':
-        specifier: 5.20.0
-        version: 5.20.0
+        specifier: 5.20.1
+        version: 5.20.1
       '@types/caseless':
         specifier: 0.12.5
         version: 0.12.5
@@ -937,8 +937,8 @@ packages:
     resolution: {integrity: sha512-Bt3QVovFSua4QmHa65EHUmh2xS0XJ3rgTEUPH998f4OW4VVJke3BuS16f+kM0ZLOGdvIrzrPRqwihuv5BAjtrA==}
     deprecated: This package is no longer maintained. Please use `@apidevtools/json-schema-ref-parser` instead.
 
-  '@readme/oas-examples@5.20.0':
-    resolution: {integrity: sha512-fegvBaLpWIybsNjfhyiIdntVEi++C0ygg0f3REq3zYe9llPHDjriEkSbGEBC3kPLkwL3+PULhO6Ek72cjNyVbg==}
+  '@readme/oas-examples@5.20.1':
+    resolution: {integrity: sha512-Jac6075WiWfjgr5YQE01tTfmNo3RO9kLt+GY7+iiU74nKyoyEm6XgSYYLad/OrMHYY/5s492G+tTng6BPMjevg==}
 
   '@readme/oas-to-har@24.0.7':
     resolution: {integrity: sha512-4PGnAFn0zmri47L0wluyThmaho1W5Fa32sRavqa7tz5E+Om1y/zDhot5y1Y4x9bmphZHmtxviBhV4P3IpLa4+A==}
@@ -5305,7 +5305,7 @@ snapshots:
       call-me-maybe: 1.0.2
       js-yaml: 4.1.0
 
-  '@readme/oas-examples@5.20.0': {}
+  '@readme/oas-examples@5.20.1': {}
 
   '@readme/oas-to-har@24.0.7':
     dependencies:
