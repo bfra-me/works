@@ -31,7 +31,7 @@
     "test": "pnpm -r --parallel --stream --aggregate-output run test",
     "type-check": "tsc --noEmit",
     "validate": "pnpm run lint && pnpm run test && pnpm run build",
-    "version-changesets": "changeset version && pnpm install --no-frozen-lockfile",
+    "version-changesets": "changeset version && pnpm bootstrap --no-frozen-lockfile && pnpm build",
     "watch": "pnpm run build --watch"
   },
   "lint-staged": {
