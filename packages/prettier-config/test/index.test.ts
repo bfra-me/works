@@ -51,7 +51,7 @@ export default config
     `,
       )
 
-      await execa('pnpx', ['prettier', '--write', '.'], {
+      await execa('pnpm', ['prettier', '--write', '.'], {
         cwd: target,
         stdio: 'pipe',
       })
