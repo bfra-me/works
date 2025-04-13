@@ -45,4 +45,21 @@ jobs:
 
       - name: Run changesets-renovate
         if: steps.filter.outputs.changes == 'true'
+        env:
+          SKIP_COMMIT: 'TRUE'
+          SORT_CHANGESETS: 'TRUE'
         run: pnpx @scaleway/changesets-renovate
+
+      - name: Clean private package entries from changesets
+        if: steps.filter.outputs.changes == 'true'
+        env:
+          PRIVATE_PACKAGES: '@api/test-utils'
+        run: pnpm tsx scripts/src/clean-changesets.ts
+
+      - name: Commit and push changes
+        if: steps.filter.outputs.changes == 'true'
+        run: |
+          SHORT_HASH=$(git rev-parse --short HEAD)
+          git add .changeset/
+          git commit -m "chore: add changeset renovate-${SHORT_HASH}" || echo "No changes to commit"
+          git push

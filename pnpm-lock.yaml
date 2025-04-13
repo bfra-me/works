@@ -352,6 +352,34 @@ importers:
         specifier: 1.0.0
         version: 1.0.0(ajv@8.17.1)
 
+  scripts:
+    dependencies:
+      consola:
+        specifier: 3.4.2
+        version: 3.4.2
+    devDependencies:
+      '@bfra.me/eslint-config':
+        specifier: workspace:*
+        version: link:../packages/eslint-config
+      '@bfra.me/tsconfig':
+        specifier: workspace:*
+        version: link:../packages/tsconfig
+      '@types/node':
+        specifier: 22.13.14
+        version: 22.13.14
+      eslint:
+        specifier: 9.24.0
+        version: 9.24.0(jiti@2.4.2)
+      tsx:
+        specifier: 4.19.3
+        version: 4.19.3
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+      vitest:
+        specifier: 3.1.1
+        version: 3.1.1(@types/debug@4.1.12)(@types/node@22.13.14)(jiti@2.4.2)(tsx@4.19.3)(yaml@2.7.1)
+
 packages:
 
   '@ampproject/remapping@2.3.0':
