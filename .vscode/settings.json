@@ -42,8 +42,6 @@
 
     "explorer.fileNesting.enabled": false,
 
-    "files.autoSave": "onFocusChange",
-
     "javascript.updateImportsOnFileMove.enabled": "always",
 
     "typescript.enablePromptUseWorkspaceTsdk": true,
