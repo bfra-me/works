@@ -1,0 +1,27 @@
+{
+  "name": "@bfra.me/scripts",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./clean-changesets": "./src/clean-changesets.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "consola": "3.4.2"
+  },
+  "devDependencies": {
+    "@bfra.me/eslint-config": "workspace:*",
+    "@bfra.me/tsconfig": "workspace:*",
+    "@types/node": "22.13.14",
+    "eslint": "9.24.0",
+    "tsx": "4.19.3",
+    "typescript": "5.8.3",
+    "vitest": "3.1.1"
+  }
+}
