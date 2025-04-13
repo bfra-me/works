@@ -68,6 +68,11 @@
       matchSourceUrls: ['https://github.com/**'],
       prBodyColumns: ['Package', 'Change', 'Age', 'Confidence', 'OpenSSF', 'GitHub'],
     },
+    {
+      description: 'Disable Mise updates',
+      matchManagers: ['mise'],
+      enabled: false,
+    },
   ],
   patch: {
     automerge: true,
