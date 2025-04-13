@@ -1,5 +1,17 @@
 # @bfra.me/eslint-config
 
+## 0.20.0
+### Minor Changes
+
+
+- Remove Jiti. ([#1142](https://github.com/bfra-me/works/pull/1142))
+
+
+### Patch Changes
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.1.40`. ([#1144](https://github.com/bfra-me/works/pull/1144))
+
 ## 0.19.0
 ### Minor Changes
 
