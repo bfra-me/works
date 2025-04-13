@@ -13,9 +13,11 @@ import {interopDefault} from '../plugins'
 import {requireOf} from '../require-of'
 import {fallback} from './fallback'
 
+/* eslint perfectionist/sort-objects: 'off' */
 const TypeAwareRules: Config['rules'] = {
   '@typescript-eslint/await-thenable': 'error',
-  '@typescript-eslint/dot-notation': ['error', {allowKeywords: true}],
+  'dot-notation': 'off',
+  '@typescript-eslint/dot-notation': 'error',
   '@typescript-eslint/no-for-in-array': 'error',
   '@typescript-eslint/no-unnecessary-qualifier': 'error',
   '@typescript-eslint/no-unnecessary-type-assertion': 'error',
