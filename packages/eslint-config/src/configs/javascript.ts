@@ -65,7 +65,7 @@ export async function javascript(options: JavaScriptOptions = {}): Promise<Confi
             'block-scoped-var': 'error',
             'constructor-super': 'error',
             'default-case-last': 'error',
-            'dot-notation': ['error', {allowKeywords: true}],
+            'dot-notation': 'error',
             eqeqeq: ['error', 'smart'],
             'new-cap': ['error', {capIsNew: false, newIsCap: true, properties: true}],
             'no-alert': 'error',
