@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.20.1
+### Patch Changes
+
+
+- Disable `dot-notation` rule for TypeScript type-aware linting. ([#1150](https://github.com/bfra-me/works/pull/1150))
+
 ## 0.20.0
 ### Minor Changes
 
