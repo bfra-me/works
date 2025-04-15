@@ -1,9 +1,0 @@
-{
-  "extends": "../tsconfig.json",
-  "compilerOptions": {
-    "lib": ["DOM", "ES2023"],
-    "noEmit": true,
-    "resolveJsonModule": true
-  },
-  "include": ["./**/*"]
-}

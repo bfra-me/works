@@ -10,7 +10,6 @@ export const config = defineConfig({
         './tsconfig.eslint.json',
         './packages/*/tsconfig.json',
         './packages/*/tsconfig.eslint.json',
-        './packages/api-core/test-utils/tsconfig.json',
         './scripts/tsconfig.json',
         './scripts/tsconfig.eslint.json',
       ],

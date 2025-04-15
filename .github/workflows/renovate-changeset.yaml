@@ -52,8 +52,6 @@ jobs:
 
       - name: Clean private package entries from changesets
         if: steps.filter.outputs.changes == 'true'
-        env:
-          PRIVATE_PACKAGES: '@api/test-utils'
         run: pnpm tsx scripts/src/clean-changesets.ts
 
       - name: Commit and push changes
