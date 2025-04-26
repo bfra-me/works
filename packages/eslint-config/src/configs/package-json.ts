@@ -18,15 +18,14 @@ export async function packageJson(options: PackageJsonOptions = {}): Promise<Con
   return requireOf(
     ['eslint-plugin-node-dependencies'],
     async () => {
-      // @ts-expect-error: Missing type definitions
       const pluginNodeDependencies = await interopDefault(import('eslint-plugin-node-dependencies'))
       return [
         ...pluginNodeDependencies.configs['flat/recommended'].map(
-          (config: Config, index: number) => ({
-            ...config,
-            name: config.plugins
+          (config: unknown, index: number) => ({
+            ...(config as Config),
+            name: (config as Config).plugins
               ? `@bfra.me/package-json/plugins`
-              : `@bfra.me/${config.name || `package-json/unnamed${index}`}`,
+              : `@bfra.me/${(config as Config).name || `package-json/unnamed${index}`}`,
             files,
           }),
         ),
