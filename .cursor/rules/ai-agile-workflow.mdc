@@ -1,0 +1,582 @@
+---
+description: Process for generating well-defined task documents from plans and tracking progress
+globs: docs/plans/*.md, docs/tasks/*.md, docs/features.md, docs/plan.md, docs/memory/*.md
+alwaysApply: false
+---
+# AI-Assisted Agile Workflow
+
+Guidelines for using Cursor rules to generate and track task documents from plan documents.
+
+<rule>
+name: ai_agile_workflow
+description: Process for generating well-defined task documents from plans and tracking progress using AI assistance
+filters:
+  - type: file_path
+    pattern: "docs/(plans|tasks)/.*\\.md$"
+  - type: file_path
+    pattern: "docs/features\\.md$"
+  - type: file_path
+    pattern: "docs/plan\\.md$"
+  - type: file_path
+    pattern: "docs/memory/.*\\.md$"
+  - type: message
+    pattern: "(?i)(task generation|plan breakdown|agile workflow|track feature|create task)"
+  - type: content
+    pattern: "\\[Plan\\]|\\[Task\\]|\\[Status: (Not Started|In Progress|Completed)\\]"
+
+actions:
+  - type: suggest
+    message: |
+      # AI-Assisted Agile Workflow
+
+      This workflow uses Cursor rules and AI assistance to generate well-defined task documents from comprehensive plans and track progress on features.
+
+      ## Document Types
+
+      ### 1. Plan Document (`docs/plan.md`)
+
+      The plan document serves as the hub for all development planning and provides an overview of all ongoing work:
+
+      ```markdown
+      # Development Plan
+
+      This document serves as the hub for all development planning.
+
+      ## Active Projects
+
+      ### Project 1: [Project Name]
+
+      **Objective**: [Project objective]
+      **Status**: [Status]
+      **Current Phase**: [Current phase]
+      **Active Tasks**: [List of active tasks]
+      **Upcoming Tasks**: [List of upcoming tasks]
+      **Related Documents**: [Links to related documents]
+
+      ## Project Timeline
+
+      [Mermaid gantt chart]
+
+      ## Completed Tasks
+
+      [List of completed tasks]
+
+      ## Planning Notes
+
+      [Planning notes]
+
+      ## Development Process
+
+      [Description of development process]
+
+      ## Workflow Status
+
+      [Current workflow status]
+
+      ## References
+
+      [Links to related documents]
+      ```
+
+      ### 2. Features Document (`docs/features.md`)
+
+      The features document tracks all features for improvement and their status:
+
+      ```markdown
+      # Project Features
+
+      ## Current Features
+
+      ### Feature 1: [Title]
+
+      - **Description**: Brief description of the feature
+      - **Status**: [Not Started | In Progress | Completed]
+      - **Plan Document**: [Link to plan document]
+      - **Priority**: [High | Medium | Low]
+      - **Created**: YYYY-MM-DD
+      - **Updated**: YYYY-MM-DD
+
+      ### Feature 2: [Title]
+
+      ...
+
+      ## Completed Features
+
+      ### Feature X: [Title]
+
+      - **Description**: Brief description of the feature
+      - **Status**: Completed
+      - **Plan Document**: [Link to plan document]
+      - **Completion Date**: YYYY-MM-DD
+      - **Outcome**: Brief description of the outcome
+      ```
+
+      ### 3. Plan Document (`docs/plans/[plan-name].md`)
+
+      Each plan document outlines a comprehensive approach to implementing a feature:
+
+      ```markdown
+      # Plan: [Plan Title]
+
+      ## Overview
+
+      Brief description of the plan and its goals.
+
+      ## Related Feature
+
+      [Link to the feature in the features document]
+
+      ## Success Criteria
+
+      - Criterion 1
+      - Criterion 2
+      - ...
+
+      ## Implementation Phases
+
+      ### Phase 1: [Phase Title]
+
+      **Objective**: Clear statement of the phase objective
+
+      **Tasks**:
+
+      1. [Task 1 description]
+         - **Complexity**: [Low | Medium | High]
+         - **Dependencies**: None
+         - **Acceptance Criteria**: Clear criteria for completion
+
+      2. [Task 2 description]
+         - **Complexity**: [Low | Medium | High]
+         - **Dependencies**: Task 1
+         - **Acceptance Criteria**: Clear criteria for completion
+
+      ### Phase 2: [Phase Title]
+
+      ...
+
+      ## Timeline
+
+      - Phase 1: X weeks
+      - Phase 2: Y weeks
+      - ...
+
+      ## Resources Required
+
+      - Resource 1
+      - Resource 2
+      - ...
+      ```
+
+      ### 4. Task Document (`docs/tasks/[task-id].md`)
+
+      Individual task documents derived from plan documents:
+
+      ```markdown
+      # Task: [Task Title]
+
+      ## Task ID: YYYY-MM-DD-XX
+
+      ## Related Plan
+
+      [Link to the plan document]
+
+      ## Description
+
+      Detailed description of the task.
+
+      ## Acceptance Criteria
+
+      - Criterion 1
+      - Criterion 2
+      - ...
+
+      ## Dependencies
+
+      - [List of dependencies, if any]
+
+      ## Complexity
+
+      [Low | Medium | High]
+
+      ## Estimated Effort
+
+      [X hours | X days]
+
+      ## Status
+
+      [Not Started | In Progress | Completed]
+
+      ## Assignee
+
+      [Name or "Unassigned"]
+
+      ## Notes
+
+      Any additional notes or context.
+      ```
+
+      ### 5. Memory File (`docs/memory/workflow-status.md`)
+
+      A memory file that tracks the current state of the workflow and provides context for AI assistants:
+
+      ```markdown
+      # Workflow Status Memory
+
+      ## Current State
+
+      - **Current Date**: YYYY-MM-DD
+      - **Active Projects**:
+        1. [Project 1 name]
+        2. [Project 2 name]
+      - **Current Plans**:
+        1. [Plan 1 name]
+        2. [Plan 2 name]
+      - **Current Phase**:
+        1. [Phase 1 name] ([Project 1 name])
+        2. [Phase 2 name] ([Project 2 name])
+      - **Active Tasks**:
+        - [Task 1 name] (Task ID: YYYY-MM-DD-XX)
+        - [Task 2 name] (Task ID: YYYY-MM-DD-XX)
+      - **Next Tasks**:
+        - [Next task 1 name] (not assigned yet)
+        - [Next task 2 name] (Task ID: YYYY-MM-DD-XX)
+
+      ## Task History
+
+      | Task ID | Task Name | Status | Completion Date |
+      |---|-----|-----|----|
+      | YYYY-MM-DD-XX | [Task name] | [Status] | [Completion date] |
+
+      ## Context
+
+      [Additional context about the current tasks and projects]
+
+      ## Recent Updates
+
+      - [Update 1] (YYYY-MM-DD)
+      - [Update 2] (YYYY-MM-DD)
+
+      ## Command History
+
+      ```
+      # Recent commands executed as part of the workflow
+      [Command 1]
+      [Command 2]
+      ```
+
+      ## Notes
+
+      - [Note 1]
+      - [Note 2]
+      ```
+
+      ## Related Rules
+
+      ### Memory Management Rule
+
+      The AI-Assisted Agile Workflow integrates with the [memory-management](mdc:.cursor/rules/memory-management.mdc) rule to provide comprehensive context retention across conversations.
+
+      - The Memory Management rule defines additional memory file types and templates
+      - It provides guidelines for maintaining memory files and leveraging the knowledge graph
+      - Together, these rules create a complete system for maintaining project context and workflow status
+
+      ### Cursor Rule Cross-References
+
+      The [cursor-rule-cross-references](mdc:.cursor/rules/cursor-rule-cross-references.mdc) rule defines the proper syntax for linking between files. When creating links in any Cursor rule, always use the proper `mdc:` syntax:
+
+      ```markdown
+      # For links to other Cursor rules
+      [rule-name](mdc:.cursor/rules/rule-name.mdc)
+
+      # For links to other files in the repository
+      [filename](mdc:path/to/filename.ext)
+
+      # Example: Linking to features.md
+      [features document](mdc:docs/features.md)
+      ```
+
+      ## Templates
+
+      All templates are stored in the `docs/templates/` directory:
+      - `docs/templates/task-template.md`
+      - `docs/templates/plan-template.md`
+
+      ## Workflow Process
+
+      ### Creating a New Feature
+
+      1. Open `docs/features.md`
+      2. Add a new feature entry with status "Not Started"
+      3. Generate a unique ID for the feature
+
+      ### Creating a Plan Document
+
+      1. Copy the template from `docs/templates/plan-template.md` to create a new file in `docs/plans/[plan-name].md`
+      2. Link to the relevant feature
+      3. Break down the implementation into phases
+      4. Define clear tasks within each phase
+      5. Update the plan document
+
+      ### Extending or Consolidating Existing Plans
+
+      #### Extending a Plan
+
+      1. Open the existing plan document
+      2. Add new phases or tasks as needed
+      3. Update dependencies to reflect the new structure
+      4. Update the timeline to reflect the extended work
+      5. Update the workflow-status.md file to reflect changes
+      6. Consider generating new task documents for new tasks
+
+      #### Consolidating Multiple Plans
+
+      1. Identify the plans to be consolidated
+      2. Create a new consolidated plan or update one of the existing plans:
+         - Maintain the structure of the more comprehensive plan
+         - Incorporate unique elements from all plans
+         - Ensure coherent flow and logical organization
+         - Align task dependencies and timeline
+         - Document the consolidation in the plan's overview
+      3. Update feature.md to reference the consolidated plan
+      4. Update all task documents to reference the consolidated plan
+      5. Update the workflow-status.md file to reflect the consolidation
+      6. If removing a plan document, move it to an archive location
+
+      ### Generating Task Documents
+
+      When you have a plan document open, ask the AI to generate task documents:
+
+      ```
+      Generate task documents from this plan
+      ```
+
+      The AI will:
+      1. Extract tasks from each phase
+      2. Create individual task documents in `docs/tasks/`
+      3. Name them with a pattern: `$(date +%Y-%m-%d)-XX.md` (current date + sequence number)
+      4. Include all necessary details from the plan
+      5. Update the memory file with new task information
+      6. Update the plan document
+
+      ### Updating Task Status
+
+      1. Open the task document
+      2. Update the status field
+      3. When a task is completed:
+         - Move the task file to `docs/tasks/done/`
+         - Update the memory file
+         - Update the plan document
+      4. Ask the AI to update the feature status:
+
+      ```
+      Update feature status based on completed tasks
+      ```
+
+      The AI will:
+      1. Check all related tasks
+      2. Update the feature status in the features document
+      3. Move completed features to the "Completed Features" section when all tasks are done
+
+      ### Updating Workflow Status Memory File
+
+      The workflow-status.md file should be updated after each significant change to maintain context:
+
+      1. **When to Update**:
+         - After creating new features or plans
+         - After generating task documents
+         - After updating task status
+         - After completing major milestones
+         - After consolidating or extending plans
+         - After making significant workflow decisions
+
+      2. **Update Process**:
+         - Open docs/memory/workflow-status.md
+         - Update the Current State section with:
+           - Updated Current Date
+           - Current Active Projects and Plans
+           - Current Phases for each project
+           - Updated Active Tasks list
+           - Updated Next Tasks list
+         - Add new entries to Task History if tasks have changed status
+         - Update the Context section with relevant details
+         - Add an entry to Recent Updates with the change and date
+         - Add any relevant commands to Command History
+         - Add or update Notes as needed
+
+      3. **Example Update Flow**:
+         ```
+         1. Update Current Date to today's date
+         2. Verify Active Projects and Plans are current
+         3. Update Current Phase to reflect progress
+         4. Move completed tasks out of Active Tasks
+         5. Add newly created tasks to Active or Next Tasks
+         6. Update Task History with status changes
+         7. Add entry to Recent Updates
+         ```
+
+      ### Tracking Progress
+
+      To get a progress report:
+
+      ```
+      Generate progress report for [feature title or ID]
+      ```
+
+      The AI will:
+      1. Analyze all related tasks
+      2. Calculate completion percentage
+      3. Identify blockers or dependencies
+      4. Generate a summary report
+
+      ## File Linking Guidelines
+
+      When creating links in your plan or task documents:
+
+      1. **Within Cursor rules**: Always use the `mdc:` prefix for ALL file links:
+         ```markdown
+         [rule-name](mdc:.cursor/rules/rule-name.mdc)
+         [features document](mdc:docs/features.md)
+         ```
+
+      2. **In regular documentation files**: Use standard markdown links:
+         ```markdown
+         [Plan Document](../plans/plan-name.md)
+         [Feature Description](../features.md#feature-1-title)
+         ```
+
+      3. **For task documents**: When linking to plans, use relative paths:
+         ```markdown
+         [Implement a Hierarchical Rule Structure](../plans/cursor-rules-hierarchy.md)
+         ```
+
+      ## AI Commands Reference
+
+      - `Generate task documents from this plan` - Creates task documents from the current plan
+      - `Update feature status based on completed tasks` - Updates the features document
+      - `Generate progress report for [feature]` - Creates a status report
+      - `Create a new plan document for [feature]` - Initiates a new plan
+      - `Suggest next tasks to work on` - Recommends priority tasks
+      - `Show all blocked tasks` - Lists tasks with unmet dependencies
+      - `Mark task as completed` - Moves task to the done directory and updates status
+      - `Extend this plan with new phases` - Adds new phases to an existing plan
+      - `Consolidate plans for [feature1] and [feature2]` - Merges multiple plans
+      - `Update workflow status memory` - Updates the workflow-status.md file
+
+examples:
+  - input: |
+      I have a new plan document for implementing the hierarchical rule structure. Can you generate task documents from it?
+    output: |
+      I'll help you generate task documents from your plan for implementing the hierarchical rule structure.
+
+      Looking at your plan document, I can see the following distinct tasks:
+
+      For Phase 1: Rule Relationship Mapping:
+      1. Create a relationship diagram for all rules
+      2. Define standard linking format
+      3. Create rule registry file
+
+      For Phase 2: Rule Content Updates:
+      4. Add cross-references to each rule
+      5. Create entry point rule
+      6. Update examples with cross-references
+
+      For Phase 3: Tooling and Integration:
+      7. Create parser tool for validating references
+      8. Create auto-update tool
+      9. Develop visualization generator
+
+      For Phase 4: Testing and Documentation:
+      10. Test cross-references
+      11. Create usage documentation
+      12. Conduct integration testing with AI
+
+      I'll generate task documents for each of these tasks using today's date ($(date +%Y-%m-%d)) for the task IDs.
+
+      Task 1: Create a relationship diagram for all rules ($(date +%Y-%m-%d)-01)
+      Task 2: Define standard linking format ($(date +%Y-%m-%d)-02)
+      ...
+
+      Each task document will include:
+      - Description from the plan
+      - Acceptance criteria
+      - Dependencies
+      - Complexity
+      - Estimated effort
+
+      I'll also update the plan document and the workflow status memory file to reflect these new tasks.
+
+  - input: |
+      This task has been completed. Please update the status.
+    output: |
+      I'll update the status of this completed task.
+
+      Based on the current task document:
+      1. Changing the status from "In Progress" to "Completed"
+      2. Adding completion date ($(date +%Y-%m-%d))
+      3. Moving this task file to the `docs/tasks/done/` directory
+      4. Updating the workflow status memory file
+      5. Updating the plan document
+
+      The workflow status memory file has been updated with:
+      - Task moved to completed tasks section
+      - Task history updated with completion date
+      - Next task identified and marked as current
+
+      The plan document has been updated with:
+      - This task moved to completed tasks section
+      - Next task marked as active
+      - Progress percentage updated
+
+      Would you like me to generate a progress report for the related feature?
+
+  - input: |
+      I need to consolidate the memory-management-system.md plan into the existing memory-management.md plan.
+    output: |
+      I'll help you consolidate the memory-management-system.md plan into the existing memory-management.md plan.
+
+      Here's my approach:
+
+      1. First, I'll read both plan documents to understand their content and structure
+      2. I'll create a consolidated version that:
+         - Maintains the structure of the more comprehensive plan
+         - Incorporates unique elements from both plans
+         - Ensures a coherent flow with logical organization
+         - Aligns task dependencies and timeline
+         - Documents the consolidation in the overview section
+
+      3. I'll update the memory-management.md file with the consolidated content
+      4. I'll then delete the memory-management-system.md file since it's no longer needed
+      5. Finally, I'll update the workflow-status.md memory file to reflect this consolidation
+
+      After consolidation, I'll ensure that:
+      - All feature references point to the consolidated plan
+      - Task dependencies are properly aligned
+      - The timeline is coherent and realistic
+      - Any unique content from either plan is preserved
+
+      Would you like me to proceed with this consolidation?
+
+metadata:
+  priority: high
+  version: 1.4
+  tags:
+    - workflow
+    - agile
+    - task-management
+  changelog:
+    - version: 1.4
+      changes:
+        - Added file linking guidelines section
+        - Updated cursor-rule-cross-references section to show correct mdc: syntax for all file types
+        - Added examples of links to different file types
+    - version: 1.3
+      changes:
+        - Added process for extending or consolidating plans
+        - Added detailed guidance for updating workflow-status.md
+        - Added reference to cursor-rule-cross-references rule
+        - Updated memory file template with more details
+        - Added new AI commands for plan extension and consolidation
+    - version: 1.2
+      changes:
+        - Initial version
+</rule>

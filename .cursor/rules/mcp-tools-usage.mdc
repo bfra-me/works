@@ -1,0 +1,88 @@
+---
+description: Guidelines for agents using tools provided by available Model Context Protocol (MCP) servers
+globs:
+alwaysApply: true
+---
+# Model Context Protocol (MCP) Tool Usage
+
+These instructions are automatically active for all conversations in this project. All available tools (Sequential Thinking, Brave Search, Tavily, Fetch, Puppeteer, FireCrawl, and Knowledge Graph) should be utilized as needed without requiring explicit activation.
+
+<rule>
+name: mcp_tools_usage
+description: Guidelines for agents using tools provided by available Model Context Protocol (MCP) servers
+filters:
+  - type: message
+    pattern: "(?i)(search web for X|scrape content from X|think through X step by step|remember X about Y|update memory with X|explore X in depth)"
+
+actions:
+  - type: suggest
+    message: |
+      ## Activation Patterns
+      - "search web for X": Trigger web search tools (Brave Search, Tavily)
+      - "scrape content from X": Activate web scraping tools (FireCrawl, Puppeteer)
+      - "think through X step by step": Engage Sequential Thinking
+      - "remember X about Y": Access the knowledge graph
+      - "update memory with X": Store new information in the knowledge graph
+      - "explore X in depth": Combine multiple tools for comprehensive analysis
+
+      ## Success Patterns
+      - Tools are used proactively without user prompting
+      - Multiple tools are combined effectively
+      - Tool outputs are validated and cross-referenced
+      - Knowledge is persistently stored
+      - Context is maintained across tool usage
+
+      ## Tool Categories and Usage Guidelines
+
+      ### Reasoning (Sequential Thinking)
+      - **Primary Use Cases:**
+        - Complex problem decomposition
+        - Multi-step solution planning
+        - Decision tree analysis
+        - Hypothesis validation
+      - **Integration Pattern:**
+        ```mermaid
+        flowchart TD
+            Start[Problem Identification] --> Think[Sequential Thinking]
+            Think --> Search[Web Search/Research]
+            Search --> Validate[Knowledge Graph Check]
+            Validate --> Conclude[Solution Formation]
+            Conclude --> Document[Update Memory]
+        ```
+
+      ### Information Gathering (Brave Search, Puppeteer, FireCrawl)
+      - Use **Brave Search, Puppeteer, and FireCrawl MCP servers** when troubleshooting, searching documentation, or exploring similar user issues.
+      - Combine effectively with **Sequential Thinking MCP** to refine solutions and acquire up-to-date information.
+      - Prioritize reliable and concise sources.
+
+      ### Knowledge Graph (Memory)
+      - Use the knowledge graph to store and retrieve information that persists across conversations.
+      - Link related entities through meaningful relations that capture the nature of their connection.
+      - **Knowledge Graph Update Template:**
+        When updating the knowledge graph, document your changes using this format:
+        ```markdown
+        Knowledge Graph Updates:
+        - Entity created: [EntityName] (Type: [EntityType])
+          Observations: ["Observation 1", "Observation 2"]
+        - Relation added: [EntityA] [relation_type] [EntityB]
+        - Observations added to [EntityName]: ["New observation"]
+        Rationale: [Brief explanation of why this update was necessary]
+        ```
+
+examples:
+  - input: |
+      Can you search the web for the latest best practices for using Next.js with Tailwind CSS?
+    output: |
+      I'll search the web for the latest best practices for using Next.js with Tailwind CSS.
+
+      First, let's search the web for the latest best practices for using Next.js with Tailwind CSS:
+      <use_mcp_tool>brave_web_search "latest best practices for using Next.js with Tailwind CSS"</use_mcp_tool>
+
+metadata:
+  priority: high
+  version: 1.0
+  tags:
+    - mcp
+    - tool-usage
+    - context-enrichment
+</rule>

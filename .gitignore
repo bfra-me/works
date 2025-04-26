@@ -16,3 +16,5 @@ _fixtures
 bfra.me-*.tgz
 .cache
 coverage/
+docs/memory/memory.json
+.cursor/mcp.json

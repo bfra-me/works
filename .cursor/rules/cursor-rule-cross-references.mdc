@@ -1,0 +1,194 @@
+---
+description: Defines the syntax for links and references in Cursor rules
+globs: .cursor/rules/*.mdc
+alwaysApply: false
+---
+# Cursor Rule Cross-References
+
+Guidelines for creating proper links and references within Cursor rule files.
+
+<rule>
+name: cursor_rule_cross_references
+description: Proper syntax for links and references in Cursor rules
+filters:
+  - type: file_extension
+    pattern: "\\.mdc$"
+  - type: content
+    pattern: "(?i)(link|reference|cross-reference|refer to)"
+  - type: message
+    pattern: "(?i)(link.*rule|reference.*rule|cross-reference.*rule|link.*file)"
+
+actions:
+  - type: suggest
+    message: |
+      # File Links and Cross-References in Cursor Rules
+
+      When creating links to any files (including other rules) from within a Cursor rule file, always use the proper `mdc:` syntax to ensure correct display and navigation within the Cursor IDE.
+
+      ## General Linking Syntax
+
+      The `mdc:` syntax is required for ALL file links from within a Cursor rule (`.cursor/rules/*.mdc`). The general format is:
+
+      ```markdown
+      [display text](mdc:path/to/filename.ext)
+      ```
+
+      This applies to:
+      - Links to other Cursor rules
+      - Links to any file in the repository
+      - Links to documentation
+      - Links to any other file type
+
+      ## Linking to Other Cursor Rules
+
+      When linking to another Cursor rule, use:
+
+      ```markdown
+      [rule-name](mdc:.cursor/rules/rule-name.mdc)
+      ```
+
+      This will display in the Cursor IDE as:
+
+      ```
+      @rule-name
+      ```
+
+      ## Linking to Other Repository Files
+
+      When linking to a non-rule file in the repository, use:
+
+      ```markdown
+      [filename](mdc:path/to/filename.ext)
+      ```
+
+      For example:
+
+      ```markdown
+      See [features.md](mdc:docs/features.md) for a list of features.
+      ```
+
+      ## Examples
+
+      ### ✅ Correct Link Syntax
+
+      ```markdown
+      # Links to other rules
+      For more information on TypeScript patterns, see [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc).
+
+      # Links to documentation files
+      See the [features document](mdc:docs/features.md) for a list of all features.
+
+      # Links to templates
+      Use the [task template](mdc:docs/templates/task-template.md) when creating new tasks.
+      ```
+
+      ### ❌ Incorrect Link Formats (Avoid These)
+
+      ```markdown
+      # Don't use these formats:
+
+      # For rule references
+      See {rule:typescript-patterns} for more information.
+      See @typescript-patterns for more information.
+
+      # Regular markdown links without mdc: prefix
+      See [features.md](docs/features.md) for a list of features.
+      ```
+
+      ## Related Rules Section
+
+      Include a "Related Rules" section in your Cursor rules to help users and AI assistants discover related guidance:
+
+      ```markdown
+      ## Related Rules
+
+      - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc) - For ESLint configuration
+      - [prettier-config-usage](mdc:.cursor/rules/prettier-config-usage.mdc) - For Prettier formatting
+      ```
+
+      ## When to Add Links
+
+      Add file links and cross-references:
+      - When referring to concepts defined in other files
+      - When pointing to templates or examples
+      - When describing a workflow that spans multiple files
+      - When rules or files complement or depend on each other
+      - In a dedicated "Related Rules" section
+
+      ## Important Notes
+
+      1. The `mdc:` syntax is **required for ALL file links** from within a Cursor rule file (*.mdc)
+      2. Always provide descriptive text in the link brackets
+      3. Use the appropriate path to the file relative to the project root
+      4. Keep cross-references up to date when files are renamed
+      5. Vanilla Markdown links without the `mdc:` prefix will not work correctly in Cursor rules
+
+      ## Updating Existing References
+
+      When updating existing references:
+      1. Search for patterns like `{rule:rule-name}` or non-`mdc:` links (`[file](path/to/file)`)
+      2. Replace with the correct `[text](mdc:path/to/file)` format
+      3. Verify the links work correctly in the Cursor IDE
+
+examples:
+  - input: |
+      I want to reference the typescript-patterns rule in my Cursor rule.
+    output: |
+      To properly reference the typescript-patterns rule in your Cursor rule, use this syntax:
+
+      ```markdown
+      For TypeScript best practices, refer to [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc).
+      ```
+
+      This will display as "@typescript-patterns" in the Cursor IDE and allow for proper navigation between rules.
+
+      Remember that this `mdc:` syntax is required for all file links in Cursor rule files (*.mdc), not just for rule references.
+
+  - input: |
+      How do I link to a non-rule file like features.md from within my Cursor rule?
+    output: |
+      To link to a non-rule file like features.md from within your Cursor rule, you still need to use the `mdc:` syntax:
+
+      ```markdown
+      For more information about our project features, see the [features document](mdc:docs/features.md).
+      ```
+
+      The `mdc:` prefix is required for ALL file links within a Cursor rule file, not just for cross-references to other rules. This ensures proper navigation and display within the Cursor IDE.
+
+      Remember to use the appropriate path to the file relative to the project root.
+
+  - input: |
+      How do I create a "Related Rules" section in my Cursor rule?
+    output: |
+      To create a "Related Rules" section in your Cursor rule:
+
+      ```markdown
+      ## Related Rules
+
+      - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc) - For ESLint configuration with TypeScript
+      - [prettier-config-usage](mdc:.cursor/rules/prettier-config-usage.mdc) - For code formatting standards
+      - [development-workflow](mdc:.cursor/rules/development-workflow.mdc) - For the overall development process
+      ```
+
+      This section should typically appear toward the end of your rule, before examples or metadata sections. For each related rule, provide a brief description of why it's relevant or how it relates to the current rule.
+
+      Remember that the `mdc:` prefix is required for all file links in Cursor rule files, including in the Related Rules section.
+
+metadata:
+  priority: high
+  version: 1.1
+  tags:
+    - formatting
+    - cursor-rules
+    - cross-references
+    - links
+  changelog:
+    - version: 1.1
+      changes:
+        - Clarified that mdc: syntax is required for ALL file links in Cursor rules
+        - Added examples for linking to non-rule files
+        - Updated guidance to cover all file link types
+    - version: 1.0
+      changes:
+        - Initial version
+</rule>

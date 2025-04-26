@@ -1,0 +1,140 @@
+---
+description: Enforces the location, naming conventions, and formatting for all other .cursor/rules files.  This is the MOST IMPORTANT rule.
+globs: *.mdc
+alwaysApply: false
+---
+# Cursor Rules Location
+
+Rules for placing and organizing Cursor rule files in the repository.
+
+<rule>
+name: cursor_rules_location
+description: Standards for placing Cursor rule files in the correct directory
+filters:
+  # Match any .mdc files
+  - type: file_extension
+    pattern: "\\.mdc$"
+  # Match files that look like Cursor rules
+  - type: content
+    pattern: "(?s)<rule>.*?</rule>"
+  # Match file creation events
+  - type: event
+    pattern: "file_create"
+
+actions:
+  - type: reject
+    conditions:
+      - pattern: "^(?!\\.\\/\\.cursor\\/rules\\/.*\\.mdc$)"
+        message: "Cursor rule files (.mdc) must be placed in the .cursor/rules directory"
+
+  - type: suggest
+    message: |
+      When creating Cursor rules:
+
+      1. Always place rule files in PROJECT_ROOT/.cursor/rules/:
+         ```
+         .cursor/rules/
+         ├── your-rule-name.mdc
+         ├── another-rule.mdc
+         └── ...
+         ```
+
+      2. Follow the naming convention:
+         - Use kebab-case for filenames (e.g., my-rule-name.mdc)
+         - Always use .mdc extension
+         - Make names descriptive of the rule's purpose
+
+      3. Directory structure:
+         ```
+         PROJECT_ROOT/
+         ├── .cursor/
+         │   └── rules/
+         │       ├── your-rule-name.mdc
+         │       └── ...
+         └── ...
+         ```
+
+      4. Never place rule files:
+         - In the project root
+         - In subdirectories outside .cursor/rules
+         - In any other location
+
+      5. Format the globs section correctly:
+         - Use unquoted glob patterns: `globs: *.py` ✓
+         - Do NOT use quoted glob patterns: `globs: "*.py"` ✗
+         - Multiple patterns should be comma-separated: `globs: *.py, *.md, *.txt`
+
+      6. Configure rule application mode correctly:
+         - Include the `alwaysApply` field in the frontmatter
+         - Set appropriate values based on rule type:
+           ```
+           ---
+           description: Your rule description
+           globs: *.py, *.md
+           alwaysApply: false
+           ---
+           ```
+
+      7. Follow these requirements based on rule type:
+         - **Always** mode:
+           - Set `alwaysApply: true`
+           - `globs` can be empty
+           - `description` can be blank
+
+         - **Auto Attached** mode:
+           - Set `alwaysApply: false`
+           - `globs` must contain valid patterns
+           - `description` should be populated
+
+         - **Agent Requested** mode:
+           - No special frontmatter requirements
+           - `description` must be populated for discoverability
+
+         - **Manual** mode:
+           - Rule must be manually included in the chat window
+           - No special frontmatter requirements
+
+examples:
+  - input: |
+      # ❌ Bad: Rule file in wrong location
+      rules/my-rule.mdc
+      my-rule.mdc
+      .rules/my-rule.mdc
+
+      # ✅ Good: Rule file in correct location
+      .cursor/rules/my-rule.mdc
+
+      # ❌ Bad: Quoted glob pattern
+      globs: "*.py"
+
+      # ✅ Good: Unquoted glob pattern
+      globs: *.py
+      globs: *.py, *.md
+
+      # Always mode example
+      ---
+      description: Optional description
+      alwaysApply: true
+      ---
+
+      # Auto Attached mode example
+      ---
+      description: Required description
+      globs: *.py, *.md
+      alwaysApply: false
+      ---
+
+      # Agent Requested mode example
+      ---
+      description: Required detailed description for discoverability
+      ---
+    output: "Correctly placed Cursor rule file with proper configuration"
+
+metadata:
+  priority: high
+  version: 1.0
+  changelog:
+    - version: 1.0
+      changes:
+        - Initial version
+</rule>

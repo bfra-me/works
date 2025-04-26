@@ -1,0 +1,294 @@
+---
+description: Guidelines for creating and maintaining persistent memory files for AI assistants
+globs: docs/memory/*.md
+alwaysApply: false
+---
+# Memory Management
+
+Guidelines for managing AI memory files that maintain context and enhance assistant capabilities.
+
+<rule>
+name: memory_management
+description: Guidelines for creating and maintaining persistent memory files for AI assistants
+filters:
+  - type: file_path
+    pattern: "docs/memory/.*\\.md$"
+  - type: message
+    pattern: "(?i)(memory file|context retention|workflow status|project memory|knowledge graph)"
+  - type: content
+    pattern: "(?i)(current state|task history|context|recent updates|command history|memory)"
+
+actions:
+  - type: suggest
+    message: |
+      # Memory Management System
+
+      The memory management system provides persistent context for AI assistants across conversations through structured memory files in the `docs/memory/` directory.
+
+      ## Memory File Types
+
+      ### 1. Workflow Status (`docs/memory/workflow-status.md`)
+
+      Tracks the current state of the agile workflow:
+
+      ```markdown
+      # Workflow Status Memory
+
+      ## Current State
+      - **Current Date**: YYYY-MM-DD
+      - **Active Project**: [Project name]
+      - **Current Plan**: [Plan name]
+      - **Current Phase**: [Phase name]
+      - **Current Task**: [Task name] (Task ID: YYYY-MM-DD-XX)
+      - **Next Task**: [Next task name] (Task ID: YYYY-MM-DD-XX)
+
+      ## Task History
+      | Task ID | Task Name | Status | Completion Date |
+      |---------|-----------|--------|----------------|
+      | YYYY-MM-DD-XX | [Task name] | [Status] | [Completion date] |
+
+      ## Context
+      [Additional context about the current task]
+
+      ## Recent Updates
+      - [Update 1] (YYYY-MM-DD)
+      - [Update 2] (YYYY-MM-DD)
+
+      ## Command History
+      ```
+      # Recent commands executed as part of the workflow
+      [Command 1]
+      [Command 2]
+      ```
+
+      ## Notes
+      - [Note 1]
+      - [Note 2]
+      ```
+
+      ### 2. Project Architecture (`docs/memory/architecture.md`)
+
+      Maintains a living document of the project's architecture:
+
+      ```markdown
+      # Project Architecture Memory
+
+      ## Current Architecture
+      [Mermaid diagram or textual description of the architecture]
+
+      ## Key Components
+      - **Component A**: [Description and responsibilities]
+      - **Component B**: [Description and responsibilities]
+
+      ## Integration Points
+      - **API**: [Endpoint descriptions]
+      - **Event Bus**: [Event descriptions]
+
+      ## Technical Decisions
+      | Decision | Rationale | Date | Alternatives Considered |
+      |----------|-----------|------|-----------------------|
+      | [Decision] | [Rationale] | YYYY-MM-DD | [Alternatives] |
+
+      ## Constraints
+      - [Constraint 1]
+      - [Constraint 2]
+      ```
+
+      ### 3. User Preferences (`docs/memory/user-preferences.md`)
+
+      Records user preferences for code style, workflows, tools:
+
+      ```markdown
+      # User Preferences Memory
+
+      ## Coding Style
+      - **Formatting**: [Preferences for code formatting]
+      - **Naming Conventions**: [Preferred naming conventions]
+      - **Architecture Patterns**: [Preferred architectural patterns]
+
+      ## Tool Preferences
+      - **IDE**: [Preferred IDE and settings]
+      - **CLI Tools**: [Preferred command-line tools]
+      - **Frameworks**: [Preferred frameworks]
+
+      ## Workflow Preferences
+      - **Communication Style**: [Preferred communication style]
+      - **Explanation Level**: [Preferred level of detail in explanations]
+      - **AI Autonomy**: [Preferred level of AI autonomy]
+      ```
+
+      ### 4. Domain Knowledge (`docs/memory/domain-knowledge.md`)
+
+      Captures domain-specific knowledge for the project:
+
+      ```markdown
+      # Domain Knowledge Memory
+
+      ## Core Concepts
+      - **Concept A**: [Definition and usage]
+      - **Concept B**: [Definition and usage]
+
+      ## Business Rules
+      - [Rule 1]
+      - [Rule 2]
+
+      ## Terminology
+      | Term | Definition | Context |
+      |------|------------|---------|
+      | [Term] | [Definition] | [Context] |
+
+      ## External Resources
+      - [Resource 1]: [Description and link]
+      - [Resource 2]: [Description and link]
+      ```
+
+      ## Related Rules
+
+      ### AI-Assisted Agile Workflow Rule
+
+      The Memory Management system works in conjunction with the [AI-Assisted Agile Workflow](./.cursor/rules/ai-agile-workflow.mdc) rule to provide a comprehensive system for maintaining context and tracking project status.
+
+      - The Agile Workflow rule defines the document structure and workflow processes
+      - The Memory Management rule enhances context retention across conversations
+      - Together they provide a complete system for managing project information and AI context
+
+      ## Knowledge Graph Integration
+
+      Memory files work in concert with the knowledge graph (MCP memory server) when available:
+
+      1. **Entity Creation**: New entities should be created in the knowledge graph for:
+         - Project components
+         - User preferences
+         - Technical decisions
+         - Domain concepts
+
+      2. **Relationship Mapping**: Create relationships between entities to build a connected knowledge network:
+         ```
+         [Component A] -> depends_on -> [Component B]
+         [User] -> prefers -> [Coding Style]
+         [Domain Concept] -> relates_to -> [Business Rule]
+         ```
+
+      3. **Memory Retrieval Process**:
+         ```
+         1. Check docs/memory/* files for context
+         2. Use knowledge graph search for broader context
+         3. Combine information for comprehensive understanding
+         4. Update both memory files and knowledge graph with new information
+         ```
+
+      4. **Entity Types for Project Context**:
+         - `component`: Technical components of the system
+         - `preference`: User preferences and settings
+         - `concept`: Domain concepts and terminology
+         - `decision`: Technical decisions and rationales
+         - `workflow`: Development workflows
+
+      ## Memory File Management
+
+      ### Creating or Updating Memory Files
+
+      1. **Structure**: Follow the established templates
+      2. **Updates**: Add a timestamp for each update in the "Recent Updates" section
+      3. **References**: Include links to other related memory files
+      4. **Synchronization**: Keep memory files in sync with the knowledge graph
+
+      ### Using Memory Files
+
+      When starting a new conversation:
+      1. Check `workflow-status.md` for current context
+      2. Review relevant domain knowledge from `domain-knowledge.md`
+      3. Consider user preferences from `user-preferences.md`
+      4. Consult architecture details from `architecture.md`
+
+      ### Knowledge Graph Commands
+
+      When the knowledge graph MCP server is available:
+
+      - `read_graph`: Get a complete view of the knowledge graph
+      - `search_nodes`: Find specific information in the graph
+      - `open_nodes`: Access specific entity details
+      - `create_entities`: Add new information to the graph
+      - `create_relations`: Connect entities meaningfully
+      - `add_observations`: Update existing entities
+
+      ## Suggested Memory Files
+
+      In addition to the existing workflow status memory, consider creating these memory files for the project:
+
+      1. **Architecture Memory** (`docs/memory/architecture.md`): Document the structure of the Cursor rules system
+      2. **User Preferences** (`docs/memory/user-preferences.md`): Track preferred workflows and styles
+      3. **Domain Knowledge** (`docs/memory/domain-knowledge.md`): Maintain knowledge about Cursor rules concepts
+      4. **Decision Log** (`docs/memory/decisions.md`): Record key technical decisions
+
+examples:
+  - input: |
+      Can you tell me about the current state of the project?
+    output: |
+      I'll check the memory files to understand the current project state.
+
+      Based on the workflow status memory file, here's what I can tell you:
+
+      **Current Project**: Cursor Rules System Improvement
+      **Current Phase**: Implementation Phase 1
+      **Active Task**: Create a relationship diagram for all rules (Task ID: 2025-04-25-01)
+      **Next Task**: Define standard linking format (Task ID: 2025-04-25-02)
+
+      The project is implementing a hierarchical rule structure with cross-references. The goal is to transform rules from independent documents into a navigable, interconnected knowledge system.
+
+      Recent updates include:
+      - Moving documentation from reference/ to docs/
+      - Renaming "recommendations" to "features" to better align with agile methodology
+      - Creating various templates for tasks, plans, and features
+      - Setting up the memory management system
+
+      Would you like more specific information about the current task, the overall plan, or another aspect of the project?
+
+  - input: |
+      I'd like to update the user preferences for this project.
+    output: |
+      I'll help you update the user preferences for this project. Let me first check if we have an existing user preferences memory file.
+
+      I don't see an existing user preferences file in the docs/memory directory, so we should create one following our memory management guidelines.
+
+      Here's a draft of a new user preferences memory file:
+
+      ```markdown
+      # User Preferences Memory
+
+      ## Coding Style
+      - **Formatting**: Uses Prettier with bfra.me/prettier-config for consistent formatting
+      - **Naming Conventions**:
+        - TypeScript: camelCase for variables and functions, PascalCase for classes and interfaces
+        - Files: kebab-case for file names, descriptive and concise
+      - **Architecture Patterns**: Modular design with clear separation of concerns
+
+      ## Tool Preferences
+      - **IDE**: VS Code with Cursor extension
+      - **CLI Tools**: pnpm for package management
+      - **Frameworks**: TypeScript for type safety
+
+      ## Workflow Preferences
+      - **Communication Style**: Clear, concise explanations with practical examples
+      - **Explanation Level**: Medium detail, focusing on practical implementation
+      - **AI Autonomy**: Medium - propose solutions but seek approval for implementation
+
+      ## Documentation Preferences
+      - **Format**: Markdown with structured headings
+      - **Code Examples**: Include relevant, concise examples
+      - **Comments**: JSDoc style for functions and interfaces
+
+      ## Updated: 2025-04-25
+      ```
+
+      I can also update the knowledge graph with these preferences if you'd like. Would you like me to save this file to `docs/memory/user-preferences.md` or would you like to make any changes first?
+
+metadata:
+  priority: high
+  version: 1.0
+  tags:
+    - memory
+    - context
+    - workflow
+    - knowledge-graph
+</rule>
