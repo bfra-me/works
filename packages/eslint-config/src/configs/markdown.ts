@@ -45,54 +45,63 @@ export const extInMdFiles = [
 export async function markdown(options: MarkdownOptions = {}): Promise<Config[]> {
   const {files = mdFiles, overrides = {}} = options
   return requireOf(
-    ['@eslint/markdown'],
+    ['@eslint/markdown', 'typescript-eslint'],
     async () => {
-      const pluginMarkdown = await interopDefault(import('@eslint/markdown'))
-      return [
-        ...(Array.isArray(pluginMarkdown.configs?.processor)
-          ? pluginMarkdown.configs.processor.map(config => ({
-              ...config,
-              name: `@bfra.me/${config.name || 'unnamed'}`,
-              ...(config.name?.endsWith('processor') ? {files} : {}),
-            }))
-          : []),
+      const [pluginMarkdown, tselint] = await Promise.all([
+        interopDefault(import('@eslint/markdown')),
+        interopDefault(import('typescript-eslint')),
+      ])
 
-        {
-          name: '@bfra.me/markdown/overrides',
-          files: codeInMdFiles,
-          rules: {
-            '@typescript-eslint/no-namespace': 'off',
-            '@typescript-eslint/comma-dangle': 'off',
-            '@typescript-eslint/consistent-type-imports': 'off',
-            '@typescript-eslint/explicit-function-return-type': 'off',
-            '@typescript-eslint/no-extraneous-class': 'off',
-            '@typescript-eslint/no-redeclare': 'off',
-            '@typescript-eslint/no-require-imports': 'off',
-            '@typescript-eslint/no-unused-expressions': 'off',
-            '@typescript-eslint/no-unused-vars': 'off',
-            '@typescript-eslint/no-use-before-define': 'off',
+      // Get the processor configs
+      const processorConfigs = Array.isArray(pluginMarkdown.configs?.processor)
+        ? pluginMarkdown.configs.processor.map(config => ({
+            ...config,
+            name: `@bfra.me/${config.name || 'unnamed'}`,
+            ...(config.name?.endsWith('processor') ? {files} : {}),
+          }))
+        : []
 
-            'import-x/newline-after-import': 'off',
-
-            'no-alert': 'off',
-            'no-console': 'off',
-            'no-labels': 'off',
-            'no-lone-blocks': 'off',
-            'no-restricted-imports': 'off',
-            'no-restricted-syntax': 'off',
-            'no-undef': 'off',
-            'no-unused-expressions': 'off',
-            'no-unused-labels': 'off',
-
-            'no-unused-vars': 'off',
-
-            'unused-imports/no-unused-imports': 'off',
-            'unused-imports/no-unused-vars': 'off',
-
-            ...overrides,
+      // Create the markdown code blocks config with type-checking disabled
+      const markdownCodeConfig: Config = {
+        name: '@bfra.me/markdown/overrides',
+        files: codeInMdFiles,
+        languageOptions: {
+          parserOptions: {
+            // Explicitly disable project for these files to prevent type-aware linting
+            project: false,
           },
         },
-      ] as Config[]
+        rules: {
+          // Only disable non-type-aware rules we want to skip for markdown code blocks
+          'import-x/newline-after-import': 'off',
+          'no-alert': 'off',
+          'no-console': 'off',
+          'no-labels': 'off',
+          'no-lone-blocks': 'off',
+          'no-restricted-imports': 'off',
+          'no-restricted-syntax': 'off',
+          'no-undef': 'off',
+          'no-unused-expressions': 'off',
+          'no-unused-labels': 'off',
+          'no-unused-vars': 'off',
+          'unused-imports/no-unused-imports': 'off',
+          'unused-imports/no-unused-vars': 'off',
+          ...overrides,
+        },
+      }
+
+      // If typescript-eslint has the disableTypeChecked config, use it
+      if (tselint.configs?.disableTypeChecked) {
+        // Apply the disableTypeChecked config settings to our config
+        Object.assign(markdownCodeConfig, {
+          // We use the settings from disableTypeChecked while maintaining our own rules
+          languageOptions: {
+            ...tselint.configs.disableTypeChecked.languageOptions,
+          },
+        })
+      }
+
+      return [...processorConfigs, markdownCodeConfig] as Config[]
     },
     fallback,
   )
