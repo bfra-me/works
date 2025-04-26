@@ -45,7 +45,7 @@
     "test": "pnpm --filter-prod=\"{.}...\" run build && vitest run"
   },
   "dependencies": {
-    "@eslint-community/eslint-plugin-eslint-comments": "4.4.1",
+    "@eslint-community/eslint-plugin-eslint-comments": "4.5.0",
     "@eslint/markdown": "6.3.0",
     "eslint-config-flat-gitignore": "2.1.0",
     "eslint-flat-config-utils": "2.0.1",
