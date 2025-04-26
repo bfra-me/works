@@ -11701,6 +11701,7 @@ type YmlFlowSequenceBracketSpacing = []|[("always" | "never")]|[("always" | "nev
 type YmlIndent = []|[number]|[number, {
   indentBlockSequences?: boolean
   indicatorValueIndent?: number
+  alignMultilineFlowScalars?: boolean
 }]
 // ----- yml/key-name-casing -----
 type YmlKeyNameCasing = []|[{
