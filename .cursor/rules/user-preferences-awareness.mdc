@@ -1,0 +1,220 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# User Preferences Awareness
+
+Guidelines for accessing and applying user preferences in code assistance, file operations, and recommendations.
+
+<rule>
+name: user_preferences_awareness
+description: Standards for accessing and applying user preferences consistently across interactions
+filters:
+  - type: message
+    pattern: "(?i)(user preferences|coding style|formatting|testing|workflow|documentation|tools)"
+
+actions:
+  - type: suggest
+    message: |
+      # User Preferences Access Guide
+
+      When providing assistance, always align with the user's established preferences. These preferences are stored in two complementary locations:
+
+      ## 1. Memory File
+
+      The `docs/memory/user-preferences.md` file contains structured preferences across several categories:
+
+      ```bash
+      # To access user preferences from memory file
+      cat docs/memory/user-preferences.md
+      ```
+
+      ## 2. Knowledge Graph
+
+      The knowledge graph contains structured entities with the user's preferences:
+
+      - `default_user` - Main user entity with general preferences
+      - `Coding_Style_Preferences` - Code formatting and architecture preferences
+      - `Testing_Preferences` - Testing frameworks and patterns
+      - `Documentation_Preferences` - Documentation formats and standards
+      - `Tool_Usage_Preferences` - Tool usage patterns and commands
+      - `Development_Workflow_Preferences` - PR size, changesets, and release processes
+      - `Versioning_Preferences` - Semantic versioning approach
+      - `Cursor_Rule_Preferences` - Rule structure and application preferences
+
+      Access these using knowledge graph queries:
+
+      ```javascript
+      // Sample knowledge graph query
+      const preferences = await graph.search("preferences");
+      const userPrefs = await graph.openNode("default_user");
+      ```
+
+      ## Key Preferences Summary
+
+      ### Coding Style
+      - Functional over class-based approaches
+      - No spaces in imports: `import {foo} from 'bar'`
+      - No semicolons
+      - Functions at top-level of modules with explicit exports
+      - Type inference where possible, explicit for exports/utility types
+
+      ### Testing
+      - Vitest (not Jest)
+      - Fixtures and snapshots for config packages
+      - Coverage reports
+      - Extended expect matchers
+      - Prefer `it` over `test`
+
+      ### Documentation
+      - TSDoc/JSDoc for all public interfaces
+      - `@internal` tag for internal components
+      - Document complex logic and error paths
+      - Link related concepts
+      - Include examples
+
+      ### Tools
+      - pnpm with `--filter` for package operations
+      - Bootstrap script for quick installs
+      - Changesets for consumer-facing changes
+      - TSX for TypeScript scripts
+
+      ### Workflow
+      - Smaller, incremental PRs
+      - Weekly automatic release process
+      - Semi-automated release management
+
+      ## Applying Preferences
+
+      When providing assistance:
+
+      1. **Code Generation**: Follow coding style preferences for any generated code
+      2. **Testing**: Use Vitest patterns and fixtures when suggesting tests
+      3. **Documentation**: Apply TSDoc/JSDoc standards for all documentation
+      4. **Tools**: Recommend appropriate tools aligned with preferences
+      5. **Commands**: Format terminal commands according to preferred patterns
+      6. **File Organization**: Respect naming conventions and architecture patterns
+
+      ## Updating Preferences
+
+      If you identify a new preference that should be captured:
+
+      1. Update the `docs/memory/user-preferences.md` file with the new preference
+      2. Add the preference to the knowledge graph:
+
+      ```javascript
+      // Sample knowledge graph update
+      await graph.createEntities([{
+        name: "New_Preference_Category",
+        entityType: "preference",
+        observations: ["New preference observation"]
+      }]);
+
+      await graph.createRelations([{
+        from: "default_user",
+        to: "New_Preference_Category",
+        relationType: "has_preference"
+      }]);
+      ```
+
+examples:
+  - input: |
+      What testing framework should I use for this project?
+    output: |
+      Based on your preferences, you should use Vitest for testing in this project.
+
+      Your established preferences indicate:
+      - You prefer Vitest over Jest
+      - You value fixtures and snapshots for testing config packages
+      - You like using type testing features
+      - You prefer comprehensive coverage reports
+      - You typically extend expect matchers for more intuitive assertions
+      - You use test caching for both local development and CI
+      - You prefer using `it` over `test` in test definitions
+
+      For this project, I recommend setting up Vitest with these configuration options to match your preferences:
+
+      ```typescript
+      // vitest.config.ts
+      import { defineConfig } from 'vitest/config'
+
+      export default defineConfig({
+        test: {
+          coverage: {
+            provider: 'v8',
+            reporter: ['text', 'html', 'json'],
+            exclude: ['**/node_modules/**', '**/dist/**', '**/*.d.ts']
+          },
+          environment: 'node',
+          include: ['test/**/*.test.ts'],
+          cache: true,
+          watch: false
+        }
+      })
+      ```
+
+      Would you like me to help set up specific test fixtures or extended matchers for your testing needs?
+
+  - input: |
+      Generate a utility function for me
+    output: |
+      Here's a utility function that follows your preferred coding style:
+
+      ```typescript
+      /**
+       * Safely retrieves a deeply nested property from an object
+       *
+       * @param obj - The source object to retrieve the property from
+       * @param path - The property path as a dot-separated string
+       * @param defaultValue - Optional default value if property doesn't exist
+       * @returns The property value or the default value
+       *
+       * @example
+       * const data = { user: { profile: { name: 'John' } } };
+       *
+       * // Get existing property
+       * const name = getNestedProperty(data, 'user.profile.name');
+       * // Returns: 'John'
+       *
+       * // Get non-existent property with default
+       * const age = getNestedProperty(data, 'user.profile.age', 25);
+       * // Returns: 25
+       */
+      function getNestedProperty<T = unknown>(
+        obj: Record<string, any>,
+        path: string,
+        defaultValue?: T
+      ): T | undefined {
+        const keys = path.split('.')
+        let current = obj
+
+        for (const key of keys) {
+          if (current == null || typeof current !== 'object') {
+            return defaultValue
+          }
+          current = current[key]
+        }
+
+        return current !== undefined ? current as T : defaultValue
+      }
+
+      export {getNestedProperty}
+      ```
+
+      Note that I've applied your preferences:
+      - Function declaration at the top-level with explicit export
+      - No semicolons
+      - Functional approach (no classes)
+      - Complete TSDoc documentation with examples
+      - Generic type parameter with proper type annotations
+
+metadata:
+  priority: high
+  version: 1.0
+  tags:
+    - preferences
+    - memory
+    - knowledge-graph
+    - customization
+</rule>

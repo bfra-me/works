@@ -1,0 +1,218 @@
+---
+description: Step-by-step guide for creating and maintaining cursor rules in this repository
+globs: .cursor/rules/*.mdc
+alwaysApply: false
+---
+# Cursor Rules Creation Process
+
+<rule>
+name: cursor_rules_creation
+description: Step-by-step guide for creating and maintaining cursor rules in this repository
+filters:
+  - type: message
+    pattern: "(?i)(cursor rule|create rule|add rule|new rule|rule creation)"
+  - type: file_path
+    pattern: "\\.cursor/rules/.*\\.mdc$"
+
+actions:
+  - type: suggest
+    message: |
+      ## Cursor Rules Creation Process
+
+      This guide outlines the systematic process for creating and maintaining cursor rules in the bfra.me/works repository.
+
+      ### 1. Rule Planning
+
+      Before creating a new rule, plan its purpose and structure:
+
+      1. **Identify Need**: Determine what guidance developers need
+      2. **Check Existing Rules**: Avoid duplication with existing rules in `.cursor/rules/`
+      3. **Define Scope**: Decide which files or patterns the rule should target
+      4. **Plan Structure**: Outline the key sections of your rule
+
+      ### 2. Rule Creation
+
+      #### File Location and Naming
+
+      - All rules must be stored in the `.cursor/rules/` directory
+      - Use kebab-case for filenames with `.mdc` extension (e.g., `typescript-patterns.mdc`)
+      - Choose descriptive names that reflect the rule's purpose
+
+      #### Frontmatter Structure
+
+      Every rule must start with YAML frontmatter:
+
+      ```yaml
+      ---
+      description: Concise description of what the rule provides guidance on
+      globs: pattern1, pattern2, pattern3 # Patterns for auto-attachment
+      alwaysApply: false # Typically false for auto-attachment via globs
+      ---
+      ```
+
+      The `globs` field determines which files will automatically trigger the rule. Examples:
+      - `*.ts, *.tsx` - All TypeScript files
+      - `.changeset/*.md` - All changeset files
+      - `package.json, pnpm-workspace.yaml` - Specific configuration files
+
+      #### Rule Content Structure
+
+      After the frontmatter, include:
+
+      1. **Title**: Main heading for the rule
+      2. **Rule Element**: Wrapped in `<rule>...</rule>` tags
+         - `name`: Unique identifier in snake_case
+         - `description`: Brief description of the rule
+         - `filters`: Conditions for when the rule applies
+         - `actions`: What happens when the rule is triggered
+         - `examples`: Sample interactions showing rule usage
+
+      Basic template:
+
+      ```markdown
+      # Rule Title
+
+      <rule>
+      name: rule_name
+      description: Detailed description of the rule's purpose
+
+      filters:
+        - type: file_extension
+          pattern: "\\.ext$"
+        - type: content
+          pattern: "specific_pattern"
+
+      actions:
+        - type: suggest
+          message: |
+            ## Main Heading
+
+            Your detailed guidance here...
+
+      examples:
+        - input: |
+            User question about this topic?
+          output: |
+            Helpful response to that question
+      </rule>
+      ```
+
+      ### 3. Common Filter Types
+
+      - `file_extension`: Match files by extension (e.g., `"\\.ts$"`)
+      - `file_path`: Match specific file paths (e.g., `"package\\.json$"`)
+      - `content`: Match file content (e.g., `"import|export"`)
+      - `message`: Match user messages (e.g., `"(?i)(help|guide)"`)
+
+      ### 4. Content Guidelines
+
+      - **Be Specific**: Focus on concrete guidance for this repository
+      - **Use Examples**: Include practical code examples relevant to the codebase
+      - **Structure Hierarchically**: Use headings and lists for clear organization
+      - **Include Sample Interactions**: Demonstrate how the rule should be used
+      - **Reference Repository Files**: Use `[filename.ext](mdc:path/to/filename.ext)` syntax
+
+      ### 5. Testing Rules
+
+      After creating a rule:
+
+      1. Verify the rule appears for the intended files
+      2. Test with different queries to ensure proper triggering
+      3. Check that guidance is helpful and accurate
+
+      ### 6. Updating Rules
+
+      When updating existing rules:
+
+      1. Maintain consistent frontmatter structure
+      2. Preserve the rule name to maintain continuity
+      3. Update the description if scope changes
+      4. Add new examples as usage patterns evolve
+      5. Keep filters current with repository changes
+
+      ### 7. Rule Types by Application Mode
+
+      #### Auto-Attached Rules
+
+      - Set `alwaysApply: false`
+      - Include specific `globs` patterns
+      - Example use cases: language-specific guidance, file-type specific guidance
+
+      #### Agent Requested Rules
+
+      - Set `alwaysApply: false`
+      - May omit `globs` if triggered by description content
+      - Example use cases: workflows, processes, general guidance
+
+      #### Always Applied Rules
+
+      - Set `alwaysApply: true`
+      - Apply to all conversations regardless of context
+      - Use sparingly for critical guidance only
+
+examples:
+  - input: |
+      How do I create a new cursor rule for TypeScript testing practices?
+    output: |
+      To create a new cursor rule for TypeScript testing practices:
+
+      1. **Plan your rule first**:
+         - It should cover Vitest usage, test patterns, and best practices
+         - Target test files and configuration in the repository
+         - Avoid duplicating content from the existing typescript-patterns rule
+
+      2. **Create the rule file**:
+         ```bash
+         touch .cursor/rules/typescript-testing.mdc
+         ```
+
+      3. **Add the frontmatter**:
+         ```yaml
+         ---
+         description: Guidelines for writing effective TypeScript tests with Vitest in the bfra.me/works monorepo
+         globs: *.test.ts, *.spec.ts, vitest.config.*
+         alwaysApply: false
+         ---
+         ```
+
+      4. **Add the title and rule structure**:
+         ```markdown
+         # TypeScript Testing Practices
+
+         <rule>
+         name: typescript_testing
+         description: Best practices for writing and organizing TypeScript tests using Vitest
+
+         filters:
+           - type: file_extension
+             pattern: "\\.test\\.ts$|\\.spec\\.ts$"
+           - type: file_path
+             pattern: "vitest\\.config\\.(ts|js)$"
+           - type: content
+             pattern: "describe|it|test|expect|vi\\."
+
+         actions:
+           - type: suggest
+             message: |
+               ## Vitest Testing Guidelines
+
+               // Your detailed guidance here...
+
+         examples:
+           - input: |
+               How should I structure my test file?
+             output: |
+               // Your example response here...
+         </rule>
+         ```
+
+      5. **Fill in the detailed guidance** with specifics about:
+         - Test file organization
+         - Mocking approaches
+         - Assertion patterns
+         - Setup and teardown practices
+
+      6. **Test your rule** by opening a test file to verify it triggers correctly.
+
+      This approach follows our repository's cursor rule creation process and will provide consistent guidance for TypeScript testing across the codebase.
+</rule>

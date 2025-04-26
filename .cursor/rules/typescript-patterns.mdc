@@ -1,0 +1,278 @@
+---
+description: Effective TypeScript patterns and practices for the bfra.me/works monorepo
+globs: *.ts,*.tsx,tsconfig.*json
+alwaysApply: false
+---
+
+# TypeScript Patterns
+
+<rule>
+name: typescript_patterns
+description: Guidelines for writing efficient, maintainable TypeScript code in the bfra.me/works ecosystem
+filters:
+  - type: file_extension
+    pattern: "\\.ts$|\\.tsx$"
+  - type: file_path
+    pattern: "tsconfig\\.json$"
+  - type: content
+    pattern: "import|export|interface|type|class|function|const|let|export\\s+default"
+
+actions:
+  - type: suggest
+    message: |
+      ## TypeScript Best Practices
+
+      This monorepo follows specific TypeScript patterns for consistency and maintainability.
+
+      ### Project Configuration
+
+      - Always extend the shared configuration:
+        ```json
+        {
+          "extends": "@bfra.me/tsconfig",
+          "compilerOptions": {
+            // Project-specific overrides only
+          }
+        }
+      ```
+
+      - Use ES modules with `"type": "module"` in package.json
+      - Configure proper exports in package.json:
+        ```json
+        "exports": {
+          ".": {
+            "import": "./lib/index.js",
+            "types": "./lib/index.d.ts"
+          }
+        }
+        ```
+
+      ### Type Definitions
+
+      #### Prefer Interfaces for Public APIs
+
+      ```typescript
+      // Good: Use interfaces for public API contracts
+      export interface ConfigOptions {
+        name: string;
+        typescript?: boolean | TypescriptOptions;
+        prettier?: boolean;
+      }
+
+      // Avoid: Simple type aliases for public APIs
+      export type ConfigOptions = {
+        name: string;
+        typescript?: boolean | TypescriptOptions;
+        prettier?: boolean;
+      };
+      ```
+
+      #### Use Type Aliases for Unions, Intersections, Utility Types
+
+      ```typescript
+      // Good: Type aliases for complex types
+      export type ConfigValue = boolean | string | number | ConfigObject;
+      export type StrictConfig = BaseConfig & StrictOptions;
+      export type PackageName = `@bfra.me/${string}`;
+      ```
+
+      #### Use Discriminated Unions for Complex Types
+
+      ```typescript
+      // Good: Clear discriminated unions
+      type Success = {
+        status: 'success';
+        data: unknown;
+      };
+
+      type Failure = {
+        status: 'error';
+        error: Error;
+      };
+
+      type Result = Success | Failure;
+
+      // Usage with type narrowing
+      function handleResult(result: Result) {
+        if (result.status === 'success') {
+          // TypeScript knows result is Success
+          console.log(result.data);
+        } else {
+          // TypeScript knows result is Failure
+          console.error(result.error);
+        }
+      }
+      ```
+
+      ### Function Patterns
+
+      #### Use Function Overloads for Complex Signatures
+
+      ```typescript
+      // Good: Clear function overloads
+      export function defineConfig(options: string): Config;
+      export function defineConfig(options: ConfigOptions): Config;
+      export function defineConfig(options: string | ConfigOptions): Config {
+        // Implementation that handles both signatures
+      }
+      ```
+
+      #### Prefer Named Parameters for Complex Functions
+
+      ```typescript
+      // Good: Named parameters with defaults
+      function createPackage({
+        name,
+        version = '0.0.0',
+        description = '',
+        author = '',
+        template = 'default'
+      }: PackageOptions): Promise<void> {
+        // Implementation
+      }
+      ```
+
+      #### Use Type Predicates for Custom Type Guards
+
+      ```typescript
+      // Good: Type predicate for runtime type checking
+      function isConfigObject(value: unknown): value is ConfigObject {
+        return typeof value === 'object' && value !== null && 'name' in value;
+      }
+      ```
+
+      ### Error Handling
+
+      #### Use Discriminated Union for Error Results
+
+      ```typescript
+      type Result<T> =
+        | { success: true; data: T }
+        | { success: false; error: Error };
+
+      function safeOperation(): Result<string> {
+        try {
+          // Operation that might fail
+          return { success: true, data: 'result' };
+        } catch (error) {
+          return {
+            success: false,
+            error: error instanceof Error ? error : new Error(String(error))
+          };
+        }
+      }
+      ```
+
+      ### Module Patterns
+
+      #### Use Barrel Files for Public APIs
+
+      ```typescript
+      // index.ts - Barrel file
+      export { defineConfig } from './define-config';
+      export type { ConfigOptions } from './types';
+      export * from './constants';
+      ```
+
+      #### Use Path Aliases for Internal Imports
+
+      ```typescript
+      // tsconfig.json
+      {
+        "compilerOptions": {
+          "paths": {
+            "#internal/*": ["./src/internal/*"]
+          }
+        }
+      }
+
+      // Usage
+      import { internalUtil } from '#internal/utils';
+      ```
+
+      ### Special Types to Use
+
+      - Use `Record<K, T>` for objects with dynamic keys
+      - Use `Partial<T>` for objects with optional properties
+      - Use `Required<T>` to make all properties required
+      - Use `Pick<T, K>` and `Omit<T, K>` to create subset types
+      - Use `Readonly<T>` for immutable data structures
+
+      ### Monorepo-Specific Patterns
+
+      - Use `workspace:*` for internal package dependencies
+      - Export all types needed by consumers
+      - Don't expose internal implementation details
+      - Follow consistent naming conventions
+
+examples:
+  - input: |
+      How should I structure a new TypeScript package in this repo?
+    output: |
+      To structure a new TypeScript package in this monorepo:
+
+      1. First, create your package directory and initial files:
+      ```bash
+      mkdir -p packages/your-package-name/{src,test}
+      touch packages/your-package-name/{package.json,tsconfig.json}
+      touch packages/your-package-name/src/index.ts
+      ```
+
+      2. Configure package.json with proper TypeScript settings:
+      ```json
+      {
+        "name": "@bfra.me/your-package-name",
+        "version": "0.0.0-development",
+        "type": "module",
+        "exports": {
+          ".": {
+            "import": "./lib/index.js",
+            "types": "./lib/index.d.ts"
+          }
+        },
+        "files": ["lib"],
+        "scripts": {
+          "build": "tsup",
+          "dev": "tsup --watch",
+          "test": "vitest run",
+          "type-check": "tsc --noEmit"
+        },
+        "dependencies": {},
+        "devDependencies": {
+          "@bfra.me/eslint-config": "workspace:*",
+          "@bfra.me/tsconfig": "workspace:*",
+          "tsup": "^8.0.0",
+          "typescript": "^5.0.0",
+          "vitest": "^1.0.0"
+        }
+      }
+      ```
+
+      3. Set up tsconfig.json extending the shared config:
+      ```json
+      {
+        "extends": "@bfra.me/tsconfig",
+        "compilerOptions": {
+          "outDir": "lib",
+          "rootDir": "src"
+        },
+        "include": ["src"]
+      }
+      ```
+
+      4. Organize your source code following these patterns:
+      - src/index.ts - Main barrel file exporting public API
+      - src/types.ts - Type definitions
+      - src/constants.ts - Constants and default values
+      - src/utils/ - Utility functions
+      - src/internal/ - Internal implementation details (not exported)
+
+      5. Use proper TypeScript patterns in your implementation:
+      - Interfaces for public API contracts
+      - Discriminated unions for complex types
+      - Function overloads for complex signatures
+      - Type guards for runtime type checking
+      - Consistent error handling
+
+      This structure follows the monorepo's TypeScript patterns and ensures compatibility with the existing packages.
+</rule>

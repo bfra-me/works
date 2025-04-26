@@ -1,0 +1,293 @@
+---
+description: Guidelines for implementing and configuring ESLint using the @bfra.me/eslint-config package with different project types
+globs: eslint.config.js,eslint.config.ts
+alwaysApply: false
+---
+# ESLint Configuration Usage Guidelines
+
+Standards for using @bfra.me/eslint-config in projects.
+
+<rule>
+name: eslint_config_usage
+description: Best practices for using the @bfra.me/eslint-config package
+filters:
+  - type: message
+    pattern: "(?i)(eslint config|eslint configuration|lint|linting rules|@bfra.me/eslint)"
+  - type: file_extension
+    pattern: "\\.config\\.(js|ts)$"
+  - type: content
+    pattern: "@bfra.me/eslint-config"
+
+actions:
+  - type: suggest
+    message: |
+      # Using @bfra.me/eslint-config
+
+      The `@bfra.me/eslint-config` package provides a comprehensive, modular, and highly configurable ESLint setup for JavaScript and TypeScript projects. It uses ESLint's Flat Config API and offers a wide range of presets.
+
+      ## Installation
+
+      ```bash
+      # npm
+      npm install --save-dev @bfra.me/eslint-config eslint
+
+      # pnpm
+      pnpm add -D @bfra.me/eslint-config eslint
+
+      # yarn
+      yarn add -D @bfra.me/eslint-config eslint
+      ```
+
+      ## Basic Configuration
+
+      Create an `eslint.config.js` (or `eslint.config.ts`) file in your project root:
+
+      ### JavaScript Config (eslint.config.js)
+
+      ```javascript
+      import { defineConfig } from '@bfra.me/eslint-config'
+
+      export default defineConfig({
+        // Project name (useful for debugging)
+        name: 'my-project',
+
+        // Core features
+        typescript: true,
+        jsx: false,
+
+        // File types to lint
+        jsonc: true,
+        yaml: true,
+        markdown: true,
+
+        // Tool integrations
+        prettier: true,
+        vitest: true,
+      })
+      ```
+
+      ### TypeScript Config (eslint.config.ts)
+
+      ```typescript
+      import { defineConfig } from '@bfra.me/eslint-config'
+
+      export default defineConfig({
+        // Project name (useful for debugging)
+        name: 'my-project',
+
+        // TypeScript configuration
+        typescript: {
+          tsconfigPath: './tsconfig.json',
+          // Enable type-aware linting
+          typeAware: true
+        },
+
+        // Enable JSX support
+        jsx: true,
+
+        // File types to lint
+        jsonc: true,
+        yaml: true,
+        markdown: true,
+
+        // Tool integrations
+        prettier: true,
+        vitest: true,
+      })
+      ```
+
+      ## Configuration Options
+
+      The `defineConfig` function accepts the following options:
+
+      ```typescript
+      defineConfig({
+        // Core options
+        name?: string;                    // Project name for debugging
+        gitignore?: boolean;              // Use .gitignore for ignoring files (default: true)
+
+        // Language options
+        typescript?: boolean | {          // TypeScript support
+          tsconfigPath?: string;          // Path to tsconfig.json
+          typeAware?: boolean | {         // Type-aware linting settings
+            recommended?: boolean;        // Use recommended type-aware rules
+            strict?: boolean;             // Use strict type-aware rules
+            stylistic?: boolean;          // Use stylistic type-aware rules
+          };
+        };
+        jsx?: boolean;                    // JSX support
+
+        // File type options
+        jsonc?: boolean;                  // JSONC/JSON5 support
+        yaml?: boolean;                   // YAML support
+        toml?: boolean;                   // TOML support
+        markdown?: boolean;               // Markdown support
+
+        // Framework options
+        vitest?: boolean;                 // Vitest test framework support
+
+        // Tool integration
+        prettier?: boolean;               // Prettier integration
+        perfectionist?: boolean;          // Code organization rules
+
+        // Custom rules
+        overrides?: {                     // Override any rule configuration
+          [ruleId: string]: 'off' | 'warn' | 'error' | [severity: 'off' | 'warn' | 'error', options: any];
+        };
+      })
+      ```
+
+      ## Common Usage Patterns
+
+      ### Basic JavaScript Project
+
+      ```javascript
+      import { defineConfig } from '@bfra.me/eslint-config'
+
+      export default defineConfig({
+        name: 'js-project',
+        // No typescript option needed
+      })
+      ```
+
+      ### TypeScript Library
+
+      ```typescript
+      import { defineConfig } from '@bfra.me/eslint-config'
+
+      export default defineConfig({
+        name: 'ts-lib',
+        typescript: {
+          tsconfigPath: './tsconfig.json',
+          typeAware: {
+            strict: true
+          }
+        }
+      })
+      ```
+
+      ### React Application
+
+      ```typescript
+      import { defineConfig } from '@bfra.me/eslint-config'
+
+      export default defineConfig({
+        name: 'react-app',
+        typescript: true,
+        jsx: true,
+        jsonc: true,
+        prettier: true,
+        vitest: true
+      })
+      ```
+
+      ### Full Configuration with Overrides
+
+      ```typescript
+      import { defineConfig } from '@bfra.me/eslint-config'
+
+      export default defineConfig({
+        name: 'advanced-project',
+        typescript: {
+          tsconfigPath: './tsconfig.json',
+          typeAware: {
+            recommended: true,
+            strict: true,
+            stylistic: true
+          }
+        },
+        jsx: true,
+        jsonc: true,
+        yaml: true,
+        markdown: true,
+        vitest: true,
+        prettier: true,
+        perfectionist: true,
+        overrides: {
+          // Override specific rules
+          'no-console': 'warn',
+          'perfectionist/sort-objects': 'off',
+          '@typescript-eslint/no-explicit-any': 'error'
+        }
+      })
+      ```
+
+      ## Rule Sets Included
+
+      The configuration includes rule sets for:
+
+      - JavaScript best practices
+      - TypeScript-specific rules
+      - Import/export organization
+      - Node.js specifics
+      - JSX/React when enabled
+      - JSON/YAML/TOML when enabled
+      - Markdown when enabled
+      - Vitest testing when enabled
+      - Prettier integration when enabled
+      - Various code quality plugins
+
+      ## Performance Tips
+
+      1. Use `typescript.typeAware: false` during development and enable type-aware linting only in CI
+      2. Consider using `.eslintignore` or the built-in `gitignore: true` option to exclude unnecessary files
+      3. When using VS Code, install the ESLint extension and enable only needed validators
+
+      ## Common Issues
+
+      - **Type-aware linting is slow**: This is normal; consider disabling it during development
+      - **Conflicts with Prettier**: Ensure `prettier: true` is set to avoid rule conflicts
+      - **Missing peer dependencies**: Install required ESLint plugins as needed
+      - **Rules too strict**: Use the `overrides` option to adjust specific rules
+
+examples:
+  - input: |
+      How do I configure ESLint using the @bfra.me/eslint-config package?
+    output: |
+      To configure ESLint using the @bfra.me/eslint-config package:
+
+      1. Install the package:
+      ```bash
+      pnpm add -D @bfra.me/eslint-config eslint
+      ```
+
+      2. Create an `eslint.config.js` file in your project root:
+      ```javascript
+      import { defineConfig } from '@bfra.me/eslint-config'
+
+      export default defineConfig({
+        name: 'my-project',
+        typescript: true,
+        jsx: false,
+        jsonc: true,
+        yaml: true,
+        prettier: true,
+        vitest: true
+      })
+      ```
+
+      3. For TypeScript projects, you can provide more detailed configuration:
+      ```javascript
+      typescript: {
+        tsconfigPath: './tsconfig.json',
+        typeAware: true  // or detailed settings object
+      }
+      ```
+
+      4. Add a lint script to your package.json:
+      ```json
+      "scripts": {
+        "lint": "eslint ."
+      }
+      ```
+
+      The package automatically configures appropriate rules based on your project dependencies and the options you provide.
+
+metadata:
+  priority: high
+  version: 1.0
+  tags:
+    - eslint
+    - linting
+    - code-quality
+</rule>

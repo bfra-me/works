@@ -1,0 +1,235 @@
+---
+description: Workflow for recommending and creating cursor rules based on repository analysis
+globs:
+alwaysApply: false
+---
+# Repository Rule Recommender
+
+<rule>
+name: repo_rule_recommender
+description: Systematic workflow for analyzing repositories and recommending appropriate cursor rules
+filters:
+  - type: message
+    pattern: "(?i)(recommend.*cursor rules|generate.*cursor rules|create.*rule.*based on|suggest.*cursor rules|analyze repo.*rules)"
+  - type: context
+    pattern: "cursor rule recommendations|repository analysis|rule generation|prompt_library|repository report"
+
+actions:
+  - type: suggest
+    message: |
+      # Repository Analysis and Cursor Rule Recommendation Workflow
+
+      This workflow provides a systematic approach to analyzing repositories and recommending appropriate cursor rules using the prompt_library and sequentialthinking MCP tools.
+
+      ## Step 1: Repository Analysis
+
+      First, examine the repository structure and key technologies used in the project:
+
+      ```javascript
+      // Use sequentialthinking to break down the analysis process
+      const analysis = mcp_Sequential_Thinking_sequentialthinking({
+        thought: "Analyzing repository structure and identifying key technologies...",
+        thoughtNumber: 1,
+        totalThoughts: 5,
+        nextThoughtNeeded: true
+      });
+      ```
+
+      Key areas to analyze:
+
+      1. **Core Technologies** - Programming languages, frameworks, libraries
+      2. **Project Structure** - Monorepo, single package, directory organization
+      3. **Development Patterns** - Testing, linting, formatting
+      4. **Build Systems** - Compilation, bundling, transpilation
+      5. **Deployment Workflows** - CI/CD, versioning, release processes
+
+      ## Step 2: Create Repository Summary
+
+      Based on the analysis, create a concise repository summary:
+
+      ```javascript
+      // Create a summary similar to this:
+      const repoSummary = `A TypeScript monorepo using pnpm workspaces with several packages for different tools.
+      Uses ESLint with custom configurations, Prettier for formatting, and Vitest for testing.
+      Implements Changesets for versioning and GitHub Actions for CI/CD.`;
+      ```
+
+      ## Step 3: Get Rule Recommendations
+
+      Use the prompt_library to recommend cursor rules based on your repository summary:
+
+      ```javascript
+      // Get rule recommendations from the prompt_library
+      const recommendations = mcp_prompt_library_recommend_cursor_rules({
+        repo_summary: repoSummary
+      });
+      ```
+
+      ## Step 4: Review Existing Rules
+
+      Before implementing new rules, check for existing rules to avoid duplication:
+
+      ```javascript
+      // List existing rules
+      const existingRules = listFiles('.cursor/rules/');
+
+      // Compare recommendations against existing rules
+      const newRules = recommendations.filter(rule =>
+        !existingRules.includes(rule.name + '.mdc'));
+      ```
+
+      ## Step 5: Create New Rules
+
+      For each recommended rule that doesn't already exist:
+
+      ```javascript
+      // Get a template for the rule from prompt_library
+      const rule_template = mcp_prompt_library_get_static_cursor_rule({
+        rule_name: recommended_rule_name
+      });
+
+      // Or create a new rule file
+      mcp_prompt_library_save_cursor_rule({
+        rule_name: "rule-name",
+        rule_content: rule_template
+      });
+
+      // Alternative: Use the create-cursor-rule.sh script
+      run_terminal_cmd({
+        command: './scripts/create-cursor-rule.sh rule-name "Rule description" "*.ext, *.other"',
+        is_background: false
+      });
+      ```
+
+      ## Step 6: Test and Refine Rules
+
+      After creating the rules, test them on relevant files and refine as needed:
+
+      ```javascript
+      // Open files that should trigger the rules
+      const file = openFile('path/to/relevant/file.ext');
+
+      // Check if rules are triggered properly
+      const rulesTriggered = getCursorRules(file);
+
+      // Refine rule if necessary
+      editFile('.cursor/rules/rule-name.mdc');
+      ```
+
+      ## Complete Workflow Example
+
+      Here's a complete example of how to use this workflow to recommend and create cursor rules:
+
+      ```javascript
+      // 1. Analyze repository
+      const analysis = mcp_Sequential_Thinking_sequentialthinking({
+        thought: "Analyzing the repository structure and technology stack...",
+        thoughtNumber: 1,
+        totalThoughts: 5,
+        nextThoughtNeeded: true
+      });
+
+      // 2. Create repository summary
+      const repoSummary = "A TypeScript monorepo with multiple packages using pnpm workspaces, ESLint, Prettier, and Vitest for testing.";
+
+      // 3. Get rule recommendations
+      const recommendations = mcp_prompt_library_recommend_cursor_rules({
+        repo_summary: repoSummary
+      });
+
+      // 4. Examine existing rules
+      const existingRules = listFiles('.cursor/rules/');
+      console.log("Existing rules:", existingRules);
+      console.log("Recommended rules:", recommendations);
+
+      // 5. Create new recommended rules
+      for (const rule of recommendations.rules) {
+        if (!existingRules.includes(rule.name + '.mdc')) {
+          // Use prompt_library to create the rule
+          mcp_prompt_library_save_cursor_rule({
+            rule_name: rule.name,
+            rule_content: rule.template
+          });
+
+          console.log(`Created new rule: ${rule.name}`);
+        }
+      }
+
+      // 6. Test and refine the rules
+      // Open files that should trigger the rules and verify functionality
+      ```
+
+      ## Using Repository Reports
+
+      If you have a repository analysis report (like `repo-analysis.md`):
+
+      1. Extract the key technologies and structures from the report
+      2. Prioritize technologies that benefit from standardization
+      3. Feed the summary into the recommendation workflow
+
+      This workflow is designed to be reusable across different repositories, making the process of recommending and creating cursor rules systematic and based on actual repository technologies.
+
+examples:
+  - input: |
+      Using the prompt_library and sequentialthinking mcp servers, help me recommend cursor rules for this project based on bfra-me-works-report.md.
+    output: |
+      I'll help you analyze the bfra-me-works-report.md and recommend appropriate cursor rules using the prompt_library and sequentialthinking tools.
+
+      First, let's analyze the repository structure and technologies using the sequentialthinking tool:
+
+      ```javascript
+      // Initial analysis of the repository
+      const analysis = mcp_Sequential_Thinking_sequentialthinking({
+        thought: "Analyzing the bfra-me-works-report.md to identify key technologies and patterns...",
+        thoughtNumber: 1,
+        totalThoughts: 5,
+        nextThoughtNeeded: true
+      });
+      ```
+
+      From the bfra-me-works-report.md, I can identify that this is a TypeScript/JavaScript monorepo using pnpm workspaces with packages for ESLint configuration, Prettier configuration, TypeScript configuration, and more. It uses Changesets for versioning and has specific development workflows.
+
+      Now I'll create a concise repository summary:
+
+      ```javascript
+      const repoSummary = "A TypeScript/JavaScript monorepo using pnpm workspaces with packages for ESLint config, Prettier config, TypeScript config, semantic-release utilities, and package creation tools. Uses Changesets for versioning, Vitest for testing, and GitHub Actions for CI/CD.";
+      ```
+
+      Next, I'll use the prompt_library to recommend cursor rules based on this summary:
+
+      ```javascript
+      const recommendations = mcp_prompt_library_recommend_cursor_rules({
+        repo_summary: repoSummary
+      });
+      ```
+
+      Based on the repository technologies, I recommend creating the following cursor rules:
+
+      1. typescript-patterns.mdc - For TypeScript coding standards
+      2. eslint-config-usage.mdc - For using the custom ESLint configurations
+      3. prettier-config-usage.mdc - For using the custom Prettier configurations
+      4. monorepo-structure.mdc - For guidelines on the pnpm workspace structure
+      5. changeset-workflow.mdc - For versioning and release processes
+      6. development-workflow.mdc - For general development practices
+
+      I notice that many of these rules already exist in your .cursor/rules directory, which shows good coverage. To implement any missing rules, you could use:
+
+      ```javascript
+      // For any missing rules, create them using prompt_library
+      mcp_prompt_library_save_cursor_rule({
+        rule_name: "missing-rule-name",
+        rule_content: "..."
+      });
+      ```
+
+      Would you like me to help create any specific rules that might be missing, or would you prefer to review and refine the existing rules?
+
+metadata:
+  priority: high
+  version: 1.0
+  tags:
+    - repository-analysis
+    - cursor-rules
+    - workflow
+    - recommendations
+</rule>
