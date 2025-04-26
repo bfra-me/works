@@ -52,7 +52,7 @@ jobs:
 
       - name: Clean private package entries from changesets
         if: steps.filter.outputs.changes == 'true'
-        run: pnpm tsx scripts/src/clean-changesets.ts
+        run: pnpm run clean-changesets
 
       - name: Commit and push changes
         if: steps.filter.outputs.changes == 'true'
