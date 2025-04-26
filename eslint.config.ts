@@ -2,7 +2,7 @@ import {defineConfig} from './packages/eslint-config/src'
 
 export const config = defineConfig({
   name: '@bfra.me/works',
-  ignores: ['**/test/fixtures', '**/test/_fixtures'],
+  ignores: ['**/test/fixtures', '**/test/_fixtures', 'docs/memory/**'],
   packageJson: true,
   typescript: {
     parserOptions: {

@@ -17,37 +17,83 @@ The memory files serve several key purposes:
 - Support the AI-assisted agile workflow
 - Integrate with the knowledge graph when available
 
-## Memory File Types
+## How AI Assistants Should Use Memory Files
 
-| File | Purpose | Update Frequency |
-|------|---------|------------------|
-| [workflow-status.md](./workflow-status.md) | Track current project state and task progress | After each significant change |
-| [architecture.md](./architecture.md) | Document system architecture and components | When architecture changes |
-| [user-preferences.md](./user-preferences.md) | Record user preferences for code, tools, and workflows | When preferences change |
-| [domain-knowledge.md](./domain-knowledge.md) | Capture domain-specific concepts and terminology | When new knowledge is gained |
-| [decisions.md](./decisions.md) | Track key technical decisions and their rationale | When new decisions are made |
+### Discovery Process
 
-## Usage Guidelines
+AI assistants should be aware of memory files through multiple discovery mechanisms:
 
-1. **Reading Memory**: AI assistants should check relevant memory files at the start of conversations to establish context.
+1. **Cursor Rules**: Two key rules govern memory files:
+   - [memory-management](/.cursor/rules/memory-management.mdc): Provides guidelines for creating and maintaining memory files
+   - [auto-memory-manager](/.cursor/rules/auto-memory-manager.mdc): Automatically updates memory files after task completion
 
-2. **Updating Memory**: After significant changes to the project, the corresponding memory files should be updated with:
-   - New information or changes
-   - A timestamp for the update
-   - Clear, concise descriptions
+2. **Domain Knowledge**: The [domain-knowledge.md](/docs/memory/domain-knowledge.md) file contains links to all other memory files.
 
-3. **Referencing Memory**: When referencing information from memory files, use the format:
-   ```
+3. **Active Search**: When context is needed, assistants should proactively check the `docs/memory/` directory.
+
+4. **Cross-References**: When a file mentions a concept, assistants should check for relevant memory files.
+
+### Usage Guidelines
+
+1. **Starting Conversations**: Begin by checking these key files:
+   - [workflow-status.md](/docs/memory/workflow-status.md): For current project context
+   - [domain-knowledge.md](/docs/memory/domain-knowledge.md): For terminology and concepts
+   - [user-preferences.md](/docs/memory/user-preferences.md): For user's preferred approaches
+
+2. **During Conversations**:
+   - Reference relevant memory information
+   - Link to memory files when providing context
+   - Suggest updating memory files when new information emerges
+
+3. **When Completing Tasks**:
+   - Update workflow status
+   - Add task-specific memory files when appropriate
+   - Update knowledge graph entities and relationships
+
+4. **Referencing Format**: When referencing information from memory files, use:
+   ```markdown
    As noted in the [architecture memory](/docs/memory/architecture.md), the system uses...
    ```
 
-4. **Knowledge Graph Integration**: When using the knowledge graph MCP server, memory file updates should be synchronized with corresponding entities and relationships in the graph.
+## Memory File Types
+
+| File | Purpose | Update Frequency | Discovery Priority |
+|------|---------|------------------|-------------------|
+| [workflow-status.md](/docs/memory/workflow-status.md) | Track current project state and task progress | After each significant change | High - Check first |
+| [architecture.md](/docs/memory/architecture.md) | Document system architecture and components | When architecture changes | Medium |
+| [user-preferences.md](/docs/memory/user-preferences.md) | Record user preferences for code, tools, and workflows | When preferences change | High - Check early |
+| [domain-knowledge.md](/docs/memory/domain-knowledge.md) | Capture domain-specific concepts and terminology | When new knowledge is gained | High - Contains links to other files |
+| [decisions.md](/docs/memory/decisions.md) | Track key technical decisions and their rationale | When new decisions are made | Medium |
+| Task-specific files (e.g., [eslint-typescript-markdown-issue.md](/docs/memory/eslint-typescript-markdown-issue.md)) | Document specific task details | After task completion | Low - Reference as needed |
+
+## Auto-Memory Management
+
+The [auto-memory-manager](/.cursor/rules/auto-memory-manager.mdc) rule automatically detects task completions and updates memory files accordingly. This process includes:
+
+1. **Extraction**: Identifying task information, affected components, problems solved, and solutions implemented
+2. **Updating**: Modifying appropriate memory files with the new information
+3. **Knowledge Graph**: Creating or updating entities and relationships in the knowledge graph
+4. **Cross-Referencing**: Ensuring proper links between related files
+
+Memory files are updated using specific templates defined in the auto-memory-manager rule:
+- Workflow Status Update template
+- Domain Knowledge Update template
+- Task-Specific Memory File template
+
+## Integration with Knowledge Graph
+
+Memory files work in concert with the knowledge graph (when available) through:
+
+1. **Entity Creation**: Memory files have corresponding entities in the graph
+2. **Relationship Mapping**: File relationships are represented as entity relationships
+3. **Synchronization**: Changes to files should update the graph and vice versa
+4. **Query Patterns**: Graph queries can supplement file-based knowledge
 
 ## Related Resources
 
 - [Memory Management Rule](/.cursor/rules/memory-management.mdc): Defines the guidelines for memory file creation and maintenance
+- [Auto-Memory Manager Rule](/.cursor/rules/auto-memory-manager.mdc): Automates memory updates after task completion
 - [AI Agile Workflow Rule](/.cursor/rules/ai-agile-workflow.mdc): Describes how memory files integrate with the agile workflow
-- [Memory Management Plan](/docs/plans/memory-management.md): Outlines the implementation plan for the memory management system
 
 ## Key Concepts
 
@@ -56,3 +102,5 @@ The memory files serve several key purposes:
 - **Context Retention**: The ability to maintain awareness of project state across conversations
 - **Memory Update**: The process of adding new information to memory files
 - **Memory Synchronization**: Keeping memory files and knowledge graph in sync
+
+## Updated: 2025-04-26
