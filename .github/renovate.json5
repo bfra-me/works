@@ -79,7 +79,7 @@
   },
   platformAutomerge: false,
   postUpgradeTasks: {
-    commands: ['pnpm bootstrap', 'pnpm fix'],
+    commands: ['pnpm bootstrap', 'pnpm build', 'pnpm fix'],
     executionMode: 'branch',
   },
   prBodyDefinitions: {
