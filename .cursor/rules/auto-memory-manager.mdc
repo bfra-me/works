@@ -1,0 +1,247 @@
+---
+description: Automatically updates memory files and knowledge graph after task completion
+globs: *
+alwaysApply: true
+---
+# Auto Memory Manager
+
+This rule automatically updates memory files and knowledge graph after any task is completed, creating a self-improving repository that maintains comprehensive records of work performed.
+
+<rule>
+name: auto_memory_manager
+description: Automatically updates memory files and knowledge graph after task completion
+filters:
+  - type: message
+    pattern: "(?i)(task completed|finished implementing|done with|completed task|task is done|fixed issue|implemented|resolved|finished|done)"
+  - type: content
+    pattern: "\\[Status: Completed\\]"
+
+actions:
+  - type: suggest
+    message: |
+      ## Task Completion Detected
+
+      I'll automatically update our memory files and knowledge graph to reflect this completed task.
+
+      ### Memory Update Process
+
+      1. **Extracting Task Information**
+         - Task type: ${task_type}
+         - Core components affected: ${affected_components}
+         - Problem solved: ${problem_description}
+         - Solution implemented: ${solution_description}
+
+      2. **Updating Memory Files**
+         - docs/memory/workflow-status.md: Task marked complete and moved to history
+         - docs/memory/domain-knowledge.md: Adding new insights from this task
+         - docs/memory/${task_specific_memory_file}.md: Adding detailed implementation notes
+
+      3. **Knowledge Graph Updates**
+         - Creating entities for new components/concepts
+         - Adding relationships between entities
+         - Recording observations about implementation patterns
+
+      ### Would you like me to update additional memory files or provide more detailed documentation on the implementation?
+
+examples:
+  - input: |
+      I just completed implementing the ESLint configuration for TypeScript in Markdown files.
+    output: |
+      ## Task Completion Detected
+
+      I'll automatically update our memory files and knowledge graph to reflect this completed task.
+
+      ### Memory Update Process
+
+      1. **Extracting Task Information**
+         - Task type: Configuration
+         - Core components affected: ESLint config, Markdown processing
+         - Problem solved: Lack of TypeScript validation in Markdown code blocks
+         - Solution implemented: Extended ESLint configuration for Markdown files with TypeScript support
+
+      2. **Updating Memory Files**
+         - docs/memory/workflow-status.md: Task marked complete and moved to history
+         - docs/memory/domain-knowledge.md: Adding new insights about ESLint with Markdown
+         - docs/memory/eslint-typescript-markdown-issue.md: Adding detailed implementation notes
+
+      3. **Knowledge Graph Updates**
+         - Creating entity for "ESLint_Markdown_TypeScript_Integration"
+         - Adding relationship between ESLint config and Markdown processing
+         - Recording observations about implementation approach
+
+      ### Would you like me to update additional memory files or provide more detailed documentation on the implementation?
+
+  - input: |
+      I've finished the new dropdown component with accessibility features.
+    output: |
+      ## Task Completion Detected
+
+      I'll automatically update our memory files and knowledge graph to reflect this completed task.
+
+      ### Memory Update Process
+
+      1. **Extracting Task Information**
+         - Task type: Feature Implementation
+         - Core components affected: UI Components, Accessibility
+         - Problem solved: Need for accessible dropdown component
+         - Solution implemented: New dropdown with keyboard navigation, ARIA attributes, and screen reader support
+
+      2. **Updating Memory Files**
+         - docs/memory/workflow-status.md: Task marked complete and moved to history
+         - docs/memory/domain-knowledge.md: Adding new insights about accessible UI patterns
+         - docs/memory/ui-component-patterns.md: Adding detailed implementation notes for dropdown component
+
+      3. **Knowledge Graph Updates**
+         - Creating entity for "Accessible_Dropdown_Component"
+         - Adding relationships to "UI_Framework" and "Accessibility_Standards"
+         - Recording observations about implementation techniques
+
+      ### Would you like me to update additional memory files or provide more detailed documentation on the implementation?
+
+metadata:
+  priority: high
+  version: 1.0
+  tags:
+    - memory
+    - documentation
+    - knowledge-graph
+    - self-improvement
+</rule>
+
+## Task Type Categories
+
+Tasks generally fall into these categories:
+
+- **Feature Implementation**: Adding new functionality
+- **Bug Fix**: Resolving issues in existing functionality
+- **Configuration**: Setting up or modifying system configuration
+- **Performance**: Optimizing for speed or resource usage
+- **Refactoring**: Improving code structure without changing behavior
+- **Documentation**: Improving project documentation
+- **Infrastructure**: Changes to build, deployment, or development environment
+- **Testing**: Adding or improving tests
+
+## Memory File Templates
+
+When updating memory files, use these templates for consistency:
+
+### Workflow Status Update
+
+```markdown
+## Current State
+- **Current Date**: ${current_date}
+- **Completed Task**: ${task_name} (Task ID: ${task_id})
+- **Next Task**: ${next_task_name} (Task ID: ${next_task_id})
+
+## Task History
+| Task ID | Task Name | Status | Completion Date |
+|---------|-----------|--------|----------------|
+| ${task_id} | ${task_name} | Completed | ${completion_date} |
+
+## Recent Updates
+- ${task_name} completed: ${task_summary} (${completion_date})
+```
+
+### Domain Knowledge Update
+
+```markdown
+## Implementation Patterns
+- **${pattern_name}**: ${pattern_description}
+  - **Applied in**: ${task_name}
+  - **Context**: ${usage_context}
+  - **Benefits**: ${observed_benefits}
+  - **Limitations**: ${observed_limitations}
+
+## Technical Decisions
+| Decision | Rationale | Date | Alternatives Considered |
+|----------|-----------|------|-------------------------|
+| ${decision} | ${rationale} | ${decision_date} | ${alternatives} |
+```
+
+### Task-Specific Memory File
+
+```markdown
+# ${task_name}
+
+## Overview
+- **Task ID**: ${task_id}
+- **Type**: ${task_type}
+- **Status**: Completed
+- **Completion Date**: ${completion_date}
+- **Components Affected**: ${affected_components}
+
+## Problem Description
+${problem_description}
+
+## Solution Implemented
+${solution_description}
+
+## Implementation Details
+${implementation_details}
+
+## Caveats and Limitations
+${caveats_and_limitations}
+
+## Related Tasks
+- ${related_task_1}
+- ${related_task_2}
+
+## References
+- ${reference_1}
+- ${reference_2}
+```
+
+## Knowledge Graph Update Patterns
+
+When updating the knowledge graph, follow these patterns:
+
+### Entity Creation
+
+For new components or concepts:
+
+```javascript
+await graph.createEntities([
+  {
+    name: "${component_name}",
+    entityType: "component",
+    observations: ["Implemented/updated in ${task_name}", "${component_description}"]
+  }
+]);
+```
+
+### Relationship Creation
+
+For relationships between components:
+
+```javascript
+await graph.createRelations([
+  {
+    from: "${component_name}",
+    to: "${related_component}",
+    relationType: "${relationship_type}"
+  }
+]);
+```
+
+### Adding Observations
+
+For additional insights on existing entities:
+
+```javascript
+await graph.addObservations([
+  {
+    entityName: "${existing_entity}",
+    contents: ["New insight from ${task_name}: ${observation}"]
+  }
+]);
+```
+
+## Best Practices for Memory Updates
+
+1. **Be Specific**: Include technical details that would be valuable for future reference
+2. **Link Related Knowledge**: Connect new information to existing concepts
+3. **Include Context**: Document not just what was done, but why it was done
+4. **Record Alternatives**: Note alternatives that were considered but not implemented
+5. **Capture Lessons Learned**: Document challenges and how they were overcome
+6. **Include Examples**: Add examples of how to use new features or implement similar solutions
+7. **Update Progressively**: Don't wait until the end of a task to update memory

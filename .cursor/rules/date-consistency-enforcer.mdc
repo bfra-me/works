@@ -1,0 +1,150 @@
+---
+description: Enforces consistent use of the date command for timestamps and prevents using fabricated dates
+globs: docs/**/*.md
+alwaysApply: false
+---
+# Date Consistency Enforcer
+
+This rule ensures consistent and accurate date handling in memory files, task IDs, and documentation updates.
+
+<rule>
+name: date_consistency_enforcer
+description: Enforces consistent use of the date command for timestamps and prevents using fabricated dates
+filters:
+  - type: file_path
+    pattern: "docs/[memory|plans|tasks|templates]/.*\\.md$"
+  - type: message
+    pattern: "(?i)(update date|timestamp|current date|completion date|task id)"
+  - type: content
+    pattern: "Updated: |Completion Date|Current Date|Task ID: "
+
+actions:
+  - type: suggest
+    message: |
+      ## Date Consistency Requirements
+
+      I notice you're working with dates in memory files. To ensure consistency:
+
+      ### Current Date Retrieval
+
+      Always use the terminal command to get the current date:
+      ```bash
+      date +%Y-%m-%d
+      # Returns: YYYY-MM-DD format (e.g., 2025-04-26)
+      ```
+
+      ### Date Usage Rules
+
+      1. **Memory File Updates**:
+         - Add/update the "Updated:" section at the end of memory files
+         - Use `date +%Y-%m-%d` to get the current date
+         - Format: `## Updated: 2025-04-26`
+
+      2. **Task IDs**:
+         - Format: `YYYY-MM-DD-XX` where XX is a sequence number
+         - Use `date +%Y-%m-%d` to get the date portion
+         - Example: `2025-04-26-01`
+
+      3. **Completion Dates**:
+         - Use `date +%Y-%m-%d` for the current date
+         - Format: `2025-04-26`
+
+      4. **Recent Updates Section**:
+         - Each entry should end with the date in parentheses
+         - Example: `- Updated memory file structure (2025-04-26)`
+
+      5. **Historical Integrity**:
+         - Never use dates before 2025-04-25 (project start date)
+         - Do not fabricate dates or timestamp events in the future
+
+      ### Implementation
+
+      ```bash
+      # Get current date for memory file updates
+      TODAY=$(date +%Y-%m-%d)
+      echo "## Updated: $TODAY"
+
+      # Generate a new task ID
+      TASK_ID="$TODAY-01"
+      echo "Task ID: $TASK_ID"
+      ```
+
+      Would you like me to update the dates in the current file using the correct date format and values?
+
+examples:
+  - input: |
+      I'm updating the workflow-status.md file and need to add today's date.
+    output: |
+      ## Date Consistency Requirements
+
+      I notice you're working with dates in memory files. To ensure consistency:
+
+      ### Current Date Retrieval
+
+      Always use the terminal command to get the current date:
+      ```bash
+      date +%Y-%m-%d
+      # Returns: YYYY-MM-DD format (e.g., 2025-04-26)
+      ```
+
+      ### Date Usage Rules
+
+      1. **Memory File Updates**:
+         - Add/update the "Updated:" section at the end of memory files
+         - Use `date +%Y-%m-%d` to get the current date
+         - Format: `## Updated: 2025-04-26`
+
+      2. **Task IDs**:
+         - Format: `YYYY-MM-DD-XX` where XX is a sequence number
+         - Use `date +%Y-%m-%d` to get the date portion
+         - Example: `2025-04-26-01`
+
+      3. **Completion Dates**:
+         - Use `date +%Y-%m-%d` for the current date
+         - Format: `2025-04-26`
+
+      4. **Recent Updates Section**:
+         - Each entry should end with the date in parentheses
+         - Example: `- Updated memory file structure (2025-04-26)`
+
+      5. **Historical Integrity**:
+         - Never use dates before 2025-04-25 (project start date)
+         - Do not fabricate dates or timestamp events in the future
+
+      Would you like me to update the dates in the workflow-status.md file using the correct current date?
+
+  - input: |
+      I need to create a new task ID for this ESLint configuration fix.
+    output: |
+      ## Date Consistency Requirements
+
+      I notice you need to create a new task ID. To ensure consistency:
+
+      ### Current Date Retrieval
+
+      Always use the terminal command to get the current date:
+      ```bash
+      date +%Y-%m-%d
+      # Returns: YYYY-MM-DD format (e.g., 2025-04-26)
+      ```
+
+      Let me get the current date for your task ID:
+
+      ```bash
+      TODAY=$(date +%Y-%m-%d)
+      echo "Task ID: $TODAY-01"
+      ```
+
+      Based on today's date, your new task ID should be 2025-04-26-01.
+
+      Would you like me to help create the complete task entry with this ID?
+
+metadata:
+  priority: high
+  version: 1.0
+  tags:
+    - dates
+    - consistency
+    - memory-management
+    - documentation
+</rule>
