@@ -77,6 +77,9 @@ importers:
       ts-essentials:
         specifier: 10.0.4
         version: 10.0.4(typescript@5.8.3)
+      tsx:
+        specifier: 4.19.3
+        version: 4.19.3
       type-fest:
         specifier: 4.39.1
         version: 4.39.1
