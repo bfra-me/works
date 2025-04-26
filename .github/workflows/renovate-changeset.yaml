@@ -31,7 +31,7 @@ jobs:
           token: ${{ steps.get-workflow-access-token.outputs.token }}
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
+        uses: ./.github/actions/pnpm-install
 
       - id: filter
         name: Filter changes
@@ -48,15 +48,11 @@ jobs:
         env:
           SKIP_COMMIT: 'TRUE'
           SORT_CHANGESETS: 'TRUE'
-        run: pnpx @scaleway/changesets-renovate
-
-      - name: Clean private package entries from changesets
-        if: steps.filter.outputs.changes == 'true'
-        run: pnpm run clean-changesets
-
-      - name: Commit and push changes
-        if: steps.filter.outputs.changes == 'true'
         run: |
+          pnpx @scaleway/changesets-renovate
+          # Clean private package entries from changesets
+          pnpm run clean-changesets
+          # Commit and push changes
           SHORT_HASH=$(git rev-parse --short HEAD)
           git add .changeset/
           git commit -m "chore: add changeset renovate-${SHORT_HASH}" || echo "No changes to commit"
