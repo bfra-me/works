@@ -1,5 +1,50 @@
 # @bfra.me/eslint-config
 
+## 0.20.2
+### Patch Changes
+
+
+- Updated dependency `@eslint/markdown` to `6.4.0`. ([#1183](https://github.com/bfra-me/works/pull/1183))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.31.0`. ([#1180](https://github.com/bfra-me/works/pull/1180))
+  Updated dependency `typescript-eslint` to `8.31.0`.
+
+- Updated dependency `@eslint-community/eslint-plugin-eslint-comments` to `4.5.0`. ([#1181](https://github.com/bfra-me/works/pull/1181))
+
+
+- Updated dependency `eslint-plugin-node-dependencies` to `0.13.0`. ([#1172](https://github.com/bfra-me/works/pull/1172))
+
+
+- Updated dependency `eslint-plugin-json-schema-validator` to `5.4.0`. ([#1113](https://github.com/bfra-me/works/pull/1113))
+
+
+- Updated dependency `eslint-plugin-import-x` to `4.10.6`. ([#1170](https://github.com/bfra-me/works/pull/1170))
+
+
+- Updated dependency `@eslint/js` to `9.25.1`. ([#1179](https://github.com/bfra-me/works/pull/1179))
+  Updated dependency `eslint` to `9.25.1`.
+
+- Updated dependency `eslint-plugin-perfectionist` to `4.12.3`. ([#1191](https://github.com/bfra-me/works/pull/1191))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `50.6.10`. ([#1171](https://github.com/bfra-me/works/pull/1171))
+
+
+- Updated dependency `eslint-plugin-perfectionist` to `4.12.2`. ([#1184](https://github.com/bfra-me/works/pull/1184))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.1.43`. ([#1154](https://github.com/bfra-me/works/pull/1154))
+
+
+- Updated dependency `eslint-plugin-yml` to `1.18.0`. ([#1186](https://github.com/bfra-me/works/pull/1186))
+
+
+- Updated dependency `eslint-config-prettier` to `10.1.2`. ([#1152](https://github.com/bfra-me/works/pull/1152))
+
+
+- Updated dependency `package-manager-detector` to `1.2.0`. ([#1189](https://github.com/bfra-me/works/pull/1189))
+
 ## 0.20.1
 ### Patch Changes
 
