@@ -70,7 +70,7 @@
     "typescript": "5.8.3",
     "vitest": "3.1.2"
   },
-  "packageManager": "pnpm@10.9.0",
+  "packageManager": "pnpm@10.10.0",
   "pnpm": {
     "overrides": {
       "read-pkg-up@^11": "npm:read-package-up"
