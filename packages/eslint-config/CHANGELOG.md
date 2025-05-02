@@ -1,5 +1,17 @@
 # @bfra.me/eslint-config
 
+## 0.20.3
+### Patch Changes
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `50.6.11`. ([#1196](https://github.com/bfra-me/works/pull/1196))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.31.1`. ([#1201](https://github.com/bfra-me/works/pull/1201))
+  Updated dependency `typescript-eslint` to `8.31.1`.
+
+- Updated dependency `eslint-plugin-import-x` to `4.11.0`. ([#1194](https://github.com/bfra-me/works/pull/1194))
+
 ## 0.20.2
 ### Patch Changes
 
