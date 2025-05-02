@@ -64,6 +64,8 @@ actions:
       ## Notes
       - [Note 1]
       - [Note 2]
+
+      ## Updated: YYYY-MM-DD
       ```
 
       ### 2. Project Architecture (`docs/memory/architecture.md`)
@@ -92,6 +94,8 @@ actions:
       ## Constraints
       - [Constraint 1]
       - [Constraint 2]
+
+      ## Updated: YYYY-MM-DD
       ```
 
       ### 3. User Preferences (`docs/memory/user-preferences.md`)
@@ -115,6 +119,8 @@ actions:
       - **Communication Style**: [Preferred communication style]
       - **Explanation Level**: [Preferred level of detail in explanations]
       - **AI Autonomy**: [Preferred level of AI autonomy]
+
+      ## Updated: YYYY-MM-DD
       ```
 
       ### 4. Domain Knowledge (`docs/memory/domain-knowledge.md`)
@@ -140,6 +146,8 @@ actions:
       ## External Resources
       - [Resource 1]: [Description and link]
       - [Resource 2]: [Description and link]
+
+      ## Updated: YYYY-MM-DD
       ```
 
       ## Related Rules
@@ -189,9 +197,80 @@ actions:
       ### Creating or Updating Memory Files
 
       1. **Structure**: Follow the established templates
-      2. **Updates**: Add a timestamp for each update in the "Recent Updates" section
-      3. **References**: Include links to other related memory files
-      4. **Synchronization**: Keep memory files in sync with the knowledge graph
+         - Use consistent headers and formatting
+         - Maintain the same section order across updates
+         - Include all required sections for the file type
+
+      2. **Updates**: Follow these critical update protocols
+         - **Always search for existing sections before adding new ones**
+         - **Merge content into existing sections rather than creating duplicates**
+         - **Keep the "## Updated: YYYY-MM-DD" line as the very last line in the file**
+         - Use the current date from `$(date +%Y-%m-%d)` for the timestamp
+         - There should only be ONE "## Updated: YYYY-MM-DD" line per file
+
+      3. **Section Merging Guidelines**:
+         - **For lists**: Add new items to the existing list in appropriate order
+         - **For tables**: Add new rows to existing tables, don't create duplicate tables
+         - **For narrative text**: Update existing paragraphs or add new ones
+         - **For code blocks**: Update existing blocks or add new ones with clear comments
+
+      4. **Avoiding Common Errors**:
+         - **NEVER add a duplicate section with the same name** - search for existing sections first
+         - **NEVER have multiple timestamp lines** - there should be only one "## Updated:" line
+         - **NEVER leave the timestamp in the middle of the file** - it must be the very last line
+         - **NEVER overwrite existing content** - merge or append appropriately
+
+      5. **References**: Include links to other related memory files
+         - Use relative paths (e.g., `/docs/memory/workflow-status.md`)
+         - Maintain cross-references between related memory files
+
+      6. **Synchronization**: Keep memory files in sync with the knowledge graph
+         - Update both when new information is available
+         - Ensure consistency between file content and graph entities
+
+      ### Memory File Update Process
+
+      When updating a memory file, follow this process:
+
+      1. **Read the entire file** first to understand its structure and content
+      2. **Identify sections to update** based on new information
+      3. **Search for each section name** (using Ctrl+F/Cmd+F) before adding content
+      4. **Merge new content into existing sections** rather than creating duplicates
+      5. **Add entirely new sections only if they don't already exist**
+      6. **Update the timestamp** at the end of the file using today's date
+      7. **Review the file** to ensure no duplicate sections were created
+      8. **Save the file** only after confirming proper structure
+
+      ### Memory File Structure Maintenance
+
+      To maintain the integrity of memory files:
+
+      ```markdown
+      # Correct ✓
+      ## Section A
+      Content for section A
+
+      ## Section B
+      Content for section B
+
+      ## Updated: 2025-05-02
+      ```
+
+      ```markdown
+      # Incorrect ❌
+      ## Section A
+      Content for section A
+
+      ## Section B
+      Content for section B
+
+      ## Updated: 2025-05-01
+
+      ## Section A
+      New content for section A
+
+      ## Updated: 2025-05-02
+      ```
 
       ### Using Memory Files
 
@@ -283,12 +362,58 @@ examples:
 
       I can also update the knowledge graph with these preferences if you'd like. Would you like me to save this file to `docs/memory/user-preferences.md` or would you like to make any changes first?
 
+  - input: |
+      I've noticed some duplicate sections in the domain-knowledge.md memory file. Can you fix it?
+    output: |
+      I'll examine the domain-knowledge.md file and fix any duplicate sections I find.
+
+      After reviewing the file, I've identified these issues:
+      - Duplicate "Implementation Patterns" sections
+      - Multiple "Updated:" timestamps throughout the file
+      - Content that should be merged into existing sections
+
+      I'll follow these steps to fix the issues:
+
+      1. First, I'll read the entire domain-knowledge.md file to understand its structure
+      2. I'll identify all duplicate section headers
+      3. For each duplicate section:
+         - I'll merge the content from both instances
+         - Ensure no information is lost
+         - Remove the duplicate section
+      4. I'll check for multiple "## Updated:" lines and ensure only one exists at the end
+      5. I'll maintain the proper hierarchical structure
+
+      Here are the changes I'm making:
+      - Merging both "Implementation Patterns" sections, keeping all unique patterns
+      - Moving content from mid-file timestamp sections into their appropriate locations
+      - Consolidating all "Technical Decisions" into a single section
+      - Ensuring the "## Updated: 2025-05-02" appears only once at the very end
+
+      The file has been fixed and now follows the proper memory file format with:
+      - Each section appearing only once
+      - All content properly merged
+      - The "## Updated:" timestamp as the last line in the file
+      - Consistent formatting throughout
+
+      The domain knowledge memory file is now properly structured for easier maintenance and updates.
+
 metadata:
   priority: high
-  version: 1.0
+  version: 1.1
   tags:
     - memory
     - context
     - workflow
     - knowledge-graph
+  changelog:
+    - version: 1.1
+      changes:
+        - Added detailed guidance on memory file update process
+        - Added explicit section on avoiding duplicate sections
+        - Added examples of correct and incorrect memory file structures
+        - Enhanced guidance on timestamp placement
+        - Added complete example of proper memory file update process
+    - version: 1.0
+      changes:
+        - Initial version
 </rule>

@@ -1,7 +1,7 @@
 ---
 description: Step-by-step guide for creating and maintaining cursor rules in this repository
-globs: .cursor/rules/*.mdc
-alwaysApply: false
+globs:
+alwaysApply: true
 ---
 # Cursor Rules Creation Process
 
@@ -94,6 +94,17 @@ actions:
             User question about this topic?
           output: |
             Helpful response to that question
+
+      metadata:
+        priority: high
+        version: 1.0
+        tags:
+          - tag1
+          - tag2
+        changelog:
+          - version: 1.0
+            changes:
+              - Initial version
       </rule>
       ```
 
@@ -129,8 +140,79 @@ actions:
       3. Update the description if scope changes
       4. Add new examples as usage patterns evolve
       5. Keep filters current with repository changes
+      6. Update the version and changelog in the metadata section
 
-      ### 7. Rule Types by Application Mode
+      #### Renaming Rule Files
+
+      When you need to rename a Cursor rule file:
+
+      1. **Identify all references**: Before renaming, search for all references to the file:
+         ```bash
+         # Search for references to the original filename
+         grep -r "original-name\.mdc" .
+         grep -r "original-name\.md" .  # Also check for incorrect extensions
+         ```
+
+      2. **Use terminal for renaming**: Use the `mv` command to rename the file:
+         ```bash
+         # Example: Renaming a rule file
+         mv .cursor/rules/original-name.mdc .cursor/rules/new-name.mdc
+         ```
+
+      3. **Preserve frontmatter**: Ensure the frontmatter is preserved during renaming. Don't modify the content unless necessary.
+
+      4. **Update references**: Update all references to the file:
+         - Task documentation in `docs/tasks/*.md`
+         - Scripts that process rule files
+         - Links from other cursor rules (using the proper `mdc:` syntax)
+         - Documentation files that reference the rule
+
+      5. **Verify the changes**: Ensure the renamed file works correctly:
+         - Check that the rule appears in the appropriate contexts
+         - Verify links to the rule work from other documents
+         - Test any scripts that interact with the rule files
+
+      6. **Update the version**: Increment the version number of the rule and add a changelog entry about the rename.
+
+      ### 7. Rule Metadata and Version Control
+
+      Every rule must include a metadata section at the end of the `<rule>` element for version control:
+
+      ```yaml
+      metadata:
+        priority: [high|medium|low]
+        version: [MAJOR.MINOR.PATCH]
+        tags:
+          - [tag1]
+          - [tag2]
+        changelog:
+          - version: [MAJOR.MINOR.PATCH]
+            changes:
+              - [Change description 1]
+              - [Change description 2]
+      ```
+
+      #### Version Control Guidelines
+
+      - **Priority**: Indicate importance (high, medium, low)
+      - **Version**: Use semantic versioning (MAJOR.MINOR.PATCH)
+        - MAJOR: Breaking changes
+        - MINOR: New features
+        - PATCH: Bug fixes and minor updates
+      - **Tags**: Include relevant categories (workflow, formatting, etc.)
+      - **Changelog**: Document history with most recent versions first
+
+      The full version control template is available at [version-control-template.md](mdc:docs/templates/version-control-template.md).
+
+      #### Updating Versions
+
+      When updating a rule:
+      1. Increment the version number based on the nature of changes
+      2. Add a new changelog entry with the specific changes
+      3. Place the new version at the top of the changelog list
+      4. Update the `version` field to match the new version
+
+      ### 8. Rule Types by Application Mode
 
       #### Auto-Attached Rules
 
@@ -203,6 +285,18 @@ examples:
                How should I structure my test file?
              output: |
                // Your example response here...
+
+         metadata:
+           priority: high
+           version: 1.0
+           tags:
+             - testing
+             - typescript
+             - vitest
+           changelog:
+             - version: 1.0
+               changes:
+                 - Initial version
          </rule>
          ```
 
@@ -215,4 +309,25 @@ examples:
       6. **Test your rule** by opening a test file to verify it triggers correctly.
 
       This approach follows our repository's cursor rule creation process and will provide consistent guidance for TypeScript testing across the codebase.
+
+metadata:
+  priority: high
+  version: 1.2
+  tags:
+    - cursor-rules
+    - documentation
+    - process
+  changelog:
+    - version: 1.2
+      changes:
+        - Added subsection on renaming rule files with step-by-step guidelines
+        - Included best practices for preserving references when renaming files
+    - version: 1.1
+      changes:
+        - Added section on rule metadata and version control
+        - Added link to version control template
+        - Updated rule template to include metadata section
+    - version: 1.0
+      changes:
+        - Initial version
 </rule>

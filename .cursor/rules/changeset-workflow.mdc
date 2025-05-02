@@ -3,7 +3,6 @@ description: Guide to using Changesets for versioning, changelogs, and releases 
 globs:
 alwaysApply: false
 ---
-
 # Changeset Workflow
 
 <rule>
@@ -189,4 +188,16 @@ examples:
            - Create GitHub releases
 
       If you need to release immediately rather than waiting for the weekly cycle, a maintainer can manually trigger the auto-release workflow from the GitHub Actions tab.
+
+metadata:
+  priority: high
+  version: 1.0
+  tags:
+    - workflow
+    - changeset
+    - release
+  changelog:
+    - version: 1.0
+      changes:
+        - Initial version
 </rule>

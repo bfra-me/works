@@ -3,7 +3,6 @@ description: Guide for implementing and customizing Prettier formatting using th
 globs:
 alwaysApply: false
 ---
-
 # Prettier Config Usage
 
 <rule>
@@ -195,4 +194,16 @@ examples:
       - Single quotes for strings
       - No spaces in object literals
       - Plus all other default configurations from @bfra.me/prettier-config
+
+metadata:
+  priority: high
+  version: 1.0
+  tags:
+    - prettier
+    - formatting
+    - config
+  changelog:
+    - version: 1.0
+      changes:
+        - Initial version
 </rule>

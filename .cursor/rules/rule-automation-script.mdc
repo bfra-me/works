@@ -250,3 +250,15 @@ examples:
 
       After running the script, open the generated file and customize the filters, content, and examples to complete your rule.
 </rule>
+
+metadata:
+  priority: medium
+  version: 1.0
+  tags:
+    - automation
+    - script
+    - cursor-rules
+  changelog:
+    - version: 1.0
+      changes:
+        - Initial version

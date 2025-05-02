@@ -1,0 +1,604 @@
+---
+description: Guide for understanding CI/CD processes, troubleshooting build failures, and managing release automation in the bfra.me/works monorepo
+globs: .github/**/*.yaml,**/release.config.js,.changeset/*.md
+alwaysApply: false
+---
+# CI/CD Workflow Guide
+
+This rule provides comprehensive guidance for interacting with the CI/CD pipeline, troubleshooting build failures, and managing the release process in the bfra.me/works monorepo.
+
+<rule>
+name: ci_cd_workflow
+description: Guide for understanding CI/CD processes, troubleshooting build failures, and managing release automation
+
+filters:
+  - type: file_path
+    pattern: "\\.github/workflows/.*\\.ya?ml$"
+  - type: file_path
+    pattern: "\\.changeset/.*\\.md$"
+  - type: file_path
+    pattern: ".*release\\.config\\.js$"
+  - type: message
+    pattern: "(?i)(ci|cd|continuous integration|continuous delivery|github actions|workflow|build failure|release|changeset|semantic release)"
+
+actions:
+  - type: suggest
+    message: |
+      # CI/CD Workflow Guide
+
+      This guide explains how to effectively work with the CI/CD pipeline, troubleshoot build failures, and manage the release process in the bfra.me/works monorepo.
+
+      ## CI/CD Pipeline Overview
+
+      Our CI/CD pipeline consists of:
+
+      ```mermaid
+      flowchart TD
+          A[Push to Branch] --> B[CI Checks]
+          B --> C{All Checks Pass?}
+          C -->|No| D[Fix Issues]
+          D --> A
+          C -->|Yes| E[PR Review]
+          E --> F[Merge to Main]
+          F --> G[Release Workflow]
+          G --> H[Version Bump via Changesets]
+          H --> I[Publish to npm]
+      ```
+
+      ### GitHub Actions Workflows
+
+      | Workflow | Purpose | Trigger | File Location |
+      |----------|---------|---------|--------------|
+      | CI | Linting, type checking, testing | Push, PR | `.github/workflows/ci.yml` |
+      | Release | Versioning, changelog, npm publish | Merge to main | `.github/workflows/release.yml` |
+      | PR Checks | PR validation, size checks | PR creation/update | `.github/workflows/pr-checks.yml` |
+
+      ## Local Development and CI Connection
+
+      ### Pre-Commit Validation
+
+      Before pushing changes, run these commands locally to simulate CI checks:
+
+      ```bash
+      # Lint code
+      pnpm lint
+
+      # Type check
+      pnpm type-check
+
+      # Run tests
+      pnpm test
+      ```
+
+      ### Branch Protection Rules
+
+      Main branch is protected with these requirements:
+
+      - All CI checks must pass
+      - Required number of reviewers: 1
+      - No direct pushes (PR required)
+      - Status checks required:
+        - lint
+        - build
+        - test
+
+      ## CI Failure Troubleshooting
+
+      ### Common CI Failures and Solutions
+
+      #### 1. Lint Failures
+
+      **Symptoms:** ESLint/Prettier errors in CI logs
+
+      **Solutions:**
+      - Run `pnpm lint` locally to replicate
+      - Use `pnpm lint:fix` to automatically fix issues
+      - For advanced cases, check `.eslintrc.js` configuration
+
+      **Example Error:**
+      ```
+      error  Missing semicolon  semi
+      ```
+
+      **Fix:**
+      ```bash
+      # Fix all lint errors automatically
+      pnpm lint:fix
+
+      # Fix specific files
+      pnpm lint:fix packages/eslint-config/src/index.ts
+      ```
+
+      #### 2. Type Check Failures
+
+      **Symptoms:** TypeScript errors in CI logs
+
+      **Solutions:**
+      - Run `pnpm type-check` locally
+      - Check for missing type definitions
+      - Verify imports and exports
+      - Consider updating `tsconfig.json` if needed
+
+      **Example Error:**
+      ```
+      TS2322: Type 'string' is not assignable to type 'number'
+      ```
+
+      **Fix:**
+      ```typescript
+      // Before
+      const count: number = "5";
+
+      // After
+      const count: number = 5;
+      ```
+
+      #### 3. Test Failures
+
+      **Symptoms:** Failed tests in CI logs
+
+      **Solutions:**
+      - Run `pnpm test` locally to replicate
+      - Check for flaky tests (inconsistent results)
+      - Verify test environment differences
+
+      **Example Error:**
+      ```
+      Expected: 42
+      Received: undefined
+      ```
+
+      **Fix:**
+      - Update test to match implementation changes
+      - Fix implementation to satisfy test requirements
+      - If test is flaky, consider adding retry logic
+
+      #### 4. Build Failures
+
+      **Symptoms:** Package build errors in CI logs
+
+      **Solutions:**
+      - Run `pnpm build` locally to replicate
+      - Check for breaking changes in dependencies
+      - Verify build configuration settings
+
+      **Fix:**
+      ```bash
+      # Clean node_modules and rebuild
+      pnpm clean
+      pnpm install
+      pnpm build
+      ```
+
+      ### Reading CI Logs
+
+      1. **Go to the failed workflow run** in GitHub Actions
+      2. **Expand the failed step** to see detailed logs
+      3. **Look for error markers**: "Error", "Failed", "Exception"
+      4. **Check the context**: Look at steps before the failure
+      5. **Review artifacts**: Download and examine any build artifacts
+
+      ## Release Automation
+
+      ### Changeset-Based Releases
+
+      We use [Changesets](https://github.com/changesets/changesets) for versioning and changelog management:
+
+      #### Adding a Changeset
+
+      ```bash
+      # Create a new changeset
+      pnpm changeset
+
+      # Answer the prompts:
+      # 1. Select packages that changed
+      # 2. Select version bump type (patch/minor/major)
+      # 3. Write a description of changes
+      ```
+
+      #### Changeset Format
+
+      ```markdown
+      ---
+      "@bfra.me/package-name": patch
+      "@bfra.me/other-package": minor
+      ---
+
+      Description of the changes in this release
+      ```
+
+      #### Release Process
+
+      1. Changesets are collected when PRs are merged to main
+      2. The release workflow runs automatically
+      3. Version numbers are bumped according to changesets
+      4. Changelogs are generated
+      5. New versions are published to npm
+      6. A GitHub release is created
+
+      ### Manual Release Trigger
+
+      In exceptional cases, you can manually trigger the release workflow:
+
+      1. Go to "Actions" tab in GitHub
+      2. Select the "Release" workflow
+      3. Click "Run workflow"
+      4. Select the branch (usually main)
+      5. Trigger the workflow
+
+      ## Debugging CI Issues
+
+      ### Reproducing Locally
+
+      Create a local environment that mirrors CI:
+
+      ```bash
+      # Start with a clean state
+      pnpm clean
+
+      # Fresh install with frozen lockfile
+      pnpm install --frozen-lockfile
+
+      # Run the specific failing command
+      pnpm test
+      ```
+
+      ### Workflow Debugging
+
+      Add temporary debugging steps to workflows:
+
+      ```yaml
+      - name: Debug environment
+        run: |
+          echo "Node version: $(node -v)"
+          echo "NPM version: $(npm -v)"
+          echo "Current directory: $(pwd)"
+          echo "Directory listing: $(ls -la)"
+          echo "Environment variables: $(env | grep -v SECRET)"
+      ```
+
+      ### CI Cache Issues
+
+      If you suspect cache problems:
+
+      ```bash
+      # Locally
+      pnpm clean
+      pnpm install --frozen-lockfile
+
+      # In workflow
+      - name: Clear caches
+        run: |
+          rm -rf ./node_modules/.cache
+          pnpm store prune
+      ```
+
+      ## Advanced Topics
+
+      ### Customizing Workflows
+
+      To modify workflow behavior:
+
+      1. Edit workflow files in `.github/workflows/`
+      2. Test changes on a feature branch
+      3. Consider workflow impact on other developers
+
+      ### Branch-Specific CI Behavior
+
+      Configure different CI behavior for specific branches:
+
+      ```yaml
+      jobs:
+        test:
+          if: github.ref != 'refs/heads/main'
+          # Regular testing job
+
+        full-test:
+          if: github.ref == 'refs/heads/main'
+          # More comprehensive testing
+      ```
+
+      ### Scheduled Workflows
+
+      Set up maintenance workflows on a schedule:
+
+      ```yaml
+      on:
+        schedule:
+          # Run at 2am UTC every Monday
+          - cron: '0 2 * * 1'
+      ```
+
+      ## Integration with Other Workflows
+
+      ### Testing Practices
+
+      The CI/CD workflow integrates with [testing-practices](mdc:.cursor/rules/testing-practices.mdc) to ensure all tests pass before merging. Key integration points:
+
+      - Test runners are configured consistently across local and CI environments
+      - Test coverage requirements are enforced in CI
+      - Test reports are generated as artifacts
+
+      ### Dependency Management
+
+      The CI/CD workflow works with dependency management (see upcoming rule) to ensure:
+
+      - Dependency integrity is verified in CI
+      - Renovate bot PRs pass all checks
+      - Package versions are managed through changesets
+
+      ### Development Workflow
+
+      This rule complements the [development-workflow](mdc:.cursor/rules/development-workflow.mdc) rule by focusing on:
+
+      - CI/CD specific processes
+      - Build failure troubleshooting
+      - Release automation details
+
+      ## Related Documentation
+
+      - [GitHub Actions Documentation](https://docs.github.com/en/actions)
+      - [Changesets Documentation](https://github.com/changesets/changesets)
+      - [Semantic Release Documentation](https://github.com/semantic-release/semantic-release)
+
+examples:
+  - input: |
+      My CI build is failing with some type errors. How do I debug this?
+    output: |
+      I can help you debug the CI type errors. Here's a systematic approach:
+
+      1. **First, check the CI logs for specific TypeScript errors:**
+         - Go to the GitHub Actions tab in your repository
+         - Find the failed workflow run
+         - Expand the "type-check" step to see the detailed errors
+
+      2. **Reproduce the errors locally:**
+         ```bash
+         # Run type checking on the full repository
+         pnpm type-check
+
+         # Or focus on a specific package
+         pnpm --filter @bfra.me/package-name type-check
+         ```
+
+      3. **Common causes and fixes for TypeScript errors:**
+         - **Missing types**: Install required @types packages
+         - **API changes in dependencies**: Check for recent updates
+         - **Inconsistent TypeScript versions**: Verify the version in all packages
+         - **tsconfig issues**: Compare against working packages
+
+      4. **If the error only happens in CI but not locally:**
+         - Check for environment differences (Node version, etc.)
+         - Verify if CI is using a different TypeScript configuration
+         - Clear caches and try with a fresh install:
+           ```bash
+           pnpm clean
+           pnpm install --frozen-lockfile
+           pnpm type-check
+           ```
+
+      5. **Fix the issues:**
+         - Address each type error shown in the logs
+         - Run type-checking again to verify all issues are fixed
+         - Commit the changes and push to trigger CI again
+
+      Would you like me to help analyze specific type errors if you share the CI log details?
+
+  - input: |
+      How do I create a new release for the eslint-config package?
+    output: |
+      To create a new release for the eslint-config package, you'll need to use our changeset-based release process:
+
+      1. **Create a feature branch** (if you haven't already):
+         ```bash
+         git checkout -b update-eslint-config
+         ```
+
+      2. **Make your changes** to the eslint-config package
+
+      3. **Add a changeset** describing the changes:
+         ```bash
+         pnpm changeset
+         ```
+
+         In the interactive prompt:
+         - Select the `@bfra.me/eslint-config` package
+         - Choose the appropriate semver bump:
+           - `patch` for bug fixes
+           - `minor` for new features
+           - `major` for breaking changes
+         - Write a clear description of what changed
+
+      4. **Commit all changes** including the new changeset file:
+         ```bash
+         git add .
+         git commit -m "Update eslint-config with new rules"
+         git push -u origin update-eslint-config
+         ```
+
+      5. **Create a Pull Request** on GitHub
+
+      6. **Wait for CI checks** to pass and get a code review
+
+      7. **Once approved and merged to main**:
+         - The release workflow will automatically run
+         - A new version will be published to npm based on your changeset
+         - The changelog will be updated
+         - A GitHub release will be created
+
+      You don't need to manually trigger the release - once your PR with the changeset is merged to main, the release process will happen automatically on the next scheduled run (or can be manually triggered by a maintainer if needed).
+
+  - input: |
+      Why is my build failing with "Cannot find module" errors?
+    output: |
+      "Cannot find module" errors in CI builds are usually caused by dependency or build configuration issues. Let's troubleshoot this systematically:
+
+      1. **First, identify exactly which module is missing:**
+         - Check the CI logs for the specific error message
+         - Note the module name and where it's being imported
+
+      2. **Common causes and solutions:**
+
+         **Missing dependency in package.json:**
+         - Check if the module is listed in the package's dependencies
+         - Add it if missing:
+           ```bash
+           pnpm add module-name --filter @bfra.me/your-package
+           ```
+
+         **Dependency hoisting issues:**
+           ```bash
+           # Verify installed dependencies match package.json
+           pnpm why module-name
+           ```
+
+         **Build order problems:**
+         - If the module is another workspace package:
+           ```bash
+           # Ensure dependent package is built first
+           pnpm build --filter @bfra.me/dependency-package
+           pnpm build --filter @bfra.me/your-package
+           ```
+
+         **Incorrect import paths:**
+         - Check for typos in import statements
+         - Verify path casing (important on case-sensitive file systems in CI)
+
+      3. **Reproduction and verification:**
+         ```bash
+         # Clean build artifacts and dependencies
+         pnpm clean
+
+         # Fresh install with locked versions
+         pnpm install --frozen-lockfile
+
+         # Build dependencies first, then your package
+         pnpm build --filter "@bfra.me/your-package...^"
+         ```
+
+      4. **If still failing:**
+         - Add a debug step to your workflow to list installed modules:
+           ```yaml
+           - name: Debug module resolution
+             run: |
+               echo "Node modules structure:"
+               find ./node_modules -name "missing-module" -type d
+               echo "Package dependencies:"
+               cat package.json | grep dependencies -A 20
+           ```
+
+      Have you tried reinstalling dependencies and rebuilding the project locally? If so, does the error only occur in CI or also locally?
+
+metadata:
+  priority: high
+  version: 1.0
+  tags:
+    - ci-cd
+    - workflow
+    - troubleshooting
+    - release
+    - github-actions
+  changelog:
+    - version: 1.0
+      changes:
+        - Initial version
+</rule>
+
+## CI vs CD: Key Differences
+
+- **Continuous Integration (CI)**: Automatically builds and tests code changes
+- **Continuous Delivery (CD)**: Automates the delivery of applications to selected environments
+- **Continuous Deployment**: Automatically deploys all changes that pass tests to production
+
+## GitHub Actions Configuration
+
+### Key Components
+
+GitHub Actions workflows are defined in YAML files located in `.github/workflows/`. Each workflow consists of:
+
+- **Triggers**: Events that start the workflow (push, PR, schedule)
+- **Jobs**: Groups of steps that execute on the same runner
+- **Steps**: Individual tasks that run commands or actions
+- **Actions**: Reusable units of code that can be shared
+
+### Example Workflow Structure
+
+```yaml
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18.x'
+
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+
+    - name: Run tests
+      run: pnpm test
+```
+
+## Secrets and Environment Variables
+
+### Storing Secrets
+
+Store sensitive information in GitHub repository secrets:
+
+1. Go to repository Settings
+2. Select Secrets and variables > Actions
+3. Click "New repository secret"
+4. Add name (e.g., `NPM_TOKEN`) and value
+
+### Using Secrets in Workflows
+
+```yaml
+steps:
+  - name: Publish to npm
+    run: npm publish
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+```
+
+## Best Practices
+
+1. **Keep workflows focused**: Create separate workflows for different purposes
+2. **Cache dependencies**: Speed up builds by caching node_modules
+3. **Use matrix builds**: Test across multiple Node versions or OS environments
+4. **Set timeouts**: Prevent workflows from running indefinitely
+5. **Add workflow status badges**: Show build status in README
+6. **Test workflows locally**: Use [act](https://github.com/nektos/act) to test workflows before pushing
+
+## Versioning and Release Strategy
+
+### Semantic Versioning
+
+- **Patch (0.0.x)**: Bug fixes and minor changes
+- **Minor (0.x.0)**: New features, backward compatible
+- **Major (x.0.0)**: Breaking changes
+
+### When to Create Changesets
+
+Create a changeset when:
+- Fixing a bug that affects users
+- Adding new features or APIs
+- Changing or removing existing functionality
+- Updating dependencies that affect public APIs
+
+Skip changesets for:
+- Documentation-only changes
+- Internal refactoring that doesn't affect behavior
+- Changes to tests that don't affect public APIs
+- Development tooling changes
