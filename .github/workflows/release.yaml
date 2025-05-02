@@ -46,27 +46,10 @@ jobs:
           private-key: ${{ secrets.APPLICATION_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
 
-      - name: Setup Git user
-        run: |
-          git config --global user.email '118100583+bfra-me[bot]@users.noreply.github.com'
-          git config --global user.name 'bfra-me[bot]'
-
-      - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-        with:
-          fetch-depth: 0
-          ref: ${{ env.PUBLISH_REF }}
-          token: ${{ steps.get-workflow-access-token.outputs.token }}
-
-      - name: Prepare job
-        uses: ./.github/actions/pnpm-install
-
-      - name: Perform a dry run of `pnpm publish`
-        run: pnpm -r publish --dry-run --publish-branch ${{ env.PUBLISH_REF }}
-
       - name: Check for existing release PR
         id: check-pr
         env:
+          GH_REPO: ${{ github.repository }}
           GH_TOKEN: ${{ steps.get-workflow-access-token.outputs.token }}
         run: |
           PR_NUMBER=$(gh pr list \
@@ -100,10 +83,31 @@ jobs:
             echo "pr-exists=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Setup Git user
+        if: steps.check-pr.outputs.pr-exists == 'true'
+        run: |
+          git config --global user.email '118100583+bfra-me[bot]@users.noreply.github.com'
+          git config --global user.name 'bfra-me[bot]'
+
+      - name: Checkout repository
+        if: steps.check-pr.outputs.pr-exists == 'true'
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+          ref: ${{ env.PUBLISH_REF }}
+          token: ${{ steps.get-workflow-access-token.outputs.token }}
+
+      - name: Prepare job
+        if: steps.check-pr.outputs.pr-exists == 'true'
+        uses: ./.github/actions/pnpm-install
+
+      - name: Perform a dry run of `pnpm publish`
+        if: steps.check-pr.outputs.pr-exists == 'true'
+        run: pnpm -r publish --dry-run --publish-branch ${{ env.PUBLISH_REF }}
+
       - name: Create Release Pull Request or Publish to npm
         if: steps.check-pr.outputs.pr-exists == 'false' || steps.check-pr.outputs.mergeable == 'false' || github.event.workflow_run.conclusion == 'success'
         env:
-          GH_REPO: ${{ github.repository }}
           GITHUB_TOKEN: ${{ steps.get-workflow-access-token.outputs.token }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         uses: changesets/action@06245a4e0a36c064a573d4150030f5ec548e4fcc # v1.4.10
@@ -114,8 +118,10 @@ jobs:
           title: 'chore(🦋📦): publish packages'
           version: pnpm version-changesets
 
+      # Enable auto-merge for release PRs when checks pass except for workflow_run events
       - name: Enable Auto-merge
         if: >-
+          github.event_name != 'workflow_run' &&
           steps.check-pr.outputs.pr-exists == 'true' &&
           (
             steps.check-pr.outputs.checks-status == 'pending' ||
