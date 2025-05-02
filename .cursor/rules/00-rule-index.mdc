@@ -1,0 +1,179 @@
+---
+description: Index and categorization of all Cursor rules in the repository
+globs:
+alwaysApply: true
+---
+# Cursor Rules Index
+
+This index provides a complete overview of all Cursor rules in the repository, organized by category. Use this as your entry point to discover relevant rules for specific tasks or contexts.
+
+Cursor rules are structured guidance files that provide persistent context to AI assistants, enabling them to better understand code patterns, project workflows, and development standards. Each rule encapsulates domain-specific knowledge about the codebase, standardizes architectural decisions, or automates project-specific workflows through reusable prompts that guide AI behavior. When properly implemented in the `.cursor/rules` directory, these MDC-formatted files give the AI consistent direction for generating code, interpreting edits, and offering contextually appropriate assistance throughout the development process.
+
+## Quick References
+
+- [Rule Creation Process](#development-rules)
+- [Workflow & Process Rules](#workflow--process-rules)
+- [Coding Standards](#coding-standards)
+- [Configuration Guides](#configuration-guides)
+- [Repository Structure](#repository-structure)
+- [AI & Memory Management](#ai--memory-management)
+
+## Development Rules
+
+Rules related to creating and managing Cursor rules themselves:
+
+| Rule | Description | Priority |
+|------|-------------|----------|
+| [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc) | Step-by-step guide for creating and maintaining cursor rules | High |
+| [cursor-rule-cross-references](mdc:.cursor/rules/cursor-rule-cross-references.mdc) | Proper syntax for links and references in Cursor rules | High |
+| [cursor-rules-location](mdc:.cursor/rules/cursor-rules-location.mdc) | Standards for placing Cursor rule files in the correct directory | High |
+| [repo-rule-recommender](mdc:.cursor/rules/repo-rule-recommender.mdc) | Workflow for recommending and creating cursor rules based on repository analysis | Medium |
+| [rule-automation-script](mdc:.cursor/rules/rule-automation-script.mdc) | Scripts for automating cursor rule management | Medium |
+
+## Workflow & Process Rules
+
+Rules related to development, release, and task management workflows:
+
+| Rule | Description | Priority |
+|------|-------------|----------|
+| [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc) | Process for generating well-defined task documents from plans and tracking progress | Medium |
+| [changeset-workflow](mdc:.cursor/rules/changeset-workflow.mdc) | Guide to using Changesets for versioning, changelogs, and releases | High |
+| [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc) | Guide for understanding CI/CD processes, troubleshooting build failures, and managing release automation | High |
+| [development-workflow](mdc:.cursor/rules/development-workflow.mdc) | Step-by-step guide for development, testing, release process, and CI/CD workflows | High |
+
+## Coding Standards
+
+Rules related to code style, patterns, and best practices:
+
+| Rule | Description | Priority |
+|------|-------------|----------|
+| [anthropic-chain-of-thought](mdc:.cursor/rules/anthropic-chain-of-thought.mdc) | Best practices for chain of thought reasoning and XML tag usage with Anthropic models | High |
+| [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc) | Enforces consistent use of the date command for timestamps | Medium |
+| [testing-practices](mdc:.cursor/rules/testing-practices.mdc) | Best practices for testing in the monorepo using Vitest | High |
+| [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc) | Effective TypeScript patterns and practices for the monorepo | High |
+
+## Configuration Guides
+
+Rules related to configuring tools and packages:
+
+| Rule | Description | Priority |
+|------|-------------|----------|
+| [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc) | Guidelines for implementing and configuring ESLint | High |
+| [prettier-config-usage](mdc:.cursor/rules/prettier-config-usage.mdc) | Guide for implementing and customizing Prettier formatting | High |
+
+## Repository Structure
+
+Rules related to repository organization and architecture:
+
+| Rule | Description | Priority |
+|------|-------------|----------|
+| [monorepo-structure](mdc:.cursor/rules/monorepo-structure.mdc) | Guidelines for understanding and navigating the monorepo structure | High |
+| [repo-analyzer](mdc:.cursor/rules/repo-analyzer.mdc) | Repository Analysis Tool for understanding code structure | Medium |
+
+## AI & Memory Management
+
+Rules related to AI assistants and memory management:
+
+| Rule | Description | Priority |
+|------|-------------|----------|
+| [auto-memory-manager](mdc:.cursor/rules/auto-memory-manager.mdc) | Automatically updates memory files and knowledge graph after task completion | High |
+| [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc) | Guidelines for using Model Context Protocol tools | High |
+| [memory-management](mdc:.cursor/rules/memory-management.mdc) | Guidelines for creating and maintaining persistent memory files | High |
+| [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc) | Standards for accessing and applying user preferences | High |
+
+## Rule Maintenance
+
+### Versioning
+
+All rules follow semantic versioning (MAJOR.MINOR.PATCH):
+- **MAJOR**: Breaking changes to rule behavior or format
+- **MINOR**: New functionality added in a backward-compatible manner
+- **PATCH**: Backward-compatible bug fixes or minor content updates
+
+### Adding New Rules
+
+When adding new rules:
+1. Create the rule file in `.cursor/rules/` following [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc) guidelines
+2. Add an entry to this index file in the appropriate category
+3. Ensure proper versioning and metadata
+
+### Updating Rules
+
+When updating rules:
+1. Increment the version number according to the nature of the change
+2. Update the changelog section in the rule's metadata
+3. Update this index if the rule's description or category has changed
+
+### Automatic Index Updates
+
+This index must be automatically updated whenever cursor rules are created, modified, or deleted by an AI agent, following these guidelines:
+
+1. **Adding a New Rule**:
+   - Identify the appropriate category for the new rule
+   - Add a new row to the category's table, maintaining alphabetical order
+   - Format: `| [rule-name](mdc:.cursor/rules/rule-name.mdc) | Brief description | Priority |`
+   - Update the `total_rules` count in the Metadata section
+   - Update the `last_updated` date in the Metadata section to today's date
+
+2. **Updating an Existing Rule**:
+   - If the rule description has changed, update the description in the appropriate table
+   - If the rule's category has changed, move the rule from its current table to the appropriate category table
+   - If the rule's priority has changed, update the priority in the table
+   - Update the `last_updated` date in the Metadata section to today's date
+
+3. **Removing a Rule**:
+   - Remove the rule's row from the appropriate category table
+   - Update the `total_rules` count in the Metadata section
+   - Update the `last_updated` date in the Metadata section to today's date
+
+4. **Renaming a Rule**:
+   - Update all references to the rule in this index file
+   - Ensure the link path uses the new filename: `[new-name](mdc:.cursor/rules/new-name.mdc)`
+   - Update the `last_updated` date in the Metadata section to today's date
+
+5. **Creating a New Category**:
+   - If a rule doesn't fit into an existing category, create a new category section
+   - Add the category to the Quick References section
+   - Use the following format for the new category:
+     ```
+     ## Category Name
+
+     Rules related to [brief description]:
+
+     | Rule | Description | Priority |
+     |------|-------------|----------|
+     | [rule-name](mdc:.cursor/rules/rule-name.mdc) | Description text | Priority |
+     ```
+   - Update the `last_updated` date in the Metadata section to today's date
+
+6. **Triggering Index Updates**:
+   - To request an AI assistant to update this index, use phrases such as:
+     - "update rule index"
+     - "refresh cursor rules"
+     - "synchronize rules"
+     - "rebuild rule index"
+   - The AI will:
+     - Scan the `.cursor/rules/` directory for all current rules
+     - Compare with the index entries to identify additions, removals, or changes
+     - Update all tables to reflect the current state of rules
+     - Reorder entries alphabetically within each category
+     - Update the metadata section with the current date and rule count
+   - Example request: "Please update the rule index to match the current rules in the directory"
+   - The full pattern of recognized trigger phrases is:
+     ```
+     (?i)(update rule index|refresh rule index|synchronize rules?|update cursor index|update rule directory|refresh cursor rules?|rebuild rule index|reindex cursor rules?|sync rule index|update index with current rules?|regenerate rule index|align rule index|update rule catalog|refresh rule directory|reconcile rule index|update 00-rule-index|update rule-index\.mdc|update index to match rules?|refresh index file)
+     ```
+
+### Automated Maintenance Requirements
+
+- **Only AI agents** (not scripts or external automation) are responsible for maintaining this index.
+- Scripts may be used for scaffolding or validation, but not for rule enforcement or index updates.
+- The agent must update this file as part of any rule operation, without requiring explicit user prompts.
+
+## Metadata
+
+```yaml
+version: 1.3
+last_updated: 2025-05-02
+total_rules: 21
+```

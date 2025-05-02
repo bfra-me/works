@@ -1,0 +1,191 @@
+---
+description: Best practices for testing in the bfra.me/works monorepo using Vitest, including setup, organization, coverage, mocking, and TDD
+globs: *.test.ts, *.spec.ts, vitest.config.*, test/**/*.ts, test/**/*.js
+alwaysApply: false
+---
+
+# Testing Practices (Vitest & Monorepo)
+
+<rule>
+name: testing_practices
+description: Best practices for writing, organizing, and maintaining tests in the bfra.me/works monorepo using Vitest
+
+filters:
+  - type: file_extension
+    pattern: "\\.test\\.ts$|\\.spec\\.ts$|\\.test\\.js$|\\.spec\\.js$"
+  - type: file_path
+    pattern: "vitest\\.config\\.(ts|js)$|test/"
+  - type: content
+    pattern: "describe|it|test|expect|vi\\.|beforeEach|afterEach|mock|snapshot|coverage"
+  - type: message
+    pattern: "(?i)(testing|vitest|test coverage|mock|TDD|test pattern|test best practice|test organization)"
+
+actions:
+  - type: suggest
+    message: |
+      ## Testing Best Practices for bfra.me/works
+
+      This monorepo uses **Vitest** for all testing. Follow these guidelines for effective, maintainable, and high-quality tests:
+
+      ### 1. Test Organization
+      - Place all tests in a `test/` directory at the package root or alongside source files as `*.test.ts`/`*.spec.ts`
+      - Use descriptive file names: `feature-name.test.ts`
+      - Group related tests with `describe()` blocks
+      - Prefer `it()` over `test()` for test cases (per user preference)
+      - Keep test files focused: one feature/module per file
+
+      ### 2. Vitest Setup
+      - Use a `vitest.config.ts` file extending the shared config if needed
+      - Example:
+        ```typescript
+        // vitest.config.ts
+        import {defineConfig} from 'vitest/config'
+        export default defineConfig({
+          test: {
+            coverage: {
+              provider: 'v8',
+              reporter: ['text', 'html', 'json'],
+              exclude: ['**/node_modules/**', '**/dist/**', '**/*.d.ts']
+            },
+            environment: 'node',
+            include: ['test/**/*.test.ts'],
+            cache: true,
+            watch: false
+          }
+        })
+        ```
+      - Add a `test` script to `package.json`:
+        ```json
+        "scripts": {
+          "test": "vitest run"
+        }
+        ```
+
+      ### 3. Test Patterns
+      - Use fixtures and snapshots for config and output validation
+      - Use type testing features for TypeScript APIs
+      - Prefer functional test helpers over class-based test utilities
+      - Use extended expect matchers for clarity
+      - Use `beforeEach`/`afterEach` for setup/teardown
+      - Mock dependencies with `vi.mock()`
+      - Use `vi.fn()` for spies and stubs
+      - Avoid global state between tests
+      - Use coverage reports (`pnpm test --coverage`)
+      - Use test caching for local and CI runs
+
+      ### 4. TDD & Test Quality
+      - Write tests before or alongside implementation (TDD encouraged)
+      - Cover edge cases and error conditions
+      - Use clear, descriptive test names
+      - Keep tests deterministic and isolated
+      - Avoid testing implementation details; focus on public API/behavior
+      - Use snapshots judiciously (update only with intent)
+
+      ### 5. Example Test File
+      ```typescript
+      // test/math-utils.test.ts
+      import {describe, it, expect} from 'vitest'
+      import {add} from '../src/math-utils'
+
+      describe('add', () => {
+        it('adds two numbers', () => {
+          expect(add(2, 3)).toBe(5)
+        })
+
+        it('handles negative numbers', () => {
+          expect(add(-2, 3)).toBe(1)
+        })
+      })
+      ```
+
+      ### 6. Coverage & CI
+      - Always check coverage locally before PRs: `pnpm test --coverage`
+      - Coverage thresholds can be set in `vitest.config.ts`
+      - CI will fail if tests or coverage do not pass
+
+      ### 7. Troubleshooting
+      - Use `pnpm test --watch` for local development
+      - Use `vi.clearAllMocks()` in `afterEach` if needed
+      - For flaky tests, investigate async handling and state leaks
+      - Use `--run` for headless CI runs
+
+      ### 8. Additional Resources
+      - [Vitest Docs](https://vitest.dev/)
+      - [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
+      - [User Preferences](mdc:docs/memory/user-preferences.md)
+      - [Development Workflow](mdc:.cursor/rules/development-workflow.mdc)
+      - [TypeScript Patterns](mdc:.cursor/rules/typescript-patterns.mdc)
+      - [ESLint Config Usage](mdc:.cursor/rules/eslint-config-usage.mdc)
+      - [Prettier Config Usage](mdc:.cursor/rules/prettier-config-usage.mdc)
+
+examples:
+  - input: |
+      How should I organize my tests for a new package?
+    output: |
+      - Place all tests in a `test/` directory at the package root or as `*.test.ts` files next to the code
+      - Use descriptive file names (e.g., `math-utils.test.ts`)
+      - Group related tests with `describe()`
+      - Prefer `it()` over `test()`
+      - Keep each test file focused on a single feature or module
+
+  - input: |
+      How do I set up Vitest for a new package?
+    output: |
+      1. Add `vitest` to your `devDependencies`:
+         ```bash
+         pnpm add -D vitest
+         ```
+      2. Create a `vitest.config.ts` file:
+         ```typescript
+         import {defineConfig} from 'vitest/config'
+         export default defineConfig({
+           test: {
+             coverage: {provider: 'v8', reporter: ['text', 'html', 'json']},
+             environment: 'node',
+             include: ['test/**/*.test.ts']
+           }
+         })
+         ```
+      3. Add a `test` script to your `package.json`:
+         ```json
+         "scripts": {
+           "test": "vitest run"
+         }
+         ```
+      4. Run tests with `pnpm test`
+
+  - input: |
+      How do I mock a dependency in Vitest?
+    output: |
+      Use `vi.mock()` to mock modules and `vi.fn()` for spies/stubs:
+      ```typescript
+      import {vi} from 'vitest'
+      vi.mock('../src/my-module', () => ({
+        myFunction: vi.fn()
+      }))
+      ```
+
+  - input: |
+      How do I generate a coverage report?
+    output: |
+      Run `pnpm test --coverage` to generate a coverage report. Configure coverage options in `vitest.config.ts`.
+
+  - input: |
+      Should I use `test` or `it` in Vitest?
+    output: |
+      Prefer `it()` over `test()` for test cases, as per user preferences.
+
+metadata:
+  priority: high
+  version: 1.0
+  tags:
+    - testing
+    - vitest
+    - workflow
+    - monorepo
+    - best-practices
+  changelog:
+    - version: 1.0
+      changes:
+        - Initial version: comprehensive guidance for Vitest setup, test organization, coverage, mocking, and TDD in the monorepo
+</rule>

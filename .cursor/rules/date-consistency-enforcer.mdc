@@ -1,6 +1,6 @@
 ---
 description: Enforces consistent use of the date command for timestamps and prevents using fabricated dates
-globs: docs/**/*.md
+globs: docs/**/*.md, **/*.mdc
 alwaysApply: false
 ---
 # Date Consistency Enforcer
@@ -13,6 +13,8 @@ description: Enforces consistent use of the date command for timestamps and prev
 filters:
   - type: file_path
     pattern: "docs/[memory|plans|tasks|templates]/.*\\.md$"
+  - type: file_path
+    pattern: "\\.mdc$"
   - type: message
     pattern: "(?i)(update date|timestamp|current date|completion date|task id)"
   - type: content

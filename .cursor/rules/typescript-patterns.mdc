@@ -3,7 +3,6 @@ description: Effective TypeScript patterns and practices for the bfra.me/works m
 globs: *.ts,*.tsx,tsconfig.*json
 alwaysApply: false
 ---
-
 # TypeScript Patterns
 
 <rule>
@@ -275,4 +274,16 @@ examples:
       - Consistent error handling
 
       This structure follows the monorepo's TypeScript patterns and ensures compatibility with the existing packages.
+
+metadata:
+  priority: high
+  version: 1.0
+  tags:
+    - typescript
+    - patterns
+    - best-practices
+  changelog:
+    - version: 1.0
+      changes:
+        - Initial version
 </rule>

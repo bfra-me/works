@@ -25,11 +25,11 @@ This document tracks features for improving the Cursor rules system in the bfra.
 ### Feature 3: Develop Rules for Missing Critical Workflows
 
 - **Description**: Develop new rules for currently uncovered critical workflows and development practices, including testing, CI/CD, dependency management, and API design, to ensure comprehensive coverage of all important development workflows.
-- **Status**: [Not Started]
+- **Status**: [In Progress]
 - **Plan Document**: [docs/plans/develop-missing-workflow-rules.md](plans/develop-missing-workflow-rules.md)
 - **Priority**: Medium
 - **Created**: 2025-04-25
-- **Updated**: 2025-04-25
+- **Updated**: 2025-05-02
 
 ### Feature 4: Implement Memory Management System
 
@@ -39,6 +39,15 @@ This document tracks features for improving the Cursor rules system in the bfra.
 - **Priority**: High
 - **Created**: 2025-04-25
 - **Updated**: 2025-04-25
+
+### Feature 5: Cursor Rules Enhancement
+
+- **Description**: Enhance the cursor rules system by improving organization, reducing redundancy, and ensuring consistent rule application through better indexing, versioning, standardization, and conflict resolution mechanisms.
+- **Status**: [In Progress]
+- **Plan Document**: [docs/plans/cursor-rules-improvement.md](plans/cursor-rules-improvement.md)
+- **Priority**: High
+- **Created**: 2025-05-01
+- **Updated**: 2025-05-02
 
 ## Completed Features
 

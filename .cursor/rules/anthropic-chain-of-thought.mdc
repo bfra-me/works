@@ -1,0 +1,140 @@
+---
+description: Anthropic Chain of Thought and XML Tag Best Practices
+globs: *.py,*.md,*.mdc,*.ts,*.txt
+alwaysApply: false
+---
+
+# Anthropic Chain of Thought and XML Tag Best Practices
+
+Standards for incorporating chain of thought reasoning and XML tag structure in prompts for Anthropic models.
+
+<rule>
+name: anthropic-chain-of-thought
+description: Best practices for chain of thought reasoning and XML tag usage with Anthropic models
+filters:
+  # Match any text-based files that might contain prompts
+  - type: file_extension
+    pattern: "\\.(py|md|mdc|ts|txt)$"
+  # Match files that look like they contain prompts
+  - type: content
+    pattern: "(?s)(prompt|instruction|query)"
+
+actions:
+  - type: suggest
+    message: |
+      When crafting prompts for Anthropic models:
+
+      1. Structure your prompts with XML tags for clarity:
+         ```xml
+         <system>
+           Define the AI's role and core capabilities
+         </system>
+
+         <context>
+           Provide relevant background information
+         </context>
+
+         <examples>
+           <example>
+             <input>User query example</input>
+             <thinking>Step-by-step reasoning process</thinking>
+             <output>Expected response</output>
+           </example>
+         </examples>
+
+         <user_query>
+           The actual user query
+         </user_query>
+         ```
+
+      2. Incorporate chain of thought elements:
+         ```xml
+         <thinking>
+           1. First, I'll analyze...
+           2. Then, I'll consider...
+           3. Based on that, I can conclude...
+         </thinking>
+
+         <reasoning>
+           Here's my step-by-step approach:
+           1. Initial assessment
+           2. Key considerations
+           3. Trade-offs evaluated
+           4. Final decision
+         </reasoning>
+         ```
+
+      3. Use specialized XML tags:
+         - <context> - For background information
+         - <thinking> - For internal reasoning steps
+         - <reasoning> - For explicit logical chains
+         - <quotes> - For direct quotations
+         - <examples> - For few-shot learning examples
+         - <output> - For final responses
+         - <reflection> - For self-assessment
+         - <plan> - For outlining approach
+
+      4. Best Practices:
+         a. Be explicit about reasoning steps
+         b. Break down complex tasks
+         c. Show work clearly
+         d. Use consistent tag structure
+         e. Maintain clear tag hierarchy
+
+      5. Chain of Thought Guidelines:
+         - Start with a clear problem understanding
+         - Break down complex reasoning
+         - Show intermediate steps
+         - Explain key decisions
+         - Validate conclusions
+
+examples:
+  - input: |
+      # Bad: No structured reasoning
+      What's 123 * 456?
+
+      # Good: Structured chain of thought
+      <task>Calculate 123 * 456</task>
+      <thinking>
+        1. Break into parts: 123 = 100 + 20 + 3
+        2. Multiply each part by 456:
+           - 100 * 456 = 45,600
+           - 20 * 456 = 9,120
+           - 3 * 456 = 1,368
+        3. Sum the results:
+           45,600 + 9,120 + 1,368 = 56,088
+      </thinking>
+      <output>123 * 456 = 56,088</output>
+    output: "Properly structured chain of thought reasoning"
+
+  - input: |
+      # Bad: Direct answer without context
+      The code has a bug in the loop.
+
+      # Good: Contextual analysis with reasoning
+      <context>
+        Analyzing a for loop in Python that's showing unexpected behavior
+      </context>
+      <thinking>
+        1. First, check loop conditions
+        2. Examine variable scope
+        3. Verify iteration logic
+        4. Consider edge cases
+      </thinking>
+      <reasoning>
+        The loop counter isn't being incremented properly because...
+      </reasoning>
+      <solution>
+        Modify the increment statement to ensure proper iteration
+      </solution>
+    output: "Clear reasoning process with context"
+
+metadata:
+  priority: high
+  version: 1.0
+  tags:
+    - prompt-engineering
+    - anthropic
+    - chain-of-thought
+    - xml-structure
+</rule>

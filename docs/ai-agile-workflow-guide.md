@@ -1,6 +1,6 @@
-# AI-Assisted Agile Workflow Guide for Cursor Rules Development
+# AI-Assisted Agile Workflow Guide
 
-This guide explains how to use our AI-assisted agile workflow for implementing improvements to the Cursor rules system. The workflow leverages Cursor AI agents and a structured document system to track features, plans, and tasks.
+This guide explains how to use our AI-assisted agile workflow for implementing improvements to projects. The workflow leverages Cursor AI agents and a structured document system to track features, plans, and tasks.
 
 ## Overview of the Workflow
 
@@ -20,7 +20,7 @@ The workflow uses three primary document types:
 
 ### 1. Central Reference Document (`docs/features.md`)
 
-This document tracks all features for improving the Cursor rules system, including:
+This document tracks all features for improving the project, including:
 - Description of each feature
 - Current implementation status
 - Links to related plan documents

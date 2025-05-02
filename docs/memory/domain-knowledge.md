@@ -99,4 +99,16 @@
   - Information is combined from multiple sources for comprehensive understanding
   - Memory file references follow standardized formats
 
-## Updated: 2025-04-26
+- **Cursor Rule Frontmatter Pattern**: Standard structure for .mdc files
+  - **Applied in**: CI/CD workflow rule fix
+  - **Context**: Creating and editing cursor rules
+  - **Benefits**: Ensures rules are properly applied and discovered
+  - **Limitations**: Requires careful attention to YAML formatting
+
+## Technical Decisions
+
+| Decision | Rationale | Date | Alternatives Considered |
+|----------|-----------|------|-------------------------|
+| Use terminal commands for .mdc file editing | Standard editing tools may not handle .mdc files correctly | 2025-05-02 | Using edit_file tool, manual creation in Cursor |
+
+## Updated: 2025-05-02
