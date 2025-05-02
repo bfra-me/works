@@ -18,3 +18,7 @@ bfra.me-*.tgz
 coverage/
 docs/memory/memory.json
 .cursor/mcp.json
+# SpecStory explanation file
+.specstory/.what-is-this.md
+# SpecStory
+.specstory/
