@@ -1,4 +1,10 @@
-name: Auto Release
+# Manages the release process for the bfra.me/works monorepo:
+# 1. Creates and manages release PRs using changesets
+# 2. Enables auto-merge for release PRs when checks pass
+# 3. Publishes packages to npm after successful merge
+# Triggers: After main workflow success, weekly schedule, or manual dispatch
+
+name: Release
 
 on:
   schedule:
@@ -9,6 +15,10 @@ on:
         description: Force release if checks pass
         type: boolean
         default: false
+  workflow_run:
+    branches: [main]
+    types: [completed]
+    workflows: [Main]
 
 permissions:
   contents: read
@@ -90,8 +100,8 @@ jobs:
             echo "pr-exists=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Create Release PR
-        if: steps.check-pr.outputs.pr-exists == 'false' || steps.check-pr.outputs.mergeable == 'false'
+      - name: Create Release Pull Request or Publish to npm
+        if: steps.check-pr.outputs.pr-exists == 'false' || steps.check-pr.outputs.mergeable == 'false' || github.event.workflow_run.conclusion == 'success'
         env:
           GH_REPO: ${{ github.repository }}
           GITHUB_TOKEN: ${{ steps.get-workflow-access-token.outputs.token }}
