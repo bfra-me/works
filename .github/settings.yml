@@ -16,7 +16,6 @@ branches:
           - CI
           - CodeQL
           - Create Renovate Changeset
-          - Release
           - Renovate / Renovate
           - Review Dependencies
 
