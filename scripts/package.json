@@ -20,7 +20,7 @@
     "@bfra.me/tsconfig": "workspace:*",
     "@types/node": "22.15.3",
     "eslint": "9.25.1",
-    "tsx": "4.19.3",
+    "tsx": "4.19.4",
     "typescript": "5.8.3",
     "vitest": "3.1.2"
   }

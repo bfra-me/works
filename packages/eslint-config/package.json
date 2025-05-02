@@ -84,7 +84,7 @@
     "eslint-plugin-prettier": "5.2.6",
     "eslint-typegen": "2.1.0",
     "tsup": "8.4.0",
-    "tsx": "4.19.3"
+    "tsx": "4.19.4"
   },
   "peerDependencies": {
     "@vitest/eslint-plugin": "^1.1.21",
