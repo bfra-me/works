@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.20.4
+### Patch Changes
+
+
+- Updated dependency `tsx` to `4.19.4`. ([#1204](https://github.com/bfra-me/works/pull/1204))
+
 ## 0.20.3
 ### Patch Changes
 
