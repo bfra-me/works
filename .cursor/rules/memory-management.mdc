@@ -1,7 +1,7 @@
 ---
 description: Guidelines for creating and maintaining persistent memory files for AI assistants
-globs: docs/memory/*.md
-alwaysApply: false
+globs:
+alwaysApply: true
 ---
 # Memory Management
 
