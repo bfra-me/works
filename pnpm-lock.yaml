@@ -218,8 +218,8 @@ importers:
         specifier: 3.3.0
         version: 3.3.0
       eslint-plugin-node-dependencies:
-        specifier: 0.13.0
-        version: 0.13.0(eslint@9.25.1(jiti@2.4.2))
+        specifier: 0.13.1
+        version: 0.13.1(eslint@9.25.1(jiti@2.4.2))
       eslint-plugin-prettier:
         specifier: 5.2.6
         version: 5.2.6(@types/eslint@9.6.1)(eslint-config-prettier@10.1.2(eslint@9.25.1(jiti@2.4.2)))(eslint@9.25.1(jiti@2.4.2))(prettier@3.5.3)
@@ -1970,8 +1970,8 @@ packages:
     resolution: {integrity: sha512-brcKcxGnISN2CcVhXJ/kEQlNa0MEfGRtwKtWA16SkqXHKitaKIMrfemJKLKX1YqDU5C/5JY3PvZXd5jEW04e0Q==}
     engines: {node: '>=5.0.0'}
 
-  eslint-plugin-node-dependencies@0.13.0:
-    resolution: {integrity: sha512-RPL0Sd9f/VwR3SGxNB3bJIm+om9ce3JvDejeAOePeutyA5OogD3P2oR1eIlzC1ExsgqVAAaSralTiUaHz9qUfQ==}
+  eslint-plugin-node-dependencies@0.13.1:
+    resolution: {integrity: sha512-TtDzaiY7yQuNLpPr/9TAtysZlJ+CzCmh57nauA4yM8AhOcTxuP46XIMGJVoyBrnOOnO42yQXi+ZJNaqXOqnDbw==}
     engines: {node: '>=14.17.0'}
     peerDependencies:
       eslint: '>=6.0.0'
@@ -6084,7 +6084,7 @@ snapshots:
 
   eslint-plugin-no-only-tests@3.3.0: {}
 
-  eslint-plugin-node-dependencies@0.13.0(eslint@9.25.1(jiti@2.4.2)):
+  eslint-plugin-node-dependencies@0.13.1(eslint@9.25.1(jiti@2.4.2)):
     dependencies:
       eslint: 9.25.1(jiti@2.4.2)
       jsonc-eslint-parser: 2.4.0
