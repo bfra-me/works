@@ -4657,7 +4657,7 @@ export interface Rules {
    */
   'vitest/no-standalone-expect'?: Linter.RuleEntry<VitestNoStandaloneExpect>
   /**
-   * disallow using `test` as a prefix
+   * Disallow using the `f` and `x` prefixes in favour of `.only` and `.skip`
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-test-prefixes.md
    */
   'vitest/no-test-prefixes'?: Linter.RuleEntry<[]>
