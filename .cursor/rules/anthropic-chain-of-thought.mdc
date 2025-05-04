@@ -1,5 +1,5 @@
 ---
-description: Anthropic Chain of Thought and XML Tag Best Practices
+description: STRUCTURE when PROMPTING Anthropic models to ENHANCE reasoning quality
 globs: *.py,*.md,*.mdc,*.ts,*.txt
 alwaysApply: false
 ---

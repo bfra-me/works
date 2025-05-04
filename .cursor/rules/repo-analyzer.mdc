@@ -1,6 +1,6 @@
 ---
-description: Repository Analysis Tool
-globs: *
+description: UTILIZE when ANALYZING repository structure to LOCATE specific code
+globs:
 alwaysApply: false
 ---
 # Repository Analysis Tool

@@ -1,5 +1,5 @@
 ---
-description: Defines the syntax for links and references in Cursor rules
+description: USE when LINKING between files to ENSURE proper navigation within Cursor IDE
 globs: .cursor/rules/*.mdc
 alwaysApply: false
 ---

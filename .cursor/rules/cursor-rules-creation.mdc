@@ -1,13 +1,13 @@
 ---
-description: Step-by-step guide for creating and maintaining cursor rules in this repository
+description: FOLLOW when CREATING cursor rules to ENSURE consistency and effective conditional activation
 globs:
-alwaysApply: true
+alwaysApply: false
 ---
 # Cursor Rules Creation Process
 
 <rule>
 name: cursor_rules_creation
-description: Step-by-step guide for creating and maintaining cursor rules in this repository
+description: FOLLOW when CREATING cursor rules to ENSURE consistency and effective conditional activation
 filters:
   - type: message
     pattern: "(?i)(cursor rule|create rule|add rule|new rule|rule creation)"
@@ -30,6 +30,36 @@ actions:
       3. **Define Scope**: Decide which files or patterns the rule should target
       4. **Plan Structure**: Outline the key sections of your rule
 
+      ### 1a. Rule Categories
+
+      When creating a new rule, determine which category it belongs to for proper organization in the [rule index](mdc:.cursor/rules/00-rule-index.mdc). The repository uses these established categories:
+
+      1. **Development Rules**: Rules related to creating and managing Cursor rules themselves
+         - Example: Guidelines for rule creation, cross-references, rule location
+
+      2. **Workflow & Process Rules**: Rules related to development, release, and task management workflows
+         - Example: Agile workflow, changeset process, CI/CD guidance
+
+      3. **Coding Standards**: Rules related to code style, patterns, and best practices
+         - Example: TypeScript patterns, testing practices, chain of thought reasoning
+
+      4. **Configuration Guides**: Rules related to configuring tools and packages
+         - Example: ESLint configuration, Prettier formatting
+
+      5. **Repository Structure**: Rules related to repository organization and architecture
+         - Example: Monorepo structure, dependency management
+
+      6. **API Development**: Rules related to API design and implementation
+         - Example: API design standards, interface patterns
+
+      7. **Development Tools**: Rules related to debugging, troubleshooting, and development aids
+         - Example: Debugging guides, repo analysis tools
+
+      8. **AI & Memory Management**: Rules related to AI assistants and memory management
+         - Example: Memory file management, knowledge graph updates
+
+      Choose the most appropriate category for your rule based on its primary purpose. If a rule could fit in multiple categories, consider its main focus and intended use case. The rule index will be updated to include your rule in the chosen category.
+
       ### 2. Rule Creation
 
       #### File Location and Naming
@@ -44,16 +74,80 @@ actions:
 
       ```yaml
       ---
-      description: Concise description of what the rule provides guidance on
+      description: ACTION when TRIGGER to OUTCOME
       globs: pattern1, pattern2, pattern3 # Patterns for auto-attachment
       alwaysApply: false # Typically false for auto-attachment via globs
       ---
       ```
 
+      ##### Description Field Pattern
+
+      The `description` field must follow the "ACTION when TRIGGER to OUTCOME" pattern:
+
+      ```yaml
+      description: ACTION when TRIGGER to OUTCOME
+      ```
+
+      Where:
+      - **ACTION**: An imperative verb (FOLLOW, USE, APPLY, VERIFY, etc.)
+      - **TRIGGER**: The precise context or scenario (CREATING, WRITING, DESIGNING, etc.)
+      - **OUTCOME**: The expected benefit or result (ENSURE, GUARANTEE, PREVENT, etc.)
+
+      Examples:
+      - "FOLLOW when CREATING cursor rules to ENSURE consistency"
+      - "USE when LINKING between files to ENSURE proper navigation"
+      - "VERIFY before COMMIT to PREVENT quality issues"
+
+      This pattern provides AI assistants with clear activation context for conditional rule application.
+
       The `globs` field determines which files will automatically trigger the rule. Examples:
       - `*.ts, *.tsx` - All TypeScript files
       - `.changeset/*.md` - All changeset files
       - `package.json, pnpm-workspace.yaml` - Specific configuration files
+
+      #### Frontmatter Creation and Editing Best Practices
+
+      > **IMPORTANT**: The standard `edit_file` tool has reliability issues with .mdc frontmatter. Always use terminal commands for frontmatter operations to avoid wasted tool calls and formatting problems.
+
+      When creating or editing frontmatter in Cursor rule files:
+
+      1. **For new rule files**, create the frontmatter using terminal commands:
+         ```bash
+         # Create a new rule file with proper frontmatter
+         echo '---' > .cursor/rules/new-rule.mdc
+         echo 'description: Clear rule description' >> .cursor/rules/new-rule.mdc
+         echo 'globs: *.ts, *.tsx' >> .cursor/rules/new-rule.mdc
+         echo 'alwaysApply: false' >> .cursor/rules/new-rule.mdc
+         echo '---' >> .cursor/rules/new-rule.mdc
+         ```
+
+      2. **For editing existing frontmatter**, use `sed` for precision editing:
+         ```bash
+         # Check current frontmatter first
+         cat .cursor/rules/rule-name.mdc | head -5
+
+         # Edit specific frontmatter fields (MacOS/BSD syntax)
+         sed -i '' '2s/.*/description: Your updated description/' .cursor/rules/rule-name.mdc
+         sed -i '' '3s/.*/globs: *.ts, *.tsx, package.json/' .cursor/rules/rule-name.mdc
+         sed -i '' '4s/.*/alwaysApply: false/' .cursor/rules/rule-name.mdc
+
+         # For Linux/GNU sed, omit the empty quotes
+         # sed -i '2s/.*/description: Your updated description/' .cursor/rules/rule-name.mdc
+         ```
+
+      3. **For automated rule creation**, use the included script:
+         ```bash
+         # Create a new rule with proper frontmatter
+         ./scripts/create-cursor-rule.sh rule-name "Rule description" "*.ts, *.tsx"
+         ```
+
+      4. **Always verify** your changes after editing:
+         ```bash
+         # Verify the frontmatter was correctly updated
+         head -10 .cursor/rules/rule-name.mdc
+         ```
+
+      Refer to [cursor-rule-frontmatter.md](mdc:docs/memory/cursor-rule-frontmatter.md) for more detailed guidance on troubleshooting frontmatter issues.
 
       #### Rule Content Structure
 
@@ -62,7 +156,7 @@ actions:
       1. **Title**: Main heading for the rule
       2. **Rule Element**: Wrapped in `<rule>...</rule>` tags
          - `name`: Unique identifier in snake_case
-         - `description`: Brief description of the rule
+         - `description`: Brief description of the rule's purpose
          - `filters`: Conditions for when the rule applies
          - `actions`: What happens when the rule is triggered
          - `examples`: Sample interactions showing rule usage
@@ -141,6 +235,25 @@ actions:
       4. Add new examples as usage patterns evolve
       5. Keep filters current with repository changes
       6. Update the version and changelog in the metadata section
+
+      #### Updating the Rule Index
+
+      After creating a new rule or updating an existing rule, the [rule index](mdc:.cursor/rules/00-rule-index.mdc) must be updated to reflect these changes. This ensures that all rules are properly cataloged and discoverable.
+
+      To update the rule index:
+
+      1. Open `.cursor/rules/00-rule-index.mdc`
+      2. Follow the "Automatic Index Updates" guidelines in the index:
+         - For new rules: Add an entry to the appropriate category table, maintaining alphabetical order
+         - For updated rules: Update the description or category if they've changed
+         - For renamed rules: Update all references to use the new filename
+         - For removed rules: Remove the entry from the category table
+      3. Update the `total_rules` count in the Metadata section
+      4. Update the `last_updated` date in the Metadata section to today's date (use `$(date +%Y-%m-%d)`)
+
+      You can also request the AI to verify and apply the rule index update by using the trigger phrase "update rule index" or similar phrases as documented in the rule index file.
+
+      For more details on the rule index update process as part of task completion, see the [AI-Assisted Agile Workflow](mdc:.cursor/rules/ai-agile-workflow.mdc) rule's "Rule Creation Task Completion" section.
 
       #### Renaming Rule Files
 
@@ -312,12 +425,28 @@ examples:
 
 metadata:
   priority: high
-  version: 1.2
+  version: 1.5
   tags:
     - cursor-rules
     - documentation
     - process
   changelog:
+    - version: 1.5
+      changes:
+        - Added "ACTION when TRIGGER to OUTCOME" pattern for description fields
+        - Updated examples and documentation to reflect the new pattern
+        - Standardized frontmatter description format
+    - version: 1.4
+      changes:
+        - Added best practices for frontmatter creation and editing
+        - Added warnings about edit_file tool issues with frontmatter
+        - Added guidance for using terminal commands for frontmatter operations
+        - Added reference to cursor-rule-frontmatter.md for detailed troubleshooting
+    - version: 1.3
+      changes:
+        - Added Rule Categories section to help creators select appropriate categories
+        - Added Updating the Rule Index section with guidance on maintaining the rule index
+        - Added cross-references to related rules for better integration
     - version: 1.2
       changes:
         - Added subsection on renaming rule files with step-by-step guidelines

@@ -1,5 +1,5 @@
 ---
-description: Step-by-step guide for development, testing, release process, and CI/CD workflows in the bfra.me/works monorepo
+description: FOLLOW when DEVELOPING features to OPTIMIZE workflow efficiency
 globs: *.ts,*.tsx,package.json,.changeset/*.md
 alwaysApply: false
 ---

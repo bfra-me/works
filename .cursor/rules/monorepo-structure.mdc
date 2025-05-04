@@ -1,5 +1,5 @@
 ---
-description: Guide to the pnpm workspace structure, package relationships, and creation of new packages within the bfra.me/works monorepo
+description: REFERENCE when NAVIGATING the monorepo to UNDERSTAND package relationships
 globs: *,**/*
 alwaysApply: true
 ---

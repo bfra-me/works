@@ -1,0 +1,572 @@
+---
+description: CONSULT when DEBUGGING issues to RESOLVE problems efficiently
+globs: *.ts,*.js,*.test.ts,*.spec.ts,*.log
+alwaysApply: false
+---
+# Debugging and Troubleshooting Guide
+
+<rule>
+name: debugging_guide
+description: Best practices for debugging, troubleshooting, and resolving common issues in the bfra.me/works monorepo
+
+filters:
+  - type: file_extension
+    pattern: "\\.ts$|\\.js$|\\.test\\.ts$|\\.spec\\.ts$|\\.log$"
+  - type: content
+    pattern: "error|debug|log|console\\.|performance|trace|throw|catch|try|exception"
+  - type: message
+    pattern: "(?i)(debug|troubleshoot|error|issue|fix|resolve|performance problem|slow|crash|fail|logging)"
+
+actions:
+  - type: suggest
+    message: |
+      # Debugging and Troubleshooting Guide
+
+      This guide provides systematic approaches for diagnosing and solving issues in the bfra.me/works monorepo.
+
+      ## 1. Common Error Patterns and Solutions
+
+      ### TypeScript Errors
+
+      | Error Pattern | Likely Cause | Solution |
+      |--------------|-------------|----------|
+      | `TS2307: Cannot find module 'X'` | Missing dependency or incorrect path | Check package.json, run `pnpm install`, verify path case sensitivity |
+      | `TS2345: Argument of type 'X' is not assignable to parameter of type 'Y'` | Type incompatibility | Check the expected types, use proper type assertions or generics |
+      | `TS2554: Expected X arguments, but got Y` | Incorrect function usage | Check function signature and update call sites |
+      | `TS7016: Could not find declaration file` | Missing type definitions | Install @types package or create declaration file |
+      | `Property 'X' does not exist on type 'Y'` | Accessing undefined property | Verify object structure, use optional chaining, or add type assertion |
+
+      ### Runtime Errors
+
+      | Error Pattern | Likely Cause | Solution |
+      |--------------|-------------|----------|
+      | `Cannot read properties of undefined` | Null/undefined object access | Use optional chaining `?.` or add null checks |
+      | `Maximum call stack size exceeded` | Infinite recursion | Check base case in recursive functions |
+      | `Unexpected token in JSON` | Malformed JSON | Validate JSON structure, use try/catch with JSON.parse |
+      | `Module not found` | Missing dependency | Check import paths and package.json |
+      | `Unhandled promise rejection` | Missing catch or await | Add proper error handling for promises |
+      | `Not implemented` | Method stub or placeholder | Implement the required functionality |
+
+      ### Build Errors
+
+      | Error Pattern | Likely Cause | Solution |
+      |--------------|-------------|----------|
+      | `Cannot find module 'typescript'` | Dev dependencies not installed | Run `pnpm install` |
+      | `The 'X' property is deprecated` | Using outdated API | Check documentation for current approach |
+      | `Failed to resolve output` | Incorrect build configuration | Check tsconfig and build settings |
+      | `Entry module not found` | Missing main entry point | Verify file exists and paths are correct |
+      | `Conflicting version for peer dependency` | Dependency version mismatch | Align versions using resolution in package.json |
+
+      ## 2. Logging Best Practices
+
+      ### Logging Levels
+
+      Use consistent logging levels across the monorepo:
+
+      ```typescript
+      // Bad: Inconsistent logging
+      console.log('Starting process') // No level indication
+      console.error('Something failed') // Only errors use levels
+
+      // Good: Structured logging with levels
+      logger.info('Starting process')
+      logger.debug('Processing item', { id: item.id })
+      logger.warn('Deprecated feature used', { feature: 'oldAPI' })
+      logger.error('Operation failed', { error: err.message, stack: err.stack })
+      ```
+
+      ### Logging Standards
+
+      1. **Use structured logging**: Include context as objects, not string concatenation
+         ```typescript
+         // Bad
+         logger.error('Failed to process user ' + userId + ' with error ' + err.message)
+
+         // Good
+         logger.error('Failed to process user', { userId, error: err.message, stack: err.stack })
+         ```
+
+      2. **Include transaction IDs**: For tracing requests across services
+         ```typescript
+         logger.info('Processing request', { transactionId, requestData })
+         ```
+
+      3. **Log at appropriate levels**:
+         - `error`: Application errors that need attention
+         - `warn`: Potentially harmful situations, deprecated APIs
+         - `info`: General operational information
+         - `debug`: Detailed information for debugging
+         - `trace`: Very detailed tracing (rarely used)
+
+      4. **Sensitive data handling**: Never log credentials, tokens, or personal data
+         ```typescript
+         // Bad
+         logger.info('User login', { username, password, token })
+
+         // Good
+         logger.info('User login', { username: maskEmail(username) })
+         ```
+
+      5. **Performance logging**: Include timing information for critical operations
+         ```typescript
+         const start = performance.now()
+         // Operation here
+         logger.info('Operation completed', {
+           durationMs: performance.now() - start,
+           itemsProcessed
+         })
+         ```
+
+      ## 3. Debugging Tools and Techniques
+
+      ### TypeScript Debugging
+
+      1. **Source Maps**: Ensure proper source map generation
+         ```typescript
+         // tsconfig.json
+         {
+           "compilerOptions": {
+             "sourceMap": true,
+             // Other options...
+           }
+         }
+         ```
+
+      2. **VSCode Debugging**: Use launch.json for consistent debugging
+         ```json
+         {
+           "version": "0.2.0",
+           "configurations": [
+             {
+               "type": "node",
+               "request": "launch",
+               "name": "Debug Current File",
+               "program": "${file}",
+               "preLaunchTask": "tsc: build - tsconfig.json",
+               "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+               "sourceMaps": true
+             }
+           ]
+         }
+         ```
+
+      3. **Node.js Inspect**: For direct debugging
+         ```bash
+         node --inspect-brk dist/main.js
+         ```
+
+      ### Debugging Techniques
+
+      1. **Bisect Debugging**: Narrow down issues using binary search
+         - Comment out half the code
+         - If error persists, problem is in remaining code
+         - If error disappears, problem is in commented code
+         - Repeat process on the problematic half
+
+      2. **Isolation Testing**: Create minimal reproduction
+         ```typescript
+         // Create a small isolated test file
+         // test-repro.ts
+         import { problematicFunction } from './module'
+
+         async function testRepro() {
+           try {
+             const result = await problematicFunction({ minimalInput })
+             console.log('Result:', result)
+           } catch (err) {
+             console.error('Error:', err)
+           }
+         }
+
+         testRepro()
+         ```
+
+      3. **Debugging with Comments**: Add debugging checkpoints
+         ```typescript
+         function complexProcess(data) {
+           console.log('1. Starting with data:', data)
+
+           const processed = transform(data)
+           console.log('2. After transform:', processed)
+
+           const validated = validate(processed)
+           console.log('3. After validation:', validated)
+
+           return finalize(validated)
+         }
+         ```
+
+      4. **Unit Test Debugging**: Create targeted tests for issues
+         ```typescript
+         // Reproduce the specific error condition
+         it('handles null input correctly', () => {
+           expect(() => myFunction(null)).not.toThrow()
+         })
+         ```
+
+      ## 4. Performance Troubleshooting
+
+      ### Identifying Bottlenecks
+
+      1. **Code Profiling**: Use Node.js built-in profiler
+         ```bash
+         # Generate CPU profile
+         node --prof app.js
+
+         # Process the log file
+         node --prof-process isolate-0xNNNNNNNN-NNNN-v8.log > processed.txt
+         ```
+
+      2. **Memory Leaks**: Use heap snapshots
+         ```typescript
+         // In your code
+         const heapdump = require('heapdump')
+         heapdump.writeSnapshot('./heap-' + Date.now() + '.heapsnapshot')
+         ```
+
+      3. **Performance Timing**: Use built-in tools
+         ```typescript
+         console.time('operationName')
+         // Code to measure
+         console.timeEnd('operationName')
+         ```
+
+      ### Common Performance Issues
+
+      | Issue | Detection | Solution |
+      |-------|-----------|----------|
+      | Excessive re-renders | React DevTools, profiler | Memoize components, use React.memo |
+      | Large bundle size | Webpack Bundle Analyzer | Code splitting, tree shaking, lazy loading |
+      | Inefficient database queries | Slow query logs | Optimize queries, add indices |
+      | Memory leaks | Growing memory usage | Fix object references, clear event listeners |
+      | Synchronous operations blocking | UI freezes | Move work to Web Workers or use async operations |
+
+      ### Performance Optimization Decision Tree
+
+      ```mermaid
+      flowchart TD
+        A[Performance Issue] --> B{Is it UI/rendering?}
+        B -->|Yes| C[Check React DevTools]
+        B -->|No| D{Is it data fetching?}
+        C --> C1[Memoize components]
+        C --> C2[Optimize render cycles]
+        D -->|Yes| E[Analyze API calls]
+        D -->|No| F{Is it computation?}
+        E --> E1[Cache responses]
+        E --> E2[Implement pagination]
+        F -->|Yes| G[Profile CPU usage]
+        F -->|No| H[Check memory usage]
+        G --> G1[Optimize algorithms]
+        G --> G2[Use Web Workers]
+        H --> H1[Fix memory leaks]
+        H --> H2[Implement pooling]
+      ```
+
+      ## 5. Environment-Specific Issues
+
+      ### Local Development
+
+      | Issue | Cause | Solution |
+      |-------|-------|----------|
+      | Different behavior than CI | Environment variables | Use `.env.local` matching CI configuration |
+      | Module resolution issues | Path inconsistencies | Use platform-agnostic paths |
+      | Hot reload not working | File watching issues | Check file watch limits on Linux (`sysctl fs.inotify`) |
+      | Package can't be found | Workspace dependencies | Ensure workspace reference uses `workspace:*` |
+
+      ### CI/CD Environment
+
+      | Issue | Cause | Solution |
+      |-------|-------|----------|
+      | Tests pass locally but fail in CI | Environment differences | Check Node.js version, set up CI debugging |
+      | Build works locally but fails in CI | Dependency issues | Check for platform-specific dependencies |
+      | Integration tests failing in CI | Service connectivity | Ensure services are running and accessible |
+      | Permission errors in CI | File system access | Check file permissions in CI environment |
+
+      ### Production Environment
+
+      | Issue | Cause | Solution |
+      |-------|-------|----------|
+      | Memory leaks | Unhandled references | Add monitoring, perform heap analysis |
+      | Unexpected 500 errors | Unhandled exceptions | Improve error handling, add global catch |
+      | Slow response times | Inefficient code paths | Add tracing, optimize critical paths |
+      | Intermittent failures | Race conditions | Add proper synchronization and locking |
+
+      ## 6. Troubleshooting Decision Trees
+
+      ### General Error Resolution Workflow
+
+      ```mermaid
+      flowchart TD
+        A[Error Occurs] --> B{Is it TypeScript Error?}
+        B -->|Yes| C[Check Types and Interfaces]
+        B -->|No| D{Is it Runtime Error?}
+        C --> C1[Fix Type Definitions]
+        C --> C2[Update Interface Implementations]
+        D -->|Yes| E{Is it Network Related?}
+        D -->|No| F{Is it Build Error?}
+        E --> E1[Check API Endpoints]
+        E --> E2[Verify Authentication]
+        F -->|Yes| G[Review Build Configuration]
+        F -->|No| H[Check Application Logic]
+        G --> G1[Check Dependencies]
+        G --> G2[Verify Config Files]
+        H --> H1[Add Detailed Logging]
+        H --> H2[Create Minimal Reproduction]
+      ```
+
+      ### Package-Specific Troubleshooting
+
+      ```mermaid
+      flowchart TD
+        A[Package Issue] --> B{Which Package Type?}
+        B -->|eslint-config| C[Check ESLint Configuration]
+        B -->|prettier-config| D[Check Prettier Configuration]
+        B -->|create| E[Check Templates]
+        B -->|tsconfig| F[Check TS Configuration]
+        C --> C1[See eslint-config-usage]
+        D --> D1[See prettier-config-usage]
+        E --> E1[Check Template Files]
+        F --> F1[Check Base Configs]
+      ```
+
+      ## 7. Step-by-Step Debugging Workflows
+
+      ### Workflow 1: Debugging TypeScript Errors
+
+      1. **Identify the error**: Check the error message and location
+      2. **Check types**: Verify interfaces and type definitions
+      3. **Review imports**: Ensure all imports are correct
+      4. **Check tsconfig**: Verify compiler options
+      5. **Use type assertions**: Add temporary assertions to narrow down issue
+      6. **Add explicit types**: Replace inferred types with explicit ones
+      7. **Check declaration files**: Verify .d.ts files for external libraries
+
+      ### Workflow 2: Debugging API/Network Issues
+
+      1. **Check network tab**: Use browser developer tools
+      2. **Verify request format**: Ensure proper headers and body
+      3. **Check authentication**: Verify tokens and credentials
+      4. **Test with Postman/curl**: Bypass application code
+      5. **Check CORS settings**: Verify cross-origin configuration
+      6. **Add request logging**: Log full request/response cycle
+      7. **Check for rate limiting**: Verify you're not being throttled
+
+      ### Workflow 3: Debugging Package Dependencies
+
+      1. **Check package.json**: Verify dependencies and versions
+      2. **Clear node_modules**: Remove and reinstall dependencies
+      3. **Check workspace references**: Ensure workspace:* format is used
+      4. **Verify pnpm-lock.yaml**: Check for version conflicts
+      5. **Use --frozen-lockfile**: Ensure consistent installs
+      6. **Check peerDependencies**: Verify compatibility
+      7. **Check for duplicate packages**: Use pnpm why to check
+
+      ## 8. Common Pitfalls to Avoid
+
+      1. **Silent failures**: Always add proper error handling
+      2. **Inconsistent environments**: Use Docker for consistent development
+      3. **Missing error boundaries**: Add error boundaries in React
+      4. **Inadequate logging**: Log both errors and context information
+      5. **Tight coupling**: Modularize code for easier debugging
+      6. **Ignoring TypeScript errors**: Use strict mode and fix all errors
+      7. **Debugging in production**: Use dev/staging environments first
+
+      ## Related Rules
+
+      - [testing-practices](mdc:.cursor/rules/testing-practices.mdc) - For creating effective tests to prevent issues
+      - [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc) - For type-safe code patterns
+      - [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc) - For understanding CI failures
+      - [dependency-management](mdc:.cursor/rules/dependency-management.mdc) - For resolving package issues
+      - [memory-management](mdc:.cursor/rules/memory-management.mdc) - For working with memory files and knowledge graph
+      - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc) - For resolving ESLint configuration issues
+
+examples:
+  - input: |
+      I'm getting "TS2307: Cannot find module" errors after pulling the latest changes.
+    output: |
+      This error typically occurs when TypeScript can't locate a module you're importing. Here's how to resolve it:
+
+      1. First, check if you have all dependencies installed:
+         ```bash
+         pnpm install
+         ```
+
+      2. Verify the import path is correct:
+         - Check for case sensitivity issues (especially important if you work across different OS)
+         - Make sure the path is relative to the current file (e.g., `./module` vs `module`)
+         - For workspace packages, ensure they use `workspace:*` format in package.json
+
+      3. Check your tsconfig.json:
+         - Ensure `baseUrl` and `paths` are correctly configured
+         - Verify the module resolution strategy (Node vs Classic)
+
+      4. For third-party modules:
+         - Check if you need type definitions: `pnpm add -D @types/package-name`
+         - Make sure the package is actually installed as a dependency
+
+      5. Try clearing TypeScript's cache:
+         ```bash
+         rm -rf node_modules/.cache
+         ```
+
+      If these steps don't resolve the issue, it might be an issue with the pnpm workspace configuration or a missing peer dependency. Check the dependency-management rule for more details on resolving workspace dependency issues.
+
+  - input: |
+      Our application is experiencing memory leaks in production. How should I debug this?
+    output: |
+      To debug memory leaks in your production application:
+
+      1. **Generate heap snapshots** at different time intervals:
+         ```typescript
+         // Add this to your application (development only)
+         import * as heapdump from 'heapdump'
+
+         // Take snapshots at regular intervals or on specific triggers
+         setInterval(() => {
+           heapdump.writeSnapshot(`./heap-${Date.now()}.heapsnapshot`)
+         }, 30 * 60 * 1000) // Every 30 minutes
+         ```
+
+      2. **Analyze heap snapshots** using Chrome DevTools:
+         - Open Chrome DevTools > Memory tab
+         - Load the heap snapshot files
+         - Look for objects with large retention sizes
+         - Check the "Comparison" view between snapshots to identify growing objects
+
+      3. **Check common causes**:
+         - Event listeners not being removed
+         - Closures capturing large objects
+         - Caches growing without bounds
+         - Detached DOM elements
+         - Timer references not being cleared
+
+      4. **Add memory monitoring**:
+         ```typescript
+         setInterval(() => {
+           const memUsage = process.memoryUsage()
+           logger.info('Memory usage', {
+             rss: Math.round(memUsage.rss / 1024 / 1024) + 'MB',
+             heapTotal: Math.round(memUsage.heapTotal / 1024 / 1024) + 'MB',
+             heapUsed: Math.round(memUsage.heapUsed / 1024 / 1024) + 'MB',
+             external: Math.round(memUsage.external / 1024 / 1024) + 'MB'
+           })
+         }, 60000)
+         ```
+
+      5. **Fix common memory leaks**:
+         - Always clean up event listeners
+         - Implement proper cache invalidation
+         - Use WeakMap/WeakSet for references that shouldn't prevent garbage collection
+         - Set timeouts on WebSocket connections
+         - Clean up timer references with clearTimeout/clearInterval
+
+      6. **Test with load**: Reproduce the issue with load testing tools like autocannon or k6.
+
+      For persistent issues, consider using a production monitoring solution that provides memory profiling capabilities.
+
+  - input: |
+      What's the best way to debug a slow-performing API endpoint?
+    output: |
+      To debug a slow-performing API endpoint, follow this systematic approach:
+
+      1. **Measure the baseline performance**:
+         ```typescript
+         // Add performance timing to your endpoint
+         const start = performance.now()
+         // Endpoint code
+         const duration = performance.now() - start
+         logger.info(`Endpoint completed in ${duration}ms`, {
+           path, method, queryParams, duration
+         })
+         ```
+
+      2. **Break down the endpoint into segments** to identify bottlenecks:
+         ```typescript
+         async function apiEndpoint(req, res) {
+           const timings = {}
+
+           const startTotal = performance.now()
+
+           // Measure data retrieval
+           const dataStart = performance.now()
+           const data = await fetchData(req.params)
+           timings.dataFetch = performance.now() - dataStart
+
+           // Measure processing
+           const processStart = performance.now()
+           const processed = transformData(data)
+           timings.processing = performance.now() - processStart
+
+           // Measure response generation
+           const responseStart = performance.now()
+           const result = formatResponse(processed)
+           timings.responseFormat = performance.now() - responseStart
+
+           timings.total = performance.now() - startTotal
+
+           // Log all timings for analysis
+           logger.info('API performance breakdown', {
+             endpoint: req.path,
+             timings,
+             dataSize: JSON.stringify(data).length
+           })
+
+           return res.json(result)
+         }
+         ```
+
+      3. **Check database queries** if they're involved:
+         - Enable slow query logging
+         - Check execution plans with EXPLAIN
+         - Add appropriate indexes
+         - Optimize queries for better performance
+
+      4. **Examine external API calls**:
+         - Are they necessary for each request?
+         - Can you cache responses?
+         - Can you make calls in parallel using Promise.all?
+         - Consider implementing a circuit breaker for unreliable services
+
+      5. **Profile CPU usage** during endpoint execution:
+         ```bash
+         # Generate CPU profile for Node.js
+         NODE_OPTIONS="--prof" node server.js
+
+         # Process the log after reproducing the issue
+         node --prof-process isolate-0xNNNNNNNN-NNNN-v8.log > processed.txt
+         ```
+
+      6. **Check for common issues**:
+         - Lack of pagination for large data sets
+         - N+1 query problems
+         - Missing database indexes
+         - Synchronous operations blocking the event loop
+         - Large response payloads
+         - Unnecessary data processing
+
+      7. **Implement solutions**:
+         - Add caching (Redis, in-memory)
+         - Implement pagination
+         - Add database indexes
+         - Optimize database queries
+         - Use data streaming for large responses
+         - Consider scaling horizontally if needed
+
+      Remember to benchmark before and after optimization to measure improvement.
+
+metadata:
+  priority: high
+  version: 1.0
+  tags:
+    - debugging
+    - troubleshooting
+    - performance
+    - logging
+    - error-handling
+  changelog:
+    - version: 1.0
+      changes:
+        - Initial version with comprehensive debugging and troubleshooting guidance
+        - Includes sections on common errors, logging, debugging tools, performance, and environment-specific issues
+        - Added decision trees and step-by-step workflows for systematic troubleshooting
+</rule>

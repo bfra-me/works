@@ -16,6 +16,8 @@ Cursor rules are structured guidance files that provide persistent context to AI
 - [Coding Standards](#coding-standards)
 - [Configuration Guides](#configuration-guides)
 - [Repository Structure](#repository-structure)
+- [API Development](#api-development)
+- [Development Tools](#development-tools)
 - [AI & Memory Management](#ai--memory-management)
 
 ## Development Rules
@@ -24,11 +26,11 @@ Rules related to creating and managing Cursor rules themselves:
 
 | Rule | Description | Priority |
 |------|-------------|----------|
-| [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc) | Step-by-step guide for creating and maintaining cursor rules | High |
-| [cursor-rule-cross-references](mdc:.cursor/rules/cursor-rule-cross-references.mdc) | Proper syntax for links and references in Cursor rules | High |
-| [cursor-rules-location](mdc:.cursor/rules/cursor-rules-location.mdc) | Standards for placing Cursor rule files in the correct directory | High |
-| [repo-rule-recommender](mdc:.cursor/rules/repo-rule-recommender.mdc) | Workflow for recommending and creating cursor rules based on repository analysis | Medium |
-| [rule-automation-script](mdc:.cursor/rules/rule-automation-script.mdc) | Scripts for automating cursor rule management | Medium |
+| [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc) | FOLLOW when CREATING cursor rules to ENSURE consistency and effective conditional activation | High |
+| [cursor-rule-cross-references](mdc:.cursor/rules/cursor-rule-cross-references.mdc) | USE when LINKING between files to ENSURE proper navigation within Cursor IDE | High |
+| [cursor-rules-location](mdc:.cursor/rules/cursor-rules-location.mdc) | PLACE when CREATING rule files to GUARANTEE proper rule organization | High |
+| [repo-rule-recommender](mdc:.cursor/rules/repo-rule-recommender.mdc) | APPLY when RECOMMENDING new cursor rules to IMPROVE repository guidance | Medium |
+| [rule-automation-script](mdc:.cursor/rules/rule-automation-script.mdc) | UTILIZE when AUTOMATING rule management to INCREASE efficiency | Medium |
 
 ## Workflow & Process Rules
 
@@ -36,10 +38,11 @@ Rules related to development, release, and task management workflows:
 
 | Rule | Description | Priority |
 |------|-------------|----------|
-| [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc) | Process for generating well-defined task documents from plans and tracking progress | Medium |
-| [changeset-workflow](mdc:.cursor/rules/changeset-workflow.mdc) | Guide to using Changesets for versioning, changelogs, and releases | High |
-| [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc) | Guide for understanding CI/CD processes, troubleshooting build failures, and managing release automation | High |
-| [development-workflow](mdc:.cursor/rules/development-workflow.mdc) | Step-by-step guide for development, testing, release process, and CI/CD workflows | High |
+| [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc) | IMPLEMENT when MANAGING tasks to STREAMLINE progress tracking | Medium |
+| [changeset-workflow](mdc:.cursor/rules/changeset-workflow.mdc) | FOLLOW when VERSIONING packages to ENSURE proper changelogs and releases | High |
+| [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc) | CONSULT when TROUBLESHOOTING CI/CD issues to RESOLVE build failures | High |
+| [code-review-standards](mdc:.cursor/rules/code-review-standards.mdc) | APPLY when REVIEWING code to MAINTAIN quality standards | High |
+| [development-workflow](mdc:.cursor/rules/development-workflow.mdc) | FOLLOW when DEVELOPING features to OPTIMIZE workflow efficiency | High |
 
 ## Coding Standards
 
@@ -47,10 +50,10 @@ Rules related to code style, patterns, and best practices:
 
 | Rule | Description | Priority |
 |------|-------------|----------|
-| [anthropic-chain-of-thought](mdc:.cursor/rules/anthropic-chain-of-thought.mdc) | Best practices for chain of thought reasoning and XML tag usage with Anthropic models | High |
-| [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc) | Enforces consistent use of the date command for timestamps | Medium |
-| [testing-practices](mdc:.cursor/rules/testing-practices.mdc) | Best practices for testing in the monorepo using Vitest | High |
-| [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc) | Effective TypeScript patterns and practices for the monorepo | High |
+| [anthropic-chain-of-thought](mdc:.cursor/rules/anthropic-chain-of-thought.mdc) | STRUCTURE when PROMPTING Anthropic models to ENHANCE reasoning quality | High |
+| [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc) | USE when HANDLING dates to PREVENT inconsistencies in timestamps | Medium |
+| [testing-practices](mdc:.cursor/rules/testing-practices.mdc) | IMPLEMENT when WRITING tests to ENSURE comprehensive coverage | High |
+| [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc) | APPLY when WRITING TypeScript to MAINTAIN code quality standards | High |
 
 ## Configuration Guides
 
@@ -58,8 +61,8 @@ Rules related to configuring tools and packages:
 
 | Rule | Description | Priority |
 |------|-------------|----------|
-| [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc) | Guidelines for implementing and configuring ESLint | High |
-| [prettier-config-usage](mdc:.cursor/rules/prettier-config-usage.mdc) | Guide for implementing and customizing Prettier formatting | High |
+| [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc) | CONFIGURE when SETTING UP ESLint to ENFORCE consistent code style | High |
+| [prettier-config-usage](mdc:.cursor/rules/prettier-config-usage.mdc) | IMPLEMENT when CONFIGURING Prettier to STANDARDIZE code formatting | High |
 
 ## Repository Structure
 
@@ -67,8 +70,25 @@ Rules related to repository organization and architecture:
 
 | Rule | Description | Priority |
 |------|-------------|----------|
-| [monorepo-structure](mdc:.cursor/rules/monorepo-structure.mdc) | Guidelines for understanding and navigating the monorepo structure | High |
-| [repo-analyzer](mdc:.cursor/rules/repo-analyzer.mdc) | Repository Analysis Tool for understanding code structure | Medium |
+| [dependency-management](mdc:.cursor/rules/dependency-management.mdc) | FOLLOW when MANAGING dependencies to PREVENT version conflicts | High |
+| [monorepo-structure](mdc:.cursor/rules/monorepo-structure.mdc) | REFERENCE when NAVIGATING the monorepo to UNDERSTAND package relationships | High |
+| [repo-analyzer](mdc:.cursor/rules/repo-analyzer.mdc) | UTILIZE when ANALYZING repository structure to LOCATE specific code | Medium |
+
+## API Development
+
+Rules related to API design and implementation:
+
+| Rule | Description | Priority |
+|------|-------------|----------|
+| [api-design-standards](mdc:.cursor/rules/api-design-standards.mdc) | ADHERE when DESIGNING APIs to ENSURE consistency and type safety | High |
+
+## Development Tools
+
+Rules related to debugging, troubleshooting, and development aids:
+
+| Rule | Description | Priority |
+|------|-------------|----------|
+| [debugging-guide](mdc:.cursor/rules/debugging-guide.mdc) | CONSULT when DEBUGGING issues to RESOLVE problems efficiently | High |
 
 ## AI & Memory Management
 
@@ -76,12 +96,47 @@ Rules related to AI assistants and memory management:
 
 | Rule | Description | Priority |
 |------|-------------|----------|
-| [auto-memory-manager](mdc:.cursor/rules/auto-memory-manager.mdc) | Automatically updates memory files and knowledge graph after task completion | High |
-| [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc) | Guidelines for using Model Context Protocol tools | High |
-| [memory-management](mdc:.cursor/rules/memory-management.mdc) | Guidelines for creating and maintaining persistent memory files | High |
-| [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc) | Standards for accessing and applying user preferences | High |
+| [auto-memory-manager](mdc:.cursor/rules/auto-memory-manager.mdc) | UPDATE when COMPLETING tasks to MAINTAIN comprehensive memory records | High |
+| [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc) | LEVERAGE when REQUIRING external context to ENHANCE AI capabilities | High |
+| [memory-management](mdc:.cursor/rules/memory-management.mdc) | MAINTAIN when WORKING with memory files to PRESERVE context across sessions | High |
+| [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc) | ALIGN when PROVIDING assistance to MATCH established user preferences | High |
 
 ## Rule Maintenance
+
+### Rule Application Types
+
+Cursor rules can be configured to apply in different ways, depending on their purpose and intended usage:
+
+#### Auto-Attached Rules
+
+- **Configuration**: `alwaysApply: false` with specific `globs` patterns
+- **Behavior**: Automatically activated when files matching the glob patterns are opened
+- **Use Cases**: Language-specific guidance, file-type specific standards
+- **Example**: TypeScript patterns rule that activates for `.ts` and `.tsx` files
+
+#### Agent Requested Rules
+
+- **Configuration**: `alwaysApply: false`, may omit `globs` if triggered by description content
+- **Behavior**: AI can request these rules when relevant to the conversation
+- **Use Cases**: Workflows, processes, general guidance
+- **Example**: Repository analysis rule that can be requested when exploring the codebase
+
+#### Always Applied Rules
+
+- **Configuration**: `alwaysApply: true`
+- **Behavior**: Applied to all conversations regardless of context
+- **Use Cases**: Critical guidance that should always be available
+- **Example**: Cross-reference syntax that applies to all documentation
+- **Note**: Use sparingly to avoid excessive noise in conversations
+
+#### Manual Rules
+
+- **Configuration**: No special configuration required
+- **Behavior**: Rule must be manually included in the chat window
+- **Use Cases**: Specialized guidance that is only needed in specific circumstances
+- **Example**: One-off or rarely used guidance
+
+When categorizing a rule in this index, consider its application type to understand how it will be activated and used. The rule's frontmatter configuration should align with its intended application type.
 
 ### Versioning
 
@@ -173,7 +228,7 @@ This index must be automatically updated whenever cursor rules are created, modi
 ## Metadata
 
 ```yaml
-version: 1.3
-last_updated: 2025-05-02
-total_rules: 21
+version: 1.5
+last_updated: 2025-05-03
+total_rules: 25
 ```

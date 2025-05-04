@@ -1,5 +1,5 @@
 ---
-description: Guide for understanding CI/CD processes, troubleshooting build failures, and managing release automation in the bfra.me/works monorepo
+description: CONSULT when TROUBLESHOOTING CI/CD issues to RESOLVE build failures
 globs: .github/**/*.yaml,**/release.config.js,.changeset/*.md
 alwaysApply: false
 ---

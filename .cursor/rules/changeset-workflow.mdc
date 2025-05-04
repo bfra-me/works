@@ -1,5 +1,5 @@
 ---
-description: Guide to using Changesets for versioning, changelogs, and releases in the bfra.me/works monorepo
+description: FOLLOW when VERSIONING packages to ENSURE proper changelogs and releases
 globs:
 alwaysApply: false
 ---
