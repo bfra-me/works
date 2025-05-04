@@ -1,5 +1,5 @@
 ---
-description: Index and categorization of all Cursor rules in the repository
+description: NAVIGATE when EXPLORING rules to DISCOVER applicable guidance
 globs:
 alwaysApply: true
 ---
@@ -7,7 +7,17 @@ alwaysApply: true
 
 This index provides a complete overview of all Cursor rules in the repository, organized by category. Use this as your entry point to discover relevant rules for specific tasks or contexts.
 
-Cursor rules are structured guidance files that provide persistent context to AI assistants, enabling them to better understand code patterns, project workflows, and development standards. Each rule encapsulates domain-specific knowledge about the codebase, standardizes architectural decisions, or automates project-specific workflows through reusable prompts that guide AI behavior. When properly implemented in the `.cursor/rules` directory, these MDC-formatted files give the AI consistent direction for generating code, interpreting edits, and offering contextually appropriate assistance throughout the development process.
+Cursor rules are specialized markdown documents (.mdc files) that provide conditional context to AI assistants during conversations in the Cursor IDE. They are NOT application features, code, or processes requiring testing or metrics.
+
+Each rule contains structured guidance that helps the AI understand specific aspects of the codebase, development standards, or workflow preferences. Rules are activated conditionally based on conversation content, file types, or explicit requests, providing just-in-time context that improves the AI's ability to give relevant assistance.
+
+Rules are simply well-formatted documents with:
+1. Frontmatter defining activation conditions
+2. Structured content providing guidance
+3. Examples showing expected behavior
+4. Metadata for organization purposes
+
+Their sole purpose is to enhance AI conversations by supplying relevant contextual knowledge at the right moment. They should be treated as documentation/prompt engineering artifacts, not as software requiring traditional development practices.
 
 ## Quick References
 
@@ -43,6 +53,7 @@ Rules related to development, release, and task management workflows:
 | [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc) | CONSULT when TROUBLESHOOTING CI/CD issues to RESOLVE build failures | High |
 | [code-review-standards](mdc:.cursor/rules/code-review-standards.mdc) | APPLY when REVIEWING code to MAINTAIN quality standards | High |
 | [development-workflow](mdc:.cursor/rules/development-workflow.mdc) | FOLLOW when DEVELOPING features to OPTIMIZE workflow efficiency | High |
+| [rule-acknowledgement](mdc:.cursor/rules/rule-acknowledgement.mdc) | DOCUMENT when APPLYING rules to ENSURE transparency and traceability | High |
 
 ## Coding Standards
 
@@ -230,5 +241,5 @@ This index must be automatically updated whenever cursor rules are created, modi
 ```yaml
 version: 1.5
 last_updated: 2025-05-03
-total_rules: 25
+total_rules: 26
 ```

@@ -93,8 +93,8 @@ This plan outlines the approach for transforming the Cursor rules from independe
        ```markdown
        ## Related Rules
 
-       - [eslint-config-usage](mdc:./cursor/rules/eslint-config-usage.mdc) - For ESLint setup when using TypeScript
-       - [prettier-config-usage](mdc:./cursor/rules/prettier-config-usage.mdc) - For Prettier formatting with TypeScript
+       - [eslint-config-usage](mdc:./.cursor/rules/eslint-config-usage.mdc) - For ESLint setup when using TypeScript
+       - [prettier-config-usage](mdc:./.cursor/rules/prettier-config-usage.mdc) - For Prettier formatting with TypeScript
        ```
      - Complete testing to ensure correct rendering in the Cursor IDE
 
