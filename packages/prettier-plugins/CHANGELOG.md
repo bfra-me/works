@@ -1,5 +1,11 @@
 # @bfra.me/prettier-plugins
 
+## 0.5.12
+### Patch Changes
+
+
+- Updated dependency `sort-package-json` to `3.1.0`. ([#1206](https://github.com/bfra-me/works/pull/1206))
+
 ## 0.5.11
 ### Patch Changes
 
