@@ -1,6 +1,6 @@
 ---
 description: Automatically updates memory files and knowledge graph after task completion
-globs: *
+globs:
 alwaysApply: true
 ---
 # Auto Memory Manager
