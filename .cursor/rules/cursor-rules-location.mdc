@@ -1,5 +1,5 @@
 ---
-description: Enforces the location, naming conventions, and formatting for all other .cursor/rules files.  This is the MOST IMPORTANT rule.
+description: PLACE when CREATING rule files to GUARANTEE proper rule organization
 globs: *.mdc
 alwaysApply: false
 ---

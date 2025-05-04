@@ -1,0 +1,394 @@
+---
+description: APPLY when REVIEWING code to MAINTAIN quality standards
+globs: .github/PULL_REQUEST_TEMPLATE.md,.github/workflows/*.yaml
+alwaysApply: false
+---
+# Code Review Standards
+
+Guidelines for conducting effective code reviews, utilizing PR templates, and handling feedback.
+
+<rule>
+name: code_review_standards
+description: Standards and best practices for the code review process
+filters:
+  - type: message
+    pattern: "(?i)(code review|pull request|PR review|reviewer|review process|review feedback)"
+  - type: file_path
+    pattern: "(\\.github/PULL_REQUEST_TEMPLATE\\.md|\\.github/workflows/.*\\.yml)$"
+  - type: content
+    pattern: "(?i)(review|approved|request changes|feedback|suggestions)"
+
+actions:
+  - type: suggest
+    message: |
+      # Code Review Standards
+
+      Effective code reviews improve code quality, ensure knowledge sharing, reduce bugs, and promote consistent practices across the codebase.
+
+      ## Code Review Process
+
+      ### 1. Pre-Review (Author Responsibilities)
+
+      ```mermaid
+      flowchart TD
+          A[Write Code] --> B[Self Review]
+          B --> C[Write Tests]
+          C --> D[Update Documentation]
+          D --> E[Complete PR Template]
+          E --> F[Request Review]
+      ```
+
+      #### Self-Review Checklist
+
+      Before requesting a review, ensure your code:
+
+      - [ ] Follows project coding standards and conventions
+      - [ ] Includes appropriate tests with meaningful coverage
+      - [ ] Updates relevant documentation
+      - [ ] Contains no debug code or commented-out sections
+      - [ ] Has meaningful commit messages following [conventional commits](https://www.conventionalcommits.org/)
+      - [ ] Includes necessary changesets (if applicable)
+      - [ ] Properly handles error cases
+      - [ ] Passes all CI checks
+      - [ ] Is broken into logically reviewable chunks
+
+      #### PR Template Usage
+
+      Complete all sections in the PR template:
+
+      ```markdown
+      ## Description
+      [Concise explanation of WHAT changed and WHY]
+
+      ## Type of change
+      - [ ] Bug fix
+      - [ ] New feature
+      - [ ] Breaking change
+      - [ ] Documentation update
+      - [ ] Refactoring
+
+      ## How has this been tested?
+      [Explain testing approach]
+
+      ## Checklist
+      - [ ] I have performed a self-review
+      - [ ] My code passes all CI checks
+      - [ ] I have added tests that prove my fix/feature works
+      - [ ] I have updated relevant documentation
+      - [ ] I have added necessary changesets
+      ```
+
+      ### 2. During Review (Reviewer Responsibilities)
+
+      ```mermaid
+      flowchart TD
+          A[Read PR Description] --> B[Review Code Changes]
+          B --> C[Run Code Locally if Needed]
+          C --> D[Provide Feedback]
+          D --> E[Approve or Request Changes]
+      ```
+
+      #### Required Review Criteria
+
+      When reviewing code, evaluate these aspects:
+
+      ##### Technical Aspects
+
+      1. **Correctness**
+         - Does the code behave as expected?
+         - Are edge cases handled properly?
+         - Does it fix the reported issue/implement the requested feature?
+
+      2. **Architecture**
+         - Is the solution well-structured?
+         - Are components properly decoupled?
+         - Do abstractions make sense?
+
+      3. **Performance**
+         - Are there potential bottlenecks?
+         - Could any operations be optimized?
+         - Are there unnecessary computations?
+
+      4. **Security**
+         - Are there potential security vulnerabilities?
+         - Is sensitive data handled properly?
+         - Are inputs validated?
+
+      5. **Test Coverage**
+         - Are tests comprehensive?
+         - Do they cover edge cases?
+         - Are they meaningful (not just for coverage)?
+
+      ##### Non-Technical Aspects
+
+      1. **Readability**
+         - Is the code self-explanatory?
+         - Are naming conventions followed?
+         - Is complex logic adequately commented?
+
+      2. **Documentation**
+         - Are public APIs documented?
+         - Are important decisions explained?
+         - Is the PR description clear?
+
+      3. **Consistency**
+         - Does the code follow project conventions?
+         - Is it consistent with surrounding code?
+         - Does it align with the codebase style?
+
+      #### Feedback Etiquette
+
+      When providing feedback:
+
+      1. **Be specific and actionable**
+         - ❌ "This could be better"
+         - ✅ "Consider using a map instead of a for loop here to improve readability"
+
+      2. **Explain why, not just what**
+         - ❌ "Use a different variable name"
+         - ✅ "Consider renaming `data` to `userSettings` to clarify its purpose"
+
+      3. **Use questions to suggest alternatives**
+         - ❌ "This is wrong. Do it differently."
+         - ✅ "Have you considered using X approach? It might help with Y challenge."
+
+      4. **Differentiate between must-fix and nice-to-have**
+         - ❌ "Change all of these things"
+         - ✅ "These issues must be fixed before merging, while these would be nice to address if time permits"
+
+      5. **Acknowledge good work**
+         - ❌ Only pointing out problems
+         - ✅ "I really like the solution for X" alongside constructive feedback
+
+      #### Example Review Comments
+
+      ```
+      ## Must-Fix
+
+      * The input validation could allow XSS attacks. Consider using the sanitizeHtml utility from core/security.
+
+      * The performance will degrade on large datasets. Consider pagination or virtualization.
+
+      ## Suggestions
+
+      * The variable name `data` is ambiguous. Consider a more descriptive name.
+
+      * This helper function might be useful in other places. Consider moving it to a shared utility.
+
+      ## Positive
+
+      * Great job with the error handling approach. I like the clear user feedback.
+
+      * The test cases are comprehensive and well-structured.
+      ```
+
+      ### 3. Post-Review (Author Responses)
+
+      ```mermaid
+      flowchart TD
+          A[Review Received] --> B[Acknowledge Feedback]
+          B --> C[Address Each Comment]
+          C --> D[Make Requested Changes]
+          D --> E[Explain Complex Decisions]
+          E --> F[Request Re-review]
+      ```
+
+      #### Handling Review Feedback
+
+      When responding to feedback:
+
+      1. **Address every comment**
+         - Respond to each point, even if just acknowledging
+         - Don't leave comments unaddressed
+
+      2. **Explain your reasoning**
+         - If you disagree, explain why clearly and respectfully
+         - Provide context for your original approach if needed
+
+      3. **Be concise but complete**
+         - Keep responses focused and relevant
+         - Provide enough detail to resolve the concern
+
+      4. **Express gratitude**
+         - Thank reviewers for their time and insights
+         - Recognize good suggestions
+
+      5. **Request clarification when needed**
+         - If you don't understand feedback, ask for more details
+         - Don't guess what the reviewer meant
+
+      #### Handling Disagreements
+
+      When you disagree with reviewer feedback:
+
+      1. **Assume good intentions**
+         - Start from the assumption that everyone wants the best outcome
+
+      2. **Focus on technical merits**
+         - Base arguments on technical considerations, not preferences
+
+      3. **Provide evidence**
+         - Share benchmarks, documentation, or examples supporting your approach
+
+      4. **Consider a third opinion**
+         - If consensus can't be reached, involve another reviewer
+
+      5. **Document the decision**
+         - Once resolved, document the rationale for future reference
+
+      ### 4. Review Workflow
+
+      ```mermaid
+      flowchart TD
+          A[PR Created] --> B[CI Checks Run]
+          B --> C[Reviewers Assigned]
+          C --> D[Reviews Conducted]
+          D --> E{Approved?}
+          E -->|Yes| F[PR Merged]
+          E -->|No| G[Changes Requested]
+          G --> H[Author Makes Changes]
+          H --> B
+      ```
+
+      #### Requirements for Merging
+
+      A PR can be merged when:
+
+      1. All required CI checks pass
+      2. At least two approvals from relevant reviewers
+      3. All "Must-Fix" comments have been addressed
+      4. No outstanding requested changes
+      5. PR template is fully completed
+      6. Necessary documentation is updated
+      7. Changesets are included (if applicable)
+
+      #### Post-Merge Actions
+
+      After merging:
+
+      1. Delete the branch
+      2. Update related task status
+      3. Verify deployment (if applicable)
+      4. Close related issues
+      5. Communicate completion to stakeholders
+
+      ## Related Rules
+
+      - [development-workflow](mdc:.cursor/rules/development-workflow.mdc) - For the overall development process
+      - [changeset-workflow](mdc:.cursor/rules/changeset-workflow.mdc) - For version control and changelog updates
+      - [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc) - For continuous integration processes
+
+examples:
+  - input: |
+      What should I look for when reviewing code?
+    output: |
+      When reviewing code, you should look for these key aspects:
+
+      Technical aspects:
+      1. Correctness - Does it work as expected and handle edge cases?
+      2. Architecture - Is the solution well-structured with proper abstractions?
+      3. Performance - Are there bottlenecks or unnecessary computations?
+      4. Security - Are there vulnerabilities and is input properly validated?
+      5. Test coverage - Are tests comprehensive and meaningful?
+
+      Non-technical aspects:
+      1. Readability - Is the code self-explanatory with clear naming?
+      2. Documentation - Are APIs documented and decisions explained?
+      3. Consistency - Does it follow project conventions and style?
+
+      Use this checklist approach to provide structured feedback, clearly differentiating between must-fix issues and suggestions, and always acknowledge good aspects of the implementation alongside areas for improvement.
+
+  - input: |
+      How should I respond to critical code review feedback?
+    output: |
+      When responding to critical code review feedback:
+
+      1. Take a moment to process - Don't respond immediately if you feel defensive
+
+      2. Address each comment directly:
+         - Thank the reviewer for spotting issues
+         - Explain your understanding of the feedback
+         - Describe your plan to address it
+
+      3. If you disagree:
+         - Acknowledge the reviewer's concern
+         - Explain your reasoning clearly and respectfully
+         - Provide evidence or documentation supporting your approach
+         - Suggest a compromise if appropriate
+
+      4. For complex issues:
+         - Consider scheduling a quick call to discuss rather than lengthy comment threads
+         - Summarize the discussion outcome in the PR for documentation
+
+      5. After making changes:
+         - Respond to each comment indicating how you addressed it
+         - Request re-review when ready
+
+      Remember that code reviews are about improving the code, not criticizing the author. Keep discussions focused on technical merits rather than personal preferences, and assume good intentions from all participants.
+
+  - input: |
+      What makes a good PR description?
+    output: |
+      A good PR description should:
+
+      1. Clearly explain WHAT changed:
+         - Summarize the key components modified
+         - Highlight new features or fixes implemented
+         - Mention removed functionality (if applicable)
+
+      2. Explain WHY changes were made:
+         - Link to related issues or requirements
+         - Describe the problem being solved
+         - Explain the benefit to users/developers
+
+      3. Provide context:
+         - Note any important implementation decisions
+         - Mention alternatives considered and why they were rejected
+         - Highlight any potential impact on other systems
+
+      4. Include testing information:
+         - Describe how changes were tested
+         - Note any special test cases or scenarios
+         - Mention performance implications if relevant
+
+      5. List follow-up actions:
+         - Note any pending work or future improvements
+         - Highlight any technical debt introduced
+
+      Here's a concise example:
+
+      ```markdown
+      ## Description
+      Added user preference caching to reduce API calls and improve dashboard loading times by ~30%.
+
+      ## Problem
+      Dashboard was making redundant API calls for user preferences on every component load, causing performance issues identified in #123.
+
+      ## Solution
+      Implemented a React context provider that caches preferences in memory and localStorage with a 15-minute TTL. This reduces API calls while ensuring preferences stay relatively current.
+
+      ## Testing
+      - Added unit tests for the caching mechanism
+      - Verified dashboard performance improvement with React DevTools profiler
+      - Tested synchronization across tabs
+
+      ## Follow-up
+      - Future work tracked in #145 for preference invalidation on direct updates
+      ```
+
+      This format gives reviewers clear context about the change, making their review more effective and focused.
+
+metadata:
+  priority: high
+  version: 1.0
+  tags:
+    - code-review
+    - pull-request
+    - quality
+    - collaboration
+    - workflow
+  changelog:
+    - version: 1.0
+      changes:
+        - Initial version
+</rule>

@@ -1,5 +1,5 @@
 ---
-description: Guidelines for implementing and configuring ESLint using the @bfra.me/eslint-config package with different project types
+description: CONFIGURE when SETTING UP ESLint to ENFORCE consistent code style
 globs: eslint.config.js,eslint.config.ts
 alwaysApply: false
 ---

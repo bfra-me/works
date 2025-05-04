@@ -1,5 +1,5 @@
 ---
-description: Guide for implementing and customizing Prettier formatting using the @bfra.me/prettier-config package and its various presets
+description: IMPLEMENT when CONFIGURING Prettier to STANDARDIZE code formatting
 globs:
 alwaysApply: false
 ---

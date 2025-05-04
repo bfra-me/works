@@ -1,6 +1,6 @@
 ---
-description: Enforces consistent use of the date command for timestamps and prevents using fabricated dates
-globs: docs/**/*.md, **/*.mdc
+description: USE when HANDLING dates to PREVENT inconsistencies in timestamps
+globs: docs/**/*.md,**/*.mdc
 alwaysApply: false
 ---
 # Date Consistency Enforcer

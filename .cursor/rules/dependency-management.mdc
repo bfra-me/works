@@ -1,0 +1,173 @@
+---
+description: FOLLOW when MANAGING dependencies to PREVENT version conflicts
+globs: package.json, pnpm-lock.yaml, pnpm-workspace.yaml
+alwaysApply: false
+---
+# Dependency Management in the Monorepo
+
+<rule>
+name: dependency_management
+description: Guidance for adding, updating, and managing dependencies in the bfra.me/works monorepo, including workspace usage, Renovate bot, version pinning, and security practices
+
+filters:
+  - type: file_path
+    pattern: "package.json|pnpm-lock.yaml|pnpm-workspace.yaml"
+  - type: message
+    pattern: "(?i)(dependency|renovate|add package|update package|version pinning|security|pnpm|workspace dependency)"
+  - type: content
+    pattern: "dependencies|devDependencies|pnpm|renovate|version|security"
+
+actions:
+  - type: suggest
+    message: |
+      # Dependency Management Guidelines
+
+      This rule provides step-by-step guidance for managing dependencies in the bfra.me/works monorepo using pnpm workspaces.
+
+      ## 1. Adding Dependencies
+
+      - **To a specific package:**
+        ```bash
+        pnpm add <package> --filter <package-name>
+        ```
+      - **As a dev dependency:**
+        ```bash
+        pnpm add -D <package> --filter <package-name>
+        ```
+      - **To the root workspace:**
+        ```bash
+        pnpm add <package>
+        ```
+      - **To all packages:**
+        ```bash
+        pnpm add <package> -w
+        ```
+      - **Workspace protocol:**
+        Use `workspace:*` in `package.json` for internal dependencies.
+
+      ## 2. Managing Workspace Dependencies
+
+      - Use `pnpm-workspace.yaml` to define included packages.
+      - Reference internal packages using `workspace:*`.
+      - Keep dependencies up to date with `pnpm update --latest --recursive`.
+      - For cross-package changes, update all affected `package.json` files.
+
+      ## 3. Renovate Bot Interaction
+
+      - Renovate automates dependency updates via PRs.
+      - Review Renovate PRs for breaking changes and security updates.
+      - Configure Renovate in `.github/renovate.json5` or similar.
+      - Use labels to control automerge or grouping.
+      - For major upgrades, test locally before merging.
+
+      ## 4. Version Pinning Strategies
+
+      - Prefer caret (`^`) for most dependencies to allow non-breaking updates.
+      - Use exact versions for critical or unstable dependencies.
+      - For internal packages, always use `workspace:*`.
+      - Avoid using `latest` in production dependencies.
+      - Document rationale for pinned versions in `package.json` comments (if supported).
+
+      ## 5. Dependency Security Practices
+
+      - Run `pnpm audit` regularly to check for vulnerabilities.
+      - Address high/critical issues promptly.
+      - Use Renovate to keep dependencies patched.
+      - For sensitive packages, subscribe to security advisories.
+      - Remove unused dependencies to reduce attack surface.
+
+      ## 6. Handling Dependency Conflicts
+
+      - Use `pnpm why <package>` to diagnose conflicts.
+      - Align versions across packages when possible.
+      - Prefer single version for shared dependencies.
+      - If conflicts persist, consider using `pnpm overrides` in the root `package.json`.
+
+      ## 7. Decision Tree: Adding a Dependency
+
+      ```mermaid
+      graph TD
+        A[Need a new dependency?] --> B{Is it used by all packages?}
+        B -- Yes --> C[Add to root with pnpm add <pkg> -w]
+        B -- No --> D{Is it internal?}
+        D -- Yes --> E[Use workspace:* and pnpm add <pkg> --filter <pkg>]
+        D -- No --> F[Add to specific package with pnpm add <pkg> --filter <pkg>]
+      ```
+
+      ## 8. Example Scenarios
+
+      - **Add lodash to only the create package:**
+        ```bash
+        pnpm add lodash --filter @bfra.me/create
+        ```
+      - **Add Vitest as a dev dependency to all packages:**
+        ```bash
+        pnpm add -D vitest -w
+        ```
+      - **Update all dependencies in the monorepo:**
+        ```bash
+        pnpm update --latest --recursive
+        ```
+      - **Check why a package is installed:**
+        ```bash
+        pnpm why <package>
+        ```
+      - **Override a dependency version globally:**
+        ```json
+        // package.json (root)
+        "pnpm": {
+          "overrides": {
+            "<package>": "<version>"
+          }
+        }
+        ```
+
+      ## 9. Cross-References
+
+      - [Monorepo Structure](mdc:.cursor/rules/monorepo-structure.mdc)
+      - [CI/CD Workflow](mdc:.cursor/rules/ci-cd-workflow.mdc)
+      - [Testing Practices](mdc:.cursor/rules/testing-practices.mdc)
+      - [Prettier Config Usage](mdc:.cursor/rules/prettier-config-usage.mdc)
+      - [ESLint Config Usage](mdc:.cursor/rules/eslint-config-usage.mdc)
+
+      ## 10. Additional Tips
+
+      - Always run tests after updating dependencies.
+      - Use `pnpm install` after pulling new changes.
+      - Document any manual dependency changes in PR descriptions.
+      - For security, consider enabling GitHub Dependabot alerts in addition to Renovate.
+
+examples:
+  - input: |
+      How do I add a dev dependency to only the eslint-config package?
+    output: |
+      To add a dev dependency to only the eslint-config package, run:
+      ```bash
+      pnpm add -D <package> --filter @bfra.me/eslint-config
+      ```
+
+  - input: |
+      Renovate opened a PR to update a major dependency. What should I do?
+    output: |
+      Review the Renovate PR for breaking changes. Test the update locally before merging. If the update is safe, approve and merge. If not, request changes or close the PR and update the Renovate config if needed.
+
+  - input: |
+      How do I resolve a dependency conflict between two packages?
+    output: |
+      Use `pnpm why <package>` to diagnose the conflict. Align the versions in both packages' `package.json` files. If needed, use the `overrides` field in the root `package.json` to force a single version.
+
+metadata:
+  priority: high
+  version: 1.0
+  tags:
+    - dependency-management
+    - monorepo
+    - pnpm
+    - renovate
+    - security
+    - workflow
+  changelog:
+    - version: 1.0
+      changes:
+        - Initial version: comprehensive dependency management rule for the monorepo
+</rule>

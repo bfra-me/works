@@ -1,5 +1,5 @@
 ---
-description: Workflow for recommending and creating cursor rules based on repository analysis
+description: APPLY when RECOMMENDING new cursor rules to IMPROVE repository guidance
 globs:
 alwaysApply: false
 ---

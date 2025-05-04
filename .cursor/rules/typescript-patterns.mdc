@@ -1,5 +1,5 @@
 ---
-description: Effective TypeScript patterns and practices for the bfra.me/works monorepo
+description: EAPPLY when WRITING TypeScript to MAINTAIN code quality standards
 globs: *.ts,*.tsx,tsconfig.*json
 alwaysApply: false
 ---

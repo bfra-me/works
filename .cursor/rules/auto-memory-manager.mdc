@@ -1,5 +1,5 @@
 ---
-description: Automatically updates memory files and knowledge graph after task completion
+description: UPDATE when COMPLETING tasks to MAINTAIN comprehensive memory records
 globs:
 alwaysApply: true
 ---

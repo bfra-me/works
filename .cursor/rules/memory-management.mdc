@@ -1,5 +1,5 @@
 ---
-description: Guidelines for creating and maintaining persistent memory files for AI assistants
+description: MAINTAIN when WORKING with memory files to PRESERVE context across sessions
 globs:
 alwaysApply: true
 ---
@@ -154,7 +154,7 @@ actions:
 
       ### AI-Assisted Agile Workflow Rule
 
-      The Memory Management system works in conjunction with the [AI-Assisted Agile Workflow](./.cursor/rules/ai-agile-workflow.mdc) rule to provide a comprehensive system for maintaining context and tracking project status.
+      The Memory Management system works in conjunction with the [AI-Assisted Agile Workflow](mdc:.cursor/rules/ai-agile-workflow.mdc) rule to provide a comprehensive system for maintaining context and tracking project status.
 
       - The Agile Workflow rule defines the document structure and workflow processes
       - The Memory Management rule enhances context retention across conversations
@@ -275,10 +275,10 @@ actions:
       ### Using Memory Files
 
       When starting a new conversation:
-      1. Check `workflow-status.md` for current context
-      2. Review relevant domain knowledge from `domain-knowledge.md`
-      3. Consider user preferences from `user-preferences.md`
-      4. Consult architecture details from `architecture.md`
+      1. Check `docs/memory/workflow-status.md` for current context
+      2. Review relevant domain knowledge from `docs/memory/domain-knowledge.md`
+      3. Consider user preferences from `docs/memory/user-preferences.md`
+      4. Consult architecture details from `docs/memory/architecture.md`
 
       ### Knowledge Graph Commands
 

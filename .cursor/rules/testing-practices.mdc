@@ -1,6 +1,6 @@
 ---
-description: Best practices for testing in the bfra.me/works monorepo using Vitest, including setup, organization, coverage, mocking, and TDD
-globs: *.test.ts, *.spec.ts, vitest.config.*, test/**/*.ts, test/**/*.js
+description: IMPLEMENT when WRITING tests to ENSURE comprehensive coverage
+globs: *.test.ts, *.spec.ts,vitest.config.*,test/**/*.ts,test/**/*.js
 alwaysApply: false
 ---
 

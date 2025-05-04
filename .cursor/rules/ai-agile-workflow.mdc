@@ -1,5 +1,5 @@
 ---
-description: Process for generating well-defined task documents from plans and tracking progress
+description: IMPLEMENT when MANAGING tasks to STREAMLINE progress tracking
 globs: docs/plans/*.md,docs/tasks/**/*.md,docs/features.md,docs/plan.md,docs/memory/**/*.md
 alwaysApply: false
 ---
@@ -295,20 +295,38 @@ actions:
 
       1. Open the task document
       2. Update the status field
-      3. When a task is completed:
-         - Move the task file to `docs/tasks/done/`
+      3. **When a task is completed:**
+         - **You MUST move the task file to `docs/tasks/done/` (MANDATORY for both AI and users)**
          - Update the memory file
          - Update the plan document
       4. Ask the AI to update the feature status:
 
-      ```
-      Update feature status based on completed tasks
-      ```
+      > **Warning:** If completed task files are not moved to `docs/tasks/done/`, workflow tracking and reporting will be inaccurate. This step is required for all completed tasks.
 
       The AI will:
       1. Check all related tasks
       2. Update the feature status in the features document
       3. Move completed features to the "Completed Features" section when all tasks are done
+
+      #### Rule Creation Task Completion
+
+      When completing a task related to creating or updating a cursor rule:
+
+      1. Follow the standard task completion steps (update status, move to done directory, etc.)
+      2. Additionally, you MUST update the rule index file:
+         - Open `.cursor/rules/00-rule-index.mdc`
+         - Follow the "Automatic Index Updates" guidelines:
+           - For new rules: Add entry to appropriate category table
+           - For updated rules: Update description/category if changed
+           - For renamed rules: Update all references
+           - For removed rules: Remove the entry
+         - Update the `total_rules` count in the Metadata section
+         - Update the `last_updated` date in the Metadata section to today's date
+      3. Request the AI to verify the rule index update with:
+         ```
+         update rule index
+         ```
+         or similar trigger phrases as documented in the rule index file.
 
       ### Step 6: Track Progress
 
@@ -532,6 +550,7 @@ actions:
       | `Consolidate plans for [feature1] and [feature2]` | Merges multiple plans |
       | `Update workflow status memory` | Updates the workflow-status.md file |
       | `Fix memory file sections` | Merges duplicate sections and ensures proper structure |
+      | `Update rule index` | Updates the rule index to include new or modified rules |
 
       ## Example Workflow
 
@@ -660,6 +679,30 @@ examples:
       - Any unique content from either plan is preserved
 
       Would you like me to proceed with this consolidation?
+
+  - input: |
+      I've completed the task to create a new TypeScript patterns rule. Please update the status.
+    output: |
+      I'll update the status of this completed task.
+
+      Based on the current task document:
+      1. Changing the status from "In Progress" to "Completed"
+      2. Adding completion date ($(date +%Y-%m-%d))
+      3. Moving this task file to the `docs/tasks/done/` directory
+      4. Updating the workflow status memory file
+      5. Updating the plan document
+
+      Since this task involved creating a new cursor rule, I'll also update the rule index:
+      1. Opening `.cursor/rules/00-rule-index.mdc`
+      2. Adding the new rule to the "Coding Standards" category:
+         ```markdown
+         | [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc) | Effective TypeScript patterns and practices for the monorepo | High |
+         ```
+      3. Updating the `total_rules` count from 23 to 24
+      4. Updating the `last_updated` date to today's date ($(date +%Y-%m-%d))
+
+      The rule index has been successfully updated to include the new TypeScript patterns rule.
+      Would you like me to generate a progress report for the related feature?
 
   - input: |
       Generate a progress report for the User Management System feature.
