@@ -1,7 +1,7 @@
 ---
 description: USE when WORKING with memory files to PRESERVE context across sessions
-globs:
-alwaysApply: true
+globs: docs/plans/*.md,docs/tasks/**/*.md,docs/features.md,docs/memory/**/*.md
+alwaysApply: false
 ---
 # Memory Management
 
@@ -27,7 +27,7 @@ actions:
 
       ## Memory File Types
 
-      ### 1. Workflow Status (`docs/memory/workflow-status.md`)
+      ### 1. Workflow Status ([workflow-status.md](mdc:docs/memory/workflow-status.md))
 
       Tracks the current state of the agile workflow:
 
@@ -68,7 +68,7 @@ actions:
       ## Updated: YYYY-MM-DD
       ```
 
-      ### 2. Project Architecture (`docs/memory/architecture.md`)
+      ### 2. Project Architecture ([architecture.md](mdc:docs/memory/architecture.md))
 
       Maintains a living document of the project's architecture:
 
@@ -98,7 +98,7 @@ actions:
       ## Updated: YYYY-MM-DD
       ```
 
-      ### 3. User Preferences (`docs/memory/user-preferences.md`)
+      ### 3. User Preferences ([user-preferences.md](mdc:docs/memory/user-preferences.md))
 
       Records user preferences for code style, workflows, tools:
 
@@ -123,7 +123,7 @@ actions:
       ## Updated: YYYY-MM-DD
       ```
 
-      ### 4. Domain Knowledge (`docs/memory/domain-knowledge.md`)
+      ### 4. Domain Knowledge ([domain-knowledge.md](mdc:docs/memory/domain-knowledge.md))
 
       Captures domain-specific knowledge for the project:
 
@@ -275,10 +275,10 @@ actions:
       ### Using Memory Files
 
       When starting a new conversation:
-      1. Check `docs/memory/workflow-status.md` for current context
-      2. Review relevant domain knowledge from `docs/memory/domain-knowledge.md`
-      3. Consider user preferences from `docs/memory/user-preferences.md`
-      4. Consult architecture details from `docs/memory/architecture.md`
+      1. Check [workflow-status.md](mdc:docs/memory/workflow-status.md) for current context
+      2. Review relevant domain knowledge from [domain-knowledge.md](mdc:docs/memory/domain-knowledge.md)
+      3. Consider user preferences from [user-preferences.md](mdc:docs/memory/user-preferences.md)
+      4. Consult architecture details from [architecture.md](mdc:docs/memory/architecture.md)
 
       ### Knowledge Graph Commands
 
@@ -295,10 +295,10 @@ actions:
 
       In addition to the existing workflow status memory, consider creating these memory files for the project:
 
-      1. **Architecture Memory** (`docs/memory/architecture.md`): Document the structure of the Cursor rules system
-      2. **User Preferences** (`docs/memory/user-preferences.md`): Track preferred workflows and styles
-      3. **Domain Knowledge** (`docs/memory/domain-knowledge.md`): Maintain knowledge about Cursor rules concepts
-      4. **Decision Log** (`docs/memory/decisions.md`): Record key technical decisions
+      1. **Architecture Memory** ([architecture.md](mdc:docs/memory/architecture.md)): Document the structure of the Cursor rules system
+      2. **User Preferences** ([user-preferences.md](mdc:docs/memory/user-preferences.md)): Track preferred workflows and styles
+      3. **Domain Knowledge** ([domain-knowledge.md](mdc:docs/memory/domain-knowledge.md)): Maintain knowledge about Cursor rules concepts
+      4. **Decision Log** ([decisions.md](mdc:docs/memory/decisions.md)): Record key technical decisions
 
 examples:
   - input: |
