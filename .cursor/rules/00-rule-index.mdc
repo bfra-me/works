@@ -108,6 +108,7 @@ Rules related to AI assistants and memory management:
 | [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc) | LEVERAGE when REQUIRING external context to ENHANCE AI capabilities | High |
 | [memory-management](mdc:.cursor/rules/memory-management.mdc) | ALWAYS USE when WORKING with memory files to PRESERVE context across sessions (includes auto-updates) | High |
 | [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc) | ALIGN when PROVIDING assistance to MATCH established user preferences | High |
+| [vibe-tools](mdc:.cursor/rules/vibe-tools.mdc) | ALWAYS USE when ACCESSING external tools and context to SUPPORT development workflows | High |
 
 ## Rule Maintenance
 
@@ -237,6 +238,6 @@ This index must be automatically updated whenever cursor rules are created, modi
 
 ```yaml
 version: 1.7
-last_updated: 2025-05-05
-total_rules: 23
+last_updated: 2025-05-06
+total_rules: 24
 ```
