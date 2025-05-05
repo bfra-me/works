@@ -1,5 +1,5 @@
 ---
-description: APPLY when RESPONDING to ENSURE transparency and traceability
+description: ALWAYS APPLY when RESPONDING to ENSURE transparency and traceability
 globs:
 alwaysApply: true
 ---
@@ -54,6 +54,11 @@ actions:
          - Document any rule conflicts discovered
          - Track rule effectiveness
 
+      ## Related Rules
+
+      - [00-rule-index](mdc:.cursor/rules/00-rule-index.mdc): Provides the list of rules to consider.
+      - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc): Guides the creation of the rules being acknowledged.
+
 examples:
   - input: |
       "Updating a component structure"
@@ -61,12 +66,12 @@ examples:
       ### Rule Acknowledgment
 
       **Relevant Rules Applied:**
-      - documentation-reference: Following documentation linking requirements
-      - component-structure: Applying component organization standards
+      - [documentation-reference](mdc:.cursor/rules/documentation-reference.mdc): Following documentation linking requirements
+      - [component-structure](mdc:.cursor/rules/component-structure.mdc): Applying component organization standards
 
       **Rules Considered But Not Relevant:**
-      - database-management: No database changes involved
-      - api-versioning: Not touching API endpoints
+      - [database-management](mdc:.cursor/rules/database-management.mdc): No database changes involved
+      - [api-versioning](mdc:.cursor/rules/api-versioning.mdc): Not touching API endpoints
 
       **Implementation Following:**
       [Component update details...]
@@ -76,12 +81,12 @@ examples:
       ### Rule Acknowledgment
 
       **Relevant Rules Applied:**
-      - feature-planning: Following feature setup checklist
-      - testing-standards: Implementing required test coverage
+      - [feature-planning](mdc:.cursor/rules/feature-planning.mdc): Following feature setup checklist
+      - [testing-standards](mdc:.cursor/rules/testing-practices.mdc): Implementing required test coverage
 
       **Rules Considered But Not Relevant:**
-      - migration-safety: No database migrations needed
-      - cache-management: No caching requirements yet
+      - [migration-safety](mdc:.cursor/rules/migration-safety.mdc): No database migrations needed
+      - [cache-management](mdc:.cursor/rules/cache-management.mdc): No caching requirements yet
 
       **Implementation Following:**
       [Feature setup details...]

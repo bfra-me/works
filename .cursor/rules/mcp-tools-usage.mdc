@@ -1,11 +1,11 @@
 ---
-description: USE when REQUIRING external context to ENHANCE AI capabilities
+description: ALWAYS USE when REQUIRING external context to ENHANCE AI capabilities
 globs:
 alwaysApply: true
 ---
 # Model Context Protocol (MCP) Tool Usage
 
-These instructions are automatically active for all conversations in this project. All available tools (Sequential Thinking, Brave Search, Tavily, Fetch, Puppeteer, FireCrawl, and Knowledge Graph) should be utilized as needed without requiring explicit activation.
+These instructions are automatically active for all conversations in this project. All available tools (e.g., `Sequential Thinking`, `Brave Search`, `Tavily`, `Fetch`, `FireCrawl`, and Knowledge Graph/Memory tools like `mcp_memory_create_entities`) should be utilized as needed without requiring explicit activation.
 
 <rule>
 name: mcp_tools_usage
@@ -58,6 +58,7 @@ actions:
       ### Knowledge Graph (Memory)
       - Use the knowledge graph to store and retrieve information that persists across conversations.
       - Link related entities through meaningful relations that capture the nature of their connection.
+      - Utilize specific tools like `mcp_memory_create_entities`, `mcp_memory_create_relations`, `mcp_memory_search_nodes`, `mcp_memory_add_observations`, etc.
       - **Knowledge Graph Update Template:**
         When updating the knowledge graph, document your changes using this format:
         ```markdown
@@ -69,6 +70,13 @@ actions:
         Rationale: [Brief explanation of why this update was necessary]
         ```
 
+      ## Related Rules
+
+      - [memory-management](mdc:.cursor/rules/memory-management.mdc): Defines memory structures often updated by KG tools.
+      - [auto-memory-manager](mdc:.cursor/rules/auto-memory-manager.mdc): Automates KG updates after tasks.
+      - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Uses KG tools to access preferences.
+      - [repo-analyzer](mdc:.cursor/rules/repo-analyzer.mdc): Can use semantic search tools.
+
 examples:
   - input: |
       Can you search the web for the latest best practices for using Next.js with Tailwind CSS?
@@ -77,6 +85,30 @@ examples:
 
       First, let's search the web for the latest best practices for using Next.js with Tailwind CSS:
       <use_mcp_tool>brave_web_search "latest best practices for using Next.js with Tailwind CSS"</use_mcp_tool>
+
+  - input: |
+      Can you scrape the main content from the Vitest documentation homepage?
+    output: |
+      Okay, I will scrape the main content from the Vitest documentation homepage (https://vitest.dev/).
+      <use_mcp_tool>firecrawl_scrape url="https://vitest.dev/" onlyMainContent=true</use_mcp_tool>
+
+  - input: |
+      Let's think through the steps to refactor this component.
+    output: |
+      Alright, let's break down the refactoring process step-by-step using Sequential Thinking.
+      <use_mcp_tool>Sequential_Thinking_sequentialthinking thought="Step 1: Understand current component state and identify pain points." thoughtNumber=1 totalThoughts=5 nextThoughtNeeded=true</use_mcp_tool>
+
+  - input: |
+      What do we know about the 'eslint-config' package?
+    output: |
+      Let me check the knowledge graph for information about the 'eslint-config' package.
+      <use_mcp_tool>memory_search_nodes query="eslint-config package"</use_mcp_tool>
+
+  - input: |
+      Remember to update the memory: the default branch is now 'main'.
+    output: |
+      Okay, I will update the knowledge graph to record that the default branch is 'main'. I'll add this as an observation to the relevant project or repository entity.
+      <use_mcp_tool>memory_add_observations observations=[{"entityName": "bfra-me/works_repository", "contents": ["Default branch is 'main'"]}]</use_mcp_tool>
 
 metadata:
   priority: high

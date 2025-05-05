@@ -125,7 +125,7 @@ actions:
 
       ### Integration with ESLint
 
-      When using with @bfra.me/eslint-config:
+      When using with [@bfra.me/eslint-config](mdc:packages/eslint-config):
 
       ```typescript
       // eslint.config.ts
@@ -144,7 +144,87 @@ actions:
       2. **Path Resolution**: Make sure imports paths are correct for your module system
       3. **Version Compatibility**: Ensure Prettier version matches peer dependency requirement (^3.0.0)
 
+      ## Related Rules
+
+      - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): For integrating Prettier with the shared ESLint configuration.
+
 examples:
+  - input: |
+      How do I set up the default Prettier configuration?
+    output: |
+      To use the default configuration from `@bfra.me/prettier-config`:
+
+      1. Install the package:
+      ```bash
+      pnpm add -D @bfra.me/prettier-config prettier
+      ```
+
+      2. Choose one of these methods:
+
+         **a) `package.json` (simplest):**
+         ```json
+         // package.json
+         {
+           "prettier": "@bfra.me/prettier-config"
+         }
+         ```
+
+         **b) Configuration File:**
+         ```javascript
+         // prettier.config.js
+         import config from '@bfra.me/prettier-config'
+         export default config
+         ```
+
+         **c) Configuration File (CommonJS):**
+         ```javascript
+         // prettier.config.cjs
+         module.exports = require('@bfra.me/prettier-config')
+         ```
+
+      This setup uses the default 100-character line width, no semicolons, single quotes, etc.
+
+  - input: |
+      I want to use the strictest line length (80 characters).
+    output: |
+      To use the 80-character line width preset:
+
+      1. Install the package if you haven't:
+      ```bash
+      pnpm add -D @bfra.me/prettier-config prettier
+      ```
+
+      2. Create a `prettier.config.js` file:
+      ```javascript
+      // prettier.config.js
+      import config from '@bfra.me/prettier-config/80-proof'
+      export default config
+      ```
+
+      This imports the specific '80-proof' configuration, overriding the default line length while keeping other defaults.
+
+  - input: |
+      How can I use the default config but override just the tab width?
+    output: |
+      To use the default configuration but change the tab width:
+
+      1. Install the package:
+      ```bash
+      pnpm add -D @bfra.me/prettier-config prettier
+      ```
+
+      2. Create a `prettier.config.js` file and extend the default config:
+      ```javascript
+      // prettier.config.js
+      import config from '@bfra.me/prettier-config'
+
+      export default {
+        ...config, // Spread the default configuration
+        tabWidth: 4 // Your override
+      }
+      ```
+      This keeps all defaults (like `printWidth: 100`, `semi: false`) but changes `tabWidth` to 4.
+
   - input: |
       I want to use the 120-proof Prettier configuration with semicolons
     output: |

@@ -1,5 +1,5 @@
 ---
-description: APPLY when PROVIDING assistance to MATCH established user preferences
+description: ALWAYS APPLY when PROVIDING assistance to MATCH established user preferences
 globs:
 alwaysApply: true
 ---
@@ -23,7 +23,7 @@ actions:
 
       ## 1. Memory File
 
-      The `docs/memory/user-preferences.md` file contains structured preferences across several categories:
+      The [user preferences memory file](mdc:docs/memory/user-preferences.md) contains structured preferences across several categories:
 
       ```bash
       # To access user preferences from memory file
@@ -32,7 +32,7 @@ actions:
 
       ## 2. Knowledge Graph
 
-      The knowledge graph contains structured entities with the user's preferences:
+      The knowledge graph contains structured entities with the user's preferences. Access these using knowledge graph tools (like `mcp_memory_search_nodes`, `mcp_memory_open_nodes`, `mcp_memory_create_entities`, etc. - see [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc)):
 
       - `default_user` - Main user entity with general preferences
       - `Coding_Style_Preferences` - Code formatting and architecture preferences
@@ -50,6 +50,8 @@ actions:
       const preferences = await graph.search("preferences");
       const userPrefs = await graph.openNode("default_user");
       ```
+
+      *(Note: Treat the memory file and knowledge graph as complementary sources. If conflicting information exists, prioritize the most recently updated source or ask the user for clarification.)*
 
       ## Key Preferences Summary
 
@@ -117,6 +119,11 @@ actions:
         relationType: "has_preference"
       }]);
       ```
+
+      ## Related Rules
+
+      - [memory-management](mdc:.cursor/rules/memory-management.mdc): Provides guidelines for maintaining the `user-preferences.md` memory file.
+      - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Explains how to use the knowledge graph tools needed to access/update preferences.
 
 examples:
   - input: |

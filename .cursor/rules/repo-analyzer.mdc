@@ -21,23 +21,27 @@ actions:
     message: |
       # Repository Analysis and Context Extraction Plan
 
-      I'll help you analyze this repository and create a plan for extracting the most relevant code context. Let's start by understanding the repository structure.
+      I'll help you analyze this repository and create a plan for extracting the most relevant code context. This involves understanding the structure, locating key definitions, and analyzing dependencies. We can use command-line tools or IDE features.
 
       ## Step 1: Analyze Repository Structure
 
-      First, let's get a comprehensive view of the repository structure:
+      First, let's get a comprehensive view of the repository structure. Adjust exclusions (`-not -path`) as needed for your project.
+
+      Using `find` (works widely):
 
       ```bash
       # Works on both Linux and MacOS
       find . -type d -not -path "*/\.*" -not -path "*/node_modules/*" -not -path "*/__pycache__/*" | sort
       ```
 
-      Or using tree if available:
+      Using `tree` (if installed, often clearer):
 
       ```bash
       # If tree is installed
-      tree -L 7 -I "*.pyc|__pycache__|.git|.pytest_cache|.ruff_cache|.mypy_cache|.coverage|htmlcov|.venv|.env|*.egg-info|build|dist|node_modules|.DS_Store|images"
+      tree -L 7 -I "*.pyc|__pycache__|.git|.pytest_cache|.ruff_cache|.mypy_cache|.coverage|htmlcov|.venv|.env|*.egg-info|build|dist|node_modules|.DS_Store|images|vendor" # Add project-specific ignores
       ```
+
+      Alternatively, use your IDE's file explorer for a visual overview.
 
       ## Step 2: Identify Key Components
 
@@ -51,38 +55,50 @@ actions:
 
       ## Step 3: Locate Definitions
 
-      To find specific definitions in the codebase, I'll use these search strategies:
+      To find specific definitions in the codebase, I'll use search strategies. Adjust patterns for your specific language(s). Consider using `ripgrep` (`rg`) if available, as it's often faster and respects `.gitignore`.
 
-      ### For Functions and Classes:
+      ### Using Command-Line Search (`grep` or `rg`):
+      (Remember to escape regex characters if needed in your search term)
+
+      #### For Functions and Classes:
       ```bash
-      # Find function definitions (works on both MacOS and Linux)
-      # For Python functions
-      grep -r "def " --include="*.py" .
-      # For JavaScript/TypeScript functions
-      grep -r "function " --include="*.js" --include="*.ts" .
-      # For class definitions
-      grep -r "class " --include="*.py" --include="*.js" --include="*.ts" --include="*.java" .
+      # Find function definitions (example patterns, adjust per language)
+      # Python: def function_name
+      grep -r "def " --include="*.py" . # Or rg "^\s*def " -g '*.py'
+      # JS/TS: function functionName or const functionName = ( or class MethodName {
+      grep -E -r "function |const .* = \(|class .* {" --include="*.js" --include="*.ts" . # Or rg -e "function " -e "const .* = \\(" -e "class .* \{"
+      # Java: public/private/protected ReturnType methodName(
+      grep -r -E "(public|private|protected).*\(.*\) *\{"
+
+      # Find class definitions
+      grep -r "class " --include="*.py" --include="*.js" --include="*.ts" --include="*.java" . # Or rg "class " -g '*.py' -g '*.js' -g '*.ts' -g '*.java'
       ```
 
-      ### For Type Definitions:
+      #### For Type Definitions:
       ```bash
-      # Find type definitions (for typed languages)
-      # For TypeScript types
-      grep -r "type " --include="*.ts" --include="*.tsx" .
-      # For interfaces
-      grep -r "interface " --include="*.ts" --include="*.tsx" --include="*.java" .
-      # For structs (Go, Rust)
-      grep -r "struct " --include="*.go" --include="*.rs" .
+      # Find type definitions (example patterns, adjust per language)
+      # TypeScript: type or interface
+      grep -r -E "type |interface " --include="*.ts" --include="*.tsx" . # Or rg "type |interface " -g '*.ts' -g '*.tsx'
+      # Go: type Name struct
+      grep -r "type .* struct" --include="*.go" . # Or rg "type .* struct" -g '*.go'
       ```
 
-      ### For Constants and Variables:
+      #### For Constants and Variables:
       ```bash
-      # Find constant definitions
-      grep -r "const " --include="*.js" --include="*.ts" .
-      grep -r "final " --include="*.java" .
-      # For Python constants (typically uppercase)
-      grep -r "^[A-Z][A-Z0-9_]* = " --include="*.py" .
+      # Find constant definitions (example patterns, adjust per language)
+      grep -r "const " --include="*.js" --include="*.ts" . # Or rg "const " -g '*.js' -g '*.ts'
+      grep -r "final " --include="*.java" . # Or rg "final " -g '*.java'
+      # Python constants (typically uppercase)
+      grep -r "^[A-Z][A-Z0-9_]* = " --include="*.py" . # Or rg "^[A-Z][A-Z0-9_]* = " -g '*.py'
       ```
+
+      ### Using IDE Features:
+      - **Go to Definition**: Right-click on a symbol/variable/function name.
+      - **Find References/Usages**: Right-click to see where a symbol is used.
+      - **Workspace Search**: Use your IDE's built-in search (often supports regex and file filters).
+
+      ### Using Semantic Search (If Available via MCP Tools):
+      - Use tools like `codebase_search` for finding semantically related code, not just exact text matches. See [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc).
 
       ## Step 4: Analyze Dependencies
 
@@ -112,20 +128,18 @@ actions:
 
       For extracting code context, we can use various approaches:
 
-      ### Using grep for targeted extraction:
+      ### Using IDE Features:
+      - Copy/paste relevant functions or classes directly from your editor.
+      - Use features like "Copy Path" or "Copy Relative Path" to identify files.
+
+      ### Using Command-Line Tools (`grep`, `rg`, `find`, `cat`):
+      (Ensure exclusions are appropriate for your project)
       ```bash
       # Extract specific function/class and surrounding context (works on both MacOS and Linux)
       # Extract a Python function with 20 lines after and 5 lines before
       grep -r -A 20 -B 5 "def target_function" --include="*.py" .
       # Extract a class definition
       grep -r -A 50 -B 5 "class TargetClass" --include="*.py" .
-      ```
-
-      ### Using find and cat for full file extraction:
-      ```bash
-      # Find relevant files and extract their content (works on both MacOS and Linux)
-      # Find all Python files in a specific directory
-      find ./src -name "*.py" -type f | xargs cat > extracted_files.txt
       ```
 
       ## Step 7: Save Analysis to Markdown File
@@ -176,6 +190,12 @@ actions:
       [Summarize findings]
       EOL
       ```
+
+      ## Related Rules
+
+      - [monorepo-structure](mdc:.cursor/rules/monorepo-structure.mdc): Provides specific context if analyzing the `bfra.me/works` monorepo.
+      - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Explains tools like `codebase_search` that can supplement command-line analysis.
+      - [debugging-guide](mdc:.cursor/rules/debugging-guide.mdc): Repository analysis is often a key part of debugging.
 
 examples:
   - input: |

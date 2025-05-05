@@ -130,6 +130,11 @@ actions:
       2. Replace with the correct `[text](mdc:path/to/file)` format
       3. Verify the links work correctly in the Cursor IDE
 
+      ## Related Rules
+
+      - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc): The main guide for creating rules where these links are used.
+      - [00-rule-index](mdc:.cursor/rules/00-rule-index.mdc): An example of a file heavily using these cross-references.
+
 examples:
   - input: |
       I want to reference the typescript-patterns rule in my Cursor rule.

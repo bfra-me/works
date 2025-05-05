@@ -3,10 +3,12 @@ description: USE when PROMPTING Anthropic models to ENHANCE reasoning quality
 globs: *.py,*.md,*.mdc,*.ts,*.txt
 alwaysApply: false
 ---
-
 # Anthropic Chain of Thought and XML Tag Best Practices
 
-Standards for incorporating chain of thought reasoning and XML tag structure in prompts for Anthropic models.
+Standards for incorporating chain of thought reasoning and XML tag structure in prompts for Anthropic models, **especially for complex reasoning, troubleshooting, planning, or multi-step tasks.**
+
+**Why use XML Tags?**
+Anthropic models are trained on XML structure. Using these tags helps the model clearly distinguish different parts of your prompt (like instructions, context, examples, and the actual query), leading to more accurate and structured responses. It also makes prompts easier for humans to read and maintain.
 
 <rule>
 name: anthropic-chain-of-thought
@@ -88,6 +90,10 @@ actions:
          - Explain key decisions
          - Validate conclusions
 
+      ## Related Rules
+
+      - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc) - For general guidance on creating effective rules.
+
 examples:
   - input: |
       # Bad: No structured reasoning
@@ -128,6 +134,53 @@ examples:
         Modify the increment statement to ensure proper iteration
       </solution>
     output: "Clear reasoning process with context"
+
+  - input: |
+      # Task: Plan a blog post about sustainable gardening
+      <thinking>
+        1.  **Goal:** Outline a blog post about sustainable gardening techniques.
+        2.  **Audience:** Beginner gardeners interested in eco-friendly practices.
+        3.  **Key Sections:**
+            a.  Introduction: Importance of sustainability in gardening.
+            b.  Technique 1: Composting - benefits, how-to.
+            c.  Technique 2: Water Conservation - rainwater harvesting, drip irrigation.
+            d.  Technique 3: Natural Pest Control - companion planting, beneficial insects.
+            e.  Technique 4: Soil Health - cover crops, no-till methods.
+            f.  Conclusion: Recap, call to action (start small).
+        4.  **Structure:** Logical flow from intro to specific techniques, ending with encouragement.
+        5.  **Tone:** Informative, encouraging, accessible.
+      </thinking>
+      <plan>
+        **Blog Post Outline: Sustainable Gardening for Beginners**
+
+        1.  **Introduction**
+            *   Hook: The joy of gardening meets environmental responsibility.
+            *   Why it matters: Reducing waste, conserving water, supporting ecosystems.
+            *   What this post covers: Simple, actionable techniques.
+
+        2.  **Composting: Turning Waste into Gold**
+            *   Benefits: Reduces landfill waste, enriches soil naturally.
+            *   How-to: Simple bin setup, what to compost, balancing greens/browns.
+
+        3.  **Water Wisely: Conservation Techniques**
+            *   Rainwater Harvesting: Easy setup options.
+            *   Efficient Watering: Drip irrigation, mulching, watering times.
+
+        4.  **Natural Pest & Weed Control**
+            *   Companion Planting: Examples (marigolds, basil).
+            *   Encouraging Beneficial Insects: Ladybugs, lacewings.
+            *   Manual Weed Control vs. Herbicides.
+
+        5.  **Building Healthy Soil**
+            *   Cover Crops: Benefits and examples (clover, rye).
+            *   No-Till/Reduced Tillage: Protecting soil structure.
+
+        6.  **Conclusion**
+            *   Recap of key techniques.
+            *   Encouragement: Start with one or two methods.
+            *   Call to Action: Share your sustainable gardening journey.
+      </plan>
+    output: "Structured plan generation using thinking steps"
 
 metadata:
   priority: high

@@ -1,6 +1,6 @@
 ---
 description: FOLLOW when MANAGING dependencies to PREVENT version conflicts
-globs: package.json, pnpm-lock.yaml, pnpm-workspace.yaml
+globs: package.json,pnpm-lock.yaml,pnpm-workspace.yaml
 alwaysApply: false
 ---
 # Dependency Management in the Monorepo
@@ -137,11 +137,18 @@ actions:
       - Document any manual dependency changes in PR descriptions.
       - For security, consider enabling GitHub Dependabot alerts in addition to Renovate.
 
+      ## Related Rules
+
+      - [monorepo-structure](mdc:.cursor/rules/monorepo-structure.mdc): Understanding package relationships is key to managing dependencies.
+      - [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc): Dependency issues often surface during CI.
+      - [development-workflow](mdc:.cursor/rules/development-workflow.mdc): Covers the overall workflow including dependency updates.
+      - [testing-practices](mdc:.cursor/rules/testing-practices.mdc): Dependency updates require re-running tests.
+
 examples:
   - input: |
       How do I add a dev dependency to only the eslint-config package?
     output: |
-      To add a dev dependency to only the eslint-config package, run:
+      To add a dev dependency to only the [@bfra.me/eslint-config](mdc:packages/eslint-config) package, run:
       ```bash
       pnpm add -D <package> --filter @bfra.me/eslint-config
       ```

@@ -1,5 +1,5 @@
 ---
-description: USE when COMPLETING tasks to MAINTAIN comprehensive memory records
+description: ALWAYS USE when COMPLETING tasks to MAINTAIN comprehensive memory records
 globs:
 alwaysApply: true
 ---
@@ -128,7 +128,7 @@ Tasks generally fall into these categories:
 
 ## Memory File Templates
 
-When updating memory files, use these templates for consistency:
+When updating memory files, use these templates for consistency. The `${variable_name}` placeholders should be filled in by the AI based on the context of the completed task.
 
 ### Workflow Status Update
 
@@ -165,6 +165,7 @@ When updating memory files, use these templates for consistency:
 
 ### Task-Specific Memory File
 
+*(Suggest naming convention: `docs/memory/tasks/YYYY-MM-DD-XX.md`)*
 ```markdown
 # ${task_name}
 
@@ -198,7 +199,7 @@ ${caveats_and_limitations}
 
 ## Knowledge Graph Update Patterns
 
-When updating the knowledge graph, follow these patterns:
+When updating the knowledge graph (using available MCP tools like `mcp_memory_create_entities`), follow these patterns:
 
 ### Entity Creation
 
@@ -244,9 +245,16 @@ await graph.addObservations([
 ## Best Practices for Memory Updates
 
 1. **Be Specific**: Include technical details that would be valuable for future reference
-2. **Link Related Knowledge**: Connect new information to existing concepts
+2. **Link Related Knowledge**: Connect new information to existing concepts (both in memory files and the knowledge graph)
 3. **Include Context**: Document not just what was done, but why it was done
 4. **Record Alternatives**: Note alternatives that were considered but not implemented
 5. **Capture Lessons Learned**: Document challenges and how they were overcome
 6. **Include Examples**: Add examples of how to use new features or implement similar solutions
 7. **Update Progressively**: Don't wait until the end of a task to update memory
+8. **Follow `memory-management` guidelines**: Adhere to the merging and structuring rules outlined in [memory-management](mdc:.cursor/rules/memory-management.mdc).
+
+## Related Rules
+
+- [memory-management](mdc:.cursor/rules/memory-management.mdc): Provides the core guidelines for structuring and maintaining memory files.
+- [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc): Defines the overall task management process that triggers this rule.
+- [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Explains how to use the knowledge graph tools mentioned in the update patterns.

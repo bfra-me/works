@@ -1,6 +1,6 @@
 ---
 description: FOLLOW when VERSIONING packages to ENSURE proper changelogs and releases
-globs:
+globs: .changeset/*.md,package.json
 alwaysApply: false
 ---
 # Changeset Workflow
@@ -104,13 +104,14 @@ actions:
 
       ### Best Practices
 
-      1. **One Changeset Per PR**: Create one changeset per pull request
-      2. **Clear Descriptions**: Write clear, concise descriptions that will make sense in a changelog
+      1. **One Changeset Per PR**: Create one changeset per pull request that involves publishable changes.
+      2. **Clear Descriptions**: Write clear, concise descriptions that will make sense in a changelog.
       3. **Correct Semver**: Follow semantic versioning rules:
-         - `major`: Breaking changes
+         - `major`: Breaking changes (see [API Design Standards](mdc:.cursor/rules/api-design-standards.mdc))
          - `minor`: New features, non-breaking changes
          - `patch`: Bug fixes, documentation updates
-      4. **Check Dependencies**: If Package A depends on Package B, and B has a breaking change, A should also have a breaking change
+      4. **Check Dependencies**: If Package A depends on Package B, and B has a breaking change, A might also need a major bump.
+      5. **Include in PR**: Always commit the generated changeset file within your PR.
 
       ### Examples
 
@@ -140,6 +141,12 @@ actions:
       # Choose "major" for breaking changes
       # Describe: "Removed deprecated XYZ API, use ABC instead"
       ```
+
+      ## Related Rules
+
+      - [development-workflow](mdc:.cursor/rules/development-workflow.mdc): Outlines the overall contribution process including when to add changesets.
+      - [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc): Details the automated release workflow that consumes changesets.
+      - [api-design-standards](mdc:.cursor/rules/api-design-standards.mdc): Explains semantic versioning and breaking changes relevant to choosing the bump type.
 
 examples:
   - input: |

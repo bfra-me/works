@@ -201,6 +201,16 @@ actions:
          - Automates dependency updates
          - Integrates with the main CI workflow
 
+      ## Related Rules
+
+      - [changeset-workflow](mdc:.cursor/rules/changeset-workflow.mdc): Detailed guide on creating and managing changesets.
+      - [testing-practices](mdc:.cursor/rules/testing-practices.mdc): Specifics on writing and running tests with Vitest.
+      - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): How linting is configured and used.
+      - [prettier-config-usage](mdc:.cursor/rules/prettier-config-usage.mdc): How formatting is configured and used.
+      - [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc): Details on the GitHub Actions workflows and troubleshooting.
+      - [monorepo-structure](mdc:.cursor/rules/monorepo-structure.mdc): Understanding the overall repository layout.
+      - [dependency-management](mdc:.cursor/rules/dependency-management.mdc): How dependencies are handled within the workspace.
+
 examples:
   - input: |
       How do I contribute changes to this repository? What's the process for testing and publishing?
@@ -250,6 +260,45 @@ examples:
       pnpm --filter @bfra.me/my-package dev
       pnpm --filter @bfra.me/my-package test
       ```
+
+  - input: |
+      How do I run linting and automatically fix issues?
+    output: |
+      To run linting checks across the entire monorepo, use:
+      ```bash
+      pnpm lint
+      ```
+      To automatically fix fixable linting and formatting errors, use:
+      ```bash
+      pnpm fix
+      ```
+      This command combines ESLint and Prettier fixes.
+
+  - input: |
+      How do I run tests specifically for the `prettier-config` package?
+    output: |
+      To run tests only for the `@bfra.me/prettier-config` package, use the `--filter` flag with the test script from the monorepo root:
+      ```bash
+      pnpm --filter @bfra.me/prettier-config test
+      ```
+      You can also run tests in watch mode for that specific package:
+      ```bash
+      pnpm --filter @bfra.me/prettier-config test --watch
+      ```
+
+  - input: |
+      What triggers a new release automatically?
+    output: |
+      New releases are triggered automatically based on changesets merged into the `main` branch.
+
+      1.  When Pull Requests containing `.changeset/*.md` files are merged into `main`, these changesets accumulate.
+      2.  A weekly GitHub Actions workflow (`.github/workflows/release.yml`) runs automatically (typically Sunday evening UTC).
+      3.  This workflow checks for pending changesets.
+      4.  If changesets exist, it creates (or updates) a "Version Packages" Pull Request.
+      5.  This PR bumps package versions according to the changesets and updates changelogs.
+      6.  Once this "Version Packages" PR is reviewed, approved, and merged, the workflow proceeds to publish the updated packages to npm and create a GitHub release.
+
+      So, the main trigger is merging PRs with changesets into `main`, followed by the automated weekly workflow processing those changesets.
 
 metadata:
   priority: high

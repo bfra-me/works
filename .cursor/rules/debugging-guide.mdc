@@ -327,6 +327,8 @@ actions:
         D --> D1[See prettier-config-usage]
         E --> E1[Check Template Files]
         F --> F1[Check Base Configs]
+        F --> F2[Optimize algorithms]
+        F --> F3[Offload to worker thread]
       ```
 
       ## 7. Step-by-Step Debugging Workflows
@@ -373,186 +375,100 @@ actions:
 
       ## Related Rules
 
-      - [testing-practices](mdc:.cursor/rules/testing-practices.mdc) - For creating effective tests to prevent issues
-      - [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc) - For type-safe code patterns
-      - [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc) - For understanding CI failures
-      - [dependency-management](mdc:.cursor/rules/dependency-management.mdc) - For resolving package issues
-      - [memory-management](mdc:.cursor/rules/memory-management.mdc) - For working with memory files and knowledge graph
-      - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc) - For resolving ESLint configuration issues
+      - [testing-practices](mdc:.cursor/rules/testing-practices.mdc): Writing tests is crucial for preventing and reproducing bugs.
+      - [repo-analyzer](mdc:.cursor/rules/repo-analyzer.mdc): Understanding code structure is often the first step in debugging.
+      - [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc): Following best practices can prevent many common TypeScript errors.
+      - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): Linting helps catch potential issues early.
+      - [User Preferences](mdc:docs/memory/user-preferences.md): May contain preferences related to logging or debugging tools.
 
 examples:
   - input: |
-      I'm getting "TS2307: Cannot find module" errors after pulling the latest changes.
+      I'm getting a `TS2307: Cannot find module 'lodash'` error. How do I fix it?
     output: |
-      This error typically occurs when TypeScript can't locate a module you're importing. Here's how to resolve it:
+      The error `TS2307: Cannot find module 'lodash'` usually means the 'lodash' package is missing or its types aren't installed.
 
-      1. First, check if you have all dependencies installed:
-         ```bash
-         pnpm install
-         ```
+      Here's how to troubleshoot:
 
-      2. Verify the import path is correct:
-         - Check for case sensitivity issues (especially important if you work across different OS)
-         - Make sure the path is relative to the current file (e.g., `./module` vs `module`)
-         - For workspace packages, ensure they use `workspace:*` format in package.json
+      1.  **Check Dependencies**: Ensure 'lodash' is listed in your `package.json` under `dependencies` or `devDependencies`.
+      2.  **Install Dependencies**: Run `pnpm install` in your package directory or the monorepo root to make sure all dependencies are installed.
+      3.  **Install Types**: If using TypeScript, you also need the types. Run:
+          ```bash
+          pnpm add -D @types/lodash
+          ```
+      4.  **Verify Import Path**: Double-check the import statement in your code (e.g., `import _ from 'lodash';`). Ensure the module name is correct and case-sensitive.
+      5.  **Check `tsconfig.json`**: Ensure your `moduleResolution` setting (usually `Node` or `NodeNext`) is appropriate.
+      6.  **Restart TS Server**: Sometimes, simply restarting the TypeScript language server in your IDE can resolve module resolution issues.
 
-      3. Check your tsconfig.json:
-         - Ensure `baseUrl` and `paths` are correctly configured
-         - Verify the module resolution strategy (Node vs Classic)
-
-      4. For third-party modules:
-         - Check if you need type definitions: `pnpm add -D @types/package-name`
-         - Make sure the package is actually installed as a dependency
-
-      5. Try clearing TypeScript's cache:
-         ```bash
-         rm -rf node_modules/.cache
-         ```
-
-      If these steps don't resolve the issue, it might be an issue with the pnpm workspace configuration or a missing peer dependency. Check the dependency-management rule for more details on resolving workspace dependency issues.
+      Try these steps, starting with running `pnpm install` and installing `@types/lodash`.
 
   - input: |
-      Our application is experiencing memory leaks in production. How should I debug this?
+      My application is crashing with a `Maximum call stack size exceeded` error.
     output: |
-      To debug memory leaks in your production application:
+      A `Maximum call stack size exceeded` error typically indicates infinite recursion.
 
-      1. **Generate heap snapshots** at different time intervals:
-         ```typescript
-         // Add this to your application (development only)
-         import * as heapdump from 'heapdump'
+      Here's a debugging strategy:
 
-         // Take snapshots at regular intervals or on specific triggers
-         setInterval(() => {
-           heapdump.writeSnapshot(`./heap-${Date.now()}.heapsnapshot`)
-         }, 30 * 60 * 1000) // Every 30 minutes
-         ```
+      1.  **Identify Recursive Function**: Locate the function that is likely calling itself indefinitely. Check the stack trace provided with the error.
+      2.  **Check Base Case**: Every recursive function needs a base case – a condition under which it stops calling itself. Verify that:
+          *   The base case exists.
+          *   The condition for the base case will eventually be met.
+          *   The base case correctly returns a value without making a recursive call.
+      3.  **Trace Execution**: Add `console.log` statements or use a debugger to trace the arguments passed into each recursive call. See how the arguments change and whether they are progressing towards the base case.
+          ```typescript
+          function recursiveFunc(arg) {
+            console.log('Calling with arg:', arg);
+            if (/* base case condition based on arg */) {
+              console.log('Base case met');
+              return /* base value */;
+            }
+            // Ensure the argument changes towards the base case
+            const nextArg = /* modify arg */;
+            return recursiveFunc(nextArg);
+          }
+          ```
+      4.  **Simplify**: If possible, try calling the function with a simpler input that should hit the base case quickly to verify it works.
+      5.  **Review Logic**: Carefully review the logic that modifies the arguments for the recursive call. Ensure it's correctly moving towards the base case.
 
-      2. **Analyze heap snapshots** using Chrome DevTools:
-         - Open Chrome DevTools > Memory tab
-         - Load the heap snapshot files
-         - Look for objects with large retention sizes
-         - Check the "Comparison" view between snapshots to identify growing objects
-
-      3. **Check common causes**:
-         - Event listeners not being removed
-         - Closures capturing large objects
-         - Caches growing without bounds
-         - Detached DOM elements
-         - Timer references not being cleared
-
-      4. **Add memory monitoring**:
-         ```typescript
-         setInterval(() => {
-           const memUsage = process.memoryUsage()
-           logger.info('Memory usage', {
-             rss: Math.round(memUsage.rss / 1024 / 1024) + 'MB',
-             heapTotal: Math.round(memUsage.heapTotal / 1024 / 1024) + 'MB',
-             heapUsed: Math.round(memUsage.heapUsed / 1024 / 1024) + 'MB',
-             external: Math.round(memUsage.external / 1024 / 1024) + 'MB'
-           })
-         }, 60000)
-         ```
-
-      5. **Fix common memory leaks**:
-         - Always clean up event listeners
-         - Implement proper cache invalidation
-         - Use WeakMap/WeakSet for references that shouldn't prevent garbage collection
-         - Set timeouts on WebSocket connections
-         - Clean up timer references with clearTimeout/clearInterval
-
-      6. **Test with load**: Reproduce the issue with load testing tools like autocannon or k6.
-
-      For persistent issues, consider using a production monitoring solution that provides memory profiling capabilities.
+      Focus on finding the recursive function and ensuring its base case is correctly defined and reachable.
 
   - input: |
-      What's the best way to debug a slow-performing API endpoint?
+      How can I find out why my script is running slowly?
     output: |
-      To debug a slow-performing API endpoint, follow this systematic approach:
+      To troubleshoot a slow script, you need to identify the performance bottlenecks. Here are common techniques:
 
-      1. **Measure the baseline performance**:
-         ```typescript
-         // Add performance timing to your endpoint
-         const start = performance.now()
-         // Endpoint code
-         const duration = performance.now() - start
-         logger.info(`Endpoint completed in ${duration}ms`, {
-           path, method, queryParams, duration
-         })
-         ```
+      1.  **Basic Timing**: Use `console.time` and `console.timeEnd` to measure the duration of specific sections of your code:
+          ```typescript
+          console.time('dataProcessing');
+          // Slow operation
+          processData(data);
+          console.timeEnd('dataProcessing'); // Outputs: dataProcessing: XXXms
+          ```
+          Wrap different parts of your script to pinpoint the slowest sections.
 
-      2. **Break down the endpoint into segments** to identify bottlenecks:
-         ```typescript
-         async function apiEndpoint(req, res) {
-           const timings = {}
+      2.  **Node.js Profiler**: For more detailed analysis, use the built-in V8 profiler:
+          ```bash
+          # Run your script with the --prof flag
+          node --prof your-script.js
 
-           const startTotal = performance.now()
+          # This creates a *.log file (e.g., isolate-...). Process it:
+          node --prof-process isolate-*.log > profile_analysis.txt
+          ```
+          Analyze `profile_analysis.txt` to see which functions consume the most CPU time.
 
-           // Measure data retrieval
-           const dataStart = performance.now()
-           const data = await fetchData(req.params)
-           timings.dataFetch = performance.now() - dataStart
+      3.  **Check I/O Operations**: Slowdowns are often caused by inefficient I/O (disk access, network requests, database queries):
+          *   Are you reading/writing large files inefficiently?
+          *   Are network requests slow or happening sequentially when they could be parallel?
+          *   Are database queries unoptimized? Check slow query logs if available.
 
-           // Measure processing
-           const processStart = performance.now()
-           const processed = transformData(data)
-           timings.processing = performance.now() - processStart
+      4.  **Memory Usage**: High memory consumption or leaks can lead to slowdowns due to increased garbage collection. Monitor memory usage or use heap snapshots:
+          ```bash
+          node --expose-gc --max-old-space-size=4096 your-script.js # Monitor GC
+          # Or use heapdump as shown in the guide
+          ```
 
-           // Measure response generation
-           const responseStart = performance.now()
-           const result = formatResponse(processed)
-           timings.responseFormat = performance.now() - responseStart
+      5.  **Algorithmic Complexity**: Review the algorithms used. An inefficient algorithm (e.g., O(n^2) when O(n log n) is possible) can be a major bottleneck, especially with large inputs.
 
-           timings.total = performance.now() - startTotal
-
-           // Log all timings for analysis
-           logger.info('API performance breakdown', {
-             endpoint: req.path,
-             timings,
-             dataSize: JSON.stringify(data).length
-           })
-
-           return res.json(result)
-         }
-         ```
-
-      3. **Check database queries** if they're involved:
-         - Enable slow query logging
-         - Check execution plans with EXPLAIN
-         - Add appropriate indexes
-         - Optimize queries for better performance
-
-      4. **Examine external API calls**:
-         - Are they necessary for each request?
-         - Can you cache responses?
-         - Can you make calls in parallel using Promise.all?
-         - Consider implementing a circuit breaker for unreliable services
-
-      5. **Profile CPU usage** during endpoint execution:
-         ```bash
-         # Generate CPU profile for Node.js
-         NODE_OPTIONS="--prof" node server.js
-
-         # Process the log after reproducing the issue
-         node --prof-process isolate-0xNNNNNNNN-NNNN-v8.log > processed.txt
-         ```
-
-      6. **Check for common issues**:
-         - Lack of pagination for large data sets
-         - N+1 query problems
-         - Missing database indexes
-         - Synchronous operations blocking the event loop
-         - Large response payloads
-         - Unnecessary data processing
-
-      7. **Implement solutions**:
-         - Add caching (Redis, in-memory)
-         - Implement pagination
-         - Add database indexes
-         - Optimize database queries
-         - Use data streaming for large responses
-         - Consider scaling horizontally if needed
-
-      Remember to benchmark before and after optimization to measure improvement.
+      Start with basic timing (`console.time`) to narrow down the slow sections, then use profiling or check I/O if necessary.
 
 metadata:
   priority: high
@@ -560,13 +476,12 @@ metadata:
   tags:
     - debugging
     - troubleshooting
+    - error-handling
     - performance
     - logging
-    - error-handling
+    - typescript
   changelog:
     - version: 1.0
       changes:
-        - Initial version with comprehensive debugging and troubleshooting guidance
-        - Includes sections on common errors, logging, debugging tools, performance, and environment-specific issues
-        - Added decision trees and step-by-step workflows for systematic troubleshooting
+        - Initial version covering common errors, logging, debugging tools/techniques, and performance troubleshooting
 </rule>

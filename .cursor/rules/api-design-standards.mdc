@@ -1,6 +1,6 @@
 ---
 description: FOLLOW when DESIGNING APIs to ENSURE consistency and type safety
-globs: *.ts, *.tsx, *.d.ts, package.json
+globs: *.ts,*.tsx,*.d.ts,package.json
 alwaysApply: false
 ---
 # API Design Standards
@@ -350,88 +350,74 @@ actions:
 
       ## Related Rules
 
-      - [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc) - General TypeScript best practices
-      - [dependency-management](mdc:.cursor/rules/dependency-management.mdc) - Guidelines for managing package dependencies
-      - [changeset-workflow](mdc:.cursor/rules/changeset-workflow.mdc) - Managing breaking changes with changesets
+      - [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc): Core TypeScript best practices.
+      - [changeset-workflow](mdc:.cursor/rules/changeset-workflow.mdc): How API changes relate to versioning and releases.
+      - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): Linting rules that may enforce API standards.
 
 examples:
   - input: |
-      I need to design a public API for a new package that handles configuration generation. What standards should I follow?
+      Should I use an interface or a type alias for my public API options?
     output: |
-      When designing your public API for a configuration generation package, follow these standards:
+      According to our API design standards:
 
-      1. **Define clear boundaries** for your public API:
-         - Use explicit exports in your `index.ts` file
-         - Configure package.json exports field to control what can be imported
-         - Don't export internal implementation details
+      - Use **`interface`** for defining the shape of objects that represent public API contracts, like function options or configuration objects. Interfaces are generally better for defining object shapes that might be extended.
+        ```typescript
+        export interface MyFunctionOptions {
+          id: string;
+          enabled?: boolean;
+        }
+        ```
 
-      2. **Use proper types**:
-         - Use interfaces for your main public contracts:
-           ```typescript
-           export interface ConfigOptions {
-             name: string;
-             typescript?: boolean | TypescriptOptions;
-             prettier?: boolean;
-           }
-           ```
-         - Use discriminated unions for result types
-         - Add generics for flexibility where appropriate
+      - Use **`type`** aliases primarily for:
+          - Complex types involving unions or intersections.
+          - Utility types.
+          - Naming primitive types or literals.
+        ```typescript
+        export type ResultStatus = 'success' | 'error' | 'pending';
+        export type ProcessData = (input: string) => number;
+        ```
 
-      3. **Follow naming conventions**:
-         - Use consistent verb-noun pairs: `createConfig`, `validateConfig`
-         - Use PascalCase for types/interfaces: `ConfigOptions`
-         - Add appropriate suffixes: `Options`, `Config`, `Result`
-
-      4. **Document everything**:
-         - Add comprehensive TSDoc comments for all exports
-         - Include examples in documentation
-         - Document parameters, return values, and exceptions
-
-      5. **Consider versioning implications**:
-         - Use builder patterns for complex options (easier to extend)
-         - Consider factory functions with optional parameters
-         - Follow semantic versioning for any changes
-
-      Remember to refer to the [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc) rule for additional TypeScript best practices that apply to your API design.
+      So, for your public API options object, `interface` is the preferred choice.
 
   - input: |
-      How should I handle deprecation of an existing API?
+      How should I name a function that validates configuration settings?
     output: |
-      When deprecating an existing API, follow these steps:
+      Based on our API naming conventions, you should use a clear verb-noun pair.
 
-      1. **Mark the API as deprecated using TSDoc**:
-         ```typescript
-         /**
-          * @deprecated Use createConfig() instead. Will be removed in v3.0.0.
-          */
-         export function makeConfig(options: ConfigOptions): Config {
-           return createConfig(options);
-         }
-         ```
+      For a function that validates configuration settings, the recommended pattern is:
 
-      2. **Provide a migration path**:
-         - Keep the deprecated API working for at least one major version
-         - In documentation, clearly explain what to use instead
-         - If possible, implement the deprecated API using the new API
+      - **Verb**: `validate`
+      - **Noun**: `Config` or `Options`
 
-      3. **Update the changelog**:
-         - Document the deprecation in your changelog
-         - Mention when it will be removed (typically next major version)
-         - Link to migration guide if available
+      Therefore, good names would be:
+      - `validateConfig(config)`
+      - `validateOptions(options)`
 
-      4. **Consider adding runtime warnings**:
-         - For critical APIs, add console warnings in development mode
-         - Point users to documentation
+      Avoid vague names like `checkConfig` or `processSettings`. Use the standard verb `validate` for consistency.
 
-      5. **Export types for backward compatibility**:
-         - Keep exporting types used by the deprecated API
+  - input: |
+      I need to make a breaking change to the `createConfig` function signature. What's the process?
+    output: |
+      Making a breaking change requires careful handling according to our versioning and deprecation policies:
 
-      6. **Create a changeset**:
-         - Create a changeset using our [changeset-workflow](mdc:.cursor/rules/changeset-workflow.mdc)
-         - Mark it as a minor change (not breaking yet)
-         - When actually removing the API, mark it as a major change
+      1.  **Versioning**: This change requires a **MAJOR** version bump for the package (e.g., v1.x.x -> v2.0.0) because it breaks backward compatibility.
+      2.  **Deprecation (Recommended)**: Instead of immediately changing `createConfig`, consider:
+          *   Marking the old `createConfig` as `@deprecated` in TSDoc, pointing users to a new function (e.g., `createConfigV2`).
+          *   Keep the old `createConfig` functional (perhaps calling the new one internally) for at least one major version cycle to give users time to migrate.
+          *   Provide a clear migration path in the documentation.
+          ```typescript
+          /**
+           * @deprecated Use createConfigV2() instead. This signature will be removed in v3.0.0.
+           */
+          export function createConfig(oldOptions: OldOptions): Config { ... }
 
-      This approach gives users time to migrate while maintaining backward compatibility until the next major version.
+          export function createConfigV2(newOptions: NewOptions): Config { ... }
+          ```
+      3.  **Changeset**: When you commit the change (or the deprecation + new function), create a changeset using `pnpm changeset`. Select the package and choose `major` as the bump type. Clearly explain the breaking change and migration path in the changeset description.
+      4.  **Documentation**: Update all relevant documentation (README, TSDoc) to reflect the breaking change, the deprecation (if applicable), and the migration steps.
+      5.  **Release**: Once the PR is merged, the release workflow will handle the major version bump and publish the new version.
+
+      Directly changing the signature without deprecation is possible but less user-friendly. Always ensure the breaking change is clearly communicated via the MAJOR version bump and changelog generated by the changeset.
 
 metadata:
   priority: high
