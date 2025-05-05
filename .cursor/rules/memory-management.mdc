@@ -1,5 +1,5 @@
 ---
-description: MAINTAIN when WORKING with memory files to PRESERVE context across sessions
+description: USE when WORKING with memory files to PRESERVE context across sessions
 globs:
 alwaysApply: true
 ---

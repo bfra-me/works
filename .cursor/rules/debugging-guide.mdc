@@ -1,5 +1,5 @@
 ---
-description: CONSULT when DEBUGGING issues to RESOLVE problems efficiently
+description: USE when DEBUGGING issues to RESOLVE problems efficiently
 globs: *.ts,*.js,*.test.ts,*.spec.ts,*.log
 alwaysApply: false
 ---

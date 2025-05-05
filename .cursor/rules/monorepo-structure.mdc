@@ -1,5 +1,5 @@
 ---
-description: REFERENCE when NAVIGATING the monorepo to UNDERSTAND package relationships
+description: USE when NAVIGATING the monorepo to UNDERSTAND package relationships
 globs: *,**/*
 alwaysApply: true
 ---

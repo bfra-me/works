@@ -1,5 +1,5 @@
 ---
-description: CONSULT when TROUBLESHOOTING CI/CD issues to RESOLVE build failures
+description: USE when TROUBLESHOOTING CI/CD issues to RESOLVE build failures
 globs: .github/**/*.yaml,**/release.config.js,.changeset/*.md
 alwaysApply: false
 ---

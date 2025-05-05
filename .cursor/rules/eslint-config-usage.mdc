@@ -1,5 +1,5 @@
 ---
-description: CONFIGURE when SETTING UP ESLint to ENFORCE consistent code style
+description: FOLLOW when SETTING UP ESLint to ENFORCE consistent code style
 globs: eslint.config.js,eslint.config.ts
 alwaysApply: false
 ---

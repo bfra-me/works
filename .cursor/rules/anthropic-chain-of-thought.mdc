@@ -1,5 +1,5 @@
 ---
-description: STRUCTURE when PROMPTING Anthropic models to ENHANCE reasoning quality
+description: USE when PROMPTING Anthropic models to ENHANCE reasoning quality
 globs: *.py,*.md,*.mdc,*.ts,*.txt
 alwaysApply: false
 ---

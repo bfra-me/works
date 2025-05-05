@@ -1,5 +1,5 @@
 ---
-description: NAVIGATE when EXPLORING rules to DISCOVER applicable guidance
+description: USE when EXPLORING rules to DISCOVER applicable guidance
 globs:
 alwaysApply: true
 ---
@@ -53,7 +53,7 @@ Rules related to development, release, and task management workflows:
 | [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc) | CONSULT when TROUBLESHOOTING CI/CD issues to RESOLVE build failures | High |
 | [code-review-standards](mdc:.cursor/rules/code-review-standards.mdc) | APPLY when REVIEWING code to MAINTAIN quality standards | High |
 | [development-workflow](mdc:.cursor/rules/development-workflow.mdc) | FOLLOW when DEVELOPING features to OPTIMIZE workflow efficiency | High |
-| [rule-acknowledgement](mdc:.cursor/rules/rule-acknowledgement.mdc) | DOCUMENT when APPLYING rules to ENSURE transparency and traceability | High |
+| [rule-acknowledgement](mdc:.cursor/rules/rule-acknowledgement.mdc) | APPLY when RESPONDING to ENSURE transparency and traceability | High |
 
 ## Coding Standards
 
