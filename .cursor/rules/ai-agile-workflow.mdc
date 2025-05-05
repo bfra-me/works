@@ -43,6 +43,8 @@ actions:
 
       ## Document Types
 
+      *(Note: Placeholders like `[Title]` or `${variable}` in templates should be filled by the AI based on context.)*
+
       ### 1. Central Reference Document ([features.md](mdc:docs/features.md))
 
       This document tracks all features for improving the project, including:
@@ -272,7 +274,7 @@ actions:
       Generate task documents from this plan
       ```
 
-      **Before creating a new task document, you MUST check the `docs/tasks/` directory for existing task files for the current date. Use the next available sequence number (e.g., if `2025-05-02-01.md` exists, the next should be `2025-05-02-02.md`). Never overwrite an existing task file.**
+      **Before creating a new task document, you MUST check the `docs/tasks/` directory for existing task files for the current date (e.g., using `list_dir` tool). Use the next available sequence number (e.g., if `2025-05-02-01.md` exists, the next should be `2025-05-02-02.md`). Never overwrite an existing task file.**
 
       The AI will:
       1. Extract tasks from each phase
@@ -296,7 +298,7 @@ actions:
       1. Open the task document
       2. Update the status field
       3. **When a task is completed:**
-         - **You MUST move the task file to `docs/tasks/done/` (MANDATORY for both AI and users)**
+         - **You MUST move the task file to `docs/tasks/done/` (MANDATORY for both AI and users)** (e.g., `mv docs/tasks/[task-id].md docs/tasks/done/`)
          - Update the memory file
          - Update the plan document
       4. Ask the AI to update the feature status:
@@ -539,14 +541,14 @@ actions:
       The following commands can be used with the AI assistant:
 
       | Command | Description |
-      |---------|-------------|
+      |---|----|
       | `Create a plan document for [feature]` | Generates a new plan document |
       | `Generate task documents from this plan` | Creates task documents from the current plan |
       | `Update feature status based on completed tasks` | Updates the central document |
       | `Generate progress report for [feature]` | Creates a status report |
       | `Suggest next tasks to work on` | Recommends priority tasks |
       | `Show all blocked tasks` | Lists tasks with unmet dependencies |
-      | `Mark task as completed` | Moves task to the done directory and updates status |
+      | `Mark task [task-id] as completed` | Moves task to the done directory and updates status |
       | `Extend this plan with new phases` | Adds new phases to an existing plan |
       | `Consolidate plans for [feature1] and [feature2]` | Merges multiple plans |
       | `Update workflow status memory` | Updates the workflow-status.md file |
@@ -591,44 +593,42 @@ examples:
   - input: |
       I have a new plan document for implementing the hierarchical rule structure. Can you generate task documents from it?
     output: |
-      I'll help you generate task documents from your plan for implementing the hierarchical rule structure.
+      I'll help you generate task documents from your plan for implementing the hierarchical rule structure ([plan-name.md](mdc:docs/plans/plan-name.md)).
 
-      Looking at your plan document, I can see the following distinct tasks:
+      First, I need to check for existing tasks for today to determine the correct sequence numbers. (Executing `list_dir docs/tasks`)
 
-      For Phase 1: Rule Relationship Mapping:
-      1. Create a relationship diagram for all rules
-      2. Define standard linking format
-      3. Create rule registry file
+      Assuming today is 2025-05-04 and no tasks exist yet, I will create the following task files:
 
-      For Phase 2: Rule Content Updates:
-      4. Add cross-references to each rule
-      5. Create entry point rule
-      6. Update examples with cross-references
+      **Creating `docs/tasks/2025-05-04-01.md`:**
+      ```markdown
+      # Task: Create Relationship Diagram
+      ## Task ID: 2025-05-04-01
+      ## Related Plan
+      [Implement Hierarchical Rule Structure](mdc:docs/plans/plan-name.md)
+      ## Description
+      Map out the relationships between all existing Cursor rules...
+      ## Acceptance Criteria
+      - Visual diagram (e.g., Mermaid) created...
+      ## Status
+      Not Started
+      ```
 
-      For Phase 3: Tooling and Integration:
-      7. Create parser tool for validating references
-      8. Create auto-update tool
-      9. Develop visualization generator
+      **Creating `docs/tasks/2025-05-04-02.md`:**
+      ```markdown
+      # Task: Define Standard Linking Format
+      ## Task ID: 2025-05-04-02
+      ## Related Plan
+      [Implement Hierarchical Rule Structure](mdc:docs/plans/plan-name.md)
+      ## Description
+      Specify the exact format for linking between rules...
+      ## Acceptance Criteria
+      - Linking format documented...
+      ## Status
+      Not Started
+      ```
+      (And so on for other tasks identified in the plan...)
 
-      For Phase 4: Testing and Documentation:
-      10. Test cross-references
-      11. Create usage documentation
-      12. Conduct integration testing with AI
-
-      I'll generate task documents for each of these tasks using today's date ($(date +%Y-%m-%d)) for the task IDs.
-
-      Task 1: Create a relationship diagram for all rules ($(date +%Y-%m-%d)-01)
-      Task 2: Define standard linking format ($(date +%Y-%m-%d)-02)
-      ...
-
-      Each task document will include:
-      - Description from the plan
-      - Acceptance criteria
-      - Dependencies
-      - Complexity
-      - Estimated effort
-
-      I'll also update the plan document and the workflow status memory file to reflect these new tasks.
+      I will also update the [workflow status memory](mdc:docs/memory/workflow-status.md) to reflect these new tasks.
 
   - input: |
       This task has been completed. Please update the status.

@@ -27,6 +27,8 @@ actions:
 
       ## Memory File Types
 
+      *(Note: `${variable_name}` placeholders in templates should be filled by the AI based on context.)*
+
       ### 1. Workflow Status ([workflow-status.md](mdc:docs/memory/workflow-status.md))
 
       Tracks the current state of the agile workflow:
@@ -162,7 +164,7 @@ actions:
 
       ## Knowledge Graph Integration
 
-      Memory files work in concert with the knowledge graph (MCP memory server) when available:
+      Memory files work in concert with the knowledge graph (using MCP memory tools like `mcp_memory_search_nodes`, `mcp_memory_create_entities`, etc.) when available:
 
       1. **Entity Creation**: New entities should be created in the knowledge graph for:
          - Project components
@@ -300,13 +302,22 @@ actions:
       3. **Domain Knowledge** ([domain-knowledge.md](mdc:docs/memory/domain-knowledge.md)): Maintain knowledge about Cursor rules concepts
       4. **Decision Log** ([decisions.md](mdc:docs/memory/decisions.md)): Record key technical decisions
 
+      ## Related Rules
+
+      - [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc): Defines the task/plan structure and workflow that utilizes memory files.
+      - [auto-memory-manager](mdc:.cursor/rules/auto-memory-manager.mdc): Automatically updates memory files upon task completion.
+      - [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc): Ensures correct date formatting within memory files.
+      - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Leverages the user preferences memory file.
+      - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Explains how to use the knowledge graph tools.
+      - [cursor-rule-cross-references](mdc:.cursor/rules/cursor-rule-cross-references.mdc): Defines the `mdc:` linking syntax used here.
+
 examples:
   - input: |
       Can you tell me about the current state of the project?
     output: |
       I'll check the memory files to understand the current project state.
 
-      Based on the workflow status memory file, here's what I can tell you:
+      Based on the [workflow status memory file](mdc:docs/memory/workflow-status.md), here's what I can tell you:
 
       **Current Project**: Cursor Rules System Improvement
       **Current Phase**: Implementation Phase 1
@@ -321,14 +332,14 @@ examples:
       - Creating various templates for tasks, plans, and features
       - Setting up the memory management system
 
-      Would you like more specific information about the current task, the overall plan, or another aspect of the project?
+      Would you like more specific information about the current task, the overall plan, or another aspect of the project? (Information sourced from [workflow-status.md](mdc:docs/memory/workflow-status.md))
 
   - input: |
       I'd like to update the user preferences for this project.
     output: |
-      I'll help you update the user preferences for this project. Let me first check if we have an existing user preferences memory file.
+      I'll help you update the user preferences for this project. Let me first check if we have an existing user preferences memory file at `docs/memory/user-preferences.md`.
 
-      I don't see an existing user preferences file in the docs/memory directory, so we should create one following our memory management guidelines.
+      I don't see an existing user preferences file in the `docs/memory` directory, so we should create one following our memory management guidelines ([memory-management](mdc:.cursor/rules/memory-management.mdc)).
 
       Here's a draft of a new user preferences memory file:
 
@@ -360,7 +371,7 @@ examples:
       ## Updated: 2025-04-25
       ```
 
-      I can also update the knowledge graph with these preferences if you'd like. Would you like me to save this file to `docs/memory/user-preferences.md` or would you like to make any changes first?
+      I can also update the knowledge graph with these preferences if you'd like (using tools described in [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc)). Would you like me to save this file to `docs/memory/user-preferences.md` or would you like to make any changes first?
 
   - input: |
       I've noticed some duplicate sections in the domain-knowledge.md memory file. Can you fix it?

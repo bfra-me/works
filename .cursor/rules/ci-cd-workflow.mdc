@@ -1,6 +1,6 @@
 ---
 description: USE when TROUBLESHOOTING CI/CD issues to RESOLVE build failures
-globs: .github/**/*.yaml,**/release.config.js,.changeset/*.md
+globs: .github/**/*.yaml,.github/**/*.yml,**/release.config.js,.changeset/*.md
 alwaysApply: false
 ---
 # CI/CD Workflow Guide
@@ -273,6 +273,15 @@ actions:
           pnpm store prune
       ```
 
+      ### SSH Debugging (Advanced)
+
+      If necessary, use [tmate](https://github.com/tmate-io/tmate) to SSH into the runner for interactive debugging:
+
+      ```yaml
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+      ```
+
       ## Advanced Topics
 
       ### Customizing Workflows
@@ -341,153 +350,77 @@ actions:
       - [Changesets Documentation](https://github.com/changesets/changesets)
       - [Semantic Release Documentation](https://github.com/semantic-release/semantic-release)
 
+      ## Related Rules
+
+      - [changeset-workflow](mdc:.cursor/rules/changeset-workflow.mdc): Detailed guide on using Changesets.
+      - [dependency-management](mdc:.cursor/rules/dependency-management.mdc): For resolving dependency issues that might cause build failures.
+      - [testing-practices](mdc:.cursor/rules/testing-practices.mdc): For understanding test setup and failures.
+      - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): For resolving linting configuration issues.
+      - [debugging-guide](mdc:.cursor/rules/debugging-guide.mdc): General debugging techniques applicable to CI failures.
+
 examples:
   - input: |
-      My CI build is failing with some type errors. How do I debug this?
+      My CI build failed on the lint step. How do I fix it?
     output: |
-      I can help you debug the CI type errors. Here's a systematic approach:
+      A failure on the lint step usually means your code doesn't conform to the project's ESLint or Prettier rules.
 
-      1. **First, check the CI logs for specific TypeScript errors:**
-         - Go to the GitHub Actions tab in your repository
-         - Find the failed workflow run
-         - Expand the "type-check" step to see the detailed errors
+      Here's how to troubleshoot and fix it:
 
-      2. **Reproduce the errors locally:**
-         ```bash
-         # Run type checking on the full repository
-         pnpm type-check
+      1.  **Check CI Logs**: Go to the failed GitHub Actions run, expand the "Lint" step, and identify the specific errors reported (e.g., `Missing semicolon`, `Line exceeds maximum length`).
+      2.  **Run Lint Locally**: Replicate the CI check locally:
+          ```bash
+          pnpm lint
+          ```
+      3.  **Auto-Fix Issues**: Many linting and formatting errors can be fixed automatically:
+          ```bash
+          pnpm lint:fix
+          ```
+      4.  **Manual Fixes**: If `lint:fix` doesn't solve everything, manually edit the files indicated in the logs to resolve the remaining errors.
+      5.  **Verify**: Run `pnpm lint` again locally to ensure all issues are resolved before pushing.
 
-         # Or focus on a specific package
-         pnpm --filter @bfra.me/package-name type-check
-         ```
-
-      3. **Common causes and fixes for TypeScript errors:**
-         - **Missing types**: Install required @types packages
-         - **API changes in dependencies**: Check for recent updates
-         - **Inconsistent TypeScript versions**: Verify the version in all packages
-         - **tsconfig issues**: Compare against working packages
-
-      4. **If the error only happens in CI but not locally:**
-         - Check for environment differences (Node version, etc.)
-         - Verify if CI is using a different TypeScript configuration
-         - Clear caches and try with a fresh install:
-           ```bash
-           pnpm clean
-           pnpm install --frozen-lockfile
-           pnpm type-check
-           ```
-
-      5. **Fix the issues:**
-         - Address each type error shown in the logs
-         - Run type-checking again to verify all issues are fixed
-         - Commit the changes and push to trigger CI again
-
-      Would you like me to help analyze specific type errors if you share the CI log details?
+      Consult the [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc) and [prettier-config-usage](mdc:.cursor/rules/prettier-config-usage.mdc) rules if you suspect a configuration issue.
 
   - input: |
-      How do I create a new release for the eslint-config package?
+      I need to release a patch for the `eslint-config` package. How do I do that?
     output: |
-      To create a new release for the eslint-config package, you'll need to use our changeset-based release process:
+      To release a patch update for `@bfra.me/eslint-config`, you need to add a changeset:
 
-      1. **Create a feature branch** (if you haven't already):
-         ```bash
-         git checkout -b update-eslint-config
-         ```
+      1.  **Create a Changeset**: Run the changeset command:
+          ```bash
+          pnpm changeset
+          ```
+      2.  **Select Package**: Use the arrow keys and spacebar to select `@bfra.me/eslint-config`.
+      3.  **Select Bump Type**: Choose `patch` for this fix.
+      4.  **Write Description**: Enter a clear summary of the patch fix (this will go into the changelog).
+      5.  **Confirm**: Review and confirm the changeset details.
 
-      2. **Make your changes** to the eslint-config package
+      This will create a new markdown file in the `.changeset/` directory (e.g., `.changeset/nice-llamas-repeat.md`). Commit this file along with your code changes in your Pull Request.
 
-      3. **Add a changeset** describing the changes:
-         ```bash
-         pnpm changeset
-         ```
+      Once your PR is merged into the main branch, the release workflow will automatically:
+      - Include your patch bump when determining the next version for `@bfra.me/eslint-config`.
+      - Add your description to the package's `CHANGELOG.md`.
+      - Publish the new version to npm.
 
-         In the interactive prompt:
-         - Select the `@bfra.me/eslint-config` package
-         - Choose the appropriate semver bump:
-           - `patch` for bug fixes
-           - `minor` for new features
-           - `major` for breaking changes
-         - Write a clear description of what changed
-
-      4. **Commit all changes** including the new changeset file:
-         ```bash
-         git add .
-         git commit -m "Update eslint-config with new rules"
-         git push -u origin update-eslint-config
-         ```
-
-      5. **Create a Pull Request** on GitHub
-
-      6. **Wait for CI checks** to pass and get a code review
-
-      7. **Once approved and merged to main**:
-         - The release workflow will automatically run
-         - A new version will be published to npm based on your changeset
-         - The changelog will be updated
-         - A GitHub release will be created
-
-      You don't need to manually trigger the release - once your PR with the changeset is merged to main, the release process will happen automatically on the next scheduled run (or can be manually triggered by a maintainer if needed).
+      For more details, see the [changeset-workflow](mdc:.cursor/rules/changeset-workflow.mdc) rule.
 
   - input: |
-      Why is my build failing with "Cannot find module" errors?
+      The test step is failing in CI but passes locally. What should I check?
     output: |
-      "Cannot find module" errors in CI builds are usually caused by dependency or build configuration issues. Let's troubleshoot this systematically:
+      Tests failing in CI but passing locally often point to environment differences or non-deterministic tests.
 
-      1. **First, identify exactly which module is missing:**
-         - Check the CI logs for the specific error message
-         - Note the module name and where it's being imported
+      Here's a checklist:
 
-      2. **Common causes and solutions:**
+      1.  **Environment Variables**: Does the test rely on environment variables that are set locally but not in CI? Check the workflow file (`.github/workflows/ci.yml`) for how environment variables are set up.
+      2.  **Dependency Versions**: CI uses `pnpm install --frozen-lockfile`, ensuring exact versions from `pnpm-lock.yaml`. Does your local environment match? Try running `pnpm install --frozen-lockfile` locally.
+      3.  **Node.js/Tool Versions**: Check if the Node.js version or other tool versions used in CI (specified in the workflow file) match your local setup.
+      4.  **Operating System Differences**: Are there subtle differences due to OS (e.g., file path separators, case sensitivity)? CI typically runs on Linux.
+      5.  **Flaky Tests**: Is the test non-deterministic? Does it rely on timing, external services (that might be unstable), or random data? Refactor the test to be deterministic or add retry logic carefully.
+      6.  **State Pollution**: Does a previous test in the CI run affect the failing test? Ensure tests are properly isolated (e.g., resetting mocks/stubs in `afterEach`).
+      7.  **Resource Constraints**: CI runners might have different resource limits (CPU, memory) than your local machine. Could this be affecting the test?
+      8.  **Verbose Logs**: Rerun the CI job with verbose logging if possible, or add more detailed logging within the failing test itself and commit it to see the output in CI.
+      9.  **Local CI Simulation**: Try running the tests locally using the exact same commands as CI (often `pnpm test --run`).
 
-         **Missing dependency in package.json:**
-         - Check if the module is listed in the package's dependencies
-         - Add it if missing:
-           ```bash
-           pnpm add module-name --filter @bfra.me/your-package
-           ```
-
-         **Dependency hoisting issues:**
-           ```bash
-           # Verify installed dependencies match package.json
-           pnpm why module-name
-           ```
-
-         **Build order problems:**
-         - If the module is another workspace package:
-           ```bash
-           # Ensure dependent package is built first
-           pnpm build --filter @bfra.me/dependency-package
-           pnpm build --filter @bfra.me/your-package
-           ```
-
-         **Incorrect import paths:**
-         - Check for typos in import statements
-         - Verify path casing (important on case-sensitive file systems in CI)
-
-      3. **Reproduction and verification:**
-         ```bash
-         # Clean build artifacts and dependencies
-         pnpm clean
-
-         # Fresh install with locked versions
-         pnpm install --frozen-lockfile
-
-         # Build dependencies first, then your package
-         pnpm build --filter "@bfra.me/your-package...^"
-         ```
-
-      4. **If still failing:**
-         - Add a debug step to your workflow to list installed modules:
-           ```yaml
-           - name: Debug module resolution
-             run: |
-               echo "Node modules structure:"
-               find ./node_modules -name "missing-module" -type d
-               echo "Package dependencies:"
-               cat package.json | grep dependencies -A 20
-           ```
-
-      Have you tried reinstalling dependencies and rebuilding the project locally? If so, does the error only occur in CI or also locally?
+      Start by comparing the CI environment setup in the workflow file to your local setup and checking for non-deterministic test behavior.
 
 metadata:
   priority: high

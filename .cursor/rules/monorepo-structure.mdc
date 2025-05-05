@@ -1,7 +1,7 @@
 ---
 description: USE when NAVIGATING the monorepo to UNDERSTAND package relationships
 globs: *,**/*
-alwaysApply: true
+alwaysApply: false
 ---
 # Monorepo Structure Guidelines
 
@@ -38,49 +38,49 @@ actions:
 
       ## Key Package Relationships
 
-      1. **@bfra.me/works** (root)
+      1. **[@bfra.me/works](mdc:package.json)** (root)
          - The container for all packages
          - Provides common scripts and workflows
          - Not published to npm (`private: true`)
 
-      2. **@bfra.me/create**
+      2. **[@bfra.me/create](mdc:packages/create)**
          - Depends on: None (independent)
          - Used by: New package creation
          - Purpose: Generate new packages with standardized templates
 
-      3. **@bfra.me/eslint-config**
+      3. **[@bfra.me/eslint-config](mdc:packages/eslint-config)**
          - Depends on: ESLint plugins
          - Used by: All packages for linting
          - Purpose: Provide consistent ESLint configurations
 
-      4. **@bfra.me/prettier-config**
+      4. **[@bfra.me/prettier-config](mdc:packages/prettier-config)**
          - Depends on: Prettier
          - Used by: All packages for formatting
          - Purpose: Provide consistent Prettier configurations
 
-      5. **@bfra.me/prettier-plugins**
+      5. **[@bfra.me/prettier-plugins](mdc:packages/prettier-plugins)**
          - Depends on: Prettier
          - Used by: Custom formatting needs
          - Purpose: Extend Prettier functionality
 
-      6. **@bfra.me/semantic-release**
+      6. **[@bfra.me/semantic-release](mdc:packages/semantic-release)**
          - Depends on: semantic-release
          - Used by: Release automation
          - Purpose: Provide typed configurations for semantic-release
 
-      7. **@bfra.me/tsconfig**
+      7. **[@bfra.me/tsconfig](mdc:packages/tsconfig)**
          - Depends on: TypeScript
          - Used by: All TypeScript packages
          - Purpose: Provide consistent TypeScript configurations
 
-      8. **@bfra.me/scripts** (internal)
+      8. **[@bfra.me/scripts](mdc:scripts)** (internal)
          - Depends on: Internal packages
          - Used by: Repository maintenance
          - Purpose: Automate repository tasks
 
       ## Workspace Configuration
 
-      The workspace is configured in `pnpm-workspace.yaml`:
+      The workspace is configured in [`pnpm-workspace.yaml`](mdc:pnpm-workspace.yaml):
 
       ```yaml
       packages:
@@ -120,6 +120,15 @@ actions:
          - `pnpm build` - Build all packages
          - `pnpm test` - Run tests across all packages
          - `pnpm lint` - Run linting checks
+
+      ## Related Rules
+
+      - [dependency-management](mdc:.cursor/rules/dependency-management.mdc): How dependencies are managed within the workspace.
+      - [development-workflow](mdc:.cursor/rules/development-workflow.mdc): Overall workflow for developing within the monorepo.
+      - [changeset-workflow](mdc:.cursor/rules/changeset-workflow.mdc): How versioning and releases are handled.
+      - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): Using the shared ESLint config.
+      - [prettier-config-usage](mdc:.cursor/rules/prettier-config-usage.mdc): Using the shared Prettier config.
+      - [testing-practices](mdc:.cursor/rules/testing-practices.mdc): How testing is handled in the monorepo.
 
 examples:
   - input: |

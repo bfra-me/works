@@ -1,6 +1,6 @@
 ---
 description: APPLY when REVIEWING code to MAINTAIN quality standards
-globs: .github/PULL_REQUEST_TEMPLATE.md,.github/workflows/*.yaml
+globs: .github/PULL_REQUEST_TEMPLATE.md,.github/workflows/*.yaml,.github/workflows/*.yml
 alwaysApply: false
 ---
 # Code Review Standards
@@ -254,129 +254,56 @@ actions:
 
       A PR can be merged when:
 
-      1. All required CI checks pass
-      2. At least two approvals from relevant reviewers
-      3. All "Must-Fix" comments have been addressed
-      4. No outstanding requested changes
-      5. PR template is fully completed
-      6. Necessary documentation is updated
-      7. Changesets are included (if applicable)
-
-      #### Post-Merge Actions
-
-      After merging:
-
-      1. Delete the branch
-      2. Update related task status
-      3. Verify deployment (if applicable)
-      4. Close related issues
-      5. Communicate completion to stakeholders
+      1. All required CI checks have passed
+      2. At least one reviewer has approved
+      3. All requested changes have been addressed or discussed
+      4. No unresolved blocking concerns remain
 
       ## Related Rules
 
-      - [development-workflow](mdc:.cursor/rules/development-workflow.mdc) - For the overall development process
-      - [changeset-workflow](mdc:.cursor/rules/changeset-workflow.mdc) - For version control and changelog updates
-      - [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc) - For continuous integration processes
+      - [development-workflow](mdc:.cursor/rules/development-workflow.mdc): Outlines the overall process where code review fits.
+      - [testing-practices](mdc:.cursor/rules/testing-practices.mdc): Test coverage is a key review criterion.
+      - [changeset-workflow](mdc:.cursor/rules/changeset-workflow.mdc): Ensuring changesets are included is part of the author's pre-review.
+      - [api-design-standards](mdc:.cursor/rules/api-design-standards.mdc): Reviewers should check adherence to API standards.
+      - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): Adherence to linting rules is checked.
+      - [prettier-config-usage](mdc:.cursor/rules/prettier-config-usage.mdc): Adherence to formatting rules is checked.
 
 examples:
   - input: |
-      What should I look for when reviewing code?
+      I need to review a teammate's Pull Request. What are the main things I should focus on?
     output: |
-      When reviewing code, you should look for these key aspects:
+      When reviewing a Pull Request, focus on these key areas:
 
-      Technical aspects:
-      1. Correctness - Does it work as expected and handle edge cases?
-      2. Architecture - Is the solution well-structured with proper abstractions?
-      3. Performance - Are there bottlenecks or unnecessary computations?
-      4. Security - Are there vulnerabilities and is input properly validated?
-      5. Test coverage - Are tests comprehensive and meaningful?
+      **Technical Aspects:**
+      1.  **Correctness**: Does it work as intended? Does it handle edge cases?
+      2.  **Architecture**: Is the structure sound? Are components well-designed?
+      3.  **Performance**: Are there obvious bottlenecks or inefficiencies?
+      4.  **Security**: Are there potential vulnerabilities? Is input validated?
+      5.  **Test Coverage**: Are the tests sufficient and meaningful?
 
-      Non-technical aspects:
-      1. Readability - Is the code self-explanatory with clear naming?
-      2. Documentation - Are APIs documented and decisions explained?
-      3. Consistency - Does it follow project conventions and style?
+      **Non-Technical Aspects:**
+      1.  **Readability**: Is the code clear and understandable?
+      2.  **Documentation**: Are public APIs documented? Is the PR description clear?
+      3.  **Consistency**: Does it follow project conventions and style?
 
-      Use this checklist approach to provide structured feedback, clearly differentiating between must-fix issues and suggestions, and always acknowledge good aspects of the implementation alongside areas for improvement.
+      Remember to provide specific, actionable feedback, explain your reasoning, and acknowledge good work. Use the checklists and feedback etiquette guidelines in the main rule for more detail.
 
   - input: |
-      How should I respond to critical code review feedback?
+      How should I give feedback if I think the code could be improved but isn't necessarily wrong?
     output: |
-      When responding to critical code review feedback:
+      When providing feedback for improvements that aren't blocking issues (i.e., suggestions or non-critical points):
 
-      1. Take a moment to process - Don't respond immediately if you feel defensive
+      1.  **Frame it as a Suggestion**: Use phrases like "Consider...", "What about...?", "Perhaps we could...", or prefix with `[Suggestion]` or `[Nitpick]`.
+      2.  **Explain the Benefit**: Clearly state *why* you're suggesting the change (e.g., improves readability, better performance under certain conditions, aligns more closely with a different pattern used elsewhere).
+      3.  **Make it Optional (If Appropriate)**: Indicate if the change is a "nice-to-have" rather than a requirement for merging.
+      4.  **Be Specific**: Provide concrete examples of the suggested improvement if possible.
+      5.  **Keep it Constructive**: Maintain a positive and collaborative tone.
 
-      2. Address each comment directly:
-         - Thank the reviewer for spotting issues
-         - Explain your understanding of the feedback
-         - Describe your plan to address it
-
-      3. If you disagree:
-         - Acknowledge the reviewer's concern
-         - Explain your reasoning clearly and respectfully
-         - Provide evidence or documentation supporting your approach
-         - Suggest a compromise if appropriate
-
-      4. For complex issues:
-         - Consider scheduling a quick call to discuss rather than lengthy comment threads
-         - Summarize the discussion outcome in the PR for documentation
-
-      5. After making changes:
-         - Respond to each comment indicating how you addressed it
-         - Request re-review when ready
-
-      Remember that code reviews are about improving the code, not criticizing the author. Keep discussions focused on technical merits rather than personal preferences, and assume good intentions from all participants.
-
-  - input: |
-      What makes a good PR description?
-    output: |
-      A good PR description should:
-
-      1. Clearly explain WHAT changed:
-         - Summarize the key components modified
-         - Highlight new features or fixes implemented
-         - Mention removed functionality (if applicable)
-
-      2. Explain WHY changes were made:
-         - Link to related issues or requirements
-         - Describe the problem being solved
-         - Explain the benefit to users/developers
-
-      3. Provide context:
-         - Note any important implementation decisions
-         - Mention alternatives considered and why they were rejected
-         - Highlight any potential impact on other systems
-
-      4. Include testing information:
-         - Describe how changes were tested
-         - Note any special test cases or scenarios
-         - Mention performance implications if relevant
-
-      5. List follow-up actions:
-         - Note any pending work or future improvements
-         - Highlight any technical debt introduced
-
-      Here's a concise example:
-
-      ```markdown
-      ## Description
-      Added user preference caching to reduce API calls and improve dashboard loading times by ~30%.
-
-      ## Problem
-      Dashboard was making redundant API calls for user preferences on every component load, causing performance issues identified in #123.
-
-      ## Solution
-      Implemented a React context provider that caches preferences in memory and localStorage with a 15-minute TTL. This reduces API calls while ensuring preferences stay relatively current.
-
-      ## Testing
-      - Added unit tests for the caching mechanism
-      - Verified dashboard performance improvement with React DevTools profiler
-      - Tested synchronization across tabs
-
-      ## Follow-up
-      - Future work tracked in #145 for preference invalidation on direct updates
+      Example:
       ```
-
-      This format gives reviewers clear context about the change, making their review more effective and focused.
+      [Suggestion] Consider renaming the `tempData` variable to something more descriptive like `processedItems`. It might make this section easier to follow later.
+      ```
+      This approach encourages improvement without demanding changes that aren't strictly necessary for the PR to be merged.
 
 metadata:
   priority: high

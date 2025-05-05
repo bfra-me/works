@@ -7,7 +7,7 @@ alwaysApply: false
 
 <rule>
 name: rule_automation_script
-description: Shell script template for creating new cursor rules with consistent structure
+description: Shell script template for creating new Cursor rules with consistent structure
 filters:
   - type: message
     pattern: "(?i)(rule script|automate rule|generate rule|rule template|script for rule)"
@@ -17,7 +17,7 @@ actions:
     message: |
       ## Cursor Rule Creation Script
 
-      Here's a shell script that automates the creation of new cursor rules with consistent structure. This makes the rule creation process repeatable and standardized.
+      Here's a shell script that automates the creation of new Cursor rules with consistent structure. This makes the rule creation process repeatable and standardized.
 
       ### Script Overview
 
@@ -101,7 +101,7 @@ actions:
       </rule>
       EOF
 
-      echo "Created cursor rule at $RULE_FILE"
+      echo "Created Cursor rule at $RULE_FILE"
       echo "Now edit the file to complete your rule!"
       ```
 
@@ -138,6 +138,7 @@ actions:
       3. Add comprehensive guidance in the message section
       4. Create realistic examples
       5. Test the rule with files that should trigger it
+      6. Update the rule index ([00-rule-index.mdc](mdc:.cursor/rules/00-rule-index.mdc)) with the new rule
 
       ### Enhancing the Script
 
@@ -148,11 +149,19 @@ actions:
       - Validation of rule content
       - Automatic deployment to other repositories
 
+      After running the script, open the generated file and customize the filters, content, and examples to complete your rule.
+
+      ## Related Rules
+
+      - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc): Provides the detailed guidelines this script helps automate.
+      - [00-rule-index](mdc:.cursor/rules/00-rule-index.mdc): The index file that needs to be updated after creating a new rule.
+      - [cursor-rules-location](mdc:.cursor/rules/cursor-rules-location.mdc): Defines the correct location for rule files, which this script adheres to.
+
 examples:
   - input: |
-      Can you create a script to automate cursor rule creation?
+      Can you create a script to automate Cursor rule creation?
     output: |
-      Here's a shell script to automate cursor rule creation with a standardized template:
+      Here's a shell script to automate Cursor rule creation with a standardized template:
 
       ```bash
       #!/usr/bin/env bash
@@ -232,7 +241,7 @@ examples:
       </rule>
       EOF
 
-      echo "Created cursor rule at $RULE_FILE"
+      echo "Created Cursor rule at $RULE_FILE"
       echo "Now edit the file to complete your rule!"
       ```
 
@@ -249,7 +258,6 @@ examples:
       4. Convert your kebab-case filename to snake_case for the rule ID
 
       After running the script, open the generated file and customize the filters, content, and examples to complete your rule.
-</rule>
 
 metadata:
   priority: medium
@@ -262,3 +270,4 @@ metadata:
     - version: 1.0
       changes:
         - Initial version
+</rule>

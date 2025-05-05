@@ -1,9 +1,8 @@
 ---
 description: FOLLOW when WRITING tests to ENSURE comprehensive coverage
-globs: *.test.ts, *.spec.ts,vitest.config.*,test/**/*.ts,test/**/*.js
+globs: *.test.ts,*.spec.ts,vitest.config.*,test/**/*.ts,test/**/*.js
 alwaysApply: false
 ---
-
 # Testing Practices (Vitest & Monorepo)
 
 <rule>
@@ -117,6 +116,14 @@ actions:
       - [TypeScript Patterns](mdc:.cursor/rules/typescript-patterns.mdc)
       - [ESLint Config Usage](mdc:.cursor/rules/eslint-config-usage.mdc)
       - [Prettier Config Usage](mdc:.cursor/rules/prettier-config-usage.mdc)
+
+      ## Related Rules
+
+      - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Contains specific user preferences for testing (e.g., `it` vs `test`).
+      - [development-workflow](mdc:.cursor/rules/development-workflow.mdc): Outlines the overall development process, including testing stages.
+      - [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc): Provides guidance relevant to writing TypeScript tests.
+      - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): Ensure tests adhere to linting standards.
+      - [prettier-config-usage](mdc:.cursor/rules/prettier-config-usage.mdc): Ensure tests adhere to formatting standards.
 
 examples:
   - input: |

@@ -29,7 +29,7 @@ actions:
 
       ### Current Date Retrieval
 
-      Always use the terminal command to get the current date:
+      Always use the terminal command (via the `run_terminal_cmd` tool) to get the current date:
       ```bash
       date +%Y-%m-%d
       # Returns: YYYY-MM-DD format (e.g., 2025-04-26)
@@ -45,6 +45,7 @@ actions:
       2. **Task IDs**:
          - Format: `YYYY-MM-DD-XX` where XX is a sequence number
          - Use `date +%Y-%m-%d` to get the date portion
+         - The sequence number (`XX`) should start at `01` for the first task of the day and increment. See the [AI Agile Workflow](mdc:.cursor/rules/ai-agile-workflow.mdc) for details on checking existing tasks.
          - Example: `2025-04-26-01`
 
       3. **Completion Dates**:
@@ -73,6 +74,11 @@ actions:
 
       Would you like me to update the dates in the current file using the correct date format and values?
 
+      ## Related Rules
+
+      - [memory-management](mdc:.cursor/rules/memory-management.mdc): Relies on the `Updated:` timestamp format.
+      - [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc): Uses the Task ID format and specifies sequence number logic.
+
 examples:
   - input: |
       I'm updating the workflow-status.md file and need to add today's date.
@@ -83,7 +89,7 @@ examples:
 
       ### Current Date Retrieval
 
-      Always use the terminal command to get the current date:
+      Always use the terminal command (via the `run_terminal_cmd` tool) to get the current date:
       ```bash
       date +%Y-%m-%d
       # Returns: YYYY-MM-DD format (e.g., 2025-04-26)
@@ -99,6 +105,7 @@ examples:
       2. **Task IDs**:
          - Format: `YYYY-MM-DD-XX` where XX is a sequence number
          - Use `date +%Y-%m-%d` to get the date portion
+         - The sequence number (`XX`) should start at `01` for the first task of the day and increment. See the [AI Agile Workflow](mdc:.cursor/rules/ai-agile-workflow.mdc) for details on checking existing tasks.
          - Example: `2025-04-26-01`
 
       3. **Completion Dates**:
@@ -124,7 +131,7 @@ examples:
 
       ### Current Date Retrieval
 
-      Always use the terminal command to get the current date:
+      Always use the terminal command (via the `run_terminal_cmd` tool) to get the current date:
       ```bash
       date +%Y-%m-%d
       # Returns: YYYY-MM-DD format (e.g., 2025-04-26)

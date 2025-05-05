@@ -240,6 +240,12 @@ actions:
       - **Missing peer dependencies**: Install required ESLint plugins as needed
       - **Rules too strict**: Use the `overrides` option to adjust specific rules
 
+      ## Related Rules
+
+      - [prettier-config-usage](mdc:.cursor/rules/prettier-config-usage.mdc): For setting up the Prettier integration.
+      - [testing-practices](mdc:.cursor/rules/testing-practices.mdc): For configuring Vitest integration.
+      - [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc): The core TypeScript rules applied by this config.
+
 examples:
   - input: |
       How do I configure ESLint using the @bfra.me/eslint-config package?
@@ -256,32 +262,47 @@ examples:
       import { defineConfig } from '@bfra.me/eslint-config'
 
       export default defineConfig({
-        name: 'my-project',
+        // Enable TypeScript support if needed
         typescript: true,
-        jsx: false,
-        jsonc: true,
-        yaml: true,
+        // Enable Prettier integration
         prettier: true,
-        vitest: true
+        // Add other options as needed (jsx, jsonc, yaml, vitest, etc.)
       })
       ```
+      Or for TypeScript configuration file (`eslint.config.ts`):
+      ```typescript
+      import { defineConfig } from '@bfra.me/eslint-config'
 
-      3. For TypeScript projects, you can provide more detailed configuration:
+      export default defineConfig({
+        typescript: {
+          tsconfigPath: './tsconfig.json',
+          typeAware: true // Enable type-aware rules
+        },
+        prettier: true,
+      })
+      ```
+      Adjust the options inside `defineConfig` based on your project's needs (TypeScript, JSX, file types, framework support, etc.).
+
+  - input: |
+      How can I disable the 'no-console' rule using overrides?
+    output: |
+      To disable the `no-console` rule, use the `overrides` option in your `eslint.config.js`:
+
       ```javascript
-      typescript: {
-        tsconfigPath: './tsconfig.json',
-        typeAware: true  // or detailed settings object
-      }
-      ```
+      import { defineConfig } from '@bfra.me/eslint-config'
 
-      4. Add a lint script to your package.json:
-      ```json
-      "scripts": {
-        "lint": "eslint ."
-      }
+      export default defineConfig({
+        name: 'my-project',
+        typescript: true,
+        prettier: true,
+        // ... other options
+        overrides: {
+          'no-console': 'off' // Disable the rule entirely
+          // You could also set it to 'warn'
+        }
+      })
       ```
-
-      The package automatically configures appropriate rules based on your project dependencies and the options you provide.
+      This will apply all the standard configurations from `@bfra.me/eslint-config` but specifically turn off the `no-console` rule for your project.
 
 metadata:
   priority: high

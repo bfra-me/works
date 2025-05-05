@@ -130,6 +130,11 @@ examples:
       ---
     output: "Correctly placed Cursor rule file with proper configuration"
 
+      ## Related Rules
+
+      - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc): The main guide for creating rules, including content structure.
+      - [00-rule-index](mdc:.cursor/rules/00-rule-index.mdc): The index where all rules should be listed.
+
 metadata:
   priority: high
   version: 1.0
