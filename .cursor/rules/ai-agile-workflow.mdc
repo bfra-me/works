@@ -335,7 +335,7 @@ actions:
          - **You MUST move the task file to `docs/tasks/done/` (MANDATORY for both AI and users)** (e.g., `mv docs/tasks/[task-id].md docs/tasks/done/`)
          - Update the memory file
          - Update the plan document
-         - **You MUST use the [auto-memory-manager](mdc:.cursor/rules/auto-memory-manager.mdc) rule to update memory files and knowledge graph entries with comprehensive implementation details** (MANDATORY)
+         - **Refer to the "Automated Memory Updates on Task Completion" section in the [memory-management](mdc:.cursor/rules/memory-management.mdc) rule for details on updating memory files and knowledge graph entries with comprehensive implementation details** (MANDATORY)
       4. Ask the AI to update the feature status:
 
       When a task's status changes:
@@ -535,19 +535,19 @@ actions:
 
       ### Auto Memory Manager
 
-      The [auto-memory-manager](mdc:.cursor/rules/auto-memory-manager.mdc) rule is always used after task completion to:
+      The principles for automatically updating memory upon task completion are now detailed within the [memory-management](mdc:.cursor/rules/memory-management.mdc) rule. This process involves:
 
-      - Update memory files with detailed implementation information
-      - Create knowledge graph entities for new components and concepts
-      - Add relationships between relevant entities
-      - Record observations about implementation patterns
-      - Document technical decisions and their rationales
+      - Updating memory files with detailed implementation information
+      - Creating knowledge graph entities for new components and concepts
+      - Adding relationships between relevant entities
+      - Recording observations about implementation patterns
+      - Documenting technical decisions and their rationales
 
       This integration ensures that all task completions are thoroughly documented and easily retrievable in future development work.
 
       ### Cursor Rule Cross-References
 
-      The [cursor-rule-cross-references](mdc:.cursor/rules/cursor-rule-cross-references.mdc) rule defines the proper syntax for linking between files. When creating links in any Cursor rule, always use the proper `mdc:` syntax:
+      The [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc) rule defines the proper syntax (`mdc:`) for linking between files within Cursor rules. When creating links:
 
       ```markdown
       # For links to other Cursor rules

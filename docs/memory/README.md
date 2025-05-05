@@ -23,9 +23,8 @@ The memory files serve several key purposes:
 
 AI assistants should be aware of memory files through multiple discovery mechanisms:
 
-1. **Cursor Rules**: Two key rules govern memory files:
-   - [memory-management](/.cursor/rules/memory-management.mdc): Provides guidelines for creating and maintaining memory files
-   - [auto-memory-manager](/.cursor/rules/auto-memory-manager.mdc): Automatically updates memory files after task completion
+1. **Cursor Rules**: The primary rule governing memory files:
+   - [memory-management](/.cursor/rules/memory-management.mdc): Provides guidelines for creating, maintaining, and automatically updating memory files
 
 2. **Domain Knowledge**: The [domain-knowledge.md](/docs/memory/domain-knowledge.md) file contains links to all other memory files.
 
@@ -68,14 +67,14 @@ AI assistants should be aware of memory files through multiple discovery mechani
 
 ## Auto-Memory Management
 
-The [auto-memory-manager](/.cursor/rules/auto-memory-manager.mdc) rule automatically detects task completions and updates memory files accordingly. This process includes:
+The [memory-management](/.cursor/rules/memory-management.mdc) rule contains an automated update process that triggers upon task completion. This process includes:
 
 1. **Extraction**: Identifying task information, affected components, problems solved, and solutions implemented
 2. **Updating**: Modifying appropriate memory files with the new information
-3. **Knowledge Graph**: Creating or updating entities and relationships in the knowledge graph
+3. **Knowledge Graph**: Creating or updating entities and relationships in the knowledge graph (when tools are available)
 4. **Cross-Referencing**: Ensuring proper links between related files
 
-Memory files are updated using specific templates defined in the auto-memory-manager rule:
+Memory files are updated using specific templates defined in the memory-management rule:
 - Workflow Status Update template
 - Domain Knowledge Update template
 - Task-Specific Memory File template
@@ -91,8 +90,7 @@ Memory files work in concert with the knowledge graph (when available) through:
 
 ## Related Resources
 
-- [Memory Management Rule](/.cursor/rules/memory-management.mdc): Defines the guidelines for memory file creation and maintenance
-- [Auto-Memory Manager Rule](/.cursor/rules/auto-memory-manager.mdc): Automates memory updates after task completion
+- [Memory Management Rule](/.cursor/rules/memory-management.mdc): Defines the guidelines for memory file creation, maintenance, and automated updates
 - [AI Agile Workflow Rule](/.cursor/rules/ai-agile-workflow.mdc): Describes how memory files integrate with the agile workflow
 
 ## Key Concepts
@@ -103,4 +101,4 @@ Memory files work in concert with the knowledge graph (when available) through:
 - **Memory Update**: The process of adding new information to memory files
 - **Memory Synchronization**: Keeping memory files and knowledge graph in sync
 
-## Updated: 2025-04-26
+## Updated: 2025-05-05

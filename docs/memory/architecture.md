@@ -64,12 +64,22 @@ graph TD
 ## Technical Decisions
 
 | Decision | Rationale | Date | Alternatives Considered |
-|----------|-----------|------|-----------------------|
-| Use Markdown for memory files | Consistent with other documentation, human-readable, works with version control | 2025-04-25 | JSON, YAML, custom format |
-| Separate memory directory | Clear organization, allows for easy retrieval and update | 2025-04-25 | Embedding in task files, separate repository |
-| Mermaid for diagrams | Markdown compatible, version controllable, widely supported | 2025-04-25 | PNG images, SVG, external tool |
-| Knowledge graph integration | Enhanced relationship tracking, queryable structure, persistence across conversations | 2025-04-25 | Files only, database, no persistence |
-| mdc: prefix for all file links | Consistent syntax, works with Cursor IDE, clear distinction from regular links | 2025-04-25 | Regular markdown links, custom syntax |
+|----------|-----------|------|-------------------------|
+| All cursor rules in .cursor/rules | Consistent location, easy discovery | 2025-04-23 | Distributed across packages, centralized outside of .cursor |
+| Memory files in docs/memory | Centralized location for context retention | 2025-04-24 | Per-package memory files, no explicit memory |
+| mdc: prefix for rule file links only | Clear distinction of links in rule files, works with Cursor IDE | 2025-04-25 | Regular markdown links for all files, custom syntax for all files |
+| Always update memory files after task completion | Ensure consistent and current context | 2025-04-26 | Manual updates only, separate automated system |
+
+## Implementation Guidelines
+
+- All cursor rules must be placed in the `.cursor/rules` directory
+- All memory files must be placed in the `docs/memory` directory
+- Rule files must use the `.mdc` extension
+- Memory files must use the `.md` extension
+- Links in .mdc files must use the mdc: syntax (e.g., `[text](mdc:path/to/file)`)
+- Links in regular markdown files (.md) must use standard markdown links (e.g., `[text](/path/to/file)`)
+- Memory files must be updated after task completion
+- Architecture decisions must be documented in this file
 
 ## Constraints
 

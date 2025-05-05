@@ -84,11 +84,11 @@ To create rules that function well together:
 1.  **Define Clear Scope & Triggers:** Be precise about *when* a rule should activate. Use specific file paths, content patterns, or message triggers. Avoid overly broad conditions.
 2.  **Leverage Existing Structures:** Don't reinvent the wheel. If a process exists (e.g., memory management, task tracking), provide guidance *within* that structure rather than creating a parallel one.
 3.  **Utilize Rule Priority:** Assign a meaningful priority (`High`, `Medium`, `Low`) based on the guidance's importance. High priority is for critical standards, Medium for strong recommendations, and Low for helpful suggestions.
-4.  **Embrace Cross-Referencing:** Use the `/` syntax ([`cursor-rule-cross-references`](/.cursor/rules/cursor-rule-cross-references.mdc)) to explicitly link to related rules, plans, or memory files. This builds a navigable knowledge network.
+4.  **Embrace Cross-Referencing:** Use the proper syntax to explicitly link to related rules, plans, or memory files. This builds a navigable knowledge network.
 5.  **Document Interactions:** If a rule strongly depends on or complements another, mention this in its "Related Rules" section.
 6.  **Focus on Atomic Guidance:** Ideally, each rule should provide a focused piece of guidance. Complex processes are better handled by workflow rules (`ai-agile-workflow`) that other rules can plug into.
 7.  **Review for Conflicts:** During rule creation or modification, actively consider potential interactions and conflicts with existing rules.
-8.  **Follow Foundational Rules:** Adhere strictly to `cursor-rules-creation`, `cursor-rules-location`, and `cursor-rule-cross-references`.
+8.  **Follow Foundational Rules:** Adhere strictly to `cursor-rules-creation` for all rule creation, updates, and cross-referencing.
 
 ## Examples of Effective Combinations
 
@@ -131,7 +131,7 @@ When designing rules, avoid these common pitfalls:
 
 Effective cross-referencing is crucial for a cohesive rule system:
 
--   **Syntax:** Always use the `[Link Text](/path/to/file.ext)` format mandated by [`cursor-rule-cross-references`](/.cursor/rules/cursor-rule-cross-references.mdc). This ensures links work correctly within the Cursor IDE.
+-   **Syntax:** Use the proper link format based on file type. For .mdc files in the Cursor IDE, use the `mdc:` prefix. For regular markdown files, use standard markdown links.
 -   **Purpose:** Link to other rules when:
     *   Building upon their guidance.
     *   Referencing a prerequisite standard or process.

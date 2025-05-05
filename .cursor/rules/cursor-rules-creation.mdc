@@ -48,6 +48,24 @@ actions:
       See [Rule Application Types](mdc:docs/memory/rule-application-types.md) for detailed definitions, configuration, best practices, and a decision flow chart.
 
       ---
+      ## Rule File Location and Naming
+
+      1.  **Directory**: All Cursor rule files (`.mdc`) MUST reside exclusively in the `PROJECT_ROOT/.cursor/rules/` directory.
+         ```
+         PROJECT_ROOT/
+         ├── .cursor/
+         │   └── rules/
+         │       ├── your-rule-name.mdc
+         │       └── ...
+         └── ...
+         ```
+      2.  **Naming Convention**:
+         *   Use **kebab-case** for filenames (e.g., `my-new-rule.mdc`).
+         *   The extension MUST be `.mdc`.
+         *   Choose names that are descriptive of the rule's purpose.
+      3.  **Incorrect Locations**: Never place rule files in the project root, other subdirectories, or anywhere outside `.cursor/rules/`.
+
+      ---
       ## Frontmatter Explained
       Every rule must start with YAML frontmatter:
       ```yaml
@@ -248,10 +266,38 @@ actions:
       - See [description standardization](mdc:docs/memory/cursor-rule-descriptions.md) for more.
 
       ---
-      ## Cross-References and Related Rules
-      - Use `[display text](mdc:path/to/file)` for all links.
-      - Add a "Related Rules" section if relevant.
-      - See [cross-reference guidelines](mdc:.cursor/rules/cursor-rule-cross-references.mdc).
+      ## Cross-References and Linking (`mdc:` Syntax)
+
+      Proper linking is essential for navigation and context within the Cursor IDE.
+
+      1.  **Required Syntax**: When linking to **any file** (other rules, documentation, source code, etc.) from within a Cursor rule file (`.mdc`), you MUST use the `mdc:` syntax:
+         ```markdown
+         [display text](mdc:path/to/filename.ext)
+         ```
+         *   Replace `[display text]` with descriptive link text.
+         *   Replace `path/to/filename.ext` with the correct path relative to the project root.
+         *   Vanilla Markdown links (`[text](path)`) will **not** work correctly.
+
+      2.  **Linking to Other Rules**: Use the rule's filename:
+         ```markdown
+         See the [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc) rule for coding standards.
+         ```
+         This will render as `@typescript-patterns` in the IDE.
+
+      3.  **Linking to Non-Rule Files**: Use the file's path:
+         ```markdown
+         Refer to the [main plan document](mdc:docs/plans/cursor-rules-improvement.md).
+         Consult the [user preferences](mdc:docs/memory/user-preferences.md).
+         ```
+
+      4.  **When to Link**:
+         *   Referring to concepts defined in other files.
+         *   Pointing to templates, examples, or related documentation.
+         *   Describing workflows spanning multiple files.
+         *   Indicating dependencies or complementary relationships between rules.
+         *   In the "Related Rules" section.
+
+      5.  **Updating Links**: Keep links accurate, especially if files are renamed or moved. Search for old link patterns (like `{rule:name}`) and update them to the `mdc:` format.
 
       ---
       ## Versioning and Metadata
@@ -324,48 +370,47 @@ actions:
       ## Related Rules
 
       - [00-rule-index](mdc:.cursor/rules/00-rule-index.mdc): Provides an overview of all rules.
-      - [cursor-rules-location](mdc:.cursor/rules/cursor-rules-location.mdc): Where to place rule files.
-      - [cursor-rule-cross-references](mdc:.cursor/rules/cursor-rule-cross-references.mdc): How to link between rules/files.
       - [Rule Application Types](mdc:docs/memory/rule-application-types.md): Detailed guidance on choosing the right activation mode.
       - [Rule Description Standardization](mdc:docs/memory/cursor-rule-descriptions.md): How to write effective rule descriptions.
       - [Rule Frontmatter Guidelines](mdc:docs/memory/cursor-rule-frontmatter.md): Specifics on configuring frontmatter.
+      - [Conflict Resolution Guidance](mdc:docs/memory/rule-conflict-resolution.md): How to handle rule conflicts.
 
 metadata:
   priority: high
-  version: 1.6
+  version: 1.7
   tags:
     - cursor-rules
     - documentation
     - process
+    - creation
+    - location
+    - linking
   changelog:
+    - version: 1.7
+      changes:
+        - Merged content from `cursor-rules-location.mdc` and `cursor-rule-cross-references.mdc`.
+        - Added "Rule File Location and Naming" section.
+        - Added "Cross-References and Linking (`mdc:` Syntax)" section.
+        - Removed `cursor-rules-location` and `cursor-rule-cross-references` from Related Rules.
+        - Updated tags.
     - version: 1.6
       changes:
-        - Major rewrite: clarified step-by-step process, added templates for all rule types, expanded best practices, pitfalls, and checklist, improved frontmatter and application type guidance, and added more cross-references.
+        - Added detailed section on Rule Prioritization and Conflict Resolution.
     - version: 1.5
       changes:
-        - Added "ACTION when TRIGGER to OUTCOME" pattern for description fields
-        - Updated examples and documentation to reflect the new pattern
-        - Standardized frontmatter description format
+        - Clarified description pattern ("VERB when CONTEXT to OUTCOME").
     - version: 1.4
       changes:
-        - Added best practices for frontmatter creation and editing
-        - Added warnings about edit_file tool issues with frontmatter
-        - Added guidance for using terminal commands for frontmatter operations
-        - Added reference to cursor-rule-frontmatter.md for detailed troubleshooting
+        - Added guidance on using terminal commands for frontmatter edits.
     - version: 1.3
       changes:
-        - Added Rule Categories section to help creators select appropriate categories
-        - Added Updating the Rule Index section with guidance on maintaining the rule index
-        - Added cross-references to related rules for better integration
+        - Added Rule Categories and Index Update guidance.
     - version: 1.2
       changes:
-        - Added subsection on renaming rule files with step-by-step guidelines
-        - Included best practices for preserving references when renaming files
+        - Added guidance on renaming rule files.
     - version: 1.1
       changes:
-        - Added section on rule metadata and version control
-        - Added link to version control template
-        - Updated rule template to include metadata section
+        - Added section on rule metadata and version control.
     - version: 1.0
       changes:
         - Initial version

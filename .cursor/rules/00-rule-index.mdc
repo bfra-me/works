@@ -36,9 +36,7 @@ Rules related to creating and managing Cursor rules themselves:
 
 | Rule | Description | Priority |
 |------|-------------|----------|
-| [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc) | FOLLOW when CREATING cursor rules to ENSURE consistency and effective conditional activation | High |
-| [cursor-rule-cross-references](mdc:.cursor/rules/cursor-rule-cross-references.mdc) | USE when LINKING between files to ENSURE proper navigation within Cursor IDE | High |
-| [cursor-rules-location](mdc:.cursor/rules/cursor-rules-location.mdc) | PLACE when CREATING rule files to GUARANTEE proper rule organization | High |
+| [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc) | FOLLOW when CREATING cursor rules to ENSURE consistency, correct location, linking, and activation | High |
 | [repo-rule-recommender](mdc:.cursor/rules/repo-rule-recommender.mdc) | APPLY when RECOMMENDING new cursor rules to IMPROVE repository guidance | Medium |
 | [rule-automation-script](mdc:.cursor/rules/rule-automation-script.mdc) | UTILIZE when AUTOMATING rule management to INCREASE efficiency | Medium |
 
@@ -107,9 +105,8 @@ Rules related to AI assistants and memory management:
 
 | Rule | Description | Priority |
 |------|-------------|----------|
-| [auto-memory-manager](mdc:.cursor/rules/auto-memory-manager.mdc) | UPDATE when COMPLETING tasks to MAINTAIN comprehensive memory records | High |
 | [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc) | LEVERAGE when REQUIRING external context to ENHANCE AI capabilities | High |
-| [memory-management](mdc:.cursor/rules/memory-management.mdc) | MAINTAIN when WORKING with memory files to PRESERVE context across sessions | High |
+| [memory-management](mdc:.cursor/rules/memory-management.mdc) | ALWAYS USE when WORKING with memory files to PRESERVE context across sessions (includes auto-updates) | High |
 | [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc) | ALIGN when PROVIDING assistance to MATCH established user preferences | High |
 
 ## Rule Maintenance
@@ -239,7 +236,7 @@ This index must be automatically updated whenever cursor rules are created, modi
 ## Metadata
 
 ```yaml
-version: 1.5
-last_updated: 2025-05-03
-total_rules: 26
+version: 1.7
+last_updated: 2025-05-05
+total_rules: 23
 ```
