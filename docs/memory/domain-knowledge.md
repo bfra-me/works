@@ -26,6 +26,13 @@
   - Observations store facts about entities
   - Graph queries retrieve contextual information
 
+- **Cursor Rule Description Pattern**: Standardized format for rule descriptions
+  - Follows the pattern "VERB when CONTEXT to OUTCOME"
+  - Uses only approved ACTION verbs: FOLLOW, APPLY, USE, or ALWAYS USE
+  - Ensures consistent discovery and application of rules by AI assistants
+  - Description appears in frontmatter immediately after opening `---`
+  - Never modifies the description field after the `<rule>` tag
+
 ## Memory System Structure
 
 - **[Workflow Status](/docs/memory/workflow-status.md)**: Tracks current project state and task progress
@@ -105,10 +112,17 @@
   - **Benefits**: Ensures rules are properly applied and discovered
   - **Limitations**: Requires careful attention to YAML formatting
 
+- **Rule Description Standardization Pattern**: Process for ensuring consistent rule descriptions
+  - **Applied in**: Standardize Cursor Rule Description Patterns task
+  - **Context**: Creating and maintaining effective cursor rules
+  - **Benefits**: Improves AI's ability to discover and apply appropriate rules, ensures consistent rule activation
+  - **Limitations**: Limited to four approved ACTION verbs (FOLLOW, APPLY, USE, ALWAYS USE) for consistency
+
 ## Technical Decisions
 
 | Decision | Rationale | Date | Alternatives Considered |
 |----------|-----------|------|-------------------------|
 | Use terminal commands for .mdc file editing | Standard editing tools may not handle .mdc files correctly | 2025-05-02 | Using edit_file tool, manual creation in Cursor |
+| Limit rule description verbs to FOLLOW, APPLY, USE, ALWAYS USE | Ensures consistent and predictable rule discovery and application | 2025-05-04 | Using a wider variety of action verbs, domain-specific verbs |
 
-## Updated: 2025-05-02
+## Updated: 2025-05-04

@@ -1,5 +1,5 @@
 ---
-description: IMPLEMENT when WRITING tests to ENSURE comprehensive coverage
+description: FOLLOW when WRITING tests to ENSURE comprehensive coverage
 globs: *.test.ts, *.spec.ts,vitest.config.*,test/**/*.ts,test/**/*.js
 alwaysApply: false
 ---

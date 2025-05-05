@@ -1,5 +1,5 @@
 ---
-description: IMPLEMENT when CONFIGURING Prettier to STANDARDIZE code formatting
+description: FOLLOW when CONFIGURING Prettier to STANDARDIZE code formatting
 globs:
 alwaysApply: false
 ---

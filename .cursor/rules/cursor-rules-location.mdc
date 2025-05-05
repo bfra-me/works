@@ -1,5 +1,5 @@
 ---
-description: PLACE when CREATING rule files to GUARANTEE proper rule organization
+description: FOLLOW when CREATING rule files to GUARANTEE proper rule organization
 globs: *.mdc
 alwaysApply: false
 ---

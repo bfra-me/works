@@ -1,5 +1,5 @@
 ---
-description: IMPLEMENT when MANAGING tasks to STREAMLINE progress tracking
+description: FOLLOW when MANAGING tasks to STREAMLINE progress tracking
 globs: docs/plans/*.md,docs/tasks/**/*.md,docs/features.md,docs/plan.md,docs/memory/**/*.md
 alwaysApply: false
 ---

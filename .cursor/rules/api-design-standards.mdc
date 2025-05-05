@@ -1,5 +1,5 @@
 ---
-description: ADHERE when DESIGNING APIs to ENSURE consistency and type safety
+description: FOLLOW when DESIGNING APIs to ENSURE consistency and type safety
 globs: *.ts, *.tsx, *.d.ts, package.json
 alwaysApply: false
 ---
