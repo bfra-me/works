@@ -21,6 +21,7 @@
   - Filter specificity follows: file path > glob pattern > file extension > content > message
   - The metadata `priority` field (high/medium/low) acts as a tie-breaker
   - AI judgment synthesizes information from complementary rules
+  - Comprehensive conflict resolution guidance is available in [rule-conflict-resolution.md](/docs/memory/rule-conflict-resolution.md)
 
 - **Agile Workflow**: Methodology for managing development tasks
   - Features are broken down into plans
@@ -132,6 +133,12 @@
   - **Benefits**: Improves AI's ability to discover and apply appropriate rules, ensures consistent rule activation
   - **Limitations**: Limited to four approved ACTION verbs (FOLLOW, APPLY, USE, ALWAYS USE) for consistency
 
+- **Rule Interaction Documentation Pattern**:
+  - **Applied in**: Document rule interaction patterns task (Task ID: 2025-05-03-15)
+  - **Context**: Understanding how rules synergize, conflict, or depend on each other.
+  - **Benefits**: Creates a cohesive rule system, aids in rule design, helps AI apply multiple rules effectively.
+  - **Limitations**: Requires ongoing maintenance as rules are added or changed.
+
 ## Technical Decisions
 
 | Decision | Rationale | Date | Alternatives Considered |
@@ -139,5 +146,6 @@
 | Implement rule prioritization hierarchy based on specificity and metadata | Ensures predictable and consistent rule application when multiple rules match | 2025-05-04 | Rule timestamp priority, rule name alphabetical order, random selection |
 | Use terminal commands for .mdc file editing | Standard editing tools may not handle .mdc files correctly | 2025-05-02 | Using edit_file tool, manual creation in Cursor |
 | Limit rule description verbs to FOLLOW, APPLY, USE, ALWAYS USE | Ensures consistent and predictable rule discovery and application | 2025-05-04 | Using a wider variety of action verbs, domain-specific verbs |
+| Document Rule Interactions in a Dedicated Memory File (`docs/memory/rule-interactions.md`) | Provides a central, focused location for interaction patterns without cluttering individual rules or the index | 2025-05-05 | Adding sections to individual rules, updating the 00-rule-index |
 
-## Updated: 2025-05-04
+## Updated: 2025-05-05

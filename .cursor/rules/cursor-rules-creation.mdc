@@ -318,7 +318,7 @@ actions:
       *   When creating rules, carefully consider the `filters` to ensure they activate in the appropriate context with the desired level of specificity.
       *   Use the `priority` metadata field primarily as a tie-breaker for rules with similar activation conditions. Assign `high`, `medium`, or `low` based on the rule's importance relative to other potentially conflicting rules. Most rules can likely remain at `medium` or have no explicit priority set.
 
-      This prioritization system helps ensure that AI assistants receive the most relevant guidance, leading to more accurate and helpful responses. For more detailed strategies on handling conflicts, see [Conflict Resolution Guidance](mdc:docs/guidelines/rule-conflict-resolution.md) *(Note: This link is a placeholder for the document created by Task 2025-05-03-10)*.
+      This prioritization system helps ensure that AI assistants receive the most relevant guidance, leading to more accurate and helpful responses. For more detailed strategies on handling conflicts, see [Conflict Resolution Guidance](mdc:docs/memory/rule-conflict-resolution.md).
 
       ---
       ## Related Rules

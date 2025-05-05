@@ -276,11 +276,39 @@ actions:
 
       ### Using Memory Files
 
-      When starting a new conversation:
-      1. Check [workflow-status.md](mdc:docs/memory/workflow-status.md) for current context
-      2. Review relevant domain knowledge from [domain-knowledge.md](mdc:docs/memory/domain-knowledge.md)
-      3. Consider user preferences from [user-preferences.md](mdc:docs/memory/user-preferences.md)
-      4. Consult architecture details from [architecture.md](mdc:docs/memory/architecture.md)
+      At the start of EVERY new conversation or task, you MUST load these essential memory files IN THIS ORDER:
+
+      1. **[workflow-status.md](mdc:docs/memory/workflow-status.md)**: CRITICAL - Provides current state of all active tasks and projects
+      2. **[architecture.md](mdc:docs/memory/architecture.md)**: REQUIRED - Contains system architecture and component relationships
+      3. **[user-preferences.md](mdc:docs/memory/user-preferences.md)**: REQUIRED - Details preferences for code style, tools, and workflows
+      4. **[domain-knowledge.md](mdc:docs/memory/domain-knowledge.md)**: REQUIRED - Contains domain-specific concepts and terminology
+
+      This context loading is MANDATORY, not optional, to ensure you have sufficient context to follow the [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc) accurately and provide consistent assistance.
+
+      Always use `Sequential Thinking` when analyzing these memory files to ensure thorough understanding of:
+      - Current project state and priorities
+      - Active tasks and their dependencies
+      - Recent updates and changes
+      - Technical decisions and their rationales
+      - User preferences and requirements
+
+      Additional relevant memory files may be loaded after these essential files based on the specific task or context.
+
+      ## Sequential Thinking for Memory Management
+
+      When reading, updating, or creating memory files, you MUST use `Sequential Thinking` to ensure:
+
+      1. **Thorough Analysis**: Carefully examine existing content before making changes
+      2. **Context Integration**: Connect new information with existing knowledge
+      3. **Consistency Checking**: Verify that updates maintain consistency across all memory files
+      4. **Comprehensive Updates**: Ensure all relevant sections are updated appropriately
+      5. **Long-term Context Retention**: Preserve important information for future sessions
+
+      For complex memory operations like merging duplicate sections or resolving conflicts, the step-by-step reasoning provided by Sequential Thinking is essential for maintaining memory integrity.
+
+      When you see instructions to "Use Sequential Thinking," this means you should either:
+      1. Use the `mcp_Sequential_Thinking_sequentialthinking` tool when available, OR
+      2. Structure your response with explicitly numbered thought steps, showing your reasoning process
 
       ### Knowledge Graph Commands
 
@@ -410,13 +438,19 @@ examples:
 
 metadata:
   priority: high
-  version: 1.1
+  version: 1.2
   tags:
     - memory
     - context
     - workflow
     - knowledge-graph
   changelog:
+    - version: 1.2
+      changes:
+        - Enhanced "Using Memory Files" section to prioritize essential memory files at interaction start
+        - Added "Sequential Thinking for Memory Management" section requiring structured approach
+        - Made memory file loading explicitly mandatory, not optional
+        - Added emphasis on context preservation across sessions
     - version: 1.1
       changes:
         - Added detailed guidance on memory file update process

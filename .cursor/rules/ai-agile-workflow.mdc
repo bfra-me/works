@@ -241,6 +241,34 @@ actions:
 
       ## Workflow Process
 
+      ### Essential Context Loading
+
+      Before beginning any task in the workflow, you MUST load the following essential memory files into context:
+
+      1. **[workflow-status.md](mdc:docs/memory/workflow-status.md)**: Provides current state of the workflow, active tasks, and recent updates
+      2. **[architecture.md](mdc:docs/memory/architecture.md)**: Gives overview of system architecture and components
+      3. **[user-preferences.md](mdc:docs/memory/user-preferences.md)**: Details user preferences for code style, tools, and workflow
+      4. **[domain-knowledge.md](mdc:docs/memory/domain-knowledge.md)**: Contains domain-specific knowledge and terminology
+
+      Loading these files is MANDATORY at the start of every interaction to ensure you have the necessary context for accurate planning and task execution.
+
+      Always use `Sequential Thinking` to thoroughly analyze these files and extract relevant information for the current task or query.
+
+      ### Sequential Thinking Requirement
+
+      All steps in this workflow MUST utilize the `Sequential Thinking` tool or approach to ensure:
+      1. Thorough analysis of each step
+      2. Comprehensive planning
+      3. Careful consideration of implications
+      4. Step-by-step reasoning
+      5. Context retention across sessions
+
+      For any complex request or workflow step, use `Sequential Thinking` to break down the process into manageable steps, analyze each thoroughly, and document your reasoning process.
+
+      When you see instructions that say "Use Sequential Thinking," this means you should either:
+      1. Use the `mcp_Sequential_Thinking_sequentialthinking` tool when available, OR
+      2. Structure your response with explicitly numbered thought steps, showing your reasoning process
+
       ### Step 1: Capture Features
 
       1. Open `docs/features.md`
@@ -293,6 +321,12 @@ actions:
          - [In Progress]
          - [Completed]
 
+      When executing tasks:
+      - Continuously update the relevant memory files to maintain context
+      - Use `Sequential Thinking` for analyzing each task step
+      - Keep the memory files and knowledge graph in sync
+      - Follow the update guidelines in [memory-management](mdc:.cursor/rules/memory-management.mdc)
+
       ### Step 5: Update Task Status
 
       1. Open the task document
@@ -303,6 +337,11 @@ actions:
          - Update the plan document
          - **You MUST use the [auto-memory-manager](mdc:.cursor/rules/auto-memory-manager.mdc) rule to update memory files and knowledge graph entries with comprehensive implementation details** (MANDATORY)
       4. Ask the AI to update the feature status:
+
+      When a task's status changes:
+      - You MUST update all relevant memory files using `Sequential Thinking` to ensure thorough analysis
+      - Update at minimum the workflow-status.md, domain-knowledge.md, and any task-specific memory files
+      - This context preservation is CRITICAL for continuity across sessions
 
       > **Warning:** If completed task files are not moved to `docs/tasks/done/`, workflow tracking and reporting will be inaccurate. This step is required for all completed tasks.
 
@@ -814,12 +853,18 @@ examples:
 
 metadata:
   priority: high
-  version: 1.8
+  version: 1.9
   tags:
     - workflow
     - agile
     - task-management
   changelog:
+    - version: 1.9
+      changes:
+        - Added Essential Context Loading section requiring memory files at the start of every interaction
+        - Added Sequential Thinking Requirement section mandating its use for all workflow steps
+        - Enhanced Execute Tasks and Update Task Status sections to require memory file updates
+        - Added emphasis on context preservation across sessions
     - version: 1.8
       changes:
         - Added integration with auto-memory-manager rule for comprehensive task completion documentation
