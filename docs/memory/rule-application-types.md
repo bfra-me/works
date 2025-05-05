@@ -373,8 +373,7 @@ Remember that rules are contextual documents for AI assistants, not software req
 
 ## Related Resources
 
-- [Cursor Rules Creation](mdc:.cursor/rules/cursor-rules-creation.mdc) - Comprehensive guide for creating Cursor rules
-- [Cursor Rules Location](mdc:.cursor/rules/cursor-rules-location.mdc) - Standards for placing rule files correctly
-- [Rule Index](mdc:.cursor/rules/00-rule-index.mdc) - Complete overview of all Cursor rules by category
+- [Cursor Rules Creation](/.cursor/rules/cursor-rules-creation.mdc) - Comprehensive guide for creating Cursor rules, including location and cross-reference standards
+- [Rule Index](/.cursor/rules/00-rule-index.mdc) - Complete overview of all Cursor rules by category
 
-## Updated: 2025-05-04
+## Updated: 2025-05-05

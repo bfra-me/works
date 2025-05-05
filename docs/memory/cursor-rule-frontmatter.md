@@ -149,7 +149,6 @@ If you encounter issues when using the edit_file tool to update frontmatter:
 - API design standards rule creation (Task ID: 2025-05-03-01)
 
 ## References
-- [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc)
-- [cursor-rules-location](mdc:.cursor/rules/cursor-rules-location.mdc)
+- [cursor-rules-creation](/.cursor/rules/cursor-rules-creation.mdc)
 
-## Updated: 2025-05-03
+## Updated: 2025-05-05

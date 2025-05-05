@@ -153,9 +153,8 @@ actions:
 
       ## Related Rules
 
-      - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc): Provides the detailed guidelines this script helps automate.
-      - [00-rule-index](mdc:.cursor/rules/00-rule-index.mdc): The index file that needs to be updated after creating a new rule.
-      - [cursor-rules-location](mdc:.cursor/rules/cursor-rules-location.mdc): Defines the correct location for rule files, which this script adheres to.
+      - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc): Defines the structure and best practices for creating rules, including location and naming conventions.
+      - [00-rule-index](mdc:.cursor/rules/00-rule-index.mdc): The central index that this script helps maintain.
 
 examples:
   - input: |

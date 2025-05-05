@@ -216,7 +216,7 @@ const userData = fetchUserData();
 
 **Conflict**:
 - `ai-agile-workflow` rule outlines steps for updating workflow status
-- `auto-memory-manager` rule automates memory updates
+- `memory-management` rule automates memory updates
 - `memory-management` rule provides general memory file guidelines
 
 **Analysis**:
@@ -227,7 +227,7 @@ const userData = fetchUserData();
 **Resolution Steps**:
 1. Recognize the rules serve complementary purposes
 2. `ai-agile-workflow` defines the overall process
-3. `auto-memory-manager` handles implementation details
+3. `memory-management` handles implementation details
 4. `memory-management` provides the structural foundation
 5. Synthesize guidance from all three rules
 
@@ -236,7 +236,7 @@ const userData = fetchUserData();
 # Task Completion Process
 
 1. Mark task as complete following `ai-agile-workflow` guidelines
-2. Allow `auto-memory-manager` to update memory files
+2. Allow `memory-management` to update memory files
 3. Ensure updates conform to `memory-management` structure
 4. Verify workflow status reflects the completed task
 ```
@@ -283,6 +283,28 @@ paths:
 
 [Code examples following markdown-documentation]
 ```
+
+### Example 4: Task Completion vs Custom Process
+
+**Scenario**: A user has completed a task and wants to document it using a custom process, but the memory-management rule has an automatic process for task completion.
+
+**Conflicting Rules**:
+- `memory-management` rule automates memory updates
+- User's custom documentation process
+
+**Potential Consequences**:
+- Redundant documentation
+- Inconsistent memory state
+- Knowledge graph synchronization issues
+
+**Resolution Strategy**:
+1. First apply the user's custom process as requested
+2. Then ensure memory-management system is updated
+3. Merge duplicate information if needed
+
+**Resolution Example**:
+```
+User: "I've completed the ESLint rule implementation, but I want to document it with this specific structure..."
 
 ## Best Practices for Preventing Conflicts
 
@@ -402,10 +424,10 @@ graph TD
 
 ## Related Resources
 
-- [Cursor Rules Creation](mdc:.cursor/rules/cursor-rules-creation.mdc): For rule creation guidance
-- [Rule Prioritization](mdc:.cursor/rules/cursor-rules-creation.mdc#rule-prioritization-and-conflict-resolution): Basic prioritization hierarchy
-- [Rule Interactions](mdc:docs/memory/rule-interactions.md): Documentation of how rules work together
-- [Rule Index](mdc:.cursor/rules/00-rule-index.mdc): Complete listing of all available rules
+- [Cursor Rules Creation](/.cursor/rules/cursor-rules-creation.mdc): For rule creation guidance
+- [Rule Prioritization](/.cursor/rules/cursor-rules-creation.mdc#rule-prioritization-and-conflict-resolution): Basic prioritization hierarchy
+- [Rule Interactions](/docs/memory/rule-interactions.md): Documentation of how rules work together
+- [Rule Index](/.cursor/rules/00-rule-index.mdc): Complete listing of all available rules
 
 ## Updates and Maintenance
 

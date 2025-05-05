@@ -1,7 +1,7 @@
 ---
-description: USE when WORKING with memory files to PRESERVE context across sessions
+description: ALWAYS USE when WORKING with memory files to PRESERVE context across sessions
 globs: docs/plans/*.md,docs/tasks/**/*.md,docs/features.md,docs/memory/**/*.md
-alwaysApply: false
+alwaysApply: true
 ---
 # Memory Management
 
@@ -321,6 +321,47 @@ actions:
       - `create_relations`: Connect entities meaningfully
       - `add_observations`: Update existing entities
 
+      ## Automated Memory Updates on Task Completion
+
+      To ensure memory files and the knowledge graph remain up-to-date, an automated update process is triggered upon task completion. This process leverages the information from the completed task to enrich the persistent context.
+
+      ### Trigger Conditions
+
+      This automated update process is activated when messages indicate task completion, such as:
+      - `(?i)(task completed|finished implementing|done with|completed task|task is done|fixed issue|implemented|resolved|finished|done)`
+      - Content containing `[Status: Completed]` in task files.
+
+      ### Update Process Overview
+
+      When a task completion is detected, the following steps are automatically performed:
+
+      1.  **Extracting Task Information**:
+          *   Task type (e.g., Feature Implementation, Bug Fix, Configuration)
+          *   Core components affected
+          *   Problem solved or objective achieved
+          *   Solution implemented
+
+      2.  **Updating Memory Files**:
+          *   `docs/memory/workflow-status.md`: The completed task is marked as "Completed" in the Task History table, and the "Current State" section is updated.
+          *   `docs/memory/domain-knowledge.md`: New insights, implementation patterns, or technical decisions derived from the task are added to relevant sections (e.g., "Implementation Patterns", "Technical Decisions").
+          *   Task-Specific Memory File (Optional): Detailed implementation notes might be added to a dedicated file (e.g., `docs/memory/tasks/YYYY-MM-DD-XX.md`), although this is less common in the current workflow.
+
+      3.  **Updating Knowledge Graph (Conceptual)**:
+          *   New entities are created for new components, concepts, or significant patterns introduced by the task.
+          *   Relationships are added to link the new entities to existing ones (e.g., linking a new component to the feature it implements).
+          *   Observations are added to relevant entities, capturing key details about the implementation or decisions made.
+
+      ### Best Practices for Automated Updates
+
+      While the process is largely automated, adhere to these principles (which align with general memory management best practices):
+
+      1.  **Specificity**: Ensure extracted task information is detailed and accurate.
+      2.  **Contextualization**: Document the "why" behind the changes, not just the "what".
+      3.  **Connectivity**: Link new knowledge to existing concepts in memory files and the graph.
+      4.  **Lessons Learned**: Capture any significant challenges, solutions, or alternatives considered.
+
+      This automated process integrates seamlessly with the overall [AI-Assisted Agile Workflow](mdc:.cursor/rules/ai-agile-workflow.mdc) to maintain a continuously improving knowledge base.
+
       ## Suggested Memory Files
 
       In addition to the existing workflow status memory, consider creating these memory files for the project:
@@ -332,12 +373,11 @@ actions:
 
       ## Related Rules
 
-      - [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc): Defines the task/plan structure and workflow that utilizes memory files.
-      - [auto-memory-manager](mdc:.cursor/rules/auto-memory-manager.mdc): Automatically updates memory files upon task completion.
+      - [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc): Defines the task/plan structure and workflow that utilizes memory files and triggers automated updates.
       - [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc): Ensures correct date formatting within memory files.
       - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Leverages the user preferences memory file.
-      - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Explains how to use the knowledge graph tools.
-      - [cursor-rule-cross-references](mdc:.cursor/rules/cursor-rule-cross-references.mdc): Defines the `mdc:` linking syntax used here.
+      - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Explains how to use the knowledge graph tools relevant to memory updates.
+      - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc): Defines the `mdc:` linking syntax used in rule cross-references.
 
 examples:
   - input: |
@@ -438,13 +478,20 @@ examples:
 
 metadata:
   priority: high
-  version: 1.2
+  version: 1.3
   tags:
     - memory
     - context
     - workflow
     - knowledge-graph
+    - automation
   changelog:
+    - version: 1.3
+      changes:
+        - Merged content from `auto-memory-manager.mdc` into this rule.
+        - Added "Automated Memory Updates on Task Completion" section detailing the trigger and process.
+        - Removed `auto-memory-manager.mdc` from related rules.
+        - Updated tags.
     - version: 1.2
       changes:
         - Enhanced "Using Memory Files" section to prioritize essential memory files at interaction start

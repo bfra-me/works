@@ -73,7 +73,6 @@ actions:
       ## Related Rules
 
       - [memory-management](mdc:.cursor/rules/memory-management.mdc): Defines memory structures often updated by KG tools.
-      - [auto-memory-manager](mdc:.cursor/rules/auto-memory-manager.mdc): Automates KG updates after tasks.
       - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Uses KG tools to access preferences.
       - [repo-analyzer](mdc:.cursor/rules/repo-analyzer.mdc): Can use semantic search tools.
 

@@ -6,10 +6,11 @@ This file tracks key technical decisions made during the development of the proj
 
 | Decision ID | Decision | Rationale | Date | Status | Alternatives Considered | Implications |
 |-------------|----------|-----------|------|--------|-------------------------|-------------|
-| ARCH-001 | Use Markdown for documentation | Readable format, works with version control, supports diagrams via Mermaid | 2025-04-25 | Approved | AsciiDoc, HTML, custom formats | All documentation must be in Markdown format |
-| ARCH-002 | Implement memory management system | Enhance context retention for AI assistants | 2025-04-25 | Approved | Session-only memory, no persistence | Memory files must be maintained, knowledge graph must be kept in sync |
-| ARCH-003 | Create hierarchical rule structure | Improve navigation and discoverability of rules | 2025-04-25 | Approved | Flat structure, categorization without explicit relations | Rule relationships must be explicitly defined and maintained |
-| ARCH-004 | Use mdc: prefix for all file links | Ensure consistent syntax for links in Cursor rules | 2025-04-25 | Approved | Standard markdown links, custom syntax | All file links in rules must use mdc: prefix |
+| ARCH-001 | Adopt monorepo structure | Enables code sharing, coordinated releases | 2025-04-20 | Approved | Multiple repositories | All packages stored in packages/ directory |
+| ARCH-002 | Store all cursor rules in .cursor/rules | Ensures consistent location, easy discovery | 2025-04-23 | Approved | Distributed across packages | All rules must be in .cursor/rules with .mdc extension |
+| ARCH-003 | Create memory files in docs/memory | Maintains context across conversations | 2025-04-24 | Approved | Per-package memory, no explicit memory | All context must be in docs/memory with .md extension |
+| ARCH-004 | Use mdc: prefix only in .mdc rule files | Ensures proper link handling in Cursor rules | 2025-04-25 | Approved | Using prefix everywhere, using standard links everywhere | Links in .mdc files must use mdc: prefix, links in .md files must use standard markdown links |
+| ARCH-005 | Implement hierarchical rule structure | Creates coherent rule system | 2025-04-26 | Approved | Flat structure, no relationships | Rules must reference related rules, index must categorize |
 
 ## Implementation Decisions
 
