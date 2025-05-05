@@ -1,5 +1,5 @@
 ---
-description: EAPPLY when WRITING TypeScript to MAINTAIN code quality standards
+description: APPLY when WRITING TypeScript to MAINTAIN code quality standards
 globs: *.ts,*.tsx,tsconfig.*json
 alwaysApply: false
 ---
