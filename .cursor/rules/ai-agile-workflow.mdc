@@ -301,6 +301,7 @@ actions:
          - **You MUST move the task file to `docs/tasks/done/` (MANDATORY for both AI and users)** (e.g., `mv docs/tasks/[task-id].md docs/tasks/done/`)
          - Update the memory file
          - Update the plan document
+         - **You MUST use the [auto-memory-manager](mdc:.cursor/rules/auto-memory-manager.mdc) rule to update memory files and knowledge graph entries with comprehensive implementation details** (MANDATORY)
       4. Ask the AI to update the feature status:
 
       > **Warning:** If completed task files are not moved to `docs/tasks/done/`, workflow tracking and reporting will be inaccurate. This step is required for all completed tasks.
@@ -492,6 +493,18 @@ actions:
       - The Memory Management rule defines additional memory file types and templates
       - It provides guidelines for maintaining memory files and leveraging the knowledge graph
       - Together, these rules create a complete system for maintaining project context and workflow status
+
+      ### Auto Memory Manager
+
+      The [auto-memory-manager](mdc:.cursor/rules/auto-memory-manager.mdc) rule is always used after task completion to:
+
+      - Update memory files with detailed implementation information
+      - Create knowledge graph entities for new components and concepts
+      - Add relationships between relevant entities
+      - Record observations about implementation patterns
+      - Document technical decisions and their rationales
+
+      This integration ensures that all task completions are thoroughly documented and easily retrievable in future development work.
 
       ### Cursor Rule Cross-References
 
@@ -801,12 +814,17 @@ examples:
 
 metadata:
   priority: high
-  version: 1.7
+  version: 1.8
   tags:
     - workflow
     - agile
     - task-management
   changelog:
+    - version: 1.8
+      changes:
+        - Added integration with auto-memory-manager rule for comprehensive task completion documentation
+        - Added auto-memory-manager to the Related Rules section
+        - Updated Step 5 to include notification about auto-memory-manager activation
     - version: 1.7
       changes:
         - Added detailed "Memory File Update Best Practices" section with explicit guidelines

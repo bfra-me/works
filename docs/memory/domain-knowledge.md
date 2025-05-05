@@ -14,6 +14,14 @@
   - Memory update protocols ensure consistency as defined in [auto-memory-manager](/.cursor/rules/auto-memory-manager.mdc)
   - Memory retrieval processes guide information access according to [memory-management](/.cursor/rules/memory-management.mdc)
 
+- **Rule Prioritization**: System for determining which rules take precedence when multiple rules apply
+  - A hierarchical approach prioritizes rules based on activation specificity and metadata
+  - Explicit user invocation of a rule takes highest priority
+  - Rules with `alwaysApply: true` provide foundational context in all situations
+  - Filter specificity follows: file path > glob pattern > file extension > content > message
+  - The metadata `priority` field (high/medium/low) acts as a tie-breaker
+  - AI judgment synthesizes information from complementary rules
+
 - **Agile Workflow**: Methodology for managing development tasks
   - Features are broken down into plans
   - Plans are divided into phases and tasks
@@ -106,6 +114,12 @@
   - Information is combined from multiple sources for comprehensive understanding
   - Memory file references follow standardized formats
 
+- **Rule Prioritization Pattern**: Process for resolving rule conflicts and applying the most relevant guidance
+  - **Applied in**: Prioritize rule application task (Task ID: 2025-05-03-14)
+  - **Context**: Managing behavior when multiple rules match the same context
+  - **Benefits**: Provides clear hierarchy for rule application, reduces confusion, ensures most specific guidance is applied
+  - **Limitations**: Complex contexts may still require AI judgment to synthesize information from multiple rules
+
 - **Cursor Rule Frontmatter Pattern**: Standard structure for .mdc files
   - **Applied in**: CI/CD workflow rule fix
   - **Context**: Creating and editing cursor rules
@@ -122,6 +136,7 @@
 
 | Decision | Rationale | Date | Alternatives Considered |
 |----------|-----------|------|-------------------------|
+| Implement rule prioritization hierarchy based on specificity and metadata | Ensures predictable and consistent rule application when multiple rules match | 2025-05-04 | Rule timestamp priority, rule name alphabetical order, random selection |
 | Use terminal commands for .mdc file editing | Standard editing tools may not handle .mdc files correctly | 2025-05-02 | Using edit_file tool, manual creation in Cursor |
 | Limit rule description verbs to FOLLOW, APPLY, USE, ALWAYS USE | Ensures consistent and predictable rule discovery and application | 2025-05-04 | Using a wider variety of action verbs, domain-specific verbs |
 
