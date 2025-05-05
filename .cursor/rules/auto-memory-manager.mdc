@@ -7,6 +7,11 @@ alwaysApply: true
 
 This rule automatically updates memory files and knowledge graph after any task is completed, creating a self-improving repository that maintains comprehensive records of work performed.
 
+Auto Memory Manager integrates with the [memory-management.mdc](mdc:.cursor/rules/memory-management.mdc) rule to provide comprehensive context retention across conversations:
+- The Memory Management rule defines additional memory file types and templates
+- It provides guidelines for maintaining memory files and leveraging the knowledge graph
+- Together, these rules create a complete system for maintaining project context and workflow status
+
 <rule>
 name: auto_memory_manager
 description: Automatically updates memory files and knowledge graph after task completion

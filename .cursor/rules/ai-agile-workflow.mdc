@@ -43,7 +43,7 @@ actions:
 
       ## Document Types
 
-      ### 1. Central Reference Document (`docs/features.md`)
+      ### 1. Central Reference Document ([features.md](mdc:docs/features.md))
 
       This document tracks all features for improving the project, including:
 
@@ -180,7 +180,7 @@ actions:
       Any additional notes or context.
       ```
 
-      ### 4. Memory File (`docs/memory/workflow-status.md`)
+      ### 4. Memory File ([workflow-status.md](mdc:docs/memory/workflow-status.md))
 
       A memory file that tracks the current state of the workflow and provides context for AI assistants:
 
@@ -509,8 +509,9 @@ actions:
       ## Templates
 
       All templates are stored in the `docs/templates/` directory:
-      - `docs/templates/task-template.md`
-      - `docs/templates/plan-template.md`
+      - [`docs/templates/task-template.md`](mdc:docs/templates/task-template.md)
+      - [`docs/templates/plan-template.md`](mdc:docs/templates/plan-template.md)
+      - [`docs/templates/feature-template.md`](mdc:docs/templates/feature-template.md)
 
       ## File Linking Guidelines
 
@@ -525,12 +526,12 @@ actions:
       2. **In regular documentation files**: Use standard markdown links:
          ```markdown
          [Plan Document](../plans/plan-name.md)
-         [Feature Description](../features.md#feature-1-title)
+         [Feature Description](/docs/features.md#feature-1-title)
          ```
 
       3. **For task documents**: When linking to plans, use relative paths:
          ```markdown
-         [Implement a Hierarchical Rule Structure](../plans/cursor-rules-hierarchy.md)
+         [Implement a Hierarchical Rule Structure](/plans/cursor-rules-hierarchy.md)
          ```
 
       ## AI Commands Reference
