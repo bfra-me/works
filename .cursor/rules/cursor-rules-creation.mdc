@@ -262,9 +262,68 @@ actions:
       - **changelog**: Track changes across versions.
 
       ---
+      ## Updating Existing Rules
+
+      When modifying existing rules, follow these steps:
+      1. Update the content as needed
+      2. Increment the `version` in the metadata according to semantic versioning
+      3. Add an entry to the `changelog` detailing the changes
+      4. Update the `last_updated` date in the metadata
+      5. If the rule's description or category changes, update the [00-rule-index](mdc:.cursor/rules/00-rule-index.mdc)
+
+      ## Rule Prioritization and Conflict Resolution
+
+      When multiple Cursor rules could potentially apply to a given context (e.g., multiple rules have matching `filters`), a prioritization system determines which rule's guidance is presented or considered most relevant by the AI assistant. The goal is to surface the most specific and pertinent context.
+
+      The priority is determined by the following hierarchy, evaluated in order:
+
+      1.  **Explicit User Invocation**: If the user explicitly requests a specific rule (e.g., by mentioning its name or linking to it), that rule takes the highest priority for that specific interaction, overriding other potential matches.
+
+      2.  **`alwaysApply: true` Rules**: Rules configured with `alwaysApply: true` are always considered active but generally provide foundational context (like cross-reference syntax) rather than specific task guidance. They don't usually conflict directly with context-specific rules but are always available.
+
+      3.  **Activation Specificity (Filters)**: The primary factor for prioritization among context-dependent rules (`alwaysApply: false`) is the specificity of the filter that triggered the activation. More specific matches take precedence over general matches.
+          *   **Highest Specificity**: Exact file path match (`type: file_path` with a full path).
+          *   **High Specificity**: Glob pattern match (`type: file_path` with `globs`). A more specific glob (e.g., `packages/feature/specific.ts`) takes precedence over a broader glob (e.g., `packages/**/*.ts`).
+          *   **Medium Specificity**: File extension match (`type: file_extension`).
+          *   **Lower Specificity**: Content match (`type: content`). A longer, more specific content pattern may take precedence over a short, generic one.
+          *   **Lowest Specificity**: Message pattern match (`type: message`). Usually triggers broader workflow or process rules.
+          *   **Event-based triggers** (`type: event`): Priority depends on the event's nature and associated context.
+
+      4.  **Metadata `priority` Field**: If multiple rules have the *same level of activation specificity*, the `priority` field in the rule's metadata (`high`, `medium`, `low`) acts as a tie-breaker.
+          *   `high` priority rules take precedence over `medium` and `low`.
+          *   `medium` priority rules take precedence over `low`.
+          *   If rules have the same specificity and the same `priority` metadata (or no priority set), the AI may present options or use its judgment based on the conversational context.
+
+      5.  **AI Judgment**: Ultimately, the AI assistant uses this hierarchy along with the conversational context to determine the most relevant rule(s) to apply or suggest. It might synthesize information from multiple relevant rules if they are complementary rather than conflicting.
+
+      ### Examples of Conflict Resolution
+
+      *   **Scenario 1**: User is editing `packages/eslint-config/src/index.ts`.
+          *   Rule A: `filter: { type: file_path, globs: ["packages/eslint-config/**/*.ts"] }` (High Specificity Glob)
+          *   Rule B: `filter: { type: file_extension, pattern: "\\.ts$" }` (Medium Specificity Extension)
+          *   **Outcome**: Rule A takes priority due to the more specific glob pattern.
+
+      *   **Scenario 2**: User message contains "update eslint config".
+          *   Rule C: `filter: { type: message, pattern: "(?i)eslint" }`, `priority: medium` (Low Specificity Message)
+          *   Rule D: `filter: { type: message, pattern: "(?i)update eslint config" }`, `priority: medium` (Low Specificity Message, but more specific pattern)
+          *   **Outcome**: Rule D likely takes priority due to the more specific message pattern, even though metadata priority is the same.
+
+      *   **Scenario 3**: User is editing `readme.md`.
+          *   Rule E: `filter: { type: file_extension, pattern: "\\.md$" }`, `priority: medium`
+          *   Rule F: `filter: { type: file_extension, pattern: "\\.md$" }`, `priority: high`
+          *   **Outcome**: Rule F takes priority because although the activation specificity is identical (file extension), its metadata priority is higher.
+
+      ### Documenting Priority
+
+      *   When creating rules, carefully consider the `filters` to ensure they activate in the appropriate context with the desired level of specificity.
+      *   Use the `priority` metadata field primarily as a tie-breaker for rules with similar activation conditions. Assign `high`, `medium`, or `low` based on the rule's importance relative to other potentially conflicting rules. Most rules can likely remain at `medium` or have no explicit priority set.
+
+      This prioritization system helps ensure that AI assistants receive the most relevant guidance, leading to more accurate and helpful responses. For more detailed strategies on handling conflicts, see [Conflict Resolution Guidance](mdc:docs/guidelines/rule-conflict-resolution.md) *(Note: This link is a placeholder for the document created by Task 2025-05-03-10)*.
+
+      ---
       ## Related Rules
 
-      - [00-rule-index](mdc:.cursor/rules/00-rule-index.mdc): Where to register new rules.
+      - [00-rule-index](mdc:.cursor/rules/00-rule-index.mdc): Provides an overview of all rules.
       - [cursor-rules-location](mdc:.cursor/rules/cursor-rules-location.mdc): Where to place rule files.
       - [cursor-rule-cross-references](mdc:.cursor/rules/cursor-rule-cross-references.mdc): How to link between rules/files.
       - [Rule Application Types](mdc:docs/memory/rule-application-types.md): Detailed guidance on choosing the right activation mode.

@@ -92,6 +92,13 @@ Task documents provide detailed information about individual work items:
    - [Not Started]
    - [In Progress]
    - [Completed]
+4. When marking a task as completed:
+   - Move the task file to `docs/tasks/done/` directory
+   - The auto-memory-manager rule will automatically activate to:
+     - Update memory files with implementation details
+     - Create knowledge graph entries for new components
+     - Document technical decisions and rationales
+     - Maintain comprehensive records of completed work
 
 ### Step 5: Track Progress
 
@@ -123,6 +130,8 @@ The following commands can be used with the AI assistant:
 | `Generate progress report for [feature]` | Creates a status report |
 | `Suggest next tasks to work on` | Recommends priority tasks |
 | `Show all blocked tasks` | Lists tasks with unmet dependencies |
+| `Mark task [task-id] as completed` | Moves task to done directory and activates auto-memory-manager |
+| `Update memory records for [task/component]` | Manually triggers memory and knowledge graph updates |
 
 ## Integration with Cursor Rules
 
@@ -133,6 +142,11 @@ This workflow is deeply integrated with the Cursor rules system:
 3. The AI assistant understands the document structure and relationships
 4. Task generation is automated based on plan documents
 5. Status updates propagate through the system
+6. The `auto-memory-manager.mdc` rule automatically activates after task completion to:
+   - Maintain comprehensive memory records
+   - Document implementation details
+   - Update knowledge graph with new components, relationships, and observations
+   - Preserve critical decision context for future reference
 
 ## Example Workflow
 
