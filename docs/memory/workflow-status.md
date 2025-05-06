@@ -62,6 +62,8 @@ The "Improve rule specificity" task (ID: 2025-05-03-08) is now complete, with fi
 
 ## Recent Updates
 
+- Merged audit findings into task 2025-05-03-04.md and updated ai-agile-workflow.mdc guidance (2025-05-05)
+- Updated task 2025-05-03-04.md to use "rule index" terminology and requested Gemini review (2025-05-05)
 - Updated date-consistency-enforcer.mdc rule and related references to prioritize MCP time tool (2025-05-06)
 - Completed task: Improve rule specificity (Task ID: 2025-05-03-08) (2025-05-06)
 - Updated filters in memory-management.mdc, user-preferences-awareness.mdc, typescript-patterns.mdc, and date-consistency-enforcer.mdc (2025-05-06)
@@ -86,6 +88,10 @@ The "Improve rule specificity" task (ID: 2025-05-03-08) is now complete, with fi
 
 ```
 # Recent commands executed as part of the workflow
+# Task 2025-05-03-04 Audit Planning & Refinement (2025-05-05)
+vibe-tools repo "Review the updated task file docs/tasks/2025-05-03-04.md..."
+vibe-tools repo "Help me plan the first step of task docs/tasks/2025-05-03-04.md..."
+vibe-tools repo "Analyze the task file docs/tasks/2025-05-03-04.md..."
 # Improve rule specificity task (2025-05-06)
 mv docs/rule-specificity-improvements.md docs/memory/rule-specificity-improvements.md
 rm .cursor/rules/memory-management.bak .cursor/rules/user-preferences-awareness.bak .cursor/rules/typescript-patterns.bak .cursor/rules/date-consistency-enforcer.bak
@@ -133,4 +139,4 @@ mv docs/tasks/2025-05-03-11.md docs/tasks/done/
 - Improved filter patterns for memory-management, user-preferences-awareness, typescript-patterns, and date-consistency-enforcer
 - All improvements are documented in the docs/memory/rule-specificity-improvements.md file
 
-## Updated: 2025-05-06
+## Updated: 2025-05-05
