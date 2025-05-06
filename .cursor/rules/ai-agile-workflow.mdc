@@ -321,6 +321,8 @@ actions:
          - [In Progress]
          - [Completed]
 
+      **Note on Task Documentation**: Keep task-specific notes, analyses, checklists, or findings directly within the corresponding task file (`docs/tasks/[task-id].md`) under appropriate headings (e.g., "## Task Analysis", "## Implementation Notes", "## Audit Findings"). Avoid creating separate files for temporary outputs related to a single task, ensuring each task file is self-contained.
+
       When executing tasks:
       - Continuously update the relevant memory files to maintain context
       - Use `Sequential Thinking` for analyzing each task step

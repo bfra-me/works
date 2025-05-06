@@ -1,5 +1,5 @@
 ---
-description: USE when EXPLORING rules to DISCOVER applicable guidance
+description: ALWAYS USE when EXPLORING rules to DISCOVER applicable guidance
 globs:
 alwaysApply: true
 ---
@@ -39,6 +39,7 @@ Rules related to creating and managing Cursor rules themselves:
 | [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc) | FOLLOW when CREATING cursor rules to ENSURE consistency, correct location, linking, and activation | High |
 | [repo-rule-recommender](mdc:.cursor/rules/repo-rule-recommender.mdc) | APPLY when RECOMMENDING new cursor rules to IMPROVE repository guidance | Medium |
 | [rule-automation-script](mdc:.cursor/rules/rule-automation-script.mdc) | UTILIZE when AUTOMATING rule management to INCREASE efficiency | Medium |
+| [rule-relationship-analysis](mdc:.cursor/rules/rule-relationship-analysis.mdc) | USE when ANALYZING rule relationships to ESTABLISH cross-references | Medium |
 
 ## Workflow & Process Rules
 
@@ -237,7 +238,7 @@ This index must be automatically updated whenever cursor rules are created, modi
 ## Metadata
 
 ```yaml
-version: 1.7
+version: 1.8
 last_updated: 2025-05-06
-total_rules: 24
+total_rules: 25
 ```
