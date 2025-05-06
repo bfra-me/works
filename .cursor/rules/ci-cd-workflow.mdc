@@ -353,10 +353,14 @@ actions:
       ## Related Rules
 
       - [changeset-workflow](mdc:.cursor/rules/changeset-workflow.mdc): Detailed guide on using Changesets.
-      - [dependency-management](mdc:.cursor/rules/dependency-management.mdc): For resolving dependency issues that might cause build failures.
-      - [testing-practices](mdc:.cursor/rules/testing-practices.mdc): For understanding test setup and failures.
+      - [development-workflow](mdc:.cursor/rules/development-workflow.mdc): Overall development process that integrates with CI/CD.
       - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): For resolving linting configuration issues.
+      - [prettier-config-usage](mdc:.cursor/rules/prettier-config-usage.mdc): For resolving formatting issues in CI.
+      - [testing-practices](mdc:.cursor/rules/testing-practices.mdc): For understanding test setup and failures.
       - [debugging-guide](mdc:.cursor/rules/debugging-guide.mdc): General debugging techniques applicable to CI failures.
+      - [dependency-management](mdc:.cursor/rules/dependency-management.mdc): For resolving dependency issues that might cause build failures.
+      - [semantic-release](mdc:packages/semantic-release/README.md): For configuration of the release process.
+      - [tsconfig](mdc:packages/tsconfig/README.md): Base TypeScript configuration used in `pnpm type-check`.
 
 examples:
   - input: |
@@ -424,7 +428,7 @@ examples:
 
 metadata:
   priority: high
-  version: 1.0
+  version: 1.0.1
   tags:
     - ci-cd
     - workflow
@@ -432,9 +436,13 @@ metadata:
     - release
     - github-actions
   changelog:
+    - version: 1.0.1
+      changes:
+        - Updated cross-references to related rules
     - version: 1.0
       changes:
         - Initial version
+  last_updated: 2025-05-06
 </rule>
 
 ## CI vs CD: Key Differences

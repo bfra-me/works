@@ -128,6 +128,16 @@ actions:
 
       - [memory-management](mdc:.cursor/rules/memory-management.mdc): Provides guidelines for maintaining the `user-preferences.md` memory file.
       - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Explains how to use the knowledge graph tools needed to access/update preferences.
+      - [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc): Applies preferred coding styles and naming conventions.
+      - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): Guides configuration based on formatting and style preferences.
+      - [prettier-config-usage](mdc:.cursor/rules/prettier-config-usage.mdc): Guides configuration based on formatting preferences.
+      - [testing-practices](mdc:.cursor/rules/testing-practices.mdc): Applies preferred testing framework, patterns, and style.
+      - [development-workflow](mdc:.cursor/rules/development-workflow.mdc): Aligns workflow steps with user preferences.
+      - [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc): Aligns task management and communication with user preferences.
+      - [code-review-standards](mdc:.cursor/rules/code-review-standards.mdc): Aligns review practices with user preferences.
+      - [api-design-standards](mdc:.cursor/rules/api-design-standards.mdc): Applies documentation and naming preferences to API design.
+      - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc): Guides rule creation based on user preferences for rule structure and documentation.
+      - [vibe-tools](mdc:.cursor/rules/vibe-tools.mdc): Influences which tools or commands are suggested based on user preferences.
 
 examples:
   - input: |
@@ -222,13 +232,17 @@ examples:
 
 metadata:
   priority: high
-  version: 1.1
+  version: 1.2
   tags:
     - preferences
     - memory
     - knowledge-graph
     - customization
   changelog:
+    - version: 1.2
+      changes:
+        - Extended bidirectional cross-references to all related rules
+        - Enhanced relationship descriptions for better context
     - version: 1.1
       changes:
         - Added file_path filter to target the user preferences memory file specifically

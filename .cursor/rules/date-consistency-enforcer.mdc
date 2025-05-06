@@ -112,6 +112,8 @@ actions:
 
       - [memory-management](mdc:.cursor/rules/memory-management.mdc): Relies on the `Updated:` timestamp format.
       - [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc): Uses the Task ID format and specifies sequence number logic.
+      - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Provides context for using the `mcp_time_get_current_time` tool.
+      - [vibe-tools](mdc:.cursor/rules/vibe-tools.mdc): Introduces `vibe-tools mcp run` commands for date retrieval.
 
 examples:
   - input: |

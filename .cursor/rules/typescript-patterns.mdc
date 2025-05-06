@@ -210,6 +210,11 @@ actions:
       - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): Configures linting rules that enforce many TypeScript best practices.
       - [testing-practices](mdc:.cursor/rules/testing-practices.mdc): Guidelines for writing tests for TypeScript code.
       - [dependency-management](mdc:.cursor/rules/dependency-management.mdc): How to manage dependencies, including type definitions.
+      - [code-review-standards](mdc:.cursor/rules/code-review-standards.mdc): Provides standards that reviewers check against regarding TypeScript usage.
+      - [development-workflow](mdc:.cursor/rules/development-workflow.mdc): These patterns are part of the standard development process.
+      - [monorepo-structure](mdc:.cursor/rules/monorepo-structure.mdc): Includes monorepo-specific patterns for TypeScript projects.
+      - [debugging-guide](mdc:.cursor/rules/debugging-guide.mdc): Understanding patterns is key to debugging TypeScript errors.
+      - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Aligns with user preferences for TypeScript and coding style.
 
 examples:
   - input: |
@@ -340,12 +345,16 @@ examples:
 
 metadata:
   priority: high
-  version: 1.1
+  version: 1.2
   tags:
     - typescript
     - coding-standards
     - best-practices
   changelog:
+    - version: 1.2
+      changes:
+        - Added comprehensive bidirectional cross-references to related rules
+        - Updated examples for better clarity
     - version: 1.1
       changes:
         - Improved filter patterns for better specificity and reduced false positives

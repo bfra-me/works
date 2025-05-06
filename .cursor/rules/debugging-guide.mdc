@@ -379,6 +379,9 @@ actions:
       - [repo-analyzer](mdc:.cursor/rules/repo-analyzer.mdc): Understanding code structure is often the first step in debugging.
       - [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc): Following best practices can prevent many common TypeScript errors.
       - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): Linting helps catch potential issues early.
+      - [dependency-management](mdc:.cursor/rules/dependency-management.mdc): Many issues stem from dependency conflicts or misconfigurations.
+      - [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc): Provides context for debugging CI/CD failures.
+      - [code-review-standards](mdc:.cursor/rules/code-review-standards.mdc): Good code reviews can prevent debugging sessions.
       - [User Preferences](mdc:docs/memory/user-preferences.md): May contain preferences related to logging or debugging tools.
 
 examples:
@@ -472,16 +475,17 @@ examples:
 
 metadata:
   priority: high
-  version: 1.0
+  version: 1.0.1
   tags:
     - debugging
     - troubleshooting
-    - error-handling
-    - performance
-    - logging
-    - typescript
+    - development-tools
   changelog:
+    - version: 1.0.1
+      changes:
+        - Updated cross-references to related rules
     - version: 1.0
       changes:
-        - Initial version covering common errors, logging, debugging tools/techniques, and performance troubleshooting
+        - Initial version
+  last_updated: 2025-05-06
 </rule>

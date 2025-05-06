@@ -203,6 +203,7 @@ actions:
 
       ## Related Rules
 
+      - [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc): Defines the broader agile framework in which development occurs.
       - [changeset-workflow](mdc:.cursor/rules/changeset-workflow.mdc): Detailed guide on creating and managing changesets.
       - [testing-practices](mdc:.cursor/rules/testing-practices.mdc): Specifics on writing and running tests with Vitest.
       - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): How linting is configured and used.
@@ -210,6 +211,10 @@ actions:
       - [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc): Details on the GitHub Actions workflows and troubleshooting.
       - [monorepo-structure](mdc:.cursor/rules/monorepo-structure.mdc): Understanding the overall repository layout.
       - [dependency-management](mdc:.cursor/rules/dependency-management.mdc): How dependencies are handled within the workspace.
+      - [debugging-guide](mdc:.cursor/rules/debugging-guide.mdc): Strategies for debugging issues during development.
+      - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Aligns workflow with user preferences.
+      - [rule-acknowledgement](mdc:.cursor/rules/rule-acknowledgement.mdc): Guidelines for rule interactions during development.
+      - [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc): Coding standards applied during development.
 
 examples:
   - input: |
@@ -302,10 +307,18 @@ examples:
 
 metadata:
   priority: high
-  version: 1.0
+  version: 1.0.1
   tags:
     - workflow
     - development
     - testing
     - publishing
+  changelog:
+    - version: 1.0.1
+      changes:
+        - Added comprehensive Related Rules section with cross-references
+    - version: 1.0
+      changes:
+        - Initial version
+  last_updated: 2025-05-06
 </rule>

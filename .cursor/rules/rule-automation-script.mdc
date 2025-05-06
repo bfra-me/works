@@ -155,6 +155,10 @@ actions:
 
       - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc): Defines the structure and best practices for creating rules, including location and naming conventions.
       - [00-rule-index](mdc:.cursor/rules/00-rule-index.mdc): The central index that this script helps maintain.
+      - [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc): Supports the task execution phase of rule creation within the agile workflow.
+      - [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc): Task IDs and update dates follow its standards.
+      - [memory-management](mdc:.cursor/rules/memory-management.mdc): Task completion triggers memory updates managed by this rule.
+      - [rule-relationship-analysis](mdc:.cursor/rules/rule-relationship-analysis.mdc): Helps create the `.mdc` files that this rule analyzes.
 
 examples:
   - input: |
@@ -260,13 +264,17 @@ examples:
 
 metadata:
   priority: medium
-  version: 1.0
+  version: 1.1
   tags:
     - automation
     - script
     - cursor-rules
   changelog:
+    - version: 1.1
+      changes:
+        - Added bidirectional cross-references based on analysis
     - version: 1.0
       changes:
         - Initial version
+  last_updated: "2025-05-06"
 </rule>

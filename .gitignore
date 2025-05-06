@@ -22,4 +22,4 @@ docs/memory/memory.json
 .specstory/.what-is-this.md
 # SpecStory
 .specstory/
-.repomix-output.txt
+.repomix-*

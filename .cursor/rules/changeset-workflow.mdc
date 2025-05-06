@@ -147,6 +147,9 @@ actions:
       - [development-workflow](mdc:.cursor/rules/development-workflow.mdc): Outlines the overall contribution process including when to add changesets.
       - [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc): Details the automated release workflow that consumes changesets.
       - [api-design-standards](mdc:.cursor/rules/api-design-standards.mdc): Explains semantic versioning and breaking changes relevant to choosing the bump type.
+      - [monorepo-structure](mdc:.cursor/rules/monorepo-structure.mdc): Explains how versioning works across packages in the monorepo.
+      - [code-review-standards](mdc:.cursor/rules/code-review-standards.mdc): Includes changeset requirements in the PR review checklist.
+      - [scripts/src/clean-changesets.ts](mdc:scripts/src/clean-changesets.ts): Implements the `pnpm clean-changesets` utility.
 
 examples:
   - input: |
@@ -198,13 +201,17 @@ examples:
 
 metadata:
   priority: high
-  version: 1.0
+  version: 1.0.1
   tags:
     - workflow
     - changeset
     - release
   changelog:
+    - version: 1.0.1
+      changes:
+        - Updated cross-references to related rules
     - version: 1.0
       changes:
         - Initial version
+  last_updated: 2025-05-06
 </rule>

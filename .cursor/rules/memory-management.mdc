@@ -57,7 +57,7 @@ actions:
       - [Update 2] (YYYY-MM-DD)
 
       ## Command History
-      ```
+      ```bash
       # Recent commands executed as part of the workflow
       [Command 1]
       [Command 2]
@@ -285,7 +285,7 @@ actions:
 
       This context loading is MANDATORY, not optional, to ensure you have sufficient context to follow the [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc) accurately and provide consistent assistance.
 
-      Always use `Sequential Thinking` when analyzing these memory files to ensure thorough understanding of:
+      Always use the `Sequential Thinking` tool when analyzing these memory files to ensure thorough understanding of:
       - Current project state and priorities
       - Active tasks and their dependencies
       - Recent updates and changes
@@ -296,7 +296,7 @@ actions:
 
       ## Sequential Thinking for Memory Management
 
-      When reading, updating, or creating memory files, you MUST use `Sequential Thinking` to ensure:
+      When reading, updating, or creating memory files, you MUST use the `Sequential Thinking` tool to ensure:
 
       1. **Thorough Analysis**: Carefully examine existing content before making changes
       2. **Context Integration**: Connect new information with existing knowledge
@@ -321,19 +321,19 @@ actions:
       - `create_relations`: Connect entities meaningfully
       - `add_observations`: Update existing entities
 
-      ## Automated Memory Updates on Task Completion
+      ## Memory File Updates on Task Completion
 
-      To ensure memory files and the knowledge graph remain up-to-date, an automated update process is triggered upon task completion. This process leverages the information from the completed task to enrich the persistent context.
+      To ensure memory files and the knowledge graph remain up-to-date, perform an update process upon task completion. This process leverages the information from the completed task to enrich the persistent context.
 
       ### Trigger Conditions
 
-      This automated update process is activated when messages indicate task completion, such as:
+      The update process is activated when messages indicate task completion, such as:
       - `(?i)(task completed|finished implementing|done with|completed task|task is done|fixed issue|implemented|resolved|finished|done)`
       - Content containing `[Status: Completed]` in task files.
 
       ### Update Process Overview
 
-      When a task completion is detected, the following steps are automatically performed:
+      When a task completion is detected, you MUST perform the following steps:
 
       1.  **Extracting Task Information**:
           *   Task type (e.g., Feature Implementation, Bug Fix, Configuration)
@@ -342,25 +342,25 @@ actions:
           *   Solution implemented
 
       2.  **Updating Memory Files**:
-          *   `docs/memory/workflow-status.md`: The completed task is marked as "Completed" in the Task History table, and the "Current State" section is updated.
-          *   `docs/memory/domain-knowledge.md`: New insights, implementation patterns, or technical decisions derived from the task are added to relevant sections (e.g., "Implementation Patterns", "Technical Decisions").
+          *   `docs/memory/workflow-status.md`: Mark the completed task as "Completed" in the Task History table, and update the "Current State" section.
+          *   `docs/memory/domain-knowledge.md`: Add new insights, implementation patterns, or technical decisions derived from the task to relevant sections (e.g., "Implementation Patterns", "Technical Decisions").
           *   Task-Specific Memory File (Optional): Detailed implementation notes might be added to a dedicated file (e.g., `docs/memory/tasks/YYYY-MM-DD-XX.md`), although this is less common in the current workflow.
 
-      3.  **Updating Knowledge Graph (Conceptual)**:
-          *   New entities are created for new components, concepts, or significant patterns introduced by the task.
-          *   Relationships are added to link the new entities to existing ones (e.g., linking a new component to the feature it implements).
-          *   Observations are added to relevant entities, capturing key details about the implementation or decisions made.
+      3.  **Updating Knowledge Graph**:
+          *   Create new entities for new components, concepts, or significant patterns introduced by the task (`mcp_memory_create_entities`).
+          *   Create relationships to link the new entities to existing ones (`mcp_memory_create_relations`).
+          *   Add observations to relevant entities, capturing key details about the implementation or decisions made (`mcp_memory_add_observations`).
 
-      ### Best Practices for Automated Updates
+      ### Best Practices for Memory File Updates
 
-      While the process is largely automated, adhere to these principles (which align with general memory management best practices):
+      ALWAYS adhere to these principles (which align with general memory management best practices):
 
       1.  **Specificity**: Ensure extracted task information is detailed and accurate.
       2.  **Contextualization**: Document the "why" behind the changes, not just the "what".
       3.  **Connectivity**: Link new knowledge to existing concepts in memory files and the graph.
       4.  **Lessons Learned**: Capture any significant challenges, solutions, or alternatives considered.
 
-      This automated process integrates seamlessly with the overall [AI-Assisted Agile Workflow](mdc:.cursor/rules/ai-agile-workflow.mdc) to maintain a continuously improving knowledge base.
+      This update process integrates seamlessly with the overall [AI-Assisted Agile Workflow](mdc:.cursor/rules/ai-agile-workflow.mdc) to maintain a continuously improving knowledge base.
 
       ## Suggested Memory Files
 
@@ -378,6 +378,10 @@ actions:
       - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Leverages the user preferences memory file.
       - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Explains how to use the knowledge graph tools relevant to memory updates.
       - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc): Defines the `mdc:` linking syntax used in rule cross-references.
+      - [anthropic-chain-of-thought](mdc:.cursor/rules/anthropic-chain-of-thought.mdc): Provides structure for the Sequential Thinking approach used in memory management.
+      - [rule-acknowledgement](mdc:.cursor/rules/rule-acknowledgement.mdc): Contributes to context retention and documentation.
+      - [vibe-tools](mdc:.cursor/rules/vibe-tools.mdc): Provides access to knowledge graph/memory tools via `vibe-tools mcp` commands.
+      - [monorepo-structure](mdc:.cursor/rules/monorepo-structure.mdc): Provides guidelines for understanding the monorepo architecture that memory files help document.
 
 examples:
   - input: |
@@ -502,14 +506,19 @@ examples:
 
 metadata:
   priority: high
-  version: 1.4
+  version: 1.5
   tags:
     - memory
     - context
     - workflow
     - knowledge-graph
     - automation
+  last_updated: 2025-05-06
   changelog:
+    - version: 1.5
+      changes:
+        - Added bidirectional cross-reference to monorepo-structure.mdc
+        - Updated metadata with version and last_updated information
     - version: 1.4
       changes:
         - Improved filter patterns for message and content to reduce false positives.

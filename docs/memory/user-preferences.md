@@ -27,6 +27,7 @@
   - Changesets for versioning and changelogs
   - ESLint for code quality
   - Utility scripts and internal CLIs written in TypeScript and run via `tsx`
+  - **`vibe-tools` Note:** When passing multi-line text (like plans or code snippets) as arguments to `vibe-tools` commands in the shell, ensure newlines are properly escaped or the text is quoted to prevent shell errors and ensure the tool receives the complete input.
 - **Frameworks**:
   - TypeScript for type safety
   - React for UI components (when applicable)
@@ -112,4 +113,4 @@
   - Prefer 0.x.x versioning in new or experimental projects
   - Breaking changes can occur in minor updates for 0.x.x versions
 
-## Updated: 2025-04-25
+## Updated: 2025-05-06

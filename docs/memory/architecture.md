@@ -37,6 +37,131 @@ graph TD
     B4 --> B4D[File Extension]
 ```
 
+## Cursor Rule Relationships
+
+This diagram shows the relationships between individual rule files, organized by functional categories. Arrows indicate where one rule references or depends on another.
+
+```mermaid
+graph TD
+    %% Define rule nodes grouped by categories
+    subgraph "Foundational Rules"
+        memory[memory-management]
+        cursor_rules[cursor-rules-creation]
+        date[date-consistency-enforcer]
+        rule_index[00-rule-index]
+    end
+
+    subgraph "Workflow Rules"
+        ai_agile[ai-agile-workflow]
+        dev_workflow[development-workflow]
+        changeset[changeset-workflow]
+        ci_cd[ci-cd-workflow]
+        code_review[code-review-standards]
+    end
+
+    subgraph "Tool Integration"
+        mcp_tools[mcp-tools-usage]
+        vibe_tools[vibe-tools]
+        anthropic[anthropic-chain-of-thought]
+    end
+
+    subgraph "Coding Standards"
+        ts_patterns[typescript-patterns]
+        api_design[api-design-standards]
+        eslint[eslint-config-usage]
+        prettier[prettier-config-usage]
+        testing[testing-practices]
+    end
+
+    subgraph "Repository Structure"
+        monorepo[monorepo-structure]
+        dependency[dependency-management]
+        repo_analyzer[repo-analyzer]
+    end
+
+    subgraph "Rule Management"
+        rule_ack[rule-acknowledgement]
+        rule_recommender[repo-rule-recommender]
+        rule_automation[rule-automation-script]
+        debugging[debugging-guide]
+        user_pref[user-preferences-awareness]
+    end
+
+    %% Define key relationships between rules
+    %% Foundational relationships
+    memory -->|provides context for| ai_agile
+    memory <-->|bidirectional| mcp_tools
+    memory -->|provides format for| user_pref
+    memory -->|relies on| date
+    memory -->|links using| cursor_rules
+
+    cursor_rules -->|updates| rule_index
+    cursor_rules -->|informs| rule_recommender
+    cursor_rules -->|guides| rule_automation
+
+    date -->|used by| ai_agile
+    date -->|used by| memory
+
+    %% Workflow relationships
+    ai_agile -->|references| memory
+    ai_agile -->|uses| date
+    ai_agile -->|updates| rule_index
+    ai_agile -->|uses| anthropic
+    ai_agile -->|uses| mcp_tools
+
+    dev_workflow -->|relates to| changeset
+    dev_workflow -->|relates to| ci_cd
+    dev_workflow -->|relates to| code_review
+    dev_workflow -->|relates to| testing
+
+    changeset <-->|bidirectional| ci_cd
+    changeset <-->|bidirectional| monorepo
+    changeset -->|informs| code_review
+
+    code_review -->|checks| ts_patterns
+    code_review -->|checks| api_design
+    code_review -->|checks| eslint
+    code_review -->|checks| prettier
+    code_review -->|checks| testing
+
+    %% Tool integration relationships
+    mcp_tools <-->|bidirectional| anthropic
+    mcp_tools <-->|bidirectional| user_pref
+    mcp_tools -->|used by| date
+    mcp_tools <-->|bidirectional| vibe_tools
+
+    vibe_tools -->|powers| repo_analyzer
+    vibe_tools -->|provides| mcp_tools
+
+    %% Coding standards relationships
+    ts_patterns <-->|bidirectional| eslint
+    ts_patterns -->|informs| api_design
+    ts_patterns -->|guides| testing
+
+    eslint <-->|bidirectional| prettier
+
+    %% Repository structure relationships
+    monorepo <-->|bidirectional| dependency
+    monorepo <-->|bidirectional| eslint
+    monorepo <-->|bidirectional| prettier
+    monorepo <-->|bidirectional| testing
+
+    repo_analyzer -->|helps in| debugging
+
+    %% Rule management relationships
+    user_pref -->|aligns with| ts_patterns
+    user_pref -->|aligns with| code_review
+    user_pref -->|aligns with| api_design
+    user_pref -->|connects to| vibe_tools
+
+    rule_ack -->|references| rule_index
+    rule_ack -->|connects to| cursor_rules
+
+    rule_recommender -->|uses| repo_analyzer
+    rule_recommender -->|references| cursor_rules
+    rule_recommender -->|updates| rule_index
+```
+
 ## Key Components
 
 - **Cursor Rules System**: The core system for defining AI behavior rules and enforcing consistent practices
