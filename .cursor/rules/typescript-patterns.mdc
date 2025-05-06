@@ -10,11 +10,11 @@ name: typescript_patterns
 description: Guidelines for writing efficient, maintainable TypeScript code in the bfra.me/works ecosystem
 filters:
   - type: file_extension
-    pattern: "\\.ts$|\\.tsx$"
+    pattern: "\\.tsx?$"
   - type: file_path
-    pattern: "tsconfig\\.json$"
+    pattern: "tsconfig(\\.\\w+)?\\.json$"
   - type: content
-    pattern: "import|export|interface|type|class|function|const|let|export\\s+default"
+    pattern: "(?i)(interface\\s+\\w+|type\\s+\\w+\\s*=|class\\s+\\w+|export\\s+(default\\s+)?function|import\\s+\\{)"
 
 actions:
   - type: suggest
@@ -340,12 +340,19 @@ examples:
 
 metadata:
   priority: high
-  version: 1.0
+  version: 1.1
   tags:
     - typescript
-    - patterns
+    - coding-standards
     - best-practices
   changelog:
+    - version: 1.1
+      changes:
+        - Improved filter patterns for better specificity and reduced false positives
+        - Simplified file_extension pattern using the `?` quantifier
+        - Enhanced file_path pattern to match all tsconfig variants (base, build, etc.)
+        - Made content pattern more specific to match actual TypeScript patterns
+        - Used word boundaries and structural elements to reduce false positives
     - version: 1.0
       changes:
         - Initial version

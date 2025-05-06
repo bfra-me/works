@@ -307,7 +307,7 @@ actions:
       The AI will:
       1. Extract tasks from each phase
       2. Create individual task documents in `docs/tasks/`
-      3. Name them with a pattern: `$(date +%Y-%m-%d)-XX.md` (current date + sequence number)
+      3. Name them with a pattern: `YYYY-MM-DD-XX.md` (e.g., `2025-05-06-01.md`). Obtain the date following [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc), prefer `mcp_time_get_current_time` tool, fallback to `$(date +%Y-%m-%d)-XX.md`.
       4. Include all necessary details from the plan
       5. Update the memory file with new task information
       6. Update the plan document
@@ -363,7 +363,7 @@ actions:
            - For renamed rules: Update all references
            - For removed rules: Remove the entry
          - Update the `total_rules` count in the Metadata section
-         - Update the `last_updated` date in the Metadata section to today's date
+         - Update the `last_updated` date in the Metadata section using the current date obtained following [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc) (prioritize `mcp_time_get_current_time` tool, fallback to `date +%Y-%m-%d`)
       3. Request the AI to verify the rule index update with:
          ```
          update rule index
@@ -402,7 +402,7 @@ actions:
          - The `## Updated: YYYY-MM-DD` line must ALWAYS be the last line in the file
          - There should only be ONE such line per file
          - Always update this timestamp when making changes
-         - Use the current date from `$(date +%Y-%m-%d)`
+         - Use the current date obtained following [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc) (prioritize `mcp_time_get_current_time` tool, fallback to `date +%Y-%m-%d`)
 
       4. **Handling the Current State Section**:
          - Always update the existing "Current State" section

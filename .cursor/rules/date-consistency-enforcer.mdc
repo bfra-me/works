@@ -9,67 +9,101 @@ This rule ensures consistent and accurate date handling in memory files, task ID
 
 <rule>
 name: date_consistency_enforcer
-description: Enforces consistent use of the date command for timestamps and prevents using fabricated dates
+description: Enforces consistent use of date retrieval methods for timestamps and prevents using fabricated dates
 filters:
   - type: file_path
-    pattern: "docs/[memory|plans|tasks|templates]/.*\\.md$"
+    pattern: "docs/(memory|plans|tasks|templates)/.*\\.md$"
   - type: file_path
     pattern: "\\.mdc$"
   - type: message
-    pattern: "(?i)(update date|timestamp|current date|completion date|task id)"
+    pattern: "(?i)(\\b(update|add|change|fix)\\s+(the\\s+)?(date|timestamp)\\b|\\bcurrent date\\b|\\bcompletion date\\b|\\btask id\\b)"
   - type: content
-    pattern: "Updated: |Completion Date|Current Date|Task ID: "
+    pattern: "(?i)(Updated:\\s*\\d|Completion Date:\\s*\\d|Current Date:\\s*\\d|Task ID:\\s*\\d)"
 
 actions:
   - type: suggest
     message: |
       ## Date Consistency Requirements
 
-      I notice you're working with dates in memory files. To ensure consistency:
+      I notice you're working with dates in memory files, task IDs, or documentation. To ensure consistency and accuracy:
 
       ### Current Date Retrieval
 
-      Always use the terminal command (via the `run_terminal_cmd` tool) to get the current date:
+      **Primary Method (Preferred):**
+      Use the `mcp_time_get_current_time` tool (or equivalent `vibe-tools mcp run` command) to get the current date and time in the user's timezone (defaulting to MST if unspecified). This provides the most accurate, timezone-aware date.
+      ```typescript
+      // Example MCP Tool Call
+      // const currentTime = await mcp_time_get_current_time({ timezone: 'MST' });
+      // const today = currentTime.date; // Assuming format YYYY-MM-DD
+      ```
+      ```bash
+      # Example Vibe Tools Call
+      # vibe-tools mcp run "get current date in YYYY-MM-DD format" --provider=openrouter
+      ```
+
+      **Fallback Method:**
+      If the `mcp_time_get_current_time` tool is unavailable or fails, use the terminal command (via the `run_terminal_cmd` tool) to get the current date:
       ```bash
       date +%Y-%m-%d
       # Returns: YYYY-MM-DD format (e.g., 2025-04-26)
       ```
+      **Note:** Simpler scripts or environments without access to MCP tools (like shell scripts) may still rely directly on the `date +%Y-%m-%d` command.
 
       ### Date Usage Rules
 
       1. **Memory File Updates**:
-         - Add/update the "Updated:" section at the end of memory files
-         - Use `date +%Y-%m-%d` to get the current date
+         - Add/update the "Updated:" section at the end of memory files.
+         - Use the **primary method** (MCP tool) if available, otherwise the fallback (`date +%Y-%m-%d`).
          - Format: `## Updated: 2025-04-26`
 
       2. **Task IDs**:
-         - Format: `YYYY-MM-DD-XX` where XX is a sequence number
-         - Use `date +%Y-%m-%d` to get the date portion
+         - Format: `YYYY-MM-DD-XX` where XX is a sequence number.
+         - Use the **primary method** (MCP tool) if available, otherwise the fallback (`date +%Y-%m-%d`) to get the date portion.
          - The sequence number (`XX`) should start at `01` for the first task of the day and increment. See the [AI Agile Workflow](mdc:.cursor/rules/ai-agile-workflow.mdc) for details on checking existing tasks.
          - Example: `2025-04-26-01`
 
       3. **Completion Dates**:
-         - Use `date +%Y-%m-%d` for the current date
+         - Use the **primary method** (MCP tool) if available, otherwise the fallback (`date +%Y-%m-%d`) for the current date.
          - Format: `2025-04-26`
 
       4. **Recent Updates Section**:
-         - Each entry should end with the date in parentheses
-         - Example: `- Updated memory file structure (2025-04-26)`
+         - Each entry should end with the date in parentheses.
+         - Example: `- Updated memory file structure (2025-04-26)` (obtained using preferred method).
 
       5. **Historical Integrity**:
          - Never use dates before 2025-04-25 (project start date)
          - Do not fabricate dates or timestamp events in the future
 
-      ### Implementation
+      ### Implementation Examples
+
+      ```typescript
+      // Preferred Method (Illustrative)
+      // async function getCurrentDate(): Promise<string> {
+      //   try {
+      //     const timeInfo = await mcp_time_get_current_time({ timezone: 'MST' });
+      //     // Assuming timeInfo.date gives YYYY-MM-DD
+      //     return timeInfo.date;
+      //   } catch (error) {
+      //     console.warn("MCP time tool failed, using fallback:", error);
+      //     // Fallback logic using run_terminal_cmd('date +%Y-%m-%d') would go here
+      //     // This part requires implementation details of run_terminal_cmd
+      //     const fallbackDate = await getFallbackDate();
+      //     return fallbackDate;
+      //   }
+      // }
+      // const today = await getCurrentDate();
+      // console.log(`## Updated: ${today}`);
+
+      // Fallback Method (Illustrative - If Primary Fails or Not Available)
+      // const dateOutput = await run_terminal_cmd({ command: 'date +%Y-%m-%d' });
+      // const fallbackToday = dateOutput.stdout.trim();
+      // console.log(`## Updated: ${fallbackToday}`);
+      ```
 
       ```bash
-      # Get current date for memory file updates
+      # Fallback command used directly in scripts or when MCP tools fail
       TODAY=$(date +%Y-%m-%d)
       echo "## Updated: $TODAY"
-
-      # Generate a new task ID
-      TASK_ID="$TODAY-01"
-      echo "Task ID: $TASK_ID"
       ```
 
       Would you like me to update the dates in the current file using the correct date format and values?
@@ -85,36 +119,50 @@ examples:
     output: |
       ## Date Consistency Requirements
 
-      I notice you're working with dates in memory files. To ensure consistency:
+      I notice you're working with dates in memory files, task IDs, or documentation. To ensure consistency and accuracy:
 
       ### Current Date Retrieval
 
-      Always use the terminal command (via the `run_terminal_cmd` tool) to get the current date:
+      **Primary Method (Preferred):**
+      Use the `mcp_time_get_current_time` tool (or equivalent `vibe-tools mcp run` command) to get the current date and time in the user's timezone (defaulting to MST if unspecified). This provides the most accurate, timezone-aware date.
+      ```typescript
+      // Example MCP Tool Call
+      // const currentTime = await mcp_time_get_current_time({ timezone: 'MST' });
+      // const today = currentTime.date; // Assuming format YYYY-MM-DD
+      ```
+      ```bash
+      # Example Vibe Tools Call
+      # vibe-tools mcp run "get current date in YYYY-MM-DD format" --provider=openrouter
+      ```
+
+      **Fallback Method:**
+      If the `mcp_time_get_current_time` tool is unavailable or fails, use the terminal command (via the `run_terminal_cmd` tool) to get the current date:
       ```bash
       date +%Y-%m-%d
       # Returns: YYYY-MM-DD format (e.g., 2025-04-26)
       ```
+      **Note:** Simpler scripts or environments without access to MCP tools (like shell scripts) may still rely directly on the `date +%Y-%m-%d` command.
 
       ### Date Usage Rules
 
       1. **Memory File Updates**:
-         - Add/update the "Updated:" section at the end of memory files
-         - Use `date +%Y-%m-%d` to get the current date
+         - Add/update the "Updated:" section at the end of memory files.
+         - Use the **primary method** (MCP tool) if available, otherwise the fallback (`date +%Y-%m-%d`).
          - Format: `## Updated: 2025-04-26`
 
       2. **Task IDs**:
-         - Format: `YYYY-MM-DD-XX` where XX is a sequence number
-         - Use `date +%Y-%m-%d` to get the date portion
+         - Format: `YYYY-MM-DD-XX` where XX is a sequence number.
+         - Use the **primary method** (MCP tool) if available, otherwise the fallback (`date +%Y-%m-%d`) to get the date portion.
          - The sequence number (`XX`) should start at `01` for the first task of the day and increment. See the [AI Agile Workflow](mdc:.cursor/rules/ai-agile-workflow.mdc) for details on checking existing tasks.
          - Example: `2025-04-26-01`
 
       3. **Completion Dates**:
-         - Use `date +%Y-%m-%d` for the current date
+         - Use the **primary method** (MCP tool) if available, otherwise the fallback (`date +%Y-%m-%d`) for the current date.
          - Format: `2025-04-26`
 
       4. **Recent Updates Section**:
-         - Each entry should end with the date in parentheses
-         - Example: `- Updated memory file structure (2025-04-26)`
+         - Each entry should end with the date in parentheses.
+         - Example: `- Updated memory file structure (2025-04-26)` (obtained using preferred method).
 
       5. **Historical Integrity**:
          - Never use dates before 2025-04-25 (project start date)
@@ -127,15 +175,29 @@ examples:
     output: |
       ## Date Consistency Requirements
 
-      I notice you need to create a new task ID. To ensure consistency:
+      I notice you need to create a new task ID. To ensure consistency and accuracy:
 
       ### Current Date Retrieval
 
-      Always use the terminal command (via the `run_terminal_cmd` tool) to get the current date:
+      **Primary Method (Preferred):**
+      Use the `mcp_time_get_current_time` tool (or equivalent `vibe-tools mcp run` command) to get the current date and time in the user's timezone (defaulting to MST if unspecified). This provides the most accurate, timezone-aware date.
+      ```typescript
+      // Example MCP Tool Call
+      // const currentTime = await mcp_time_get_current_time({ timezone: 'MST' });
+      // const today = currentTime.date; // Assuming format YYYY-MM-DD
+      ```
+      ```bash
+      # Example Vibe Tools Call
+      # vibe-tools mcp run "get current date in YYYY-MM-DD format" --provider=openrouter
+      ```
+
+      **Fallback Method:**
+      If the `mcp_time_get_current_time` tool is unavailable or fails, use the terminal command (via the `run_terminal_cmd` tool) to get the current date:
       ```bash
       date +%Y-%m-%d
       # Returns: YYYY-MM-DD format (e.g., 2025-04-26)
       ```
+      **Note:** Simpler scripts or environments without access to MCP tools (like shell scripts) may still rely directly on the `date +%Y-%m-%d` command.
 
       Let me get the current date for your task ID:
 
@@ -150,10 +212,27 @@ examples:
 
 metadata:
   priority: high
-  version: 1.0
+  version: 1.2
   tags:
     - dates
     - consistency
     - memory-management
     - documentation
+    - mcp-tool
+  changelog:
+    - version: 1.2
+      changes:
+        - Prioritized `mcp_time_get_current_time` tool for AI agents to retrieve current date.
+        - Made `date +%Y-%m-%d` command the fallback method.
+        - Updated descriptions and examples to reflect the new priority.
+        - Clarified usage for scripts vs. AI agents.
+    - version: 1.1
+      changes:
+        - Fixed file_path pattern to use proper alternation syntax with parentheses
+        - Added word boundaries and structure to the message pattern
+        - Made content pattern more specific by requiring numeric characters after key phrases
+        - Added specific action verbs combined with date-related terms
+    - version: 1.0
+      changes:
+        - Initial version
 </rule>
