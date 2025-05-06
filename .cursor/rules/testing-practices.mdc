@@ -124,6 +124,10 @@ actions:
       - [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc): Provides guidance relevant to writing TypeScript tests.
       - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): Ensure tests adhere to linting standards.
       - [prettier-config-usage](mdc:.cursor/rules/prettier-config-usage.mdc): Ensure tests adhere to formatting standards.
+      - [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc): Testing is a key part of the CI process defined here.
+      - [dependency-management](mdc:.cursor/rules/dependency-management.mdc): Testing involves managing test dependencies.
+      - [debugging-guide](mdc:.cursor/rules/debugging-guide.mdc): Provides debugging techniques for troubleshooting test failures.
+      - [monorepo-structure](mdc:.cursor/rules/monorepo-structure.mdc): Testing applies to packages within the monorepo structure.
 
 examples:
   - input: |
@@ -184,7 +188,7 @@ examples:
 
 metadata:
   priority: high
-  version: 1.0
+  version: 1.1
   tags:
     - testing
     - vitest
@@ -192,7 +196,11 @@ metadata:
     - monorepo
     - best-practices
   changelog:
+    - version: 1.1
+      changes:
+        - Added comprehensive bidirectional cross-references based on analysis
     - version: 1.0
       changes:
         - Initial version: comprehensive guidance for Vitest setup, test organization, coverage, mocking, and TDD in the monorepo
+  last_updated: "2025-05-06"
 </rule>

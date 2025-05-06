@@ -66,6 +66,19 @@ Detailed description of the task.
 
 Any additional notes or context.
 
+## Analysis Findings
+
+This optional section can be used to document detailed analysis results, audit findings, or other
+task-specific information that doesn't fit cleanly into other sections. For tasks requiring complex
+analysis, this section may include:
+
+- Detailed audit results
+- Code review findings
+- Relationship mappings
+- Performance metrics
+- Test results
+- Custom subsections to organize findings
+
 ## Dependencies
 
 - [List of dependencies, if any]

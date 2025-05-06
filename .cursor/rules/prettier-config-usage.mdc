@@ -147,6 +147,11 @@ actions:
       ## Related Rules
 
       - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): For integrating Prettier with the shared ESLint configuration.
+      - [monorepo-structure](mdc:.cursor/rules/monorepo-structure.mdc): Using the shared Prettier configuration in the monorepo.
+      - [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc): Formatting checks as part of CI/CD processes.
+      - [code-review-standards](mdc:.cursor/rules/code-review-standards.mdc): Prettier formatting standards in code reviews.
+      - [development-workflow](mdc:.cursor/rules/development-workflow.mdc): Standardized formatting in the development process.
+      - [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc): Works alongside TypeScript formatting best practices.
 
 examples:
   - input: |
@@ -277,13 +282,17 @@ examples:
 
 metadata:
   priority: high
-  version: 1.0
+  version: 1.1
   tags:
     - prettier
     - formatting
     - config
   changelog:
+    - version: 1.1
+      changes:
+        - Added Related Rules section with bidirectional cross-references
     - version: 1.0
       changes:
         - Initial version
+  last_updated: "2025-05-06"
 </rule>

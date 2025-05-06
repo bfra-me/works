@@ -267,6 +267,10 @@ actions:
       - [api-design-standards](mdc:.cursor/rules/api-design-standards.mdc): Reviewers should check adherence to API standards.
       - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): Adherence to linting rules is checked.
       - [prettier-config-usage](mdc:.cursor/rules/prettier-config-usage.mdc): Adherence to formatting rules is checked.
+      - [debugging-guide](mdc:.cursor/rules/debugging-guide.mdc): Provides techniques for resolving issues found in reviews.
+      - [dependency-management](mdc:.cursor/rules/dependency-management.mdc): Dependencies should be reviewed for security and compatibility.
+      - [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc): PRs must pass CI checks before merging.
+      - [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc): Reviewers check for adherence to TS standards.
 
 examples:
   - input: |
@@ -307,15 +311,17 @@ examples:
 
 metadata:
   priority: high
-  version: 1.0
+  version: 1.0.1
   tags:
+    - process
     - code-review
-    - pull-request
     - quality
-    - collaboration
-    - workflow
   changelog:
+    - version: 1.0.1
+      changes:
+        - Updated cross-references to related rules
     - version: 1.0
       changes:
         - Initial version
+  last_updated: 2025-05-06
 </rule>

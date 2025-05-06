@@ -370,6 +370,16 @@ actions:
       ## Related Rules
 
       - [00-rule-index](mdc:.cursor/rules/00-rule-index.mdc): Provides an overview of all rules.
+      - [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc): Rule creation/updates are tasks within this workflow.
+      - [memory-management](mdc:.cursor/rules/memory-management.mdc): Defines linking syntax used in rules.
+      - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Ensures rules align with user preferences.
+      - [anthropic-chain-of-thought](mdc:.cursor/rules/anthropic-chain-of-thought.mdc): Guides structuring prompt content within rules.
+      - [rule-automation-script](mdc:.cursor/rules/rule-automation-script.mdc): Provides tooling for rule creation.
+      - [repo-rule-recommender](mdc:.cursor/rules/repo-rule-recommender.mdc): Helps identify needs for new rules.
+      - [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc): Governs date usage in metadata.
+      - [rule-acknowledgement](mdc:.cursor/rules/rule-acknowledgement.mdc): Guides how rules are acknowledged in responses.
+      - [vibe-tools](mdc:.cursor/rules/vibe-tools.mdc): Potential tool for rule creation/management tasks.
+      - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Potential tool for rule creation/management tasks.
       - [Rule Application Types](mdc:docs/memory/rule-application-types.md): Detailed guidance on choosing the right activation mode.
       - [Rule Description Standardization](mdc:docs/memory/cursor-rule-descriptions.md): How to write effective rule descriptions.
       - [Rule Frontmatter Guidelines](mdc:docs/memory/cursor-rule-frontmatter.md): Specifics on configuring frontmatter.
@@ -377,7 +387,7 @@ actions:
 
 metadata:
   priority: high
-  version: 1.7
+  version: 1.7.1
   tags:
     - cursor-rules
     - documentation
@@ -386,6 +396,9 @@ metadata:
     - location
     - linking
   changelog:
+    - version: 1.7.1
+      changes:
+        - Updated cross-references to related rules
     - version: 1.7
       changes:
         - Merged content from `cursor-rules-location.mdc` and `cursor-rule-cross-references.mdc`.
@@ -414,4 +427,5 @@ metadata:
     - version: 1.0
       changes:
         - Initial version
+  last_updated: 2025-05-06
 </rule>

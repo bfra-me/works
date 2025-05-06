@@ -143,6 +143,8 @@ actions:
       - [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc): Dependency issues often surface during CI.
       - [development-workflow](mdc:.cursor/rules/development-workflow.mdc): Covers the overall workflow including dependency updates.
       - [testing-practices](mdc:.cursor/rules/testing-practices.mdc): Dependency updates require re-running tests.
+      - [debugging-guide](mdc:.cursor/rules/debugging-guide.mdc): Provides strategies for debugging dependency issues.
+      - [code-review-standards](mdc:.cursor/rules/code-review-standards.mdc): Code reviews should include checks on dependency usage.
 
 examples:
   - input: |
@@ -165,7 +167,7 @@ examples:
 
 metadata:
   priority: high
-  version: 1.0
+  version: 1.0.1
   tags:
     - dependency-management
     - monorepo
@@ -174,7 +176,11 @@ metadata:
     - security
     - workflow
   changelog:
+    - version: 1.0.1
+      changes:
+        - Updated Related Rules section with cross-references
     - version: 1.0
       changes:
         - Initial version: comprehensive dependency management rule for the monorepo
+  last_updated: 2025-05-06
 </rule>

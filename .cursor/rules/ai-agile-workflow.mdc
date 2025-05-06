@@ -535,9 +535,9 @@ actions:
       - It provides guidelines for maintaining memory files and leveraging the knowledge graph
       - Together, these rules create a complete system for maintaining project context and workflow status
 
-      ### Auto Memory Manager
+      ### Memory Manager
 
-      The principles for automatically updating memory upon task completion are now detailed within the [memory-management](mdc:.cursor/rules/memory-management.mdc) rule. This process involves:
+      The process for updating memory files and the knowledge graph upon task completion are now detailed within the [memory-management](mdc:.cursor/rules/memory-management.mdc) rule. This process involves:
 
       - Updating memory files with detailed implementation information
       - Creating knowledge graph entities for new components and concepts
@@ -547,20 +547,15 @@ actions:
 
       This integration ensures that all task completions are thoroughly documented and easily retrievable in future development work.
 
-      ### Cursor Rule Cross-References
+      ## Related Rules
 
-      The [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc) rule defines the proper syntax (`mdc:`) for linking between files within Cursor rules. When creating links:
-
-      ```markdown
-      # For links to other Cursor rules
-      [rule-name](mdc:.cursor/rules/rule-name.mdc)
-
-      # For links to other files in the repository
-      [filename](mdc:path/to/filename.ext)
-
-      # Example: Linking to features.md
-      [features document](mdc:docs/features.md)
-      ```
+      - [memory-management](mdc:.cursor/rules/memory-management.mdc): Defines workflow status storage, references automated memory updates upon task completion, and relies on its context loading.
+      - [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc): Uses its date formatting for task IDs, completion dates, and update timestamps.
+      - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc): Mentions updating the rule index as part of task completion for rule-related tasks.
+      - [00-rule-index](mdc:.cursor/rules/00-rule-index.mdc): References updating the index file itself.
+      - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Mentions using the Sequential Thinking tool/approach.
+      - [anthropic-chain-of-thought](mdc:.cursor/rules/anthropic-chain-of-thought.mdc): Provides structure for Sequential Thinking process.
+      - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Ensures workflow aligns with user preferences for communication and process.
 
       ## Templates
 

@@ -352,7 +352,9 @@ actions:
 
       - [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc): Core TypeScript best practices.
       - [changeset-workflow](mdc:.cursor/rules/changeset-workflow.mdc): How API changes relate to versioning and releases.
+      - [code-review-standards](mdc:.cursor/rules/code-review-standards.mdc): Provides specific criteria for reviewing API design.
       - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): Linting rules that may enforce API standards.
+      - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Documentation and naming standards align with API standards.
 
 examples:
   - input: |
@@ -421,14 +423,18 @@ examples:
 
 metadata:
   priority: high
-  version: 1.0
+  version: 1.0.1
   tags:
     - api-design
     - typescript
     - documentation
     - versioning
   changelog:
+    - version: 1.0.1
+      changes:
+        - Updated cross-references to related rules
     - version: 1.0
       changes:
         - Initial version
+  last_updated: 2025-05-06
 </rule>

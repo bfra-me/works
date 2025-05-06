@@ -129,6 +129,8 @@ actions:
       - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): Using the shared ESLint config.
       - [prettier-config-usage](mdc:.cursor/rules/prettier-config-usage.mdc): Using the shared Prettier config.
       - [testing-practices](mdc:.cursor/rules/testing-practices.mdc): How testing is handled in the monorepo.
+      - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Guidelines for using MCP tools within the monorepo context.
+      - [memory-management](mdc:.cursor/rules/memory-management.mdc): Guidelines for maintaining memory files related to monorepo architecture.
 
 examples:
   - input: |
@@ -151,9 +153,18 @@ examples:
 
 metadata:
   priority: high
-  version: 1.0
+  version: 1.1
   tags:
     - monorepo
     - architecture
     - workspace
+  last_updated: 2025-05-06
+  changelog:
+    - version: 1.1
+      changes:
+        - Added "Related Rules" section with cross-references to related rules
+        - Updated metadata with version and last_updated
+    - version: 1.0
+      changes:
+        - Initial version
 </rule>

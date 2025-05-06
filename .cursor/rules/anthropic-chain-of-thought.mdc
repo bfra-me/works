@@ -92,7 +92,10 @@ actions:
 
       ## Related Rules
 
-      - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc) - For general guidance on creating effective rules.
+      - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc): Provides guidance on structuring prompt content within rules.
+      - [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc): Provides a structure for the 'Sequential Thinking' it mandates.
+      - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Provides structure for the `Sequential Thinking` tool/approach.
+      - [memory-management](mdc:.cursor/rules/memory-management.mdc): Uses structured thinking approach for memory file management.
 
 examples:
   - input: |

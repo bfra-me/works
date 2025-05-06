@@ -75,6 +75,11 @@ actions:
       - [memory-management](mdc:.cursor/rules/memory-management.mdc): Defines memory structures often updated by KG tools.
       - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Uses KG tools to access preferences.
       - [repo-analyzer](mdc:.cursor/rules/repo-analyzer.mdc): Can use semantic search tools.
+      - [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc): Provides context for using the `mcp_time_get_current_time` tool.
+      - [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc): References the Sequential Thinking tool for workflow tasks.
+      - [anthropic-chain-of-thought](mdc:.cursor/rules/anthropic-chain-of-thought.mdc): Provides structure for Sequential Thinking.
+      - [vibe-tools](mdc:.cursor/rules/vibe-tools.mdc): Introduces CLI tools powered by MCP servers.
+      - [monorepo-structure](mdc:.cursor/rules/monorepo-structure.mdc): Guidelines for monorepo architecture that may be analyzed using MCP tools.
 
 examples:
   - input: |
@@ -111,9 +116,18 @@ examples:
 
 metadata:
   priority: high
-  version: 1.0
+  version: 1.1
   tags:
     - mcp
     - tool-usage
     - context-enrichment
+  last_updated: 2025-05-06
+  changelog:
+    - version: 1.1
+      changes:
+        - Added bidirectional cross-reference to monorepo-structure.mdc
+        - Updated metadata with version and last_updated information
+    - version: 1.0
+      changes:
+        - Initial version
 </rule>
