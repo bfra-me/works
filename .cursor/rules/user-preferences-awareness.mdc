@@ -11,8 +11,12 @@ Guidelines for accessing and applying user preferences in code assistance, file 
 name: user_preferences_awareness
 description: Standards for accessing and applying user preferences consistently across interactions
 filters:
+  - type: file_path
+    pattern: "docs/memory/user-preferences\\.md$"
   - type: message
-    pattern: "(?i)(user preferences|coding style|formatting|testing|workflow|documentation|tools)"
+    pattern: "(?i)(user preferences|coding style preferences|code formatting|\\bhow (I|you|we) (like|prefer|want)\\b|user settings)"
+  - type: content
+    pattern: "(?i)(preferences|coding style|formatting standards|naming conventions)"
 
 actions:
   - type: suggest
@@ -218,10 +222,20 @@ examples:
 
 metadata:
   priority: high
-  version: 1.0
+  version: 1.1
   tags:
     - preferences
     - memory
     - knowledge-graph
     - customization
+  changelog:
+    - version: 1.1
+      changes:
+        - Added file_path filter to target the user preferences memory file specifically
+        - Refined message pattern with more specific matching including common preference questions
+        - Added content filter to better identify preference-related discussions
+        - Replaced generic terms with more specific patterns to reduce false positives
+    - version: 1.0
+      changes:
+        - Initial version
 </rule>
