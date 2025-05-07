@@ -1,0 +1,286 @@
+---
+description: FOLLOW when PLANNING tasks or REVIEWING changes to ENHANCE workflow efficiency with AI assistance
+globs:
+alwaysApply: false
+---
+# Vibe-Tools Planning and Review Guide
+
+<rule>
+name: vibe_tools_planning_review
+description: Guidelines for using vibe-tools plan for task planning and Gemini for context-aware code reviews
+filters:
+  - type: message
+    pattern: "(?i)(plan task|review code|vibe-tools plan|ask gemini|review changes|implementation plan)"
+  - type: content
+    pattern: "(?i)(planning|reviewing|implementation strategy|code review)"
+
+actions:
+  - type: suggest
+    message: |
+      # Vibe-Tools Planning and Review Process
+
+      This guide outlines a structured approach for task planning and code review using AI-assisted tools, specifically `vibe-tools plan` for planning and Gemini (via `vibe-tools repo`) for contextual reviews.
+
+      ## Planning Process with `vibe-tools plan`
+
+      ### When to Use
+      - When starting a new task or feature
+      - When breaking down complex requirements
+      - When unsure about implementation strategy
+      - When requiring contextual understanding of the codebase
+
+      ### Planning Process
+
+      1. **Prepare a Clear Task Description**
+         ```bash
+         # Format your task description with:
+         # - What needs to be done
+         # - Where in the codebase
+         # - Any specific requirements or constraints
+         ```
+
+      2. **Run the Planning Command**
+         ```bash
+         # Basic planning command
+         vibe-tools plan "Create task X for implementing Y feature in Z component"
+
+         # With documentation context
+         vibe-tools plan "Implement feature X according to spec" --with-doc=https://example.com/spec.pdf
+         ```
+
+      3. **Review the Generated Plan**
+         - Ensure all steps are clear and actionable
+         - Check that all requirements are addressed
+         - Verify the plan includes testing considerations
+         - Confirm the plan respects existing code patterns
+
+      4. **Refine if Necessary**
+         ```bash
+         # Ask for refinements if needed
+         vibe-tools plan "Refine the plan for X to include more detail about handling edge cases"
+         ```
+
+      ### Best Practices for Planning
+
+      - **Be Specific**: Include details about requirements, constraints, and context
+      - **Mention Related Files**: Reference specific files or components that will be affected
+      - **Include Background**: Provide relevant background information for context
+      - **Request Formatting**: Ask for structured output (steps, checklists, etc.)
+      - **Keep Plans Focused**: Create separate plans for separate concerns
+
+      ## Review Process with Gemini
+
+      ### When to Use
+      - After implementing a feature or fix
+      - Before submitting a pull request
+      - When looking for optimization opportunities
+      - When validating compliance with project standards
+
+      ### Review Process
+
+      1. **Prepare Your Changes**
+         - Ensure changes are committed or staged
+         - Know which files have been modified
+
+      2. **Request a Review**
+         ```bash
+         # Basic review command
+         vibe-tools repo "Review my implementation of X feature. Focus on correctness, performance, and adherence to project conventions."
+
+         # For specific files or directories
+         vibe-tools repo "Review changes to the authentication system in src/auth/" --subdir=src/auth
+
+         # With specific criteria
+         vibe-tools repo "Review my implementation of X feature. Check for: 1) Type safety, 2) Error handling, 3) Performance issues, 4) Consistent naming"
+         ```
+
+      3. **Analyze Feedback**
+         - Review suggestions for correctness
+         - Understand the reasoning behind recommendations
+         - Prioritize critical issues
+
+      4. **Follow Up on Specific Points**
+         ```bash
+         # Dig deeper on specific concerns
+         vibe-tools repo "Explain more about the potential memory leak mentioned in your review of X component"
+         ```
+
+      ### Best Practices for Reviews
+
+      - **Provide Context**: Explain what changed and why
+      - **Be Specific About Focus Areas**: Security, performance, style, etc.
+      - **Ask for Alternatives**: Request different approaches if unsure
+      - **Request Examples**: Ask for code examples for complex suggestions
+      - **Iterative Reviews**: Address major issues first, then request another review
+
+      ## Combined Workflow
+
+      For maximum effectiveness, combine planning and review into a complete workflow:
+
+      1. **Start with Planning**
+         ```bash
+         vibe-tools plan "Implement feature X"
+         ```
+
+      2. **Implement According to Plan**
+         - Follow the structured steps
+         - Make adjustments as needed
+
+      3. **Mid-Implementation Check (Optional)**
+         ```bash
+         vibe-tools repo "Review my current approach for implementing X. I've completed steps 1-3 of the plan and want to validate before continuing."
+         ```
+
+      4. **Final Review**
+         ```bash
+         vibe-tools repo "Review my completed implementation of feature X. The changes follow the plan we developed earlier with these adjustments: [list adjustments]"
+         ```
+
+      5. **Document Lessons Learned**
+         - Update relevant documentation
+         - Capture insights for future tasks
+
+      ## Special Considerations
+
+      ### Working with Documentation
+
+      Always provide relevant documentation context using the `--with-doc` option:
+
+      ```bash
+      # Planning with spec document
+      vibe-tools plan "Implement authentication flow" --with-doc=https://example.com/auth-spec.pdf
+
+      # Review against requirements
+      vibe-tools repo "Review my authentication implementation against the spec" --with-doc=https://example.com/auth-spec.pdf
+      ```
+
+      ### Large Codebase Navigation
+
+      For large codebases, help focus the tools:
+
+      ```bash
+      # Planning with subdirectory focus
+      vibe-tools plan "Update user profile UI" --subdir=src/components/user
+
+      # Review with file focus
+      vibe-tools repo "Review changes to the profile component" --subdir=src/components/user
+      ```
+
+      ### Sequential Thinking
+
+      For complex tasks, use sequential thinking to break down problems:
+
+      ```bash
+      # First, understand the requirements
+      vibe-tools repo "Help me understand what's required for implementing feature X"
+
+      # Then, plan the implementation
+      vibe-tools plan "Implement feature X with the following requirements: [requirements]"
+
+      # Finally, review the implementation
+      vibe-tools repo "Review my implementation of feature X against these requirements: [requirements]"
+      ```
+
+      ## Related Rules
+
+      - [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc): Integrates this planning and review process with the overall agile workflow
+      - [vibe-tools](mdc:.cursor/rules/vibe-tools.mdc): Provides comprehensive details on all vibe-tools capabilities
+      - [code-review-standards](mdc:.cursor/rules/code-review-standards.mdc): Defines quality standards to apply during reviews
+      - [development-workflow](mdc:.cursor/rules/development-workflow.mdc): Places planning and review in the broader development context
+      - [memory-management](mdc:.cursor/rules/memory-management.mdc): Guidelines for preserving planning and review insights
+      - [anthropic-chain-of-thought](mdc:.cursor/rules/anthropic-chain-of-thought.mdc): Enhances sequential thinking for complex planning
+
+examples:
+  - input: |
+      I need to plan a task for implementing user authentication.
+    output: |
+      I'll help you plan this task using vibe-tools plan for a comprehensive implementation strategy.
+
+      Let's create a detailed plan for implementing user authentication:
+
+      ```bash
+      vibe-tools plan "Create a comprehensive implementation plan for adding user authentication to our application. The authentication should support email/password login, social login (Google and GitHub), password reset functionality, and session management. Consider security best practices, error handling, and integration with the existing user model."
+      ```
+
+      This will generate a detailed plan breaking down:
+      - Required components and files to modify
+      - Implementation steps in priority order
+      - Security considerations
+      - Testing strategy
+      - Integration points with existing code
+
+      Once you have the plan, we can discuss specific parts that need clarification or refinement before implementation.
+
+  - input: |
+      Can you review my implementation of the login component?
+    output: |
+      I'll help you review your login component implementation using Gemini for contextual feedback.
+
+      Let's get a comprehensive review of your login component:
+
+      ```bash
+      vibe-tools repo "Review my implementation of the login component. Focus on these aspects:
+      1. Security best practices (CSRF protection, input validation, secure auth flow)
+      2. Error handling (comprehensive user feedback, graceful failure)
+      3. UX considerations (loading states, validation feedback, accessibility)
+      4. Code structure (component organization, state management)
+      5. Performance optimization
+
+      Please point out any issues found and suggest improvements with examples where applicable."
+      ```
+
+      This will provide you with a detailed review based on your existing codebase's patterns and best practices. Once you have the review, you can address any issues identified and potentially request a follow-up review of specific changes.
+
+  - input: |
+      I need help planning and implementing a new feature for our project.
+    output: |
+      I'll help you plan and implement your new feature using our established workflow with vibe-tools.
+
+      Let's follow our structured planning and review process:
+
+      1. First, let's create a detailed implementation plan:
+
+         ```bash
+         vibe-tools plan "Create an implementation plan for adding [your feature]. The plan should consider:
+         - Required components and files to modify
+         - Integration with existing system
+         - Data flow and state management
+         - Testing approach
+         - Potential edge cases"
+         ```
+
+      2. Review the generated plan and refine if needed:
+
+         ```bash
+         vibe-tools plan "Refine the previous plan to include more details on [specific area]"
+         ```
+
+      3. During implementation, you can check your approach:
+
+         ```bash
+         vibe-tools repo "I'm implementing [specific part] of the feature. Here's my current approach: [description]. Does this align with our codebase patterns and are there any improvements I should consider?"
+         ```
+
+      4. Once completed, request a comprehensive review:
+
+         ```bash
+         vibe-tools repo "Review my implementation of [your feature]. I've made changes to [list files/components]. Focus on correctness, performance, and adherence to our project conventions."
+         ```
+
+      This combined approach ensures you have both a solid plan to start with and expert feedback on your implementation.
+
+metadata:
+  priority: high
+  version: 1.0
+  tags:
+    - vibe-tools
+    - planning
+    - review
+    - workflow
+    - ai-assistance
+  changelog:
+    - version: 1.0
+      changes:
+        - Initial version
+  last_updated: 2025-05-06
+</rule>

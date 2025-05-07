@@ -10,3 +10,4 @@ globs:
   - '!.changeset/**'
   - '!**/node_modules'
   - '!.cursor/rules/**'
+  - '!docs/(memory|plans|tasks)/**'

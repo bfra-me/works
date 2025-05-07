@@ -1,5 +1,5 @@
 ---
-description: FOLLOW when MANAGING tasks to STREAMLINE progress tracking
+description: FOLLOW when MANAGING tasks to STREAMLINE progress tracking and ENSURE proper memory file management with vibe-tools integration
 globs: docs/plans/*.md,docs/tasks/**/*.md,docs/features.md,docs/plan.md,docs/memory/**/*.md
 alwaysApply: false
 ---
@@ -271,6 +271,33 @@ actions:
 
       ### Step 1: Capture Features
 
+      #### Feature Definition with Web Research
+
+      Ideally, perform initial research *before* adding a feature to `docs/features.md` to better inform its definition and scope. Use [`vibe-tools web`](mdc:.cursor/rules/vibe-tools.mdc) to conduct comprehensive research and competitor analysis. This ensures that features align with industry best practices and market needs:
+
+      ```bash
+      # Research best practices for a feature
+      vibe-tools web "Research best practices for implementing semantic versioning in a monorepo structure similar to our project. Focus on automation and integration with existing workflows."
+
+      # Analyze competitor implementations
+      vibe-tools web "Compare approaches for implementing cross-references between Markdown files with focus on compatibility with VS Code and Cursor IDE."
+
+      # Research specific technical approaches
+      vibe-tools web "What are the current best practices for implementing cross-references in documentation that need to work in both web and IDE environments?"
+      ```
+
+      When you have specific URLs or documentation to reference, use the `--with-doc` option to provide more focused context:
+
+      ```bash
+      # Research with specific documentation as context
+      vibe-tools web "Analyze best practices for rule-based documentation systems" --with-doc="https://example.com/documentation-standards.pdf"
+
+      # Combine multiple documentation sources
+      vibe-tools web "Compare our approach with industry standards" --with-doc="https://example.com/standard1.html" --with-doc="https://example.com/standard2.html"
+      ```
+
+      After completing your research, proceed with adding features to the central reference document:
+
       1. Open `docs/features.md`
       2. Add new features with the following structure:
          ```markdown
@@ -294,6 +321,42 @@ actions:
       3. The AI will generate a structured plan based on the feature
       4. Review and refine the plan as needed
 
+      #### Planning with Vibe-Tools
+
+      For more comprehensive planning with context-aware AI assistance, use `vibe-tools plan`. This approach ensures plans consider repository structure, related components, and implementation patterns:
+
+      ```bash
+      # Generate comprehensive implementation plan
+      vibe-tools plan "Create a detailed implementation plan for adding cross-referencing capabilities to Cursor rules. Include phases, tasks, acceptance criteria and estimated story points."
+
+      # Create plan with specific focus areas
+      vibe-tools plan "Generate implementation plan for memory file automation with focus on maintaining strict formatting according to memory-management guidelines. Identify required updates to ai-agile-workflow.mdc."
+
+      # Generate task breakdown within a plan
+      vibe-tools plan "Break down the vibe-tools integration phase into discrete, estimable tasks with dependencies."
+      ```
+
+      When creating plans that involve memory file updates, always include memory formatting context in your prompts to ensure the AI has the necessary guidelines:
+
+      ```bash
+      # Plan with memory formatting context
+      vibe-tools plan "Create implementation plan for feature X that includes memory file update steps. Include details on proper memory file formatting per memory-management.mdc, specifically:
+      - Always search for existing sections before adding new ones
+      - Merge content into existing sections rather than creating duplicates
+      - Keep the 'Updated: YYYY-MM-DD' line as the very last line
+      - Use proper section merging for lists, tables, and text
+      - Follow the date-consistency-enforcer rule for obtaining dates"
+      ```
+
+      For plans that require specific documentation context, use the `--with-doc` option:
+
+      ```bash
+      # Include memory-management.mdc guidelines directly
+      vibe-tools plan "Plan implementation for feature X with memory file updates" --with-doc="https://raw.githubusercontent.com/bfra-me/works/main/.cursor/rules/memory-management.mdc"
+      ```
+
+      After generating the plan, save it to the appropriate location in the `docs/plans/` directory with a descriptive name.
+
       ### Step 3: Generate Task Documents
 
       When you have a plan document open, ask the AI to generate task documents:
@@ -302,7 +365,56 @@ actions:
       Generate task documents from this plan
       ```
 
-      **Before creating a new task document, you MUST check the `docs/tasks/` directory for existing task files for the current date (e.g., using `list_dir` tool). Use the next available sequence number (e.g., if `2025-05-02-01.md` exists, the next should be `2025-05-02-02.md`). Never overwrite an existing task file.**
+      **Before creating a new task document, you MUST check the `docs/tasks/` and `docs/tasks/done/` directories for existing task files for the current date (e.g., using `list_dir` tool). Use the next available sequence number (e.g., if `2025-05-02-01.md` exists, the next should be `2025-05-02-02.md`). Never overwrite an existing task file.**
+
+      For more structured and context-aware task breakdown, leverage `vibe-tools`:
+
+      #### Task Generation with Vibe-Tools
+
+      Using `vibe-tools` can provide more context-aware and structured task generation:
+
+      - **Using `vibe-tools plan` for Task Breakdown:**
+        `vibe-tools plan` can analyze a feature's objectives or a plan document to automatically suggest a breakdown into specific tasks.
+        ```bash
+        # Example: Break down a feature specified in a plan document
+        vibe-tools plan "From the plan in docs/plans/my-feature-plan.md, generate actionable tasks for the frontend implementation phase."
+
+        # Example: Save output directly to a task file (useful for initial task creation)
+        vibe-tools plan "Break down the 'User Authentication' feature into tasks" --save-to docs/tasks/$(date +%Y-%m-%d)-01.md
+        ```
+        *(Ensure the date command usage aligns with `date-consistency-enforcer.mdc` if used directly in rules, or prefer AI to generate full task IDs.)*
+
+      - **Using `vibe-tools repo` for Code-Aware Task Definition:**
+        `vibe-tools repo` offers contextual insights by leveraging the existing repository structure, helping to define tasks based on current code.
+        ```bash
+        # Example: Define tasks based on codebase structure for a refactoring effort
+        vibe-tools repo "For the refactoring plan of the 'SettingsModule', identify tasks needed to update its dependencies in 'ProfileComponent' and 'AdminPanel'."
+
+        # Example: Break down implementation based on current rule structures
+        vibe-tools repo "Break down the implementation of cross-references into discrete tasks based on the current structure of Cursor rules. Consider file paths, parsing requirements, and rendering approaches."
+        ```
+      These commands ensure that task generation is informed by both the broader feature context and the specific details of the codebase.
+      Refer to [vibe-tools](mdc:.cursor/rules/vibe-tools.mdc) for more command details.
+
+      For more structured and context-aware task breakdown, use `vibe-tools plan`:
+      ```bash
+      # Generate task breakdown from plan
+      vibe-tools plan "Break down this plan into specific tasks with complexity, dependencies, and acceptance criteria: [paste relevant part of plan here]"
+
+      # Generate tasks with memory update requirements
+      vibe-tools plan "Create task documents for implementing feature X. Include steps for proper memory file updates following memory-management.mdc guidelines. Each task should specify which memory files to update and how to maintain formatting integrity."
+
+      # Save tasks directly to task files
+      vibe-tools plan "Break down feature X implementation into tasks" --save-to task-breakdown.md
+      ```
+
+      When generating tasks that involve memory file updates, always include explicit memory formatting instructions to external AI assistants:
+
+      ```bash
+      # Template for memory file update request with formatting context
+      MEMORY_INFO="Information to update in the memory file"
+      vibe-tools ask "Update the workflow-status.md memory file with the following information:\n$MEMORY_INFO\n\nFOLLOW THESE EXACT FORMATTING REQUIREMENTS:\n1. Maintain all existing sections and their order\n2. Search for existing sections before adding new ones\n3. Merge content into existing sections rather than creating duplicates\n4. Keep the 'Updated: YYYY-MM-DD' line as the very last line in the file\n5. Use this exact date format: YYYY-MM-DD (e.g., 2025-05-06)\n6. Format tables and lists precisely as shown in memory-management.mdc\n7. Never create duplicate sections or multiple timestamp lines\n\nEXAMPLE OF CORRECT FORMATTING:\n\`\`\`markdown\n# Section Name\n\n## Subsection\n- Item 1\n- Item 2\n\n## Another Subsection\n| Column 1 | Column 2 |\n|----|----|\n| Value 1  | Value 2  |\n\n## Updated: 2025-05-06\n\`\`\`" # AI Assistant should replace this with actual command to save to file or update memory
+      ```
 
       The AI will:
       1. Extract tasks from each phase
@@ -323,6 +435,56 @@ actions:
 
       **Note on Task Documentation**: Keep task-specific notes, analyses, checklists, or findings directly within the corresponding task file (`docs/tasks/[task-id].md`) under appropriate headings (e.g., "## Task Analysis", "## Implementation Notes", "## Audit Findings"). Avoid creating separate files for temporary outputs related to a single task, ensuring each task file is self-contained.
 
+      #### Task Execution with Repository Context and Research Tools
+
+      When executing tasks, leverage `vibe-tools` to gather comprehensive context about the code, documentation, and for research or troubleshooting:
+
+      - **Gathering Codebase Context with `vibe-tools repo`**:
+        Before diving into implementation, or when trying to understand existing code, use [`vibe-tools repo`](mdc:.cursor/rules/vibe-tools.mdc) to get insights.
+        ```bash
+        # Get context for a specific feature implementation
+        vibe-tools repo "Find all files related to memory management in this repository and explain their relationships."
+
+        # Understand existing patterns before implementation
+        vibe-tools repo "Show examples of memory file updates in recent commits to understand the established patterns."
+
+        # Get context on specific code areas
+        vibe-tools repo "Explain how task status updates are currently implemented in the ai-agile-workflow rule."
+        ```
+
+      - **Research and Troubleshooting with `vibe-tools web`**:
+        If you encounter issues or need to research solutions, use [`vibe-tools web`](mdc:.cursor/rules/vibe-tools.mdc).
+        ```bash
+        # Research best practices or solutions
+        vibe-tools web "What are the best practices for handling asynchronous operations in TypeScript with Express?"
+
+        # Troubleshoot error messages
+        vibe-tools web "How to resolve 'TypeError: Cannot read property 'map' of undefined' in React?"
+        ```
+
+      - **Interactive Debugging and Web UI Testing with `vibe-tools browser`**:
+        For tasks involving web UIs, use [`vibe-tools browser`](mdc:.cursor/rules/vibe-tools.mdc) to interact with pages, observe behavior, or extract information.
+        ```bash
+        # Observe interactive elements on a page
+        vibe-tools browser observe "interactive elements" --url=https://example.com/my-feature-page
+
+        # Test a user flow
+        vibe-tools browser act "Click the 'Login' button | Type 'testuser' into '#username' | Type 'password123' into '#password' | Click '#submit'" --url=https://localhost:3000
+
+        # Extract specific data from a page
+        vibe-tools browser extract "all product titles and prices" --url=https://example.com/products
+        ```
+
+      When executing tasks that involve memory file updates, ensure AI assistants have proper formatting context by referencing the `memory-management.mdc` guidelines. For example:
+      ```bash
+      # Review memory file update approach before making changes
+      vibe-tools repo "Review my approach for updating workflow-status.md with new task information. Does it follow the memory-management.mdc guidelines? Specifically check for:
+      1. Properly updating existing sections rather than creating duplicates
+      2. Maintaining the correct timestamp line at the end
+      3. Following proper section merging for lists and tables
+      4. Using the correct date format according to date-consistency-enforcer"
+      ```
+
       When executing tasks:
       - Continuously update the relevant memory files to maintain context
       - Use `Sequential Thinking` for analyzing each task step
@@ -339,6 +501,34 @@ actions:
          - Update the plan document
          - **Refer to the "Automated Memory Updates on Task Completion" section in the [memory-management](mdc:.cursor/rules/memory-management.mdc) rule for details on updating memory files and knowledge graph entries with comprehensive implementation details** (MANDATORY)
       4. Ask the AI to update the feature status:
+
+      #### Automated Memory File Updates for Task Completion
+
+      When updating memory files upon task completion, use vibe-tools to ensure proper formatting:
+
+      ```bash
+      # Generate memory file update with proper formatting
+      vibe-tools repo "Summarize the completed task [task-id] with focus on implementation details, technical decisions, and lessons learned" --save-to task-summary.txt
+
+      # Format the update for memory files according to strict guidelines
+      vibe-tools ask "$(cat << 'EOF'
+      Format this task summary as updates for the following memory files, following memory-management.mdc guidelines exactly:
+
+      1. workflow-status.md:
+         - Update 'Task History' table with the new completed task
+         - Add to 'Recent Updates' section
+         - Ensure the 'Updated: [today's date]' is the very last line
+
+      2. domain-knowledge.md:
+         - Add relevant technical decisions to the 'Technical Decisions' section
+         - Add any new implementation patterns to the 'Implementation Patterns' section
+         - Ensure content is merged with existing sections, not duplicated
+         - Maintain the exact formatting shown in memory-management.mdc
+
+      IMPORTANT: Always maintain existing structure, merge with existing sections, and keep timestamp at the very end.
+      EOF
+      )"
+      ```
 
       When a task's status changes:
       - You MUST update all relevant memory files using `Sequential Thinking` to ensure thorough analysis
@@ -465,67 +655,302 @@ actions:
          - Ensure the Updated timestamp is the last line
          - Save the file
 
-      ### Extending or Consolidating Existing Plans
+      ### Memory File Automation with Vibe-Tools
 
-      #### Extending a Plan
+      The following section provides comprehensive guidance on using vibe-tools commands to automate memory file updates while maintaining strict adherence to memory-management.mdc formatting requirements.
 
-      1. Open the existing plan document
-      2. Add new phases or tasks as needed
-      3. Update dependencies to reflect the new structure
-      4. Update the timeline to reflect the extended work
-      5. Update the workflow-status.md file to reflect changes
-      6. Consider generating new task documents for new tasks
+      #### Providing Context to External AI Assistants
 
-      #### Consolidating Multiple Plans
+      When using external AI assistants via vibe-tools, it's crucial to provide sufficient context about memory file formatting requirements. Here are key approaches:
 
-      1. Identify the plans to be consolidated
-      2. Create a new consolidated plan or update one of the existing plans:
-         - Maintain the structure of the more comprehensive plan
-         - Incorporate unique elements from all plans
-         - Ensure coherent flow and logical organization
-         - Align task dependencies and timeline
-         - Document the consolidation in the plan's overview
-      3. Update feature.md to reference the consolidated plan
-      4. Update all task documents to reference the consolidated plan
-      5. Update the workflow-status.md file to reflect the consolidation
-      6. If removing a plan document, move it to an archive location
+      1. **Explicit Formatting Instructions**:
+         Always include explicit memory file formatting instructions in your prompts to external AI assistants:
 
-      ### Updating Workflow Status Memory File
+         ```bash
+         vibe-tools ask "Update the workflow-status.md memory file with the following information: [info]
 
-      The workflow-status.md file should be updated after each significant change to maintain context:
-
-      1. **When to Update**:
-         - After creating new features or plans
-         - After generating task documents
-         - After updating task status
-         - After completing major milestones
-         - After consolidating or extending plans
-         - After making significant workflow decisions
-
-      2. **Update Process**:
-         - Open docs/memory/workflow-status.md
-         - Update the Current State section with:
-           - Updated Current Date
-           - Current Active Projects and Plans
-           - Current Phases for each project
-           - Updated Active Tasks list
-           - Updated Next Tasks list
-         - Add new entries to Task History if tasks have changed status
-         - Update the Context section with relevant details
-         - Add an entry to Recent Updates with the change and date
-         - Add any relevant commands to Command History
-         - Add or update Notes as needed
-
-      3. **Example Update Flow**:
+         Ensure formatting follows these guidelines:
+         1. Look for existing sections first and don't duplicate
+         2. Merge content into existing sections
+         3. Keep 'Updated: YYYY-MM-DD' as the very last line
+         4. Use proper formatting for tables and lists
+         5. Don't add extra blank lines around the timestamp"
          ```
-         1. Search for "## Current State" section and update it
-         2. Search for "## Task History" and add new task entries
-         3. Search for "## Recent Updates" and add new update entries
-         4. Ensure the "## Updated: YYYY-MM-DD" line is at the very end with today's date
-         5. Ensure no duplicate sections exist in the file
+
+      2. **Include Document Context**:
+         Use the `--with-doc` option to provide direct access to memory-management.mdc and other relevant documentation:
+
+         ```bash
+         # Include memory-management.mdc as context
+         vibe-tools ask "Update workflow-status.md with new task status" --with-doc="https://raw.githubusercontent.com/bfra-me/works/main/.cursor/rules/memory-management.mdc"
+
+         # Include both memory-management.mdc and the current workflow-status.md
+         vibe-tools ask "Add task X to workflow-status.md" --with-doc="https://raw.githubusercontent.com/bfra-me/works/main/.cursor/rules/memory-management.mdc" --with-doc="https://raw.githubusercontent.com/bfra-me/works/main/docs/memory/workflow-status.md"
          ```
+
+      3. **Provide Examples**:
+         Always include concrete examples of correctly formatted memory files in your prompts:
+
+         ```bash
+         vibe-tools ask "Format this as an update to workflow-status.md following this example exactly:
+
+         ```markdown
+         # Workflow Status Memory
+
+         ## Current State
+         - **Current Date**: 2025-05-06
+         - **Active Project**: Project X
+
+         ## Task History
+         | Task ID | Task Name | Status | Completion Date |
+         |---------|-----------|--------|----------------|
+         | 2025-05-06-01 | Task A | Completed | 2025-05-06 |
+
+         ## Recent Updates
+         - Added Task A to Task History (2025-05-06)
+
+         ## Updated: 2025-05-06
+         ```"
+         ```
+
+      #### Automated Script Templates
+
+      Use these script templates to automate common memory file update operations:
+
+      1. **Workflow Status Update Script**:
+
+         ```bash
+         #!/bin/bash
+
+         # Get current date with preferred method
+         TODAY=$(date +%Y-%m-%d)
+
+         # Gather task completion information
+         echo "Enter the Task ID (e.g., 2025-05-06-01):"
+         read TASK_ID
+
+         echo "Enter the Task Name:"
+         read TASK_NAME
+
+         # Generate a summary of the completed task
+         vibe-tools repo "Summarize the implementation of task $TASK_ID ($TASK_NAME). Include:
+         1. What was accomplished
+         2. Key technical decisions
+         3. Any challenges and solutions" --save-to task-summary.txt
+
+         # Format the update for workflow-status.md with explicit formatting requirements
+         TASK_SUMMARY=$(<task-summary.txt)
+         vibe-tools ask "Format this task summary as updates for workflow-status.md, following these EXACT requirements:
+         1. Add the task to the 'Task History' table with:
+            - Task ID: $TASK_ID
+            - Task Name: $TASK_NAME
+            - Status: Completed
+            - Completion Date: $TODAY
+         2. Add a new entry at the TOP of the 'Recent Updates' section:
+            - Completed task $TASK_ID: $TASK_NAME ($TODAY)
+         3. Update the 'Current Task' field in 'Current State' if this was the current task
+         4. CRITICAL FORMATTING REQUIREMENTS:
+            - Always search for existing sections before adding content
+            - Merge into existing sections rather than creating duplicates
+            - Keep the 'Updated: $TODAY' line as the very last line in the file
+            - Maintain existing table structure and formatting
+            - Never create duplicate sections or timestamps
+         Content to format:
+         $TASK_SUMMARY
+         \nFormat your response as markdown suitable for direct addition to the memory file." --save-to workflow-update.md
+
+         # Apply the update to workflow-status.md
+         # (In practice, you would need to carefully merge this with the existing file)
+         ```
+
+      2. **Domain Knowledge Update Script**:
+
+         ```bash
+         #!/bin/bash
+
+         # Get current date with preferred method
+         TODAY=$(date +%Y-%m-%d)
+
+         # Domain knowledge extraction
+         echo "Extracting domain knowledge..."
+         vibe-tools repo "Identify domain knowledge in the completed task $TASK_ID: $TASK_NAME.
+         Extract:
+         1. Core concepts implemented or used
+         2. Implementation patterns applied
+         3. Technical decisions made and their rationale
+         4. Lessons learned" > domain-extract.txt
+
+         # Format for domain-knowledge.md
+         # UPDATED: Using the recommended variable approach instead of nested heredocs
+         DOMAIN_EXTRACT=$(<domain-extract.txt)
+         vibe-tools ask "Format this information as updates for domain-knowledge.md following these EXACT requirements:
+         1. Ensure each item is categorized in the appropriate section:
+            - 'Core Concepts' for key concepts
+            - 'Implementation Patterns' for code patterns
+            - 'Technical Decisions' for decisions and rationales
+            - 'Lessons Learned' for insights gained
+         2. Follow all memory file formatting requirements:
+            - Search for existing sections before adding
+            - Merge content into existing sections (don't create duplicates)
+            - Keep the 'Updated: $TODAY' line at the very end
+            - Format consistently with the existing file
+            - Never duplicate section headings
+         Content to format:
+         $DOMAIN_EXTRACT" > domain-knowledge-updates.md
+
+         # Apply to domain-knowledge.md (simplified example)
+         echo "Review domain-knowledge-updates.md and apply to docs/memory/domain-knowledge.md"
+         ```
+
+      3. **Complete Memory Update Script**:
+
+         ```bash
+         #!/bin/bash
+
+         # Get current date with preferred method
+         TODAY=$(date +%Y-%m-%d)
+
+         # Task information
+         TASK_ID="$1"
+         TASK_NAME="$2"
+
+         if [ -z "$TASK_ID" ] || [ -z "$TASK_NAME" ]; then
+           echo "Usage: $0 <task-id> <task-name>"
+           exit 1
+         fi
+
+         # Move the task to done directory
+         mv "docs/tasks/$TASK_ID.md" "docs/tasks/done/"
+
+         # Generate comprehensive task summary
+         vibe-tools repo "$(cat << 'EOF'
+         Generate a comprehensive summary of task $TASK_ID: $TASK_NAME, including:
+         1. Implementation details and approach
+         2. Technical decisions made and rationales
+         3. Components or files modified
+         4. New concepts or patterns introduced
+         5. Lessons learned and challenges overcome
+         EOF
+         )" --save-to task-summary.txt
+
+         # Update all relevant memory files with proper formatting
+         vibe-tools ask "$(cat << 'EOF'
+         Generate updates for ALL relevant memory files based on this task summary.
+
+         1. For workflow-status.md:
+            - Update Task History table (add completed task)
+            - Update Recent Updates section
+            - Update Current State if necessary
+
+         2. For domain-knowledge.md:
+            - Add new concepts, patterns, and technical decisions
+
+         3. For architecture.md (if applicable):
+            - Update component relationships if changed
+
+         CRITICAL FORMATTING REQUIREMENTS:
+         - Format according to memory-management.mdc examples EXACTLY
+         - Always search for existing sections before adding content
+         - Merge into existing sections rather than creating duplicates
+         - Keep 'Updated: $TODAY' as the VERY LAST line in EACH file
+         - Never create duplicate sections or timestamps
+         - Use consistent formatting for all sections
+
+         Present updates for EACH memory file separately as markdown blocks ready for insertion.
+         EOF
+         )" --save-to memory-updates.md
+
+         # Output instructions for applying the updates
+         echo "Review memory-updates.md and apply changes to the respective memory files"
+         ```
+
+      #### Best Practices for Memory File Automation
+
+      When automating memory file updates with vibe-tools:
+
+      1. **Always Include Formatting Context**:
+         - Include explicit memory file formatting requirements in every prompt to external AI assistants
+         - Reference memory-management.mdc specifically in your prompts
+         - Provide examples of correctly formatted memory files
+         - Use the `--with-doc` option to include direct access to memory-management.mdc
+         - When using `--with-doc`, consider including both memory-management.mdc AND the specific memory file being updated:
+           ```bash
+           # Include both memory-management.mdc and the specific file being updated
+           vibe-tools ask "Update workflow-status.md with completed task info" --with-doc="https://raw.githubusercontent.com/bfra-me/works/main/.cursor/rules/memory-management.mdc" --with-doc="https://raw.githubusercontent.com/bfra-me/works/main/docs/memory/workflow-status.md"
+           ```
+         - If context limits are a concern, always include at minimum these critical rules:
+           1. Keep the 'Updated: YYYY-MM-DD' line as the VERY LAST line in the file
+           2. Always search for and merge into existing sections, never create duplicates
+           3. Use the exact date format YYYY-MM-DD obtained from date-consistency-enforcer
+           4. Never add extra blank lines around the final timestamp (should be the last line with no trailing newlines)
+
+      2. **Verify Outputs Before Application**:
+         - ALWAYS review the formatted outputs generated by external AI assistants before applying to memory files
+         - Check that all sections are properly merged and not duplicated
+         - Ensure the timestamp is properly formatted and at the very end with no extra blank lines
+         - Verify table and list formatting matches the expected structure
+         - Manually merge the generated content into the target file, carefully preserving existing structure:
+           ```bash
+           # Example verification step
+           echo "IMPORTANT: Before applying, review the generated updates and manually merge into the target file:"
+           echo "1. Open both the generated file and the target memory file"
+           echo "2. For each section in the generated file, find the corresponding section in the target file"
+           echo "3. Carefully merge new content, preserving existing items"
+           echo "4. Check that the timestamp is properly updated as the very last line"
+           echo "5. Save the target file only after confirming all updates are properly merged"
+           ```
+         - After applying changes, use a consistency check to verify proper formatting:
+           ```bash
+           # Consistency check after updates
+           vibe-tools repo "$(cat << 'EOF'
+           Check docs/memory/workflow-status.md for these formatting issues:
+           1. Duplicate '## Updated:' lines
+           2. Duplicate section headers
+           3. Extra blank lines around the timestamp
+           4. Timestamp appearing in the middle instead of at the end
+           5. Inconsistent table or list formatting
+           Verify that the memory file maintains the exact structure specified in memory-management.mdc.
+           EOF
+           )"
+           ```
+
+      3. **Use Sequential Thinking**:
+         - Break down complex memory file updates into manageable steps
+         - Think through each section that needs updating
+         - Consider how to merge with existing content
+         - Analyze the current file structure before applying changes
+         - Maintain the exact order and structure of sections as specified in memory-management.mdc
+
+      4. **Enforce Date Consistency**:
+         - Always follow the [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc) rule for obtaining dates
+         - Prefer using the `mcp_time_get_current_time` tool when available
+         - Fall back to `date +%Y-%m-%d` when the MCP tool is unavailable
+         - Use consistent date formatting across all memory files: YYYY-MM-DD
+
+      5. **Knowledge Graph Integration**:
+         - Update both memory files and the knowledge graph for complete context preservation
+         - Create or update entities for new components, concepts, or patterns
+         - Add appropriate relationships between entities
+         - Add detailed observations to relevant entities
+
+      6. **Testing Memory File Updates**:
+         - Create test updates in separate files before applying to actual memory files
+         - Verify formatting and content integrity
+         - Check for structural issues like duplicate sections or misplaced timestamps
+         - Have another AI assistant review your memory file updates for correctness
+
+      By following these automation guidelines, you ensure that all memory files maintain strict formatting consistency even when updated through external AI assistants via vibe-tools commands.
 
       ## Related Rules
+
+      - [memory-management](mdc:.cursor/rules/memory-management.mdc): Defines workflow status storage, references automated memory updates upon task completion, and relies on its context loading.
+      - [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc): Uses its date formatting for task IDs, completion dates, and update timestamps.
+      - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc): Mentions updating the rule index as part of task completion for rule-related tasks.
+      - [00-rule-index](mdc:.cursor/rules/00-rule-index.mdc): References updating the index file itself.
+      - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Mentions using the Sequential Thinking tool/approach.
+      - [anthropic-chain-of-thought](mdc:.cursor/rules/anthropic-chain-of-thought.mdc): Provides structure for Sequential Thinking process.
+      - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Ensures workflow aligns with user preferences for communication and process.
+      - [vibe-tools](mdc:.cursor/rules/vibe-tools.mdc): Provides the `vibe-tools plan` and `vibe-tools repo` commands integrated into this workflow.
 
       ### Memory Management Rule
 
@@ -546,16 +971,6 @@ actions:
       - Documenting technical decisions and their rationales
 
       This integration ensures that all task completions are thoroughly documented and easily retrievable in future development work.
-
-      ## Related Rules
-
-      - [memory-management](mdc:.cursor/rules/memory-management.mdc): Defines workflow status storage, references automated memory updates upon task completion, and relies on its context loading.
-      - [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc): Uses its date formatting for task IDs, completion dates, and update timestamps.
-      - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc): Mentions updating the rule index as part of task completion for rule-related tasks.
-      - [00-rule-index](mdc:.cursor/rules/00-rule-index.mdc): References updating the index file itself.
-      - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Mentions using the Sequential Thinking tool/approach.
-      - [anthropic-chain-of-thought](mdc:.cursor/rules/anthropic-chain-of-thought.mdc): Provides structure for Sequential Thinking process.
-      - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Ensures workflow aligns with user preferences for communication and process.
 
       ## Templates
 
@@ -850,12 +1265,26 @@ examples:
 
 metadata:
   priority: high
-  version: 1.9
+  version: 2.1
   tags:
     - workflow
     - agile
     - task-management
+    - vibe-tools
   changelog:
+    - version: 2.1
+      changes:
+        - Integrated `vibe-tools plan` and `vibe-tools repo` examples and guidance into the "Generate Task Documents" section of the AI-Agile Workflow.
+    - version: 2.0
+      changes:
+        - Added comprehensive integration with vibe-tools commands for planning, research, and task management
+        - Added detailed guidance for providing memory file formatting context to external AI assistants
+        - Added script templates for automating memory file updates with proper formatting
+        - Added best practices for maintaining memory file consistency when using external AI assistants
+        - Added examples of using --with-doc option to provide direct access to memory-management.mdc
+        - Added verification and consistency check processes for memory file updates
+        - Updated all workflow steps to incorporate vibe-tools integration
+        - Added vibe-tools to tags
     - version: 1.9
       changes:
         - Added Essential Context Loading section requiring memory files at the start of every interaction
@@ -902,4 +1331,3 @@ metadata:
     - version: 1.2
       changes:
         - Initial version
-</rule>

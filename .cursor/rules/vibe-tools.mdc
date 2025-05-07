@@ -178,5 +178,160 @@ If people say "ask Gemini" or "ask Perplexity" or "ask Stagehand" they mean to u
 - **Remember:** You're part of a team of superhuman expert AIs. Work together to solve complex problems.
 - **Repomix Configuration:** You can customize which files are included/excluded during repository analysis by creating a `repomix.config.json` file in your project root. This file will be automatically detected by `repo`, `plan`, and `doc` commands.
 
+**Multi-line Prompts:**
+When using `vibe-tools` with complex multi-line prompts (like detailed plans, code examples, or formatting instructions), use these approaches for maximum reliability:
+
+1. **POSIX Shell Escaping (Simplest Approach):**
+   ```bash
+   vibe-tools plan "Create an implementation plan for a feature that:\n1. Fetches data from an API\n2. Processes the response with proper error handling\n3. Updates multiple components\n\nInclude specific tasks for:\n- Setting up API client\n- Creating data models\n- Implementing UI components\n- Adding comprehensive tests"
+   ```
+   This approach uses `\n` for newlines and is the most reliable way to handle multi-line input without syntax issues.
+
+2. **Heredoc with Quoted Delimiters (For Complex Content):**
+   ```bash
+   vibe-tools plan "$(cat << 'EOF'
+   Create an implementation plan for a feature that:
+   1. Fetches data from an API
+   2. Processes the response with proper error handling
+   3. Updates multiple components
+
+   Include specific tasks for:
+   - Setting up API client
+   - Creating data models
+   - Implementing UI components
+   - Adding comprehensive tests
+   EOF
+   )"
+   ```
+   The quoted `'EOF'` delimiter prevents variable expansion and command substitution, preserving the literal text exactly.
+
+3. **Temporary File Approach (For Very Complex Content):**
+   ```bash
+   # Create a temporary file with the exact content
+   cat > prompt.txt << 'ENDPROMPT'
+   Review my implementation of feature X. Focus on:
+
+   1. Correctness of the authentication flow
+   2. Error handling for network failures
+   3. Proper state management
+   4. Code structure and organization
+
+   Here's the code I'm concerned about:
+   ```typescript
+   function authenticate(credentials: Credentials) {
+     // Implementation details with special chars like $, `, etc.
+   }
+   ```
+   ENDPROMPT
+
+   # Use the file content in the command
+   vibe-tools repo "$(cat prompt.txt)"
+   ```
+   This approach gives you the ability to inspect the prompt before use and works reliably with syntax highlighting, code blocks, and special characters.
+
+4. **Piping from Heredoc (Alternative):**
+   ```bash
+   cat << 'EOF' | vibe-tools repo --stdin
+   Analyze this code and suggest improvements:
+
+   ```python
+   def process_data(data, config={"default": True}):
+       # Process with complex logic and special chars ($, `, etc)
+       return processed
+   ```
+   EOF
+   ```
+   Use this approach when the tool accepts input from stdin (check documentation).
+
+5. **Working with File Content (Important):**
+
+   **WARNING: Do NOT use piping with nested heredocs** like this problematic approach:
+   ```bash
+   # INCORRECT AND PROBLEMATIC - DON'T DO THIS:
+   cat file.txt | vibe-tools ask "$(cat << 'EOF'
+   Format this data...
+   EOF
+   )"
+   ```
+
+   Instead, use these reliable approaches:
+
+   a. **Store file content in a variable first:**
+   ```bash
+   # Store content in variable, then use in command
+   FILE_CONTENT=$(<file.txt)
+   vibe-tools ask "Format this data:
+
+   $FILE_CONTENT"
+   ```
+
+   b. **Use --with-doc option where supported:**
+   ```bash
+   # Use built-in features when available
+   vibe-tools ask "Process this document" --with-doc=file.txt
+   ```
+
+   c. **Create temporary files for both instructions and content:**
+   ```bash
+   # Create separate instruction file
+   cat > instructions.txt << 'EOF'
+   Format this data with these requirements:
+   1. Use markdown formatting
+   2. Extract key points
+   3. Summarize findings
+   EOF
+
+   # Combine without nesting issues
+   INSTRUCTIONS=$(<instructions.txt)
+   FILE_CONTENT=$(<file.txt)
+
+   # Use both in command safely
+   vibe-tools ask "$INSTRUCTIONS
+
+   Content to format:
+   $FILE_CONTENT"
+   ```
+
+   d. **Create a helper function for frequent use:**
+   ```bash
+   # Define helper function
+   format_with_file() {
+     local file="$1"
+     local instructions="$2"
+     local output="$3"
+
+     # Get file content
+     local content=$(<"$file")
+
+     # Run command without nesting issues
+     vibe-tools ask "$instructions
+
+   Content:
+   $content" --save-to "$output"
+   }
+
+   # Usage
+   format_with_file data.txt "Format this as markdown" output.md
+   ```
+
+**Critical Guidelines for Multi-line Prompts:**
+- Always use **quoted delimiters** (`'EOF'` not just `EOF`) for heredocs to prevent shell expansion
+- For prompts containing backticks, dollar signs, or other shell special characters, quoted heredocs or temporary files are essential
+- When building prompts that combine file content with formatting instructions, use quoted heredocs for the instructions part:
+  ```bash
+  # Example: Generate formatting instructions with heredoc
+  INSTRUCTIONS=$(cat << 'INSTR_EOF'
+  Format the content with these requirements:
+  1. Use markdown headings for sections
+  2. Format code with ```language blocks
+  3. Handle special characters like $PATH and `commands`
+  INSTR_EOF
+  )
+
+  # Use instructions with content from a file
+  cat data.txt | vibe-tools ask "Process this data according to: $INSTRUCTIONS"
+  ```
+- Test complex prompts before using them in production scripts
+
 <!-- vibe-tools-version: 0.60.9 -->
 </vibe-tools Integration>
