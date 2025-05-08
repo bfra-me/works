@@ -285,18 +285,14 @@ actions:
 
       This context loading is MANDATORY, not optional, to ensure you have sufficient context to follow the [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc) accurately and provide consistent assistance.
 
-      Always use the `Sequential Thinking` tool when analyzing these memory files to ensure thorough understanding of:
-      - Current project state and priorities
-      - Active tasks and their dependencies
-      - Recent updates and changes
-      - Technical decisions and their rationales
-      - User preferences and requirements
+      Always use `Sequential Thinking` to thoroughly analyze these files and extract relevant information for the current task or query.
 
       Additional relevant memory files may be loaded after these essential files based on the specific task or context.
 
       ## Sequential Thinking for Memory Management
+      When managing memory files (reading, updating, or creating), and instructions refer to 'Sequential Thinking', a 'step-by-step approach', or 'structured reasoning', this indicates the use of the **`mcp_sequential-thinking_sequentialthinking`** tool. This tool is essential for thorough analysis, context integration, consistency checking, and ensuring comprehensive updates to memory files.
 
-      When reading, updating, or creating memory files, you MUST use the `Sequential Thinking` tool to ensure:
+      When reading, updating, or creating memory files, you MUST use the **`mcp_sequential-thinking_sequentialthinking`** tool to ensure:
 
       1. **Thorough Analysis**: Carefully examine existing content before making changes
       2. **Context Integration**: Connect new information with existing knowledge
@@ -304,7 +300,7 @@ actions:
       4. **Comprehensive Updates**: Ensure all relevant sections are updated appropriately
       5. **Long-term Context Retention**: Preserve important information for future sessions
 
-      For complex memory operations like merging duplicate sections or resolving conflicts, the step-by-step reasoning provided by Sequential Thinking is essential for maintaining memory integrity.
+      For complex memory operations like merging duplicate sections or resolving conflicts, the step-by-step reasoning provided by **`mcp_sequential-thinking_sequentialthinking`** tool is essential for maintaining memory integrity.
 
       When you see instructions to "Use Sequential Thinking," this means you should either:
       1. Use the `mcp_Sequential_Thinking_sequentialthinking` tool when available, OR

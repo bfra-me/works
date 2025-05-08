@@ -29,6 +29,7 @@ This file tracks key technical decisions made during the development of the proj
 | PROC-002 | Use task templates with structured sections | Consistency, comprehensive task definition | 2025-04-25 | Approved | Free-form tasks, minimal structure | All tasks must follow the template format |
 | PROC-003 | Update workflow status after significant changes | Maintain context across conversations | 2025-04-25 | Approved | Ad-hoc updates, no formal tracking | Regular updates to workflow-status.md required |
 | PROC-004 | Implement knowledge graph entities for key components | Enhanced relationship tracking | 2025-04-25 | Approved | File-only tracking, no graph | Knowledge graph must be maintained alongside files |
+| PROC-005 | Integrate vibe-tools into ai-agile-workflow | Enhanced research, planning, context awareness, and automation | 2025-05-06 | Approved | Separate vibe-tools workflow rule, ad-hoc usage without rule integration | All workflow stages enhanced with specific vibe-tools commands, memory file updates can be automated |
 
 ## Tool Decisions
 
@@ -38,6 +39,7 @@ This file tracks key technical decisions made during the development of the proj
 | TOOL-002 | Implement Changesets for versioning | Structured release notes, automated versioning | 2025-04-25 | Approved | Manual versioning, semantic-release | All changes require changeset files |
 | TOOL-003 | ESLint with custom config for code quality | Consistent code style, error prevention | 2025-04-25 | Approved | TSLint, no linter | All code must pass ESLint checks |
 | TOOL-004 | Cursor AI for development assistance | Enhanced productivity, context-aware help | 2025-04-25 | Approved | GitHub Copilot, no AI assistance | Rules must be maintained for optimal AI behavior |
+| TOOL-005 | Use vibe-tools for AI command-line integration | Context-aware AI assistance with repository, planning, and web capabilities | 2025-05-06 | Approved | Custom scripting, direct API calls to AI providers, manual research and planning | Must maintain API keys for providers, outputs should be reviewed before incorporating into memory files |
 
 ## Open Decisions
 
@@ -57,4 +59,4 @@ This file tracks key technical decisions made during the development of the proj
 6. **Implementation**: Decision is implemented in the codebase
 7. **Evaluation**: Effectiveness of decision is evaluated
 
-## Updated: 2025-04-25
+## Updated: 2025-05-06

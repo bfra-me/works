@@ -28,6 +28,7 @@
   - Plans are divided into phases and tasks
   - Tasks have specific acceptance criteria and implementation steps
   - Progress is tracked through task status and [workflow memory](/docs/memory/workflow-status.md)
+  - Enhanced with vibe-tools commands at each workflow stage for improved context and automation
 
 - **Knowledge Graph**: Connected network of entities and relationships
   - Entities represent concepts, components, and artifacts
@@ -47,6 +48,12 @@
   - Rule files must use kebab-case and .mdc extension
   - Cross-references must use the `[text](/path/to/file)` syntax
   - These standards are defined in [cursor-rules-creation](/.cursor/rules/cursor-rules-creation.mdc)
+
+- **Vibe-Tools Integration**: AI-powered command-line tools that enhance the agile workflow
+  - Provides context-aware commands for planning, research, repository analysis, and automation
+  - Integrates with each stage of the feature => plan => task workflow
+  - Enhances memory file management through automation scripts
+  - Guided by [vibe-tools](/.cursor/rules/vibe-tools.mdc) rule
 
 ## Memory System Structure
 
@@ -151,10 +158,34 @@
   - **Benefits**: Reduces maintenance overhead, improves rule coherence, simplifies rule discovery
   - **Limitations**: Must carefully preserve all functionality during consolidation, update cross-references
 
+- **Vibe-Tools Workflow Enhancement Pattern**: Integrating vibe-tools commands into each workflow stage
+  - **Applied in**: Vibe-Tools Integration Plan (docs/plans/vibe-tools-integration-plan.md)
+  - **Context**: Enhancing the ai-agile-workflow rule with AI-powered tools
+  - **Benefits**: Provides external research capabilities, stronger repository context awareness, detailed planning, and memory file automation
+  - **Implementation**:
+    - Feature Capture: Uses `vibe-tools web` for research before defining features
+    - Plan Creation: Uses `vibe-tools plan` to generate comprehensive implementation plans
+    - Task Generation: Uses `vibe-tools repo` to break down plans with codebase awareness
+    - Task Execution: Uses `vibe-tools repo` and `web` for context and research during implementation
+    - Status Updates: Uses `vibe-tools repo` to generate summaries of completed work
+  - **Limitations**: Requires API keys for some commands, outputs should be reviewed before updating memory files
+
+- **Memory File Automation Pattern**: Using vibe-tools to automate memory file updates
+  - **Applied in**: Vibe-Tools Integration Plan (docs/plans/vibe-tools-integration-plan.md)
+  - **Context**: Reducing manual effort in maintaining memory files while ensuring compliance with memory-management rule
+  - **Benefits**: Maintains consistent memory file structure, reduces repetitive work, improves context retention
+  - **Implementation**:
+    - Uses command chains like `vibe-tools repo "Command" | vibe-tools ask "Format as memory update"`
+    - Employs shell scripts for common update patterns (workflow status, standup reports, domain knowledge)
+    - Ensures all automated updates follow memory file structure and avoid duplications
+  - **Limitations**: Requires human review to ensure quality, must be developed incrementally
+
 ## Technical Decisions
 
 | Decision | Rationale | Date | Alternatives Considered |
 |----------|-----------|------|-------------------------|
+| Integrate vibe-tools into ai-agile-workflow rule | Enhances the workflow with external research, context-aware planning, and automation capabilities | 2025-05-06 | Creating a separate vibe-tools-workflow rule, ad-hoc usage without rule integration |
+| Use command chains for memory file automation | Enables combination of repository context and precise formatting for memory updates | 2025-05-06 | Direct output to files, manual reformatting, custom scripting language |
 | Consolidate location and cross-reference rules into cursor-rules-creation | Reduces redundancy and places related guidance in one place | 2025-05-05 | Maintaining separate rules, creating a new parent rule |
 | Merge auto-memory-manager into memory-management | Keeps all memory management functionality in a single rule | 2025-05-05 | Maintaining separate rules, creating specialized memory rules |
 | Implement rule prioritization hierarchy based on specificity and metadata | Ensures predictable and consistent rule application when multiple rules match | 2025-05-04 | Rule timestamp priority, rule name alphabetical order, random selection |
@@ -162,4 +193,4 @@
 | Limit rule description verbs to FOLLOW, APPLY, USE, ALWAYS USE | Ensures consistent and predictable rule discovery and application | 2025-05-04 | Using a wider variety of action verbs, domain-specific verbs |
 | Document Rule Interactions in a Dedicated Memory File (`docs/memory/rule-interactions.md`) | Provides a central, focused location for interaction patterns without cluttering individual rules or the index | 2025-05-05 | Adding sections to individual rules, updating the 00-rule-index |
 
-## Updated: 2025-05-05
+## Updated: 2025-05-06

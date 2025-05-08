@@ -5,7 +5,7 @@ alwaysApply: true
 ---
 # Model Context Protocol (MCP) Tool Usage
 
-These instructions are automatically active for all conversations in this project. All available tools (e.g., `Sequential Thinking`, `Brave Search`, `Tavily`, `Fetch`, `FireCrawl`, and Knowledge Graph/Memory tools like `mcp_memory_create_entities`) should be utilized as needed without requiring explicit activation.
+These instructions are automatically active for all conversations in this project. All available tools (e.g., the `mcp_sequential-thinking_sequentialthinking` tool, `Brave Search`, `Tavily`, `Fetch`, `FireCrawl`, and Knowledge Graph/Memory tools like `mcp_memory_create_entities`) should be utilized as needed without requiring explicit activation.
 
 <rule>
 name: mcp_tools_usage
@@ -20,7 +20,7 @@ actions:
       ## Activation Patterns
       - "search web for X": Trigger web search tools (Brave Search, Tavily)
       - "scrape content from X": Activate web scraping tools (FireCrawl, Puppeteer)
-      - "think through X step by step": Engage Sequential Thinking
+      - "think through X step by step": Invoke the `mcp_sequential-thinking_sequentialthinking` tool
       - "remember X about Y": Access the knowledge graph
       - "update memory with X": Store new information in the knowledge graph
       - "explore X in depth": Combine multiple tools for comprehensive analysis
@@ -34,7 +34,7 @@ actions:
 
       ## Tool Categories and Usage Guidelines
 
-      ### Reasoning (Sequential Thinking)
+      ### Reasoning (using the `mcp_sequential-thinking_sequentialthinking` tool)
       - **Primary Use Cases:**
         - Complex problem decomposition
         - Multi-step solution planning
@@ -43,7 +43,7 @@ actions:
       - **Integration Pattern:**
         ```mermaid
         flowchart TD
-            Start[Problem Identification] --> Think[Sequential Thinking]
+            Start[Problem Identification] --> Think[`mcp_sequential-thinking_sequentialthinking` tool]
             Think --> Search[Web Search/Research]
             Search --> Validate[Knowledge Graph Check]
             Validate --> Conclude[Solution Formation]
@@ -52,7 +52,7 @@ actions:
 
       ### Information Gathering (Brave Search, Puppeteer, FireCrawl)
       - Use **Brave Search, Puppeteer, and FireCrawl MCP servers** when troubleshooting, searching documentation, or exploring similar user issues.
-      - Combine effectively with **Sequential Thinking MCP** to refine solutions and acquire up-to-date information.
+      - Combine effectively with the **`mcp_sequential-thinking_sequentialthinking`** tool to refine solutions and acquire up-to-date information.
       - Prioritize reliable and concise sources.
 
       ### Knowledge Graph (Memory)
@@ -99,8 +99,8 @@ examples:
   - input: |
       Let's think through the steps to refactor this component.
     output: |
-      Alright, let's break down the refactoring process step-by-step using Sequential Thinking.
-      <use_mcp_tool>Sequential_Thinking_sequentialthinking thought="Step 1: Understand current component state and identify pain points." thoughtNumber=1 totalThoughts=5 nextThoughtNeeded=true</use_mcp_tool>
+      Alright, let's break down the refactoring process step-by-step using the `mcp_sequential-thinking_sequentialthinking` tool.
+      <use_mcp_tool>sequential-thinking_sequentialthinking thought="Step 1: Understand current component state and identify pain points." thoughtNumber=1 totalThoughts=5 nextThoughtNeeded=true</use_mcp_tool>
 
   - input: |
       What do we know about the 'eslint-config' package?
