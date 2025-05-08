@@ -4,25 +4,32 @@ This file serves as a persistent memory for AI assistants to track the current s
 
 ## Current State
 
-- **Current Date**: 2025-05-06
+- **Current Date**: 2025-05-07
 - **Active Project**: Cursor Rules System Improvement
 - **Current Plans**:
   - Cursor Rules Hierarchy
   - Vibe-Tools Integration
+  - Vibe-Tools Playbook Integration
 - **Current Phase**:
   - Implementation Phase 2 (Cursor Rules Hierarchy)
-  - Phase 2: Content Integration - Workflow Stages (Vibe-Tools Integration) - Task 2025-05-06-09 (Integrate `vibe-tools repo` for Status Updates/Reviews) is current. Task 2.4 completed.
+  - Phase 3: Content Integration - Memory Automation (Vibe-Tools Integration) - Task 2025-05-06-12 (Add Knowledge Graph Integration Section) is current. Tasks 2025-05-06-10 and 2025-05-06-11 completed.
+  - Phase 1: Migration and Standardization (Vibe-Tools Playbook Integration) - Tasks 2025-05-07-01 and 2025-05-07-02 are ready to start.
 - **Current Tasks**:
   - Update Top-Level Rule Documentation (Task ID: 2025-05-03-05) - Cursor Rules Hierarchy
-  - Integrate `vibe-tools repo` for Status Updates/Reviews (Task ID: 2025-05-06-09) - Vibe-Tools Integration
+  - Add Knowledge Graph Integration Section (Task ID: 2025-05-06-12) - Vibe-Tools Integration
+  - Integrate Vibe-Tools Playbook as First-Class Memory File (Task ID: 2025-05-07-01) - Vibe-Tools Playbook Integration
+  - Update Documentation and Rules to Reference Vibe-Tools Playbook (Task ID: 2025-05-07-02) - Vibe-Tools Playbook Integration
 - **Next Tasks**:
   - Define Rule Application Type Guidance (Task ID: 2025-05-03-06) - Cursor Rules Hierarchy
-  - Draft Memory Automation Section (Task ID: 2025-05-06-10) - Vibe-Tools Integration
+  - Add Guidance on Automation Integration (Task ID: 2025-05-06-13) - Vibe-Tools Integration
 
 ## Task History
 
 | Task ID       | Task Name                                     | Status    | Completion Date |
 |---------------|-----------------------------------------------|-----------|-----------------|
+| 2025-05-06-11 | Incorporate Script Examples for Memory Automation | Completed | 2025-05-06      |
+| 2025-05-06-10 | Draft Memory Automation Section               | Completed | 2025-05-06      |
+| 2025-05-06-09 | Integrate `vibe-tools repo` for Status Updates/Reviews | Completed | 2025-05-06      |
 | 2025-05-06-08 | Integrate `vibe-tools repo` / `web` / `browser` for Task Execution | Completed | 2025-05-06      |
 | 2025-05-06-07 | Integrate `vibe-tools plan` / `repo` for Task Generation | Completed | 2025-05-06      |
 | 2025-05-06-05 | Integrate `vibe-tools web` for Feature Definition/Research | Completed | 2025-05-06      |
@@ -40,11 +47,11 @@ This file serves as a persistent memory for AI assistants to track the current s
 
 ## Context
 
-The current tasks involve work on two parallel plans:
+The current tasks involve work on three parallel plans:
 
 1.  **Cursor Rules Hierarchy (Task 2025-05-03-05)**: Continuing to update the Cursor rule index and establish comprehensive bidirectional cross-references between all Cursor rule files. Task 2025-05-03-04 (Update Cursor Rule Index and Cross-References) is complete.
 
-2.  **Vibe-Tools Integration**: We've completed Phase 1 (Preparation and Review) and Phase 2 tasks 2.1, 2.2, 2.3, and 2.4. Phase 2.5 is now the active task.
+2.  **Vibe-Tools Integration**: We've completed Phase 1 (Preparation and Review), all of Phase 2, and are now working on Phase 3 tasks. We have completed tasks 3.1 and 3.2 and are now on task 3.3.
 
     Phase 1 (completed):
     *   2025-05-06-01: Review Source Analysis Document
@@ -52,19 +59,37 @@ The current tasks involve work on two parallel plans:
     *   2025-05-06-03: Review Formatting & Structure Guidelines
     *   2025-05-06-04: Review Vibe-Tools Rule
 
-    Phase 2 (Content Integration - Workflow Stages - in progress):
+    Phase 2 (Content Integration - Workflow Stages - completed):
     *   Phase 2.1: Integrate `vibe-tools web` for Feature Definition/Research (Task 2025-05-06-05 - completed)
     *   Phase 2.2: Integrate `vibe-tools plan` for Plan Creation (Completed)
     *   Phase 2.3: Integrate `vibe-tools plan` / `repo` for Task Generation (Task 2025-05-06-07 - completed)
     *   Phase 2.4: Integrate `vibe-tools repo` / `web` / `browser` for Task Execution (Task ID: 2025-05-06-08 - completed)
-    *   **Current Task: Phase 2.5 - Integrate `vibe-tools repo` for Status Updates/Reviews (Task ID: 2025-05-06-09)**
-    *   Next Vibe-Tools Task: Phase 3.1 - Draft Memory Automation Section (Task ID: 2025-05-06-10)
+    *   Phase 2.5: Integrate `vibe-tools repo` for Status Updates/Reviews (Task ID: 2025-05-06-09 - completed)
+
+    Phase 3 (Content Integration - Memory Automation - in progress):
+    *   Phase 3.1: Draft Memory Automation Section (Task ID: 2025-05-06-10 - completed)
+    *   Phase 3.2: Incorporate Script Examples (Task ID: 2025-05-06-11 - completed)
+    *   **Current Task: Phase 3.3 - Add Knowledge Graph Integration Section (Task ID: 2025-05-06-12)**
+    *   Next Task: Phase 3.3 - Add Guidance on Automation Integration (Task ID: 2025-05-06-13)
+
+3.  **Vibe-Tools Playbook Integration**: We've just started this project to integrate the Vibe-Tools Playbook as a first-class memory file. Task generation is complete and we're ready to begin implementation.
+
+    Phase 1 (Migration and Standardization - about to start):
+    *   **Current Task: 2025-05-07-01 - Integrate Vibe-Tools Playbook as First-Class Memory File**
+
+    Phase 2 (Documentation and Rule Updates - pending):
+    *   **Current Task: 2025-05-07-02 - Update Documentation and Rules to Reference Vibe-Tools Playbook**
 
 The Vibe-Tools Integration plan outlines the steps for integrating vibe-tools commands (plan, web, repo, mcp, browser) into the existing feature => plan => task workflow process. The plan includes detailed tasks for updating the rule with relevant command examples and adding guidance on memory file automation. Task documents from 2025-05-06-08 to 2025-05-06-16 have been generated.
 
+The Vibe-Tools Playbook Integration plan focuses on integrating the vibe-tools-playbook.md into the memory file system as a first-class project knowledge file, ensuring it's properly referenced in all relevant documentation and rules, and aligning its content with the vibe-tools.mdc rule.
+
 ## Recent Updates
 
-- Completed Task 2025-05-06-08 (Integrate `vibe-tools repo` / `web` / `browser` for Task Execution). Next Vibe-Tools task is 2025-05-06-09. (2025-05-06)
+- Generated two task documents (2025-05-07-01 and 2025-05-07-02) for the Vibe-Tools Playbook Integration plan. These tasks will integrate the vibe-tools-playbook.md as a first-class memory file and update all relevant documentation and rules to reference it. (2025-05-07)
+- Completed Task 2025-05-06-11 (Incorporate Script Examples for Memory Automation). Added script examples for daily standup automation, sprint planning integration, and retrospective insights processing to the Memory File Automation section of ai-agile-workflow.mdc. Next Vibe-Tools task is 2025-05-06-12. (2025-05-06)
+- Completed Task 2025-05-06-10 (Draft Memory Automation Section). The section already existed in the file and fully satisfied the acceptance criteria. Next Vibe-Tools task is 2025-05-06-11. (2025-05-06)
+- Completed Task 2025-05-06-09 (Integrate `vibe-tools repo` for Status Updates/Reviews). Next Vibe-Tools task is 2025-05-06-10. (2025-05-06)
 - Generated task documents for Vibe-Tools Integration Plan (Tasks 2025-05-06-08 to 2025-05-06-16). Current task is 2025-05-06-08. Marked Vibe-Tools plan tasks 2.1, 2.2, 2.3 as complete. (2025-05-06)
 - Completed task 2025-05-06-07: Integrated `vibe-tools plan` / `repo` for Task Generation into `ai-agile-workflow.mdc`. (2025-05-06)
 - Completed task 2025-05-06-05: Integrated `vibe-tools web` for Feature Definition/Research into the ai-agile-workflow.mdc rule (2025-05-06)
@@ -91,7 +116,10 @@ The Vibe-Tools Integration plan outlines the steps for integrating vibe-tools co
 ## Command History
 
 ```bash
-# Command for reviewing vibe-tools web integration
+# Commands for Vibe-Tools Playbook integration
+vibe-tools repo "Review these two task documents in docs/tasks/done/2025-05-07-01.md and docs/tasks/done/2025-05-07-02.md. Check if they follow the task template structure in docs/templates/task-template.md, adhere to ai-agile-workflow rule guidelines, and have a correct assessment of what's been completed."
+
+# Commands for the Vibe-Tools Integration plan
 vibe-tools repo "Review my implementation of vibe-tools web integration into the ai-agile-workflow.mdc file"
 
 # Commands for creating task documents for vibe-tools integration
@@ -103,15 +131,6 @@ vibe-tools repo "Review the implementation plan in docs/plans/vibe-tools-integra
 
 # Commands for updating rule cross-references (final batch)
 vibe-tools plan "Update the typescript-patterns.mdc, user-preferences-awareness.mdc, and vibe-tools.mdc rule files..."
-
-# Commands for updating rule cross-references (batch 5)
-vibe-tools plan "Update the rule-acknowledgement.mdc, rule-automation-script.mdc, and testing-practices.mdc rule files..."
-
-# Commands for updating rule cross-references (batch 4)
-vibe-tools plan "Update the prettier-config-usage.mdc, repo-analyzer.mdc, and repo-rule-recommender.mdc rule files..."
-
-# Commands for updating rule cross-references (batch 3)
-vibe-tools plan "Update the mcp-tools-usage.mdc, memory-management.mdc, and monorepo-structure.mdc rule files..."
 ```
 
 ## Notes
@@ -123,5 +142,9 @@ vibe-tools plan "Update the mcp-tools-usage.mdc, memory-management.mdc, and mono
 - The rule index should serve as the central entry point for rule discovery
 - The standard format for cross-references is `[rule-name](mdc:.cursor/rules/rule-name.mdc)`
 - Vibe-tools integration plan will enhance the ai-agile-workflow rule to leverage vibe-tools capabilities at each stage of the workflow
+- The memory automation section in ai-agile-workflow.mdc was found to already exist when task 2025-05-06-10 was started, with comprehensive guidance on AI context, script templates, and best practices
+- Task 2025-05-06-11 added script examples for daily standup automation, sprint planning integration, and retrospective insights processing to enhance the memory file automation guidance in ai-agile-workflow.mdc
+- The Vibe-Tools Playbook Integration plan aims to integrate the vibe-tools-playbook.md as a first-class memory file and ensure it is properly referenced throughout documentation and rules
+- Task 2025-05-07-01 is a prerequisite for Task 2025-05-07-02 as the playbook must be properly migrated before updating references to it
 
-## Updated: 2025-05-06
+## Updated: 2025-05-07

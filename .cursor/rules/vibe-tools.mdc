@@ -17,7 +17,7 @@ Use the following commands to get AI assistance:
 --provider=<provider>: AI provider to use (openai, anthropic, perplexity, gemini, modelbox, openrouter, or xai)
 --model=<model>: Model to use (required for the ask command)
 --reasoning-effort=<low|medium|high>: Control the depth of reasoning for supported models (OpenAI o1/o3-mini models and Claude 3.7 Sonnet). Higher values produce more thorough responses for complex questions.
---with-doc=<doc_url>: Fetch content from one or more document URLs and include it as context. Can be specified multiple times (e.g., `--with-doc=<url1> --with-doc=<url2>`).
+--with-doc=<doc_url>: Fetch content from one or more **HTTPS** document URLs and include it as context. Can be specified multiple times (e.g., `--with-doc=https://example.com/doc1 --with-doc=https://example.com/doc2`). **Note: Local file paths are not supported with this option; for local files, include the path directly in your prompt.**
 
 **Implementation Planning:**
 `vibe-tools plan "<query>"` - Generate a focused implementation plan using AI (e.g., `vibe-tools plan "Add user authentication to the login page"`)
@@ -31,7 +31,7 @@ The plan command uses multiple AI models to:
 --thinkingProvider=<provider>: Provider for plan generation (gemini, openai, anthropic, perplexity, modelbox, openrouter, or xai)
 --fileModel=<model>: Model to use for file identification
 --thinkingModel=<model>: Model to use for plan generation
---with-doc=<doc_url>: Fetch content from one or more document URLs and include it as context for both file identification and planning. Can be specified multiple times (e.g., `--with-doc=<url1> --with-doc=<url2>`).
+--with-doc=<doc_url>: Fetch content from one or more **HTTPS** document URLs and include it as context for both file identification and planning. Can be specified multiple times (e.g., `--with-doc=https://example.com/spec1 --with-doc=https://example.com/spec2`). **Note: Local file paths are not supported; for local files, include the path in your query.**
 
 **Web Search:**
 `vibe-tools web "<your question>"` - Get answers from the web using a provider that supports web search (e.g., Perplexity models and Gemini Models either directly or from OpenRouter or ModelBox) (e.g., `vibe-tools web "latest shadcn/ui installation instructions"`)
@@ -43,10 +43,10 @@ when using web for complex queries suggest writing the output to a file somewher
 
 **Repository Context:**
 `vibe-tools repo "<your question>" [--subdir=<path>] [--from-github=<username/repo>] [--with-doc=<doc_url>...]` - Get context-aware answers about this repository using Google Gemini (e.g., `vibe-tools repo "explain authentication flow"`)
-Use the optional `--subdir` parameter to analyze a specific subdirectory instead of the entire repository (e.g., `vibe-tools repo "explain the code structure" --subdir=src/components`). Use the optional `--from-github` parameter to analyze a remote GitHub repository without cloning it locally (e.g., `vibe-tools repo "explain the authentication system" --from-github=username/repo-name`). Use the optional `--with-doc` parameter multiple times to include content from several URLs as additional context (e.g., `vibe-tools repo "summarize findings" --with-doc=https://example.com/spec1 --with-doc=https://example.com/spec2`).
+Use the optional `--subdir` parameter to analyze a specific subdirectory instead of the entire repository (e.g., `vibe-tools repo "explain the code structure" --subdir=src/components`). Use the optional `--from-github` parameter to analyze a remote GitHub repository without cloning it locally (e.g., `vibe-tools repo "explain the authentication system" --from-github=username/repo-name`). Use the optional `--with-doc` parameter multiple times to include content from several **HTTPS** URLs as additional context (e.g., `vibe-tools repo "summarize findings" --with-doc=https://example.com/spec1 --with-doc=https://example.com/spec2`). **Note: Local file paths are not supported with this option; for local files, include the path directly in your prompt.**
 
 **Documentation Generation:**
-`vibe-tools doc [options] [--with-doc=<doc_url>...]` - Generate comprehensive documentation for this repository (e.g., `vibe-tools doc --output docs.md`). Can incorporate document context from multiple URLs (e.g., `vibe-tools doc --with-doc=https://example.com/existing-docs --with-doc=https://example.com/new-spec`).
+`vibe-tools doc [options] [--with-doc=<doc_url>...]` - Generate comprehensive documentation for this repository (e.g., `vibe-tools doc --output docs.md`). Can incorporate document context from multiple **HTTPS** URLs (e.g., `vibe-tools doc --with-doc=https://example.com/existing-docs --with-doc=https://example.com/new-spec`). **Note: Local file paths are not supported with this option; for local files, ensure your main prompt or query references the local file paths if their content is to be considered for documentation (e.g., `vibe-tools doc "Generate documentation based on the specifications in ./docs/specs/feature-x.md"`).**
 
 **YouTube Video Analysis:**
 `vibe-tools youtube "<youtube-url>" [question] [--type=<summary|transcript|plan|review|custom>]` - Analyze YouTube videos and generate detailed reports (e.g., `vibe-tools youtube "https://youtu.be/43c-Sm5GMbc" --type=summary`)
@@ -97,9 +97,10 @@ The `search` command helps you discover servers in the MCP Marketplace based on 
 - `vibe-tools youtube` analyzes YouTube videos to generate summaries, transcripts, implementation plans, or custom analyses
 - `vibe-tools browser` is useful for testing and debugging web apps and uses Stagehand
 - `vibe-tools mcp` enables interaction with specialized tools through MCP servers (e.g., for Git operations, file system tasks, or custom tools)
-- When implementing features based on documentation, specifications, or any external content, always use the `--with-doc=<url>` flag instead of built-in web search. For example: `vibe-tools plan "Implement login page according to specs" --with-doc=https://example.com/specs.pdf` or `vibe-tools repo "How should I implement this feature?" --with-doc=https://example.com/feature-spec.md`.
+- When implementing features based on documentation, specifications, or any external content, always use the `--with-doc=<url>` flag **with an HTTPS URL** instead of built-in web search. For example: `vibe-tools plan "Implement login page according to specs" --with-doc=https://example.com/specs.pdf` or `vibe-tools repo "How should I implement this feature?" --with-doc=https://example.com/feature-spec.md`.
+- If you need to refer to **local files**, include their paths directly in your main prompt, e.g., `vibe-tools plan "Implement the feature described in ./docs/my-feature-spec.md"`.
 
-- When a user provides a specific URL for documentation or reference material, always use the `--with-doc=<url>` flag with that URL rather than attempting to search for or summarize the content independently. This ensures the exact document is used as context.
+- When a user provides a specific **HTTPS URL** for documentation or reference material, always use the `--with-doc=<url>` flag with that URL rather than attempting to search for or summarize the content independently. This ensures the exact document is used as context. For local files, incorporate the path into the prompt.
 
 **Running Commands:**
 1. Use `vibe-tools <command>` to execute commands (make sure vibe-tools is installed globally using npm install -g vibe-tools so that it is in your PATH)
@@ -117,14 +118,14 @@ The `search` command helps you discover servers in the MCP Marketplace based on 
 --max-tokens=<number>: Maximum tokens for response
 --from-github=<GitHub username>/<repository name>[@<branch>]: Analyze a remote GitHub repository without cloning it locally
 --subdir=<path>: Analyze a specific subdirectory instead of the entire repository
---with-doc=<doc_url>: Fetch content from one or more document URLs and include it as context. Can be specified multiple times.
+--with-doc=<doc_url>: Fetch content from one or more **HTTPS** document URLs and include it as context. Can be specified multiple times. **Note: Local file paths are not supported; for local files, include the path in your main query.**
 
 **Documentation Command Options:**
 --from-github=<GitHub username>/<repository name>[@<branch>]: Generate documentation for a remote GitHub repository
 --provider=<provider>: AI provider to use (gemini, openai, openrouter, perplexity, modelbox, anthropic, or xai)
 --model=<model>: Model to use for documentation generation
 --max-tokens=<number>: Maximum tokens for response
---with-doc=<doc_url>: Fetch content from one or more document URLs and include it as context. Can be specified multiple times.
+--with-doc=<doc_url>: Fetch content from one or more **HTTPS** document URLs and include it as context. Can be specified multiple times. **Note: Local file paths are not supported; ensure local file content is referenced in the main prompt if needed.**
 
 **YouTube Command Options:**
 --type=<summary|transcript|plan|review|custom>: Type of analysis to perform (default: summary)
@@ -178,160 +179,140 @@ If people say "ask Gemini" or "ask Perplexity" or "ask Stagehand" they mean to u
 - **Remember:** You're part of a team of superhuman expert AIs. Work together to solve complex problems.
 - **Repomix Configuration:** You can customize which files are included/excluded during repository analysis by creating a `repomix.config.json` file in your project root. This file will be automatically detected by `repo`, `plan`, and `doc` commands.
 
-**Multi-line Prompts:**
-When using `vibe-tools` with complex multi-line prompts (like detailed plans, code examples, or formatting instructions), use these approaches for maximum reliability:
+**Handling Multi-line and Complex Prompts:**
+When using `vibe-tools` with prompts that span multiple lines, contain special shell characters, or are generally complex, it's crucial to use methods that are safe and reliable, especially when these commands are intended to be executed programmatically (e.g., via `run_terminal_cmd`).
 
-1. **POSIX Shell Escaping (Simplest Approach):**
-   ```bash
-   vibe-tools plan "Create an implementation plan for a feature that:\n1. Fetches data from an API\n2. Processes the response with proper error handling\n3. Updates multiple components\n\nInclude specific tasks for:\n- Setting up API client\n- Creating data models\n- Implementing UI components\n- Adding comprehensive tests"
-   ```
-   This approach uses `\n` for newlines and is the most reliable way to handle multi-line input without syntax issues.
+**Discouraging Heredocs (e.g., `<<EOF ... EOF`) for Programmatic Execution:**
+While heredocs can be convenient for interactive shell use, they are **discouraged** for `vibe-tools` commands generated or executed by AI via `run_terminal_cmd`. This is due to complexities in reliably handling quoting, escaping, newline characters, and variable expansion within the heredoc block when passed as part of a command string to `run_terminal_cmd`.
 
-2. **Heredoc with Quoted Delimiters (For Complex Content):**
-   ```bash
-   vibe-tools plan "$(cat << 'EOF'
-   Create an implementation plan for a feature that:
-   1. Fetches data from an API
-   2. Processes the response with proper error handling
-   3. Updates multiple components
+Instead, use the following preferred approaches:
 
-   Include specific tasks for:
-   - Setting up API client
-   - Creating data models
-   - Implementing UI components
-   - Adding comprehensive tests
-   EOF
-   )"
-   ```
-   The quoted `'EOF'` delimiter prevents variable expansion and command substitution, preserving the literal text exactly.
+1.  **Escaped Strings (For Simple/Short Multi-line Prompts):**
+    For prompts that are relatively short and simple, flatten the string using POSIX shell escape sequences (`\\n` for newline, `\\t` for tab, etc.) within a single quoted argument.
 
-3. **Temporary File Approach (For Very Complex Content):**
-   ```bash
-   # Create a temporary file with the exact content
-   cat > prompt.txt << 'ENDPROMPT'
-   Review my implementation of feature X. Focus on:
+    ```bash
+    vibe-tools plan "Create an implementation plan for a feature that:\\n1. Fetches data from an API\\n2. Processes the response with proper error handling\\n3. Updates multiple components\\n\\nInclude specific tasks for:\\n- Setting up API client\\n- Creating data models\\n- Implementing UI components\\n- Adding comprehensive tests"
+    ```
+    This is generally the simplest and most direct method for less complex prompts.
 
-   1. Correctness of the authentication flow
-   2. Error handling for network failures
-   3. Proper state management
-   4. Code structure and organization
+2.  **Temporary Files (For Complex/Long Prompts or Prompts with Special Characters):**
+    For more complex prompts, especially those containing many lines, special characters (quotes, backticks, dollar signs), or intricate formatting, the most robust method is to write the prompt content to a temporary file and then use command substitution to pass its content to `vibe-tools`.
 
-   Here's the code I'm concerned about:
-   ```typescript
-   function authenticate(credentials: Credentials) {
-     // Implementation details with special chars like $, `, etc.
-   }
-   ```
-   ENDPROMPT
+    ```bash
+    # 1. Define your prompt content (escape for echo -e if needed)
+    PROMPT_CONTENT="Create an implementation plan for a feature that:\\n1. Fetches data from an API (e.g., GET /users?id=\\$USER_ID)\\n2. Processes the response with proper error handling (check for status \'200 OK\')\\n3. Updates multiple components (e.g., <UserProfile /> and <ActivityFeed />)\\n\\nInclude specific tasks for:\\n- Setting up API client (use \`axios\` library)\\n- Creating data models (TypeScript interfaces)\\n- Implementing UI components (React functional components)\\n- Adding comprehensive tests (using Vitest and Testing Library)"
 
-   # Use the file content in the command
-   vibe-tools repo "$(cat prompt.txt)"
-   ```
-   This approach gives you the ability to inspect the prompt before use and works reliably with syntax highlighting, code blocks, and special characters.
+    # 2. Create a unique temporary file
+    TMP_FILE=$(mktemp)
 
-4. **Piping from Heredoc (Alternative):**
-   ```bash
-   cat << 'EOF' | vibe-tools repo --stdin
-   Analyze this code and suggest improvements:
+    # 3. Write the prompt content to the temporary file
+    #    Using echo -e allows for interpretation of backslash escapes (like \\n, \\t)
+    echo -e "$PROMPT_CONTENT" > "$TMP_FILE"
 
-   ```python
-   def process_data(data, config={"default": True}):
-       # Process with complex logic and special chars ($, `, etc)
-       return processed
-   ```
-   EOF
-   ```
-   Use this approach when the tool accepts input from stdin (check documentation).
+    # 4. Call vibe-tools, passing the content of the temporary file
+    #    Using process substitution $(cat "$TMP_FILE")
+    vibe-tools plan "$(cat "$TMP_FILE")"
 
-5. **Working with File Content (Important):**
+    # 5. Clean up the temporary file
+    rm "$TMP_FILE"
+    ```
+    This approach ensures the prompt is preserved exactly, avoids complex shell escaping within the command itself, and handles special characters reliably. Using `mktemp` is recommended for creating temporary files securely.
 
-   **WARNING: Do NOT use piping with nested heredocs** like this problematic approach:
-   ```bash
-   # INCORRECT AND PROBLEMATIC - DON'T DO THIS:
-   cat file.txt | vibe-tools ask "$(cat << 'EOF'
-   Format this data...
-   EOF
-   )"
-   ```
+**Working with File Content (Important):**
 
-   Instead, use these reliable approaches:
+When your prompt itself needs to include the content of *another* file (e.g., analyzing a source code file), combine the temporary file method for your main prompt instructions with a safe way to include the target file's content.
 
-   a. **Store file content in a variable first:**
-   ```bash
-   # Store content in variable, then use in command
-   FILE_CONTENT=$(<file.txt)
-   vibe-tools ask "Format this data:
+**WARNING: Do NOT use piping with nested heredocs or unsafe command substitutions** like this problematic approach:
+```bash
+# INCORRECT AND PROBLEMATIC - DON'T DO THIS:
+# This nests a heredoc inside a command substitution, which is hard to get right
+# and prone to errors when generated programmatically.
+cat file.txt | vibe-tools ask "$(cat << 'EOF'
+Format this data based on the input from the pipe...
+EOF
+)"
+```
 
-   $FILE_CONTENT"
-   ```
+Instead, use these reliable approaches:
 
-   b. **Use --with-doc option where supported:**
-   ```bash
-   # Use built-in features when available
-   vibe-tools ask "Process this document" --with-doc=file.txt
-   ```
+a.  **Store file content in a variable (for smaller files), then use in an escaped prompt:**
+    ```bash
+    # Store target file content in variable
+    # Ensure file.txt content doesn't break the vibe-tools ask "..." string itself.
+    # This is best for plain text files without too many special shell characters.
+    FILE_CONTENT_TO_ANALYZE=$(<file.txt)
+    vibe-tools ask "Format the following data which was read from a file:\\n\\n$FILE_CONTENT_TO_ANALYZE"
+    ```
 
-   c. **Create temporary files for both instructions and content:**
-   ```bash
-   # Create separate instruction file
-   cat > instructions.txt << 'EOF'
-   Format this data with these requirements:
-   1. Use markdown formatting
-   2. Extract key points
-   3. Summarize findings
-   EOF
+b.  **Use `--with-doc` option where supported by `vibe-tools` commands (HTTPS URLs ONLY):**
+    This is often the best approach if the `vibe-tools` command supports it **and you are providing an HTTPS URL.**
+    ```bash
+    # Use built-in features when available with HTTPS URLs
+    vibe-tools ask "Process the content from this online document" --with-doc=https://example.com/online-document.txt
+    vibe-tools repo "Analyze our codebase in conjunction with the specifications at this URL" --with-doc=https://example.com/specs.html
 
-   # Combine without nesting issues
-   INSTRUCTIONS=$(<instructions.txt)
-   FILE_CONTENT=$(<file.txt)
+    # For local files, include the path in the prompt:
+    vibe-tools ask "Process the document located at ./docs/my_local_file.txt"
+    vibe-tools repo "Analyze the code in path/to/local/code.py and explain its main functions"
+    ```
 
-   # Use both in command safely
-   vibe-tools ask "$INSTRUCTIONS
+c.  **Combine Temporary Files for Instructions and Reference Target File Paths (for local files):**
+    If you need to provide complex instructions *about* how to process a **local file**, write your instructions to a temporary file, and in those instructions, refer to the target local file by its path. The `vibe-tools` command will then need to be prompted to consider the content of that local path.
+    ```bash
+    # Instructions for processing a local file file.txt
+    INSTRUCTION_PROMPT="Format the data found in the local file 'file.txt' with these requirements:\\n1. Use markdown formatting.\\n2. Extract key points.\\n3. Summarize findings.\\nMake sure to process the content of 'file.txt'."
 
-   Content to format:
-   $FILE_CONTENT"
-   ```
+    TMP_INSTRUCTIONS_FILE=$(mktemp)
+    echo -e "$INSTRUCTION_PROMPT" > "$TMP_INSTRUCTIONS_FILE"
 
-   d. **Create a helper function for frequent use:**
-   ```bash
-   # Define helper function
-   format_with_file() {
-     local file="$1"
-     local instructions="$2"
-     local output="$3"
+    # vibe-tools is prompted to consider the local file path mentioned in the instructions
+    vibe-tools ask "$(cat "$TMP_INSTRUCTIONS_FILE")" # The prompt itself now contains "file.txt"
 
-     # Get file content
-     local content=$(<"$file")
+    rm "$TMP_INSTRUCTIONS_FILE"
+    ```
+    Alternatively, if the local file content needs to be part of the prompt payload directly (e.g. for `vibe-tools ask` without relying on `repo`'s file system access):
+    ```bash
+    # Local file whose content will be embedded in the prompt
+    LOCAL_FILE_TO_INCLUDE="docs/source.txt"
+    # Create content for instructions.txt
+    # Note: Ensure LOCAL_FILE_TO_INCLUDE content is properly escaped if directly embedded here.
+    # It's often safer to have the AI model fetch it if it can, or read it into a variable first.
+    echo -e "Format the data from '$LOCAL_FILE_TO_INCLUDE' with these requirements:\\n1. Markdown.\\nContent of $LOCAL_FILE_TO_INCLUDE is: $(cat "$LOCAL_FILE_TO_INCLUDE")" > instructions.txt
 
-     # Run command without nesting issues
-     vibe-tools ask "$instructions
+    # Use instructions.txt with vibe-tools
+    vibe-tools ask "$(cat instructions.txt)"
+    # rm instructions.txt # if it was temporary
+    ```
 
-   Content:
-   $content" --save-to "$output"
-   }
+d.  **Create a helper function (for frequent, complex operations by humans):**
+    For complex, repetitive tasks performed manually in a shell, a helper function can encapsulate the logic.
+    ```bash
+    # Define helper function in your shell environment (e.g., .bashrc, .zshrc)
+    # format_with_file() {
+    #   local file_to_process=\"$1\"
+    #   local instructions_text=\"$2\"
+    #   local output_file=\"$3\"
+    #
+    #   local tmp_instructions_file=$(mktemp)
+    #   echo -e \"$instructions_text\" > \"$tmp_instructions_file\"
+    #
+    #   # Assuming vibe-tools ask can take instructions and a document
+    #   vibe-tools ask \"$(cat \"$tmp_instructions_file\")\" --with-doc=\"$file_to_process\" --save-to=\"$output_file\"
+    #
+    #   rm \"$tmp_instructions_file\"
+    # }
 
-   # Usage
-   format_with_file data.txt "Format this as markdown" output.md
-   ```
+    # Usage:
+    # format_with_file path/to/data.txt "Format this as markdown" output.md
+    ```
 
-**Critical Guidelines for Multi-line Prompts:**
-- Always use **quoted delimiters** (`'EOF'` not just `EOF`) for heredocs to prevent shell expansion
-- For prompts containing backticks, dollar signs, or other shell special characters, quoted heredocs or temporary files are essential
-- When building prompts that combine file content with formatting instructions, use quoted heredocs for the instructions part:
-  ```bash
-  # Example: Generate formatting instructions with heredoc
-  INSTRUCTIONS=$(cat << 'INSTR_EOF'
-  Format the content with these requirements:
-  1. Use markdown headings for sections
-  2. Format code with ```language blocks
-  3. Handle special characters like $PATH and `commands`
-  INSTR_EOF
-  )
-
-  # Use instructions with content from a file
-  cat data.txt | vibe-tools ask "Process this data according to: $INSTRUCTIONS"
-  ```
-- Test complex prompts before using them in production scripts
+**Critical Guidelines for Programmatically Generated Prompts:**
+- When AI generates commands for `run_terminal_cmd`:
+    - **Prefer escaped strings** for simple multi-line prompts.
+    - **Use the temporary file method** (with `mktemp`, `echo -e`, `cat`, and `rm`) for complex prompts or prompts containing user-supplied data or special characters. This is the safest way to avoid injection or misinterpretation issues.
+- Avoid direct heredoc syntax in commands intended for `run_terminal_cmd`.
+- Always ensure temporary files are cleaned up.
+- Test complex prompt constructions thoroughly.
 
 <!-- vibe-tools-version: 0.60.9 -->
 </vibe-tools Integration>

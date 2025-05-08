@@ -5,7 +5,7 @@ alwaysApply: false
 ---
 # Anthropic Chain of Thought and XML Tag Best Practices
 
-Standards for incorporating chain of thought reasoning and XML tag structure in prompts for Anthropic models, **especially for complex reasoning, troubleshooting, planning, or multi-step tasks.**
+Standards for incorporating chain of thought reasoning and XML tag structure in prompts for Anthropic models, **especially for complex reasoning, troubleshooting, planning, or multi-step tasks.** This rule describes a general prompting *method* to enhance reasoning, which can be particularly effective when guiding any model through complex thought processes or when preparing input for specific tools like the `mcp_sequential-thinking_sequentialthinking` tool.
 
 **Why use XML Tags?**
 Anthropic models are trained on XML structure. Using these tags helps the model clearly distinguish different parts of your prompt (like instructions, context, examples, and the actual query), leading to more accurate and structured responses. It also makes prompts easier for humans to read and maintain.
@@ -93,9 +93,9 @@ actions:
       ## Related Rules
 
       - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc): Provides guidance on structuring prompt content within rules.
-      - [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc): Provides a structure for the 'Sequential Thinking' it mandates.
-      - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Provides structure for the `Sequential Thinking` tool/approach.
-      - [memory-management](mdc:.cursor/rules/memory-management.mdc): Uses structured thinking approach for memory file management.
+      - [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc): Its mandated use of the `mcp_sequential-thinking_sequentialthinking` tool can benefit from the structured prompting techniques described here.
+      - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): The `mcp_sequential-thinking_sequentialthinking` tool mentioned in this rule is one such MCP tool whose effectiveness can be enhanced by these prompting strategies.
+      - [memory-management](mdc:.cursor/rules/memory-management.mdc): Uses structured thinking approach (often via the `mcp_sequential-thinking_sequentialthinking` tool) for memory file management, which can be guided by these prompting methods.
 
 examples:
   - input: |

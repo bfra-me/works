@@ -4,6 +4,15 @@ This document tracks features for improving the Cursor rules system in the bfra.
 
 ## Current Features
 
+### Feature 0: Integrate Vibe-Tools Playbook as First-Class Memory File
+
+- **Description**: Integrate `vibe-tools-playbook.md` into the memory file system as a first-class project knowledge file. Ensure it is referenced in all relevant documentation, rules, and memory files, and is discoverable and standardized according to memory-management guidelines. Incorporate feedback from the integration plan and review.
+- **Status**: [Not Started]
+- **Plan Document**: [docs/plans/vibe-tools-playbook-integration.md](plans/vibe-tools-playbook-integration.md)
+- **Priority**: High
+- **Created**: 2025-05-07
+- **Updated**: 2025-05-07
+
 ### Feature 1: Implement a Hierarchical Rule Structure with Cross-References
 
 - **Description**: Transform rules from independent documents into a navigable, interconnected knowledge system with explicit cross-references between related rules.

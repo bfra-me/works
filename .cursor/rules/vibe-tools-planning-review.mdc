@@ -166,19 +166,21 @@ actions:
       vibe-tools repo "Review changes to the profile component" --subdir=src/components/user
       ```
 
-      ### Sequential Thinking
+      ### Sequential Thinking (using `mcp_sequential-thinking_sequentialthinking` tool)
 
-      For complex tasks, use sequential thinking to break down problems:
+      For complex tasks requiring a detailed breakdown *before* using `vibe-tools repo` or `vibe-tools plan` for broader analysis or planning, first use the **`mcp_sequential-thinking_sequentialthinking`** tool to analyze the problem and structure your approach. The output of this tool can then inform your subsequent `vibe-tools` queries.
+
+      For example, if you need to deeply understand requirements before planning:
 
       ```bash
-      # First, understand the requirements
-      vibe-tools repo "Help me understand what's required for implementing feature X"
+      # First, use the MCP tool for a detailed breakdown of requirements (conceptual example)
+      # <use_mcp_tool>mcp_sequential-thinking_sequentialthinking thought="Understand requirements for feature X..." ... </use_mcp_tool>
 
-      # Then, plan the implementation
-      vibe-tools plan "Implement feature X with the following requirements: [requirements]"
+      # Then, use vibe-tools plan, incorporating insights from the MCP tool
+      vibe-tools plan "Implement feature X, considering these detailed requirements: [insights from mcp_sequential-thinking_sequentialthinking]"
 
-      # Finally, review the implementation
-      vibe-tools repo "Review my implementation of feature X against these requirements: [requirements]"
+      # Or, use vibe-tools repo to explore based on the structured understanding
+      vibe-tools repo "Help me understand existing code relevant to these aspects of feature X: [key aspects identified by mcp_sequential-thinking_sequentialthinking]"
       ```
 
       ## Related Rules
