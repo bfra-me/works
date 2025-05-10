@@ -157,8 +157,8 @@ importers:
         specifier: 0.12.0
         version: 0.12.0(eslint@9.26.0(jiti@2.4.2))
       eslint-plugin-unicorn:
-        specifier: 58.0.0
-        version: 58.0.0(eslint@9.26.0(jiti@2.4.2))
+        specifier: 59.0.1
+        version: 59.0.1(eslint@9.26.0(jiti@2.4.2))
       eslint-plugin-unused-imports:
         specifier: 4.1.4
         version: 4.1.4(@typescript-eslint/eslint-plugin@8.32.0(@typescript-eslint/parser@8.32.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.26.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.26.0(jiti@2.4.2))
@@ -2082,8 +2082,8 @@ packages:
     peerDependencies:
       eslint: '>=6.0.0'
 
-  eslint-plugin-unicorn@58.0.0:
-    resolution: {integrity: sha512-fc3iaxCm9chBWOHPVjn+Czb/wHS0D2Mko7wkOdobqo9R2bbFObc4LyZaLTNy0mhZOP84nKkLhTUQxlLOZ7EjKw==}
+  eslint-plugin-unicorn@59.0.1:
+    resolution: {integrity: sha512-EtNXYuWPUmkgSU2E7Ttn57LbRREQesIP1BiLn7OZLKodopKfDXfBUkC/0j6mpw2JExwf43Uf3qLSvrSvppgy8Q==}
     engines: {node: ^18.20.0 || ^20.10.0 || >=21.0.0}
     peerDependencies:
       eslint: '>=9.22.0'
@@ -6485,7 +6485,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-unicorn@58.0.0(eslint@9.26.0(jiti@2.4.2)):
+  eslint-plugin-unicorn@59.0.1(eslint@9.26.0(jiti@2.4.2)):
     dependencies:
       '@babel/helper-validator-identifier': 7.27.1
       '@eslint-community/eslint-utils': 4.7.0(eslint@9.26.0(jiti@2.4.2))
@@ -6495,12 +6495,12 @@ snapshots:
       core-js-compat: 3.42.0
       eslint: 9.26.0(jiti@2.4.2)
       esquery: 1.6.0
+      find-up-simple: 1.0.1
       globals: 16.1.0
       indent-string: 5.0.0
       is-builtin-module: 5.0.0
       jsesc: 3.1.0
       pluralize: 8.0.0
-      read-package-up: 11.0.0
       regexp-tree: 0.1.27
       regjsparser: 0.12.0
       semver: 7.7.1
