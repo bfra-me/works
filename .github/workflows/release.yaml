@@ -106,7 +106,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.get-workflow-access-token.outputs.token }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        uses: changesets/action@001cd79f0a536e733315164543a727bdf2d70aff # v1.5.1
+        uses: changesets/action@e0538e686673de0265c8a3e2904b8c76beaa43fd # v1.5.2
         with:
           commit: 'chore(changesets): publish packages'
           publish: pnpm publish-changesets
