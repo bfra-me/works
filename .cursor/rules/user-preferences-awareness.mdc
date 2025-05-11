@@ -36,7 +36,7 @@ actions:
 
       ## 2. Knowledge Graph
 
-      The knowledge graph contains structured entities with the user's preferences. Access these using knowledge graph tools (like `mcp_memory_search_nodes`, `mcp_memory_open_nodes`, `mcp_memory_create_entities`, etc. - see [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc)):
+      The Knowledge Graph (KG), a key component of the assistant's persistent 'memory', contains structured entities with the user's preferences. This KG is maintained by the Memory MCP server. Access these preferences using knowledge graph tools (like `mcp_memory_search_nodes` to find preferences, `mcp_memory_open_nodes` to get details, or `mcp_memory_create_entities` to add new preference categories - see [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc)):
 
       - `default_user` - Main user entity with general preferences
       - `Coding_Style_Preferences` - Code formatting and architecture preferences
@@ -46,6 +46,8 @@ actions:
       - `Development_Workflow_Preferences` - PR size, changesets, and release processes
       - `Versioning_Preferences` - Semantic versioning approach
       - `Cursor_Rule_Preferences` - Rule structure and application preferences
+
+      The assistant MUST proactively load these and other relevant preference entities from its KG 'memory' at the start of interactions to personalize its responses and behavior (Guideline 6). Furthermore, the assistant MUST update the KG with any new or changed user preferences identified during the conversation, using tools like `mcp_memory_add_observations` or `mcp_memory_create_entities` as appropriate (Guideline 7). This aligns with system guidance to maintain a current understanding of user needs (Guideline 9).
 
       Access these using knowledge graph queries:
 
@@ -110,18 +112,24 @@ actions:
       2. Add the preference to the knowledge graph:
 
       ```javascript
-      // Sample knowledge graph update
-      await graph.createEntities([{
-        name: "New_Preference_Category",
-        entityType: "preference",
-        observations: ["New preference observation"]
-      }]);
+      // Sample Knowledge Graph update using mcp_memory_create_entities
+      // Example payload for mcp_memory_create_entities:
+      // await default_api.mcp_memory_create_entities(entities=[
+      //   McpMemoryCreateEntitiesEntities(
+      //     name="New_Preference_Category",
+      //     entityType="preference",
+      //     observations=["New preference observation"]
+      //   )
+      // ]);
 
-      await graph.createRelations([{
-        from: "default_user",
-        to: "New_Preference_Category",
-        relationType: "has_preference"
-      }]);
+      // Example payload for mcp_memory_create_relations:
+      // await default_api.mcp_memory_create_relations(relations=[
+      //  McpMemoryCreateRelationsRelations(
+      //    from="default_user",
+      //    to="New_Preference_Category",
+      //    relationType="has_preference"
+      //  )
+      // ]);
       ```
 
       ## Related Rules

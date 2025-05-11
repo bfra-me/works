@@ -164,7 +164,7 @@ actions:
 
       ## Knowledge Graph Integration
 
-      Memory files work in concert with the knowledge graph (using MCP memory tools like `mcp_memory_search_nodes`, `mcp_memory_create_entities`, etc.) when available:
+      Memory files work in concert with the Knowledge Graph (KG), a critical component of the assistant's persistent 'memory', (The KG is maintained by the Memory MCP server) using MCP memory tools like `mcp_memory_search_nodes`, `mcp_memory_create_entities`, etc.) when available:
 
       1. **Entity Creation**: New entities should be created in the knowledge graph for:
          - Project components
@@ -182,7 +182,7 @@ actions:
       3. **Memory Retrieval Process**:
          ```
          1. Check docs/memory/* files for context
-         2. Use knowledge graph search for broader context
+         2. Use knowledge graph search (e.g., `mcp_memory_search_nodes`, `mcp_memory_open_nodes`) for broader context, to retrieve relevant entities for the current task, and to load personalization data.
          3. Combine information for comprehensive understanding
          4. Update both memory files and knowledge graph with new information
          ```
@@ -303,19 +303,23 @@ actions:
       For complex memory operations like merging duplicate sections or resolving conflicts, the step-by-step reasoning provided by **`mcp_sequential-thinking_sequentialthinking`** tool is essential for maintaining memory integrity.
 
       When you see instructions to "Use Sequential Thinking," this means you should either:
-      1. Use the `mcp_Sequential_Thinking_sequentialthinking` tool when available, OR
+      1. Use the `mcp_sequential-thinking_sequentialthinking` tool when available, OR
       2. Structure your response with explicitly numbered thought steps, showing your reasoning process
 
-      ### Knowledge Graph Commands
+      ### Knowledge Graph Tools
 
       When the knowledge graph MCP server is available:
 
-      - `read_graph`: Get a complete view of the knowledge graph
-      - `search_nodes`: Find specific information in the graph
-      - `open_nodes`: Access specific entity details
-      - `create_entities`: Add new information to the graph
-      - `create_relations`: Connect entities meaningfully
-      - `add_observations`: Update existing entities
+      - `mcp_memory_read_graph`: Get a complete view of the knowledge graph
+      - `mcp_memory_search_nodes`: Find specific information in the graph
+      - `mcp_memory_open_nodes`: Access specific entity details
+      - `mcp_memory_create_entities`: Add new information to the graph (new concepts, items)
+      - `mcp_memory_create_relations`: Connect entities meaningfully
+      - `mcp_memory_add_observations`: Update existing entities with new facts or details
+      - `mcp_memory_delete_entities`: Remove entities from the graph
+      - `mcp_memory_delete_observations`: Remove specific observations from an entity
+      - `mcp_memory_delete_relations`: Remove relationships between entities
+      - **Important:** Before executing any KG modification tools (especially `mcp_memory_create_*`, `mcp_memory_add_observations`, `mcp_memory_delete_*`), the assistant should internally review the tool's parameters and intended effect to ensure accuracy and prevent unintended changes to its persistent memory.
 
       ## Memory File Updates on Task Completion
 
@@ -342,10 +346,10 @@ actions:
           *   `docs/memory/domain-knowledge.md`: Add new insights, implementation patterns, or technical decisions derived from the task to relevant sections (e.g., "Implementation Patterns", "Technical Decisions").
           *   Task-Specific Memory File (Optional): Detailed implementation notes might be added to a dedicated file (e.g., `docs/memory/tasks/YYYY-MM-DD-XX.md`), although this is less common in the current workflow.
 
-      3.  **Updating Knowledge Graph**:
-          *   Create new entities for new components, concepts, or significant patterns introduced by the task (`mcp_memory_create_entities`).
-          *   Create relationships to link the new entities to existing ones (`mcp_memory_create_relations`).
-          *   Add observations to relevant entities, capturing key details about the implementation or decisions made (`mcp_memory_add_observations`).
+      3.  **Updating Knowledge Graph**: *This step is crucial for evolving the assistant's memory.*
+          *   Create new entities for new components, concepts, or significant patterns introduced by the task (using `mcp_memory_create_entities`).
+          *   Create relationships to link the new entities to existing ones (using `mcp_memory_create_relations`).
+          *   Add observations to relevant entities, capturing key details about the implementation or decisions made (using `mcp_memory_add_observations`).
 
       ### Best Practices for Memory File Updates
 

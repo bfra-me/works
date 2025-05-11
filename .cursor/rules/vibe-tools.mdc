@@ -53,8 +53,8 @@ Use the optional `--subdir` parameter to analyze a specific subdirectory instead
 Note: The YouTube command requires a `GEMINI_API_KEY` to be set in your environment or .vibe-tools.env file as the GEMINI API is the only interface that supports YouTube analysis.
 
 **GitHub Information:**
-`vibe-tools github pr [number]` - Get the last 10 PRs, or a specific PR by number (e.g., `vibe-tools github pr 123`)
-`vibe-tools github issue [number]` - Get the last 10 issues, or a specific issue by number (e.g., `vibe-tools github issue 456`)
+`vibe-tools github pr [number]` - Get information about GitHub pull requests. Without a number, lists the 10 most recent open pull requests in the repository. With a specific PR number, displays detailed information about that pull request including title, description, comments, labels, and status (e.g., `vibe-tools github pr 123`)
+`vibe-tools github issue [number]` - Get information about GitHub issues. Without a number, lists the 10 most recent open issues in the repository. With a specific issue number, displays detailed information about that issue including title, description, comments, labels, and status (e.g., `vibe-tools github issue 456`)
 
 **ClickUp Information:**
 `vibe-tools clickup task <task_id>` - Get detailed information about a ClickUp task including description, comments, status, assignees, and metadata (e.g., `vibe-tools clickup task "task_id"`)

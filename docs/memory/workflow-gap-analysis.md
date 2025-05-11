@@ -53,6 +53,66 @@ The following critical workflows are not currently covered by dedicated Cursor r
 | Medium | debugging-guide.mdc | Needed for troubleshooting and reducing support burden |
 | Medium | code-review-standards.mdc | Improves code quality and collaboration |
 
+## Knowledge Graph Integration for Bridging Gaps
+
+The Knowledge Graph (KG), maintained by the Memory MCP server, can play a vital role in addressing the workflow gaps identified above. The KG serves as the assistant's persistent memory across sessions, with "Knowledge Graph" and "memory" being effectively synonymous in this context.
+
+For each workflow gap, specific KG operations and tools can help bridge the gaps by storing, retrieving, and relating critical information:
+
+### Testing Best Practices
+- **KG Support**: Store and retrieve testing patterns, configurations, and examples.
+- **Relevant Tools**:
+  - `mcp_memory_create_entities`: Create entities for test patterns, fixtures, and best practices.
+  - `mcp_memory_add_observations`: Add specific testing techniques or configurations for frameworks like Vitest.
+  - `mcp_memory_search_nodes`: Find relevant test patterns for specific situations.
+  - **Example**: `mcp_memory_search_nodes({query: "vitest mocking patterns"})` to retrieve stored mocking techniques when implementing tests.
+
+### CI/CD Troubleshooting
+- **KG Support**: Maintain a knowledge base of common CI failures and solutions.
+- **Relevant Tools**:
+  - `mcp_memory_create_entities`: Create entities for CI/CD workflows and common issues.
+  - `mcp_memory_create_relations`: Connect CI errors with their solutions and related components.
+  - `mcp_memory_open_nodes`: Access detailed information about specific CI/CD patterns.
+  - **Example**: `mcp_memory_open_nodes({names: ["CI_Failure_Type_X"]})` to retrieve known solutions for a specific CI failure.
+
+### Dependency Management
+- **KG Support**: Track dependency relationships, version compatibility information, and update patterns.
+- **Relevant Tools**:
+  - `mcp_memory_create_entities`: Create entities for key dependencies and their usage patterns.
+  - `mcp_memory_create_relations`: Establish relationships between packages and their dependencies.
+  - `mcp_memory_add_observations`: Record versioning policies, update procedures, or security considerations.
+  - **Example**: `mcp_memory_create_relations({relations: [{from: "PackageA", to: "PackageB", relationType: "depends_on"}]})` to maintain workspace dependency graph.
+
+### API Design Standards
+- **KG Support**: Store API design patterns, type definitions, and versioning approaches.
+- **Relevant Tools**:
+  - `mcp_memory_create_entities`: Create entities for API patterns and standards.
+  - `mcp_memory_add_observations`: Add best practices for type safety, versioning, and documentation.
+  - `mcp_memory_search_nodes`: Retrieve relevant API design patterns for specific use cases.
+  - **Example**: `mcp_memory_add_observations({observations: [{entityName: "API_Design_Patterns", contents: ["Use discriminated unions for type-safe request/response handling"]}]})` to build a repository of best practices.
+
+### Debugging and Troubleshooting
+- **KG Support**: Catalog common errors, solutions, and debugging approaches.
+- **Relevant Tools**:
+  - `mcp_memory_create_entities`: Create entities for error types and debugging techniques.
+  - `mcp_memory_create_relations`: Connect errors with their symptoms, causes, and solutions.
+  - `mcp_memory_search_nodes`: Find relevant debugging approaches for specific errors.
+  - **Example**: `mcp_memory_search_nodes({query: "typescript type error resolution"})` to find guidance when encountering specific type issues.
+
+### Code Review Standards
+- **KG Support**: Maintain review criteria, feedback patterns, and PR templates.
+- **Relevant Tools**:
+  - `mcp_memory_create_entities`: Create entities for review standards and templates.
+  - `mcp_memory_add_observations`: Record specific feedback patterns and review criteria.
+  - `mcp_memory_open_nodes`: Access detailed guidelines for specific review contexts.
+  - **Example**: `mcp_memory_open_nodes({names: ["PR_Template_Standard"]})` to retrieve standard PR structure during reviews.
+
+### Implementation Guidance
+
+When implementing the future Cursor rules to address these gaps, the assistant MUST load relevant entities from the KG to provide contextually appropriate assistance. For example, when helping with test creation, the assistant should query the KG for testing patterns specific to Vitest and apply the project's established conventions.
+
+Similarly, after providing assistance or guidance in these areas, the assistant MUST update the KG with new insights, patterns, or preferences to enhance future interactions. This creates a self-improving system where each interaction strengthens the assistant's knowledge base.
+
 ## Next Steps
 
 1. Draft new Cursor rules for the highest priority gaps: testing-practices, ci-cd-workflow, and dependency-management.

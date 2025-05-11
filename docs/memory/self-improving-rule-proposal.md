@@ -2,7 +2,7 @@
 
 ## Concept: Automatic Memory Management
 
-This proposal outlines a cursor rule that automatically updates memory files and the knowledge graph after any task completion, creating a self-improving repository that maintains comprehensive records of work performed.
+This proposal outlines a cursor rule that automatically updates memory files and the knowledge graph (a core component of the assistant's persistent 'memory') after any task completion, creating a self-improving repository that maintains comprehensive records of work performed. This automated update process directly supports the assistant's requirement to maintain its memory by capturing new insights, as outlined in system-level interaction guidelines (e.g., identifying user identity, behaviors, preferences, goals, relationships, and updating the KG accordingly using tools like `mcp_memory_create_entities`, `mcp_memory_create_relations`, and `mcp_memory_add_observations`). The assistant is expected to load relevant entities from this KG to personalize interactions and inform its tasks.
 
 ## Rule Structure
 
@@ -39,9 +39,9 @@ actions:
          - docs/memory/${task_specific_memory_file}.md: Adding detailed implementation notes
 
       3. **Knowledge Graph Updates**
-         - Creating entities for new components/concepts
-         - Adding relationships between entities
-         - Recording observations about implementation patterns
+         - Creating entities for new components/concepts (e.g., using `mcp_memory_create_entities`)
+         - Adding relationships between entities (e.g., using `mcp_memory_create_relations`)
+         - Recording observations about implementation patterns (e.g., using `mcp_memory_add_observations`)
 
       ### Would you like me to update additional memory files or provide more detailed documentation on the implementation?
 </rule>
@@ -69,10 +69,11 @@ actions:
    - Record decisions and caveats for future reference
 
 4. **Knowledge Graph Integration**
-   - Create or update entities based on task components
-   - Establish relationships between entities reflecting system architecture
-   - Add observations to entities with learned insights
-   - Document workflows and processes through entity-relationship patterns
+   The Knowledge Graph is maintained by the Memory MCP server.
+   - Create or update entities based on task components (e.g., using `mcp_memory_create_entities` to define new entities and `mcp_memory_add_observations` to add or update details for existing ones).
+   - Establish relationships between entities reflecting system architecture (e.g., using `mcp_memory_create_relations`).
+   - Add observations to entities with learned insights (e.g., using `mcp_memory_add_observations`).
+   - Document workflows and processes through entity-relationship patterns.
 
 ## Update Templates
 
@@ -109,34 +110,37 @@ actions:
 | ${decision} | ${rationale} | ${decision_date} | ${alternatives} |
 ```
 
-### Knowledge Graph Updates
+### Knowledge Graph Updates (Example `mcp_memory_*` tool usage)
 
 ```javascript
-// Entity creation for components
-await graph.createEntities([
-  {
-    name: "${component_name}",
-    entityType: "component",
-    observations: ["Implemented/updated in ${task_name}", "${component_description}"]
-  }
-]);
+// Entity creation using mcp_memory_create_entities
+// Example payload for mcp_memory_create_entities:
+// await default_api.mcp_memory_create_entities(entities=[
+//   McpMemoryCreateEntitiesEntities(
+//     name="${component_name}",
+//     entityType="component",
+//     observations=["Implemented/updated in ${task_name}", "${component_description}"]
+//   )
+// ]);
 
-// Relationship creation
-await graph.createRelations([
-  {
-    from: "${component_name}",
-    to: "${related_component}",
-    relationType: "${relationship_type}"
-  }
-]);
+// Relationship creation using mcp_memory_create_relations
+// Example payload for mcp_memory_create_relations:
+// await default_api.mcp_memory_create_relations(relations=[
+//   McpMemoryCreateRelationsRelations(
+//     from="${component_name}",
+//     to="${related_component}",
+//     relationType="${relationship_type}"
+//   )
+// ]);
 
-// Adding new observations
-await graph.addObservations([
-  {
-    entityName: "${existing_entity}",
-    contents: ["New insight from ${task_name}: ${observation}"]
-  }
-]);
+// Adding new observations using mcp_memory_add_observations
+// Example payload for mcp_memory_add_observations:
+// await default_api.mcp_memory_add_observations(observations=[
+//   McpMemoryAddObservationsObservations(
+//     entityName="${existing_entity}",
+//     contents=["New insight from ${task_name}: ${observation}"]
+//   )
+// ]);
 ```
 
 ## Example Interactions

@@ -1,0 +1,436 @@
+---
+description: ALWAYS USE when OPERATING to MANDATE self-improvement and AVOID repeating mistakes
+globs:
+alwaysApply: true
+---
+# AI Self-Improvement Protocol
+
+<rule>
+name: self_improvement
+description: Protocol for AI self-improvement through continuous learning from documented experiences and mistakes
+filters:
+  - type: message
+    pattern: "(?i)(mistake|error|improve|learning|self-correct|self-improve)"
+
+actions:
+  - type: suggest
+    message: |
+      # AI Self-Improvement Protocol
+
+      ## Purpose
+
+      This protocol is fundamental to your operation in this project. Adherence is mandatory to ensure continuous improvement and prevent repeated errors.
+
+      ## Protocol Architecture
+
+      This self-improvement protocol is structured as a layered system:
+
+      1. **Core Knowledge Layer**: Documented learnings and historical experiences
+      2. **Operational Layer**: Step-by-step procedures for applying learnings
+      3. **Meta-Cognitive Layer**: Systems for evaluating and improving the protocol itself
+      4. **Integration Layer**: Methods for connecting with other rules and knowledge sources
+
+      This modular design allows for targeted improvements while maintaining overall stability.
+
+      ## Self-Improvement Protocol Steps
+
+      1. **Consult Past Learnings Before Key Actions:**
+         - **Action**: Before undertaking complex or error-prone tasks, especially those involving:
+            - Shell command execution via `run_terminal_cmd` (particularly with nested tools like `vibe-tools`).
+            - File system operations (creation, deletion, modification of multiple files).
+            - Management of temporary files.
+            - Updates to critical project documentation or configuration.
+            - Interactions with the Knowledge Graph (KG).
+         - **Procedure**: You MUST consult the "Documented Learnings from Previous Sessions" section in this rule. This section contains detailed accounts of past mistakes, their resolutions, and key preventive measures.
+         - **Rationale**: This is not optional. It is a core requirement for demonstrating improved performance and avoiding repeated errors.
+
+      2. **Utilize the Knowledge Graph for Learnings:**
+         - **Trigger**: Before starting a new task or addressing a complex problem.
+         - **Procedure**: You MUST query the Knowledge Graph for relevant past learnings.
+            - Examples:
+               ```
+               // To search for SessionRetrospective entities:
+               // <use_mcp_tool>mcp_memory_search_nodes query="entityType:SessionRetrospective tool:VibeTools"</use_mcp_tool>
+               // To open a specific known entity:
+               // <use_mcp_tool>mcp_memory_open_nodes names=["AssistantLearning_20250509_VibeToolsYouTubeShowcase"]</use_mcp_tool>
+               ```
+            - Check entities of type `SessionRetrospective`, especially those with observations about similar tools, patterns, or mistakes.
+            - Filter proactively, focusing on relevant entries based on the current tools or patterns you're working with.
+         - **Rationale**: Prevent repeating known mistakes by leveraging past learnings.
+
+      3. **Acknowledge and Apply Learnings:**
+         - If past learnings are relevant to your current task or help you avoid a potential mistake, you MUST explicitly state how you are applying that learning.
+         - **Example Statement**: "Based on the documented learnings in this rule (and KG entity `[EntityName]`), I will use the temporary file method for this `run_terminal_cmd` call to prevent shell escaping issues."
+
+      4. **Record New Significant Learnings:**
+         - **Trigger**: If you make a significant mistake, or if a novel solution to a complex problem is found, or if a user provides critical corrective feedback that leads to a notable change in approach.
+         - **Procedure**: You MUST:
+            1.  Update the "Documented Learnings from Previous Sessions" section in this rule: Add a new entry detailing the context, mistake/challenge, resolution, and key takeaway/preventive measure. Use the existing format. Ensure all updates are made directly in this rule file.
+            2.  Update the Knowledge Graph: Create a new `SessionRetrospective` entity using the MCP Memory tools (as detailed in [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc)):
+                - Use `mcp_memory_create_entities` to create a new entity named descriptively (e.g., `AssistantLearning_YYYYMMDD_BriefDescription`) with entityType `SessionRetrospective`.
+                - Use `mcp_memory_add_observations` to add detailed observations capturing the mistake, resolution, and takeaways.
+                - Add a specific observation detailing the purpose of *this KG entry* and how it can be found/used (see `AssistantLearning_20250509_VibeToolsYouTubeShowcase` for an example).
+                - Use `mcp_memory_create_relations` to link this entity to relevant `Tool`, `Concept`, `Project`, or `User` entities.
+         - **Handling Edit Limitations**: If you encounter limitations with the `edit_file` tool that prevent direct updates to this rule file (as documented in previous learnings):
+            - Due to previously documented difficulties updating this specific rule file with `edit_file`, when adding new learnings here, you may opt to directly generate the markdown for user application rather than attempting `edit_file` first, unless the change is minor and textual.
+            - Generate the exact markdown content that should be added to the 'Documented Learnings from Previous Sessions' section.
+            - Clearly indicate to the user that direct rule file update failed and present the formatted markdown for manual addition.
+            - Format the content using the established structure (Session title with date, Context, Mistakes with Description/Resolution/Key Takeaway).
+            - Request the user to add this content to the self-improvement.mdc file at the appropriate location.
+            - Proceed with updating the Knowledge Graph portion of the process regardless of the rule file update status.
+         - **Rationale**: This continuous feedback loop is essential for systemic improvement.
+
+      5. **Focus on High-Priority Learning Areas:**
+         - **Shell Command Construction**: Pay extreme attention to escaping and structure when using `run_terminal_cmd`, especially for commands that themselves take complex string arguments (like `vibe-tools ... "multi-line prompt"`). The temporary file method for nested prompts is the safest approach.
+         - **Temporary File Management**: Be explicit about the lifecycle of temporary files. Always follow the standard lifecycle pattern: Create -> Use -> Delete, all within the same logical operation or command sequence. Every temporary file created must be explicitly deleted after use unless there is a documented reason to retain it. Avoid creating dangling references to temporary files in persistent documentation, as these files won't exist for future sessions. When referencing content from temporary files in documentation, always reference the concepts or summaries rather than the file paths themselves.
+         - **Rule Adherence & Consultation**: Proactively consult all relevant `.cursor/rules/*.mdc` files (use [00-rule-index.mdc](mdc:.cursor/rules/00-rule-index.mdc) to find them) before performing actions. These rules contain critical, project-specific operational guidance.
+
+      6. **Continuous Self-Evaluation:**
+         - Regularly assess the effectiveness of your own responses and actions.
+         - When completing a complex task, explicitly evaluate what went well and what could be improved.
+         - Use the `mcp_sequential-thinking_sequentialthinking` tool to reflect on your performance and identify areas for improvement.
+         - Maintain a growth mindset, actively seeking ways to enhance your capabilities and effectiveness.
+
+      ## Conflict Resolution Framework
+
+      When encountering conflicts between this rule, other rules, or Knowledge Graph entries:
+
+      1. **Hierarchy of Authority**
+
+      In case of conflicting information, follow this hierarchy to resolve:
+
+      1. **Direct User Instructions**: The most current user directive always takes highest precedence.
+      2. **Recent Knowledge Graph Entries**: For rapidly evolving areas, KG entries created within the last 30 days may supersede older documented learnings in this rule. However, if such a KG entry supersedes a documented learning here, a new entry should eventually be made in this rule file to reflect this updated understanding and maintain this rule as the primary source of consolidated learnings.
+      3. **This Protocol Document**: The general guidelines in this document.
+      4. **Other Rules**: Information from other `.cursor/rules/*.mdc` files.
+      5. **General Knowledge**: Your prior knowledge or general reasoning.
+
+      2. **Conflict Detection & Resolution**:
+         - When you notice potential conflicts between guidance sources, explicitly acknowledge them.
+         - Use `mcp_sequential-thinking_sequentialthinking` to analyze the conflict and its implications.
+         - Apply the most specific, contextual, and recent guidance relevant to the current task.
+         - Document significant conflicts as they may indicate areas where rule updates are needed.
+
+      3. **Reporting Rule Improvements**:
+         - When conflicts consistently arise from ambiguities or outdated information in other rules, recommend specific rule updates to the user.
+         - Format such recommendations clearly: "**Rule Update Recommendation**: The guidance in [rule-name.mdc] regarding [topic] appears to conflict with learned best practices. Consider updating it to [specific suggestion]."
+
+      ## Knowledge Management Strategies
+
+      As the collection of documented learnings grows, these strategies help maintain effectiveness:
+
+      1. **Categorization**:
+         - New learnings should be clearly categorized by their primary domain (e.g., "Shell Command Construction", "File Management", "Tool Usage").
+         - The categorization appears in the "Mistake" title: "**Mistake: [Category] - [Specific Issue]**".
+
+      2. **Summarization & Consolidation**:
+         - Related learnings from multiple sessions can be consolidated if they address the same fundamental issue.
+         - When consolidating, preserve the original context and dates of the individual learnings.
+         - Consolidated entries should reference all source sessions and highlight the evolution of understanding.
+
+      3. **Prioritization**:
+         - The most critical or frequently relevant learnings should appear earlier in the documented learnings section.
+         - Critical lessons may be highlighted with a "**[CRITICAL]**" prefix in their mistake title.
+
+      4. **Archiving Strategy**:
+         - Over time, as the "Documented Learnings" section grows substantially (beyond 15-20 entries):
+           - Consider moving older, less frequently applicable entries to a dedicated "Archived Learnings" section.
+           - Retain in the main section those learnings that continue to have broad relevance.
+           - Ensure archived learnings are still searchable and accessible when relevant to specific tasks.
+
+      ## Documented Learnings from Previous Sessions
+
+      This section follows a specific structure for consistency and effectiveness:
+
+      ### Session: Rule Metadata Date Update (2025-05-10)
+
+      **Context:** Fixing incorrect date in the metadata section of the `00-rule-index.mdc` file.
+
+      **Mistakes, Resolutions, and Key Takeaways:**
+
+      1. **Mistake: Manual Date Entry in Rules Metadata**
+          - **Description:** When updating `00-rule-index.mdc` to add an entry for `self-improvement.mdc`, I manually entered a date (2023-05-20) in the metadata section instead of using the proper date retrieval methods. This resulted in a significant date inconsistency (2-year difference from the actual date of 2025-05-10).
+          - **Resolution:** Used sequential thinking to identify the cause of the error and followed the date-consistency-enforcer rule to properly update the date using the current date obtained via `date +%Y-%m-%d` terminal command. The correct date (2025-05-10) was set in the metadata section.
+          - **Key Takeaway/Preventive Measure:** When updating any date field in rule files, especially metadata sections like `last_updated`, NEVER manually enter a date. Always use the proper date retrieval methods as specified in the `date-consistency-enforcer.mdc` rule: 1) Primary method: `mcp_time_get_current_time` tool, or 2) Fallback method: `date +%Y-%m-%d` terminal command. This ensures date consistency across all rule files and prevents potentially significant discrepancies.
+
+      ### Session: `vibe-tools youtube` Showcase (2025-05-09)
+
+      **Context:** Developing use cases for `vibe-tools youtube` and documenting them in [vibe-tools-showcase.md](mdc:docs/memory/vibe-tools-showcase.md).
+
+      **Mistakes, Resolutions, and Key Takeaways:**
+
+      1. **Mistake: File Management - Incorrect Use Case Order**
+          - **Description:** Documented the second `vibe-tools youtube` use case (GitHub Actions optimization) before the first one (pnpm monorepo optimization techniques).
+          - **Resolution:** Realized the error. Re-ran the command for the first use case (as its temporary output file was deleted). Manually ensured the documentation for the first use case was inserted correctly *before* the second one in [vibe-tools-showcase.md](mdc:docs/memory/vibe-tools-showcase.md).
+          - **Key Takeaway/Preventive Measure:** Maintain careful order when documenting sequential items. Verify the existence of dependent temporary files before relying on their content for generating documentation. If a temporary file is unexpectedly missing, regenerate it if possible, or adapt the documentation strategy.
+
+      2. **Mistake: File Management - Dangling Reference to Deleted Temporary File**
+          - **Description:** Deleted a temporary output file (`docs/generated/youtube-gha-optimization-plan-temp.md`) but later referred to this absolute path in the "Potential Further Explorations" section of [vibe-tools-showcase.md](mdc:docs/memory/vibe-tools-showcase.md).
+          - **Resolution (Manual Correction Required):** Identified the incorrect reference. Attempts to use `edit_file` to rephrase the exploration point were unsuccessful. The showcase document needs to be manually edited to change the reference from the specific file path to "GitHub Actions optimization concepts previously discussed" or similar.
+          - **Key Takeaway/Preventive Measure:** Avoid referring to absolute paths of temporary files in persistent documentation that will outlive them. If temporary outputs are summarized or their concepts used, ensure final references are to the *concepts* or summaries, not the transient files themselves. Always double-check "Further Exploration" or similar sections for such dangling references, especially after cleanup steps involving temporary files.
+
+      3. **Mistake: [CRITICAL] Shell Command Construction - Shell Command Escaping for Complex Prompts**
+          - **Description:** Multiple failures occurred when attempting to execute `vibe-tools repo` (for internal review steps) with complex, multi-line prompts. These were passed as part of the `command` argument to the `run_terminal_cmd` tool, leading to `bash: syntax error near unexpected token )` or "Argument command must not contain newline characters" errors. The core issue was improper shell escaping of newlines, quotes, parentheses, and other special characters within the string intended as the `vibe-tools repo` query.
+          - **Resolution:** Successfully executed the `vibe-tools repo` review by:
+             1.  Significantly simplifying the prompt text.
+             2.  Adopting the structure: `TMP_FILE=$(mktemp); echo 'SIMPLIFIED_PROMPT_TEXT' > "$TMP_FILE"; vibe-tools repo "$(cat "$TMP_FILE")"; rm "$TMP_FILE"`. This method isolates the prompt content for `vibe-tools repo` into a temporary file, which `cat` then safely injects as an argument, avoiding complex escaping issues within the main command string passed to `run_terminal_cmd`.
+          - **Key Takeaway/Preventive Measure:** For `vibe-tools` commands that require complex, multi-line prompts (especially when these commands are to be executed programmatically via `run_terminal_cmd`):
+            - **STRONGLY PREFER the temporary file method for the prompt content itself**: As per [vibe-tools.mdc](mdc:.cursor/rules/vibe-tools.mdc) (section "Handling Multi-line and Complex Prompts"), use:
+                  `TMP_FILE=$(mktemp); echo -e "YOUR_COMPLEX_VIBE_TOOLS_PROMPT_HERE" > "$TMP_FILE"; vibe-tools <sub_command> "$(cat "$TMP_FILE")"; rm "$TMP_FILE"`
+              - **Directly embedding heavily escaped, multi-line strings within the `command` argument of `run_terminal_cmd` (where those strings themselves form arguments for nested tools like `vibe-tools`) is highly fragile and error-prone. The temporary file approach for the nested tool's prompt is more robust.
+
+      4. **Mistake: Rule Adherence - Insufficient Proactive Consultation of Project Rules (`.mdc` files)**
+          - **Description:** Did not consistently and proactively refer to the guidance in [vibe-tools.mdc](mdc:.cursor/rules/vibe-tools.mdc) for constructing `vibe-tools` commands, particularly concerning the handling of complex prompts for shell execution. This led to repeated attempts with incorrect command structures.
+          - **Resolution (Ongoing Commitment):** Re-affirm the critical necessity to consult relevant `.mdc` rules (e.g., [vibe-tools.mdc](mdc:.cursor/rules/vibe-tools.mdc), [memory-management.mdc](mdc:.cursor/rules/memory-management.mdc), [date-consistency-enforcer.mdc](mdc:.cursor/rules/date-consistency-enforcer.mdc), [00-rule-index.mdc](mdc:.cursor/rules/00-rule-index.mdc)) *before* attempting complex operations or when encountering errors. These rules are primary sources of truth and often contain specific instructions to avoid common pitfalls.
+          - **Key Takeaway/Preventive Measure:** The project's `.cursor/rules/*.mdc` files are not just supplementary; they are operational guides. Prioritize their consultation, especially when dealing with tool interactions, file management, or complex command construction. Use keywords from the user's request or the task at hand to search the rule index ([00-rule-index.mdc](mdc:.cursor/rules/00-rule-index.mdc)) for relevant guidance.
+
+      5. **Mistake: Tool Limitation - `edit_file` Tool Failures & Rule Creation/Update Issues**
+          - **Description:** Encountered persistent failures with the `edit_file` tool when attempting to:
+             1.  Add YAML frontmatter to the newly created `.cursor/rules/ai-self-correction-protocol.mdc`.
+             2.  Reliably restore the metadata block in `00-rule-index.mdc` after an erroneous partial deletion by a previous `edit_file` operation.
+             Multiple attempts with varying context and instructions did not succeed.
+          - **Current Status (Manual Correction Required by User):**
+              - `.cursor/rules/ai-self-correction-protocol.mdc` is **MISSING** its required YAML frontmatter. It should be:
+                  ```yaml
+                  ---
+                  description: ALWAYS USE when OPERATING to MANDATE self-improvement and AVOID repeating mistakes
+                  alwaysApply: true
+                  ---
+                  ```
+              -  `00-rule-index.mdc` has the correct table entry for `ai-self-correction-protocol` but its final metadata block (version, last_updated, total_rules) was malformed by an `edit_file` operation and requires manual restoration to:
+                  ```yaml
+                  version: 1.9
+                  last_updated: 2025-05-09
+                  total_rules: 28
+                  ```
+          - **Key Takeaway/Preventive Measure:** When `edit_file` consistently fails on a specific, seemingly simple structural change (like prepending content or restoring a well-defined block), and multiple retries with varied context/instructions are unsuccessful, acknowledge the tool limitation for that specific case. Document the failure and the required manual fix. For rule creation, consider generating the full file content in one go if initial frontmatter/structure proves difficult for `edit_file` to establish incrementally.
+          - **Proactive Strategy:** When `edit_file` fails repeatedly on structural changes:
+              1. Try generating the entire file content in a single operation rather than incremental edits
+              2. For critical files, provide the user with a complete snippet they can manually apply
+              3. Consider creating a temporary file with the intended content that can be used as reference
+
+      ## MANDATORY GUIDELINES for Maintaining the Documented Learnings Section
+
+      When adding new learnings to the "Documented Learnings from Previous Sessions" section:
+
+      1. **Chronological Order**: Always add new entries at the TOP of the list, with the most recent first.
+      2. **Consistent Styling**: Adhere to the established header and bullet point format.
+      3. **Domain Prefixing**: Always include the domain prefix in session titles (e.g., "Memory Management - ...").
+      4. **Self-Referential Updates**: All learnings should be documented directly within this rule file and also in the Knowledge Graph. *Even if detailed information is added to the KG*, the core summary of the mistake, resolution, and key takeaway/preventive measure MUST still be added to this rule file for immediate human and AI visibility.
+      5. **Accessibility**: Ensure that your updates are formatted for maximum readability by both humans and AI.
+      6. **Cross-Referencing**: When a learning is related to other rules, include appropriate `mdc:` references.
+
+      ## Self-Improvement Meta-Loop
+
+      This protocol not only enables learning from mistakes but also aims to improve itself over time. To facilitate this meta-improvement:
+
+      1. **Protocol Evaluation Cycle**:
+         - Periodically assess the effectiveness of this self-improvement protocol itself
+         - Identify patterns in the types of errors that continue to occur despite existing preventive measures
+         - Consider structural improvements to the protocol based on these patterns
+         - **Metrics for Evaluation**:
+            - Error recurrence frequency - Are similar errors still happening despite documented learnings?
+            - Protocol coverage - Are there emerging error categories not yet addressed?
+            - Implementation effectiveness - Are teams/agents correctly applying the protocol?
+            - Knowledge retrieval efficiency - How quickly can relevant learnings be accessed and applied?
+
+      2. **Meta-Reflection Questions**:
+         - Are errors consistently occurring in specific domains despite documented learnings?
+         - Is the current categorization and organization of learnings optimal for retrieval and application?
+         - Are there gaps in the protocol's coverage that should be addressed?
+         - Could changes to the protocol structure itself enhance learning retention and application?
+         - Are there opportunities to automate aspects of the protocol (e.g., automated conflict detection)?
+
+      3. **Protocol Adaptation**:
+         - Propose improvements to this rule's structure and content when patterns suggest the need
+         - Document the rationale for any structural changes as part of the continuous learning process
+         - When suggesting protocol improvements, provide concrete examples of how the changes would address observed limitations
+         - Apply the same rigor to protocol updates as to any other critical system change
+
+      ## Sequential Thinking for Self-Reflection
+
+      When analyzing errors, evaluating conflicts between rules, or documenting new learnings, always use structured sequential thinking. This can be implemented through:
+
+      1. **Using the `mcp_sequential-thinking_sequentialthinking` tool** when available to break down the analysis into explicit steps
+      2. **Following a structured format even without the tool**:
+         - Step 1: Identify and describe the issue/error in detail
+         - Step 2: Analyze possible causes and contributing factors
+         - Step 3: Consider alternative approaches that could have prevented the issue
+         - Step 4: Formulate specific preventive measures for future situations
+         - Step 5: Identify broader patterns or principles that apply beyond this specific case
+
+      This structured approach ensures thorough analysis and more effective learning capture.
+
+      ## Examples of Protocol Application
+
+      ### Example 1: Applying Learning to Prevent Shell Command Errors
+
+      ```
+      User: Run this command to process our data: vibe-tools repo "Analyze the performance data in logs/perf-test.log with the following criteria:
+      1. Identify slowest endpoints
+      2. Compare against baseline in logs/baseline.log
+      3. Flag any regressions > 15%"
+      ```
+
+      **BAD RESPONSE:**
+      ```
+      I'll run that command for you.
+
+      vibe-tools repo "Analyze the performance data in logs/perf-test.log with the following criteria:
+      1. Identify slowest endpoints
+      2. Compare against baseline in logs/baseline.log
+      3. Flag any regressions > 15%"
+      ```
+
+      **GOOD RESPONSE:**
+      ```
+      Based on documented learnings about complex shell commands (from the "Shell Command Construction" mistake in self-improvement.mdc), I'll use the temporary file approach for this multi-line vibe-tools command:
+
+      TMP_FILE=$(mktemp)
+      echo -e "Analyze the performance data in logs/perf-test.log with the following criteria:\n1. Identify slowest endpoints\n2. Compare against baseline in logs/baseline.log\n3. Flag any regressions > 15%" > "$TMP_FILE"
+      vibe-tools repo "$(cat "$TMP_FILE")"
+      rm "$TMP_FILE"
+
+      This approach avoids shell escaping issues with multi-line strings.
+      ```
+
+      ### Example 2: Identifying and Documenting a New Learning
+
+      ```
+      User: You made a mistake when applying the sequential thinking approach. You skipped directly from problem identification to solution without analyzing root causes or considering alternatives. Please update your learning system to address this gap.
+      ```
+
+      **BAD RESPONSE:**
+      ```
+      I apologize for the mistake. I'll be more thorough next time.
+      ```
+
+      **GOOD RESPONSE:**
+      ```
+      Thank you for this feedback. I recognize this gap in applying sequential thinking properly. I'll document this as a new learning in the self-improvement protocol.
+
+      I'll use the `mcp_sequential-thinking_sequentialthinking` tool to properly analyze this gap before documenting it:
+
+      This would be categorized as a "Methodology - Sequential Thinking Application" mistake, where I failed to follow the full analytical process, jumping from problem identification directly to solution without proper root cause analysis or alternative consideration.
+
+      The key takeaway is to ensure all steps in sequential thinking are followed:
+      1. Problem identification
+      2. Root cause analysis
+      3. Alternative consideration
+      4. Solution formulation
+      5. Validation of approach
+
+      I'll update the self-improvement.mdc rule to include this learning in the "Documented Learnings from Previous Sessions" section, and will use this improved understanding in future analyses.
+      ```
+
+      ## Related Rules
+
+      - [memory-management](mdc:.cursor/rules/memory-management.mdc): For managing persistence and context.
+      - [vibe-tools](mdc:.cursor/rules/vibe-tools.mdc): For proper vibe-tools command execution and escaping.
+      - [anthropic-chain-of-thought](mdc:.cursor/rules/anthropic-chain-of-thought.mdc): For structured reasoning during error analysis.
+      - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc): For maintaining cursor rule files correctly.
+      - [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc): For ensuring correct date formatting.
+      - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): For proper use of MCP tools including the Knowledge Graph.
+
+examples:
+  - input: |
+      I'm getting the following error: "Invalid token found when parsing prompt in vibe-tools." What should I do?
+    output: |
+      I notice you're encountering an error with a vibe-tools prompt. Let me help you resolve this issue.
+
+      Looking at our documented learnings in the self-improvement protocol, I see we've previously encountered similar shell command escaping issues with vibe-tools.
+
+      For complex prompts, especially when executed via run_terminal_cmd, there's a recommended approach:
+
+      ```bash
+      TMP_FILE=$(mktemp)
+      echo -e "YOUR_COMPLEX_VIBE_TOOLS_PROMPT_HERE" > "$TMP_FILE"
+      vibe-tools <sub_command> "$(cat "$TMP_FILE")"
+      rm "$TMP_FILE"
+      ```
+
+      This method isolates your prompt in a temporary file, avoiding the complex escaping issues that often occur with special characters, quotes, and newlines.
+
+      Would you like me to help rewrite your command using this approach to resolve the invalid token error?
+
+  - input: |
+      Can you check if there are any documented learnings about file path references in documentation?
+    output: |
+      I've checked the documented learnings in our self-improvement protocol, and yes, we have a specific learning about file path references in documentation.
+
+      From a session titled "vibe-tools youtube Showcase," we learned that:
+
+      "Avoid referring to absolute paths of temporary files in persistent documentation that will outlive them. If temporary outputs are summarized or their concepts used, ensure final references are to the *concepts* or summaries, not the transient files themselves. Always double-check 'Further Exploration' or similar sections for such dangling references, especially after cleanup steps involving temporary files."
+
+      This learning came from an incident where a temporary output file was deleted but later referenced by its absolute path in a showcase document, creating a dangling reference.
+
+      For your documentation, I recommend:
+      1. Reference concepts, not file paths, especially for temporary files
+      2. Use relative paths when necessary, not absolute paths
+      3. Double-check references after any file reorganization or cleanup
+      4. Consider using descriptive text or variable placeholders instead of hardcoded paths
+
+  - input: |
+      I'm working on a complex task involving multiple rule updates. How should I approach this to ensure I don't miss important steps?
+    output: |
+      For a complex task involving multiple rule updates, I recommend using structured sequential thinking to ensure thoroughness and prevent errors.
+
+      Based on our self-improvement protocol, I suggest:
+
+      1. **Consult Relevant Rules First:**
+         - Start by reviewing all related rules in `.cursor/rules/`
+         - Pay special attention to `cursor-rules-creation.mdc` for formatting requirements
+         - Check `00-rule-index.mdc` to understand how the rules interconnect
+
+      2. **Use the Sequential Thinking Tool:**
+         - Break down your approach using `mcp_sequential-thinking_sequentialthinking`
+         - Outline all steps before making any changes
+         - Identify potential dependencies and conflicts between rules
+
+      3. **Document Your Plan:**
+         - Create a clear plan for each rule update
+         - Specify the order of updates to avoid breaking references
+         - Include verification steps after each modification
+
+      4. **Implement Changes Methodically:**
+         - Make one change at a time
+         - Verify each change before proceeding
+         - For complex edits, consider using temporary files to stage changes
+
+      5. **Regular Verification:**
+         - After each significant update, validate links and references
+         - Ensure metadata is correctly updated
+         - Check for any broken cross-references between rules
+
+      Would you like me to use the sequential thinking tool to help break down your specific rule update task into detailed steps?
+
+metadata:
+  priority: high
+  version: 1.2
+  tags:
+    - self-improvement
+    - error-handling
+    - continuous-learning
+    - documentation
+    - meta-learning
+  changelog:
+    - version: 1.2
+      changes:
+        - Added "Sequential Thinking for Self-Reflection" section
+        - Enhanced "Protocol Evaluation Cycle" with specific metrics
+        - Added practical examples of protocol application
+        - Expanded meta-reflection questions
+        - Enhanced formatting for improved readability
+    - version: 1.1
+      changes:
+        - Added modular structure with clear separation of concerns
+        - Added conflict resolution framework
+        - Added knowledge management strategies for growing collections of learnings
+        - Added self-improvement meta-loop for protocol evaluation and adaptation
+        - Enhanced categorization of existing documented learnings
+        - Updated metadata with new version and tags
+    - version: 1.0
+      changes:
+        - Initial version
+        - Incorporated learnings from vibe-tools youtube showcase session
+</rule>

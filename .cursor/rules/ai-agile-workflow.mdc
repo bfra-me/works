@@ -253,7 +253,9 @@ actions:
       3. **[user-preferences.md](mdc:docs/memory/user-preferences.md)**: Details user preferences for code style, tools, and workflow
       4. **[domain-knowledge.md](mdc:docs/memory/domain-knowledge.md)**: Contains domain-specific knowledge and terminology
 
-      Loading these files is MANDATORY at the start of every interaction to ensure you have the necessary context for accurate planning and task execution.
+      In addition to these files, the assistant MUST query the Knowledge Graph (using `mcp_memory_search_nodes` or `mcp_memory_open_nodes`) to load relevant entities (e.g., existing components related to the task, user preferences, domain concepts) that provide necessary context and enable personalization for the current workflow step.
+
+      Loading these files and relevant KG entities is MANDATORY at the start of every interaction to ensure you have the necessary context for accurate planning and task execution.
 
       Always use `Sequential Thinking` to thoroughly analyze these files and extract relevant information for the current task or query.
 
@@ -269,7 +271,7 @@ actions:
       For any complex request or workflow step, use `Sequential Thinking` to break down the process into manageable steps, analyze each thoroughly, and document your reasoning process.
 
       When you see instructions that say "Use Sequential Thinking," this means you should either:
-      1. Use the `mcp_Sequential_Thinking_sequentialthinking` tool when available, OR
+      1. Use the `mcp_sequential-thinking_sequentialthinking` tool when available, OR
       2. Structure your response with explicitly numbered thought steps, showing your reasoning process
 
       ### Step 1: Capture Features
@@ -592,91 +594,21 @@ actions:
 
       Refer to the [`vibe-tools.mdc`](mdc:.cursor/rules/vibe-tools.mdc) rule for more detailed command options and capabilities.
 
-      ### Step 5: Update Task Status
+      ### Step 5: Task Completion and Memory Update
 
-      1. Open the task document
-      2. Update the status field
-      3. **When a task is completed:**
-         - **You MUST move the task file to `docs/tasks/done/` (MANDATORY for both AI and users)** (e.g., `mv docs/tasks/[task-id].md docs/tasks/done/`)
-         - Update the memory file
-         - Update the plan document
-         - **Refer to the "Automated Memory Updates on Task Completion" section in the [memory-management](mdc:.cursor/rules/memory-management.mdc) rule for details on updating memory files and knowledge graph entries with comprehensive implementation details** (MANDATORY)
-      4. Ask the AI to update the feature status:
+      Upon task completion, begin the memory file update process defined in the [memory-management](mdc:.cursor/rules/memory-management.mdc) rule. This involves:
 
-      #### Automated Memory File Updates for Task Completion
+      1. **Signaling Completion**: Indicate task completion (e.g., "Task 2025-05-06-07 is complete", or updating status in the task file).
+      2. **Invoking Memory File Update**: Use the `mcp_sequential-thinking_sequentialthinking` tool to work through the **Memory File Updates on Task Completion** section defined in `memory-management.mdc`.
+      3. **Providing Summary**: Offer a concise summary of the completed task, focusing on key changes, outcomes, and any new insights gained.
 
-      When updating memory files upon task completion, use vibe-tools to ensure proper formatting:
+      **Knowledge Graph Synchronization:** Upon task completion, the assistant MUST also ensure the Knowledge Graph (the assistant's persistent 'memory', powered by the Memory MCP server) is updated as part of the process defined in `memory-management.mdc`. This involves using `mcp_memory_*` tools (detailed in [mcp-tools-usage.mdc](/.cursor/rules/mcp-tools-usage.mdc)) to:
+         - Create new entities for components/concepts introduced (`mcp_memory_create_entities`).
+         - Add relationships linking new/existing entities (`mcp_memory_create_relations`).
+         - Add observations capturing key implementation details, decisions, or insights (`mcp_memory_add_observations`).
+      Keeping the KG synchronized ensures the assistant's 'memory' accurately reflects the project's evolution.
 
-      ```bash
-      # Generate memory file update with proper formatting
-      vibe-tools repo "Summarize the completed task [task-id] with focus on implementation details, technical decisions, and lessons learned" --save-to task-summary.txt
-
-      # Format the update for memory files according to strict guidelines
-      # vibe-tools ask "$(cat << 'EOF'
-      # Format this task summary as updates for the following memory files, following memory-management.mdc guidelines exactly:
-      #
-      # 1. workflow-status.md:
-      #    - Update 'Task History' table with the new completed task
-      #    - Add to 'Recent Updates' section
-      #    - Ensure the 'Updated: [today\'s date]' is the very last line
-      #
-      # 2. domain-knowledge.md:
-      #    - Add relevant technical decisions to the 'Technical Decisions' section
-      #    - Add any new implementation patterns to the 'Implementation Patterns' section
-      #    - Ensure content is merged with existing sections, not duplicated
-      #    - Maintain the exact formatting shown in memory-management.mdc
-      #
-      # IMPORTANT: Always maintain existing structure, merge with existing sections, and keep timestamp at the very end.
-      # EOF
-      # )"
-
-      # Define the multi-line prompt content
-      PROMPT_CONTENT="Format this task summary as updates for the following memory files, following memory-management.mdc guidelines exactly:\\n\\n1. workflow-status.md:\\n   - Update 'Task History' table with the new completed task\\n   - Add to 'Recent Updates' section\\n   - Ensure the 'Updated: [today\\'s date]' is the very last line\\n\\n2. domain-knowledge.md:\\n   - Add relevant technical decisions to the 'Technical Decisions' section\\n   - Add any new implementation patterns to the 'Implementation Patterns' section\\n   - Ensure content is merged with existing sections, not duplicated\\n   - Maintain the exact formatting shown in memory-management.mdc\\n\\nIMPORTANT: Always maintain existing structure, merge with existing sections, and keep timestamp at the very end."
-
-      # Create a temporary file
-      TMP_PROMPT_FILE=$(mktemp)
-
-      # Write the prompt content to the temporary file
-      echo -e "$PROMPT_CONTENT" > "$TMP_PROMPT_FILE"
-
-      # Call vibe-tools with the content of the temporary file
-      vibe-tools ask "$(cat "$TMP_PROMPT_FILE")"
-
-      # Clean up the temporary file
-      rm "$TMP_PROMPT_FILE"
-      ```
-
-      When a task's status changes:
-      - You MUST update all relevant memory files using `Sequential Thinking` to ensure thorough analysis
-      - Update at minimum the workflow-status.md, domain-knowledge.md, and any task-specific memory files
-      - This context preservation is CRITICAL for continuity across sessions
-
-      > **Warning:** If completed task files are not moved to `docs/tasks/done/`, workflow tracking and reporting will be inaccurate. This step is required for all completed tasks.
-
-      The AI will:
-      1. Check all related tasks
-      2. Update the feature status in the features document
-      3. Move completed features to the "Completed Features" section when all tasks are done
-
-      #### Rule Creation Task Completion
-
-      When completing a task related to creating or updating a cursor rule:
-
-      1. Follow the standard task completion steps (update status, move to done directory, etc.)
-      2. Additionally, you MUST update the rule index file:
-         - Open `.cursor/rules/00-rule-index.mdc`
-         - Follow the "Automatic Index Updates" guidelines:
-           - For new rules: Add entry to appropriate category table
-           - For updated rules: Update description/category if changed
-           - For renamed rules: Update all references
-           - For removed rules: Remove the entry
-         - Update the `total_rules` count in the Metadata section
-         - Update the `last_updated` date in the Metadata section using the current date obtained following [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc) (prioritize `mcp_time_get_current_time` tool, fallback to `date +%Y-%m-%d`)
-      3. Request the AI to verify the rule index update with:
-         ```
-         update rule index
-         ```
-         or similar trigger phrases as documented in the rule index file.
+      The AI should confirm that both memory files and relevant knowledge graph entries have been updated, following the specific guidelines in [memory-management](mdc:.cursor/rules/memory-management.mdc) **for details on updating memory files and knowledge graph entries with comprehensive implementation details** (MANDATORY).
 
       ### Step 6: Track Progress
 
@@ -1048,34 +980,19 @@ actions:
 
       ## Related Rules
 
-      - [memory-management](mdc:.cursor/rules/memory-management.mdc): Defines workflow status storage, references automated memory updates upon task completion, and relies on its context loading.
-      - [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc): Uses its date formatting for task IDs, completion dates, and update timestamps.
-      - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc): Mentions updating the rule index as part of task completion for rule-related tasks.
-      - [00-rule-index](mdc:.cursor/rules/00-rule-index.mdc): References updating the index file itself.
-      - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Mentions using the Sequential Thinking tool/approach.
-      - [anthropic-chain-of-thought](mdc:.cursor/rules/anthropic-chain-of-thought.mdc): Provides structure for Sequential Thinking process.
-      - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Ensures workflow aligns with user preferences for communication and process.
-      - [vibe-tools](mdc:.cursor/rules/vibe-tools.mdc): Provides the `vibe-tools plan` and `vibe-tools repo` commands integrated into this workflow.
+      - [00-rule-index](mdc:.cursor/rules/00-rule-index.mdc): Central registry for all rules.
+      - [memory-management](mdc:.cursor/rules/memory-management.mdc): Provides guidelines for maintaining memory files and details the process for updating both files and the Knowledge Graph upon task completion, including the use of specific `mcp_memory_*` tools.
+      - [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc): Ensures proper date formatting for task IDs and timestamps.
+      - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Informs task execution based on stored preferences.
+      - [vibe-tools](mdc:.cursor/rules/vibe-tools.mdc): Provides the CLI tools recommended for executing various workflow steps.
+      - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Details usage of MCP tools, including `mcp_sequential-thinking_sequentialthinking` mandated by this workflow.
+      - [anthropic-chain-of-thought](mdc:.cursor/rules/anthropic-chain-of-thought.mdc): Offers prompting structures that enhance the `mcp_sequential-thinking_sequentialthinking` tool's effectiveness.
+      - [rule-acknowledgement](mdc:.cursor/rules/rule-acknowledgement.mdc): Ensures transparency in applying this workflow rule.
+      - [vibe-tools-planning-review](mdc:.cursor/rules/vibe-tools-planning-review.mdc): Complements this rule by defining specific AI review steps for plans.
 
-      ### Memory Management Rule
+      ### Integration with Auto-Memory-Manager
 
-      The AI-Assisted Agile Workflow integrates with the [memory-management](mdc:.cursor/rules/memory-management.mdc) rule to provide comprehensive context retention across conversations.
-
-      - The Memory Management rule defines additional memory file types and templates
-      - It provides guidelines for maintaining memory files and leveraging the knowledge graph
-      - Together, these rules create a complete system for maintaining project context and workflow status
-
-      ### Memory Manager
-
-      The process for updating memory files and the knowledge graph upon task completion are now detailed within the [memory-management](mdc:.cursor/rules/memory-management.mdc) rule. This process involves:
-
-      - Updating memory files with detailed implementation information
-      - Creating knowledge graph entities for new components and concepts
-      - Adding relationships between relevant entities
-      - Recording observations about implementation patterns
-      - Documenting technical decisions and their rationales
-
-      This integration ensures that all task completions are thoroughly documented and easily retrievable in future development work.
+      NOTE: The functionality originally proposed in `auto-memory-manager.mdc` (automating memory file and KG updates) has been **merged into** the [memory-management](mdc:.cursor/rules/memory-management.mdc) rule. This `ai-agile-workflow` rule triggers the update process defined within `memory-management` upon task completion.
 
       ## Templates
 

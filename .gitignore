@@ -23,3 +23,5 @@ docs/memory/memory.json
 # SpecStory
 .specstory/
 .repomix-*
+.ai/generated/
+docs/generated/
