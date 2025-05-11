@@ -388,6 +388,11 @@ export interface Rules {
    */
   '@typescript-eslint/no-unnecessary-type-constraint'?: Linter.RuleEntry<[]>
   /**
+   * Disallow conversion idioms when they do not change the type or value of the expression
+   * @see https://typescript-eslint.io/rules/no-unnecessary-type-conversion
+   */
+  '@typescript-eslint/no-unnecessary-type-conversion'?: Linter.RuleEntry<[]>
+  /**
    * Disallow type parameters that aren't used multiple times
    * @see https://typescript-eslint.io/rules/no-unnecessary-type-parameters
    */
@@ -5920,6 +5925,8 @@ type TypescriptEslintOnlyThrowError = []|[{
     name: (string | [string, ...(string)[]])
     package: string
   })[]
+  
+  allowRethrowing?: boolean
   
   allowThrowingAny?: boolean
   
