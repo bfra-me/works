@@ -1,5 +1,14 @@
 # @bfra.me/eslint-config
 
+## 0.20.5
+### Patch Changes
+
+
+- Updated dependency `eslint-plugin-node-dependencies` to `0.13.1`. ([#1215](https://github.com/bfra-me/works/pull/1215))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.1.44`. ([#1217](https://github.com/bfra-me/works/pull/1217))
+
 ## 0.20.4
 ### Patch Changes
 
