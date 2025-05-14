@@ -188,19 +188,11 @@ examples:
 
 metadata:
   priority: high
-  version: 1.1
+  version: 1.1.1
   tags:
     - testing
     - vitest
     - workflow
     - monorepo
     - best-practices
-  changelog:
-    - version: 1.1
-      changes:
-        - Added comprehensive bidirectional cross-references based on analysis
-    - version: 1.0
-      changes:
-        - Initial version: comprehensive guidance for Vitest setup, test organization, coverage, mocking, and TDD in the monorepo
-  last_updated: "2025-05-06"
 </rule>

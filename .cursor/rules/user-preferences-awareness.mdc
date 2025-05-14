@@ -240,24 +240,10 @@ examples:
 
 metadata:
   priority: high
-  version: 1.2
+  version: 1.2.1
   tags:
     - preferences
     - memory
     - knowledge-graph
     - customization
-  changelog:
-    - version: 1.2
-      changes:
-        - Extended bidirectional cross-references to all related rules
-        - Enhanced relationship descriptions for better context
-    - version: 1.1
-      changes:
-        - Added file_path filter to target the user preferences memory file specifically
-        - Refined message pattern with more specific matching including common preference questions
-        - Added content filter to better identify preference-related discussions
-        - Replaced generic terms with more specific patterns to reduce false positives
-    - version: 1.0
-      changes:
-        - Initial version
 </rule>

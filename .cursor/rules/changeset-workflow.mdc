@@ -201,17 +201,9 @@ examples:
 
 metadata:
   priority: high
-  version: 1.0.1
+  version: 1.0.2
   tags:
     - workflow
     - changeset
     - release
-  changelog:
-    - version: 1.0.1
-      changes:
-        - Updated cross-references to related rules
-    - version: 1.0
-      changes:
-        - Initial version
-  last_updated: 2025-05-06
 </rule>

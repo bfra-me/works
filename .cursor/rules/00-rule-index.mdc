@@ -168,8 +168,7 @@ When adding new rules:
 
 When updating rules:
 1. Increment the version number according to the nature of the change
-2. Update the changelog section in the rule's metadata
-3. Update this index if the rule's description or category has changed
+2. Update this index if the rule's description or category has changed
 
 ### Automatic Index Updates
 

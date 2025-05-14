@@ -506,45 +506,11 @@ examples:
 
 metadata:
   priority: high
-  version: 1.5
+  version: 1.5.1
   tags:
     - memory
     - context
     - workflow
     - knowledge-graph
     - automation
-  last_updated: 2025-05-06
-  changelog:
-    - version: 1.5
-      changes:
-        - Added bidirectional cross-reference to monorepo-structure.mdc
-        - Updated metadata with version and last_updated information
-    - version: 1.4
-      changes:
-        - Improved filter patterns for message and content to reduce false positives.
-        - Added word boundaries to content pattern terms.
-        - Added "remember across sessions" to message pattern for better coverage.
-        - Changed "memory" to "memory file" with word boundaries in content pattern.
-    - version: 1.3
-      changes:
-        - Merged content from `auto-memory-manager.mdc` into this rule.
-        - Added "Automated Memory Updates on Task Completion" section detailing the trigger and process.
-        - Removed `auto-memory-manager.mdc` from related rules.
-        - Updated tags.
-    - version: 1.2
-      changes:
-        - Enhanced "Using Memory Files" section to prioritize essential memory files at interaction start
-        - Added "Sequential Thinking for Memory Management" section requiring structured approach
-        - Made memory file loading explicitly mandatory, not optional
-        - Added emphasis on context preservation across sessions
-    - version: 1.1
-      changes:
-        - Added detailed guidance on memory file update process
-        - Added explicit section on avoiding duplicate sections
-        - Added examples of correct and incorrect memory file structures
-        - Enhanced guidance on timestamp placement
-        - Added complete example of proper memory file update process
-    - version: 1.0
-      changes:
-        - Initial version
 </rule>

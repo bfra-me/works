@@ -4,4 +4,5 @@ _.path = [
     "./node_modules/.bin",
 ]
 
-NODE_OPTIONS = '--experimental-print-required-tla --no-experimental-require-module --trace-warnings'
+GITHUB_TOKEN = { value = '{{ exec(command="gh auth token") }}', redact = true }
+NODE_OPTIONS = '{{ get_env(name="NODE_OPTIONS", default="--trace-warnings") }}'

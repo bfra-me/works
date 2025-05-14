@@ -46,7 +46,6 @@ A comprehensive plan to enhance the cursor rules system by improving organizatio
    - **Completion Date**: 2025-05-02
    - **Acceptance Criteria**:
      - Version metadata in all rules
-     - Changelog sections added
      - Consistent version numbering
      - Historical versions documented
 

@@ -16,7 +16,7 @@ This plan details the steps required to update the `ai-agile-workflow.mdc` Curso
 -   A dedicated section on Memory File Automation using `vibe-tools` (including script examples) is added to the rule.
 -   The updated rule structure conforms to the guidelines in [`cursor-rules-creation.mdc`](/.cursor/rules/cursor-rules-creation.mdc).
 -   Appropriate cross-references to [`vibe-tools.mdc`](/.cursor/rules/vibe-tools.mdc), [`memory-management.mdc`](/.cursor/rules/memory-management.mdc), and relevant memory files (like `agile-workflow-enhancements.md`) are included.
--   Rule metadata (version, changelog) is updated appropriately.
+-   Rule metadata (version) is updated appropriately.
 
 ## Implementation Phases
 
@@ -117,7 +117,7 @@ This plan details the steps required to update the `ai-agile-workflow.mdc` Curso
 3.  **Update Rule Metadata**
     - **Complexity**: Low
     - **Dependencies**: Phase 2, Phase 3 Tasks
-    - **Acceptance Criteria**: Increment the `version` number in the metadata (likely a MINOR bump). Add a detailed entry to the `changelog` in the metadata explaining the `vibe-tools` integration. Update the `last_updated` field.
+    - **Acceptance Criteria**: Increment the `version` number in the metadata (likely a MINOR bump).
 
 4.  **Perform Final Review**
     - **Complexity**: Medium
