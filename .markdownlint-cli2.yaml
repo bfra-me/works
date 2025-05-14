@@ -11,3 +11,5 @@ globs:
   - '!**/node_modules'
   - '!.cursor/rules/**'
   - '!docs/(memory|plans|tasks)/**'
+  - '!.specstory/**'
+  - '!.ai/**'

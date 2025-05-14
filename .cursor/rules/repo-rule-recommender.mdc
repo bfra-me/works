@@ -27,7 +27,7 @@ actions:
 
       ```javascript
       // Use sequentialthinking to break down the analysis process
-      mcp_Sequential_Thinking_sequentialthinking({
+      mcp_sequential_thinking_sequentialthinking({
         thought: "Analyzing repository structure (languages, frameworks, build tools, linting, testing, workflows)...",
         thoughtNumber: 1,
         totalThoughts: 3, // Adjust as needed
@@ -99,7 +99,7 @@ actions:
 
       ```javascript
       // 1. Analyze repository (using Sequential Thinking or Repo Analyzer guidelines)
-      mcp_Sequential_Thinking_sequentialthinking({
+      mcp_sequential_thinking_sequentialthinking({
         thought: "Analyzing repo: TypeScript monorepo, pnpm, ESLint, Prettier, Vitest, Changesets, GitHub Actions.",
         thoughtNumber: 1,
         totalThoughts: 3,
@@ -153,7 +153,7 @@ examples:
 
       ```javascript
       // Let's start the analysis
-      mcp_Sequential_Thinking_sequentialthinking({
+      mcp_sequential_thinking_sequentialthinking({
         thought: "Initial analysis: What are the primary languages, frameworks, and key tools visible in the workspace?",
         thoughtNumber: 1,
         totalThoughts: 4, // Estimate

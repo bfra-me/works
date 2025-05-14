@@ -1,0 +1,18 @@
+**/.cache/**
+
+# Test fixture snapshots
+**/fixtures/output/**
+
+# Package build outputs are in the `lib` directory
+**/packages/*/lib/**
+
+# Changesets added by `@scaleway/changesets-renovate`
+.changeset/renovate-*.md
+
+# AI-generated files
+**/docs/generated/**
+
+# Package-specific
+
+## eslint-config
+**/packages/eslint-config/src/rules.d.ts

@@ -28,7 +28,7 @@ This file tracks key technical decisions made during the development of the proj
 | PROC-001 | Break features into plans, phases, and tasks | Manageable units of work, clear tracking | 2025-04-25 | Approved | Direct feature implementation, informal tasks | More documentation overhead, clearer progress tracking |
 | PROC-002 | Use task templates with structured sections | Consistency, comprehensive task definition | 2025-04-25 | Approved | Free-form tasks, minimal structure | All tasks must follow the template format |
 | PROC-003 | Update workflow status after significant changes | Maintain context across conversations | 2025-04-25 | Approved | Ad-hoc updates, no formal tracking | Regular updates to workflow-status.md required |
-| PROC-004 | Implement knowledge graph entities for key components | Enhanced relationship tracking | 2025-04-25 | Approved | File-only tracking, no graph | Knowledge graph must be maintained alongside files |
+| PROC-004 | Implement knowledge graph entities for key components | Enhanced relationship tracking | 2025-04-25 | Approved | File-only tracking, no graph | The Knowledge Graph (KG), often referred to as the assistant\'s persistent \'memory\', must be maintained alongside files. This KG is powered by the Memory MCP server and its maintenance involves using specific mcp_memory_* tools. |
 | PROC-005 | Integrate vibe-tools into ai-agile-workflow | Enhanced research, planning, context awareness, and automation | 2025-05-06 | Approved | Separate vibe-tools workflow rule, ad-hoc usage without rule integration | All workflow stages enhanced with specific vibe-tools commands, memory file updates can be automated |
 
 ## Tool Decisions

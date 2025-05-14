@@ -5,7 +5,7 @@ alwaysApply: true
 ---
 # Model Context Protocol (MCP) Tool Usage
 
-These instructions are automatically active for all conversations in this project. All available tools (e.g., the `mcp_sequential-thinking_sequentialthinking` tool, `Brave Search`, `Tavily`, `Fetch`, `FireCrawl`, and Knowledge Graph/Memory tools like `mcp_memory_create_entities`) should be utilized as needed without requiring explicit activation.
+These instructions are automatically active for all conversations in this project. All available tools (e.g., the `mcp_sequential-thinking_sequentialthinking` tool, `Brave Search`, `Tavily`, `Fetch`, `FireCrawl`, and Knowledge Graph/Memory tools like `mcp_memory_create_entities`, `mcp_memory_create_relations`, `mcp_memory_add_observations`, `mcp_memory_delete_entities`, `mcp_memory_delete_observations`, `mcp_memory_delete_relations`, `mcp_memory_read_graph`, `mcp_memory_search_nodes`, and `mcp_memory_open_nodes`) should be utilized as needed without requiring explicit activation.
 
 <rule>
 name: mcp_tools_usage
@@ -56,11 +56,13 @@ actions:
       - Prioritize reliable and concise sources.
 
       ### Knowledge Graph (Memory)
-      - Use the knowledge graph to store and retrieve information that persists across conversations.
+      The Knowledge Graph capabilities are provided by the [Memory MCP server](https://github.com/modelcontextprotocol/servers/tree/main/src/memory).
+      - Use the knowledge graph to store and retrieve information that persists across conversations. Assistants MUST proactively load relevant entities from the KG for task context and personalization, and MUST update the KG with new insights, user preferences, and other relevant information derived from interactions, aligning with system guidance for memory management (e.g., user identification, memory retrieval/update cycle).
       - Link related entities through meaningful relations that capture the nature of their connection.
-      - Utilize specific tools like `mcp_memory_create_entities`, `mcp_memory_create_relations`, `mcp_memory_search_nodes`, `mcp_memory_add_observations`, etc.
+      - Utilize specific tools like `mcp_memory_create_entities`, `mcp_memory_create_relations`, `mcp_memory_add_observations`, `mcp_memory_delete_entities`, `mcp_memory_delete_observations`, `mcp_memory_delete_relations`, `mcp_memory_read_graph`, `mcp_memory_search_nodes`, and `mcp_memory_open_nodes`.
+      - **Caution:** When generating calls to KG modification tools (e.g., `mcp_memory_create_entities`, `mcp_memory_add_observations`, `mcp_memory_delete_entities`), the assistant should internally review the proposed operation and its parameters for accuracy and contextual appropriateness before execution to prevent unintended data corruption or loss.
       - **Knowledge Graph Update Template:**
-        When updating the knowledge graph, document your changes using this format:
+        When updating the knowledge graph, document your changes using this format (adapt based on the specific `mcp_memory_*` tool used and the nature of the update):
         ```markdown
         Knowledge Graph Updates:
         - Entity created: [EntityName] (Type: [EntityType])

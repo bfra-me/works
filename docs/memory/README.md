@@ -1,6 +1,6 @@
 > **Note:** This directory and its files are intended for project-wide preferences and documentation. Do not add secrets, credentials, or personally identifiable information (PII). All contents are safe for source control.
 >
-> If you need AI assistants to access more sensitive PII (such as your name, contact details, or professional information), store it in the local knowledge graph using the provided tools. The knowledge graph is not checked into source control and is only accessible to AI assistants as instructed.
+> If you need AI assistants to access more sensitive PII (such as your name, contact details, or professional information), store it in the local knowledge graph (a core component of the assistant's persistent 'memory', powered by the Memory MCP server) using the provided `mcp_memory_*` tools (see [mcp-tools-usage.mdc](/.cursor/rules/mcp-tools-usage.mdc) for details). The knowledge graph is not checked into source control and is only accessible to AI assistants as instructed.
 >
 > **Never** store secrets or credentials in either the memory files or the knowledge graph.
 
@@ -15,7 +15,7 @@ The memory files serve several key purposes:
 - Provide a central source of truth for project information
 - Document key decisions, preferences, and knowledge
 - Support the AI-assisted agile workflow
-- Integrate with the knowledge graph when available
+- Integrate with the Knowledge Graph (the assistant's persistent, structured 'memory') when available, to provide deeper context, track relationships, and enable personalization. This involves loading relevant information and updating it with new insights using specific `mcp_memory_*` tools.
 
 ## How AI Assistants Should Use Memory Files
 
@@ -81,7 +81,7 @@ Memory files are updated using specific templates defined in the memory-manageme
 
 ## Integration with Knowledge Graph
 
-Memory files work in concert with the knowledge graph (when available) through:
+Memory files work in concert with the Knowledge Graph (powered by the Memory MCP server) when available. Operations on the KG are performed using specific `mcp_memory_*` tools detailed in [mcp-tools-usage.mdc](/.cursor/rules/mcp-tools-usage.mdc). This integration happens through:
 
 1. **Entity Creation**: Memory files have corresponding entities in the graph
 2. **Relationship Mapping**: File relationships are represented as entity relationships
@@ -96,7 +96,7 @@ Memory files work in concert with the knowledge graph (when available) through:
 ## Key Concepts
 
 - **Memory File**: A markdown document that stores persistent context
-- **Knowledge Graph**: A connected network of entities and relationships
+- **Knowledge Graph**: A connected network of entities and relationships, forming a core part of the AI assistant's persistent 'memory'. It's maintained by the Memory MCP server and accessed via `mcp_memory_*` tools.
 - **Context Retention**: The ability to maintain awareness of project state across conversations
 - **Memory Update**: The process of adding new information to memory files
 - **Memory Synchronization**: Keeping memory files and knowledge graph in sync

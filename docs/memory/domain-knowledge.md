@@ -30,11 +30,7 @@
   - Progress is tracked through task status and [workflow memory](/docs/memory/workflow-status.md)
   - Enhanced with vibe-tools commands at each workflow stage for improved context and automation
 
-- **Knowledge Graph**: Connected network of entities and relationships
-  - Entities represent concepts, components, and artifacts
-  - Relationships define how entities connect to each other
-  - Observations store facts about entities
-  - Graph queries retrieve contextual information
+- **Knowledge Graph**: A connected network of entities and relationships, forming a core part of the AI assistant's persistent 'memory'. It is maintained by the Memory MCP server. Entities represent concepts, components, and artifacts. Relationships define how entities connect. Observations store facts. Interactions (creation, queries, updates) are performed using specific `mcp_memory_*` tools (see [mcp-tools-usage.mdc](/.cursor/rules/mcp-tools-usage.mdc) for details). The assistant loads relevant domain concepts from the KG for context and updates it as knowledge evolves.
 
 - **Cursor Rule Description Pattern**: Standardized format for rule descriptions
   - Follows the pattern "VERB when CONTEXT to OUTCOME"
@@ -81,10 +77,10 @@
 | MDC | Markdown Configuration file for Cursor rules | File extension for Cursor rules (.mdc) |
 | Rule | A configuration file that guides AI behavior | Stored in .cursor/rules directory |
 | Memory File | Markdown file storing persistent context | Stored in docs/memory directory |
-| Knowledge Graph | Connected network of entities and relationships | Used for context retention |
-| Entity | A node in the knowledge graph representing a concept | Has a name, type, and observations |
-| Relation | A connection between two entities | Has a from, to, and relationType |
-| Observation | A fact about an entity | Stored as strings in entities |
+| Knowledge Graph | Connected network of entities and relationships. Maintained by the Memory MCP server. Accessed via `mcp_memory_*` tools. | Used for context retention |
+| Entity | A node in the knowledge graph representing a concept. Managed using `mcp_memory_*` tools. | Has a name, type, and observations |
+| Relation | A connection between two entities. Managed using `mcp_memory_*` tools. | Has a from, to, and relationType |
+| Observation | A fact about an entity. Managed using `mcp_memory_*` tools. | Stored as strings in entities |
 | Task | A unit of work with specific acceptance criteria | Stored in docs/tasks directory |
 | Plan | A strategy for implementing a feature | Stored in docs/plans directory |
 | Cross-Reference | A link between documents | Used to create navigable knowledge system |
@@ -119,12 +115,12 @@
 - **Memory Update Pattern**:
   - Memory files are updated automatically after task completion as defined in the memory-management rule
   - Each update includes a timestamp and clear description of changes
-  - Changes are synchronized with the knowledge graph when available
+  - Changes are synchronized with the knowledge graph (using `mcp_memory_*` tools) when available.
   - Cross-references maintain connections between related concepts
 
 - **Memory Access Pattern**:
   - AI assistants check relevant memory files at conversation start
-  - The knowledge graph is queried for additional context
+  - The knowledge graph is queried for additional context (using tools like `mcp_memory_search_nodes` or `mcp_memory_open_nodes`).
   - Information is combined from multiple sources for comprehensive understanding
   - Memory file references follow standardized formats
 
