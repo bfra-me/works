@@ -1,5 +1,5 @@
 ---
-description: ALWAYS APPLY when RESPONDING to ENSURE transparency and traceability
+description: ALWAYS USE when RESPONDING to ENSURE transparency and traceability
 globs:
 alwaysApply: true
 ---
@@ -95,18 +95,10 @@ examples:
       [Feature setup details...]
 metadata:
   priority: high
-  version: 1.1
+  version: 1.1.1
   tags:
     - process
     - documentation
     - rule-management
     - transparency
-  changelog:
-    - version: 1.1
-      changes:
-        - Added bidirectional cross-references based on analysis
-    - version: 1.0
-      changes:
-        - Initial version
-  last_updated: "2025-05-06"
 </rule>

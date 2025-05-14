@@ -273,16 +273,11 @@ examples:
 
 metadata:
   priority: high
-  version: 1.0
+  version: 1.0.1
   tags:
     - vibe-tools
     - planning
     - review
     - workflow
     - ai-assistance
-  changelog:
-    - version: 1.0
-      changes:
-        - Initial version
-  last_updated: 2025-05-06
 </rule>

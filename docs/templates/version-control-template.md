@@ -14,15 +14,6 @@ metadata:
     - [tag1]
     - [tag2]
     - [tag3]
-  changelog:
-    - version: [MAJOR.MINOR.PATCH]
-      changes:
-        - [Change description 1]
-        - [Change description 2]
-    - version: [PREVIOUS_VERSION]
-      changes:
-        - [Change description 1]
-        - [Change description 2]
 ```
 
 ## Field Guidelines
@@ -58,14 +49,6 @@ List of categories that describe the rule's purpose. Common tags include:
 - `configuration`
 - `memory`
 
-### Changelog
-
-Documents the history of changes to the rule:
-
-- Each entry includes a version number and a list of changes
-- Most recent versions should appear first
-- Initial versions should be listed as version 1.0
-
 ## Example Metadata Block
 
 ```yaml
@@ -76,18 +59,6 @@ metadata:
     - formatting
     - cursor-rules
     - links
-  changelog:
-    - version: 1.2
-      changes:
-        - Added guidance for metadata sections
-        - Updated examples with better formatting
-    - version: 1.1
-      changes:
-        - Added support for cross-references
-        - Fixed incorrect examples
-    - version: 1.0
-      changes:
-        - Initial version
 ```
 
 ## Updating Versions
@@ -98,14 +69,7 @@ When updating a rule:
    - Breaking changes: Increment MAJOR version
    - New features: Increment MINOR version
    - Bug fixes/minor updates: Increment PATCH version
-
-2. Add a new entry to the changelog with:
-   - The new version number
-   - A list of specific changes made
-
-3. Move the changelog entry for the new version to the top of the list
-
-4. Update the `version` field in the metadata to match the new version
+2. Update the `version` field in the metadata to match the new version
 
 ## Implementation in Rules
 
@@ -138,9 +102,5 @@ metadata:
   version: 1.0
   tags:
     - example-tag
-  changelog:
-    - version: 1.0
-      changes:
-        - Initial version
 </rule>
 ```

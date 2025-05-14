@@ -121,14 +121,10 @@ actions:
             "Based on our TypeScript standards, you should place interfaces at the top..."
       metadata:
         priority: high
-        version: 1.0
+        version: 1.0.1
         tags:
           - typescript
           - coding-standards
-        changelog:
-          - version: 1.0
-            changes:
-              - Initial version
       </rule>
       ```
       ### Agent-Requested Rule
@@ -159,10 +155,6 @@ actions:
         version: 1.0
         tags:
           - repository
-        changelog:
-          - version: 1.0
-            changes:
-              - Initial version
       </rule>
       ```
       ### Always-Applied Rule
@@ -193,10 +185,6 @@ actions:
         version: 1.0
         tags:
           - documentation
-        changelog:
-          - version: 1.0
-            changes:
-              - Initial version
       </rule>
       ```
       ### Manual Rule
@@ -226,10 +214,6 @@ actions:
         version: 1.0
         tags:
           - migration
-        changelog:
-          - version: 1.0
-            changes:
-              - Initial version
       </rule>
       ```
 
@@ -256,7 +240,7 @@ actions:
       - **Forgetting to update the rule index**: Always update [00-rule-index.mdc](mdc:.cursor/rules/00-rule-index.mdc).
       - **Not testing rule activation**: Open relevant files and queries to verify.
       - **Not using `mdc:` links**: All cross-references must use `mdc:` syntax.
-      - **Neglecting version metadata**: Always update the version and changelog.
+      - **Neglecting version metadata**: Always update the version.
 
       ---
       ## Writing Effective Rule Descriptions
@@ -305,7 +289,6 @@ actions:
       - Use semantic versioning (MAJOR.MINOR.PATCH).
       - **priority**: Indicates rule importance (high, medium, low).
       - **tags**: Keywords for categorization and search.
-      - **changelog**: Track changes across versions.
 
       ---
       ## Updating Existing Rules
@@ -313,9 +296,7 @@ actions:
       When modifying existing rules, follow these steps:
       1. Update the content as needed
       2. Increment the `version` in the metadata according to semantic versioning
-      3. Add an entry to the `changelog` detailing the changes
-      4. Update the `last_updated` date in the metadata
-      5. If the rule's description or category changes, update the [00-rule-index](mdc:.cursor/rules/00-rule-index.mdc)
+      3. If the rule's description or category changes, update the [00-rule-index](mdc:.cursor/rules/00-rule-index.mdc)
 
       ## Rule Prioritization and Conflict Resolution
 
@@ -387,7 +368,7 @@ actions:
 
 metadata:
   priority: high
-  version: 1.7.1
+  version: 1.7.2
   tags:
     - cursor-rules
     - documentation
@@ -395,37 +376,4 @@ metadata:
     - creation
     - location
     - linking
-  changelog:
-    - version: 1.7.1
-      changes:
-        - Updated cross-references to related rules
-    - version: 1.7
-      changes:
-        - Merged content from `cursor-rules-location.mdc` and `cursor-rule-cross-references.mdc`.
-        - Added "Rule File Location and Naming" section.
-        - Added "Cross-References and Linking (`mdc:` Syntax)" section.
-        - Removed `cursor-rules-location` and `cursor-rule-cross-references` from Related Rules.
-        - Updated tags.
-    - version: 1.6
-      changes:
-        - Added detailed section on Rule Prioritization and Conflict Resolution.
-    - version: 1.5
-      changes:
-        - Clarified description pattern ("VERB when CONTEXT to OUTCOME").
-    - version: 1.4
-      changes:
-        - Added guidance on using terminal commands for frontmatter edits.
-    - version: 1.3
-      changes:
-        - Added Rule Categories and Index Update guidance.
-    - version: 1.2
-      changes:
-        - Added guidance on renaming rule files.
-    - version: 1.1
-      changes:
-        - Added section on rule metadata and version control.
-    - version: 1.0
-      changes:
-        - Initial version
-  last_updated: 2025-05-06
 </rule>
