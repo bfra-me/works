@@ -153,18 +153,9 @@ examples:
 
 metadata:
   priority: high
-  version: 1.1
+  version: 1.1.1
   tags:
     - monorepo
     - architecture
     - workspace
-  last_updated: 2025-05-06
-  changelog:
-    - version: 1.1
-      changes:
-        - Added "Related Rules" section with cross-references to related rules
-        - Updated metadata with version and last_updated
-    - version: 1.0
-      changes:
-        - Initial version
 </rule>

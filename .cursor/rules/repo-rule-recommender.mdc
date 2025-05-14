@@ -182,18 +182,10 @@ examples:
 
 metadata:
   priority: high
-  version: 1.1
+  version: 1.1.1
   tags:
     - repository-analysis
     - cursor-rules
     - workflow
     - recommendations
-  changelog:
-    - version: 1.1
-      changes:
-        - Added Related Rules section with bidirectional cross-references
-    - version: 1.0
-      changes:
-        - Initial version
-  last_updated: "2025-05-06"
 </rule>

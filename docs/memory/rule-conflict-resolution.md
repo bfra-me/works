@@ -109,7 +109,7 @@ When conflicts arise, follow this hierarchical approach to determine which rule 
 
 **Principle**: Newer guidance often reflects updated understanding
 - Higher version numbers generally indicate more recent/refined guidance
-- Check rule version and changelog when resolving unclear conflicts
+- Check rule version when resolving unclear conflicts
 
 ### 7. AI Assistant Judgment
 
@@ -332,7 +332,6 @@ User: "I've completed the ESLint rule implementation, but I want to document it 
 
 5. **Version Management**:
    - Update version numbers appropriately
-   - Document changes in changelog
    - Consider backward compatibility when updating
 
 ### For Rule Users (AI Assistants and Developers)

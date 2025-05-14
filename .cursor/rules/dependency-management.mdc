@@ -167,7 +167,7 @@ examples:
 
 metadata:
   priority: high
-  version: 1.0.1
+  version: 1.0.2
   tags:
     - dependency-management
     - monorepo
@@ -175,12 +175,4 @@ metadata:
     - renovate
     - security
     - workflow
-  changelog:
-    - version: 1.0.1
-      changes:
-        - Updated Related Rules section with cross-references
-    - version: 1.0
-      changes:
-        - Initial version: comprehensive dependency management rule for the monorepo
-  last_updated: 2025-05-06
 </rule>
