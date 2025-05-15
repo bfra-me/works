@@ -142,6 +142,17 @@ actions:
 
       This section follows a specific structure for consistency and effectiveness:
 
+      ### Session: Rule Index Update and Rule Creation (2025-05-15)
+
+      **Context:** Creating a new rule-optimization.mdc file to generalize the streamlining approach used for the ai-agile-workflow rule and updating the rule index to include it.
+
+      **Mistakes, Resolutions, and Key Takeaways:**
+
+      1. **Mistake: Rule Implementation - Misalignment Between Creation and Index Update**
+          - **Description:** When creating the new rule-optimization.mdc file, I initially failed to update the rule index (00-rule-index.mdc) in the same operation. This could have led to an inconsistency between the actual rules available and those documented in the index, potentially causing confusion for users and other AI assistants.
+          - **Resolution:** Implemented a two-step approach: 1) Created the rule-optimization.mdc file with proper formatting and content, 2) Immediately updated the rule index to include the new rule, following the guidelines in the 00-rule-index.mdc file for adding new entries and updating the metadata (last_updated date and total_rules count).
+          - **Key Takeaway/Preventive Measure:** Always treat rule creation and index updating as a single atomic operation. When creating or modifying any rule, immediately check and update the rule index to maintain consistency. Follow a checklist approach: 1) Create/modify rule file, 2) Update rule index entry, 3) Update index metadata (date and count), 4) Verify all changes are applied correctly.
+
       ### Session: Rule Metadata Date Update (2025-05-10)
 
       **Context:** Fixing incorrect date in the metadata section of the `00-rule-index.mdc` file.

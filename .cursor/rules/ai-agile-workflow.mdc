@@ -29,1268 +29,181 @@ actions:
     message: |
       # AI-Assisted Agile Workflow
 
-      This workflow uses Cursor rules and AI assistance to generate well-defined task documents from comprehensive plans and track progress on features.
+      This workflow orchestrates AI-assisted agile development through a systematic process flow, delegating implementation details to specialized rules.
 
-      ## Overview of the Workflow
+      ## Core Principles
 
-      Our AI-assisted agile workflow combines traditional agile methodologies with AI automation to streamline development processes. The workflow consists of:
+      1. **Context Retention** - Maintain persistent context across AI conversations using memory files
+      2. **Progressive Refinement** - Move systematically from features to plans to specific tasks
+      3. **AI Augmentation** - Leverage specialized AI tools for research, planning, and implementation
+      4. **Cross-Reference Integration** - Utilize the `mdc:` syntax to connect related documentation
+      5. **Sequential Thinking** - Apply structured reasoning to break down complex problems into manageable steps
+      6. **Memory First** - Always load essential memory files before beginning any workflow step
 
-      1. **Capturing Features** in a central reference document
-      2. **Creating Plan Documents** that outline comprehensive implementation approaches
-      3. **Generating Task Documents** from plans with AI assistance
-      4. **Tracking Progress** with AI-generated reports
-      5. **Updating Status** automatically as tasks are completed
+      ## Workflow Stages
 
-      ## Leveraging `vibe-tools`
-      Throughout this workflow, when specific commands or interactions with AI models are described (e.g., for research, planning, task generation, codebase analysis), **`vibe-tools` should be the preferred method of execution if available.** This ensures consistent, context-aware, and powerful AI assistance. Refer to the [vibe-tools documentation](mdc:.cursor/rules/vibe-tools.mdc) for command details.
+      ### 1. Feature Capture & Refinement
 
-      ## Document Types
+      Begin by researching and capturing feature requirements in the central reference document. Use `vibe-tools web` for research and `vibe-tools repo` for codebase context before adding features to [features.md](mdc:docs/features.md).
 
-      *(Note: Placeholders like `[Title]` or `${variable}` in templates should be filled by the AI based on context.)*
+      **Key Tools:** `vibe-tools web`, `vibe-tools repo`
+      **Template:** [Feature Template](mdc:docs/templates/feature-template.md)
+      **Detailed Guide:** [Vibe-Tools Playbook](mdc:docs/memory/vibe-tools-playbook.md#web-research-with-web)
 
-      ### 1. Central Reference Document ([features.md](mdc:docs/features.md))
+      ### 2. Plan Creation
 
-      This document tracks all features for improving the project, including:
+      For high-priority features, create comprehensive implementation plans that break down the feature into phases and tasks. **Always use `vibe-tools plan`** to generate context-aware plans when available.
 
-      ```markdown
-      # Project Features
+      **Key Tools:** `vibe-tools plan`, `vibe-tools repo` (for review)
+      **Template:** [Plan Template](mdc:docs/templates/plan-template.md)
+      **Detailed Guide:** [Vibe-Tools Playbook](mdc:docs/memory/vibe-tools-playbook.md#implementation-planning-with-plan)
 
-      ## Current Features
+      ### 3. Task Generation
 
-      ### Feature 1: [Title]
+      From each plan, generate specific task documents with clear acceptance criteria and dependencies. Check existing task IDs to determine the next available sequence number.
 
-      - **Description**: Brief description of the feature
-      - **Status**: [Not Started | In Progress | Completed]
-      - **Plan Document**: [Link to plan document]
-      - **Priority**: [High | Medium | Low]
-      - **Created**: YYYY-MM-DD
-      - **Updated**: YYYY-MM-DD
+      **Key Tools:** `vibe-tools plan` (for breakdown), `vibe-tools repo` (for code-aware tasks)
+      **Template:** [Task Template](mdc:docs/templates/task-template.md)
+      **Note:** Before creating a new task document, always check for existing task files to determine the next available sequence number.
 
-      ### Feature 2: [Title]
+      ### 4. Task Execution
 
-      ...
+      Execute tasks according to their defined acceptance criteria, consulting memory files for context and using appropriate AI tools for assistance.
 
-      ## Completed Features
+      **Essential Context Loading:** Before beginning any task, load the following memory files:
+      1. [workflow-status.md](mdc:docs/memory/workflow-status.md)
+      2. [architecture.md](mdc:docs/memory/architecture.md)
+      3. [user-preferences.md](mdc:docs/memory/user-preferences.md)
+      4. [domain-knowledge.md](mdc:docs/memory/domain-knowledge.md)
 
-      ### Feature X: [Title]
+      **Knowledge Graph Integration:** Always query the Knowledge Graph (using `mcp_memory_search_nodes` or `mcp_memory_open_nodes`) to load relevant entities for task context and personalization.
 
-      - **Description**: Brief description of the feature
-      - **Status**: Completed
-      - **Plan Document**: [Link to plan document]
-      - **Completion Date**: YYYY-MM-DD
-      - **Outcome**: Brief description of the outcome
-      ```
+      **See:** [Memory Management](mdc:.cursor/rules/memory-management.mdc) for detailed guidance on context loading.
 
-      ### 2. Plan Documents (`docs/plans/[plan-name].md`)
+      ### 5. Task Completion & Memory Update
 
-      Each plan document outlines a comprehensive approach to implementing a feature:
+      When a task is completed, update its status in both the task document and relevant memory files. The update process is activated when messages indicate task completion.
 
-      ```markdown
-      # Plan: [Plan Title]
+      **Trigger Conditions:** Messages containing phrases like "task completed", "finished implementing", "done with", etc.
 
-      ## Overview
+      **Required Updates:**
+      - Mark the task as "Completed" in the task document
+      - Update [workflow-status.md](mdc:docs/memory/workflow-status.md) task history
+      - Update Knowledge Graph entities as needed
 
-      Brief description of the plan and its goals.
+      **See:** [Memory Management](mdc:.cursor/rules/memory-management.mdc#memory-file-updates-on-task-completion) for detailed memory update procedures.
 
-      ## Related Feature
+      ### 6. Progress Tracking
 
-      [Link to the feature in the features document]
+      Maintain an overview of project progress by regularly updating the workflow status memory file and feature document with current states and completion information.
 
-      ## Success Criteria
+      ## Sequential Thinking Requirement
 
-      - Criterion 1
-      - Criterion 2
-      - ...
+      Throughout this workflow, when 'Sequential Thinking', 'step-by-step approach', or 'structured reasoning' is mentioned, it refers to the use of the **`mcp_sequential-thinking_sequentialthinking`** tool.
 
-      ## Implementation Phases
+      **For detailed guidance on Sequential Thinking:**
+      - [Anthropic Chain of Thought](mdc:.cursor/rules/anthropic-chain-of-thought.mdc) for structured reasoning methodology
+      - [MCP Tools Usage](mdc:.cursor/rules/mcp-tools-usage.mdc) for tool integration
 
-      ### Phase 1: [Phase Title]
+      ## AI Command Quick Reference
 
-      **Objective**: Clear statement of the phase objective
-
-      **Tasks**:
-
-      1. [Task 1 description]
-         - **Complexity**: [Low | Medium | High]
-         - **Dependencies**: None
-         - **Acceptance Criteria**: Clear criteria for completion
-
-      2. [Task 2 description]
-         - **Complexity**: [Low | Medium | High]
-         - **Dependencies**: Task 1
-         - **Acceptance Criteria**: Clear criteria for completion
-
-      ### Phase 2: [Phase Title]
-
-      ...
-
-      ## Timeline
-
-      - Phase 1: X weeks
-      - Phase 2: Y weeks
-      - ...
-
-      ## Resources Required
-
-      - Resource 1
-      - Resource 2
-      - ...
-      ```
-
-      ### 3. Task Documents (`docs/tasks/[task-id].md`)
-
-      Individual task documents derived from plan documents:
-
-      ```markdown
-      # Task: [Task Title]
-
-      ## Task ID: YYYY-MM-DD-XX
-
-      ## Related Plan
-
-      [Link to the plan document]
-
-      ## Description
-
-      Detailed description of the task.
-
-      ## Acceptance Criteria
-
-      - Criterion 1
-      - Criterion 2
-      - ...
-
-      ## Dependencies
-
-      - [List of dependencies, if any]
-
-      ## Complexity
-
-      [Low | Medium | High]
-
-      ## Estimated Effort
-
-      [X hours | X days]
-
-      ## Status
-
-      [Not Started | In Progress | Completed]
-
-      ## Assignee
-
-      [Name or "Unassigned"]
-
-      ## Notes
-
-      Any additional notes or context.
-      ```
-
-      ### 4. Memory File ([workflow-status.md](mdc:docs/memory/workflow-status.md))
-
-      A memory file that tracks the current state of the workflow and provides context for AI assistants:
-
-      ```markdown
-      # Workflow Status Memory
-
-      ## Current State
-
-      - **Current Date**: YYYY-MM-DD
-      - **Active Projects**:
-        1. [Project 1 name]
-        2. [Project 2 name]
-      - **Current Plans**:
-        1. [Plan 1 name]
-        2. [Plan 2 name]
-      - **Current Phase**:
-        1. [Phase 1 name] ([Project 1 name])
-        2. [Phase 2 name] ([Project 2 name])
-      - **Active Tasks**:
-        - [Task 1 name] (Task ID: YYYY-MM-DD-XX)
-        - [Task 2 name] (Task ID: YYYY-MM-DD-XX)
-      - **Next Tasks**:
-        - [Next task 1 name] (not assigned yet)
-        - [Next task 2 name] (Task ID: YYYY-MM-DD-XX)
-
-      ## Task History
-
-      | Task ID | Task Name | Status | Completion Date |
-      |---|-----|-----|----|
-      | YYYY-MM-DD-XX | [Task name] | [Status] | [Completion date] |
-
-      ## Context
-
-      [Additional context about the current tasks and projects]
-
-      ## Recent Updates
-
-      - [Update 1] (YYYY-MM-DD)
-      - [Update 2] (YYYY-MM-DD)
-
-      ## Command History
-
-      ```
-      # Recent commands executed as part of the workflow
-      [Command 1]
-      [Command 2]
-      ```
-
-      ## Notes
-
-      - [Note 1]
-      - [Note 2]
-
-      ## Updated: YYYY-MM-DD
-      ```
-
-      ## Workflow Process
-
-      ### Essential Context Loading
-
-      Before beginning any task in the workflow, you MUST load the following essential memory files into context:
-
-      1. **[workflow-status.md](mdc:docs/memory/workflow-status.md)**: Provides current state of the workflow, active tasks, and recent updates
-      2. **[architecture.md](mdc:docs/memory/architecture.md)**: Gives overview of system architecture and components
-      3. **[user-preferences.md](mdc:docs/memory/user-preferences.md)**: Details user preferences for code style, tools, and workflow
-      4. **[domain-knowledge.md](mdc:docs/memory/domain-knowledge.md)**: Contains domain-specific knowledge and terminology
-
-      In addition to these files, the assistant MUST query the Knowledge Graph (using `mcp_memory_search_nodes` or `mcp_memory_open_nodes`) to load relevant entities (e.g., existing components related to the task, user preferences, domain concepts) that provide necessary context and enable personalization for the current workflow step.
-
-      Loading these files and relevant KG entities is MANDATORY at the start of every interaction to ensure you have the necessary context for accurate planning and task execution.
-
-      Always use `Sequential Thinking` to thoroughly analyze these files and extract relevant information for the current task or query.
-
-      ### Sequential Thinking Requirement
-      Throughout this workflow, when 'Sequential Thinking', a 'step-by-step approach', or 'structured reasoning' is mentioned, it refers to the use of the **`mcp_sequential-thinking_sequentialthinking`** tool. This tool should be invoked to break down complex problems, plan multi-step solutions, and ensure thorough analysis.
-      All steps in this workflow MUST utilize the `mcp_sequential-thinking_sequentialthinking` tool to ensure:
-      1. Thorough analysis of each step
-      2. Comprehensive planning
-      3. Careful consideration of implications
-      4. Step-by-step reasoning
-      5. Context retention across sessions
-
-      For any complex request or workflow step, use `Sequential Thinking` to break down the process into manageable steps, analyze each thoroughly, and document your reasoning process.
-
-      When you see instructions that say "Use Sequential Thinking," this means you should either:
-      1. Use the `mcp_sequential-thinking_sequentialthinking` tool when available, OR
-      2. Structure your response with explicitly numbered thought steps, showing your reasoning process
-
-      ### Step 1: Capture Features
-
-      #### Feature Definition with Web Research
-
-      Ideally, perform initial research *before* adding a feature to `docs/features.md` to better inform its definition and scope. Use [`vibe-tools web`](mdc:.cursor/rules/vibe-tools.mdc) to conduct comprehensive research and competitor analysis. This ensures that features align with industry best practices and market needs:
-
-      ```bash
-      # Research best practices for a feature
-      vibe-tools web "Research best practices for implementing semantic versioning in a monorepo structure similar to our project. Focus on automation and integration with existing workflows."
-
-      # Analyze competitor implementations
-      vibe-tools web "Compare approaches for implementing cross-references between Markdown files with focus on compatibility with VS Code and Cursor IDE."
-
-      # Research specific technical approaches
-      vibe-tools web "What are the current best practices for implementing cross-references in documentation that need to work in both web and IDE environments?"
-      ```
-
-      When you have specific URLs or documentation to reference, use the `--with-doc` option to provide more focused context:
-
-      ```bash
-      # Research with specific documentation as context
-      vibe-tools web "Analyze best practices for rule-based documentation systems" --with-doc="https://example.com/documentation-standards.pdf"
-
-      # Combine multiple documentation sources
-      vibe-tools web "Compare our approach with industry standards" --with-doc="https://example.com/standard1.html" --with-doc="https://example.com/standard2.html"
-      ```
-
-      #### Repository Context with `vibe-tools repo`
-      Before finalizing a new feature's definition in `docs/features.md`, gather context from the existing repository to understand potential overlaps, integration points, or relevant modules:
-
-      ```bash
-      # Gather repository context before defining a new feature
-      vibe-tools repo "Before defining the '[new feature name]' feature, identify existing similar features, relevant modules (e.g., in 'src/components' or 'packages/utils'), and potential integration points within the current codebase."
-      ```
-      This helps in scoping the feature accurately and aligning it with the existing architecture.
-
-      After completing your research, proceed with adding features to the central reference document:
-
-      1. Open `docs/features.md`
-      2. Add new features with the following structure:
-         ```markdown
-         ### Feature X: [Title]
-
-         - **Description**: Brief description
-         - **Status**: [Not Started]
-         - **Plan Document**: Not created yet
-         - **Priority**: [High | Medium | Low]
-         - **Created**: YYYY-MM-DD
-         - **Updated**: YYYY-MM-DD
-         ```
-
-      #### Reviewing `docs/features.md` with `vibe-tools repo`
-      After adding or updating features in `docs/features.md`, use `vibe-tools repo` to review the document for clarity, completeness, consistency, and alignment with project goals:
-
-      ```bash
-      # Review the features document
-      vibe-tools repo "Review the updated 'docs/features.md' file. Check for:
-      - Clarity and conciseness of feature descriptions.
-      - Completeness of information (status, priority, etc.).
-      - Consistency with existing features and terminology.
-      - Alignment with overall project goals and roadmap.
-      Provide suggestions for improvement."
-      ```
-
-      ### Step 2: Create Plan Documents
-
-      1. For high-priority features, create a plan document in `docs/plans/`
-      2. Use the following prompt with the AI:
-         ```
-         Create a plan document for implementing [feature title]
-         ```
-      3. The AI will generate a structured plan based on the feature
-      4. Review and refine the plan as needed
-
-      #### Planning with Vibe-Tools
-      **Always use `vibe-tools plan` for generating plan documents if `vibe-tools` is available.** This tool leverages AI to create comprehensive and context-aware plans.
-      For more comprehensive planning with context-aware AI assistance, use `vibe-tools plan`. This approach ensures plans consider repository structure, related components, and implementation patterns:
-
-      ```bash
-      # Generate comprehensive implementation plan
-      vibe-tools plan "Create a detailed implementation plan for adding cross-referencing capabilities to Cursor rules. Include phases, tasks, acceptance criteria and estimated story points."
-
-      # Create plan with specific focus areas
-      vibe-tools plan "Generate implementation plan for memory file automation with focus on maintaining strict formatting according to memory-management guidelines. Identify required updates to ai-agile-workflow.mdc."
-
-      # Generate task breakdown within a plan
-      vibe-tools plan "Break down the vibe-tools integration phase into discrete, estimable tasks with dependencies."
-      ```
-
-      When creating plans that involve memory file updates, always include memory formatting context in your prompts to ensure the AI has the necessary guidelines:
-
-      ```bash
-      # Plan with memory formatting context
-      vibe-tools plan "Create implementation plan for feature X that includes memory file update steps. Include details on proper memory file formatting per memory-management.mdc, specifically:
-      - Always search for existing sections before adding new ones
-      - Merge content into existing sections rather than creating duplicates
-      - Keep the 'Updated: YYYY-MM-DD' line as the very last line
-      - Use proper section merging for lists, tables, and text
-      - Follow the date-consistency-enforcer rule for obtaining dates"
-      ```
-
-      For plans that require specific documentation context, use the `--with-doc` option:
-
-      ```bash
-      # Include memory-management.mdc guidelines directly
-      vibe-tools plan "Plan implementation for feature X with memory file updates" --with-doc="https://raw.githubusercontent.com/bfra-me/works/main/.cursor/rules/memory-management.mdc"
-      ```
-
-      #### Reviewing Plans with Gemini (via `vibe-tools repo`)
-      Once `vibe-tools plan` has generated an initial plan, it's crucial to review it with Gemini for a deeper, context-aware analysis:
-
-      ```bash
-      # Review a plan generated by vibe-tools plan
-      vibe-tools repo "Review the following implementation plan for the feature '[feature name]'. The plan was generated by 'vibe-tools plan'.
-      Plan Content:
-      ---
-      [Paste the full content of the generated plan here, or provide a path to a temporary file containing the plan]
-      ---
-      Focus on:
-      - Feasibility and completeness of the outlined steps.
-      - Identification of potential oversights or missing tasks.
-      - Alignment with our current codebase structure, patterns, and best practices.
-      - Adherence to project standards and requirements.
-      - Sensible task breakdown and dependencies.
-      Provide specific suggestions for improvement or areas needing clarification."
-      ```
-
-      #### Final Plan Content Review with `vibe-tools repo`
-      Before the refined plan document is written to `docs/plans/[plan-name].md`, use `vibe-tools repo` to perform a final review of the *exact content* that will be saved. This ensures all feedback has been incorporated and the plan is ready.
-
-      ```bash
-      # Final review of plan document content
-      vibe-tools repo "Perform a final review of this plan document content for the feature '[feature name]' before it is saved to the 'docs/plans/' directory.
-      Final Plan Content:
-      ---
-      [Paste the complete final content of the plan document here]
-      ---
-      Check for:
-      - Clarity and actionability of all sections.
-      - Consistency in terminology and formatting.
-      - Confirmation that all previous review feedback has been adequately addressed.
-      - Overall readiness for developers to use as a guide."
-      ```
-
-      After generating the plan, save it to the appropriate location in the `docs/plans/` directory with a descriptive name.
-
-      ### Step 3: Generate Task Documents
-
-      When you have a plan document open, ask the AI to generate task documents:
-
-      ```
-      Generate task documents from this plan
-      ```
-
-      **Before creating a new task document, you MUST check the `docs/tasks/` and `docs/tasks/done/` directories for existing task files for the current date (e.g., using `list_dir` tool). Use the next available sequence number (e.g., if `2025-05-02-01.md` exists, the next should be `2025-05-02-02.md`). Never overwrite an existing task file.**
-
-      For more structured and context-aware task breakdown, leverage `vibe-tools`:
-
-      #### Task Generation with Vibe-Tools
-      **Always use `vibe-tools` for generating task documents if available.** Prefer `vibe-tools plan` to break down features or plans into tasks, or use `vibe-tools repo` for code-aware task definitions based on the current repository state.
-      Using `vibe-tools` can provide more context-aware and structured task generation:
-
-      - **Using `vibe-tools plan` for Task Breakdown:**
-        `vibe-tools plan` can analyze a feature's objectives or a plan document to automatically suggest a breakdown into specific tasks.
-        ```bash
-        # Example: Break down a feature specified in a plan document
-        vibe-tools plan "From the plan in docs/plans/my-feature-plan.md, generate actionable tasks for the frontend implementation phase."
-
-        # Example: Save output directly to a task file (useful for initial task creation)
-        vibe-tools plan "Break down the 'User Authentication' feature into tasks" --save-to docs/tasks/$(date +%Y-%m-%d)-01.md
-        ```
-        *(Ensure the date command usage aligns with `date-consistency-enforcer.mdc` if used directly in rules, or prefer AI to generate full task IDs.)*
-
-      - **Using `vibe-tools repo` for Code-Aware Task Definition:**
-        `vibe-tools repo` offers contextual insights by leveraging the existing repository structure, helping to define tasks based on current code.
-        ```bash
-        # Example: Define tasks based on codebase structure for a refactoring effort
-        vibe-tools repo "For the refactoring plan of the 'SettingsModule', identify tasks needed to update its dependencies in 'ProfileComponent' and 'AdminPanel'."
-
-        # Example: Break down implementation based on current rule structures
-        vibe-tools repo "Break down the implementation of cross-references into discrete tasks based on the current structure of Cursor rules. Consider file paths, parsing requirements, and rendering approaches."
-        ```
-      These commands ensure that task generation is informed by both the broader feature context and the specific details of the codebase.
-      Refer to [vibe-tools](mdc:.cursor/rules/vibe-tools.mdc) for more command details.
-
-      For more structured and context-aware task breakdown, use `vibe-tools plan`:
-      ```bash
-      # Generate task breakdown from plan
-      vibe-tools plan "Break down this plan into specific tasks with complexity, dependencies, and acceptance criteria: [paste relevant part of plan here]"
-
-      # Generate tasks with memory update requirements
-      vibe-tools plan "Create task documents for implementing feature X. Include steps for proper memory file updates following memory-management.mdc guidelines. Each task should specify which memory files to update and how to maintain formatting integrity."
-
-      # Save tasks directly to task files
-      vibe-tools plan "Break down feature X implementation into tasks" --save-to task-breakdown.md
-      ```
-
-      #### Reviewing Generated Tasks with Gemini (via `vibe-tools repo`)
-      After tasks have been generated (e.g., by `vibe-tools plan` or manually based on a plan), review them using `vibe-tools repo` to ensure they are well-defined and actionable:
-
-      ```bash
-      # Review generated tasks
-      vibe-tools repo "Review the following set of tasks generated for the plan/feature '[plan name / feature name]'.
-      Tasks:
-      ---
-      [Paste the list of generated tasks, including titles, descriptions, acceptance criteria, etc., or provide a path to a temporary file containing them]
-      ---
-      Focus on:
-      - Clarity and specificity of each task's description and title.
-      - Actionability: Can a developer pick up this task and understand what to do?
-      - Correctness and completeness of dependencies.
-      - Measurable and clear acceptance criteria.
-      - Reasonable estimation of complexity/effort (if included).
-      Provide suggestions for improving task definitions."
-      ```
-
-      The AI will:
-      1. Extract tasks from each phase
-      2. Create individual task documents in `docs/tasks/`
-      3. Name them with a pattern: `YYYY-MM-DD-XX.md` (e.g., `2025-05-06-01.md`). Obtain the date following [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc), prefer `mcp_time_get_current_time` tool, fallback to `$(date +%Y-%m-%d)-XX.md`.
-      4. Include all necessary details from the plan
-      5. Update the memory file with new task information
-      6. Update the plan document
-
-      ### Step 4: Execute Tasks
-
-      1. Prioritize tasks based on dependencies and complexity
-      2. Assign tasks to team members
-      3. Update task status as work progresses:
-         - [Not Started]
-         - [In Progress]
-         - [Completed]
-
-      **Note on Task Documentation**: Keep task-specific notes, analyses, checklists, or findings directly within the corresponding task file (`docs/tasks/[task-id].md`) under appropriate headings (e.g., "## Task Analysis", "## Implementation Notes", "## Audit Findings"). Avoid creating separate files for temporary outputs related to a single task, ensuring each task file is self-contained.
-
-      #### Task Execution with Repository Context and Research Tools
-
-      When executing tasks, leverage `vibe-tools` to gather comprehensive context about the code, documentation, and for research or troubleshooting:
-
-      - **Gathering Codebase Context with `vibe-tools repo`**:
-        Before diving into implementation, or when trying to understand existing code, use [`vibe-tools repo`](mdc:.cursor/rules/vibe-tools.mdc) to get insights.
-        ```bash
-        # Get context for a specific feature implementation
-        vibe-tools repo "Find all files related to memory management in this repository and explain their relationships."
-
-        # Understand existing patterns before implementation
-        vibe-tools repo "Show examples of memory file updates in recent commits to understand the established patterns."
-
-        # Get context on specific code areas
-        vibe-tools repo "Explain how task status updates are currently implemented in the ai-agile-workflow rule."
-        ```
-
-      - **Research and Troubleshooting with `vibe-tools web`**:
-        If you encounter issues or need to research solutions, use [`vibe-tools web`](mdc:.cursor/rules/vibe-tools.mdc).
-        ```bash
-        # Research best practices or solutions
-        vibe-tools web "What are the best practices for handling asynchronous operations in TypeScript with Express?"
-
-        # Troubleshoot error messages
-        vibe-tools web "How to resolve 'TypeError: Cannot read property 'map' of undefined' in React?"
-        ```
-
-      - **Interactive Debugging and Web UI Testing with `vibe-tools browser`**:
-        For tasks involving web UIs, use [`vibe-tools browser`](mdc:.cursor/rules/vibe-tools.mdc) to interact with pages, observe behavior, or extract information.
-        ```bash
-        # Observe interactive elements on a page
-        vibe-tools browser observe "interactive elements" --url=https://example.com/my-feature-page
-
-        # Test a user flow
-        vibe-tools browser act "Click the 'Login' button | Type 'testuser' into '#username' | Type 'password123' into '#password' | Click '#submit'" --url=https://localhost:3000
-
-        # Extract specific data from a page
-        vibe-tools browser extract "all product titles and prices" --url=https://example.com/products
-        ```
-
-      When executing tasks that involve memory file updates, ensure AI assistants have proper formatting context by referencing the `memory-management.mdc` guidelines. For example:
-      ```bash
-      # Review memory file update approach before making changes
-      vibe-tools repo "Review my approach for updating workflow-status.md with new task information. Does it follow the memory-management.mdc guidelines? Specifically check for:
-      1. Properly updating existing sections rather than creating duplicates
-      2. Maintaining the correct timestamp line at the end
-      3. Following proper section merging for lists and tables
-      4. Using the correct date format according to date-consistency-enforcer"
-      ```
-
-      When executing tasks:
-      - Continuously update the relevant memory files to maintain context
-      - Use `Sequential Thinking` for analyzing each task step
-      - Keep the memory files and knowledge graph in sync
-      - Follow the update guidelines in [memory-management](mdc:.cursor/rules/memory-management.mdc)
-
-      #### Status Updates and Reviews with Vibe-Tools
-
-      After completing tasks or at regular intervals (e.g., for sprint reviews or daily stand-ups), `vibe-tools repo` can be invaluable for summarizing progress, reviewing changes, and generating status updates. This helps maintain transparency and facilitates effective team communication.
-
-      - **Summarizing Completed Work**:
-        Generate concise summaries of changes made for a specific task or feature.
-        ```bash
-        # Summarize changes related to a specific task (e.g., by commit messages or file changes)
-        vibe-tools repo "Summarize all code changes committed yesterday related to 'Task ID 2025-05-06-09' focusing on updates to the ai-agile-workflow rule."
-
-        # Review and summarize the last commit
-        vibe-tools repo "Provide a summary of the last commit's changes and its relevance to the ongoing Vibe-Tools integration."
-
-        # Summarize changes in a specific file or directory over a period
-        vibe-tools repo "Summarize changes made to '.cursor/rules/ai-agile-workflow.mdc' in the last 2 days."
-        ```
-
-      - **Preparing for Reviews**:
-        Extract relevant information to prepare for code reviews or sprint reviews.
-        ```bash
-        # Get a list of all files changed for a feature branch
-        vibe-tools repo "List all files modified in the 'feature/vibe-tools-integration' branch and briefly describe the nature of changes in each."
-
-        # Generate a high-level overview of progress on a feature
-        vibe-tools repo "Provide a progress report on the 'Vibe-Tools Integration' plan, highlighting completed tasks and any blockers identified in commit messages."
-        ```
-
-      Refer to the [`vibe-tools.mdc`](mdc:.cursor/rules/vibe-tools.mdc) rule for more detailed command options and capabilities.
-
-      ### Step 5: Task Completion and Memory Update
-
-      Upon task completion, begin the memory file update process defined in the [memory-management](mdc:.cursor/rules/memory-management.mdc) rule. This involves:
-
-      1. **Signaling Completion**: Indicate task completion (e.g., "Task 2025-05-06-07 is complete", or updating status in the task file).
-      2. **Invoking Memory File Update**: Use the `mcp_sequential-thinking_sequentialthinking` tool to work through the **Memory File Updates on Task Completion** section defined in `memory-management.mdc`.
-      3. **Providing Summary**: Offer a concise summary of the completed task, focusing on key changes, outcomes, and any new insights gained.
-
-      **Knowledge Graph Synchronization:** Upon task completion, the assistant MUST also ensure the Knowledge Graph (the assistant's persistent 'memory', powered by the Memory MCP server) is updated as part of the process defined in `memory-management.mdc`. This involves using `mcp_memory_*` tools (detailed in [mcp-tools-usage.mdc](/.cursor/rules/mcp-tools-usage.mdc)) to:
-         - Create new entities for components/concepts introduced (`mcp_memory_create_entities`).
-         - Add relationships linking new/existing entities (`mcp_memory_create_relations`).
-         - Add observations capturing key implementation details, decisions, or insights (`mcp_memory_add_observations`).
-      Keeping the KG synchronized ensures the assistant's 'memory' accurately reflects the project's evolution.
-
-      The AI should confirm that both memory files and relevant knowledge graph entries have been updated, following the specific guidelines in [memory-management](mdc:.cursor/rules/memory-management.mdc) **for details on updating memory files and knowledge graph entries with comprehensive implementation details** (MANDATORY).
-
-      ### Step 6: Track Progress
-
-      Use the following prompt to generate progress reports:
-
-      ```
-      Generate progress report for [feature title or ID]
-      ```
-
-      The AI will:
-      1. Analyze all related tasks
-      2. Calculate completion percentage
-      3. Identify blockers or dependencies
-      4. Generate a summary report
-
-      ### Memory File Update Best Practices
-
-      When updating memory files, follow these critical best practices to maintain coherence and prevent duplication:
-
-      1. **Search for Existing Sections**: Before adding a new section, always check if a section with the same name already exists in the file
-         - Use search functionality (Ctrl+F/Cmd+F) to find existing sections
-         - If a section exists, merge into it rather than creating a duplicate
-
-      2. **Proper Section Merging**: When updating existing sections, follow these guidelines:
-         - **Lists**: Integrate new items at the top or bottom of the existing list, maintaining formatting consistency
-         - **Tables**: Add new rows to existing tables, don't create duplicate tables
-         - **Text**: Enhance existing paragraphs or add new paragraphs within the section
-         - **Code Blocks**: Update existing code blocks or add new ones with clear comments
-
-      3. **Timestamp Management**:
-         - The `## Updated: YYYY-MM-DD` line must ALWAYS be the last line in the file
-         - There should only be ONE such line per file
-         - Always update this timestamp when making changes
-         - Use the current date obtained following [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc) (prioritize `mcp_time_get_current_time` tool, fallback to `date +%Y-%m-%d`)
-
-      4. **Handling the Current State Section**:
-         - Always update the existing "Current State" section
-         - Don't create a new one at the end of the file
-         - Update all fields to reflect the current status
-
-      5. **Task History Maintenance**:
-         - Add new tasks to the existing Task History table
-         - Sort by date (newest first) or status
-         - Don't create duplicate Task History tables
-
-      6. **Content Integration Examples**:
-
-         **Example 1: Updating Lists**
-         ```markdown
-         # INCORRECT ❌
-         ## Recent Updates
-         - Update 1 (2025-05-01)
-         - Update 2 (2025-05-02)
-
-         ## Recent Updates
-         - Update 3 (2025-05-03)
-         ```
-
-         ```markdown
-         # CORRECT ✓
-         ## Recent Updates
-         - Update 3 (2025-05-03)
-         - Update 1 (2025-05-01)
-         - Update 2 (2025-05-02)
-         ```
-
-         **Example 2: Timestamp Placement**
-         ```markdown
-         # INCORRECT ❌
-         ## Updated: 2025-05-01
-
-         ## Recent Updates
-         - New update (2025-05-02)
-
-         ## Updated: 2025-05-02
-         ```
-
-         ```markdown
-         # CORRECT ✓
-         ## Recent Updates
-         - New update (2025-05-02)
-
-         ## Updated: 2025-05-02
-         ```
-
-      7. **Memory File Update Process**:
-         - Open the memory file
-         - Identify all sections that need updating
-         - Search for each section name
-         - Merge new content into existing sections
-         - Add entirely new sections only if they don't exist
-         - Ensure the Updated timestamp is the last line
-         - Save the file
-
-      ### Memory File Automation with Vibe-Tools
-
-      The memory files (`docs/memory/*.md`) are central to maintaining context across sessions. These files should be automatically updated at key points in the workflow to maintain an accurate record of project status, domain knowledge, and user preferences.
-
-      #### Using `vibe-tools` for Memory File Operations
-
-      There are several commands available for interacting with and updating memory files using `vibe-tools`:
-
-      1. **Context-Aware Memory Updates**:
-
-         ```bash
-         # Get insights from a completed task and prepare them for memory file updates
-         vibe-tools repo "Analyze the completed task at docs/tasks/done/2025-05-06-01.md and extract key information for updating workflow-status.md. Format the output following memory-management.mdc guidelines with proper sections."
-         ```
-
-      2. **Specific Memory File Update Requests**:
-
-         ```bash
-         # Template for memory file update request with formatting context
-         MEMORY_INFO="Information to update in the memory file"
-         vibe-tools ask "Update the workflow-status.md memory file with the following information:\n$MEMORY_INFO\n\nFOLLOW THESE EXACT FORMATTING REQUIREMENTS:\n1. Maintain all existing sections and their order\n2. Search for existing sections before adding new ones\n3. Merge content into existing sections rather than creating duplicates\n4. Keep the 'Updated: YYYY-MM-DD' line as the very last line in the file\n5. Use this exact date format: YYYY-MM-DD (e.g., 2025-05-06)\n6. Format tables and lists precisely as shown in memory-management.mdc\n7. Never create duplicate sections or multiple timestamp lines\n\nEXAMPLE OF CORRECT FORMATTING:\n\`\`\`markdown\n# Section Name\n\n## Subsection\n- Item 1\n- Item 2\n\n## Another Subsection\n| Column 1 | Column 2 |\n|----|----|\n| Value 1  | Value 2  |\n\n## Updated: 2025-05-06\n\`\`\`" # AI Assistant should replace this with actual command to save to file or update memory
-         ```
-
-      #### Automated Script Templates
-
-      1. **Task Completion Memory Update Script**:
-
-         ```bash
-         #!/bin/bash
-         # update_workflow_status_on_task_completion.sh
-         #
-         # This script updates workflow-status.md when a task is completed
-         # It follows the memory-management.mdc guidelines for memory file updates
-         #
-         # Usage: ./update_workflow_status_on_task_completion.sh <task_id> <task_name>
-
-         # Strict error handling
-         set -euo pipefail
-
-         # Get command line arguments
-         TASK_ID="$1"
-         TASK_NAME="$2"
-
-         if [ -z "$TASK_ID" ] || [ -z "$TASK_NAME" ]; then
-           echo "Usage: $0 <task-id> <task-name>"
-           exit 1
-         fi
-
-         # Get current date using the fallback method from date-consistency-enforcer.mdc
-         TODAY=$(date +%Y-%m-%d)
-
-         # Move the task to done directory if it exists
-         if [ -f "docs/tasks/$TASK_ID.md" ]; then
-           echo "Moving task file to done directory..."
-           mkdir -p "docs/tasks/done"
-           mv "docs/tasks/$TASK_ID.md" "docs/tasks/done/"
-         fi
-
-         # Generate task summary using vibe-tools repo
-         echo "Generating task summary..."
-         TASK_SUMMARY=$(vibe-tools repo "Analyze the completed task with ID $TASK_ID ($TASK_NAME) and provide a concise 1-2 sentence summary of what was accomplished")
-
-         # Format updates for workflow-status.md using vibe-tools ask with explicit formatting instructions
-         echo "Preparing workflow-status.md updates..."
-         WORKFLOW_UPDATES=$(cat << EOF
-         Task $TASK_ID ($TASK_NAME) has been completed on $TODAY.
-
-         Updates needed:
-         1. Add to Task History table: | $TASK_ID | $TASK_NAME | Completed | $TODAY |
-         2. Add to Recent Updates: - Completed Task $TASK_ID ($TASK_NAME). $TASK_SUMMARY ($TODAY)
-         3. Update Current State section to show this task as completed and identify the next task
-         EOF
-         )
-
-         # Use vibe-tools to generate properly formatted updates for workflow-status.md
-         # This ensures proper section merging and formatting according to memory-management.mdc
-         vibe-tools ask "Update the workflow-status.md memory file with the following information:
-
-         $WORKFLOW_UPDATES
-
-         FOLLOW THESE EXACT FORMATTING REQUIREMENTS:
-         1. Read the entire file first to understand its structure
-         2. Search for existing sections before adding new ones
-         3. Merge content into existing sections rather than creating duplicates
-         4. Keep the 'Updated: $TODAY' line as the very last line in the file
-         5. Format all updates according to memory-management.mdc guidelines
-         6. For the Task History table, add a new row with proper alignment
-         7. For Recent Updates, add the new update as the first item
-         8. For Current State, carefully update the Current Tasks and Next Tasks sections
-
-         Show me the exact updates I should make to each section." --save-to workflow-status-updates.md
-
-         echo "Updates prepared in workflow-status-updates.md"
-         echo "Review these updates and apply them to docs/memory/workflow-status.md"
-         echo "Task completion memory update process complete!"
-         ```
-
-      2. **Domain Knowledge Update Script**:
-
-         ```bash
-         #!/bin/bash
-         # update_domain_knowledge_from_task.sh
-         #
-         # This script updates domain-knowledge.md with insights from a completed task
-         # It follows the memory-management.mdc guidelines for memory file updates
-         #
-         # Usage: ./update_domain_knowledge_from_task.sh <task_id> <task_name>
-
-         # Strict error handling
-         set -euo pipefail
-
-         # Get command line arguments
-         TASK_ID="$1"
-         TASK_NAME="$2"
-
-         if [ -z "$TASK_ID" ] || [ -z "$TASK_NAME" ]; then
-           echo "Usage: $0 <task-id> <task-name>"
-           exit 1
-         fi
-
-         # Get current date using the fallback method from date-consistency-enforcer.mdc
-         TODAY=$(date +%Y-%m-%d)
-
-         # Check if the task exists in the done directory
-         TASK_FILE="docs/tasks/done/$TASK_ID.md"
-         if [ ! -f "$TASK_FILE" ]; then
-           echo "Task file not found: $TASK_FILE"
-           echo "Moving task to done directory if it exists in tasks folder..."
-           if [ -f "docs/tasks/$TASK_ID.md" ]; then
-             mkdir -p "docs/tasks/done"
-             mv "docs/tasks/$TASK_ID.md" "docs/tasks/done/"
-             TASK_FILE="docs/tasks/done/$TASK_ID.md"
-           else
-             echo "Task file not found in either location. Proceeding with limited information."
-           fi
-         fi
-
-         # Extract domain knowledge insights using vibe-tools repo
-         echo "Extracting domain knowledge from task..."
-         DOMAIN_INSIGHTS=$(vibe-tools repo "Analyze task $TASK_ID ($TASK_NAME) and extract:
-         1. New core concepts or terminology that should be added to domain-knowledge.md
-         2. New implementation patterns discovered
-         3. Technical decisions made including rationale and alternatives considered
-
-         Format the output for inclusion in domain-knowledge.md, following the structure in memory-management.mdc")
-
-         # Generate properly formatted updates for domain-knowledge.md
-         echo "Preparing domain-knowledge.md updates..."
-         vibe-tools ask "Update the domain-knowledge.md memory file with the following insights from task $TASK_ID:
-
-         $DOMAIN_INSIGHTS
-
-         FOLLOW THESE EXACT FORMATTING REQUIREMENTS:
-         1. Read the entire domain-knowledge.md file first
-         2. Identify the appropriate sections for each insight (Core Concepts, Implementation Patterns, Business Rules, Terminology, Technical Decisions)
-         3. Add new items to existing lists in appropriate sections
-         4. For the Terminology table, add new rows while maintaining table formatting
-         5. For Technical Decisions, add decisions in format: | Decision | Rationale | $TODAY | Alternatives |
-         6. Keep the 'Updated: $TODAY' line as the very last line in the file
-         7. Ensure all content is merged properly without creating duplicate sections
-
-         Show me the exact updates I should make to each section." --save-to domain-knowledge-updates.md
-
-         echo "Updates prepared in domain-knowledge-updates.md"
-         echo "Review these updates and apply them to docs/memory/domain-knowledge.md"
-         echo "Domain knowledge update process complete!"
-         ```
-
-      3. **Daily Standup Automation Script**:
-
-         ```bash
-         #!/bin/bash
-         # generate_daily_standup_summary.sh
-         #
-         # This script generates a daily standup summary and adds it to the standup-history.md memory file
-         # It follows the memory-management.mdc guidelines for memory file updates
-         #
-         # Usage: ./generate_daily_standup_summary.sh [--plan "plan for today"]
-
-         # Strict error handling
-         set -euo pipefail
-
-         # Parse arguments
-         PLAN_FOR_TODAY=""
-         if [[ "$1" == "--plan" && -n "$2" ]]; then
-           PLAN_FOR_TODAY="$2"
-           shift 2
-         fi
-
-         # Get current date using the fallback method from date-consistency-enforcer.mdc
-         TODAY=$(date +%Y-%m-%d)
-
-         # Ensure the standup history file exists
-         STANDUP_FILE="docs/memory/standup-history.md"
-         if [ ! -f "$STANDUP_FILE" ]; then
-           echo "Creating standup history file..."
-           mkdir -p "$(dirname "$STANDUP_FILE")"
-           echo "# Standup History Memory" > "$STANDUP_FILE"
-           echo "" >> "$STANDUP_FILE"
-           echo "This file tracks daily standup summaries to provide historical context of project progress." >> "$STANDUP_FILE"
-           echo "" >> "$STANDUP_FILE"
-         fi
-
-         # Generate standup summary with vibe-tools repo
-         echo "Generating standup summary for $TODAY..."
-
-         # Get completed tasks since yesterday
-         COMPLETED_TASKS=$(vibe-tools repo "Identify all tasks completed since yesterday, including their task IDs and summaries")
-
-         # Get active tasks
-         ACTIVE_TASKS=$(vibe-tools repo "List all currently active tasks from workflow-status.md, including their task IDs and brief descriptions")
-
-         # Get blockers if any
-         BLOCKERS=$(vibe-tools repo "Identify any current blockers or issues mentioned in workflow-status.md or in active task files")
-
-         # Format the standup report
-         echo "Preparing standup report..."
-         STANDUP_DATA=$(cat << EOF
-         Standup for $TODAY:
-
-         Completed since yesterday:
-         $COMPLETED_TASKS
-
-         In progress:
-         $ACTIVE_TASKS
-
-         Blockers:
-         $BLOCKERS
-
-         Plan for today:
-         $PLAN_FOR_TODAY
-         EOF
-         )
-
-         # Use vibe-tools to generate properly formatted standup entry
-         vibe-tools ask "Format the following standup data for inclusion in the standup-history.md memory file:
-
-         $STANDUP_DATA
-
-         FOLLOW THESE EXACT FORMATTING REQUIREMENTS:
-         1. Create a section with heading '## Standup: $TODAY'
-         2. Format each subsection (Completed, In Progress, Blockers, Plan) with proper markdown
-         3. Use bullet points for all items
-         4. Format task IDs in code blocks like \`2025-05-06-01\`
-         5. Format the output to be appended to standup-history.md
-         6. Include 'Updated: $TODAY' as the last line of the file
-
-         Show me the formatted standup entry." --save-to standup-entry.md
-
-         # Append the formatted standup to the history file
-         echo "Appending standup report to $STANDUP_FILE..."
-
-         # Read existing content (excluding the last line with the timestamp)
-         EXISTING_CONTENT=$(head -n -1 "$STANDUP_FILE" 2>/dev/null || echo "# Standup History Memory")
-
-         # Append new standup entry
-         NEW_STANDUP=$(cat standup-entry.md)
-
-         # Write updated content with new timestamp
-         echo "$EXISTING_CONTENT" > "$STANDUP_FILE"
-         echo "" >> "$STANDUP_FILE"
-         echo "$NEW_STANDUP" >> "$STANDUP_FILE"
-         echo "" >> "$STANDUP_FILE"
-         echo "## Updated: $TODAY" >> "$STANDUP_FILE"
-
-         echo "Daily standup summary has been added to $STANDUP_FILE"
-         echo "Standup automation process complete!"
-         ```
-
-      These automation scripts demonstrate how to maintain memory files using the `vibe-tools` commands. By integrating these scripts into your workflow, you can ensure consistent memory file updates while preserving the structure and formatting required by the memory management system.
-
-      While these examples focus on shell scripts for automation, you can also use any programming language that can execute shell commands, such as Node.js, Python, or Go, to create more complex automation tools that interact with the memory files.
-
-      Remember to review the output of these scripts before applying the updates to the memory files, especially during initial implementation, to ensure the updates meet the quality standards specified in the memory management guidelines.
+      | Stage | Primary Command | Secondary Command | See Details |
+      |-------|----------------|-------------------|------------|
+      | Research | `vibe-tools web` | `vibe-tools repo` | [Vibe-Tools Web](mdc:docs/memory/vibe-tools-playbook.md#web-research-with-web) |
+      | Planning | `vibe-tools plan` | `vibe-tools repo` | [Vibe-Tools Plan](mdc:docs/memory/vibe-tools-playbook.md#implementation-planning-with-plan) |
+      | Task Generation | `vibe-tools plan` | `vibe-tools repo` | [Vibe-Tools Plan](mdc:docs/memory/vibe-tools-playbook.md#implementation-planning-with-plan) |
+      | Codebase Analysis | `vibe-tools repo` | - | [Vibe-Tools Repo](mdc:docs/memory/vibe-tools-playbook.md#repository-analysis-with-repo) |
 
       ## Related Rules
 
-      - [00-rule-index](mdc:.cursor/rules/00-rule-index.mdc): Central registry for all rules.
-      - [memory-management](mdc:.cursor/rules/memory-management.mdc): Provides guidelines for maintaining memory files and details the process for updating both files and the Knowledge Graph upon task completion, including the use of specific `mcp_memory_*` tools.
-      - [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc): Ensures proper date formatting for task IDs and timestamps.
-      - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Informs task execution based on stored preferences.
-      - [vibe-tools](mdc:.cursor/rules/vibe-tools.mdc): Provides the CLI tools recommended for executing various workflow steps.
-      - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Details usage of MCP tools, including `mcp_sequential-thinking_sequentialthinking` mandated by this workflow.
-      - [anthropic-chain-of-thought](mdc:.cursor/rules/anthropic-chain-of-thought.mdc): Offers prompting structures that enhance the `mcp_sequential-thinking_sequentialthinking` tool's effectiveness.
-      - [rule-acknowledgement](mdc:.cursor/rules/rule-acknowledgement.mdc): Ensures transparency in applying this workflow rule.
-      - [vibe-tools-planning-review](mdc:.cursor/rules/vibe-tools-planning-review.mdc): Complements this rule by defining specific AI review steps for plans.
-
-      ### Integration with Auto-Memory-Manager
-
-      NOTE: The functionality originally proposed in `auto-memory-manager.mdc` (automating memory file and KG updates) has been **merged into** the [memory-management](mdc:.cursor/rules/memory-management.mdc) rule. This `ai-agile-workflow` rule triggers the update process defined within `memory-management` upon task completion.
-
-      ## Templates
-
-      All templates are stored in the `docs/templates/` directory:
-      - [`docs/templates/task-template.md`](mdc:docs/templates/task-template.md)
-      - [`docs/templates/plan-template.md`](mdc:docs/templates/plan-template.md)
-      - [`docs/templates/feature-template.md`](mdc:docs/templates/feature-template.md)
-
-      ## File Linking Guidelines
-
-      When creating links in your plan or task documents:
-
-      1. **Within Cursor rules**: Always use the `mdc:` prefix for ALL file links:
-         ```markdown
-         [rule-name](mdc:.cursor/rules/rule-name.mdc)
-         [features document](mdc:docs/features.md)
-         ```
-
-      2. **In regular documentation files**: Use standard markdown links:
-         ```markdown
-         [Plan Document](../plans/plan-name.md)
-         [Feature Description](/docs/features.md#feature-1-title)
-         ```
-
-      3. **For task documents**: When linking to plans, use relative paths:
-         ```markdown
-         [Implement a Hierarchical Rule Structure](/plans/cursor-rules-hierarchy.md)
-         ```
-
-      ## AI Commands Reference
-
-      The following commands can be used with the AI assistant:
-
-      | Command | Description |
-      |---|----|
-      | `Create a plan document for [feature]` | Generates a new plan document |
-      | `Generate task documents from this plan` | Creates task documents from the current plan |
-      | `Update feature status based on completed tasks` | Updates the central document |
-      | `Generate progress report for [feature]` | Creates a status report |
-      | `Suggest next tasks to work on` | Recommends priority tasks |
-      | `Show all blocked tasks` | Lists tasks with unmet dependencies |
-      | `Mark task [task-id] as completed` | Moves task to the done directory and updates status |
-      | `Extend this plan with new phases` | Adds new phases to an existing plan |
-      | `Consolidate plans for [feature1] and [feature2]` | Merges multiple plans |
-      | `Update workflow status memory` | Updates the workflow-status.md file |
-      | `Fix memory file sections` | Merges duplicate sections and ensures proper structure |
-      | `Update rule index` | Updates the rule index to include new or modified rules |
-
-      ## Example Workflow
-
-      1. We identified several features for improving the project
-      2. Created a plan document for a specific feature
-      3. Generated task documents for the first phase of implementation
-      4. As tasks are completed, we'll update their status
-      5. The AI will help us track progress and update the central document
-
-      ## Getting Started
-
-      To start using this workflow:
-
-      1. Ensure you have the required directory structure:
-         ```
-         docs/
-         ├── features.md
-         ├── plans/
-         └── tasks/
-         ```
-
-      2. Open `docs/features.md` to view current features
-
-      3. For any feature without a plan, ask the AI to create one:
-         ```
-         Create a plan document for Feature 2: Add New Authentication Method
-         ```
-
-      4. After reviewing the plan, generate tasks:
-         ```
-         Generate task documents from this plan
-         ```
-
-      5. Begin working on the generated tasks
+      - [memory-management](mdc:.cursor/rules/memory-management.mdc): Provides guidelines for maintaining memory files and knowledge graph integration
+      - [vibe-tools](mdc:.cursor/rules/vibe-tools.mdc): Comprehensive guide to using the vibe-tools CLI commands
+      - [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc): Ensures consistent date formatting in all documents
+      - [anthropic-chain-of-thought](mdc:.cursor/rules/anthropic-chain-of-thought.mdc): Structures the sequential thinking approach
+      - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Guidelines for using MCP tools like `sequential-thinking` and knowledge graph
+      - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Aligns workflow steps with user preferences
+      - [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc): Ensures code generated during tasks follows code style preferences
+      - [testing-practices](mdc:.cursor/rules/testing-practices.mdc): Guides the creation of tests for implemented features
+      - [debugging-guide](mdc:.cursor/rules/debugging-guide.mdc): Provides troubleshooting methods for task implementation
+      - [rule-acknowledgement](mdc:.cursor/rules/rule-acknowledgement.mdc): Ensures proper tracking of rules used during task execution
+      - [self-improvement](mdc:.cursor/rules/self-improvement.mdc): Mandates continuous improvement in the application of the workflow
 
 examples:
   - input: |
-      I have a new plan document for implementing the hierarchical rule structure. Can you generate task documents from it?
+      I need to create a plan for implementing cross-references in our documentation system.
     output: |
-      I'll help you generate task documents from your plan for implementing the hierarchical rule structure ([plan-name.md](mdc:docs/plans/plan-name.md)).
+      I'll help you create a plan for implementing cross-references in your documentation system. Let me use the AI-Assisted Agile Workflow to guide this process:
 
-      First, I need to check for existing tasks for today to determine the correct sequence numbers. (Executing `list_dir docs/tasks`)
+      First, I'll check if this feature is already captured in your features document. If not, we should add it there before creating a detailed plan.
 
-      Assuming today is 2025-05-04 and no tasks exist yet, I will create the following task files:
+      To research and create an effective plan, I'll use `vibe-tools`:
 
-      **Creating `docs/tasks/2025-05-04-01.md`:**
-      ```markdown
-      # Task: Create Relationship Diagram
-      ## Task ID: 2025-05-04-01
-      ## Related Plan
-      [Implement Hierarchical Rule Structure](mdc:docs/plans/plan-name.md)
-      ## Description
-      Map out the relationships between all existing Cursor rules...
-      ## Acceptance Criteria
-      - Visual diagram (e.g., Mermaid) created...
-      ## Status
-      Not Started
+      ```bash
+      vibe-tools plan "Create a detailed implementation plan for adding cross-references between markdown documents in our documentation system. The cross-references should work in both the web interface and IDEs like VS Code and Cursor."
       ```
 
-      **Creating `docs/tasks/2025-05-04-02.md`:**
-      ```markdown
-      # Task: Define Standard Linking Format
-      ## Task ID: 2025-05-04-02
-      ## Related Plan
-      [Implement Hierarchical Rule Structure](mdc:docs/plans/plan-name.md)
-      ## Description
-      Specify the exact format for linking between rules...
-      ## Acceptance Criteria
-      - Linking format documented...
-      ## Status
-      Not Started
-      ```
-      (And so on for other tasks identified in the plan...)
+      This will generate a comprehensive plan following the structure in the [Plan Template](mdc:docs/templates/plan-template.md), including:
+      - Clearly defined phases
+      - Specific tasks with complexity ratings
+      - Dependencies between tasks
+      - Acceptance criteria for each task
 
-      I will also update the [workflow status memory](mdc:docs/memory/workflow-status.md) to reflect these new tasks.
+      Once generated, I'll review the plan and save it to `docs/plans/cross-references-implementation.md`. Then we can generate specific task documents from this plan.
+
+      Would you like me to proceed with this approach?
 
   - input: |
-      This task has been completed. Please update the status.
+      Generate task documents from the implementation plan in docs/plans/memory-file-automation.md
     output: |
-      I'll update the status of this completed task.
+      I'll generate task documents from the memory-file-automation plan. First, I need to check current task IDs to ensure I use the next available sequence numbers.
 
-      Based on the current task document:
-      1. Changing the status from "In Progress" to "Completed"
-      2. Adding completion date ($(date +%Y-%m-%d))
-      3. Moving this task file to the `docs/tasks/done/` directory
-      4. Updating the workflow status memory file
-      5. Updating the plan document
+      After reviewing the plan and existing tasks, I'll generate properly structured task documents for each task identified in the plan.
 
-      The workflow status memory file has been updated with:
-      - Task moved to completed tasks section
-      - Task history updated with completion date
-      - Next task identified and marked as current
+      For each task, I'll:
+      1. Create a new file using the task ID format `YYYY-MM-DD-XX.md` in the `docs/tasks/` directory
+      2. Follow the [Task Template](mdc:docs/templates/task-template.md) format
+      3. Include clear acceptance criteria derived from the plan
+      4. Establish proper dependencies between tasks
+      5. Set appropriate complexity ratings
 
-      The plan document has been updated with:
-      - This task moved to completed tasks section
-      - Next task marked as active
-      - Progress percentage updated
+      Each task document will include:
+      - A clear description
+      - Specific acceptance criteria
+      - Dependencies on other tasks
+      - Estimated effort
+      - Initial "Not Started" status
 
-      Would you like me to generate a progress report for the related feature?
+      I'll also update the workflow status memory file to include these new tasks in the tracking system.
+
+      Would you like me to generate these task documents now?
 
   - input: |
-      I need to consolidate the memory-management-system.md plan into the existing memory-management.md plan.
+      I've completed the task for implementing the cross-reference syntax parser (Task ID: 2025-05-03-02)
     output: |
-      I'll help you consolidate the memory-management-system.md plan into the existing memory-management.md plan.
+      Great! I'll update the necessary documents to reflect this completed task.
 
-      Here's my approach:
+      First, I'll update the task document to mark it as completed:
+      - Set status to "Completed" in `docs/tasks/2025-05-03-02.md`
 
-      1. First, I'll read both plan documents to understand their content and structure
-      2. I'll create a consolidated version that:
-         - Maintains the structure of the more comprehensive plan
-         - Incorporates unique elements from both plans
-         - Ensures a coherent flow with logical organization
-         - Aligns task dependencies and timeline
-         - Documents the consolidation in the overview section
+      Then, I'll update the workflow status memory file with this completion:
+      - Update the Task History table in `docs/memory/workflow-status.md`
+      - Move this task from "Active Tasks" to completed tasks
+      - Add an entry to "Recent Updates" with today's date
 
-      3. I'll update the memory-management.md file with the consolidated content
-      4. I'll then delete the memory-management-system.md file since it's no longer needed
-      5. Finally, I'll update the workflow-status.md memory file to reflect this consolidation
+      Finally, I'll update the knowledge graph to capture this implementation milestone:
+      - Add observations to relevant entities about the cross-reference syntax parser
+      - Update the status of related components
+      - Create relationships between the implemented parser and other system components
 
-      After consolidation, I'll ensure that:
-      - All feature references point to the consolidated plan
-      - Task dependencies are properly aligned
-      - The timeline is coherent and realistic
-      - Any unique content from either plan is preserved
-
-      Would you like me to proceed with this consolidation?
-
-  - input: |
-      I've completed the task to create a new TypeScript patterns rule. Please update the status.
-    output: |
-      I'll update the status of this completed task.
-
-      Based on the current task document:
-      1. Changing the status from "In Progress" to "Completed"
-      2. Adding completion date ($(date +%Y-%m-%d))
-      3. Moving this task file to the `docs/tasks/done/` directory
-      4. Updating the workflow status memory file
-      5. Updating the plan document
-
-      Since this task involved creating a new cursor rule, I'll also update the rule index:
-      1. Opening `.cursor/rules/00-rule-index.mdc`
-      2. Adding the new rule to the "Coding Standards" category:
-         ```markdown
-         | [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc) | Effective TypeScript patterns and practices for the monorepo | High |
-         ```
-      3. Updating the `total_rules` count from 23 to 24
-      4. Updating the `last_updated` date to today's date ($(date +%Y-%m-%d))
-
-      The rule index has been successfully updated to include the new TypeScript patterns rule.
-      Would you like me to generate a progress report for the related feature?
-
-  - input: |
-      Generate a progress report for the User Management System feature.
-    output: |
-      # Progress Report: User Management System
-
-      ## Overall Progress
-
-      **Completion: 65%** (13/20 tasks completed)
-
-      ## Phase Status
-
-      | Phase | Completion | Tasks Completed | Tasks Remaining |
-      |-------|------------|----------------|-----------------|
-      | Authentication | 100% | 4/4 | 0 |
-      | User Roles | 75% | 3/4 | 1 |
-      | Profile Management | 60% | 6/10 | 4 |
-      | Integration | 0% | 0/2 | 2 |
-
-      ## Current Active Tasks
-
-      1. Task ID: 2025-04-25-03 - Implement role permission verification
-         - Status: Not Started
-         - Assigned to: Unassigned
-         - Blocking: 2 dependent tasks
-
-      2. Task ID: 2025-05-02-01 - Add profile editing capabilities
-         - Status: In Progress
-         - Assigned to: AI Assistant
-         - Dependencies: None
-
-      ## Next Tasks in Queue
-
-      1. Create admin dashboard
-         - Complexity: High
-         - Dependencies: Role permission verification
-
-      2. Implement avatar upload feature
-         - Complexity: Medium
-         - Dependencies: None
-
-      ## Blockers and Issues
-
-      - No critical blockers identified
-      - Scheduled tasks are progressing as expected
-
-      ## Recommendations
-
-      1. Complete Task 2025-04-25-03 to unblock dependent tasks
-      2. Finish the profile editing implementation
-      3. Begin planning for the integration phase
-
-      ## Recent Milestones
-
-      - Completed authentication system (2025-04-23)
-      - Implemented basic role management (2025-05-02)
-      - Added user profile storage (2025-05-02)
-
-      Would you like more detailed information about any specific task or phase?
-
-  - input: |
-      I've noticed some duplicate sections in the workflow-status.md memory file. Please fix this issue.
-    output: |
-      I'll fix the duplicate sections in the workflow-status.md memory file.
-
-      Looking at the file, I've identified several duplicated sections:
-      - Multiple "Current State" sections
-      - Duplicate "Task History" sections
-      - Duplicate "Recent Updates" sections
-      - Multiple "Context" sections
-      - Duplicate "Updated:" timestamps
-
-      I'll follow these steps to fix the issue:
-
-      1. First, I'll read the entire file to understand its structure
-      2. I'll identify all duplicate sections
-      3. For each duplicate section:
-         - I'll merge the content from both instances
-         - Keep the most recent/complete information
-         - Remove the duplicate section
-      4. I'll ensure the "## Updated: YYYY-MM-DD" appears only once at the very end
-      5. I'll maintain the proper logical structure of the document
-
-      Let me make these corrections now...
-
-      I've successfully merged:
-      - Combined the duplicate "Current State" sections with the most up-to-date information
-      - Merged the "Task History" tables, removing duplicated tasks
-      - Combined the "Recent Updates" lists, preserving chronological order
-      - Consolidated the "Context" sections, keeping all important information
-      - Removed duplicate "Command History" and "Notes" sections
-      - Ensured "## Updated: 2025-05-02" appears only once at the end
-
-      The memory file now has a consistent structure with no duplicated sections, making it easier to maintain and understand.
+      The memory files and knowledge graph have been updated to reflect the completion of the cross-reference syntax parser task. Would you like me to summarize the next task in the implementation plan?
 
 metadata:
   priority: high
-  version: 2.3.1
+  version: 3.0.0
   tags:
     - workflow
-    - agile
     - task-management
+    - memory
+    - agile
     - vibe-tools
 </rule>
