@@ -39,6 +39,7 @@ Rules related to creating and managing Cursor rules themselves:
 | [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc) | FOLLOW when CREATING cursor rules to ENSURE consistency, correct location, linking, and activation | High |
 | [repo-rule-recommender](mdc:.cursor/rules/repo-rule-recommender.mdc) | APPLY when RECOMMENDING new cursor rules to IMPROVE repository guidance | Medium |
 | [rule-automation-script](mdc:.cursor/rules/rule-automation-script.mdc) | UTILIZE when AUTOMATING rule management to INCREASE efficiency | Medium |
+| [rule-optimization](mdc:.cursor/rules/rule-optimization.mdc) | FOLLOW when OPTIMIZING large or complex cursor rules to REDUCE token usage while MAINTAINING functionality | Medium |
 | [rule-relationship-analysis](mdc:.cursor/rules/rule-relationship-analysis.mdc) | USE when ANALYZING rule relationships to ESTABLISH cross-references | Medium |
 
 ## Workflow & Process Rules
@@ -240,6 +241,6 @@ This index must be automatically updated whenever cursor rules are created, modi
 
 ```yaml
 version: 1.8
-last_updated: 2025-05-10
-total_rules: 28
+last_updated: 2025-05-15
+total_rules: 29
 ```
