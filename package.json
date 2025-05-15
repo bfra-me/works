@@ -46,7 +46,7 @@
     "@bfra.me/eslint-config": "workspace:*",
     "@bfra.me/prettier-config": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
-    "@changesets/cli": "2.29.3",
+    "@changesets/cli": "2.29.4",
     "@eslint/config-inspector": "1.0.2",
     "@manypkg/cli": "0.24.0",
     "@microsoft/api-extractor": "7.52.7",
