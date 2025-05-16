@@ -62,7 +62,6 @@ graph TD
     subgraph "Tool Integration"
         mcp_tools[mcp-tools-usage]
         vibe_tools[vibe-tools]
-        anthropic[anthropic-chain-of-thought]
     end
 
     subgraph "Coding Standards"
@@ -106,7 +105,6 @@ graph TD
     ai_agile -->|references| memory
     ai_agile -->|uses| date
     ai_agile -->|updates| rule_index
-    ai_agile -->|uses| anthropic
     ai_agile -->|uses| mcp_tools
 
     dev_workflow -->|relates to| changeset
@@ -125,7 +123,6 @@ graph TD
     code_review -->|checks| testing
 
     %% Tool integration relationships
-    mcp_tools <-->|bidirectional| anthropic
     mcp_tools <-->|bidirectional| user_pref
     mcp_tools -->|used by| date
     mcp_tools <-->|bidirectional| vibe_tools

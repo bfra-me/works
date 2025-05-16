@@ -72,12 +72,11 @@ actions:
                 - Add a specific observation detailing the purpose of *this KG entry* and how it can be found/used (see `AssistantLearning_20250509_VibeToolsYouTubeShowcase` for an example).
                 - Use `mcp_memory_create_relations` to link this entity to relevant `Tool`, `Concept`, `Project`, or `User` entities.
          - **Handling Edit Limitations**: If you encounter limitations with the `edit_file` tool that prevent direct updates to this rule file (as documented in previous learnings):
-            - Due to previously documented difficulties updating this specific rule file with `edit_file`, when adding new learnings here, you may opt to directly generate the markdown for user application rather than attempting `edit_file` first, unless the change is minor and textual.
-            - Generate the exact markdown content that should be added to the 'Documented Learnings from Previous Sessions' section.
-            - Clearly indicate to the user that direct rule file update failed and present the formatted markdown for manual addition.
-            - Format the content using the established structure (Session title with date, Context, Mistakes with Description/Resolution/Key Takeaway).
+            - Make multiple attempts with the `edit_file` tool using different approaches before considering alternatives.
+            - If direct updates still fail after multiple attempts, use the `run_terminal_cmd` tool to update the file using shell commands.
             - Request the user to add this content to the self-improvement.mdc file at the appropriate location.
             - Proceed with updating the Knowledge Graph portion of the process regardless of the rule file update status.
+            - Always prioritize direct file updates over generating content for manual addition.
          - **Rationale**: This continuous feedback loop is essential for systemic improvement.
 
       5. **Focus on High-Priority Learning Areas:**
@@ -141,6 +140,39 @@ actions:
       ## Documented Learnings from Previous Sessions
 
       This section follows a specific structure for consistency and effectiveness:
+
+      ### Session: Rule Metadata Conflict Resolution (2025-05-16)
+
+      **Context:** Working on task 2025-05-06-15 (Update AI-Agile Workflow Rule Metadata), which instructed adding `changelog` and `last_updated` fields to `.cursor/rules/ai-agile-workflow.mdc`.
+
+      **Mistakes, Resolutions, and Key Takeaways:**
+
+      1.  **Mistake: Rule Application - Prioritizing Task Instruction Over Core Rule Standards**
+          - **Description:** Initially attempted to add `changelog` and `last_updated` fields to the metadata of `ai-agile-workflow.mdc` as per task 2025-05-06-15. This conflicted with `cursor-rules-creation.mdc` (which defines standard metadata fields as only priority, version, tags) and a previous learning documented in `self-improvement.mdc` ("Session: Rule Metadata Structure Adherence (2025-05-15)").
+          - **Resolution:** Upon user correction, recognized the conflict. Prioritized `self-improvement.mdc` and `cursor-rules-creation.mdc` guidance over the task instruction. Reverted the changes to `ai-agile-workflow.mdc`, removing the non-standard fields and keeping version 3.0.0. Updated the completed task file (`docs/tasks/done/2025-05-06-15.md`) and `docs/memory/workflow-status.md` to accurately reflect this outcome.
+          - **Key Takeaway/Preventive Measure:** When a task's instructions conflict with established core rules (like `cursor-rules-creation.mdc`) or documented learnings in `self-improvement.mdc`, the core rules and documented learnings generally take precedence, especially if the task instruction is not a direct, overriding directive from the user in the current interaction. Always verify task instructions against fundamental project standards and past learnings. Explicitly state and resolve conflicts according to the "Conflict Resolution Framework" in `self-improvement.mdc`.
+
+      ### Session: Rule Metadata Structure Adherence (2025-05-15)
+
+      **Context:** Working on task 2025-05-06-14 (Ensure AI-Agile Workflow Rule Structure Compliance), which involved checking the ai-agile-workflow.mdc file structure against the cursor-rules-creation.mdc guidelines.
+
+      **Mistakes, Resolutions, and Key Takeaways:**
+
+      1. **Mistake: Rule Structure - Non-Standard Metadata Fields Addition**
+          - **Description:** When updating the ai-agile-workflow.mdc file, I incorrectly added non-standard fields ('changelog' and 'last_updated') to the metadata section. These fields are not part of the standard metadata structure defined in cursor-rules-creation.mdc, which only specifies priority, version, and tags as standard metadata fields.
+          - **Resolution:** Removed the non-standard 'changelog' and 'last_updated' fields from the metadata block in ai-agile-workflow.mdc to conform with the standard structure defined in cursor-rules-creation.mdc.
+          - **Key Takeaway/Preventive Measure:** When working with rule metadata sections, strictly adhere to the standard fields defined in cursor-rules-creation.mdc (priority, version, and tags). Before adding any fields to metadata sections, verify the standard structure by consulting cursor-rules-creation.mdc. Never add custom or non-standard fields to the metadata block unless explicitly mentioned in the rules reference documentation.
+
+      ### Session: Task Template Format Adherence (2025-05-15)
+
+      **Context:** Working on task 2025-05-06-13 (Update Cross-References in ai-agile-workflow.mdc), which included updating the task file to mark it as completed and moving it to the done directory.
+
+      **Mistakes, Resolutions, and Key Takeaways:**
+
+      1. **Mistake: Document Structure - Task Template Format Deviation**
+          - **Description:** When updating the task file for 2025-05-06-13, I significantly deviated from the required format specified in task-template.md. The modified file used incorrect heading structure (starting with "# Task ID" instead of "# Task: [Title]"), omitted several required sections (Problem Analysis, Solution Design, Implementation, etc.), and added non-template sections (Generated Using, Completion Date).
+          - **Resolution:** Completely recreated the task file following the exact structure from task-template.md. This involved mapping the existing content to the correct sections, adding all required template sections (even those not in the original file), and ensuring the exact heading structure and order was maintained.
+          - **Key Takeaway/Preventive Measure:** Before modifying any structured document file, ALWAYS perform a side-by-side comparison with its template to verify section order, heading structure, and required content. This is especially critical for files following standardized templates in the AI-Agile workflow. Implement a verification step that explicitly compares the document structure against its template before finalizing any changes. For task files specifically, ensure that updates preserve the exact structure from task-template.md, including all required sections in the correct order.
 
       ### Session: Rule Index Update and Rule Creation (2025-05-15)
 
@@ -338,7 +370,6 @@ actions:
 
       - [memory-management](mdc:.cursor/rules/memory-management.mdc): For managing persistence and context.
       - [vibe-tools](mdc:.cursor/rules/vibe-tools.mdc): For proper vibe-tools command execution and escaping.
-      - [anthropic-chain-of-thought](mdc:.cursor/rules/anthropic-chain-of-thought.mdc): For structured reasoning during error analysis.
       - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc): For maintaining cursor rule files correctly.
       - [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc): For ensuring correct date formatting.
       - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): For proper use of MCP tools including the Knowledge Graph.

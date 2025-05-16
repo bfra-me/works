@@ -44,17 +44,17 @@ actions:
 
       ### 1. Feature Capture & Refinement
 
-      Begin by researching and capturing feature requirements in the central reference document. Use `vibe-tools web` for research and `vibe-tools repo` for codebase context before adding features to [features.md](mdc:docs/features.md).
+      Begin by researching and capturing feature requirements in the central reference document. Use [`vibe-tools web`](mdc:.cursor/rules/vibe-tools.mdc#web-search) for research and [`vibe-tools repo`](mdc:.cursor/rules/vibe-tools.mdc#repository-context) for codebase context before adding features to [features.md](mdc:docs/features.md).
 
-      **Key Tools:** `vibe-tools web`, `vibe-tools repo`
+      **Key Tools:** [`vibe-tools web`](mdc:.cursor/rules/vibe-tools.mdc#web-search), [`vibe-tools repo`](mdc:.cursor/rules/vibe-tools.mdc#repository-context)
       **Template:** [Feature Template](mdc:docs/templates/feature-template.md)
       **Detailed Guide:** [Vibe-Tools Playbook](mdc:docs/memory/vibe-tools-playbook.md#web-research-with-web)
 
       ### 2. Plan Creation
 
-      For high-priority features, create comprehensive implementation plans that break down the feature into phases and tasks. **Always use `vibe-tools plan`** to generate context-aware plans when available.
+      For high-priority features, create comprehensive implementation plans that break down the feature into phases and tasks. **Always use [`vibe-tools plan`](mdc:.cursor/rules/vibe-tools.mdc#implementation-planning)** to generate context-aware plans when available.
 
-      **Key Tools:** `vibe-tools plan`, `vibe-tools repo` (for review)
+      **Key Tools:** [`vibe-tools plan`](mdc:.cursor/rules/vibe-tools.mdc#implementation-planning), [`vibe-tools repo`](mdc:.cursor/rules/vibe-tools.mdc#repository-context) (for review)
       **Template:** [Plan Template](mdc:docs/templates/plan-template.md)
       **Detailed Guide:** [Vibe-Tools Playbook](mdc:docs/memory/vibe-tools-playbook.md#implementation-planning-with-plan)
 
@@ -62,9 +62,9 @@ actions:
 
       From each plan, generate specific task documents with clear acceptance criteria and dependencies. Check existing task IDs to determine the next available sequence number.
 
-      **Key Tools:** `vibe-tools plan` (for breakdown), `vibe-tools repo` (for code-aware tasks)
+      **Key Tools:** [`vibe-tools plan`](mdc:.cursor/rules/vibe-tools.mdc#implementation-planning) (for breakdown), [`vibe-tools repo`](mdc:.cursor/rules/vibe-tools.mdc#repository-context) (for code-aware tasks)
       **Template:** [Task Template](mdc:docs/templates/task-template.md)
-      **Note:** Before creating a new task document, always check for existing task files to determine the next available sequence number.
+      **Note:** Before creating a new task document, always check for existing task files to determine the next available sequence number. *(Consult [date-consistency-enforcer.mdc](mdc:.cursor/rules/date-consistency-enforcer.mdc) for rules on generating dates and ensuring sequence number uniqueness.)*
 
       ### 4. Task Execution
 
@@ -89,6 +89,7 @@ actions:
       **Required Updates:**
       - Mark the task as "Completed" in the task document
       - Update [workflow-status.md](mdc:docs/memory/workflow-status.md) task history
+      - Move the completed task file to the `docs/tasks/done/` directory
       - Update Knowledge Graph entities as needed
 
       **See:** [Memory Management](mdc:.cursor/rules/memory-management.mdc#memory-file-updates-on-task-completion) for detailed memory update procedures.
@@ -102,24 +103,24 @@ actions:
       Throughout this workflow, when 'Sequential Thinking', 'step-by-step approach', or 'structured reasoning' is mentioned, it refers to the use of the **`mcp_sequential-thinking_sequentialthinking`** tool.
 
       **For detailed guidance on Sequential Thinking:**
-      - [Anthropic Chain of Thought](mdc:.cursor/rules/anthropic-chain-of-thought.mdc) for structured reasoning methodology
       - [MCP Tools Usage](mdc:.cursor/rules/mcp-tools-usage.mdc) for tool integration
 
       ## AI Command Quick Reference
 
       | Stage | Primary Command | Secondary Command | See Details |
       |-------|----------------|-------------------|------------|
-      | Research | `vibe-tools web` | `vibe-tools repo` | [Vibe-Tools Web](mdc:docs/memory/vibe-tools-playbook.md#web-research-with-web) |
-      | Planning | `vibe-tools plan` | `vibe-tools repo` | [Vibe-Tools Plan](mdc:docs/memory/vibe-tools-playbook.md#implementation-planning-with-plan) |
-      | Task Generation | `vibe-tools plan` | `vibe-tools repo` | [Vibe-Tools Plan](mdc:docs/memory/vibe-tools-playbook.md#implementation-planning-with-plan) |
-      | Codebase Analysis | `vibe-tools repo` | - | [Vibe-Tools Repo](mdc:docs/memory/vibe-tools-playbook.md#repository-analysis-with-repo) |
+      | Research | [`vibe-tools web`](mdc:.cursor/rules/vibe-tools.mdc#web-search) | [`vibe-tools repo`](mdc:.cursor/rules/vibe-tools.mdc#repository-context) | [Vibe-Tools Web](mdc:docs/memory/vibe-tools-playbook.md#web-research-with-web) |
+      | Planning | [`vibe-tools plan`](mdc:.cursor/rules/vibe-tools.mdc#implementation-planning) | [`vibe-tools repo`](mdc:.cursor/rules/vibe-tools.mdc#repository-context) | [Vibe-Tools Plan](mdc:docs/memory/vibe-tools-playbook.md#implementation-planning-with-plan) |
+      | Task Generation | [`vibe-tools plan`](mdc:.cursor/rules/vibe-tools.mdc#implementation-planning) | [`vibe-tools repo`](mdc:.cursor/rules/vibe-tools.mdc#repository-context) | [Vibe-Tools Plan](mdc:docs/memory/vibe-tools-playbook.md#implementation-planning-with-plan) |
+      | Codebase Analysis | [`vibe-tools repo`](mdc:.cursor/rules/vibe-tools.mdc#repository-context) | - | [Vibe-Tools Repo](mdc:docs/memory/vibe-tools-playbook.md#repository-analysis-with-repo) |
+
+      **Important Note on `--with-doc`**: The `--with-doc` flag is supported by `vibe-tools ask`, `plan`, `repo`, and `doc` for including content from HTTPS URLs. It is NOT supported by `vibe-tools web`. If you need to analyze web content alongside specific documents, use `vibe-tools repo --with-doc=<URL>` or `vibe-tools plan --with-doc=<URL>`, or include local file paths directly in your prompt to other commands.
 
       ## Related Rules
 
       - [memory-management](mdc:.cursor/rules/memory-management.mdc): Provides guidelines for maintaining memory files and knowledge graph integration
       - [vibe-tools](mdc:.cursor/rules/vibe-tools.mdc): Comprehensive guide to using the vibe-tools CLI commands
       - [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc): Ensures consistent date formatting in all documents
-      - [anthropic-chain-of-thought](mdc:.cursor/rules/anthropic-chain-of-thought.mdc): Structures the sequential thinking approach
       - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Guidelines for using MCP tools like `sequential-thinking` and knowledge graph
       - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Aligns workflow steps with user preferences
       - [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc): Ensures code generated during tasks follows code style preferences
@@ -127,6 +128,157 @@ actions:
       - [debugging-guide](mdc:.cursor/rules/debugging-guide.mdc): Provides troubleshooting methods for task implementation
       - [rule-acknowledgement](mdc:.cursor/rules/rule-acknowledgement.mdc): Ensures proper tracking of rules used during task execution
       - [self-improvement](mdc:.cursor/rules/self-improvement.mdc): Mandates continuous improvement in the application of the workflow
+
+      ## Memory File Automation with Vibe-Tools
+
+      Automation scripts provide significant efficiency gains when integrated at specific points in the agile workflow cycle. Understanding when and how to apply these scripts ensures consistent memory management and maximizes AI context retention. For detailed examples and patterns, see the [Agile Workflow Enhancements](mdc:docs/memory/agile-workflow-enhancements.md) memory file.
+
+      #### Integration Points in the Workflow
+
+      1. **After Task Completion**:
+         - Run automation scripts immediately after marking a task as completed
+         - These scripts capture implementation details, decisions, and lessons learned
+         - Update `workflow-status.md` with task completion and history
+         - Extract domain knowledge for `domain-knowledge.md`
+
+         ```bash
+         # Example: After completing a feature implementation
+         vibe-tools repo "Summarize the implementation of feature X including technical decisions and patterns used" > feature-summary.txt
+         ```
+         *(Ensure these examples align with any specific patterns in `docs/memory/agile-workflow-enhancements.md` if available, or customize them as needed.)*
+
+      2. **During Sprint Planning**:
+         - Use automation scripts to generate comprehensive plans
+         - Break down user stories into structured task documents
+         - Capture estimation data and dependencies
+
+         ```bash
+         # Example: During sprint planning session - Generating and Formatting a Full Sprint Plan Document
+         # This script uses vibe-tools to generate a raw plan, then formats it into a structured markdown document.
+
+         # Set sprint variables (customize as needed)
+         SPRINT_NUMBER="3" # Example sprint number
+         SPRINT_GOAL="Implement new user dashboard features"
+         TODAY=$(date +%Y-%m-%d) # Ensures date consistency, see date-consistency-enforcer.mdc
+
+         # 1. Generate raw sprint plan content using a temporary file for the prompt
+         RAW_PLAN_PROMPT_TEXT="Create a sprint plan for Sprint $SPRINT_NUMBER with the goal: '$SPRINT_GOAL'. Include: 1. Sprint objectives, 2. User stories to be implemented, 3. Task breakdown for each story, 4. Estimated story points, 5. Dependencies and risks"
+         TMP_RAW_PLAN_PROMPT_FILE=$(mktemp)
+         echo -e "$RAW_PLAN_PROMPT_TEXT" > "$TMP_RAW_PLAN_PROMPT_FILE"
+
+         TMP_RAW_PLAN_OUTPUT_FILE=$(mktemp)
+         vibe-tools plan "$(cat "$TMP_RAW_PLAN_PROMPT_FILE")" > "$TMP_RAW_PLAN_OUTPUT_FILE"
+         rm "$TMP_RAW_PLAN_PROMPT_FILE"
+
+         # 2. Format the raw plan into a structured Markdown document
+         FORMAT_PROMPT_TEXT="Format the sprint plan content from '$TMP_RAW_PLAN_OUTPUT_FILE' (pasted below) as a comprehensive sprint plan document in markdown format. Include: 1. Sprint details (number, dates, goal), 2. User stories with acceptance criteria, 3. Tasks with estimates, 4. Sprint burndown projection, 5. Risk assessment.\n\nContent to format:\n$(cat "$TMP_RAW_PLAN_OUTPUT_FILE")"
+         TMP_FORMAT_PROMPT_FILE=$(mktemp)
+         echo -e "$FORMAT_PROMPT_TEXT" > "$TMP_FORMAT_PROMPT_FILE"
+
+         FORMATTED_PLAN_FILE="docs/plans/sprint_${SPRINT_NUMBER}_plan_${TODAY}.md"
+         vibe-tools ask "$(cat "$TMP_FORMAT_PROMPT_FILE")" > "$FORMATTED_PLAN_FILE"
+
+         # 3. Clean up temporary files
+         rm "$TMP_RAW_PLAN_OUTPUT_FILE"
+         rm "$TMP_FORMAT_PROMPT_FILE"
+
+         echo "Generated Sprint Plan: $FORMATTED_PLAN_FILE"
+         # Note: Ensure proper handling of multi-line prompts for vibe-tools as per vibe-tools.mdc.
+         # This example demonstrates using temporary files for complex prompt content.
+         ```
+         *(Ensure these examples align with any specific patterns in `docs/memory/agile-workflow-enhancements.md` if available, or customize them as needed.)*
+
+      3. **After Retrospectives**:
+         - Process retrospective notes to extract actionable insights
+         - Update memory files with lessons learned
+         - Generate action items as new tasks
+
+         ```bash
+         # Example: After sprint retrospective - Processing Notes and Generating Action Items
+         # This script processes retrospective notes to extract insights and actionable tasks.
+
+         # Set sprint variables (customize as needed)
+         SPRINT_NUMBER="2" # Example sprint number
+         TODAY=$(date +%Y-%m-%d) # Ensures date consistency
+         # Assume notes are in a file, e.g., docs/retrospectives/sprint_X_notes.md
+         # For this example, we'll create a placeholder if it doesn't exist.
+         RETRO_NOTES_FILE="docs/retrospectives/sprint_${SPRINT_NUMBER}_notes.md"
+         mkdir -p "$(dirname "$RETRO_NOTES_FILE")" # Ensure directory exists
+         touch "$RETRO_NOTES_FILE"
+         if [ ! -s "$RETRO_NOTES_FILE" ]; then echo "Example retro notes for Sprint $SPRINT_NUMBER..." > "$RETRO_NOTES_FILE"; fi
+
+         # 1. Process retrospective notes for insights using a temporary file for the prompt
+         PROCESS_PROMPT_TEXT="Extract key insights from the Sprint $SPRINT_NUMBER retrospective notes found in '$RETRO_NOTES_FILE' (pasted below). Organize into: 1. What went well, 2. What could be improved, 3. Actionable items with owners. Format as markdown suitable for a retrospective memory file.\n\nContent from '$RETRO_NOTES_FILE':\n$(cat "$RETRO_NOTES_FILE")"
+         TMP_PROCESS_PROMPT_FILE=$(mktemp)
+         echo -e "$PROCESS_PROMPT_TEXT" > "$TMP_PROCESS_PROMPT_FILE"
+
+         TMP_RETRO_INSIGHTS_FILE=$(mktemp)
+         vibe-tools ask "$(cat "$TMP_PROCESS_PROMPT_FILE")" > "$TMP_RETRO_INSIGHTS_FILE"
+         rm "$TMP_PROCESS_PROMPT_FILE"
+
+         # 2. Add insights to a central retrospective memory file
+         RETRO_HISTORY_FILE="docs/memory/retrospectives_history.md"
+         mkdir -p "$(dirname "$RETRO_HISTORY_FILE")" # Ensure directory exists
+         touch "$RETRO_HISTORY_FILE"
+         echo -e "\n\n## Sprint $SPRINT_NUMBER Retrospective ($TODAY)\n" >> "$RETRO_HISTORY_FILE"
+         cat "$TMP_RETRO_INSIGHTS_FILE" >> "$RETRO_HISTORY_FILE"
+         echo "Updated Retrospective History: $RETRO_HISTORY_FILE"
+
+         # 3. Generate actionable tasks from the insights
+         ACTION_ITEMS_PROMPT_TEXT="Extract all action items (with owners if specified) from the retrospective insights (pasted below). Format them as task entries following the ai-agile-workflow format (see docs/templates/task-template.md). Each task should have: 1. Task title, 2. Description, 3. Acceptance criteria, 4. Assignee (if available), 5. Estimated effort (if inferable).\n\nRetrospective Insights:\n$(cat "$TMP_RETRO_INSIGHTS_FILE")"
+         TMP_ACTION_ITEMS_PROMPT_FILE=$(mktemp)
+         echo -e "$ACTION_ITEMS_PROMPT_TEXT" > "$TMP_ACTION_ITEMS_PROMPT_FILE"
+
+         # Ensure tasks directory exists
+         mkdir -p "docs/tasks"
+         ACTION_TASKS_FILE="docs/tasks/retrospective_sprint_${SPRINT_NUMBER}_actions_${TODAY}.md"
+         vibe-tools ask "$(cat "$TMP_ACTION_ITEMS_PROMPT_FILE")" > "$ACTION_TASKS_FILE"
+
+         # 4. Clean up temporary files
+         rm "$TMP_RETRO_INSIGHTS_FILE"
+         rm "$TMP_ACTION_ITEMS_PROMPT_FILE"
+
+         echo "Generated Action Items Task File: $ACTION_TASKS_FILE"
+         # Note: These tasks would then be reviewed and potentially moved to the active tasks directory.
+         ```
+         *(Ensure these examples align with any specific patterns in `docs/memory/agile-workflow-enhancements.md` if available, or customize them as needed.)*
+
+      4. **For Daily Status Updates**:
+         - Automate daily standup summaries based on repository activity
+         - Maintain a consistent record of progress
+
+         ```bash
+         # Example: Daily status automation
+         vibe-tools repo "Summarize the last 24 hours of development activity" > daily-activity.txt
+         ```
+         *(Ensure these examples align with any specific patterns in `docs/memory/agile-workflow-enhancements.md` if available, or customize them as needed.)*
+
+      #### Guidance on Automation Script Lifecycle Integration
+      Automation scripts are most effective when integrated at key transition points in the workflow. For instance, post-task completion scripts should run as part of the task closure process. Sprint planning scripts should be utilized during the planning meetings themselves. This ensures that memory files and the Knowledge Graph are updated in near real-time, maintaining a consistent and current context for the AI.
+
+      #### Example: Handling Complex Prompts in Automation Scripts
+      ```bash
+      # Example: Handling complex prompts for automation scripts (e.g., summarizing complex changes)
+      # (Refer to vibe-tools.mdc and self-improvement.mdc for more on this pattern)
+      PROMPT_TEXT="Summarize the recent refactoring of the 'PaymentProcessingService'.\\nKey changes include:\\n1. Separation of concerns for 'Stripe' and 'PayPal' gateways.\\n2. New error handling strategy for API timeouts.\\n3. Updated data models: 'TransactionRequest' and 'TransactionResponse'.\\nFocus on implications for future development and testing."
+      SUMMARY_OUTPUT_FILE="docs/generated/payment-processing-summary-$(date +%Y%m%d).md" # Ensure date command is available
+      TMP_PROMPT_FILE=$(mktemp)
+      echo -e "$PROMPT_TEXT" > "$TMP_PROMPT_FILE"
+      # Using vibe-tools repo here as an example for codebase-related summaries
+      vibe-tools repo "$(cat "$TMP_PROMPT_FILE")" --save-to "$SUMMARY_OUTPUT_FILE"
+      rm "$TMP_PROMPT_FILE"
+      echo "Generated summary: $SUMMARY_OUTPUT_FILE"
+      ```
+
+      #### Connection to Memory Management Principles
+      These automation scripts implement the memory update principles defined in the [Memory Management](mdc:.cursor/rules/memory-management.mdc#memory-file-updates-on-task-completion) rule, particularly the "Memory File Updates on Task Completion" section. They provide a practical application of:
+
+      - Maintaining historical context across sessions
+      - Ensuring consistent formatting and structure
+      - Preventing manual update errors
+      - Linking implementation details with project knowledge
+
+      For detailed guidance on memory file structure and Knowledge Graph integration, refer to the [Memory Management](mdc:.cursor/rules/memory-management.mdc) rule.
 
 examples:
   - input: |
@@ -136,7 +288,7 @@ examples:
 
       First, I'll check if this feature is already captured in your features document. If not, we should add it there before creating a detailed plan.
 
-      To research and create an effective plan, I'll use `vibe-tools`:
+      To research and create an effective plan, I'll use [`vibe-tools`](mdc:.cursor/rules/vibe-tools.mdc):
 
       ```bash
       vibe-tools plan "Create a detailed implementation plan for adding cross-references between markdown documents in our documentation system. The cross-references should work in both the web interface and IDEs like VS Code and Cursor."
@@ -199,7 +351,7 @@ examples:
 
 metadata:
   priority: high
-  version: 3.0.0
+  version: 3.1.0
   tags:
     - workflow
     - task-management

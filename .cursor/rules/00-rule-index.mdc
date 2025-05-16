@@ -61,7 +61,6 @@ Rules related to code style, patterns, and best practices:
 
 | Rule | Description | Priority |
 |------|-------------|----------|
-| [anthropic-chain-of-thought](mdc:.cursor/rules/anthropic-chain-of-thought.mdc) | STRUCTURE when PROMPTING Anthropic models to ENHANCE reasoning quality | High |
 | [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc) | USE when HANDLING dates to PREVENT inconsistencies in timestamps | Medium |
 | [testing-practices](mdc:.cursor/rules/testing-practices.mdc) | IMPLEMENT when WRITING tests to ENSURE comprehensive coverage | High |
 | [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc) | APPLY when WRITING TypeScript to MAINTAIN code quality standards | High |

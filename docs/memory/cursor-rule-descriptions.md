@@ -32,7 +32,6 @@ Implemented a standardized format for all rule descriptions following the "VERB 
    - Changed "UPDATE" to "USE" in auto-memory-manager.mdc
    - Changed "IMPLEMENT" to "FOLLOW" in testing-practices.mdc and prettier-config-usage.mdc
    - Changed "MAINTAIN" to "USE" in memory-management.mdc
-   - Updated anthropic-chain-of-thought.mdc to use "USE" rather than "STRUCTURE" or "FOLLOW"
 
 6. Important lesson: Only modify the description in the frontmatter immediately after the opening `---`, never modify the description field that follows the `<rule>` tag
 

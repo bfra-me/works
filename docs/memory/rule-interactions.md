@@ -105,7 +105,6 @@ Here are examples illustrating how multiple rules work together effectively:
     *   [`cursor-rules-location`](/.cursor/rules/cursor-rules-location.mdc): Ensures the file is placed correctly.
     *   [`cursor-rule-cross-references`](/.cursor/rules/cursor-rule-cross-references.mdc): Used for linking within the rule content.
     *   [`00-rule-index`](/.cursor/rules/00-rule-index.mdc): The new rule must be added here (often automated via `ai-agile-workflow` task completion for rules).
-    *   [`anthropic-chain-of-thought`](/.cursor/rules/anthropic-chain-of-thought.mdc): May guide the structure of examples or reasoning within the rule if applicable.
 
 3.  **Refactoring Code:**
     *   [`debugging-guide`](/.cursor/rules/debugging-guide.mdc): Potentially used to understand the existing code before refactoring.
