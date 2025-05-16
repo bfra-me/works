@@ -354,7 +354,6 @@ actions:
       - [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc): Rule creation/updates are tasks within this workflow.
       - [memory-management](mdc:.cursor/rules/memory-management.mdc): Defines linking syntax used in rules.
       - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Ensures rules align with user preferences.
-      - [anthropic-chain-of-thought](mdc:.cursor/rules/anthropic-chain-of-thought.mdc): Guides structuring prompt content within rules.
       - [rule-automation-script](mdc:.cursor/rules/rule-automation-script.mdc): Provides tooling for rule creation.
       - [repo-rule-recommender](mdc:.cursor/rules/repo-rule-recommender.mdc): Helps identify needs for new rules.
       - [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc): Governs date usage in metadata.

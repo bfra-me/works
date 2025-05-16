@@ -31,136 +31,19 @@ actions:
 
       ### 1. Workflow Status ([workflow-status.md](mdc:docs/memory/workflow-status.md))
 
-      Tracks the current state of the agile workflow:
-
-      ```markdown
-      # Workflow Status Memory
-
-      ## Current State
-      - **Current Date**: YYYY-MM-DD
-      - **Active Project**: [Project name]
-      - **Current Plan**: [Plan name]
-      - **Current Phase**: [Phase name]
-      - **Current Task**: [Task name] (Task ID: YYYY-MM-DD-XX)
-      - **Next Task**: [Next task name] (Task ID: YYYY-MM-DD-XX)
-
-      ## Task History
-      | Task ID | Task Name | Status | Completion Date |
-      |---------|-----------|--------|----------------|
-      | YYYY-MM-DD-XX | [Task name] | [Status] | [Completion date] |
-
-      ## Context
-      [Additional context about the current task]
-
-      ## Recent Updates
-      - [Update 1] (YYYY-MM-DD)
-      - [Update 2] (YYYY-MM-DD)
-
-      ## Command History
-      ```bash
-      # Recent commands executed as part of the workflow
-      [Command 1]
-      [Command 2]
-      ```
-
-      ## Notes
-      - [Note 1]
-      - [Note 2]
-
-      ## Updated: YYYY-MM-DD
-      ```
+      Tracks the current state of the agile workflow. Use the template at [workflow-status-template.md](mdc:docs/templates/workflow-status-template.md) when creating this file.
 
       ### 2. Project Architecture ([architecture.md](mdc:docs/memory/architecture.md))
 
-      Maintains a living document of the project's architecture:
-
-      ```markdown
-      # Project Architecture Memory
-
-      ## Current Architecture
-      [Mermaid diagram or textual description of the architecture]
-
-      ## Key Components
-      - **Component A**: [Description and responsibilities]
-      - **Component B**: [Description and responsibilities]
-
-      ## Integration Points
-      - **API**: [Endpoint descriptions]
-      - **Event Bus**: [Event descriptions]
-
-      ## Technical Decisions
-      | Decision | Rationale | Date | Alternatives Considered |
-      |----------|-----------|------|-----------------------|
-      | [Decision] | [Rationale] | YYYY-MM-DD | [Alternatives] |
-
-      ## Constraints
-      - [Constraint 1]
-      - [Constraint 2]
-
-      ## Updated: YYYY-MM-DD
-      ```
+      Maintains a living document of the project's architecture. Use the template at [architecture-template.md](mdc:docs/templates/architecture-template.md) when creating this file.
 
       ### 3. User Preferences ([user-preferences.md](mdc:docs/memory/user-preferences.md))
 
-      Records user preferences for code style, workflows, tools:
-
-      ```markdown
-      # User Preferences Memory
-
-      ## Coding Style
-      - **Formatting**: [Preferences for code formatting]
-      - **Naming Conventions**: [Preferred naming conventions]
-      - **Architecture Patterns**: [Preferred architectural patterns]
-
-      ## Tool Preferences
-      - **IDE**: [Preferred IDE and settings]
-      - **CLI Tools**: [Preferred command-line tools]
-      - **Frameworks**: [Preferred frameworks]
-
-      ## Workflow Preferences
-      - **Communication Style**: [Preferred communication style]
-      - **Explanation Level**: [Preferred level of detail in explanations]
-      - **AI Autonomy**: [Preferred level of AI autonomy]
-
-      ## Updated: YYYY-MM-DD
-      ```
+      Records user preferences for code style, workflows, tools. Use the template at [user-preferences-template.md](mdc:docs/templates/user-preferences-template.md) when creating this file.
 
       ### 4. Domain Knowledge ([domain-knowledge.md](mdc:docs/memory/domain-knowledge.md))
 
-      Captures domain-specific knowledge for the project:
-
-      ```markdown
-      # Domain Knowledge Memory
-
-      ## Core Concepts
-      - **Concept A**: [Definition and usage]
-      - **Concept B**: [Definition and usage]
-
-      ## Business Rules
-      - [Rule 1]
-      - [Rule 2]
-
-      ## Terminology
-      | Term | Definition | Context |
-      |------|------------|---------|
-      | [Term] | [Definition] | [Context] |
-
-      ## External Resources
-      - [Resource 1]: [Description and link]
-      - [Resource 2]: [Description and link]
-
-      ## Updated: YYYY-MM-DD
-      ```
-
-      ## Related Rules
-
-      ### AI-Assisted Agile Workflow Rule
-
-      The Memory Management system works in conjunction with the [AI-Assisted Agile Workflow](mdc:.cursor/rules/ai-agile-workflow.mdc) rule to provide a comprehensive system for maintaining context and tracking project status.
-
-      - The Agile Workflow rule defines the document structure and workflow processes
-      - The Memory Management rule enhances context retention across conversations
-      - Together they provide a complete system for managing project information and AI context
+      Captures domain-specific knowledge for the project. Use the template at [domain-knowledge-template.md](mdc:docs/templates/domain-knowledge-template.md) when creating this file.
 
       ## Knowledge Graph Integration
 
@@ -321,35 +204,77 @@ actions:
       - `mcp_memory_delete_relations`: Remove relationships between entities
       - **Important:** Before executing any KG modification tools (especially `mcp_memory_create_*`, `mcp_memory_add_observations`, `mcp_memory_delete_*`), the assistant should internally review the tool's parameters and intended effect to ensure accuracy and prevent unintended changes to its persistent memory.
 
-      ## Memory File Updates on Task Completion
+      ## Automated Memory Update Process
 
-      To ensure memory files and the knowledge graph remain up-to-date, perform an update process upon task completion. This process leverages the information from the completed task to enrich the persistent context.
+      To ensure memory files and the knowledge graph remain up-to-date, perform an update process when triggered by task completion or explicit request. This process leverages the relevant information to enrich the persistent context and should follow the principles outlined in the Memory File Management section above.
 
       ### Trigger Conditions
 
-      The update process is activated when messages indicate task completion, such as:
-      - `(?i)(task completed|finished implementing|done with|completed task|task is done|fixed issue|implemented|resolved|finished|done)`
-      - Content containing `[Status: Completed]` in task files.
+      The update process is activated when:
+
+      1. **Task completion is indicated by**:
+         - Messages containing: `(?i)(task completed|finished implementing|done with|completed task|task is done|fixed issue|implemented|resolved|finished|done)`
+         - Content containing `[Status: Completed]` in task files.
+
+      2. **Explicit update request**:
+         - Messages containing: `(?i)(update memory files|refresh memory files|update memory|synchronize memory files)`
 
       ### Update Process Overview
 
-      When a task completion is detected, you MUST perform the following steps:
+      When an update trigger (task completion or explicit request) is detected, you MUST perform the following steps:
 
-      1.  **Extracting Task Information**:
-          *   Task type (e.g., Feature Implementation, Bug Fix, Configuration)
-          *   Core components affected
-          *   Problem solved or objective achieved
-          *   Solution implemented
+      1.  **Extracting Relevant Information**:
+          * **For task completion updates**:
+            * Task type (e.g., Feature Implementation, Bug Fix, Configuration)
+            * Core components affected
+            * Problem solved or objective achieved
+            * Solution implemented
+          * **For explicit update requests**:
+            * Specific information to be updated
+            * Target memory files or Knowledge Graph entities affected
+            * Context for the update (if provided)
+            * Source of the information (if applicable)
 
       2.  **Updating Memory Files**:
-          *   `docs/memory/workflow-status.md`: Mark the completed task as "Completed" in the Task History table, and update the "Current State" section.
-          *   `docs/memory/domain-knowledge.md`: Add new insights, implementation patterns, or technical decisions derived from the task to relevant sections (e.g., "Implementation Patterns", "Technical Decisions").
-          *   Task-Specific Memory File (Optional): Detailed implementation notes might be added to a dedicated file (e.g., `docs/memory/tasks/YYYY-MM-DD-XX.md`), although this is less common in the current workflow.
+          *   `docs/memory/workflow-status.md`: Mark the completed task as "Completed" in the Task History table, and update the "Current State" section (following the structural guidelines in the Memory File Management section).
+          *   `docs/memory/domain-knowledge.md`: Add new insights, implementation patterns, or technical decisions derived from the task to relevant sections (e.g., "Implementation Patterns", "Technical Decisions") while adhering to the Section Merging Guidelines.
+          *   Task-Specific Memory File (Optional): Detailed implementation notes might be added to a dedicated file (e.g., `docs/memory/tasks/YYYY-MM-DD-XX.md`). If creating this file, follow the Creating or Updating Memory Files guidelines and appropriate templates from the `docs/templates/` directory.
 
       3.  **Updating Knowledge Graph**: *This step is crucial for evolving the assistant's memory.*
           *   Create new entities for new components, concepts, or significant patterns introduced by the task (using `mcp_memory_create_entities`).
           *   Create relationships to link the new entities to existing ones (using `mcp_memory_create_relations`).
           *   Add observations to relevant entities, capturing key details about the implementation or decisions made (using `mcp_memory_add_observations`).
+
+      ### Memory Update Process for Direct User Requests
+
+      > **IMPORTANT: THIS SECTION IS AUTOMATICALLY TRIGGERED WHEN PHRASES LIKE "update memory files", "refresh memory files", "update memory", or "synchronize memory files" ARE DETECTED!**
+      >
+      > When these trigger phrases are detected, you MUST immediately execute this process to ensure memory files remain updated and consistent across all sessions.
+
+      When directly requested to update memory files (via "update memory files" or similar trigger phrases):
+
+      1. **Assess Update Scope**:
+         * **Required Files**: ALWAYS update `workflow-status.md` AND `features.md`
+         * **Context**: Review recent updates in workflow-status.md to determine what's changed
+
+      2. **Critical Update Principles**:
+         * **Start with Audit Trail**: First add entry to Recent Updates in workflow-status.md
+           ```
+           "- Updated memory files to reflect current project status. (YYYY-MM-DD)"
+           ```
+         * **Feature Updates**: ONLY update ACTIVE features identified in workflow-status.md
+           - Features must be updated but only those with actual progress since last update
+           - Verify active features via "Current Task", "Next Task", and "Recent Updates" in workflow-status.md
+           - Never update timestamps for inactive or unchanged features
+         * **Timestamps**: Update bottom timestamp on all modified files
+         * **Knowledge Graph**: Synchronize memory files with KG via appropriate tools
+
+      3. **Implementation Steps**:
+         * Get current date via `mcp_time_get_current_time`
+         * Update workflow-status.md first
+         * For features.md, follow template at docs/templates/feature-template.md
+         * Apply all Section Merging Guidelines from above
+         * Verify consistency across all updated files
 
       ### Best Practices for Memory File Updates
 
@@ -378,10 +303,7 @@ actions:
       - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Leverages the user preferences memory file.
       - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Explains how to use the knowledge graph tools relevant to memory updates.
       - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc): Defines the `mdc:` linking syntax used in rule cross-references.
-      - [anthropic-chain-of-thought](mdc:.cursor/rules/anthropic-chain-of-thought.mdc): Provides structure for the Sequential Thinking approach used in memory management.
       - [rule-acknowledgement](mdc:.cursor/rules/rule-acknowledgement.mdc): Contributes to context retention and documentation.
-      - [vibe-tools](mdc:.cursor/rules/vibe-tools.mdc): Provides access to knowledge graph/memory tools via `vibe-tools mcp` commands.
-      - [monorepo-structure](mdc:.cursor/rules/monorepo-structure.mdc): Provides guidelines for understanding the monorepo architecture that memory files help document.
 
 examples:
   - input: |
@@ -444,65 +366,6 @@ examples:
       ```
 
       I can also update the knowledge graph with these preferences if you'd like (using tools described in [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc)). Would you like me to save this file to `docs/memory/user-preferences.md` or would you like to make any changes first?
-
-  - input: |
-      I've noticed some duplicate sections in the domain-knowledge.md memory file. Can you fix it?
-    output: |
-      I'll examine the domain-knowledge.md file and fix any duplicate sections I find.
-
-      After reviewing the file, I've identified these issues:
-      - Duplicate "Implementation Patterns" sections
-      - Multiple "Updated:" timestamps throughout the file
-      - Content that should be merged into existing sections
-
-      I'll follow these steps to fix the issues:
-
-      1. First, I'll read the entire domain-knowledge.md file to understand its structure
-      2. I'll identify all duplicate section headers
-      3. For each duplicate section:
-         - I'll merge the content from both instances
-         - Ensure no information is lost
-         - Remove the duplicate section
-      4. I'll check for multiple "## Updated:" lines and ensure only one exists at the end
-      5. I'll maintain the proper hierarchical structure
-
-      Here are the changes I'm making:
-      - Merging both "Implementation Patterns" sections, keeping all unique patterns
-      - Moving content from mid-file timestamp sections into their appropriate locations
-      - Consolidating all "Technical Decisions" into a single section
-      - Ensuring the "## Updated: 2025-05-02" appears only once at the very end
-
-      The file has been fixed and now follows the proper memory file format with:
-      - Each section appearing only once
-      - All content properly merged
-      - The "## Updated:" timestamp as the last line in the file
-      - Consistent formatting throughout
-
-      The domain knowledge memory file is now properly structured for easier maintenance and updates.
-
-  - input: |
-      I need to memorize this API endpoint for future reference.
-    output: |
-      To store an API endpoint for future reference, I recommend documenting it in your code, comments, or a dedicated API reference document rather than relying on memory files.
-
-      You could add it to:
-
-      1. Your code as a constant:
-      ```typescript
-      export const API_ENDPOINT = 'https://api.example.com/v1/resource';
-      ```
-
-      2. A dedicated API reference file:
-      ```markdown
-      # API References
-
-      ## External APIs
-      - Example API: `https://api.example.com/v1/resource`
-      ```
-
-      3. Environment variables or configuration files.
-
-      This approach keeps API references with your project code rather than in memory management files, which are primarily used for context retention across AI conversations.
 
 metadata:
   priority: high

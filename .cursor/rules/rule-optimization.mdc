@@ -231,7 +231,7 @@ examples:
       4. Delegate specialized knowledge:
          - Knowledge Graph operations → mcp-tools-usage.mdc
          - Date handling → date-consistency-enforcer.mdc
-         - Sequential thinking → anthropic-chain-of-thought.mdc
+         - Sequential thinking → mcp-tools-usage.mdc
 
       This approach will significantly reduce token usage while maintaining all functionality through proper cross-references.
 

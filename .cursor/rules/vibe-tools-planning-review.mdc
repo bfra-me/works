@@ -190,7 +190,6 @@ actions:
       - [code-review-standards](mdc:.cursor/rules/code-review-standards.mdc): Defines quality standards to apply during reviews
       - [development-workflow](mdc:.cursor/rules/development-workflow.mdc): Places planning and review in the broader development context
       - [memory-management](mdc:.cursor/rules/memory-management.mdc): Guidelines for preserving planning and review insights
-      - [anthropic-chain-of-thought](mdc:.cursor/rules/anthropic-chain-of-thought.mdc): Enhances sequential thinking for complex planning
 
 examples:
   - input: |

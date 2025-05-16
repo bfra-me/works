@@ -13,7 +13,6 @@ This report documents the current state of workflow coverage in the repository, 
 | eslint-config-usage | ESLint configuration and usage | Configuration Guide |
 | prettier-config-usage | Prettier configuration and usage | Configuration Guide |
 | typescript-patterns | TypeScript patterns and best practices | Coding Standards |
-| anthropic-chain-of-thought | Prompt engineering, chain-of-thought | Coding Standards |
 | date-consistency-enforcer | Date/timestamp consistency | Coding Standards |
 | auto-memory-manager | Memory/knowledge graph update automation | AI & Memory Management |
 | memory-management | Persistent memory file management | AI & Memory Management |
