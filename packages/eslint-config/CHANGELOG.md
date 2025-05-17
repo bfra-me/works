@@ -1,5 +1,33 @@
 # @bfra.me/eslint-config
 
+## 0.20.6
+### Patch Changes
+
+
+- Manually bump version to fix CI. ([#1228](https://github.com/bfra-me/works/pull/1228))
+
+
+- Updated dependency `eslint-plugin-prettier` to `5.3.1`. ([#1242](https://github.com/bfra-me/works/pull/1242))
+
+
+- Updated dependency `eslint-plugin-prettier` to `5.4.0`. ([#1246](https://github.com/bfra-me/works/pull/1246))
+
+
+- Updated dependency `eslint-config-prettier` to `10.1.3`. ([#1253](https://github.com/bfra-me/works/pull/1253))
+
+
+- Updated dependency `globals` to `16.1.0`. ([#1254](https://github.com/bfra-me/works/pull/1254))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.32.0`. ([#1249](https://github.com/bfra-me/works/pull/1249))
+  Updated dependency `typescript-eslint` to `8.32.0`.
+
+- Updated dependency `package-manager-detector` to `1.3.0`. ([#1241](https://github.com/bfra-me/works/pull/1241))
+
+
+- Updated dependency `@eslint/js` to `9.26.0`. ([#1232](https://github.com/bfra-me/works/pull/1232))
+  Updated dependency `eslint` to `9.26.0`.
+
 ## 0.20.5
 ### Patch Changes
 
