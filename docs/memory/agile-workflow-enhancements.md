@@ -62,17 +62,17 @@ This document outlines approaches for enhancing the ai-agile-workflow rule with 
 - Use vibe-tools to automatically update memory files like workflow-status.md:
   ```bash
   # Get the current sprint status and update the workflow status file
-  vibe-tools repo "Summarize the current sprint status, including completed tasks, in-progress tasks, and upcoming tasks" --save-to sprint-summary.txt
+  vibe-tools repo "Summarize the current sprint status, including completed tasks, in-progress tasks, and upcoming tasks" --save-to=sprint-summary.txt
 
   # Use this output to update the memory file
   SPRINT_SUMMARY=$(<sprint-summary.txt)
-  vibe-tools ask "Format this sprint summary as a markdown update for the workflow-status.md memory file, following the structure in the memory-management cursor rule" > workflow-status-update.md
+  vibe-tools repo "Format this sprint summary as a markdown update for the workflow-status.md memory file, following the structure in the docs/templates/workflow-status-template.md template\n\nContent to format:\n$SPRINT_SUMMARY" > workflow-status-update.md
   ```
 
 - Generate task breakdowns and save directly to task files:
   ```bash
   # Generate a task breakdown and save directly to a new task file
-  vibe-tools plan "Break down this feature: Cross-referencing between Cursor rules" --save-to docs/tasks/$(date +%Y-%m-%d)-01.md
+  vibe-tools plan "Break down this feature: Cross-referencing between Cursor rules" --save-to=docs/tasks/$(date +%Y-%m-%d)-01.md
   ```
 
 - Update memory files after task completion:
@@ -164,7 +164,7 @@ vibe-tools repo "Analyze recent commits and provide a summary of task progress" 
 
 # Generate a formatted update for the workflow-status.md file
 STATUS_SUMMARY=$(<status_summary.txt)
-vibe-tools ask "Format this as a workflow status update for the workflow-status.md file. Follow this structure:\n1. Update the 'Current State' section with new information\n2. Add completed tasks to the 'Task History' table\n3. Update the 'Recent Updates' section with new entries\n4. Ensure the 'Updated: $TODAY' is at the very end\nMake sure to follow the Memory Management rule requirements\n\nContent to format:\n$STATUS_SUMMARY" > workflow_update.md
+vibe-tools repo "Format this as a workflow status update for the workflow-status.md file. Follow this structure:\n1. Update the 'Current State' section with new information\n2. Add completed tasks to the 'Task History' table\n3. Update the 'Recent Updates' section with new entries\n4. Ensure the 'Updated: $TODAY' is at the very end\nMake sure to follow the Memory Management rule requirements and use the docs/templates/workflow-status-template.md template\n\nContent to format:\n$STATUS_SUMMARY" > workflow_update.md
 
 # Apply the update to workflow-status.md
 # This is a simplified example - in practice you would need to merge this content with the existing file
@@ -187,7 +187,7 @@ TODAY=$(date +%Y-%m-%d)
 vibe-tools repo "Summarize the last 24 hours of development activity, including:
 1. What tasks were worked on
 2. What was completed
-3. Any blockers or issues identified" --save-to daily_activity.txt
+3. Any blockers or issues identified" --save-to=daily_activity.txt
 
 # Generate a formatted standup update
 DAILY_ACTIVITY=$(<daily_activity.txt)

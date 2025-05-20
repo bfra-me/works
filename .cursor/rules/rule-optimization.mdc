@@ -46,7 +46,6 @@ actions:
       - **Embedded Templates** - Markdown templates that consume significant tokens
       - **Example Sections** - Detailed examples that could be condensed or externalized
       - **Duplicated Information** - Content also found in other rules
-      - **Related Rules** - Other rules that could be referenced instead of duplicating content
 
       ### 2. Design the Streamlined Structure
 
@@ -69,8 +68,6 @@ actions:
       3. Stage n (concise paragraph with key tools + link to template)
 
       ## Quick Reference (brief table or list)
-
-      ## Related Rules (comprehensive list with purpose)
       ```
 
       ### 3. Extract Templates to External Files
@@ -96,8 +93,7 @@ actions:
 
       1. Use proper `mdc:` syntax for all references
       2. Include section anchors for specific reference points (e.g., `mdc:path/to/file.md#section-name`)
-      3. Update the "Related Rules" section to be comprehensive
-      4. Verify all links resolve correctly
+      3. Verify all links resolve correctly
 
       ### 6. Validate the Optimization
 
@@ -191,13 +187,6 @@ actions:
       4. **Consolidate Multiple Examples**
          - Before: Many detailed examples for different scenarios
          - After: One canonical example with link to comprehensive examples file
-
-      ## Related Rules
-
-      - [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc): A rule that has been successfully streamlined using this approach
-      - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc): Defines the basic structure and format for cursor rules
-      - [memory-management](mdc:.cursor/rules/memory-management.mdc): Provides guidelines for maintaining memory files
-      - [rule-acknowledgement](mdc:.cursor/rules/rule-acknowledgement.mdc): Ensures proper tracking of rules used during task execution
 
 examples:
   - input: |

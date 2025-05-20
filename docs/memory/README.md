@@ -63,6 +63,7 @@ AI assistants should be aware of memory files through multiple discovery mechani
 | [user-preferences.md](/docs/memory/user-preferences.md) | Record user preferences for code, tools, and workflows | When preferences change | High - Check early |
 | [domain-knowledge.md](/docs/memory/domain-knowledge.md) | Capture domain-specific concepts and terminology | When new knowledge is gained | High - Contains links to other files |
 | [decisions.md](/docs/memory/decisions.md) | Track key technical decisions and their rationale | When new decisions are made | Medium |
+| [vibe-tools-playbook.md](/docs/memory/vibe-tools-playbook.md) | Comprehensive guide for vibe-tools commands, options, and usage scenarios | When vibe-tools capabilities change | High - Primary reference for vibe-tools usage |
 | Task-specific files (e.g., [eslint-typescript-markdown-issue.md](/docs/memory/eslint-typescript-markdown-issue.md)) | Document specific task details | After task completion | Low - Reference as needed |
 
 ## Auto-Memory Management
@@ -92,6 +93,7 @@ Memory files work in concert with the Knowledge Graph (powered by the Memory MCP
 
 - [Memory Management Rule](/.cursor/rules/memory-management.mdc): Defines the guidelines for memory file creation, maintenance, and automated updates
 - [AI Agile Workflow Rule](/.cursor/rules/ai-agile-workflow.mdc): Describes how memory files integrate with the agile workflow
+- [Vibe-Tools Playbook](/docs/memory/vibe-tools-playbook.md): Comprehensive documentation for vibe-tools commands and their integration with the workflow
 
 ## Key Concepts
 

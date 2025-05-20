@@ -366,14 +366,6 @@ actions:
       I'll update the self-improvement.mdc rule to include this learning in the "Documented Learnings from Previous Sessions" section, and will use this improved understanding in future analyses.
       ```
 
-      ## Related Rules
-
-      - [memory-management](mdc:.cursor/rules/memory-management.mdc): For managing persistence and context.
-      - [vibe-tools](mdc:.cursor/rules/vibe-tools.mdc): For proper vibe-tools command execution and escaping.
-      - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc): For maintaining cursor rule files correctly.
-      - [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc): For ensuring correct date formatting.
-      - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): For proper use of MCP tools including the Knowledge Graph.
-
 examples:
   - input: |
       I'm getting the following error: "Invalid token found when parsing prompt in vibe-tools." What should I do?

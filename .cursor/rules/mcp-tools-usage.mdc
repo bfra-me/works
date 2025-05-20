@@ -72,16 +72,6 @@ actions:
         Rationale: [Brief explanation of why this update was necessary]
         ```
 
-      ## Related Rules
-
-      - [memory-management](mdc:.cursor/rules/memory-management.mdc): Defines memory structures often updated by KG tools.
-      - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Uses KG tools to access preferences.
-      - [repo-analyzer](mdc:.cursor/rules/repo-analyzer.mdc): Can use semantic search tools.
-      - [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc): Provides context for using the `mcp_time_get_current_time` tool.
-      - [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc): References the Sequential Thinking tool for workflow tasks.
-      - [vibe-tools](mdc:.cursor/rules/vibe-tools.mdc): Introduces CLI tools powered by MCP servers.
-      - [monorepo-structure](mdc:.cursor/rules/monorepo-structure.mdc): Guidelines for monorepo architecture that may be analyzed using MCP tools.
-
 examples:
   - input: |
       Can you search the web for the latest best practices for using Next.js with Tailwind CSS?

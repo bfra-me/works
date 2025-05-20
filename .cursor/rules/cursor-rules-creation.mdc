@@ -91,7 +91,6 @@ actions:
          - `actions`: What happens when triggered
          - `examples`: Sample interactions
          - `metadata`: See below
-      3. **Related Rules**: (Optional) List with `mdc:` links
 
       ---
       ## Example Templates
@@ -222,7 +221,6 @@ actions:
       - Use the approved description pattern and verbs.
       - Be specific and actionable in guidance.
       - Include at least one realistic example.
-      - Use cross-references to related rules/files with `mdc:` syntax.
       - Keep rules focused on a single topic.
       - Test glob patterns and filters for correct activation.
       - Use terminal commands for frontmatter edits.
@@ -279,7 +277,6 @@ actions:
          *   Pointing to templates, examples, or related documentation.
          *   Describing workflows spanning multiple files.
          *   Indicating dependencies or complementary relationships between rules.
-         *   In the "Related Rules" section.
 
       5.  **Updating Links**: Keep links accurate, especially if files are renamed or moved. Search for old link patterns (like `{rule:name}`) and update them to the `mdc:` format.
 
@@ -346,24 +343,6 @@ actions:
       *   Use the `priority` metadata field primarily as a tie-breaker for rules with similar activation conditions. Assign `high`, `medium`, or `low` based on the rule's importance relative to other potentially conflicting rules. Most rules can likely remain at `medium` or have no explicit priority set.
 
       This prioritization system helps ensure that AI assistants receive the most relevant guidance, leading to more accurate and helpful responses. For more detailed strategies on handling conflicts, see [Conflict Resolution Guidance](mdc:docs/memory/rule-conflict-resolution.md).
-
-      ---
-      ## Related Rules
-
-      - [00-rule-index](mdc:.cursor/rules/00-rule-index.mdc): Provides an overview of all rules.
-      - [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc): Rule creation/updates are tasks within this workflow.
-      - [memory-management](mdc:.cursor/rules/memory-management.mdc): Defines linking syntax used in rules.
-      - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Ensures rules align with user preferences.
-      - [rule-automation-script](mdc:.cursor/rules/rule-automation-script.mdc): Provides tooling for rule creation.
-      - [repo-rule-recommender](mdc:.cursor/rules/repo-rule-recommender.mdc): Helps identify needs for new rules.
-      - [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc): Governs date usage in metadata.
-      - [rule-acknowledgement](mdc:.cursor/rules/rule-acknowledgement.mdc): Guides how rules are acknowledged in responses.
-      - [vibe-tools](mdc:.cursor/rules/vibe-tools.mdc): Potential tool for rule creation/management tasks.
-      - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Potential tool for rule creation/management tasks.
-      - [Rule Application Types](mdc:docs/memory/rule-application-types.md): Detailed guidance on choosing the right activation mode.
-      - [Rule Description Standardization](mdc:docs/memory/cursor-rule-descriptions.md): How to write effective rule descriptions.
-      - [Rule Frontmatter Guidelines](mdc:docs/memory/cursor-rule-frontmatter.md): Specifics on configuring frontmatter.
-      - [Conflict Resolution Guidance](mdc:docs/memory/rule-conflict-resolution.md): How to handle rule conflicts.
 
 metadata:
   priority: high

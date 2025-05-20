@@ -137,15 +137,6 @@ actions:
       - Document any manual dependency changes in PR descriptions.
       - For security, consider enabling GitHub Dependabot alerts in addition to Renovate.
 
-      ## Related Rules
-
-      - [monorepo-structure](mdc:.cursor/rules/monorepo-structure.mdc): Understanding package relationships is key to managing dependencies.
-      - [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc): Dependency issues often surface during CI.
-      - [development-workflow](mdc:.cursor/rules/development-workflow.mdc): Covers the overall workflow including dependency updates.
-      - [testing-practices](mdc:.cursor/rules/testing-practices.mdc): Dependency updates require re-running tests.
-      - [debugging-guide](mdc:.cursor/rules/debugging-guide.mdc): Provides strategies for debugging dependency issues.
-      - [code-review-standards](mdc:.cursor/rules/code-review-standards.mdc): Code reviews should include checks on dependency usage.
-
 examples:
   - input: |
       How do I add a dev dependency to only the eslint-config package?

@@ -142,15 +142,6 @@ actions:
       # Describe: "Removed deprecated XYZ API, use ABC instead"
       ```
 
-      ## Related Rules
-
-      - [development-workflow](mdc:.cursor/rules/development-workflow.mdc): Outlines the overall contribution process including when to add changesets.
-      - [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc): Details the automated release workflow that consumes changesets.
-      - [api-design-standards](mdc:.cursor/rules/api-design-standards.mdc): Explains semantic versioning and breaking changes relevant to choosing the bump type.
-      - [monorepo-structure](mdc:.cursor/rules/monorepo-structure.mdc): Explains how versioning works across packages in the monorepo.
-      - [code-review-standards](mdc:.cursor/rules/code-review-standards.mdc): Includes changeset requirements in the PR review checklist.
-      - [scripts/src/clean-changesets.ts](mdc:scripts/src/clean-changesets.ts): Implements the `pnpm clean-changesets` utility.
-
 examples:
   - input: |
       I've made changes to multiple packages and need to release them
