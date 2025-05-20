@@ -201,21 +201,6 @@ actions:
          - Automates dependency updates
          - Integrates with the main CI workflow
 
-      ## Related Rules
-
-      - [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc): Defines the broader agile framework in which development occurs.
-      - [changeset-workflow](mdc:.cursor/rules/changeset-workflow.mdc): Detailed guide on creating and managing changesets.
-      - [testing-practices](mdc:.cursor/rules/testing-practices.mdc): Specifics on writing and running tests with Vitest.
-      - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): How linting is configured and used.
-      - [prettier-config-usage](mdc:.cursor/rules/prettier-config-usage.mdc): How formatting is configured and used.
-      - [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc): Details on the GitHub Actions workflows and troubleshooting.
-      - [monorepo-structure](mdc:.cursor/rules/monorepo-structure.mdc): Understanding the overall repository layout.
-      - [dependency-management](mdc:.cursor/rules/dependency-management.mdc): How dependencies are handled within the workspace.
-      - [debugging-guide](mdc:.cursor/rules/debugging-guide.mdc): Strategies for debugging issues during development.
-      - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Aligns workflow with user preferences.
-      - [rule-acknowledgement](mdc:.cursor/rules/rule-acknowledgement.mdc): Guidelines for rule interactions during development.
-      - [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc): Coding standards applied during development.
-
 examples:
   - input: |
       How do I contribute changes to this repository? What's the process for testing and publishing?

@@ -144,15 +144,6 @@ actions:
       2. **Path Resolution**: Make sure imports paths are correct for your module system
       3. **Version Compatibility**: Ensure Prettier version matches peer dependency requirement (^3.0.0)
 
-      ## Related Rules
-
-      - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): For integrating Prettier with the shared ESLint configuration.
-      - [monorepo-structure](mdc:.cursor/rules/monorepo-structure.mdc): Using the shared Prettier configuration in the monorepo.
-      - [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc): Formatting checks as part of CI/CD processes.
-      - [code-review-standards](mdc:.cursor/rules/code-review-standards.mdc): Prettier formatting standards in code reviews.
-      - [development-workflow](mdc:.cursor/rules/development-workflow.mdc): Standardized formatting in the development process.
-      - [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc): Works alongside TypeScript formatting best practices.
-
 examples:
   - input: |
       How do I set up the default Prettier configuration?

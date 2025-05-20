@@ -50,6 +50,7 @@
   - Integrates with each stage of the feature => plan => task workflow
   - Enhances memory file management through automation scripts
   - Guided by [vibe-tools](/.cursor/rules/vibe-tools.mdc) rule
+  - Comprehensive documentation available in [vibe-tools-playbook](/docs/memory/vibe-tools-playbook.md), which serves as the primary user guide with detailed examples and usage scenarios
 
 ## Memory System Structure
 
@@ -69,30 +70,6 @@
 - Memory files must be updated after significant changes
 - Knowledge graph entities must have appropriate entity types
 - Rule relationships must be documented in the relationship diagram
-
-## Terminology
-
-| Term | Definition | Context |
-|------|------------|---------|
-| MDC | Markdown Configuration file for Cursor rules | File extension for Cursor rules (.mdc) |
-| Rule | A configuration file that guides AI behavior | Stored in .cursor/rules directory |
-| Memory File | Markdown file storing persistent context | Stored in docs/memory directory |
-| Knowledge Graph | Connected network of entities and relationships. Maintained by the Memory MCP server. Accessed via `mcp_memory_*` tools. | Used for context retention |
-| Entity | A node in the knowledge graph representing a concept. Managed using `mcp_memory_*` tools. | Has a name, type, and observations |
-| Relation | A connection between two entities. Managed using `mcp_memory_*` tools. | Has a from, to, and relationType |
-| Observation | A fact about an entity. Managed using `mcp_memory_*` tools. | Stored as strings in entities |
-| Task | A unit of work with specific acceptance criteria | Stored in docs/tasks directory |
-| Plan | A strategy for implementing a feature | Stored in docs/plans directory |
-| Cross-Reference | A link between documents | Used to create navigable knowledge system |
-| Hierarchical Structure | Organization of rules in parent-child relationships | Defined in relationship diagram |
-
-## External Resources
-
-- [Cursor IDE Documentation](https://cursor.sh/docs): Official documentation for the Cursor IDE
-- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html): Reference for TypeScript patterns used in the codebase
-- [Mermaid Syntax](https://mermaid.js.org/syntax/flowchart.html): Documentation for Mermaid diagram syntax used in architecture diagrams
-- [Markdown Guide](https://www.markdownguide.org/): Reference for Markdown syntax used in documentation and memory files
-- [Changesets Documentation](https://github.com/changesets/changesets): Guide for the versioning system used in the repository
 
 ## Key Relationships
 
@@ -176,17 +153,53 @@
     - Ensures all automated updates follow memory file structure and avoid duplications
   - **Limitations**: Requires human review to ensure quality, must be developed incrementally
 
-## Technical Decisions
+- **Showcase Pattern**: Showcasing tool capabilities through project-specific problems
+  - **Applied in**: Task 2025-05-07-03 ([Create Showcase File for Vibe-Tools Examples](/docs/tasks/done/2025-05-07-03.md))
+  - **Context**: This pattern was central to the creation/formalization of `docs/memory/vibe-tools-showcase.md`. It involves demonstrating the utility of each `vibe-tools` command by applying it to solve concrete problems or answer specific questions directly relevant to the `bfra-me/works` monorepo. Examples include using `vibe-tools ask` to understand project tooling like ESLint Flat Config, or `vibe-tools repo` to analyze internal scripts and rule systems.
+  - **Benefits**: Makes the tool's value immediately apparent to developers working on the project by providing relevant and reusable example prompts. Bridges the gap between general tool documentation and specific project application.
+  - **Limitations**: The showcase examples are highly tailored to `bfra-me/works` and may require adaptation for use in other projects.
 
-| Decision | Rationale | Date | Alternatives Considered |
-|----------|-----------|------|-------------------------|
-| Integrate vibe-tools into ai-agile-workflow rule | Enhances the workflow with external research, context-aware planning, and automation capabilities | 2025-05-06 | Creating a separate vibe-tools-workflow rule, ad-hoc usage without rule integration |
-| Use command chains for memory file automation | Enables combination of repository context and precise formatting for memory updates | 2025-05-06 | Direct output to files, manual reformatting, custom scripting language |
-| Consolidate location and cross-reference rules into cursor-rules-creation | Reduces redundancy and places related guidance in one place | 2025-05-05 | Maintaining separate rules, creating a new parent rule |
-| Merge auto-memory-manager into memory-management | Keeps all memory management functionality in a single rule | 2025-05-05 | Maintaining separate rules, creating specialized memory rules |
-| Implement rule prioritization hierarchy based on specificity and metadata | Ensures predictable and consistent rule application when multiple rules match | 2025-05-04 | Rule timestamp priority, rule name alphabetical order, random selection |
-| Use terminal commands for .mdc file editing | Standard editing tools may not handle .mdc files correctly | 2025-05-02 | Using edit_file tool, manual creation in Cursor |
-| Limit rule description verbs to FOLLOW, APPLY, USE, ALWAYS USE | Ensures consistent and predictable rule discovery and application | 2025-05-04 | Using a wider variety of action verbs, domain-specific verbs |
-| Document Rule Interactions in a Dedicated Memory File (`docs/memory/rule-interactions.md`) | Provides a central, focused location for interaction patterns without cluttering individual rules or the index | 2025-05-05 | Adding sections to individual rules, updating the 00-rule-index |
+- **Formalize Pattern**: Formalizing existing example collections into standardized memory files
+  - **Applied in**: Task 2025-05-07-03 ([Create Showcase File for Vibe-Tools Examples](/docs/tasks/done/2025-05-07-03.md))
+  - **Context**: The task execution revealed that an extensive set of `vibe-tools` examples already existed. The primary action became formalizing this collection by ensuring it was structured as a proper memory file within `docs/memory/`, notably by adding the standard `## Updated: YYYY-MM-DD` timestamp and ensuring it met discoverability criteria.
+  - **Benefits**: Ensures valuable, previously created knowledge is integrated into the formal memory system, making it discoverable, maintainable, and compliant with project standards. Increases the utility and longevity of existing documentation.
+  - **Limitations**: May require reviewing and potentially refactoring existing content to align with memory file structural standards and consistency requirements.
 
-## Updated: 2025-05-06
+- **Iterative Command Chaining Pattern**: Iteratively chaining `vibe-tools` commands for complex analysis or generation
+  - **Applied in**: (Demonstrated within examples in `docs/memory/vibe-tools-showcase.md`, e.g., "Refactoring Legacy Code", "Comprehensive API Documentation Creation")
+  - **Context**: Solving complex problems or generating comprehensive outputs by chaining multiple `vibe-tools` commands, where the output of one command informs the input or query for the next. For example, using `vibe-tools web` for initial research, followed by `vibe-tools repo` to analyze the codebase in light of that research, and then `vibe-tools plan` to generate an implementation strategy.
+  - **Benefits**: Breaks down large, complex tasks into more manageable, AI-assisted steps. Allows leveraging the distinct strengths of different `vibe-tools` commands sequentially.
+  - **Limitations**: Requires careful management of intermediate outputs and ensuring that context is effectively passed or referenced between command steps.
+
+- **Custom Queries Pattern**: Custom queries for targeted video information extraction
+  - **Applied in**: (Showcased in `docs/memory/vibe-tools-showcase.md` for `vibe-tools youtube --type=custom`)
+  - **Context**: Utilizing `vibe-tools youtube` with a specific `--type=custom` and a detailed natural language query to extract highly targeted, actionable information from video content, going beyond generic summaries or full transcripts. An example is extracting "3-5 specific, actionable techniques...from a pnpm monorepo management talk" for `bfra-me/works`.
+  - **Benefits**: Transforms passive video content into precise, project-relevant insights or data points. Saves significant time by delegating the task of watching and synthesizing specific information from videos to the AI.
+  - **Limitations**: The effectiveness is highly dependent on the clarity and specificity of the custom query, the quality of the video's audio/transcript, and the AI model's ability to comprehend and extract the requested details from the video context. Requires `GEMINI_API_KEY`.
+
+## Terminology
+
+| Term | Definition | Context |
+|------|------------|---------|
+| MDC | Markdown Configuration file for Cursor rules | File extension for Cursor rules (.mdc) |
+| Rule | A configuration file that guides AI behavior | Stored in .cursor/rules directory |
+| Memory File | Markdown file storing persistent context | Stored in docs/memory directory |
+| Knowledge Graph | Connected network of entities and relationships. Maintained by the Memory MCP server. Accessed via `mcp_memory_*` tools. | Used for context retention |
+| Entity | A node in the knowledge graph representing a concept. Managed using `mcp_memory_*` tools. | Has a name, type, and observations |
+| Relation | A connection between two entities. Managed using `mcp_memory_*` tools. | Has a from, to, and relationType |
+| Observation | A fact about an entity. Managed using `mcp_memory_*` tools. | Stored as strings in entities |
+| Task | A unit of work with specific acceptance criteria | Stored in docs/tasks directory |
+| Plan | A strategy for implementing a feature | Stored in docs/plans directory |
+| Cross-Reference | A link between documents | Used to create navigable knowledge system |
+| Hierarchical Structure | Organization of rules in parent-child relationships | Defined in relationship diagram |
+| mdc: Prefix | Special link syntax used exclusively in Cursor rule (.mdc) files | Format: `[text](mdc:path/to/file)` |
+
+## External Resources
+
+- [Cursor IDE Documentation](https://cursor.sh/docs): Official documentation for the Cursor IDE
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html): Reference for TypeScript patterns used in the codebase
+- [Mermaid Syntax](https://mermaid.js.org/syntax/flowchart.html): Documentation for Mermaid diagram syntax used in architecture diagrams
+- [Markdown Guide](https://www.markdownguide.org/): Reference for Markdown syntax used in documentation and memory files
+- [Changesets Documentation](https://github.com/changesets/changesets): Guide for the versioning system used in the repository
+
+## Updated: 2025-05-19

@@ -240,16 +240,6 @@ actions:
       - **Missing peer dependencies**: Install required ESLint plugins as needed
       - **Rules too strict**: Use the `overrides` option to adjust specific rules
 
-      ## Related Rules
-
-      - [prettier-config-usage](mdc:.cursor/rules/prettier-config-usage.mdc): For setting up the Prettier integration.
-      - [testing-practices](mdc:.cursor/rules/testing-practices.mdc): For configuring Vitest integration.
-      - [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc): The core TypeScript rules applied by this config.
-      - [monorepo-structure](mdc:.cursor/rules/monorepo-structure.mdc): Context for using ESLint in the monorepo.
-      - [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc): Linting as part of the CI/CD process.
-      - [code-review-standards](mdc:.cursor/rules/code-review-standards.mdc): Standards that ESLint helps enforce during review.
-      - [api-design-standards](mdc:.cursor/rules/api-design-standards.mdc): Linting rules can enforce API naming or style standards.
-
 examples:
   - input: |
       How do I configure ESLint using the @bfra.me/eslint-config package?

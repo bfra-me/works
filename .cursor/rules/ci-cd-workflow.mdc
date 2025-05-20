@@ -350,18 +350,6 @@ actions:
       - [Changesets Documentation](https://github.com/changesets/changesets)
       - [Semantic Release Documentation](https://github.com/semantic-release/semantic-release)
 
-      ## Related Rules
-
-      - [changeset-workflow](mdc:.cursor/rules/changeset-workflow.mdc): Detailed guide on using Changesets.
-      - [development-workflow](mdc:.cursor/rules/development-workflow.mdc): Overall development process that integrates with CI/CD.
-      - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): For resolving linting configuration issues.
-      - [prettier-config-usage](mdc:.cursor/rules/prettier-config-usage.mdc): For resolving formatting issues in CI.
-      - [testing-practices](mdc:.cursor/rules/testing-practices.mdc): For understanding test setup and failures.
-      - [debugging-guide](mdc:.cursor/rules/debugging-guide.mdc): General debugging techniques applicable to CI failures.
-      - [dependency-management](mdc:.cursor/rules/dependency-management.mdc): For resolving dependency issues that might cause build failures.
-      - [semantic-release](mdc:packages/semantic-release/README.md): For configuration of the release process.
-      - [tsconfig](mdc:packages/tsconfig/README.md): Base TypeScript configuration used in `pnpm type-check`.
-
 examples:
   - input: |
       My CI build failed on the lint step. How do I fix it?

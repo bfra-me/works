@@ -183,14 +183,6 @@ actions:
       vibe-tools repo "Help me understand existing code relevant to these aspects of feature X: [key aspects identified by mcp_sequential-thinking_sequentialthinking]"
       ```
 
-      ## Related Rules
-
-      - [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc): Integrates this planning and review process with the overall agile workflow
-      - [vibe-tools](mdc:.cursor/rules/vibe-tools.mdc): Provides comprehensive details on all vibe-tools capabilities
-      - [code-review-standards](mdc:.cursor/rules/code-review-standards.mdc): Defines quality standards to apply during reviews
-      - [development-workflow](mdc:.cursor/rules/development-workflow.mdc): Places planning and review in the broader development context
-      - [memory-management](mdc:.cursor/rules/memory-management.mdc): Guidelines for preserving planning and review insights
-
 examples:
   - input: |
       I need to plan a task for implementing user authentication.

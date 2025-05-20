@@ -151,15 +151,6 @@ actions:
 
       After running the script, open the generated file and customize the filters, content, and examples to complete your rule.
 
-      ## Related Rules
-
-      - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc): Defines the structure and best practices for creating rules, including location and naming conventions.
-      - [00-rule-index](mdc:.cursor/rules/00-rule-index.mdc): The central index that this script helps maintain.
-      - [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc): Supports the task execution phase of rule creation within the agile workflow.
-      - [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc): Task IDs and update dates follow its standards.
-      - [memory-management](mdc:.cursor/rules/memory-management.mdc): Task completion triggers memory updates managed by this rule.
-      - [rule-relationship-analysis](mdc:.cursor/rules/rule-relationship-analysis.mdc): Helps create the `.mdc` files that this rule analyzes.
-
 examples:
   - input: |
       Can you create a script to automate Cursor rule creation?

@@ -191,13 +191,6 @@ actions:
       EOL
       ```
 
-      ## Related Rules
-
-      - [monorepo-structure](mdc:.cursor/rules/monorepo-structure.mdc): Provides specific context if analyzing the `bfra.me/works` monorepo.
-      - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Explains tools like `codebase_search` that can supplement command-line analysis.
-      - [debugging-guide](mdc:.cursor/rules/debugging-guide.mdc): Repository analysis is often a key part of debugging.
-      - [repo-rule-recommender](mdc:.cursor/rules/repo-rule-recommender.mdc): Uses repo-analyzer as a foundation for its first step.
-
 examples:
   - input: |
       I need to understand where the authentication system is defined in this repository.

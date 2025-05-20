@@ -88,7 +88,6 @@ This plan outlines the approach for developing new Cursor rules for currently un
        alwaysApply: false
        ---
        ```
-     - Cross-references to related rules
 
 2. Develop CI/CD interaction rule
    - **Complexity**: High
@@ -106,7 +105,6 @@ This plan outlines the approach for developing new Cursor rules for currently un
      - Workflow diagrams showing the CI/CD process
      - Troubleshooting guides for common issues
      - Proper frontmatter configuration
-     - Cross-references to related rules
 
 3. Create dependency management rule
    - **Complexity**: Medium
@@ -124,7 +122,6 @@ This plan outlines the approach for developing new Cursor rules for currently un
      - Step-by-step guides for common scenarios
      - Decision trees for dependency choices
      - Proper frontmatter configuration
-     - Cross-references to related rules
 
 ### Phase 3: Additional Workflow Rule Development (2-3 weeks)
 
@@ -148,7 +145,6 @@ This plan outlines the approach for developing new Cursor rules for currently un
      - Examples of ideal API designs
      - Anti-patterns to avoid
      - Proper frontmatter configuration
-     - Cross-references to related rules
 
 2. Create debugging and troubleshooting rule
    - **Complexity**: Medium
@@ -166,7 +162,6 @@ This plan outlines the approach for developing new Cursor rules for currently un
      - Step-by-step troubleshooting workflows
      - Decision trees for problem diagnosis
      - Proper frontmatter configuration
-     - Cross-references to related rules
 
 3. Develop code review standards rule
    - **Complexity**: Medium
@@ -184,7 +179,6 @@ This plan outlines the approach for developing new Cursor rules for currently un
      - Examples of effective review comments
      - Review workflow diagrams
      - Proper frontmatter configuration
-     - Cross-references to related rules
 
 ### Phase 4: Integration and Cross-References (1 week)
 

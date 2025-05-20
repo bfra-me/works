@@ -6,6 +6,8 @@ Welcome to the Vibe-Tools Playbook! This document serves as a comprehensive guid
 
 The vibe-tools package (formerly known as cursor-tools) provides access to multiple AI models and specialized tools, helping you with tasks like analyzing repositories, getting answers from the web, planning implementations, automating browsers, and much more.
 
+> **Note:** This playbook complements the concise reference available in `vibe-tools.mdc`, which is designed for quick reference by AI assistants. While this playbook provides comprehensive guidance and examples, `vibe-tools.mdc` offers a condensed reference format.
+
 ## Getting Started
 
 ### Installation
@@ -60,8 +62,19 @@ These options are supported by all vibe-tools commands:
 | `doc` | Generate documentation for your project | - | Creating READMEs, API docs, code explanations |
 | `youtube` | Analyze YouTube videos | - | Tutorial summaries, implementation ideas |
 | `github` | Interact with GitHub PRs and issues | - | PR reviews, issue tracking |
+| `clickup` | Get information about ClickUp tasks | - | Task descriptions, metadata |
 | `mcp` | Use Model Context Protocol servers | - | Specialized AI tools and agents |
 | `xcode` | Build, run, and lint iOS applications | - | iOS development workflows |
+
+### Command Nicknames
+
+Some commands have nicknames that users might use to refer to them:
+
+- **Gemini**: A nickname for `vibe-tools repo`
+- **Perplexity**: A nickname for `vibe-tools web`
+- **Stagehand**: A nickname for `vibe-tools browser`
+
+When users say "Ask Gemini", "Ask Perplexity", or "Ask Stagehand", they're referring to the corresponding vibe-tools commands.
 
 ## Repository Analysis with `repo`
 
@@ -175,12 +188,27 @@ vibe-tools github issue 456
 
 - `--from-github=<username/repo>[@<branch>]`: Access PRs/issues from a specific GitHub repository
 
+## ClickUp Integration with `clickup`
+
+Access information about ClickUp tasks:
+
+```bash
+# Get information about a specific task
+vibe-tools clickup task "task_id"
+```
+
+This command retrieves detailed information about a ClickUp task including description, comments, status, assignees, and metadata.
+
+### Key Requirements for `clickup`
+
+- A `CLICKUP_API_TOKEN` must be set in your `.vibe-tools.env` file
+
 ## Documentation Generation with `doc`
 
 Generate comprehensive documentation for your project:
 
 ```bash
-vibe-tools doc "Generate API documentation for our REST endpoints" --save-to docs/api-reference.md
+vibe-tools doc "Generate API documentation for our REST endpoints" --save-to=docs/api-reference.md
 ```
 
 ### Key Options for `doc`
@@ -246,10 +274,10 @@ For more complex workflows, you can chain commands together:
 
 ```bash
 # First, research the latest JWT best practices
-vibe-tools web "What are the best practices for JWT refresh token rotation?" --save-to jwt-research.md
+vibe-tools web "What are the best practices for JWT refresh token rotation?" --save-to=jwt-research.md
 
 # Then, analyze your repository to find relevant authentication code
-vibe-tools repo "Find all code related to JWT authentication" --save-to jwt-code-analysis.md
+vibe-tools repo "Find all code related to JWT authentication" --save-to=jwt-code-analysis.md
 
 # Finally, create a plan to implement token rotation
 vibe-tools plan "Implement JWT refresh token rotation based on the research in jwt-research.md and existing code identified in jwt-code-analysis.md"
@@ -351,7 +379,7 @@ pipeline {
                 script {
                     def coverageReport = readFile('coverage/lcov-report/index.html')
                     def testSuggestions = sh(
-                        script: "vibe-tools repo \"Analyze our test coverage report and suggest additional test cases for under-tested components\" --save-to test-suggestions.md",
+                        script: "vibe-tools repo \"Analyze our test coverage report and suggest additional test cases for under-tested components\" --save-to=test-suggestions.md",
                         returnStdout: true
                     )
 
@@ -426,87 +454,87 @@ jobs:
 
 ```bash
 # Step 1: Analyze the legacy code structure
-vibe-tools repo "Identify code smells and architectural issues in our legacy payment processing module" --save-to legacy-analysis.md
+vibe-tools repo "Identify code smells and architectural issues in our legacy payment processing module" --save-to=legacy-analysis.md
 
 # Step 2: Research modern best practices
-vibe-tools web "Current best practices for payment processing architecture in Node.js applications" --save-to payment-best-practices.md
+vibe-tools web "Current best practices for payment processing architecture in Node.js applications" --save-to=payment-best-practices.md
 
 # Step 3: Generate a refactoring plan
-vibe-tools plan "Create a detailed refactoring plan for our payment processing module based on the analysis in legacy-analysis.md and the best practices in payment-best-practices.md. Include specific code changes, a migration strategy, and testing approach." --save-to refactoring-plan.md
+vibe-tools plan "Create a detailed refactoring plan for our payment processing module based on the analysis in legacy-analysis.md and the best practices in payment-best-practices.md. Include specific code changes, a migration strategy, and testing approach." --save-to=refactoring-plan.md
 
 # Step 4: Get feedback on the refactoring plan
-vibe-tools repo "Review the refactoring plan in refactoring-plan.md and identify potential risks or implementation challenges" --save-to refactoring-feedback.md
+vibe-tools repo "Review the refactoring plan in refactoring-plan.md and identify potential risks or implementation challenges" --save-to=refactoring-feedback.md
 ```
 
 #### Example 2: Comprehensive API Documentation Creation
 
 ```bash
 # Step 1: Extract current API endpoints and usage
-vibe-tools repo "Identify all API endpoints in our Express application, including their routes, methods, request/response formats, and current documentation status" --save-to api-inventory.md
+vibe-tools repo "Identify all API endpoints in our Express application, including their routes, methods, request/response formats, and current documentation status" --save-to=api-inventory.md
 
 # Step 2: Research API documentation standards
-vibe-tools web "Best practices for REST API documentation, including OpenAPI specification examples" --save-to api-doc-standards.md
+vibe-tools web "Best practices for REST API documentation, including OpenAPI specification examples" --save-to=api-doc-standards.md
 
 # Step 3: Generate OpenAPI specification
-vibe-tools plan "Create an OpenAPI 3.0 specification for our API based on the endpoint inventory in api-inventory.md, following the standards in api-doc-standards.md" --save-to openapi-spec.json
+vibe-tools plan "Create an OpenAPI 3.0 specification for our API based on the endpoint inventory in api-inventory.md, following the standards in api-doc-standards.md" --save-to=openapi-spec.json
 
 # Step 4: Generate developer documentation
-vibe-tools doc "Generate comprehensive API documentation based on the OpenAPI specification in openapi-spec.json. Include authentication, rate limiting, error handling, and usage examples." --save-to api-docs.md
+vibe-tools doc "Generate comprehensive API documentation based on the OpenAPI specification in openapi-spec.json. Include authentication, rate limiting, error handling, and usage examples." --save-to=api-docs.md
 ```
 
 #### Example 3: Security Audit and Improvement
 
 ```bash
 # Step 1: Conduct a security audit
-vibe-tools repo "Perform a security audit of our codebase, focusing on authentication, data validation, SQL injection risks, and secret management" --save-to security-audit.md
+vibe-tools repo "Perform a security audit of our codebase, focusing on authentication, data validation, SQL injection risks, and secret management" --save-to=security-audit.md
 
 # Step 2: Research latest security best practices
-vibe-tools web "Latest security best practices for Node.js web applications in 2023, including OWASP Top 10 mitigations" --save-to security-best-practices.md
+vibe-tools web "Latest security best practices for Node.js web applications in 2023, including OWASP Top 10 mitigations" --save-to=security-best-practices.md
 
 # Step 3: Generate a security improvement plan
-vibe-tools plan "Create a prioritized security improvement plan based on the audit in security-audit.md and the best practices in security-best-practices.md. Categorize issues by severity and include specific code changes for each issue." --save-to security-plan.md
+vibe-tools plan "Create a prioritized security improvement plan based on the audit in security-audit.md and the best practices in security-best-practices.md. Categorize issues by severity and include specific code changes for each issue." --save-to=security-plan.md
 
 # Step 4: Generate unit tests for security improvements
-vibe-tools repo "Design unit tests that verify the security improvements proposed in security-plan.md, focusing on edge cases and attack vectors" --save-to security-tests.md
+vibe-tools repo "Design unit tests that verify the security improvements proposed in security-plan.md, focusing on edge cases and attack vectors" --save-to=security-tests.md
 ```
 
 #### Example 4: Comprehensive Debugging Workflow
 
 ```bash
 # Step 1: Analyze the error in your codebase
-vibe-tools repo "I'm getting this error: 'Cannot read property 'user' of undefined' in our authentication middleware. It seems to originate from src/middleware/auth.js. Can you explain what might be causing it and suggest fixes based on the surrounding code?" --save-to error-analysis.md
+vibe-tools repo "I'm getting this error: 'Cannot read property 'user' of undefined' in our authentication middleware. It seems to originate from src/middleware/auth.js. Can you explain what might be causing it and suggest fixes based on the surrounding code?" --save-to=error-analysis.md
 
 # Step 2: Research similar issues online
-vibe-tools web "Common causes for 'Cannot read property of undefined' errors in Express.js authentication middleware" --save-to error-research.md
+vibe-tools web "Common causes for 'Cannot read property of undefined' errors in Express.js authentication middleware" --save-to=error-research.md
 
 # Step 3: Generate a fix and test plan
-vibe-tools plan "Based on the error analysis in error-analysis.md and research in error-research.md, create a plan to fix the authentication middleware issue. Include verification steps and tests to ensure the fix works properly." --save-to fix-plan.md
+vibe-tools plan "Based on the error analysis in error-analysis.md and research in error-research.md, create a plan to fix the authentication middleware issue. Include verification steps and tests to ensure the fix works properly." --save-to=fix-plan.md
 ```
 
 #### Example 5: Test Generation and Coverage Improvement
 
 ```bash
 # Step 1: Analyze current test coverage
-vibe-tools repo "Analyze our test coverage and identify components with insufficient testing" --save-to test-coverage-analysis.md
+vibe-tools repo "Analyze our test coverage and identify components with insufficient testing" --save-to=test-coverage-analysis.md
 
 # Step 2: Generate tests for under-tested components
-vibe-tools repo "Generate Vitest unit tests for the functions in src/utils.ts. Ensure good coverage for edge cases and adhere to the testing patterns found in other test files in this project." --save-to generated-tests.md
+vibe-tools repo "Generate Vitest unit tests for the functions in src/utils.ts. Ensure good coverage for edge cases and adhere to the testing patterns found in other test files in this project." --save-to=generated-tests.md
 
 # Step 3: Review the generated tests
-vibe-tools repo "Review the tests in generated-tests.md and suggest improvements for better coverage and error handling" --save-to test-improvements.md
+vibe-tools repo "Review the tests in generated-tests.md and suggest improvements for better coverage and error handling" --save-to=test-improvements.md
 ```
 
 #### Example 6: Onboarding Assistance
 
 ```bash
 # Get an overview of a specific module
-vibe-tools repo "I'm new to this project. Can you give me an overview of the 'core-services' module located in 'packages/core/services/'? What are its main responsibilities, key files, and how does it interact with other parts of the system like 'packages/api'?" --subdir=packages/core/services/ --save-to module-overview.md
+vibe-tools repo "I'm new to this project. Can you give me an overview of the 'core-services' module located in 'packages/core/services/'? What are its main responsibilities, key files, and how does it interact with other parts of the system like 'packages/api'?" --subdir=packages/core/services/ --save-to=module-overview.md
 
 # Learn a new technology within project context
-vibe-tools web "What are the best practices for using Zustand for state management in a Next.js 14 application?" --save-to zustand-best-practices.md
+vibe-tools web "What are the best practices for using Zustand for state management in a Next.js 14 application?" --save-to=zustand-best-practices.md
 
 # Apply the research to your specific project
-vibe-tools repo "Based on the Zustand best practices in zustand-best-practices.md, how would I integrate Zustand into our existing 'UserProfile' component ('src/components/UserProfile.tsx') to manage its local state?" --save-to zustand-integration.md
+vibe-tools repo "Based on the Zustand best practices in zustand-best-practices.md, how would I integrate Zustand into our existing 'UserProfile' component ('src/components/UserProfile.tsx') to manage its local state?" --save-to=zustand-integration.md
 ```
 
 ## Additional Command Examples
@@ -546,7 +574,7 @@ For advanced web testing scenarios:
 vibe-tools browser act "Navigate through the checkout process with a test product | Verify the order confirmation page shows correct totals" --url=https://myapp.dev/products --screenshot=checkout-process.png
 
 # Then analyze the screenshot
-vibe-tools repo "Analyze the checkout-process.png screenshot and identify any UI issues or improvements needed" --save-to checkout-analysis.md
+vibe-tools repo "Analyze the checkout-process.png screenshot and identify any UI issues or improvements needed" --save-to=checkout-analysis.md
 ```
 
 #### ClickUp Task Management
@@ -554,11 +582,8 @@ vibe-tools repo "Analyze the checkout-process.png screenshot and identify any UI
 Integrate with ClickUp for task management:
 
 ```bash
-# Get information about a specific task
-vibe-tools clickup task "1234567"
-
 # Generate a plan for implementing a task
-vibe-tools plan "Create an implementation plan for the task described in the ClickUp task 1234567" --save-to task-implementation.md
+vibe-tools plan "Create an implementation plan for the task described in the ClickUp task 1234567" --save-to=task-implementation.md
 ```
 
 ## Advanced Configuration
@@ -652,4 +677,4 @@ Vibe-tools was previously known as cursor-tools. The package was renamed to vibe
 
 Current stable version: 0.60.9
 
-## Updated: 2025-05-07
+## Updated: 2025-05-16

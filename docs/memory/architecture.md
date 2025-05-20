@@ -211,6 +211,14 @@ graph TD
 | mdc: prefix for rule file links only | Clear distinction of links in rule files, works with Cursor IDE | 2025-04-25 | Regular markdown links for all files, custom syntax for all files |
 | Always update memory files after task completion | Ensure consistent and current context | 2025-04-26 | Manual updates only, separate automated system |
 | Filter patterns with word boundaries | Reduce false positives in rule activation | 2025-05-06 | Simple keyword matching, complex NLP patterns |
+| Integrate vibe-tools into ai-agile-workflow rule | Enhances the workflow with external research, context-aware planning, and automation capabilities | 2025-05-06 | Creating a separate vibe-tools-workflow rule, ad-hoc usage without rule integration |
+| Use command chains for memory file automation | Enables combination of repository context and precise formatting for memory updates | 2025-05-06 | Direct output to files, manual reformatting, custom scripting language |
+| Consolidate location and cross-reference rules into cursor-rules-creation | Reduces redundancy and places related guidance in one place | 2025-05-05 | Maintaining separate rules, creating a new parent rule |
+| Merge auto-memory-manager into memory-management | Keeps all memory management functionality in a single rule | 2025-05-05 | Maintaining separate rules, creating specialized memory rules |
+| Implement rule prioritization hierarchy based on specificity and metadata | Ensures predictable and consistent rule application when multiple rules match | 2025-05-04 | Rule timestamp priority, rule name alphabetical order, random selection |
+| Use terminal commands for .mdc file editing | Standard editing tools may not handle .mdc files correctly | 2025-05-02 | Using edit_file tool, manual creation in Cursor |
+| Limit rule description verbs to FOLLOW, APPLY, USE, ALWAYS USE | Ensures consistent and predictable rule discovery and application | 2025-05-04 | Using a wider variety of action verbs, domain-specific verbs |
+| Document Rule Interactions in a Dedicated Memory File (`docs/memory/rule-interactions.md`) | Provides a central, focused location for interaction patterns without cluttering individual rules or the index | 2025-05-05 | Adding sections to individual rules, updating the 00-rule-index |
 
 ## Implementation Guidelines
 
