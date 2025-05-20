@@ -134,14 +134,6 @@ actions:
 
       This adapted workflow emphasizes manual/AI reasoning where specific tools are unavailable, while still leveraging available tools for analysis and scaffolding.
 
-      ## Related Rules
-
-      - [repo-analyzer](mdc:.cursor/rules/repo-analyzer.mdc): Provides guidelines for the initial analysis step.
-      - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc): The primary guide for authoring rule content.
-      - [rule-automation-script](mdc:.cursor/rules/rule-automation-script.mdc): Can be used for scaffolding in Step 5.
-      - [00-rule-index](mdc:.cursor/rules/00-rule-index.mdc): Used to check for existing rules in Step 4.
-      - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): For using tools like Sequential Thinking during analysis.
-
 examples:
   - input: |
       Help me figure out what Cursor rules this project might need.

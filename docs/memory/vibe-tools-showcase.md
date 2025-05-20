@@ -415,7 +415,7 @@ The **project-specific value and innovative aspect** is the rapid generation of 
 
 **`vibe-tools doc` Command Executed:**
 ```bash
-vibe-tools doc --subdir packages/create --save-to docs/generated/bfra-me-create-docs.md "Generate comprehensive technical documentation for the @bfra.me/create package. Focus on its purpose as a scaffolding tool, its main features, available CLI commands and options (if discoverable from code like cli.ts or package.json scripts), available templates, and how a developer would typically use it within the bfra-me/works monorepo. Include an overview of its internal structure if meaningful."
+vibe-tools doc --subdir packages/create --save-to=docs/generated/bfra-me-create-docs.md "Generate comprehensive technical documentation for the @bfra.me/create package. Focus on its purpose as a scaffolding tool, its main features, available CLI commands and options (if discoverable from code like cli.ts or package.json scripts), available templates, and how a developer would typically use it within the bfra-me/works monorepo. Include an overview of its internal structure if meaningful."
 ```
 
 **Analysis of Output & Project-Specific Usefulness:**
@@ -448,7 +448,7 @@ The command successfully analyzed `packages/create` and generated a detailed mar
 *   **Potential Further Explorations for `bfra-me/works`:**
     1.  **`vibe-tools doc --subdir packages/eslint-config --output docs/generated/bfra-me-eslint-config-docs.md "Generate detailed documentation for the @bfra.me/eslint-config package, explaining its various configurations, how to extend them, and common usage patterns."`**: Document another shared package.
     2.  **`vibe-tools repo "Review docs/generated/bfra-me-create-docs.md. Suggest expansions, particularly on customizing or adding new templates to @bfra.me/create."`**: Use AI to review and improve its own generated documentation.
-    3.  **`vibe-tools plan "Plan CI integration for 'vibe-tools doc --subdir packages/some-package --save-to docs/generated/some-package-docs.md \"Docs for some-package\"' to run on significant package changes, suggesting doc commits."`**: Automate documentation generation.
+    3.  **`vibe-tools plan "Plan CI integration for 'vibe-tools doc --subdir packages/some-package --save-to=docs/generated/some-package-docs.md \"Docs for some-package\"' to run on significant package changes, suggesting doc commits."`**: Automate documentation generation.
 
 ---
 
@@ -469,7 +469,7 @@ The **project-specific value and innovative aspect** is using AI to document its
 
 **`vibe-tools doc` Command Executed:**
 ```bash
-vibe-tools doc --subdir .cursor/rules --save-to docs/generated/cursor-rules-system-overview.md "Generate a comprehensive overview document for the .cursor/rules/ system in the bfra-me/works monorepo. Explain the purpose of these .mdc rules, their general structure (common frontmatter, filters, actions, examples, metadata sections), how rules are typically activated, and common rule patterns observed. Highlight the role and importance of key meta-rules like '00-rule-index.mdc', 'cursor-rules-creation.mdc', and 'memory-management.mdc'. If possible, discuss broad categories of rules present (e.g., based on naming conventions or metadata tags like 'workflow', 'coding-standards', 'memory'). Outline best practices for developers creating or modifying rules in this specific project. The goal is to create a high-level architectural guide for understanding and working effectively with this project's AI guidance system."
+vibe-tools doc --subdir .cursor/rules --save-to=docs/generated/cursor-rules-system-overview.md "Generate a comprehensive overview document for the .cursor/rules/ system in the bfra-me/works monorepo. Explain the purpose of these .mdc rules, their general structure (common frontmatter, filters, actions, examples, metadata sections), how rules are typically activated, and common rule patterns observed. Highlight the role and importance of key meta-rules like '00-rule-index.mdc', 'cursor-rules-creation.mdc', and 'memory-management.mdc'. If possible, discuss broad categories of rules present (e.g., based on naming conventions or metadata tags like 'workflow', 'coding-standards', 'memory'). Outline best practices for developers creating or modifying rules in this specific project. The goal is to create a high-level architectural guide for understanding and working effectively with this project's AI guidance system."
 ```
 
 **Analysis of Output & Project-Specific Usefulness:**
@@ -499,7 +499,7 @@ The command successfully generated `docs/generated/cursor-rules-system-overview.
 *   **Potential Further Explorations for `bfra-me/works`:**
     1.  **`vibe-tools repo "Review docs/generated/cursor-rules-system-overview.md. Are there other key rules or patterns in '.cursor/rules/' deserving special mention or deeper explanation?"`**: AI peer-review of its own generated architectural document.
     2.  **`vibe-tools plan "Based on cursor-rules-system-overview.md, create a plan for a workshop to onboard developers to the .cursor/rules/ system in bfra-me/works."`**: Use the overview to plan educational materials.
-    3.  **`vibe-tools doc --subdir .github/workflows --save-to docs/generated/github-workflows-overview.md "Generate a similar overview for GitHub Actions workflows in '.github/workflows', explaining purposes, triggers, and interactions."`**: Apply the methodology to document the CI/CD system.
+    3.  **`vibe-tools doc --subdir .github/workflows --save-to=docs/generated/github-workflows-overview.md "Generate a similar overview for GitHub Actions workflows in '.github/workflows', explaining purposes, triggers, and interactions."`**: Apply the methodology to document the CI/CD system.
 
 ---
 
@@ -515,13 +515,13 @@ The `open` subcommand navigates to a specified URL in an automated browser insta
 **Use Case Explanation & Project-Specific Value:**
 The `bfra-me/works` monorepo contains `@bfra.me/prettier-plugins` (`packages/prettier-plugins`). Developers working on these custom plugins need to consult the official Prettier plugin development documentation.
 
-This use case attempts to use `vibe-tools browser open` to navigate to the Prettier plugin documentation page (`https://prettier.io/docs/en/plugins.html`), capture its HTML content (`--html`), and save it locally (`--save-to docs/generated/prettier-plugin-docs.html`).
+This use case attempts to use `vibe-tools browser open` to navigate to the Prettier plugin documentation page (`https://prettier.io/docs/en/plugins.html`), capture its HTML content (`--html`), and save it locally (`--save-to=docs/generated/prettier-plugin-docs.html`).
 
 The **project-specific value** is demonstrating a way to integrate external documentation gathering into the workflow for developers working on project-specific components like custom Prettier plugins.
 
 **`vibe-tools browser open` Command Executed:**
 ```bash
-vibe-tools browser open "https://prettier.io/docs/en/plugins.html" --html --save-to docs/generated/prettier-plugin-docs.html
+vibe-tools browser open "https://prettier.io/docs/en/plugins.html" --html --save-to=docs/generated/prettier-plugin-docs.html
 ```
 
 **Analysis of Output & Project-Specific Usefulness:**
@@ -829,7 +829,7 @@ The **project-specific value** lies in transforming general best practices from 
 
 **`vibe-tools youtube` Command Executed (Internal Review Confirmed Correctness):**
 ```bash
-vibe-tools youtube "https://www.youtube.com/watch?v=s5uN22iB9hI" --type=plan "Generate an actionable plan for bfra-me/works developers to review and optimize their existing GitHub Actions workflows (found in .github/workflows/). The plan should be based on the caching strategies, matrix build optimizations, and other performance best practices discussed in this video. For each step in the plan, suggest what to look for in files like 'main.yaml' or 'release.yaml', and how the video's advice could be applied to a pnpm monorepo context, including the use of their custom '.github/actions/pnpm-install' action." --save-to docs/generated/youtube-gha-optimization-plan-temp.md
+vibe-tools youtube "https://www.youtube.com/watch?v=s5uN22iB9hI" --type=plan "Generate an actionable plan for bfra-me/works developers to review and optimize their existing GitHub Actions workflows (found in .github/workflows/). The plan should be based on the caching strategies, matrix build optimizations, and other performance best practices discussed in this video. For each step in the plan, suggest what to look for in files like 'main.yaml' or 'release.yaml', and how the video's advice could be applied to a pnpm monorepo context, including the use of their custom '.github/actions/pnpm-install' action." --save-to=docs/generated/youtube-gha-optimization-plan-temp.md
 ```
 
 **Analysis of Output & Project-Specific Usefulness (from `docs/generated/youtube-gha-optimization-plan-temp.md`):**
@@ -867,5 +867,9 @@ The generated plan is comprehensive and highly relevant to `bfra-me/works`. Key 
     1.  **`vibe-tools repo "Based on the 'GitHub Actions Optimization Plan for bfra-me/works' (from docs/generated/youtube-gha-optimization-plan-temp.md), analyze .github/workflows/main.yaml and identify the top 3 most impactful caching or path filtering changes suggested by the plan that are not yet fully implemented. Provide the exact YAML changes needed."`**: Get specific code changes for `main.yaml`.
     2.  **`vibe-tools plan "Create a sub-plan detailing how to refactor the '.github/actions/pnpm-install/action.yaml' as per the recommendations in the GHA optimization plan, ensuring it defers caching to the calling workflow and uses 'pnpm install --frozen-lockfile --prefer-offline'."`**: Plan the refactor of the custom action.
     3.  **`vibe-tools repo "Compare the matrix strategy in '.github/workflows/main.yaml' against the optimization suggestions in the generated plan. Are there redundant Node.js versions or OS combinations we can remove to speed up tests?"`**: Focus on matrix optimization.
+
+---
+
+## Updated: 2025-05-16
 
 ---

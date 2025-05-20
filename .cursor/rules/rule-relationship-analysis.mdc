@@ -41,7 +41,6 @@ actions:
       - **Rule filters**: When is it activated?
       - **Rule actions**: What suggestions/guidance does it provide?
       - **Examples**: What real-world applications are shown?
-      - **Related Rules section**: What connections are already documented?
       - **File/Path references**: What files does it interact with?
       - **Tool references**: What tools/commands does it mention?
       - **Concepts**: What key concepts/principles does it define?
@@ -49,7 +48,6 @@ actions:
       ### 2. Identify Explicit Relationships
 
       Look for directly stated relationships:
-      - **Related Rules section**: Rules explicitly mentioned
       - **mdc: links**: Files directly referenced
       - **Dependent concepts**: Tools or processes referenced
 
@@ -100,18 +98,6 @@ actions:
       - **Interacts with files**: Specific files it operates on
       - **Uses tools/commands**: External tools referenced
 
-      ### 6. Update Cross-References
-
-      Once relationships are identified, update both rules with proper cross-references:
-
-      ```markdown
-      ## Related Rules
-
-      - [rule-name](mdc:.cursor/rules/rule-name.mdc): Brief explanation of relationship.
-      ```
-
-      Ensure bidirectional references for key relationships - if Rule A depends on Rule B, both should reference each other.
-
       ## Relationship Types
 
       When documenting relationships, consider these common patterns:
@@ -159,14 +145,6 @@ actions:
       Is this analysis complete? What relationships am I missing?
       ```
 
-      ## Related Rules
-
-      - [cursor-rules-creation](mdc:.cursor/rules/cursor-rules-creation.mdc): Defines the structure and format of Cursor rules.
-      - [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc): The task-based workflow this analysis process fits within.
-      - [repo-analyzer](mdc:.cursor/rules/repo-analyzer.mdc): General approach for analyzing repository contents.
-      - [rule-acknowledgement](mdc:.cursor/rules/rule-acknowledgement.mdc): How to acknowledge rule relevance in responses.
-      - [00-rule-index](mdc:.cursor/rules/00-rule-index.mdc): The index that tracks all rules and their relationships.
-
 examples:
   - input: |
       I need to analyze the typescript-patterns rule to identify its relationships
@@ -190,7 +168,6 @@ examples:
       ### 2. Identify Explicit Relationships
 
       Looking for directly stated connections:
-      - Any rules mentioned in its "Related Rules" section
       - Any mdc: links to other files
       - References to specific tools or configurations
 

@@ -121,17 +121,6 @@ actions:
          - `pnpm test` - Run tests across all packages
          - `pnpm lint` - Run linting checks
 
-      ## Related Rules
-
-      - [dependency-management](mdc:.cursor/rules/dependency-management.mdc): How dependencies are managed within the workspace.
-      - [development-workflow](mdc:.cursor/rules/development-workflow.mdc): Overall workflow for developing within the monorepo.
-      - [changeset-workflow](mdc:.cursor/rules/changeset-workflow.mdc): How versioning and releases are handled.
-      - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): Using the shared ESLint config.
-      - [prettier-config-usage](mdc:.cursor/rules/prettier-config-usage.mdc): Using the shared Prettier config.
-      - [testing-practices](mdc:.cursor/rules/testing-practices.mdc): How testing is handled in the monorepo.
-      - [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc): Guidelines for using MCP tools within the monorepo context.
-      - [memory-management](mdc:.cursor/rules/memory-management.mdc): Guidelines for maintaining memory files related to monorepo architecture.
-
 examples:
   - input: |
       How is this monorepo structured? I'm trying to understand the relationship between packages.

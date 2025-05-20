@@ -51,6 +51,8 @@ Created clear documentation on when to use the `mdc:` prefix in links and correc
 2. Updated `architecture.md` and `decisions.md` to clarify the proper usage
 3. Created this memory file to document the correct syntax for future reference
 4. Ensured all cursor rules in `.cursor/rules/` continue to use the `mdc:` prefix
+5. Completed task 2025-04-25-03 which systematically updated all Cursor rule (.mdc) files to use the proper `mdc:` linking syntax instead of custom or inconsistent formats
+6. Replaced all instances of `{rule:rule-name}`, `@rule-name`, and vanilla Markdown links in cursor rules with the standardized `[rule-name](mdc:.cursor/rules/rule-name.mdc)` format
 
 ## Caveats and Limitations
 - The `mdc:` prefix only works properly in the Cursor IDE within .mdc files
@@ -59,9 +61,10 @@ Created clear documentation on when to use the `mdc:` prefix in links and correc
 
 ## Related Tasks
 - Fixed all incorrect links in memory files (Task ID: 2025-05-06-01)
+- Updated all Cursor rule links to use proper mdc: syntax (Task ID: 2025-04-25-03)
 
 ## References
 - [architecture.md](/docs/memory/architecture.md) - Contains link syntax decision
 - [decisions.md](/docs/memory/decisions.md) - Documents ARCH-004 decision regarding link syntax
 
-## Updated: 2025-05-06
+## Updated: 2025-05-16

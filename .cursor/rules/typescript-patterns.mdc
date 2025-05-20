@@ -33,7 +33,7 @@ actions:
             // Project-specific overrides only
           }
         }
-      ```
+        ```
 
       - Use ES modules with `"type": "module"` in package.json
       - Configure proper exports in package.json:
@@ -47,6 +47,22 @@ actions:
         ```
 
       ### Type Definitions
+
+      #### Modern Type Declarations
+
+      ```typescript
+      // Use const assertions for literal object types
+      const config = {
+        environment: 'production',
+        features: ['auth', 'api'] as const,
+        version: 1
+      } as const;
+      // Type is { readonly environment: "production"; readonly features: readonly ["auth", "api"]; readonly version: 1 }
+
+      // Use type utilities for derived types
+      type ConfigKeys = keyof typeof config; // 'environment' | 'features' | 'version'
+      type Features = typeof config.features[number]; // 'auth' | 'api'
+      ```
 
       #### Prefer Interfaces for Public APIs
 
@@ -73,32 +89,39 @@ actions:
       export type ConfigValue = boolean | string | number | ConfigObject;
       export type StrictConfig = BaseConfig & StrictOptions;
       export type PackageName = `@bfra.me/${string}`;
+
+      // Template literal types for stronger typing
+      type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+      type Endpoint = `/api/v1/${string}`;
+      type Route = `${HttpMethod} ${Endpoint}`;
+      // Examples: 'GET /api/v1/users', 'POST /api/v1/auth/login'
       ```
 
       #### Use Discriminated Unions for Complex Types
 
       ```typescript
       // Good: Clear discriminated unions
-      type Success = {
+      type Success<T> = {
         status: 'success';
-        data: unknown;
+        data: T;
       };
 
       type Failure = {
         status: 'error';
         error: Error;
+        code?: number;
       };
 
-      type Result = Success | Failure;
+      type Result<T> = Success<T> | Failure;
 
       // Usage with type narrowing
-      function handleResult(result: Result) {
+      function handleResult<T>(result: Result<T>) {
         if (result.status === 'success') {
-          // TypeScript knows result is Success
+          // TypeScript knows result is Success<T>
           console.log(result.data);
         } else {
           // TypeScript knows result is Failure
-          console.error(result.error);
+          console.error(result.error.message, result.code);
         }
       }
       ```
@@ -138,6 +161,42 @@ actions:
       function isConfigObject(value: unknown): value is ConfigObject {
         return typeof value === 'object' && value !== null && 'name' in value;
       }
+
+      // Modern pattern: Use assertion functions
+      function assertIsConfigObject(value: unknown): asserts value is ConfigObject {
+        if (!(typeof value === 'object' && value !== null && 'name' in value)) {
+          throw new Error('Value is not a ConfigObject');
+        }
+      }
+
+      // Usage
+      function processConfig(input: unknown) {
+        assertIsConfigObject(input);
+        // TypeScript knows input is ConfigObject after the assertion
+        console.log(input.name);
+      }
+      ```
+
+      #### Use Generic Constraints
+
+      ```typescript
+      // Constraints ensure type safety while remaining flexible
+      function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
+        return obj[key];
+      }
+
+      // With multiple constraints
+      interface HasId {
+        id: string | number;
+      }
+
+      interface Timestamped {
+        createdAt: Date;
+      }
+
+      function processEntity<T extends HasId & Timestamped>(entity: T): void {
+        console.log(`Processing ${entity.id} created at ${entity.createdAt.toISOString()}`);
+      }
       ```
 
       ### Error Handling
@@ -145,14 +204,34 @@ actions:
       #### Use Discriminated Union for Error Results
 
       ```typescript
-      type Result<T> =
+      type Result<T, E = Error> =
         | { success: true; data: T }
-        | { success: false; error: Error };
+        | { success: false; error: E };
 
       function safeOperation(): Result<string> {
         try {
           // Operation that might fail
           return { success: true, data: 'result' };
+        } catch (error) {
+          return {
+            success: false,
+            error: error instanceof Error ? error : new Error(String(error))
+          };
+        }
+      }
+
+      // Using async with Result type
+      async function fetchData(url: string): Promise<Result<Record<string, unknown>>> {
+        try {
+          const response = await fetch(url);
+          if (!response.ok) {
+            return {
+              success: false,
+              error: new Error(`HTTP error ${response.status}`)
+            };
+          }
+          const data = await response.json();
+          return { success: true, data };
         } catch (error) {
           return {
             success: false,
@@ -171,6 +250,10 @@ actions:
       export { defineConfig } from './define-config';
       export type { ConfigOptions } from './types';
       export * from './constants';
+
+      // Use selective re-exports to control what's exposed
+      export { createPackage, installDependencies } from './package-utils';
+      // Don't export: import { internalFunction } from './package-utils';
       ```
 
       #### Use Path Aliases for Internal Imports
@@ -180,13 +263,85 @@ actions:
       {
         "compilerOptions": {
           "paths": {
-            "#internal/*": ["./src/internal/*"]
+            "#internal/*": ["./src/internal/*"],
+            "#shared/*": ["./src/shared/*"]
           }
         }
       }
 
       // Usage
       import { internalUtil } from '#internal/utils';
+      import { sharedTypes } from '#shared/types';
+      ```
+
+      ### Modern TypeScript Features
+
+      #### Nullish Coalescing and Optional Chaining
+
+      ```typescript
+      // Nullish coalescing for default values (handles null and undefined)
+      const count = options.count ?? 10;
+
+      // Optional chaining for safe property access
+      const userName = user?.profile?.name;
+
+      // Combining both
+      const commentCount = post?.comments?.length ?? 0;
+      ```
+
+      #### Typed Catch Clauses
+
+      ```typescript
+      try {
+        // Potentially throwing code
+      } catch (error: unknown) {
+        // Properly type narrow the error
+        if (error instanceof SyntaxError) {
+          console.error('Syntax error:', error.message);
+        } else if (error instanceof Error) {
+          console.error('General error:', error.message);
+        } else {
+          console.error('Unknown error:', String(error));
+        }
+      }
+      ```
+
+      #### Type Satisfies Operator
+
+      ```typescript
+      // Checks if a value matches a type but keeps its original more specific type
+      interface Options {
+        width?: number;
+        height?: number;
+        color?: string;
+      }
+
+      const options = {
+        width: 100,
+        height: 200,
+        color: 'red',
+        animationDuration: 250 // Extra property not in Options
+      } satisfies Options;
+
+      // options.animationDuration is still accessible
+      console.log(options.animationDuration);
+      ```
+
+      #### Indexed Access Types
+
+      ```typescript
+      interface User {
+        id: number;
+        name: string;
+        preferences: {
+          theme: 'light' | 'dark';
+          fontSize: number;
+        };
+      }
+
+      // Extract specific property types
+      type UserTheme = User['preferences']['theme']; // 'light' | 'dark'
+      type UserProperties = keyof User; // 'id' | 'name' | 'preferences'
       ```
 
       ### Special Types to Use
@@ -196,6 +351,36 @@ actions:
       - Use `Required<T>` to make all properties required
       - Use `Pick<T, K>` and `Omit<T, K>` to create subset types
       - Use `Readonly<T>` for immutable data structures
+      - Use `NonNullable<T>` to remove null and undefined
+      - Use `Parameters<T>` and `ReturnType<T>` for function types
+      - Use `Awaited<T>` for unwrapping Promise types
+
+      ### Performance Patterns
+
+      #### Use `const` Assertions for Literal Values
+
+      ```typescript
+      // Better performance and stronger typing
+      const PERMISSIONS = ['read', 'write', 'admin'] as const;
+      type Permission = typeof PERMISSIONS[number]; // 'read' | 'write' | 'admin'
+
+      // Object literals
+      const API_ENDPOINTS = {
+        users: '/api/users',
+        auth: '/api/auth',
+        posts: '/api/posts'
+      } as const;
+      ```
+
+      #### Type-Only Imports
+
+      ```typescript
+      // Only import types, no runtime code
+      import type { UserInterface, PostInterface } from './types';
+
+      // Mix of value and type imports
+      import { User, type Post, type Comment } from './models';
+      ```
 
       ### Monorepo-Specific Patterns
 
@@ -203,18 +388,7 @@ actions:
       - Export all types needed by consumers
       - Don't expose internal implementation details
       - Follow consistent naming conventions
-
-      ## Related Rules
-
-      - [api-design-standards](mdc:.cursor/rules/api-design-standards.mdc): Defines how TypeScript types and interfaces are used in public APIs.
-      - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): Configures linting rules that enforce many TypeScript best practices.
-      - [testing-practices](mdc:.cursor/rules/testing-practices.mdc): Guidelines for writing tests for TypeScript code.
-      - [dependency-management](mdc:.cursor/rules/dependency-management.mdc): How to manage dependencies, including type definitions.
-      - [code-review-standards](mdc:.cursor/rules/code-review-standards.mdc): Provides standards that reviewers check against regarding TypeScript usage.
-      - [development-workflow](mdc:.cursor/rules/development-workflow.mdc): These patterns are part of the standard development process.
-      - [monorepo-structure](mdc:.cursor/rules/monorepo-structure.mdc): Includes monorepo-specific patterns for TypeScript projects.
-      - [debugging-guide](mdc:.cursor/rules/debugging-guide.mdc): Understanding patterns is key to debugging TypeScript errors.
-      - [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc): Aligns with user preferences for TypeScript and coding style.
+      - Use import maps for cleaner imports across packages
 
 examples:
   - input: |
@@ -345,7 +519,7 @@ examples:
 
 metadata:
   priority: high
-  version: 1.2.1
+  version: 1.4.0
   tags:
     - typescript
     - coding-standards

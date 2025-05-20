@@ -6,6 +6,8 @@ alwaysApply: true
 vibe-tools is a CLI tool that allows you to interact with AI models and other tools.
 vibe-tools is installed on this machine and it is available to you to execute. You're encouraged to use it.
 
+Note: For more comprehensive guidance, examples, and advanced usage scenarios, refer to the [vibe-tools-playbook](mdc:docs/memory/vibe-tools-playbook.md). This playbook serves as a complete user guide, while this document provides a concise reference for AI assistants.
+
 <vibe-tools Integration>
 # Instructions
 Use the following commands to get AI assistance:

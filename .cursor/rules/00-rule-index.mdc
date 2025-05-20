@@ -19,17 +19,6 @@ Rules are simply well-formatted documents with:
 
 Their sole purpose is to enhance AI conversations by supplying relevant contextual knowledge at the right moment. They should be treated as documentation/prompt engineering artifacts, not as software requiring traditional development practices.
 
-## Quick References
-
-- [Rule Creation Process](#development-rules)
-- [Workflow & Process Rules](#workflow--process-rules)
-- [Coding Standards](#coding-standards)
-- [Configuration Guides](#configuration-guides)
-- [Repository Structure](#repository-structure)
-- [API Development](#api-development)
-- [Development Tools](#development-tools)
-- [AI & Memory Management](#ai--memory-management)
-
 ## Development Rules
 
 Rules related to creating and managing Cursor rules themselves:
@@ -48,7 +37,7 @@ Rules related to development, release, and task management workflows:
 
 | Rule | Description | Priority |
 |------|-------------|----------|
-| [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc) | FOLLOW when MANAGING tasks to STREAMLINE progress tracking and ENSURE proper memory file management with vibe-tools integration | High |
+| [ai-agile-workflow](mdc:.cursor/rules/ai-agile-workflow.mdc) | FOLLOW when MANAGING tasks to STREAMLINE feature development and progress tracking | High |
 | [changeset-workflow](mdc:.cursor/rules/changeset-workflow.mdc) | FOLLOW when VERSIONING packages to ENSURE proper changelogs and releases | High |
 | [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc) | CONSULT when TROUBLESHOOTING CI/CD issues to RESOLVE build failures | High |
 | [code-review-standards](mdc:.cursor/rules/code-review-standards.mdc) | APPLY when REVIEWING code to MAINTAIN quality standards | High |
@@ -110,7 +99,7 @@ Rules related to AI assistants and memory management:
 | [memory-management](mdc:.cursor/rules/memory-management.mdc) | ALWAYS USE when WORKING with memory files to PRESERVE context across sessions (includes auto-updates) | High |
 | [self-improvement](mdc:.cursor/rules/self-improvement.mdc) | ALWAYS USE when OPERATING to MANDATE self-improvement and AVOID repeating mistakes | High |
 | [user-preferences-awareness](mdc:.cursor/rules/user-preferences-awareness.mdc) | ALIGN when PROVIDING assistance to MATCH established user preferences | High |
-| [vibe-tools](mdc:.cursor/rules/vibe-tools.mdc) | ALWAYS USE when ACCESSING external tools and context to SUPPORT development workflows | High |
+| [vibe-tools](mdc:.cursor/rules/vibe-tools.mdc) | ALWAYS USE when ACCESSING external tools and context to SUPPORT development workflows (refer to [vibe-tools-playbook](mdc:docs/memory/vibe-tools-playbook.md) for comprehensive guide) | High |
 | [vibe-tools-planning-review](mdc:.cursor/rules/vibe-tools-planning-review.mdc) | FOLLOW when PLANNING tasks or REVIEWING changes to ENHANCE workflow efficiency with AI assistance | Medium |
 
 ## Rule Maintenance
@@ -240,6 +229,6 @@ This index must be automatically updated whenever cursor rules are created, modi
 
 ```yaml
 version: 1.8
-last_updated: 2025-05-15
-total_rules: 29
+last_updated: 2025-05-16
+total_rules: 28
 ```

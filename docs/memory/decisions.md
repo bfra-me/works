@@ -10,7 +10,9 @@ This file tracks key technical decisions made during the development of the proj
 | ARCH-002 | Store all cursor rules in .cursor/rules | Ensures consistent location, easy discovery | 2025-04-23 | Approved | Distributed across packages | All rules must be in .cursor/rules with .mdc extension |
 | ARCH-003 | Create memory files in docs/memory | Maintains context across conversations | 2025-04-24 | Approved | Per-package memory, no explicit memory | All context must be in docs/memory with .md extension |
 | ARCH-004 | Use mdc: prefix only in .mdc rule files | Ensures proper link handling in Cursor rules | 2025-04-25 | Approved | Using prefix everywhere, using standard links everywhere | Links in .mdc files must use mdc: prefix, links in .md files must use standard markdown links |
-| ARCH-005 | Implement hierarchical rule structure | Creates coherent rule system | 2025-04-26 | Approved | Flat structure, no relationships | Rules must reference related rules, index must categorize |
+| ARCH-005 | Implement hierarchical rule structure | Creates coherent rule system | 2025-04-26 | Approved | Flat structure, no relationships | Index must categorize |
+| ARCH-006 | Create a single comprehensive showcase file (`vibe-tools-showcase.md`) for all `vibe-tools` examples. | Chosen for ease of maintenance with all examples in one place. Potential lengthiness is mitigated by clear internal organization (by command type and use case). Task ID: 2025-05-07-03.                                                                                                           | 2025-05-20 | Approved | Creating multiple showcase files, one for each `vibe-tools` command type. | Results in a single, potentially large, reference document. Requires good internal navigation (e.g., table of contents, clear headings) for usability.                                                       |
+| ARCH-007 | Formalize an existing collection of `vibe-tools` examples rather than creating a new showcase file from scratch. | During task 2025-05-07-03, it was discovered that `docs/memory/vibe-tools-showcase.md` already contained extensive examples. The decision was to leverage this existing work and focus on ensuring it met memory file standards (e.g., adding the `## Updated: YYYY-MM-DD` timestamp). | 2025-05-20 | Approved | Recreating or significantly restructuring all existing examples.        | Saved significant effort by building upon existing content. Ensures valuable prior work is integrated into the standardized memory system. The primary change was standardization rather than content creation. |
 
 ## Implementation Decisions
 
@@ -40,13 +42,14 @@ This file tracks key technical decisions made during the development of the proj
 | TOOL-003 | ESLint with custom config for code quality | Consistent code style, error prevention | 2025-04-25 | Approved | TSLint, no linter | All code must pass ESLint checks |
 | TOOL-004 | Cursor AI for development assistance | Enhanced productivity, context-aware help | 2025-04-25 | Approved | GitHub Copilot, no AI assistance | Rules must be maintained for optimal AI behavior |
 | TOOL-005 | Use vibe-tools for AI command-line integration | Context-aware AI assistance with repository, planning, and web capabilities | 2025-05-06 | Approved | Custom scripting, direct API calls to AI providers, manual research and planning | Must maintain API keys for providers, outputs should be reviewed before incorporating into memory files |
+| TOOL-006 | Designate [vibe-tools-playbook](/docs/memory/vibe-tools-playbook.md) as primary vibe-tools documentation | Comprehensive, structured guide for all vibe-tools commands and usage scenarios | 2025-05-16 | Approved | Relying only on vibe-tools.mdc rule, scattering documentation across files | vibe-tools.mdc remains concise reference for AI assistants, playbook serves as complete user guide; all documentation and rules should reference the playbook |
 
 ## Open Decisions
 
 | Decision ID | Topic | Options | Considerations | Target Date |
 |-------------|-------|---------|---------------|-------------|
 | OPEN-001 | Automation for rule cross-references | Script to validate links, automated updates, manual management | Maintenance overhead, accuracy, developer experience | 2025-05-15 |
-| OPEN-002 | Rule registry format | JSON, YAML, Markdown table | Machine readability, human editability, integration | 2025-05-01 |
+| OPEN-002 | Rule registry format | JSON, YAML, Markdown table | Machine r3333333333333333333eadability, human editability, integration | 2025-05-01 |
 | OPEN-003 | Memory synchronization protocol | One-way (files to graph), bidirectional, event-based | Consistency, performance, complexity | 2025-05-10 |
 
 ## Decision-Making Process
@@ -59,4 +62,4 @@ This file tracks key technical decisions made during the development of the proj
 6. **Implementation**: Decision is implemented in the codebase
 7. **Evaluation**: Effectiveness of decision is evaluated
 
-## Updated: 2025-05-06
+## Updated: 2025-05-16

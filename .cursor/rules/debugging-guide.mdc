@@ -373,17 +373,6 @@ actions:
       6. **Ignoring TypeScript errors**: Use strict mode and fix all errors
       7. **Debugging in production**: Use dev/staging environments first
 
-      ## Related Rules
-
-      - [testing-practices](mdc:.cursor/rules/testing-practices.mdc): Writing tests is crucial for preventing and reproducing bugs.
-      - [repo-analyzer](mdc:.cursor/rules/repo-analyzer.mdc): Understanding code structure is often the first step in debugging.
-      - [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc): Following best practices can prevent many common TypeScript errors.
-      - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): Linting helps catch potential issues early.
-      - [dependency-management](mdc:.cursor/rules/dependency-management.mdc): Many issues stem from dependency conflicts or misconfigurations.
-      - [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc): Provides context for debugging CI/CD failures.
-      - [code-review-standards](mdc:.cursor/rules/code-review-standards.mdc): Good code reviews can prevent debugging sessions.
-      - [User Preferences](mdc:docs/memory/user-preferences.md): May contain preferences related to logging or debugging tools.
-
 examples:
   - input: |
       I'm getting a `TS2307: Cannot find module 'lodash'` error. How do I fix it?

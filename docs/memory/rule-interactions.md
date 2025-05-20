@@ -83,10 +83,9 @@ To create rules that function well together:
 2.  **Leverage Existing Structures:** Don't reinvent the wheel. If a process exists (e.g., memory management, task tracking), provide guidance *within* that structure rather than creating a parallel one.
 3.  **Utilize Rule Priority:** Assign a meaningful priority (`High`, `Medium`, `Low`) based on the guidance's importance. High priority is for critical standards, Medium for strong recommendations, and Low for helpful suggestions.
 4.  **Embrace Cross-Referencing:** Use the proper syntax to explicitly link to related rules, plans, or memory files. This builds a navigable knowledge network.
-5.  **Document Interactions:** If a rule strongly depends on or complements another, mention this in its "Related Rules" section.
-6.  **Focus on Atomic Guidance:** Ideally, each rule should provide a focused piece of guidance. Complex processes are better handled by workflow rules (`ai-agile-workflow`) that other rules can plug into.
-7.  **Review for Conflicts:** During rule creation or modification, actively consider potential interactions and conflicts with existing rules.
-8.  **Follow Foundational Rules:** Adhere strictly to `cursor-rules-creation` for all rule creation, updates, and cross-referencing.
+5.  **Focus on Atomic Guidance:** Ideally, each rule should provide a focused piece of guidance. Complex processes are better handled by workflow rules (`ai-agile-workflow`) that other rules can plug into.
+6.  **Review for Conflicts:** During rule creation or modification, actively consider potential interactions and conflicts with existing rules.
+7.  **Follow Foundational Rules:** Adhere strictly to `cursor-rules-creation` for all rule creation, updates, and cross-referencing.
 
 ## Examples of Effective Combinations
 
@@ -121,7 +120,6 @@ When designing rules, avoid these common pitfalls:
 -   **Workflow Re-Implementation:** Defining complex workflows within a rule that should defer to established processes like [`ai-agile-workflow`](/.cursor/rules/ai-agile-workflow.mdc) or [`changeset-workflow`](/.cursor/rules/changeset-workflow.mdc).
 -   **Ignoring Foundational Rules:** Not adhering to `cursor-rules-creation`, `location`, or `cross-references` standards.
 -   **Lack of Specificity:** Providing vague guidance that isn't actionable or doesn't account for context.
--   **Missing Cross-References:** Failing to link to related rules, making the knowledge system less connected.
 -   **Incorrect Priority:** Assigning `High` priority to minor suggestions or `Low` priority to critical standards.
 
 ## Guidelines for Cross-Referencing

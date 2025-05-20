@@ -66,7 +66,7 @@ Detailed description of the task.
 
 Any additional notes or context.
 
-## Analysis Findings
+## [Findings]
 
 This optional section can be used to document detailed analysis results, audit findings, or other
 task-specific information that doesn't fit cleanly into other sections. For tasks requiring complex

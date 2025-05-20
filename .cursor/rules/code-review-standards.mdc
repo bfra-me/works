@@ -259,19 +259,6 @@ actions:
       3. All requested changes have been addressed or discussed
       4. No unresolved blocking concerns remain
 
-      ## Related Rules
-
-      - [development-workflow](mdc:.cursor/rules/development-workflow.mdc): Outlines the overall process where code review fits.
-      - [testing-practices](mdc:.cursor/rules/testing-practices.mdc): Test coverage is a key review criterion.
-      - [changeset-workflow](mdc:.cursor/rules/changeset-workflow.mdc): Ensuring changesets are included is part of the author's pre-review.
-      - [api-design-standards](mdc:.cursor/rules/api-design-standards.mdc): Reviewers should check adherence to API standards.
-      - [eslint-config-usage](mdc:.cursor/rules/eslint-config-usage.mdc): Adherence to linting rules is checked.
-      - [prettier-config-usage](mdc:.cursor/rules/prettier-config-usage.mdc): Adherence to formatting rules is checked.
-      - [debugging-guide](mdc:.cursor/rules/debugging-guide.mdc): Provides techniques for resolving issues found in reviews.
-      - [dependency-management](mdc:.cursor/rules/dependency-management.mdc): Dependencies should be reviewed for security and compatibility.
-      - [ci-cd-workflow](mdc:.cursor/rules/ci-cd-workflow.mdc): PRs must pass CI checks before merging.
-      - [typescript-patterns](mdc:.cursor/rules/typescript-patterns.mdc): Reviewers check for adherence to TS standards.
-
 examples:
   - input: |
       I need to review a teammate's Pull Request. What are the main things I should focus on?

@@ -93,7 +93,6 @@
   - Clear description in frontmatter
   - Specific glob patterns to minimize false positives
   - Comprehensive examples section
-  - Cross-references to related rules
 - **Rule Content**:
   - Actionable suggestions rather than general advice
   - Examples showing correct implementation
