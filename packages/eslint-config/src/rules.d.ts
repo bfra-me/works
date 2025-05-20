@@ -1694,7 +1694,7 @@ export interface Rules {
    * disallow unnecessary escape usage
    * @see https://ota-meshi.github.io/eslint-plugin-jsonc/rules/no-useless-escape.html
    */
-  'jsonc/no-useless-escape'?: Linter.RuleEntry<[]>
+  'jsonc/no-useless-escape'?: Linter.RuleEntry<JsoncNoUselessEscape>
   /**
    * enforce consistent line breaks inside braces
    * @see https://ota-meshi.github.io/eslint-plugin-jsonc/rules/object-curly-newline.html
@@ -2562,6 +2562,11 @@ export interface Rules {
    */
   'no-trailing-spaces'?: Linter.RuleEntry<NoTrailingSpaces>
   /**
+   * Disallow `let` or `var` variables that are read but never assigned
+   * @see https://eslint.org/docs/latest/rules/no-unassigned-vars
+   */
+  'no-unassigned-vars'?: Linter.RuleEntry<[]>
+  /**
    * Disallow the use of undeclared variables unless mentioned in `/*global *\/` comments
    * @see https://eslint.org/docs/latest/rules/no-undef
    */
@@ -2685,7 +2690,7 @@ export interface Rules {
    * Disallow unnecessary escape characters
    * @see https://eslint.org/docs/latest/rules/no-useless-escape
    */
-  'no-useless-escape'?: Linter.RuleEntry<[]>
+  'no-useless-escape'?: Linter.RuleEntry<NoUselessEscape>
   /**
    * Disallow renaming import, export, and destructured assignments to the same name
    * @see https://eslint.org/docs/latest/rules/no-useless-rename
@@ -7386,6 +7391,10 @@ type JsoncNoIrregularWhitespace = []|[{
   skipRegExps?: boolean
   skipJSXText?: boolean
 }]
+// ----- jsonc/no-useless-escape -----
+type JsoncNoUselessEscape = []|[{
+  allowRegexCharacters?: string[]
+}]
 // ----- jsonc/object-curly-newline -----
 type JsoncObjectCurlyNewline = []|[((("always" | "never") | {
   multiline?: boolean
@@ -8012,6 +8021,8 @@ type MaxNestedCallbacks = []|[(number | {
 type MaxParams = []|[(number | {
   maximum?: number
   max?: number
+  
+  countVoidThis?: boolean
 })]
 // ----- max-statements -----
 type MaxStatements = []|[(number | {
@@ -8394,6 +8405,10 @@ type NoUseBeforeDefine = []|[("nofunc" | {
 // ----- no-useless-computed-key -----
 type NoUselessComputedKey = []|[{
   enforceForClassMembers?: boolean
+}]
+// ----- no-useless-escape -----
+type NoUselessEscape = []|[{
+  allowRegexCharacters?: string[]
 }]
 // ----- no-useless-rename -----
 type NoUselessRename = []|[{

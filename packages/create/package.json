@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/create",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "A command line utility to create new packages from customizable templates.",
   "keywords": [
     "cli",
@@ -49,8 +49,8 @@
     "consola": "3.4.2"
   },
   "devDependencies": {
-    "memfs": "4.17.1",
-    "tsup": "8.4.0",
+    "memfs": "4.17.2",
+    "tsup": "8.5.0",
     "typescript": "5.8.3"
   },
   "publishConfig": {
