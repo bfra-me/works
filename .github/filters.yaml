@@ -1,0 +1,5 @@
+renovate-changeset-changed: &renovate-changeset-changed
+  - .github/workflows/renovate-changeset.yaml
+  - '**/package.json'
+  - '**/pnpm-lock.yaml'
+changes: *renovate-changeset-changed
