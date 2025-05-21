@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "@clack/prompts": "0.10.1",
-    "@sxzz/create": "0.14.6",
+    "@sxzz/create": "0.15.0",
     "cac": "6.7.14",
     "consola": "3.4.2"
   },
