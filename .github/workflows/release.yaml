@@ -1,12 +1,8 @@
-# Manages the release process for the bfra.me/works monorepo:
-# 1. Creates and manages release PRs using changesets
-# 2. Enables auto-merge for release PRs when checks pass
-# 3. Publishes packages to npm after successful merge
-# Triggers: After main workflow success, weekly schedule, or manual dispatch
-
 name: Release
 
 on:
+  push:
+    branches: [main]
   schedule:
     - cron: '0 18 * * 0' # Run every Sunday at 6 PM UTC
   workflow_dispatch:
@@ -15,10 +11,6 @@ on:
         description: Force release if checks pass
         type: boolean
         default: false
-  workflow_run:
-    branches: [main]
-    types: [completed]
-    workflows: [Main]
 
 permissions:
   contents: read
@@ -42,7 +34,6 @@ jobs:
         with:
           app-id: ${{ secrets.APPLICATION_ID }}
           private-key: ${{ secrets.APPLICATION_PRIVATE_KEY }}
-          owner: ${{ github.repository_owner }}
 
       - name: Check for existing release PR
         id: check-pr
@@ -58,7 +49,6 @@ jobs:
           if [ -n "$PR_NUMBER" ]; then
             echo "pr-exists=true" >> $GITHUB_OUTPUT
             echo "pr-number=$PR_NUMBER" >> $GITHUB_OUTPUT
-            echo "publish-ref=changeset-release/main" >> $GITHUB_OUTPUT
 
             # Check PR status
             STATUS=$(gh pr view $PR_NUMBER --json statusCheckRollup --jq '.statusCheckRollup[].conclusion' | sort -u | grep 'SUCCESS')
@@ -91,19 +81,15 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
-          ref: ${{ steps.check-pr.outputs.publish-ref }}
           token: ${{ steps.get-workflow-access-token.outputs.token }}
 
       - name: Prepare job
         uses: ./.github/actions/pnpm-install
 
-      - name: Perform a dry run of `pnpm publish`
-        if: steps.check-pr.outputs.publish-ref != ''
-        run: pnpm -r publish --dry-run --publish-branch ${{ steps.check-pr.outputs.publish-ref }}
-
       - name: Create Release Pull Request or Publish to npm
-        if: steps.check-pr.outputs.pr-exists == 'false' || steps.check-pr.outputs.mergeable == 'false' || github.event.workflow_run.conclusion == 'success'
+        if: steps.check-pr.outputs.pr-exists == 'false' || steps.check-pr.outputs.mergeable == 'false'
         env:
+          GH_REPO: ${{ github.repository }}
           GITHUB_TOKEN: ${{ steps.get-workflow-access-token.outputs.token }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         uses: changesets/action@e0145edc7d9d8679003495b11f87bd8ef63c0cba # v1.5.3
@@ -114,10 +100,8 @@ jobs:
           title: 'chore(🦋📦): publish packages'
           version: pnpm version-changesets
 
-      # Enable auto-merge for release PRs when checks pass except for workflow_run events
       - name: Enable Auto-merge
         if: >-
-          github.event_name != 'workflow_run' &&
           steps.check-pr.outputs.pr-exists == 'true' &&
           (
             steps.check-pr.outputs.checks-status == 'pending' ||
