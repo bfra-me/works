@@ -102,6 +102,7 @@ jobs:
 
       - name: Enable Auto-merge
         if: >-
+          github.event_name != 'push' &&
           steps.check-pr.outputs.pr-exists == 'true' &&
           (
             steps.check-pr.outputs.checks-status == 'pending' ||
