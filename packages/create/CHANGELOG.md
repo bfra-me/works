@@ -1,5 +1,11 @@
 # @bfra.me/create
 
+## 0.4.7
+### Patch Changes
+
+
+- Updated dependency `@sxzz/create` to `0.15.0`. ([#1300](https://github.com/bfra-me/works/pull/1300))
+
 ## 0.4.6
 ### Patch Changes
 
