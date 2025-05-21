@@ -1,5 +1,14 @@
 # @bfra.me/create
 
+## 0.4.6
+### Patch Changes
+
+
+- Updated dependency `tsup` to `8.5.0`. ([#1288](https://github.com/bfra-me/works/pull/1288))
+
+
+- Updated dependency `memfs` to `4.17.2`. ([#1285](https://github.com/bfra-me/works/pull/1285))
+
 ## 0.4.5
 ### Patch Changes
 
