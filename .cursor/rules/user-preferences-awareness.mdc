@@ -23,9 +23,9 @@ actions:
     message: |
       # User Preferences Access Guide
 
-      When providing assistance, always align with the user's established preferences. These preferences are stored in two complementary locations:
+      When providing assistance, always align with the user's established preferences stored in the [user preferences memory file](mdc:docs/memory/user-preferences.md).
 
-      ## 1. Memory File
+      ## Memory File Access
 
       The [user preferences memory file](mdc:docs/memory/user-preferences.md) contains structured preferences across several categories:
 
@@ -33,31 +33,6 @@ actions:
       # To access user preferences from memory file
       cat docs/memory/user-preferences.md
       ```
-
-      ## 2. Knowledge Graph
-
-      The Knowledge Graph (KG), a key component of the assistant's persistent 'memory', contains structured entities with the user's preferences. This KG is maintained by the Memory MCP server. Access these preferences using knowledge graph tools (like `mcp_memory_search_nodes` to find preferences, `mcp_memory_open_nodes` to get details, or `mcp_memory_create_entities` to add new preference categories - see [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc)):
-
-      - `default_user` - Main user entity with general preferences
-      - `Coding_Style_Preferences` - Code formatting and architecture preferences
-      - `Testing_Preferences` - Testing frameworks and patterns
-      - `Documentation_Preferences` - Documentation formats and standards
-      - `Tool_Usage_Preferences` - Tool usage patterns and commands
-      - `Development_Workflow_Preferences` - PR size, changesets, and release processes
-      - `Versioning_Preferences` - Semantic versioning approach
-      - `Cursor_Rule_Preferences` - Rule structure and application preferences
-
-      The assistant MUST proactively load these and other relevant preference entities from its KG 'memory' at the start of interactions to personalize its responses and behavior (Guideline 6). Furthermore, the assistant MUST update the KG with any new or changed user preferences identified during the conversation, using tools like `mcp_memory_add_observations` or `mcp_memory_create_entities` as appropriate (Guideline 7). This aligns with system guidance to maintain a current understanding of user needs (Guideline 9).
-
-      Access these using knowledge graph queries:
-
-      ```javascript
-      // Sample knowledge graph query
-      const preferences = await graph.search("preferences");
-      const userPrefs = await graph.openNode("default_user");
-      ```
-
-      *(Note: Treat the memory file and knowledge graph as complementary sources. If conflicting information exists, prioritize the most recently updated source or ask the user for clarification.)*
 
       ## Key Preferences Summary
 
@@ -106,31 +81,7 @@ actions:
 
       ## Updating Preferences
 
-      If you identify a new preference that should be captured:
-
-      1. Update the `docs/memory/user-preferences.md` file with the new preference
-      2. Add the preference to the knowledge graph:
-
-      ```javascript
-      // Sample Knowledge Graph update using mcp_memory_create_entities
-      // Example payload for mcp_memory_create_entities:
-      // await default_api.mcp_memory_create_entities(entities=[
-      //   McpMemoryCreateEntitiesEntities(
-      //     name="New_Preference_Category",
-      //     entityType="preference",
-      //     observations=["New preference observation"]
-      //   )
-      // ]);
-
-      // Example payload for mcp_memory_create_relations:
-      // await default_api.mcp_memory_create_relations(relations=[
-      //  McpMemoryCreateRelationsRelations(
-      //    from="default_user",
-      //    to="New_Preference_Category",
-      //    relationType="has_preference"
-      //  )
-      // ]);
-      ```
+      If you identify a new preference that should be captured, update the `docs/memory/user-preferences.md` file with the new preference following the established template structure.
 
 examples:
   - input: |
@@ -225,10 +176,9 @@ examples:
 
 metadata:
   priority: high
-  version: 1.2.1
+  version: 2.0.0
   tags:
     - preferences
     - memory
-    - knowledge-graph
     - customization
 </rule>

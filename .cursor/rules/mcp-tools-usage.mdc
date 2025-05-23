@@ -5,14 +5,14 @@ alwaysApply: true
 ---
 # Model Context Protocol (MCP) Tool Usage
 
-These instructions are automatically active for all conversations in this project. All available tools (e.g., the `mcp_sequential-thinking_sequentialthinking` tool, `Brave Search`, `Tavily`, `Fetch`, `FireCrawl`, and Knowledge Graph/Memory tools like `mcp_memory_create_entities`, `mcp_memory_create_relations`, `mcp_memory_add_observations`, `mcp_memory_delete_entities`, `mcp_memory_delete_observations`, `mcp_memory_delete_relations`, `mcp_memory_read_graph`, `mcp_memory_search_nodes`, and `mcp_memory_open_nodes`) should be utilized as needed without requiring explicit activation.
+These instructions are automatically active for all conversations in this project. All available tools (e.g., the `mcp_sequential-thinking_sequentialthinking` tool, `Brave Search`, `Tavily`, `Fetch`, `FireCrawl`, and Puppeteer) should be utilized as needed without requiring explicit activation.
 
 <rule>
 name: mcp_tools_usage
 description: Guidelines for agents using tools provided by available Model Context Protocol (MCP) servers
 filters:
   - type: message
-    pattern: "(?i)(search web for X|scrape content from X|think through X step by step|remember X about Y|update memory with X|explore X in depth)"
+    pattern: "(?i)(search web for X|scrape content from X|think through X step by step|explore X in depth)"
 
 actions:
   - type: suggest
@@ -21,15 +21,12 @@ actions:
       - "search web for X": Trigger web search tools (Brave Search, Tavily)
       - "scrape content from X": Activate web scraping tools (FireCrawl, Puppeteer)
       - "think through X step by step": Invoke the `mcp_sequential-thinking_sequentialthinking` tool
-      - "remember X about Y": Access the knowledge graph
-      - "update memory with X": Store new information in the knowledge graph
       - "explore X in depth": Combine multiple tools for comprehensive analysis
 
       ## Success Patterns
       - Tools are used proactively without user prompting
       - Multiple tools are combined effectively
       - Tool outputs are validated and cross-referenced
-      - Knowledge is persistently stored
       - Context is maintained across tool usage
 
       ## Tool Categories and Usage Guidelines
@@ -45,32 +42,14 @@ actions:
         flowchart TD
             Start[Problem Identification] --> Think[`mcp_sequential-thinking_sequentialthinking` tool]
             Think --> Search[Web Search/Research]
-            Search --> Validate[Knowledge Graph Check]
-            Validate --> Conclude[Solution Formation]
-            Conclude --> Document[Update Memory]
+            Search --> Conclude[Solution Formation]
+            Conclude --> Document[Update Memory Files]
         ```
 
       ### Information Gathering (Brave Search, Puppeteer, FireCrawl)
       - Use **Brave Search, Puppeteer, and FireCrawl MCP servers** when troubleshooting, searching documentation, or exploring similar user issues.
       - Combine effectively with the **`mcp_sequential-thinking_sequentialthinking`** tool to refine solutions and acquire up-to-date information.
       - Prioritize reliable and concise sources.
-
-      ### Knowledge Graph (Memory)
-      The Knowledge Graph capabilities are provided by the [Memory MCP server](https://github.com/modelcontextprotocol/servers/tree/main/src/memory).
-      - Use the knowledge graph to store and retrieve information that persists across conversations. Assistants MUST proactively load relevant entities from the KG for task context and personalization, and MUST update the KG with new insights, user preferences, and other relevant information derived from interactions, aligning with system guidance for memory management (e.g., user identification, memory retrieval/update cycle).
-      - Link related entities through meaningful relations that capture the nature of their connection.
-      - Utilize specific tools like `mcp_memory_create_entities`, `mcp_memory_create_relations`, `mcp_memory_add_observations`, `mcp_memory_delete_entities`, `mcp_memory_delete_observations`, `mcp_memory_delete_relations`, `mcp_memory_read_graph`, `mcp_memory_search_nodes`, and `mcp_memory_open_nodes`.
-      - **Caution:** When generating calls to KG modification tools (e.g., `mcp_memory_create_entities`, `mcp_memory_add_observations`, `mcp_memory_delete_entities`), the assistant should internally review the proposed operation and its parameters for accuracy and contextual appropriateness before execution to prevent unintended data corruption or loss.
-      - **Knowledge Graph Update Template:**
-        When updating the knowledge graph, document your changes using this format (adapt based on the specific `mcp_memory_*` tool used and the nature of the update):
-        ```markdown
-        Knowledge Graph Updates:
-        - Entity created: [EntityName] (Type: [EntityType])
-          Observations: ["Observation 1", "Observation 2"]
-        - Relation added: [EntityA] [relation_type] [EntityB]
-        - Observations added to [EntityName]: ["New observation"]
-        Rationale: [Brief explanation of why this update was necessary]
-        ```
 
 examples:
   - input: |
@@ -93,21 +72,9 @@ examples:
       Alright, let's break down the refactoring process step-by-step using the `mcp_sequential-thinking_sequentialthinking` tool.
       <use_mcp_tool>sequential-thinking_sequentialthinking thought="Step 1: Understand current component state and identify pain points." thoughtNumber=1 totalThoughts=5 nextThoughtNeeded=true</use_mcp_tool>
 
-  - input: |
-      What do we know about the 'eslint-config' package?
-    output: |
-      Let me check the knowledge graph for information about the 'eslint-config' package.
-      <use_mcp_tool>memory_search_nodes query="eslint-config package"</use_mcp_tool>
-
-  - input: |
-      Remember to update the memory: the default branch is now 'main'.
-    output: |
-      Okay, I will update the knowledge graph to record that the default branch is 'main'. I'll add this as an observation to the relevant project or repository entity.
-      <use_mcp_tool>memory_add_observations observations=[{"entityName": "bfra-me/works_repository", "contents": ["Default branch is 'main'"]}]</use_mcp_tool>
-
 metadata:
   priority: high
-  version: 1.1.1
+  version: 2.0.0
   tags:
     - mcp
     - tool-usage

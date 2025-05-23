@@ -5,7 +5,7 @@ alwaysApply: false
 ---
 # AI-Assisted Agile Workflow
 
-Guidelines for using Cursor rules to generate and track task documents from plan documents.
+Guidelines for using AI assistance to streamline agile development through automated task generation, progress tracking, and memory-enhanced workflow management.
 
 <rule>
 name: ai_agile_workflow
@@ -27,32 +27,42 @@ actions:
     message: |
       # AI-Assisted Agile Workflow
 
-      ## Overview of the Workflow
+      ## Overview
 
-      Our AI-assisted agile workflow combines traditional agile methodologies with AI automation to streamline development processes. The workflow consists of:
+      The AI-Assisted Agile Workflow is a comprehensive system that leverages artificial intelligence to enhance traditional agile development practices. This workflow transforms how teams plan, execute, and track development work by providing:
 
-      1. **Capturing Features** in a central reference document
-      2. **Creating Plan Documents** that outline comprehensive implementation approaches
-      3. **Generating Task Documents** from plans with AI assistance
-      4. **Tracking Progress** with AI-generated reports
-      5. **Updating Status** automatically as tasks are completed
+      - **Intelligent Task Generation**: Automatically break down complex features into manageable, well-defined tasks
+      - **Contextual Memory Management**: Maintain persistent context across development sessions through memory files
+      - **Progress Automation**: Track and report on progress with minimal manual intervention
+      - **Enhanced Documentation**: Generate and maintain comprehensive documentation throughout the development lifecycle
+
+      The workflow integrates seamlessly with development tools and practices, using AI to reduce administrative overhead while improving planning accuracy and delivery predictability.
 
       ## AI Commands Reference
 
-      The user can use the following commands (or similar variations) to interact with the agile workflow:
+      The following commands enable seamless interaction with the AI-assisted workflow. Each command is designed to handle specific aspects of the development process:
 
-      | Command | Description |
-      |---|---|
-      | `Create a plan document for [feature]` | Generates a new plan document |
-      | `Generate task documents from this plan` | Creates task documents from the current plan |
-      | `Update feature status based on completed tasks` | Updates the central document |
-      | `Generate progress report for [feature]` | Creates a status report |
-      | `Suggest next tasks to work on` | Recommends priority tasks |
-      | `Show all blocked tasks` | Lists tasks with unmet dependencies |
-      | `Mark task [task-id] as completed` | Moves task to the done directory and updates status |
-      | `Extend this plan with new phases` | Adds new phases to an existing plan |
-      | `Consolidate plans for [feature1] and [feature2]` | Merges multiple plans |
-      | `Update workflow status memory` | Updates the workflow-status.md file |
+      ### Feature Management Commands
+      | Command | Description | When to Use |
+      |---|---|---|
+      | `Create a plan document for [feature]` | Generates a comprehensive plan with phases and tasks | Starting work on a new feature after initial research |
+      | `Update feature status based on completed tasks` | Synchronizes the central features document with task progress | After completing significant milestones or tasks |
+      | `Generate progress report for [feature]` | Creates detailed status reports with metrics and insights | During sprint reviews or stakeholder updates |
+
+      ### Task Management Commands
+      | Command | Description | When to Use |
+      |---|---|---|
+      | `Generate task documents from this plan` | Creates individual task files from plan phases | After finalizing a comprehensive plan document |
+      | `Mark task [task-id] as completed` | Moves task to done directory and updates all references | When a task has met all acceptance criteria |
+      | `Show all blocked tasks` | Lists tasks with unmet dependencies and blocking issues | During daily standups or planning sessions |
+      | `Suggest next tasks to work on` | Recommends priority tasks based on dependencies and complexity | When deciding what to work on next |
+
+      ### Workflow Management Commands
+      | Command | Description | When to Use |
+      |---|---|---|
+      | `Update workflow status memory` | Refreshes the workflow-status.md file with current state | At the start of each development session |
+      | `Extend this plan with new phases` | Adds additional phases to existing plans | When scope expands or new requirements emerge |
+      | `Consolidate plans for [feature1] and [feature2]` | Merges related plans for coordinated implementation | When features have significant overlap or dependencies |
 
       ## Leveraging `vibe-tools`
       Throughout this workflow, when specific commands or interactions with AI models are described (e.g., for research, planning, task generation, codebase analysis), **`vibe-tools` should be the preferred method of execution if available.** This ensures consistent, context-aware, and powerful AI assistance. Refer to the [vibe-tools documentation](mdc:.cursor/rules/vibe-tools.mdc) for command details.
@@ -346,9 +356,7 @@ actions:
       3. **[user-preferences.md](mdc:docs/memory/user-preferences.md)**: Details user preferences for code style, tools, and workflow
       4. **[domain-knowledge.md](mdc:docs/memory/domain-knowledge.md)**: Contains domain-specific knowledge and terminology
 
-      In addition to these files, the assistant MUST query the Knowledge Graph (using `mcp_memory_search_nodes` or `mcp_memory_open_nodes`) to load relevant entities (e.g., existing components related to the task, user preferences, domain concepts) that provide necessary context and enable personalization for the current workflow step.
-
-      Loading these files and relevant KG entities is MANDATORY at the start of every interaction to ensure you have the necessary context for accurate planning and task execution.
+      Loading these memory files is MANDATORY at the start of every interaction to ensure you have the necessary context for accurate planning and task execution. This process aligns with the [Memory Management System](mdc:.cursor/rules/memory-management.mdc) requirements for comprehensive context retention.
 
       ### Sequential Thinking Requirement
 
@@ -365,6 +373,64 @@ actions:
       When you see instructions that say "Use Sequential Thinking," this means you should either:
       1. Use the `mcp_sequential-thinking_sequentialthinking` tool when available, OR
       2. Structure your response with explicitly numbered thought steps, showing your reasoning process
+
+      ### Memory Updates on Task Completion
+
+      This workflow integrates directly with the [Memory Management System](mdc:.cursor/rules/memory-management.mdc) to automatically capture and retain knowledge from completed tasks. Memory updates are **automatically triggered** when task completion is detected.
+
+      #### Task Completion Detection
+
+      Memory updates are triggered by any of the following indicators:
+
+      **Explicit Completion Statements:**
+      - Messages containing: `(?i)(task completed|finished implementing|done with|completed task|task is done|fixed issue|implemented|resolved|finished|done)`
+      - Content containing `Status: Completed` in task files
+      - Task files moved to the `docs/tasks/done/` directory
+
+      **Direct Update Requests:**
+      - Messages containing: `(?i)(update memory files|refresh memory files|update memory|synchronize memory files)`
+
+      #### Automatic Memory Update Process
+
+      When task completion is detected, the following updates are **automatically executed**:
+
+      1. **Extract Task Information**:
+         - Task type (Feature Implementation, Bug Fix, Configuration, etc.)
+         - Core components affected by the task
+         - Problem solved or objective achieved
+         - Solution implemented and approach taken
+         - Key learnings, challenges, and insights gained
+
+      2. **Update Core Memory Files**:
+         - **[workflow-status.md](mdc:docs/memory/workflow-status.md)**: Mark completed task as "Completed" in Task History table and update Current State section
+         - **[domain-knowledge.md](mdc:docs/memory/domain-knowledge.md)**: Add new insights, implementation patterns, or technical decisions to relevant sections
+         - **Task-Specific Documentation**: Create detailed implementation notes in dedicated files when appropriate
+
+      #### Memory Update Structure for workflow-status.md
+
+      When updating `workflow-status.md`, follow this structured format:
+
+      ```markdown
+      ## Task History
+
+      | Task ID | Task Name | Status | Completion Date |
+      |---------|-----------|--------|-----------------|
+      | YYYY-MM-DD-XX | [Completed task name] | Completed | YYYY-MM-DD |
+      | [Previous entries...] |
+
+      ## Recent Updates
+
+      - Completed [task name] - [brief description of outcome] (YYYY-MM-DD)
+      - [Previous updates...]
+
+      ## Updated: YYYY-MM-DD
+      ```
+
+      **Critical Guidelines:**
+      - Always update existing sections rather than creating duplicates
+      - Maintain chronological order (newest entries first)
+      - Use consistent date format following [date-consistency-enforcer](mdc:.cursor/rules/date-consistency-enforcer.mdc)
+      - Keep the "Updated" timestamp as the very last line in the file
 
       ### Step 1: Capture Features
 
@@ -446,7 +512,7 @@ actions:
 
       ```bash
       # Generate comprehensive implementation plan
-      vibe-tools plan "Create a detailed implementation plan for adding cross-referencing capabilities to Cursor rules. Include phases, tasks, acceptance criteria and estimated story points."
+      vibe-tools plan "Create a detailed implementation plan for adding cross-references capabilities to Cursor rules. Include phases, tasks, acceptance criteria and estimated story points."
 
       # Create plan with specific focus areas
       vibe-tools plan "Generate implementation plan for memory file automation with focus on maintaining strict formatting according to memory-management guidelines. Identify required updates to ai-agile-workflow.mdc."
@@ -643,10 +709,7 @@ actions:
       When executing tasks:
       - Continuously update the relevant memory files to maintain context
       - Use `Sequential Thinking` for analyzing each task step
-      - Keep the memory files and Knowledge Graph in sync
       - Follow the update guidelines in [memory-management.mdc](mdc:.cursor/rules/memory-management.mdc)
-
-      **Knowledge Graph Integration:** Always query the Knowledge Graph (using `mcp_memory_search_nodes` or `mcp_memory_open_nodes`) to load relevant entities for task context and personalization.
 
       ### Step 5: Complete Tasks
 
@@ -656,19 +719,12 @@ actions:
       2. **Invoking Memory File Update**: Use the `mcp_sequential-thinking_sequentialthinking` tool to work through the **Memory File Updates on Task Completion** section defined in `memory-management.mdc`.
       3. **Providing Summary**: Offer a concise summary of the completed task, focusing on key changes, outcomes, and any new insights gained.
 
-      **Knowledge Graph Synchronization:** Upon task completion, the assistant MUST also ensure the Knowledge Graph (the assistant's persistent 'memory', powered by the Memory MCP server) is updated as part of the process defined in `memory-management.mdc`. This involves using `mcp_memory_*` tools (detailed in [mcp-tools-usage.mdc](/.cursor/rules/mcp-tools-usage.mdc)) to:
-         - Create new entities for components/concepts introduced (`mcp_memory_create_entities`).
-         - Add relationships linking new/existing entities (`mcp_memory_create_relations`).
-         - Add observations capturing key implementation details, decisions, or insights (`mcp_memory_add_observations`).
-      Keeping the KG synchronized ensures the assistant's 'memory' accurately reflects the project's evolution.
-
       **Trigger Conditions:** Messages containing phrases like "task completed", "finished implementing", "done with", etc.
       **Required Updates:**
       - Mark the task as "Completed" in the task document
       - Update `workflow-status.md` task history
       - Move the completed task file to the `docs/tasks/done/` directory
       - Extract domain knowledge for `domain-knowledge.md`
-      - Update Knowledge Graph entities as needed
 
       ### Step 6: Track Progress
 
@@ -775,7 +831,7 @@ examples:
   - input: |
       I've completed the task for implementing the cross-reference syntax parser (Task ID: 2025-05-03-02)
     output: |
-      I'll update the necessary documents and Knowledge Graph to reflect this completed task.
+      I'll update the necessary documents and memory files to reflect this completed task.
 
       Based on the current task document:
       1. Moving this task file to the `docs/tasks/done/` directory
@@ -794,12 +850,7 @@ examples:
       - Next task marked as active
       - Progress percentage updated
 
-      The Knowledge Graph has been updated with:
-      - Observations added to relevant entities about the cross-reference syntax parser
-      - Status of related components updated
-      - Relationships captured between the implemented parser and other system components
-
-      The memory files and Knowledge Graph have been updated to reflect the completion of the cross-reference syntax parser task. Would you like me to generate a progress report for the related feature?
+      The memory files have been updated to reflect the completion of the cross-reference syntax parser task. Would you like me to generate a progress report for the related feature?
 
   - input: |
       Generate a progress report for the User Management System feature.
@@ -862,7 +913,7 @@ examples:
 
 metadata:
   priority: high
-  version: 4.0.0
+  version: 5.0.0
   tags:
     - workflow
     - task-management

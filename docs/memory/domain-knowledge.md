@@ -10,7 +10,6 @@
 
 - **Memory Management**: System for maintaining context across conversations
   - Memory files provide persistent storage of information in [docs/memory](/docs/memory/README.md)
-  - The knowledge graph maintains entities and relationships
   - Memory update protocols ensure consistency and are automatically triggered upon task completion
   - Memory retrieval processes guide information access according to [memory-management](/.cursor/rules/memory-management.mdc)
 
@@ -29,8 +28,6 @@
   - Tasks have specific acceptance criteria and implementation steps
   - Progress is tracked through task status and [workflow memory](/docs/memory/workflow-status.md)
   - Enhanced with vibe-tools commands at each workflow stage for improved context and automation
-
-- **Knowledge Graph**: A connected network of entities and relationships, forming a core part of the AI assistant's persistent 'memory'. It is maintained by the Memory MCP server. Entities represent concepts, components, and artifacts. Relationships define how entities connect. Observations store facts. Interactions (creation, queries, updates) are performed using specific `mcp_memory_*` tools (see [mcp-tools-usage.mdc](/.cursor/rules/mcp-tools-usage.mdc) for details). The assistant loads relevant domain concepts from the KG for context and updates it as knowledge evolves.
 
 - **Cursor Rule Description Pattern**: Standardized format for rule descriptions
   - Follows the pattern "VERB when CONTEXT to OUTCOME"
@@ -52,6 +49,14 @@
   - Guided by [vibe-tools](/.cursor/rules/vibe-tools.mdc) rule
   - Comprehensive documentation available in [vibe-tools-playbook](/docs/memory/vibe-tools-playbook.md), which serves as the primary user guide with detailed examples and usage scenarios
 
+- **Entity**: A discrete concept, component, or thing in the project with well-defined properties
+
+- **Relationship**: How entities connect and interact with each other
+
+- **Memory File**: A structured markdown file containing project knowledge and context
+
+- **Cross-Reference**: Links between related concepts in documentation using `mdc:` syntax
+
 ## Memory System Structure
 
 - **[Workflow Status](/docs/memory/workflow-status.md)**: Tracks current project state and task progress
@@ -66,10 +71,12 @@
 - All cursor rules must follow the conventions defined in [cursor-rules-creation](/.cursor/rules/cursor-rules-creation.mdc)
 - Memory files must be stored in the docs/memory directory
 - Task IDs must follow the format YYYY-MM-DD-XX
-- Cross-references between files must use the proper syntax for the file type
+- Memory files must follow the established template structure
+- Cross-references between files must use proper mdc: syntax in rules and standard markdown links in memory files
 - Memory files must be updated after significant changes
-- Knowledge graph entities must have appropriate entity types
 - Rule relationships must be documented in the relationship diagram
+- All memory files must include an "Updated: YYYY-MM-DD" timestamp
+- Task completion automatically triggers memory file updates
 
 ## Key Relationships
 
@@ -84,7 +91,6 @@
   - Cursor Rules adhere to the standards in [cursor-rules-creation](/.cursor/rules/cursor-rules-creation.mdc)
   - Memory files follow the [memory-management](/.cursor/rules/memory-management.mdc) system
   - Tasks implement plans which implement features as defined in [ai-agile-workflow](/.cursor/rules/ai-agile-workflow.mdc)
-  - Knowledge graph entities represent components documented in memory files
   - Cross-references connect related rules in a hierarchical structure
 
 ## Implementation Patterns
@@ -92,12 +98,10 @@
 - **Memory Update Pattern**:
   - Memory files are updated automatically after task completion as defined in the memory-management rule
   - Each update includes a timestamp and clear description of changes
-  - Changes are synchronized with the knowledge graph (using `mcp_memory_*` tools) when available.
   - Cross-references maintain connections between related concepts
 
 - **Memory Access Pattern**:
   - AI assistants check relevant memory files at conversation start
-  - The knowledge graph is queried for additional context (using tools like `mcp_memory_search_nodes` or `mcp_memory_open_nodes`).
   - Information is combined from multiple sources for comprehensive understanding
   - Memory file references follow standardized formats
 
@@ -182,15 +186,13 @@
 | Term | Definition | Context |
 |------|------------|---------|
 | MDC | Markdown Configuration file for Cursor rules | File extension for Cursor rules (.mdc) |
-| Rule | A configuration file that guides AI behavior | Stored in .cursor/rules directory |
-| Memory File | Markdown file storing persistent context | Stored in docs/memory directory |
-| Knowledge Graph | Connected network of entities and relationships. Maintained by the Memory MCP server. Accessed via `mcp_memory_*` tools. | Used for context retention |
-| Entity | A node in the knowledge graph representing a concept. Managed using `mcp_memory_*` tools. | Has a name, type, and observations |
-| Relation | A connection between two entities. Managed using `mcp_memory_*` tools. | Has a from, to, and relationType |
-| Observation | A fact about an entity. Managed using `mcp_memory_*` tools. | Stored as strings in entities |
+| Rule | Cursor IDE configuration file (.mdc) that guides AI behavior | Stored in .cursor/rules directory |
+| Memory File | Structured markdown document storing project context | Used for persistent information across AI conversations |
 | Task | A unit of work with specific acceptance criteria | Stored in docs/tasks directory |
+| Task ID | Unique identifier following YYYY-MM-DD-XX format | Used for tracking and referencing specific work items |
+| Template | Standardized structure for consistent document creation | Ensures uniform formatting across similar files |
 | Plan | A strategy for implementing a feature | Stored in docs/plans directory |
-| Cross-Reference | A link between documents | Used to create navigable knowledge system |
+| Cross-Reference | Link between related documents using mdc: or standard markdown syntax | Maintains relationships between concepts |
 | Hierarchical Structure | Organization of rules in parent-child relationships | Defined in relationship diagram |
 | mdc: Prefix | Special link syntax used exclusively in Cursor rule (.mdc) files | Format: `[text](mdc:path/to/file)` |
 
@@ -202,4 +204,4 @@
 - [Markdown Guide](https://www.markdownguide.org/): Reference for Markdown syntax used in documentation and memory files
 - [Changesets Documentation](https://github.com/changesets/changesets): Guide for the versioning system used in the repository
 
-## Updated: 2025-05-19
+## Updated: 2025-05-23

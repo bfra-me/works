@@ -44,47 +44,26 @@ actions:
          - **Procedure**: You MUST consult the "Documented Learnings from Previous Sessions" section in this rule. This section contains detailed accounts of past mistakes, their resolutions, and key preventive measures.
          - **Rationale**: This is not optional. It is a core requirement for demonstrating improved performance and avoiding repeated errors.
 
-      2. **Utilize the Knowledge Graph for Learnings:**
-         - **Trigger**: Before starting a new task or addressing a complex problem.
-         - **Procedure**: You MUST query the Knowledge Graph for relevant past learnings.
-            - Examples:
-               ```
-               // To search for SessionRetrospective entities:
-               // <use_mcp_tool>mcp_memory_search_nodes query="entityType:SessionRetrospective tool:VibeTools"</use_mcp_tool>
-               // To open a specific known entity:
-               // <use_mcp_tool>mcp_memory_open_nodes names=["AssistantLearning_20250509_VibeToolsYouTubeShowcase"]</use_mcp_tool>
-               ```
-            - Check entities of type `SessionRetrospective`, especially those with observations about similar tools, patterns, or mistakes.
-            - Filter proactively, focusing on relevant entries based on the current tools or patterns you're working with.
-         - **Rationale**: Prevent repeating known mistakes by leveraging past learnings.
-
-      3. **Acknowledge and Apply Learnings:**
+      2. **Acknowledge and Apply Learnings:**
          - If past learnings are relevant to your current task or help you avoid a potential mistake, you MUST explicitly state how you are applying that learning.
-         - **Example Statement**: "Based on the documented learnings in this rule (and KG entity `[EntityName]`), I will use the temporary file method for this `run_terminal_cmd` call to prevent shell escaping issues."
+         - **Example Statement**: "Based on the documented learnings in this rule, I will use the temporary file method for this `run_terminal_cmd` call to prevent shell escaping issues."
 
-      4. **Record New Significant Learnings:**
+      3. **Record New Significant Learnings:**
          - **Trigger**: If you make a significant mistake, or if a novel solution to a complex problem is found, or if a user provides critical corrective feedback that leads to a notable change in approach.
-         - **Procedure**: You MUST:
-            1.  Update the "Documented Learnings from Previous Sessions" section in this rule: Add a new entry detailing the context, mistake/challenge, resolution, and key takeaway/preventive measure. Use the existing format. Ensure all updates are made directly in this rule file.
-            2.  Update the Knowledge Graph: Create a new `SessionRetrospective` entity using the MCP Memory tools (as detailed in [mcp-tools-usage](mdc:.cursor/rules/mcp-tools-usage.mdc)):
-                - Use `mcp_memory_create_entities` to create a new entity named descriptively (e.g., `AssistantLearning_YYYYMMDD_BriefDescription`) with entityType `SessionRetrospective`.
-                - Use `mcp_memory_add_observations` to add detailed observations capturing the mistake, resolution, and takeaways.
-                - Add a specific observation detailing the purpose of *this KG entry* and how it can be found/used (see `AssistantLearning_20250509_VibeToolsYouTubeShowcase` for an example).
-                - Use `mcp_memory_create_relations` to link this entity to relevant `Tool`, `Concept`, `Project`, or `User` entities.
+         - **Procedure**: You MUST update the "Documented Learnings from Previous Sessions" section in this rule: Add a new entry detailing the context, mistake/challenge, resolution, and key takeaway/preventive measure. Use the existing format. Ensure all updates are made directly in this rule file.
          - **Handling Edit Limitations**: If you encounter limitations with the `edit_file` tool that prevent direct updates to this rule file (as documented in previous learnings):
             - Make multiple attempts with the `edit_file` tool using different approaches before considering alternatives.
             - If direct updates still fail after multiple attempts, use the `run_terminal_cmd` tool to update the file using shell commands.
             - Request the user to add this content to the self-improvement.mdc file at the appropriate location.
-            - Proceed with updating the Knowledge Graph portion of the process regardless of the rule file update status.
             - Always prioritize direct file updates over generating content for manual addition.
          - **Rationale**: This continuous feedback loop is essential for systemic improvement.
 
-      5. **Focus on High-Priority Learning Areas:**
+      4. **Focus on High-Priority Learning Areas:**
          - **Shell Command Construction**: Pay extreme attention to escaping and structure when using `run_terminal_cmd`, especially for commands that themselves take complex string arguments (like `vibe-tools ... "multi-line prompt"`). The temporary file method for nested prompts is the safest approach.
          - **Temporary File Management**: Be explicit about the lifecycle of temporary files. Always follow the standard lifecycle pattern: Create -> Use -> Delete, all within the same logical operation or command sequence. Every temporary file created must be explicitly deleted after use unless there is a documented reason to retain it. Avoid creating dangling references to temporary files in persistent documentation, as these files won't exist for future sessions. When referencing content from temporary files in documentation, always reference the concepts or summaries rather than the file paths themselves.
          - **Rule Adherence & Consultation**: Proactively consult all relevant `.cursor/rules/*.mdc` files (use [00-rule-index.mdc](mdc:.cursor/rules/00-rule-index.mdc) to find them) before performing actions. These rules contain critical, project-specific operational guidance.
 
-      6. **Continuous Self-Evaluation:**
+      5. **Continuous Self-Evaluation:**
          - Regularly assess the effectiveness of your own responses and actions.
          - When completing a complex task, explicitly evaluate what went well and what could be improved.
          - Use the `mcp_sequential-thinking_sequentialthinking` tool to reflect on your performance and identify areas for improvement.
@@ -92,17 +71,16 @@ actions:
 
       ## Conflict Resolution Framework
 
-      When encountering conflicts between this rule, other rules, or Knowledge Graph entries:
+      When encountering conflicts between this rule and other rules:
 
       1. **Hierarchy of Authority**
 
       In case of conflicting information, follow this hierarchy to resolve:
 
       1. **Direct User Instructions**: The most current user directive always takes highest precedence.
-      2. **Recent Knowledge Graph Entries**: For rapidly evolving areas, KG entries created within the last 30 days may supersede older documented learnings in this rule. However, if such a KG entry supersedes a documented learning here, a new entry should eventually be made in this rule file to reflect this updated understanding and maintain this rule as the primary source of consolidated learnings.
-      3. **This Protocol Document**: The general guidelines in this document.
-      4. **Other Rules**: Information from other `.cursor/rules/*.mdc` files.
-      5. **General Knowledge**: Your prior knowledge or general reasoning.
+      2. **This Protocol Document**: The general guidelines in this document.
+      3. **Other Rules**: Information from other `.cursor/rules/*.mdc` files.
+      4. **General Knowledge**: Your prior knowledge or general reasoning.
 
       2. **Conflict Detection & Resolution**:
          - When you notice potential conflicts between guidance sources, explicitly acknowledge them.
@@ -259,7 +237,7 @@ actions:
       1. **Chronological Order**: Always add new entries at the TOP of the list, with the most recent first.
       2. **Consistent Styling**: Adhere to the established header and bullet point format.
       3. **Domain Prefixing**: Always include the domain prefix in session titles (e.g., "Memory Management - ...").
-      4. **Self-Referential Updates**: All learnings should be documented directly within this rule file and also in the Knowledge Graph. *Even if detailed information is added to the KG*, the core summary of the mistake, resolution, and key takeaway/preventive measure MUST still be added to this rule file for immediate human and AI visibility.
+      4. **Self-Referential Updates**: All learnings should be documented directly within this rule file for immediate human and AI visibility.
       5. **Accessibility**: Ensure that your updates are formatted for maximum readability by both humans and AI.
       6. **Cross-Referencing**: When a learning is related to other rules, include appropriate `mdc:` references.
 
@@ -440,7 +418,7 @@ examples:
 
 metadata:
   priority: high
-  version: 1.2
+  version: 2.0.0
   tags:
     - self-improvement
     - error-handling
