@@ -7,7 +7,7 @@ alwaysApply: false
 
 <rule>
 name: vibe_tools_planning_review
-description: Guidelines for using vibe-tools plan for task planning and Gemini for context-aware code reviews
+description: Guidelines for using `vibe-tools plan` for task planning and `vibe-tools repo` for context-aware code reviews
 filters:
   - type: message
     pattern: "(?i)(plan task|review code|vibe-tools plan|ask gemini|review changes|implementation plan)"

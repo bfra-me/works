@@ -30,7 +30,7 @@ This file tracks key technical decisions made during the development of the proj
 | PROC-001 | Break features into plans, phases, and tasks | Manageable units of work, clear tracking | 2025-04-25 | Approved | Direct feature implementation, informal tasks | More documentation overhead, clearer progress tracking |
 | PROC-002 | Use task templates with structured sections | Consistency, comprehensive task definition | 2025-04-25 | Approved | Free-form tasks, minimal structure | All tasks must follow the template format |
 | PROC-003 | Update workflow status after significant changes | Maintain context across conversations | 2025-04-25 | Approved | Ad-hoc updates, no formal tracking | Regular updates to workflow-status.md required |
-| PROC-004 | Implement knowledge graph entities for key components | Enhanced relationship tracking | 2025-04-25 | Approved | File-only tracking, no graph | The Knowledge Graph (KG), often referred to as the assistant\'s persistent \'memory\', must be maintained alongside files. This KG is powered by the Memory MCP server and its maintenance involves using specific mcp_memory_* tools. |
+| PROC-004 | Use file-only memory management | Simplified architecture, reduced dependencies | 2025-05-23 | Approved | Knowledge Graph integration, hybrid approach | Memory management relies solely on structured markdown files in docs/memory/ |
 | PROC-005 | Integrate vibe-tools into ai-agile-workflow | Enhanced research, planning, context awareness, and automation | 2025-05-06 | Approved | Separate vibe-tools workflow rule, ad-hoc usage without rule integration | All workflow stages enhanced with specific vibe-tools commands, memory file updates can be automated |
 
 ## Tool Decisions
@@ -49,8 +49,7 @@ This file tracks key technical decisions made during the development of the proj
 | Decision ID | Topic | Options | Considerations | Target Date |
 |-------------|-------|---------|---------------|-------------|
 | OPEN-001 | Automation for rule cross-references | Script to validate links, automated updates, manual management | Maintenance overhead, accuracy, developer experience | 2025-05-15 |
-| OPEN-002 | Rule registry format | JSON, YAML, Markdown table | Machine r3333333333333333333eadability, human editability, integration | 2025-05-01 |
-| OPEN-003 | Memory synchronization protocol | One-way (files to graph), bidirectional, event-based | Consistency, performance, complexity | 2025-05-10 |
+| OPEN-002 | Rule registry format | JSON, YAML, Markdown table | Machine readability, human editability, integration | 2025-05-01 |
 
 ## Decision-Making Process
 
@@ -62,4 +61,4 @@ This file tracks key technical decisions made during the development of the proj
 6. **Implementation**: Decision is implemented in the codebase
 7. **Evaluation**: Effectiveness of decision is evaluated
 
-## Updated: 2025-05-16
+## Updated: 2025-05-23
