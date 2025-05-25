@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.20.9
+### Patch Changes
+
+
+- Updated dependency `eslint-flat-config-utils` to `2.1.0`. ([#1308](https://github.com/bfra-me/works/pull/1308))
+
 ## 0.20.8
 ### Patch Changes
 
