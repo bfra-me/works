@@ -299,14 +299,13 @@ The `.cursor/rules/memory-management.mdc` rule is a cornerstone of the AI's cont
 This use case demonstrates using `vibe-tools plan` to generate a comprehensive refactoring strategy for `memory-management.mdc`. The goal is to produce a plan that will guide improvements to the rule's clarity, structure, and its integration with other key rules and processes in `bfra-me/works`. Specifically, the plan should address:
 1.  Enhancing the overall structural organization and readability.
 2.  Detailing how to integrate guidelines from `ai-agile-workflow.mdc` regarding task completion and its impact on memory file updates (especially `docs/memory/workflow-status.md`).
-3.  Ensuring the refactored rule maintains and clarifies consistency with Knowledge Graph (KG) integration patterns, referencing tools and practices from `mcp-tools-usage.mdc`.
 4.  Identifying specific sections within `memory-management.mdc` that require new or updated `mdc:` cross-references to `ai-agile-workflow.mdc` and `mcp-tools-usage.mdc`.
 
 The **project-specific value and innovative aspect** here is using AI (`vibe-tools plan`) to strategically plan the improvement of the AI's *own guidance system*. This creates a powerful feedback loop, ensuring the `.mdc` rules that drive AI assistance in `bfra-me/works` remain accurate, coherent, and effective as the project itself evolves. It's a meta-level application that showcases `vibe-tools`' ability to contribute to the very infrastructure that supports AI-assisted development.
 
 **`vibe-tools plan` Command Executed:**
 ```bash
-vibe-tools plan "Create a detailed refactoring plan for the '.cursor/rules/memory-management.mdc' rule in the bfra-me/works monorepo. The plan should address: 1. Improving clarity and structural organization of the existing rule. 2. Integrating guidelines for how task completions, as defined in '.cursor/rules/ai-agile-workflow.mdc', should specifically trigger updates to memory files, particularly 'docs/memory/workflow-status.md'. 3. Ensuring the refactored rule maintains consistency with established Knowledge Graph integration patterns and tools mentioned in 'mcp-tools-usage.mdc'. 4. Identifying sections in 'memory-management.mdc' that require new or updated cross-references to 'ai-agile-workflow.mdc' and 'mcp-tools-usage.mdc'. The plan should propose specific changes, new sections, or rephrasing of existing content."
+vibe-tools plan "Create a detailed refactoring plan for the '.cursor/rules/memory-management.mdc' rule in the bfra-me/works monorepo. The plan should address: 1. Improving clarity and structural organization of the existing rule. 2. Integrating guidelines for how task completions, as defined in '.cursor/rules/ai-agile-workflow.mdc', should specifically trigger updates to memory files, particularly 'docs/memory/workflow-status.md'. 3. Ensuring the refactored rule maintains consistency with established tools mentioned in 'mcp-tools-usage.mdc'. 4. Identifying sections in 'memory-management.mdc' that require new or updated cross-references to 'ai-agile-workflow.mdc' and 'mcp-tools-usage.mdc'. The plan should propose specific changes, new sections, or rephrasing of existing content."
 ```
 
 **Analysis of Output & Project-Specific Usefulness:**
@@ -317,7 +316,6 @@ The `vibe-tools plan` command successfully generated a detailed and actionable r
     *   It produced a structured plan with clear steps:
         1.  Improving Clarity and Structural Organization (suggesting hierarchy, "Use Cases" section).
         2.  Integrating Guidelines for Task Completion Updates (proposing "Auto Memory Management" section).
-        3.  Ensuring Consistency with Knowledge Graph Patterns (advising on `mcp_memory_*` tool examples).
         4.  Updating Cross-References (recommending `mdc:` links).
         5.  Code Modifications (outlining implementation and metadata versioning).
         6.  Review and Testing.
@@ -469,7 +467,7 @@ The **project-specific value and innovative aspect** is using AI to document its
 
 **`vibe-tools doc` Command Executed:**
 ```bash
-vibe-tools doc --subdir .cursor/rules --save-to=docs/generated/cursor-rules-system-overview.md "Generate a comprehensive overview document for the .cursor/rules/ system in the bfra-me/works monorepo. Explain the purpose of these .mdc rules, their general structure (common frontmatter, filters, actions, examples, metadata sections), how rules are typically activated, and common rule patterns observed. Highlight the role and importance of key meta-rules like '00-rule-index.mdc', 'cursor-rules-creation.mdc', and 'memory-management.mdc'. If possible, discuss broad categories of rules present (e.g., based on naming conventions or metadata tags like 'workflow', 'coding-standards', 'memory'). Outline best practices for developers creating or modifying rules in this specific project. The goal is to create a high-level architectural guide for understanding and working effectively with this project's AI guidance system."
+vibe-tools doc --subdir=.cursor/rules --save-to=docs/generated/cursor-rules-system-overview.md "Generate a comprehensive overview document for the .cursor/rules/ system in the bfra-me/works monorepo. Explain the purpose of these .mdc rules, their general structure (common frontmatter, filters, actions, examples, metadata sections), how rules are typically activated, and common rule patterns observed. Highlight the role and importance of key meta-rules like '00-rule-index.mdc', 'cursor-rules-creation.mdc', and 'memory-management.mdc'. If possible, discuss broad categories of rules present (e.g., based on naming conventions or metadata tags like 'workflow', 'coding-standards', 'memory'). Outline best practices for developers creating or modifying rules in this specific project. The goal is to create a high-level architectural guide for understanding and working effectively with this project's AI guidance system."
 ```
 
 **Analysis of Output & Project-Specific Usefulness:**
@@ -499,7 +497,7 @@ The command successfully generated `docs/generated/cursor-rules-system-overview.
 *   **Potential Further Explorations for `bfra-me/works`:**
     1.  **`vibe-tools repo "Review docs/generated/cursor-rules-system-overview.md. Are there other key rules or patterns in '.cursor/rules/' deserving special mention or deeper explanation?"`**: AI peer-review of its own generated architectural document.
     2.  **`vibe-tools plan "Based on cursor-rules-system-overview.md, create a plan for a workshop to onboard developers to the .cursor/rules/ system in bfra-me/works."`**: Use the overview to plan educational materials.
-    3.  **`vibe-tools doc --subdir .github/workflows --save-to=docs/generated/github-workflows-overview.md "Generate a similar overview for GitHub Actions workflows in '.github/workflows', explaining purposes, triggers, and interactions."`**: Apply the methodology to document the CI/CD system.
+    3.  **`vibe-tools doc --subdir=.github/workflows --save-to=docs/generated/github-workflows-overview.md "Generate a similar overview for GitHub Actions workflows in '.github/workflows', explaining purposes, triggers, and interactions."`**: Apply the methodology to document the CI/CD system.
 
 ---
 
@@ -632,52 +630,6 @@ The command execution resulted in an internal error within the `vibe-tools` brow
     1.  **Retry the command:** After a potential fix or update to `vibe-tools`, retry this exact use case.
     2.  **Systematic Browser Command Testing:** If issues persist, a more systematic test of each `vibe-tools browser` subcommand with very simple targets might be needed to diagnose the scope of the Stagehand problem.
     3.  **Focus on `vibe-tools browser open` and `extract`:** If `act` and `observe` continue to face issues, explore if `open` (for fetching content) and `extract` (for non-interactive data extraction) can still provide value, though they offer different capabilities.
-
----
-
-### `vibe-tools mcp run` - Use Case 1: Updating the Project's Knowledge Graph with a New pnpm Testing Preference
-
-**Summary of `vibe-tools mcp run`:**
-The `vibe-tools mcp run "<query>"` command allows you to execute tools available on Model Context Protocol (MCP) servers using natural language. `vibe-tools` interprets your query, selects an appropriate MCP server and tool (e.g., from a Memory server, a File System server, etc.), and executes it. This enables powerful, context-aware interactions with various backend services and tools via a unified natural language CLI.
-
-**Use Case Explanation & Project-Specific Value:**
-The `bfra-me/works` monorepo extensively uses `pnpm` and has specific workflow preferences. Its AI-assisted development relies on a Knowledge Graph (KG), managed by an MCP Memory server, to store such preferences and project context (as outlined in `mcp-tools-usage.mdc` and `memory-management.mdc`). This KG helps AI assistants provide relevant guidance.
-
-This use case demonstrates using `vibe-tools mcp run` to add a new, specific testing preference to the KG. Suppose the team decides to formalize a best practice: "Always use `pnpm test --filter <package-name>...` to run tests for changed packages only, leveraging pnpm's dependency graph knowledge, before pushing code." This is a valuable piece of context for both human developers and AI assistants working within `bfra-me/works`. We will instruct `vibe-tools mcp run` to use the Memory MCP server to add this as an observation to an entity like `Testing_Preferences`.
-
-The **project-specific value** is immense: it showcases how `vibe-tools mcp run` can directly and programmatically update the persistent "memory" that AI assistants in `bfra-me/works` rely on. This allows for dynamic evolution of shared project knowledge. The **innovative "amaze" factor** comes from using a natural language CLI command to interact with a sophisticated backend service (the MCP Memory server and its Knowledge Graph tools) to modify structured AI context, making the AI's own knowledge base adaptable via CLI.
-
-**`vibe-tools mcp run` Command Executed:**
-```bash
-vibe-tools mcp run "Using the Memory MCP server, add the observation 'Always use pnpm test --filter <package-name>... to run tests for changed packages only, leveraging pnpm's dependency graph knowledge, before pushing code.' to the entity named 'Testing_Preferences'."
-```
-
-**Analysis of Output & Project-Specific Usefulness:**
-The `vibe-tools mcp run` command executed successfully. The output shows the following key steps:
-1.  `vibe-tools` correctly identified the need to interact with an MCP server and searched the marketplace, finding the "Knowledge Graph Memory" server.
-2.  It established communication with the Memory MCP server.
-3.  The AI layer within `vibe-tools` (using Anthropic by default for MCP interpretation) first called `search_nodes` to check if an entity named "Testing_Preferences" already existed. It did not.
-4.  It then intelligently decided to call `create_entities` to create the new "Testing_Preferences" entity (as type "Preference") and simultaneously add the specified observation to it.
-5.  The tool confirmed the successful creation and the content of the new entity.
-
-*   **What was achieved in `bfra-me/works` context:**
-    *   A new, project-specific testing preference has been successfully added to the AI's persistent Knowledge Graph.
-    *   This demonstrates that the AI's understanding of `bfra-me/works`'s development practices can be dynamically updated via a CLI command.
-    *   It shows the seamless integration between `vibe-tools`, MCP servers, and the underlying AI models that interpret natural language and select appropriate tool calls.
-
-*   **Usefulness & Transformation for `bfra-me/works`:**
-    *   **Highly Useful:** This provides a direct and auditable way to manage and evolve the contextual knowledge that AI assistants rely on for the `bfra-me/works` project.
-    *   **Transformative & "Amaze" Factor:** This is transformative because it makes the AI's "memory" interactive and adaptable through simple CLI commands. The "amaze" factor is in witnessing `vibe-tools` orchestrate multiple MCP tool calls (`search_nodes` then `create_entities`) based on a single natural language instruction, effectively performing a "find or create and update" operation on the Knowledge Graph.
-
-*   **Key Takeaways for `bfra-me/works`:**
-    1.  **Dynamic AI Context Management:** `vibe-tools mcp run` combined with a Memory MCP server offers a powerful way to dynamically manage the specific contextual knowledge for `bfra-me/works`.
-    2.  **Intelligent Tool Orchestration:** The AI layer within `vibe-tools` can interpret natural language to select and sequence multiple MCP tool calls.
-    3.  **Evolving Project Standards:** This mechanism allows the AI's knowledge of `bfra-me/works` project standards to evolve alongside the project itself.
-
-*   **Potential Further Explorations for `bfra-me/works`:**
-    1.  **`vibe-tools mcp run "Using the Memory MCP server, search for all observations related to the 'Testing_Preferences' entity."`**: Retrieve and verify the newly added information.
-    2.  **`vibe-tools mcp run "Using the Memory MCP server, add another observation 'Use Vitest's --coverage option to generate test coverage reports' to the 'Testing_Preferences' entity, and also create a relation 'has_tool_preference' from 'Testing_Preferences' to a new entity named 'Vitest' of type 'SoftwareTool'."`**: Demonstrate adding more observations and creating relations.
-    3.  **`vibe-tools plan "Develop a script or alias that developers can use to quickly add new coding or workflow preferences to the Knowledge Graph via vibe-tools mcp run, prompting them for the entity name and the observation text."`**: Plan tooling to make this KG update process even more accessible.
 
 ---
 

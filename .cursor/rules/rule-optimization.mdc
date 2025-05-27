@@ -218,7 +218,6 @@ examples:
          - Move comprehensive examples to the external file
 
       4. Delegate specialized knowledge:
-         - Knowledge Graph operations → mcp-tools-usage.mdc
          - Date handling → date-consistency-enforcer.mdc
          - Sequential thinking → mcp-tools-usage.mdc
 

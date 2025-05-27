@@ -59,7 +59,7 @@ This file serves as a persistent memory for AI assistants to track the current s
 
 The current tasks involve work on two active projects:
 
-1. **Memory Management System**: This project aims to create a comprehensive memory management system using memory files and knowledge graph integration to maintain context across conversations. We're establishing standardized files like workflow-status.md, architecture.md, and user-preferences.md to maintain persistent context.
+1. **Memory Management System**: This project aims to create a comprehensive memory management system using memory files to maintain context across conversations. We're establishing standardized files like workflow-status.md, architecture.md, and user-preferences.md to maintain persistent context.
 
 2. **Vibe-Tools Playbook Integration**: We're integrating the Vibe-Tools Playbook as a first-class memory file. Currently working on Task 2025-05-07-03 (Create Showcase Documents) with the next task being 2025-05-07-04 (Define Standard Operational Guidelines).
 
@@ -68,7 +68,5 @@ The Cursor Rules System Improvement project has been completed, including all ta
 The current focus is on:
 1. Continuing the integration of the Vibe-Tools Playbook as a first-class memory file
 2. Further developing the Memory Management System to improve context retention across sessions
-
-This status reflects the current state tracked in the project's memory files and is synchronized with the Knowledge Graph (the assistant's persistent memory) for enhanced context retention across sessions. See [memory-management](/.cursor/rules/memory-management.mdc) for details on Knowledge Graph tools, operations, and integration processes.
 
 ## Updated: 2025-05-16

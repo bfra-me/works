@@ -9,9 +9,6 @@
 # Changesets added by `@scaleway/changesets-renovate`
 .changeset/renovate-*.md
 
-# AI-generated files
-**/docs/generated/**
-
 # Package-specific
 
 ## eslint-config

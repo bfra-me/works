@@ -19,9 +19,9 @@ This pattern involves rules that combine to create a cohesive workflow for devel
 
 - **Core Rules:**
     - [`ai-agile-workflow`](/.cursor/rules/ai-agile-workflow.mdc): Defines the process for creating plans, generating tasks, and tracking progress.
-    - [`memory-management`](/.cursor/rules/memory-management.mdc): Establishes the structure and guidelines for memory files (like `workflow-status.md`) and their synchronization with the Knowledge Graph.
+    - [`memory-management`](/.cursor/rules/memory-management.mdc): Establishes the structure and guidelines for memory files (like `workflow-status.md`).
     - [`date-consistency-enforcer`](/.cursor/rules/date-consistency-enforcer.mdc): Ensures accurate timestamps in tasks and memory files.
-- **Interaction:** `ai-agile-workflow` triggers the process, `memory-management` defines *where* and *how* status is stored (in files and the KG), and `date-consistency-enforcer` ensures *accuracy* of time-based data throughout. The `memory-management` rule also covers automated updates to memory files and the KG upon task completion.
+- **Interaction:** `ai-agile-workflow` triggers the process, `memory-management` defines *where* and *how* status is stored (in files), and `date-consistency-enforcer` ensures *accuracy* of time-based data throughout. The `memory-management` rule also covers automated updates to memory files upon task completion.
 
 ### 2. Coding Standards Stack
 
@@ -50,10 +50,10 @@ This pattern includes rules essential for defining, creating, and organizing the
 This pattern involves rules that manage the flow and application of contextual information using available tools (like MCP tools or memory files).
 
 - **Core Rules:**
-    - [`mcp-tools-usage`](/.cursor/rules/mcp-tools-usage.mdc): General guidelines for using available external tools (Search, Fetch, KG, Sequential Thinking).
-    - [`memory-management`](/.cursor/rules/memory-management.mdc): Defines how persistent context is stored in `docs/memory/` files and synchronized with the Knowledge Graph.
-    - [`user-preferences-awareness`](/.cursor/rules/user-preferences-awareness.mdc): Guides accessing and applying user-specific preferences (often stored via `memory-management` principles or directly in the KG).
-- **Interaction:** `mcp-tools-usage` provides access to a suite of tools, including those for interacting with the Knowledge Graph (KG), which is the assistant's persistent 'memory' (powered by the Memory MCP server). `memory-management` defines how local memory files are structured and also how they synchronize with the KG. `user-preferences-awareness` guides the AI to retrieve user context, often from KG entities (using tools like `mcp_memory_search_nodes` or `mcp_memory_open_nodes`). The `memory-management` rule then ensures task outcomes and new insights are persisted back into both local memory files and the KG (using tools like `mcp_memory_create_entities`, `mcp_memory_add_observations`).
+    - [`mcp-tools-usage`](/.cursor/rules/mcp-tools-usage.mdc): General guidelines for using available external tools (Search, Fetch, Memory, Sequential Thinking).
+    - [`memory-management`](/.cursor/rules/memory-management.mdc): Defines how persistent context is stored in `docs/memory/` files.
+    - [`user-preferences-awareness`](/.cursor/rules/user-preferences-awareness.mdc): Guides accessing and applying user-specific preferences (often stored via `memory-management` principles).
+- **Interaction:** `mcp-tools-usage` provides access to a suite of tools which is the assistant's persistent 'memory' (powered by the Memory MCP server). `memory-management` defines how local memory files are structured. `user-preferences-awareness` guides the AI to retrieve user context. The `memory-management` rule then ensures task outcomes and new insights are persisted back into local memory files.
 
 ## Potential Conflict Areas & Resolution
 

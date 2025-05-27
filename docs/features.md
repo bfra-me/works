@@ -16,12 +16,11 @@ This document tracks features for improving the bfra.me/works repository.
   - Phase 1 (Migration and Standardization) partially completed:
     - Completed: Move `vibe-tools-playbook.md` to `docs/memory/` directory
     - Completed: Standardize structure and add the `## Updated: YYYY-MM-DD` timestamp
-    - Completed: Add Knowledge Graph Integration section
     - In Progress: Review and align playbook content with `vibe-tools.mdc` for accuracy and consistency
 
 ### Feature 3: Implement Memory Management System
 
-- **Description**: Create a comprehensive memory management system using memory files and knowledge graph integration to maintain context across conversations, enabling AI assistants to persist important information about project status and development workflow.
+- **Description**: Create a comprehensive memory management system using memory files to maintain context across conversations, enabling AI assistants to persist important information about project status and development workflow.
 - **Status**: In Progress
 - **Plan Document**: [docs/plans/memory-management.md](plans/memory-management.md)
 - **Priority**: High

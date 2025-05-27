@@ -16,7 +16,6 @@ Integrate `vibe-tools-playbook.md` into the `docs/memory` folder as a first-clas
 - The rule index (`00-rule-index.mdc`) is updated to reference the playbook
 - The integration process is documented as a completed task in `docs/tasks/done/`
 - The playbook content is reviewed and aligned with `vibe-tools.mdc` to avoid redundancy or contradiction
-- (Optional) Future knowledge graph integration is considered
 
 ## Implementation Phases
 
@@ -35,15 +34,11 @@ Integrate `vibe-tools-playbook.md` into the `docs/memory` folder as a first-clas
 ### Phase 4: Documentation and Task Tracking
 - Document the integration as a completed task in `docs/tasks/done/`
 
-### Phase 5: Future Considerations
-- Add a note about potential knowledge graph integration for key playbook concepts
-
 ## Timeline
 - Phase 1: 1 day
 - Phase 2: 1 day
 - Phase 3: 1 day
 - Phase 4: 1 day
-- Phase 5: Ongoing/future
 
 ## Resources Required
 - Access to all relevant documentation and rule files
