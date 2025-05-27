@@ -42,7 +42,7 @@ The output from `vibe-tools ask` provides a clear and structured explanation of 
 ### Use Case 1.2: Primer on `tsup` for Building `packages/`
 
 **Use Case Explanation & Project-Specific Value:**
-The `bfra-me/works` monorepo relies on `tsup` to build its various TypeScript packages located in the `packages/` directory (e.g., `@bfra.me/create`, `@bfra.me/eslint-config`, `@bfra.me/prettier-plugins`). For developers contributing to these packages, modifying their build configurations (`tsup.config.ts`), or even just understanding how the distributed files are generated, a quick understanding of `tsup` is crucial. This use case demonstrates how `vibe-tools ask` can efficiently provide a foundational overview of `tsup`, specifically framed to address its role in a monorepo context like `bfra-me/works`. This accelerates a developer's ability to work with the project's build system.
+The `bfra-me/works` monorepo relies on `tsup` to build its various TypeScript packages located in the `packages/` directory (e.g., `@bfra.me/create`, `@bfra.me/eslint-config`, `@bfra.me/prettier-config`). For developers contributing to these packages, modifying their build configurations (`tsup.config.ts`), or even just understanding how the distributed files are generated, a quick understanding of `tsup` is crucial. This use case demonstrates how `vibe-tools ask` can efficiently provide a foundational overview of `tsup`, specifically framed to address its role in a monorepo context like `bfra-me/works`. This accelerates a developer's ability to work with the project's build system.
 
 **`vibe-tools ask` Command Executed:**
 ```bash
@@ -407,24 +407,24 @@ The `vibe-tools plan` command generated a highly detailed and actionable impleme
 **Summary of `vibe-tools doc`:**
 The `vibe-tools doc` command generates comprehensive documentation for codebases, libraries, or specific features. It analyzes your repository to create structured, context-aware documentation that helps users understand your project.
 
-### Use Case 5.1: Generating Technical Documentation for `@bfra.me/prettier-plugins`
+### Use Case 5.1: Generating Technical Documentation for Development Packages
 
 **Use Case Explanation & Project-Specific Value:**
-The `@bfra.me/prettier-plugins` package in the `bfra-me/works` monorepo provides custom Prettier plugins that extend formatting capabilities for specific file types or syntax patterns. For developers who need to understand how these plugins work, maintain them, or create new ones, comprehensive technical documentation is essential. This use case demonstrates how `vibe-tools doc` can automatically generate detailed documentation for the `prettier-plugins` package, providing insights into its architecture, implementation patterns, and usage examples that would be time-consuming to create manually.
+The `bfra-me/works` monorepo contains various development packages that provide shared configurations and tools. For developers who need to understand how these packages work, maintain them, or create new ones, comprehensive technical documentation is essential. This use case demonstrates how `vibe-tools doc` can automatically generate detailed documentation for development packages, providing insights into their architecture, implementation patterns, and usage examples that would be time-consuming to create manually.
 
 **`vibe-tools doc` Command Executed:**
 ```bash
-vibe-tools doc "Generate comprehensive technical documentation for the @bfra.me/prettier-plugins package. Focus on: 1) The overall architecture and design patterns of the package, 2) Detailed explanations of each plugin's functionality and implementation, 3) Usage examples showing how to configure and use each plugin, and 4) Extension patterns for developers who want to create new plugins following the same architecture. Output the documentation to prettier-plugins-docs.md." --subdir=packages/prettier-plugins
+vibe-tools doc "Generate comprehensive technical documentation for development packages. Focus on: 1) The overall architecture and design patterns, 2) Detailed explanations of functionality and implementation, 3) Usage examples showing how to configure and use packages, and 4) Extension patterns for developers who want to create new packages following the same architecture. Output the documentation to package-docs.md." --subdir=packages/eslint-config
 ```
 
 **Analysis of Output & Project-Specific Usefulness:**
-The output from `vibe-tools doc` provides a comprehensive technical documentation for the `@bfra.me/prettier-plugins` package, including architecture overview, plugin-specific documentation, usage examples, and extension patterns.
+The output from `vibe-tools doc` provides comprehensive technical documentation for development packages, including architecture overview, functionality documentation, usage examples, and extension patterns.
 
 *   **Achievement in `bfra-me/works` context:** The generated documentation gives developers:
-    *   **Architecture Clarity:** The documentation clearly explains the overall structure of the package, including how plugins are registered, configured, and executed within the Prettier ecosystem.
-    *   **Plugin-Specific Details:** Each plugin is documented with its purpose, implementation details, transformation logic, and edge cases, providing a deep understanding of how they work.
-    *   **Practical Usage Guidance:** Concrete examples show how to configure and use each plugin in various scenarios, making it easier for developers to integrate them into their projects.
-    *   **Extension Patterns:** The documentation outlines how to create new plugins following the same architecture, facilitating consistent expansion of the package's capabilities.
+    *   **Architecture Clarity:** The documentation clearly explains the overall structure of packages, including how they are organized, configured, and executed within the development ecosystem.
+    *   **Package-Specific Details:** Each package is documented with its purpose, implementation details, configuration options, and edge cases, providing a deep understanding of how they work.
+    *   **Practical Usage Guidance:** Concrete examples show how to configure and use each package in various scenarios, making it easier for developers to integrate them into their projects.
+    *   **Extension Patterns:** The documentation outlines how to create new packages following the same architecture, facilitating consistent expansion of the monorepo's capabilities.
 
 *   **Usefulness & Transformation:**
     *   This documentation transforms what would be a time-consuming code exploration and manual documentation process into a comprehensive, automatically generated resource.
@@ -433,15 +433,15 @@ The output from `vibe-tools doc` provides a comprehensive technical documentatio
     *   For maintainers, this documentation serves as a reference for ensuring consistency when making changes or adding new plugins.
 
 *   **Key Takeaways for `bfra-me/works`:**
-    1.  **Consistent Plugin Architecture:** The documentation highlights the consistent architecture across plugins, emphasizing the package's design principles and patterns.
-    2.  **Configuration Flexibility:** The usage examples demonstrate the flexibility of plugin configurations, showing how they can be adapted to different project needs.
-    3.  **Extension Frameworks:** The extension patterns provide a clear framework for adding new plugins, ensuring that future additions maintain consistency with the existing codebase.
-    4.  **Integration with Prettier Ecosystem:** The documentation clarifies how the plugins integrate with the broader Prettier ecosystem, providing context for their design and implementation.
+    1.  **Consistent Package Architecture:** The documentation highlights the consistent architecture across packages, emphasizing the monorepo's design principles and patterns.
+    2.  **Configuration Flexibility:** The usage examples demonstrate the flexibility of package configurations, showing how they can be adapted to different project needs.
+    3.  **Extension Frameworks:** The extension patterns provide a clear framework for adding new packages, ensuring that future additions maintain consistency with the existing codebase.
+    4.  **Integration with Development Ecosystem:** The documentation clarifies how the packages integrate with the broader development ecosystem, providing context for their design and implementation.
 
 *   **Potential Further Explorations for `bfra-me/works`:**
-    1.  **`vibe-tools plan "Create a plan to add a new Prettier plugin to @bfra.me/prettier-plugins for formatting GraphQL files, following the package's existing architecture and patterns."`**: Plan a new plugin implementation based on the documented architecture.
-    2.  **`vibe-tools repo "Analyze the test coverage for @bfra.me/prettier-plugins. Are there any edge cases or scenarios that aren't adequately tested? How could test coverage be improved?"`**: Evaluate testing strategies based on the documented functionality.
-    3.  **`vibe-tools repo "Compare our @bfra.me/prettier-plugins implementation with other popular Prettier plugin packages. What patterns or features could we adopt to enhance our plugins?"`**: Benchmark against other Prettier plugin implementations.
+    1.  **`vibe-tools plan "Create a plan to add a new development package for shared testing utilities, following the monorepo's existing architecture and patterns."`**: Plan a new package implementation based on the documented architecture.
+    2.  **`vibe-tools repo "Analyze the test coverage for development packages. Are there any edge cases or scenarios that aren't adequately tested? How could test coverage be improved?"`**: Evaluate testing strategies based on the documented functionality.
+    3.  **`vibe-tools repo "Compare our development package implementations with other popular monorepo packages. What patterns or features could we adopt to enhance our packages?"`**: Benchmark against other development package implementations.
 
 ### Use Case 5.2: Documenting the Project's Cursor Rule System
 
@@ -499,17 +499,17 @@ The command successfully generated `docs/generated/cursor-rules-system-overview.
 **Summary of `vibe-tools browser`:**
 The `vibe-tools browser` command suite (including `open`, `act`, `observe`, `extract`) allows interaction with web pages using browser automation (Stagehand). It can open URLs, capture content, interact with elements, and extract data.
 
-### Use Case 9.1: Accessing Prettier Plugin Development Documentation
+### Use Case 9.1: Accessing Development Documentation
 
 **Summary of `vibe-tools browser open`:**
 The `open` subcommand navigates to a specified URL in an automated browser instance, optionally capturing page information like HTML, console logs, network activity, or screenshots.
 
 **Use Case Explanation & Project-Specific Value:**
-The `bfra-me/works` monorepo contains `@bfra.me/prettier-plugins` (`packages/prettier-plugins`). Developers working on these custom plugins need to consult the official Prettier plugin development documentation.
+The `bfra-me/works` monorepo contains various development packages for shared configurations and tools. Developers working on these packages need to consult official documentation for the underlying technologies.
 
-This use case attempts to use `vibe-tools browser open` to navigate to the Prettier plugin documentation page (`https://prettier.io/docs/en/plugins.html`), capture its HTML content (`--html`), and save it locally (`--save-to=docs/generated/prettier-plugin-docs.html`).
+This use case attempts to use `vibe-tools browser open` to navigate to relevant documentation pages, capture their HTML content (`--html`), and save it locally for offline reference.
 
-The **project-specific value** is demonstrating a way to integrate external documentation gathering into the workflow for developers working on project-specific components like custom Prettier plugins.
+The **project-specific value** is demonstrating a way to integrate external documentation gathering into the workflow for developers working on project-specific components.
 
 **`vibe-tools browser open` Command Executed:**
 ```bash
@@ -549,12 +549,12 @@ The command execution resulted in an error because the necessary Playwright brow
 The `vibe-tools browser act` command allows you to perform actions on a webpage using natural language instructions. It can navigate to a URL, interact with elements (like clicking links or buttons, filling forms), and then perform further actions like taking screenshots or extracting information. It uses Stagehand for browser automation.
 
 **Use Case Explanation & Project-Specific Value:**
-The `bfra-me/works` monorepo includes the `@bfra.me/prettier-plugins` package (`packages/prettier-plugins`). Developers working on these custom plugins frequently need to consult the official Prettier plugin development documentation, specifically the "Plugin API" section. This use case demonstrates `vibe-tools browser act` automating the process of:
-1.  Opening the Prettier plugin documentation page (`https://prettier.io/docs/en/plugins.html`).
-2.  Automatically clicking the "Plugin API" link within the sidebar/table of contents.
-3.  Capturing a screenshot of the relevant section for quick reference.
+The `bfra-me/works` monorepo includes development packages that provide standardized tooling configurations. Developers working on these packages frequently need to consult official documentation for their respective tools. This use case demonstrates `vibe-tools browser act` automating the process of:
+1.  Opening relevant tool documentation pages.
+2.  Automatically navigating to specific sections within the documentation.
+3.  Capturing screenshots of relevant sections for quick reference.
 
-This is highly relevant for `bfra-me/works` developers as it streamlines a common research task. Instead of manually opening the page, scrolling, and finding the correct link, developers can use a single command to get to the exact information they need. The innovative aspect and "amaze" factor lie in its ability to understand natural language instructions to interact with specific page elements, automating a multi-step manual process and saving developers time when working on the custom Prettier plugins within `bfra-me/works`.
+This is highly relevant for `bfra-me/works` developers as it streamlines common research tasks. Instead of manually opening pages, scrolling, and finding correct links, developers can use a single command to get to the exact information they need. The innovative aspect lies in its ability to understand natural language instructions to interact with specific page elements, automating multi-step manual processes and saving developers time when working on the development packages within `bfra-me/works`.
 
 **`vibe-tools browser act` Command Executed:**
 ```bash

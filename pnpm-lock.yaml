@@ -248,25 +248,6 @@ importers:
         specifier: 8.5.0
         version: 8.5.0(@microsoft/api-extractor@7.52.8(@types/node@22.15.17))(@swc/core@1.9.2)(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.4)(typescript@5.8.3)(yaml@2.8.0)
 
-  packages/prettier-plugins:
-    dependencies:
-      sort-package-json:
-        specifier: 3.2.1
-        version: 3.2.1
-    devDependencies:
-      '@bfra.me/prettier-plugins':
-        specifier: workspace:*
-        version: 'link:'
-      '@bfra.me/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      prettier:
-        specifier: 3.5.3
-        version: 3.5.3
-      tsup:
-        specifier: 8.5.0
-        version: 8.5.0(@microsoft/api-extractor@7.52.8(@types/node@22.15.17))(@swc/core@1.9.2)(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.4)(typescript@5.8.3)(yaml@2.8.0)
-
   packages/semantic-release:
     devDependencies:
       '@bfra.me/semantic-release':
