@@ -27,7 +27,6 @@ actions:
       │   ├── create/            # Package generator/scaffolding tool
       │   ├── eslint-config/     # ESLint configuration presets
       │   ├── prettier-config/   # Prettier configuration presets
-      │   ├── prettier-plugins/  # Custom Prettier plugins
       │   ├── semantic-release/  # Tools related to semantic versioning
       │   └── tsconfig/          # TypeScript configuration presets
       ├── scripts/               # Utility scripts for repository management
@@ -58,22 +57,17 @@ actions:
          - Used by: All packages for formatting
          - Purpose: Provide consistent Prettier configurations
 
-      5. **[@bfra.me/prettier-plugins](mdc:packages/prettier-plugins)**
-         - Depends on: Prettier
-         - Used by: Custom formatting needs
-         - Purpose: Extend Prettier functionality
-
-      6. **[@bfra.me/semantic-release](mdc:packages/semantic-release)**
+      5. **[@bfra.me/semantic-release](mdc:packages/semantic-release)**
          - Depends on: semantic-release
          - Used by: Release automation
          - Purpose: Provide typed configurations for semantic-release
 
-      7. **[@bfra.me/tsconfig](mdc:packages/tsconfig)**
+      6. **[@bfra.me/tsconfig](mdc:packages/tsconfig)**
          - Depends on: TypeScript
          - Used by: All TypeScript packages
          - Purpose: Provide consistent TypeScript configurations
 
-      8. **[@bfra.me/scripts](mdc:scripts)** (internal)
+      7. **[@bfra.me/scripts](mdc:scripts)** (internal)
          - Depends on: Internal packages
          - Used by: Repository maintenance
          - Purpose: Automate repository tasks
@@ -131,7 +125,6 @@ examples:
       - `create`: A scaffolding tool for generating new packages
       - `eslint-config`: ESLint configuration presets
       - `prettier-config`: Prettier configuration presets
-      - `prettier-plugins`: Custom Prettier plugins
       - `semantic-release`: Semantic versioning tools
       - `tsconfig`: TypeScript configuration presets
       - `scripts`: Utility scripts for repository management

@@ -40,7 +40,7 @@ The output from `vibe-tools ask` provides a clear and structured explanation of 
 ### Use Case 1.2: Primer on `tsup` for Building `packages/`
 
 **Use Case Explanation & Project-Specific Value:**
-The `bfra-me/works` monorepo relies on `tsup` to build its various TypeScript packages located in the `packages/` directory (e.g., `@bfra.me/create`, `@bfra.me/eslint-config`, `@bfra.me/prettier-plugins`). For developers contributing to these packages, modifying their build configurations (`tsup.config.ts`), or even just understanding how the distributed files are generated, a quick understanding of `tsup` is crucial. This use case demonstrates how `vibe-tools ask` can efficiently provide a foundational overview of `tsup`, specifically framed to address its role in a monorepo context like `bfra-me/works`. This accelerates a developer's ability to work with the project's build system.
+The `bfra-me/works` monorepo relies on `tsup` to build its various TypeScript packages located in the `packages/` directory (e.g., `@bfra.me/create`, `@bfra.me/eslint-config`, `@bfra.me/prettier-config`). For developers contributing to these packages, modifying their build configurations (`tsup.config.ts`), or even just understanding how the distributed files are generated, a quick understanding of `tsup` is crucial. This use case demonstrates how `vibe-tools ask` can efficiently provide a foundational overview of `tsup`, specifically framed to address its role in a monorepo context like `bfra-me/works`. This accelerates a developer's ability to work with the project's build system.
 
 **`vibe-tools ask` Command Executed:**
 ```bash
@@ -511,11 +511,11 @@ The `vibe-tools browser` command suite (including `open`, `act`, `observe`, `ext
 The `open` subcommand navigates to a specified URL in an automated browser instance, optionally capturing page information like HTML, console logs, network activity, or screenshots.
 
 **Use Case Explanation & Project-Specific Value:**
-The `bfra-me/works` monorepo contains `@bfra.me/prettier-plugins` (`packages/prettier-plugins`). Developers working on these custom plugins need to consult the official Prettier plugin development documentation.
+The `bfra-me/works` monorepo contains development packages that help standardize tooling across projects. Developers working on these packages need to consult official documentation for their respective tools.
 
-This use case attempts to use `vibe-tools browser open` to navigate to the Prettier plugin documentation page (`https://prettier.io/docs/en/plugins.html`), capture its HTML content (`--html`), and save it locally (`--save-to=docs/generated/prettier-plugin-docs.html`).
+This use case attempts to use `vibe-tools browser open` to navigate to development tool documentation pages, capture their HTML content (`--html`), and save them locally.
 
-The **project-specific value** is demonstrating a way to integrate external documentation gathering into the workflow for developers working on project-specific components like custom Prettier plugins.
+The **project-specific value** is demonstrating a way to integrate external documentation gathering into the workflow for developers working on project-specific components within the monorepo.
 
 **`vibe-tools browser open` Command Executed:**
 ```bash
@@ -554,12 +554,12 @@ The command execution resulted in an error because the necessary Playwright brow
 The `vibe-tools browser act` command allows you to perform actions on a webpage using natural language instructions. It can navigate to a URL, interact with elements (like clicking links or buttons, filling forms), and then perform further actions like taking screenshots or extracting information. It uses Stagehand for browser automation.
 
 **Use Case Explanation & Project-Specific Value:**
-The `bfra-me/works` monorepo includes the `@bfra.me/prettier-plugins` package (`packages/prettier-plugins`). Developers working on these custom plugins frequently need to consult the official Prettier plugin development documentation, specifically the "Plugin API" section. This use case demonstrates `vibe-tools browser act` automating the process of:
-1.  Opening the Prettier plugin documentation page (`https://prettier.io/docs/en/plugins.html`).
-2.  Automatically clicking the "Plugin API" link within the sidebar/table of contents.
-3.  Capturing a screenshot of the relevant section for quick reference.
+The `bfra-me/works` monorepo includes development packages that provide standardized tooling configurations. Developers working on these packages frequently need to consult official documentation for their respective tools. This use case demonstrates `vibe-tools browser act` automating the process of:
+1.  Opening relevant tool documentation pages.
+2.  Automatically navigating to specific sections within the documentation.
+3.  Capturing screenshots of relevant sections for quick reference.
 
-This is highly relevant for `bfra-me/works` developers as it streamlines a common research task. Instead of manually opening the page, scrolling, and finding the correct link, developers can use a single command to get to the exact information they need. The innovative aspect and "amaze" factor lie in its ability to understand natural language instructions to interact with specific page elements, automating a multi-step manual process and saving developers time when working on the custom Prettier plugins within `bfra-me/works`.
+This is highly relevant for `bfra-me/works` developers as it streamlines common research tasks. Instead of manually opening pages, scrolling, and finding correct links, developers can use a single command to get to the exact information they need. The innovative aspect lies in its ability to understand natural language instructions to interact with specific page elements, automating multi-step manual processes and saving developers time when working on the development packages within `bfra-me/works`.
 
 **`vibe-tools browser act` Command Executed:**
 ```bash
