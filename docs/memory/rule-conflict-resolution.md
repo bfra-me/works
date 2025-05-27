@@ -118,16 +118,6 @@ When conflicts arise, follow this hierarchical approach to determine which rule 
 - For true contradictions, the AI should highlight the conflict and apply the higher precedence rule
 - When uncertainty remains, the AI should ask the user for clarification
 
-### Leveraging the Knowledge Graph for Conflict Analysis
-
-When available, the Knowledge Graph (KG), the assistant's persistent 'memory' maintained by the Memory MCP server, can potentially assist in conflict resolution:
-
-1.  **Rule Metadata Retrieval:** The KG might store entities representing rules, their relationships (dependencies, conflicts), versions, and priorities. An assistant could query this using `mcp_memory_search_nodes` or `mcp_memory_open_nodes` to gather context about potentially conflicting rules.
-2.  **Historical Precedent:** Past conflict resolutions or decisions about rule precedence might be stored as observations on relevant rule entities. Querying these (e.g., via `mcp_memory_search_nodes` searching for the rule names and "conflict resolution") could inform current decisions.
-3.  **Consistency Checking:** The KG might store canonical definitions or workflow steps, allowing the assistant to check if conflicting rule guidance aligns with established knowledge using `mcp_memory_search_nodes`.
-
-While resolving conflicts primarily relies on the hierarchy defined above (specificity, priority, etc.), querying the KG can provide valuable supplementary context for the AI assistant's judgment. Updates to rule metadata or conflict resolution decisions should ideally be persisted back to the KG using tools like `mcp_memory_add_observations`.
-
 ## Resolution Strategies
 
 ### For Activation Conflicts
@@ -305,7 +295,6 @@ paths:
 **Potential Consequences**:
 - Redundant documentation
 - Inconsistent memory state
-- Knowledge graph synchronization issues
 
 **Resolution Strategy**:
 1. First apply the user's custom process as requested

@@ -6,8 +6,6 @@ alwaysApply: true
 vibe-tools is a CLI tool that allows you to interact with AI models and other tools.
 vibe-tools is installed on this machine and it is available to you to execute. You're encouraged to use it.
 
-Note: For more comprehensive guidance, examples, and advanced usage scenarios, refer to the [vibe-tools-playbook](mdc:docs/memory/vibe-tools-playbook.md). This playbook serves as a complete user guide, while this document provides a concise reference for AI assistants.
-
 <vibe-tools Integration>
 # Instructions
 Use the following commands to get AI assistance:
@@ -19,7 +17,7 @@ Use the following commands to get AI assistance:
 --provider=<provider>: AI provider to use (openai, anthropic, perplexity, gemini, modelbox, openrouter, or xai)
 --model=<model>: Model to use (required for the ask command)
 --reasoning-effort=<low|medium|high>: Control the depth of reasoning for supported models (OpenAI o1/o3-mini models and Claude 3.7 Sonnet). Higher values produce more thorough responses for complex questions.
---with-doc=<doc_url>: Fetch content from one or more **HTTPS** document URLs and include it as context. Can be specified multiple times (e.g., `--with-doc=https://example.com/doc1 --with-doc=https://example.com/doc2`). **Note: Local file paths are not supported with this option; for local files, include the path directly in your prompt.**
+--with-doc=<doc_url>: Fetch content from one or more document URLs and include it as context. Can be specified multiple times (e.g., `--with-doc=<url1> --with-doc=<url2>`).
 
 **Implementation Planning:**
 `vibe-tools plan "<query>"` - Generate a focused implementation plan using AI (e.g., `vibe-tools plan "Add user authentication to the login page"`)
@@ -33,40 +31,45 @@ The plan command uses multiple AI models to:
 --thinkingProvider=<provider>: Provider for plan generation (gemini, openai, anthropic, perplexity, modelbox, openrouter, or xai)
 --fileModel=<model>: Model to use for file identification
 --thinkingModel=<model>: Model to use for plan generation
---with-doc=<doc_url>: Fetch content from one or more **HTTPS** document URLs and include it as context for both file identification and planning. Can be specified multiple times (e.g., `--with-doc=https://example.com/spec1 --with-doc=https://example.com/spec2`). **Note: Local file paths are not supported; for local files, include the path in your query.**
+--with-doc=<doc_url>: Fetch content from one or more document URLs and include it as context for both file identification and planning. Can be specified multiple times (e.g., `--with-doc=<url1> --with-doc=<url2>`).
 
 **Web Search:**
 `vibe-tools web "<your question>"` - Get answers from the web using a provider that supports web search (e.g., Perplexity models and Gemini Models either directly or from OpenRouter or ModelBox) (e.g., `vibe-tools web "latest shadcn/ui installation instructions"`)
 Note: web is a smart autonomous agent with access to the internet and an extensive up to date knowledge base. Web is NOT a web search engine. Always ask the agent for what you want using a proper sentence, do not just send it a list of keywords. In your question to web include the context and the goal that you're trying to acheive so that it can help you most effectively.
-when using web for complex queries suggest writing the output to a file somewhere like local-research/<query summary>.md. However if user provides a specific url, you should always use any command with --with-doc instead of web.
+when using web for complex queries suggest writing the output to a file somewhere like local-research/<query summary>.md.
+
+**IMPORTANT: Do NOT use the `web` command for specific URLs.** If a user provides a specific URL (documentation link, GitHub repo, article, etc.), you should always use commands that support the `--with-doc` parameter instead, such as `repo`, `plan`, `doc`, or `ask`. Using `--with-doc` ensures the exact content of the URL is processed correctly and completely.
 
 **Web Command Options:**
 --provider=<provider>: AI provider to use (perplexity, gemini, modelbox, or openrouter)
 
 **Repository Context:**
 `vibe-tools repo "<your question>" [--subdir=<path>] [--from-github=<username/repo>] [--with-doc=<doc_url>...]` - Get context-aware answers about this repository using Google Gemini (e.g., `vibe-tools repo "explain authentication flow"`)
-Use the optional `--subdir` parameter to analyze a specific subdirectory instead of the entire repository (e.g., `vibe-tools repo "explain the code structure" --subdir=src/components`). Use the optional `--from-github` parameter to analyze a remote GitHub repository without cloning it locally (e.g., `vibe-tools repo "explain the authentication system" --from-github=username/repo-name`). Use the optional `--with-doc` parameter multiple times to include content from several **HTTPS** URLs as additional context (e.g., `vibe-tools repo "summarize findings" --with-doc=https://example.com/spec1 --with-doc=https://example.com/spec2`). **Note: Local file paths are not supported with this option; for local files, include the path directly in your prompt.**
+Use the optional `--subdir` parameter to analyze a specific subdirectory instead of the entire repository (e.g., `vibe-tools repo "explain the code structure" --subdir=src/components`). Use the optional `--from-github` parameter to analyze a remote GitHub repository without cloning it locally (e.g., `vibe-tools repo "explain the authentication system" --from-github=username/repo-name`). Use the optional `--with-doc` parameter multiple times to include content from several URLs as additional context (e.g., `vibe-tools repo "summarize findings" --with-doc=https://example.com/spec1 --with-doc=https://example.com/spec2`).
 
 **Documentation Generation:**
-`vibe-tools doc [options] [--with-doc=<doc_url>...]` - Generate comprehensive documentation for this repository (e.g., `vibe-tools doc --output docs.md`). Can incorporate document context from multiple **HTTPS** URLs (e.g., `vibe-tools doc --with-doc=https://example.com/existing-docs --with-doc=https://example.com/new-spec`). **Note: Local file paths are not supported with this option; for local files, ensure your main prompt or query references the local file paths if their content is to be considered for documentation (e.g., `vibe-tools doc "Generate documentation based on the specifications in ./docs/specs/feature-x.md"`).**
+`vibe-tools doc [options] [--with-doc=<doc_url>...]` - Generate comprehensive documentation for this repository (e.g., `vibe-tools doc --output docs.md`). Can incorporate document context from multiple URLs (e.g., `vibe-tools doc --with-doc=https://example.com/existing-docs --with-doc=https://example.com/new-spec`).
 
 **YouTube Video Analysis:**
 `vibe-tools youtube "<youtube-url>" [question] [--type=<summary|transcript|plan|review|custom>]` - Analyze YouTube videos and generate detailed reports (e.g., `vibe-tools youtube "https://youtu.be/43c-Sm5GMbc" --type=summary`)
 Note: The YouTube command requires a `GEMINI_API_KEY` to be set in your environment or .vibe-tools.env file as the GEMINI API is the only interface that supports YouTube analysis.
 
 **GitHub Information:**
-`vibe-tools github pr [number]` - Get information about GitHub pull requests. Without a number, lists the 10 most recent open pull requests in the repository. With a specific PR number, displays detailed information about that pull request including title, description, comments, labels, and status (e.g., `vibe-tools github pr 123`)
-`vibe-tools github issue [number]` - Get information about GitHub issues. Without a number, lists the 10 most recent open issues in the repository. With a specific issue number, displays detailed information about that issue including title, description, comments, labels, and status (e.g., `vibe-tools github issue 456`)
+`vibe-tools github pr [number]` - Get the last 10 PRs, or a specific PR by number (e.g., `vibe-tools github pr 123`)
+`vibe-tools github issue [number]` - Get the last 10 issues, or a specific issue by number (e.g., `vibe-tools github issue 456`)
 
 **ClickUp Information:**
 `vibe-tools clickup task <task_id>` - Get detailed information about a ClickUp task including description, comments, status, assignees, and metadata (e.g., `vibe-tools clickup task "task_id"`)
 
+**Wait Command:**
+`vibe-tools wait <seconds>` - Pauses execution for the specified number of seconds (e.g., `vibe-tools wait 5` to wait for 5 seconds).
+
 **Model Context Protocol (MCP) Commands:**
 Use the following commands to interact with MCP servers and their specialized tools:
-`vibe-tools mcp search "<query>"` - Search the MCP Marketplace for available servers that match your needs (e.g., `vibe-tools mcp search "git repository management"`)
+`vibe-tools mcp search "<query>"` - Search the MCP Marketplace and GitHub for available servers that match your needs (e.g., `vibe-tools mcp search "git repository management"`)
 `vibe-tools mcp run "<query>"` - Execute MCP server tools using natural language queries (e.g., `vibe-tools mcp run "list files in the current directory" --provider=openrouter`). The query must include sufficient information for vibe-tools to determine which server to use, provide plenty of context.
 
-The `search` command helps you discover servers in the MCP Marketplace based on their capabilities and your requirements. The `run` command automatically selects and executes appropriate tools from these servers based on your natural language queries. If you want to use a specific server include the server name in your query. E.g. `vibe-tools mcp run "using the mcp-server-sqlite list files in directory --provider=openrouter"`
+The `search` command helps you discover servers in the MCP Marketplace and on GitHub based on their capabilities and your requirements. The `run` command automatically selects and executes appropriate tools from these servers based on your natural language queries. If you want to use a specific server include the server name in your query. E.g. `vibe-tools mcp run "using the mcp-server-sqlite list files in directory --provider=openrouter"`
 
 **Notes on MCP Commands:**
 - MCP commands require `ANTHROPIC_API_KEY` or `OPENROUTER_API_KEY` to be set in your environment
@@ -99,10 +102,9 @@ The `search` command helps you discover servers in the MCP Marketplace based on 
 - `vibe-tools youtube` analyzes YouTube videos to generate summaries, transcripts, implementation plans, or custom analyses
 - `vibe-tools browser` is useful for testing and debugging web apps and uses Stagehand
 - `vibe-tools mcp` enables interaction with specialized tools through MCP servers (e.g., for Git operations, file system tasks, or custom tools)
-- When implementing features based on documentation, specifications, or any external content, always use the `--with-doc=<url>` flag **with an HTTPS URL** instead of built-in web search. For example: `vibe-tools plan "Implement login page according to specs" --with-doc=https://example.com/specs.pdf` or `vibe-tools repo "How should I implement this feature?" --with-doc=https://example.com/feature-spec.md`.
-- If you need to refer to **local files**, include their paths directly in your main prompt, e.g., `vibe-tools plan "Implement the feature described in ./docs/my-feature-spec.md"`.
-
-- When a user provides a specific **HTTPS URL** for documentation or reference material, always use the `--with-doc=<url>` flag with that URL rather than attempting to search for or summarize the content independently. This ensures the exact document is used as context. For local files, incorporate the path into the prompt.
+- **URLS:** For any specific URL (documentation, article, reference, spec, GitHub repo, etc.), ALWAYS use a command with the `--with-doc=<url>` parameter rather than the `web` command. Examples: `vibe-tools repo "How should I implement this feature based on the spec?" --with-doc=https://example.com/spec.pdf` or `vibe-tools ask "What does this document say about authentication?" --with-doc=https://example.com/auth-doc.html`
+- When implementing features based on documentation, specifications, or any external content, always use the `--with-doc=<url>` flag instead of built-in web search. For example: `vibe-tools plan "Implement login page according to specs" --with-doc=https://example.com/specs.pdf` or `vibe-tools repo "How should I implement this feature?" --with-doc=https://example.com/feature-spec.md`.
+- When a user provides a specific URL for documentation or reference material, always use the `--with-doc=<url>` flag with that URL rather than attempting to search for or summarize the content independently. This ensures the exact document is used as context.
 
 **Running Commands:**
 1. Use `vibe-tools <command>` to execute commands (make sure vibe-tools is installed globally using npm install -g vibe-tools so that it is in your PATH)
@@ -120,14 +122,14 @@ The `search` command helps you discover servers in the MCP Marketplace based on 
 --max-tokens=<number>: Maximum tokens for response
 --from-github=<GitHub username>/<repository name>[@<branch>]: Analyze a remote GitHub repository without cloning it locally
 --subdir=<path>: Analyze a specific subdirectory instead of the entire repository
---with-doc=<doc_url>: Fetch content from one or more **HTTPS** document URLs and include it as context. Can be specified multiple times. **Note: Local file paths are not supported; for local files, include the path in your main query.**
+--with-doc=<doc_url>: Fetch content from one or more document URLs and include it as context. Can be specified multiple times.
 
 **Documentation Command Options:**
 --from-github=<GitHub username>/<repository name>[@<branch>]: Generate documentation for a remote GitHub repository
 --provider=<provider>: AI provider to use (gemini, openai, openrouter, perplexity, modelbox, anthropic, or xai)
 --model=<model>: Model to use for documentation generation
 --max-tokens=<number>: Maximum tokens for response
---with-doc=<doc_url>: Fetch content from one or more **HTTPS** document URLs and include it as context. Can be specified multiple times. **Note: Local file paths are not supported; ensure local file content is referenced in the main prompt if needed.**
+--with-doc=<doc_url>: Fetch content from one or more document URLs and include it as context. Can be specified multiple times.
 
 **YouTube Command Options:**
 --type=<summary|transcript|plan|review|custom>: Type of analysis to perform (default: summary)
@@ -181,140 +183,5 @@ If people say "ask Gemini" or "ask Perplexity" or "ask Stagehand" they mean to u
 - **Remember:** You're part of a team of superhuman expert AIs. Work together to solve complex problems.
 - **Repomix Configuration:** You can customize which files are included/excluded during repository analysis by creating a `repomix.config.json` file in your project root. This file will be automatically detected by `repo`, `plan`, and `doc` commands.
 
-**Handling Multi-line and Complex Prompts:**
-When using `vibe-tools` with prompts that span multiple lines, contain special shell characters, or are generally complex, it's crucial to use methods that are safe and reliable, especially when these commands are intended to be executed programmatically (e.g., via `run_terminal_cmd`).
-
-**Discouraging Heredocs (e.g., `<<EOF ... EOF`) for Programmatic Execution:**
-While heredocs can be convenient for interactive shell use, they are **discouraged** for `vibe-tools` commands generated or executed by AI via `run_terminal_cmd`. This is due to complexities in reliably handling quoting, escaping, newline characters, and variable expansion within the heredoc block when passed as part of a command string to `run_terminal_cmd`.
-
-Instead, use the following preferred approaches:
-
-1.  **Escaped Strings (For Simple/Short Multi-line Prompts):**
-    For prompts that are relatively short and simple, flatten the string using POSIX shell escape sequences (`\\n` for newline, `\\t` for tab, etc.) within a single quoted argument.
-
-    ```bash
-    vibe-tools plan "Create an implementation plan for a feature that:\\n1. Fetches data from an API\\n2. Processes the response with proper error handling\\n3. Updates multiple components\\n\\nInclude specific tasks for:\\n- Setting up API client\\n- Creating data models\\n- Implementing UI components\\n- Adding comprehensive tests"
-    ```
-    This is generally the simplest and most direct method for less complex prompts.
-
-2.  **Temporary Files (For Complex/Long Prompts or Prompts with Special Characters):**
-    For more complex prompts, especially those containing many lines, special characters (quotes, backticks, dollar signs), or intricate formatting, the most robust method is to write the prompt content to a temporary file and then use command substitution to pass its content to `vibe-tools`.
-
-    ```bash
-    # 1. Define your prompt content (escape for echo -e if needed)
-    PROMPT_CONTENT="Create an implementation plan for a feature that:\\n1. Fetches data from an API (e.g., GET /users?id=\\$USER_ID)\\n2. Processes the response with proper error handling (check for status \'200 OK\')\\n3. Updates multiple components (e.g., <UserProfile /> and <ActivityFeed />)\\n\\nInclude specific tasks for:\\n- Setting up API client (use \`axios\` library)\\n- Creating data models (TypeScript interfaces)\\n- Implementing UI components (React functional components)\\n- Adding comprehensive tests (using Vitest and Testing Library)"
-
-    # 2. Create a unique temporary file
-    TMP_FILE=$(mktemp)
-
-    # 3. Write the prompt content to the temporary file
-    #    Using echo -e allows for interpretation of backslash escapes (like \\n, \\t)
-    echo -e "$PROMPT_CONTENT" > "$TMP_FILE"
-
-    # 4. Call vibe-tools, passing the content of the temporary file
-    #    Using process substitution $(cat "$TMP_FILE")
-    vibe-tools plan "$(cat "$TMP_FILE")"
-
-    # 5. Clean up the temporary file
-    rm "$TMP_FILE"
-    ```
-    This approach ensures the prompt is preserved exactly, avoids complex shell escaping within the command itself, and handles special characters reliably. Using `mktemp` is recommended for creating temporary files securely.
-
-**Working with File Content (Important):**
-
-When your prompt itself needs to include the content of *another* file (e.g., analyzing a source code file), combine the temporary file method for your main prompt instructions with a safe way to include the target file's content.
-
-**WARNING: Do NOT use piping with nested heredocs or unsafe command substitutions** like this problematic approach:
-```bash
-# INCORRECT AND PROBLEMATIC - DON'T DO THIS:
-# This nests a heredoc inside a command substitution, which is hard to get right
-# and prone to errors when generated programmatically.
-cat file.txt | vibe-tools ask "$(cat << 'EOF'
-Format this data based on the input from the pipe...
-EOF
-)"
-```
-
-Instead, use these reliable approaches:
-
-a.  **Store file content in a variable (for smaller files), then use in an escaped prompt:**
-    ```bash
-    # Store target file content in variable
-    # Ensure file.txt content doesn't break the vibe-tools ask "..." string itself.
-    # This is best for plain text files without too many special shell characters.
-    FILE_CONTENT_TO_ANALYZE=$(<file.txt)
-    vibe-tools ask "Format the following data which was read from a file:\\n\\n$FILE_CONTENT_TO_ANALYZE"
-    ```
-
-b.  **Use `--with-doc` option where supported by `vibe-tools` commands (HTTPS URLs ONLY):**
-    This is often the best approach if the `vibe-tools` command supports it **and you are providing an HTTPS URL.**
-    ```bash
-    # Use built-in features when available with HTTPS URLs
-    vibe-tools ask "Process the content from this online document" --with-doc=https://example.com/online-document.txt
-    vibe-tools repo "Analyze our codebase in conjunction with the specifications at this URL" --with-doc=https://example.com/specs.html
-
-    # For local files, include the path in the prompt:
-    vibe-tools ask "Process the document located at ./docs/my_local_file.txt"
-    vibe-tools repo "Analyze the code in path/to/local/code.py and explain its main functions"
-    ```
-
-c.  **Combine Temporary Files for Instructions and Reference Target File Paths (for local files):**
-    If you need to provide complex instructions *about* how to process a **local file**, write your instructions to a temporary file, and in those instructions, refer to the target local file by its path. The `vibe-tools` command will then need to be prompted to consider the content of that local path.
-    ```bash
-    # Instructions for processing a local file file.txt
-    INSTRUCTION_PROMPT="Format the data found in the local file 'file.txt' with these requirements:\\n1. Use markdown formatting.\\n2. Extract key points.\\n3. Summarize findings.\\nMake sure to process the content of 'file.txt'."
-
-    TMP_INSTRUCTIONS_FILE=$(mktemp)
-    echo -e "$INSTRUCTION_PROMPT" > "$TMP_INSTRUCTIONS_FILE"
-
-    # vibe-tools is prompted to consider the local file path mentioned in the instructions
-    vibe-tools ask "$(cat "$TMP_INSTRUCTIONS_FILE")" # The prompt itself now contains "file.txt"
-
-    rm "$TMP_INSTRUCTIONS_FILE"
-    ```
-    Alternatively, if the local file content needs to be part of the prompt payload directly (e.g. for `vibe-tools ask` without relying on `repo`'s file system access):
-    ```bash
-    # Local file whose content will be embedded in the prompt
-    LOCAL_FILE_TO_INCLUDE="docs/source.txt"
-    # Create content for instructions.txt
-    # Note: Ensure LOCAL_FILE_TO_INCLUDE content is properly escaped if directly embedded here.
-    # It's often safer to have the AI model fetch it if it can, or read it into a variable first.
-    echo -e "Format the data from '$LOCAL_FILE_TO_INCLUDE' with these requirements:\\n1. Markdown.\\nContent of $LOCAL_FILE_TO_INCLUDE is: $(cat "$LOCAL_FILE_TO_INCLUDE")" > instructions.txt
-
-    # Use instructions.txt with vibe-tools
-    vibe-tools ask "$(cat instructions.txt)"
-    # rm instructions.txt # if it was temporary
-    ```
-
-d.  **Create a helper function (for frequent, complex operations by humans):**
-    For complex, repetitive tasks performed manually in a shell, a helper function can encapsulate the logic.
-    ```bash
-    # Define helper function in your shell environment (e.g., .bashrc, .zshrc)
-    # format_with_file() {
-    #   local file_to_process=\"$1\"
-    #   local instructions_text=\"$2\"
-    #   local output_file=\"$3\"
-    #
-    #   local tmp_instructions_file=$(mktemp)
-    #   echo -e \"$instructions_text\" > \"$tmp_instructions_file\"
-    #
-    #   # Assuming vibe-tools ask can take instructions and a document
-    #   vibe-tools ask \"$(cat \"$tmp_instructions_file\")\" --with-doc=\"$file_to_process\" --save-to=\"$output_file\"
-    #
-    #   rm \"$tmp_instructions_file\"
-    # }
-
-    # Usage:
-    # format_with_file path/to/data.txt "Format this as markdown" output.md
-    ```
-
-**Critical Guidelines for Programmatically Generated Prompts:**
-- When AI generates commands for `run_terminal_cmd`:
-    - **Prefer escaped strings** for simple multi-line prompts.
-    - **Use the temporary file method** (with `mktemp`, `echo -e`, `cat`, and `rm`) for complex prompts or prompts containing user-supplied data or special characters. This is the safest way to avoid injection or misinterpretation issues.
-- Avoid direct heredoc syntax in commands intended for `run_terminal_cmd`.
-- Always ensure temporary files are cleaned up.
-- Test complex prompt constructions thoroughly.
-
-<!-- vibe-tools-version: 0.60.9 -->
+<!-- vibe-tools-version: 0.61.3 -->
 </vibe-tools Integration>

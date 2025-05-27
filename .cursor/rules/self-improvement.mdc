@@ -40,7 +40,6 @@ actions:
             - File system operations (creation, deletion, modification of multiple files).
             - Management of temporary files.
             - Updates to critical project documentation or configuration.
-            - Interactions with the Knowledge Graph (KG).
          - **Procedure**: You MUST consult the "Documented Learnings from Previous Sessions" section in this rule. This section contains detailed accounts of past mistakes, their resolutions, and key preventive measures.
          - **Rationale**: This is not optional. It is a core requirement for demonstrating improved performance and avoiding repeated errors.
 

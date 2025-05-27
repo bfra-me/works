@@ -62,7 +62,7 @@
 - **AI Assistant Operating Principles**:
   - Use MCP servers when available
   - Always use Sequential Thinking for complex tasks, step by step reasoning, and for detailed planning
-  - Read the knowledge graph and user preference memory file FIRST to collect context and to consider when problem solving
+  - Read the user preference memory file FIRST to collect context and to consider when problem solving
   - Use web search tools when 'best practices', 'modern patterns', or any up-to-date knowledge is required for the task
   - Follow the guidelines and recommendations set in the `mcp-tools-usage.mdc` rule for interacting with tools
   - Avoid recursive tool calls if progress has stalled

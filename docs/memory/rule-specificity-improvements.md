@@ -21,7 +21,7 @@ filters:
   - type: file_path
     pattern: "docs/memory/.*\\.md$"
   - type: message
-    pattern: "(?i)(memory file|context retention|workflow status|project memory|knowledge graph)"
+    pattern: "(?i)(memory file|context retention|workflow status|project memory)"
   - type: content
     pattern: "(?i)(current state|task history|context|recent updates|command history|memory)"
 ```
@@ -92,7 +92,7 @@ filters:
   - type: file_path
     pattern: "docs/memory/.*\\.md$"
   - type: message
-    pattern: "(?i)(memory file|context retention|workflow status|project memory|knowledge graph|remember across sessions)"
+    pattern: "(?i)(memory file|context retention|workflow status|project memory|remember across sessions)"
   - type: content
     pattern: "(?i)(\\b(current state|task history|context|recent updates|command history)\\b|\\bmemory\\b file)"
 ```

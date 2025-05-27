@@ -14,8 +14,7 @@ graph TD
     B --> B4[Rule Filters]
 
     C --> C1[Memory Files]
-    C --> C2[Knowledge Graph]
-    C --> C3[Memory Update Process]
+    C --> C2[Memory Update Process]
 
     D --> D1[Documentation]
     D --> D2[Templates]
@@ -26,10 +25,6 @@ graph TD
     C1 --> C1B[Architecture]
     C1 --> C1C[User Preferences]
     C1 --> C1D[Domain Knowledge]
-
-    C2 --> C2A[Entities]
-    C2 --> C2B[Relations]
-    C2 --> C2C[Observations]
 
     B4 --> B4A[File Path]
     B4 --> B4B[Message Content]
@@ -168,7 +163,6 @@ graph TD
 
 - **Memory Management**: System for maintaining context across conversations
   - Memory files for persistent storage in docs/memory directory
-  - Knowledge graph integration for entity and relationship tracking
   - Memory update protocols for maintaining consistency
 
 - **Repository Structure**: Organization of the monorepo
@@ -241,7 +235,6 @@ graph TD
 - Memory files must follow standardized templates
 - All cross-references must use the mdc: syntax
 - Memory files should be updated after significant changes
-- Knowledge graph should be kept in sync with memory files
 - Rule filters must be specific enough to avoid false positives
 - Filter patterns should use word boundaries when matching common terms
 - Each rule should have at least two filter types for reliable activation

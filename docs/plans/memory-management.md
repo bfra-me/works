@@ -2,7 +2,7 @@
 
 ## Overview
 
-This plan outlines the approach for creating a comprehensive memory management system using memory files and knowledge graph integration to maintain context across conversations. The system will allow AI assistants to persist important information, track project status, and maintain a consistent understanding of the codebase and development workflow, enhancing their effectiveness through improved context awareness.
+This plan outlines the approach for creating a comprehensive memory management system using memory files to maintain context across conversations. The system will allow AI assistants to persist important information, track project status, and maintain a consistent understanding of the codebase and development workflow, enhancing their effectiveness through improved context awareness.
 
 ## Related Feature
 
@@ -12,7 +12,6 @@ This plan outlines the approach for creating a comprehensive memory management s
 
 - Creation of a structured memory file system in the docs/memory/ directory
 - Development of a memory management Cursor rule deployed to guide AI assistants
-- Definition of knowledge graph entity types and relationships
 - Implementation of memory update procedures
 - Seamless integration with AI workflows
 - Improved context retention across conversations
@@ -62,48 +61,7 @@ This plan outlines the approach for creating a comprehensive memory management s
      - Template for workflow status with current state, task history, context, and updates
      - Integration with the agile workflow rule
 
-### Phase 2: Knowledge Graph Integration (2-3 weeks)
-
-**Objective**: Define the knowledge graph structure and integration with memory files
-
-**Tasks**:
-
-1. Define knowledge graph entity types
-   - **Complexity**: High
-   - **Dependencies**: Phase 1
-   - **Acceptance Criteria**:
-     - Comprehensive list of entity types (users, projects, components, etc.)
-     - Clear structure for each entity type
-     - Standard naming conventions
-     - Documentation of entity properties and relationships
-     - Examples of properly defined entities
-     - Integration with memory file categories
-     - Entity types defined for components, preferences, concepts, decisions, and workflows
-
-2. Define relationship types
-   - **Complexity**: Medium
-   - **Dependencies**: Task 1 (Phase 2)
-   - **Acceptance Criteria**:
-     - Comprehensive list of relationship types between entities
-     - Standardized naming convention for relationships
-     - Documentation of relationship directionality and cardinality
-     - Examples of common relationships
-     - Clear guidelines for creating and maintaining relationships
-     - Standard relationship types defined with examples
-
-3. Create memory-to-graph synchronization process
-   - **Complexity**: High
-   - **Dependencies**: Tasks 1, 2 (Phase 2)
-   - **Acceptance Criteria**:
-     - Clear process for keeping memory files and knowledge graph in sync
-     - Implementation of bidirectional updates
-     - Handling of conflicting information
-     - Persistence strategies for critical information
-     - Documentation of sync points and mechanisms
-     - Search patterns for retrieving information
-     - Update patterns for maintaining entities and relationships
-
-### Phase 3: Memory Management Rule Development (1-2 weeks)
+### Phase 2: Memory Management Rule Development (1-2 weeks)
 
 **Objective**: Create a Cursor rule for memory management
 
@@ -117,7 +75,6 @@ This plan outlines the approach for creating a comprehensive memory management s
        - When and how to create memory entries
        - How to update existing memory
        - How to query memory for context
-       - Integration with knowledge graph
        - Memory persistence best practices
      - Examples of proper memory management
      - Integration with existing workflows
@@ -152,7 +109,7 @@ This plan outlines the approach for creating a comprehensive memory management s
      - Guidelines for interpreting memory content
      - Integration with conversational flows
 
-### Phase 4: Testing and Validation (1-2 weeks)
+### Phase 3: Testing and Validation (1-2 weeks)
 
 **Objective**: Test and validate the memory management system
 
@@ -178,9 +135,8 @@ This plan outlines the approach for creating a comprehensive memory management s
      - AI assistants can retrieve information from memory files
      - Information remains consistent across conversations
      - Context is maintained between sessions
-     - Knowledge graph commands function as expected
      - Entities and relationships are properly maintained
-     - Information can be retrieved from both memory files and knowledge graph
+     - Information can be retrieved from both memory files
 
 3. Conduct user testing and finalize system
    - **Complexity**: Medium
@@ -226,18 +182,15 @@ This plan outlines the approach for creating a comprehensive memory management s
 ## Timeline
 
 - Phase 1: 2 weeks (original estimate: 1 week)
-- Phase 2: 3 weeks (original estimate: 2 weeks)
-- Phase 3: 2 weeks (new phase in consolidated plan)
-- Phase 4: 2 weeks (comparable to original Phase 3 of 1-2 weeks)
-- Total: 9 weeks (original total estimate: 5 weeks)
+- Phase 2: 2 weeks (new phase in consolidated plan)
+- Phase 3: 2 weeks (comparable to original Phase 2 of 1-2 weeks)
+- Total: 6 weeks (original total estimate: 5 weeks)
 
 ## Resources Required
 
 - Developer time: 1 dev part-time
 - AI assistance for content generation and validation
 - Access to Cursor rules system
-- Knowledge graph service access
-- Documentation for knowledge graph API
 - User testers for validation
 - Documentation platform for memory files
 - Documentation for memory file best practices
