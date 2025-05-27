@@ -80,7 +80,7 @@
     "eslint": "9.27.0",
     "eslint-config-prettier": "10.1.5",
     "eslint-plugin-no-only-tests": "3.3.0",
-    "eslint-plugin-node-dependencies": "1.0.1",
+    "eslint-plugin-node-dependencies": "1.1.0",
     "eslint-plugin-prettier": "5.4.0",
     "eslint-typegen": "2.2.0",
     "tsup": "8.5.0",

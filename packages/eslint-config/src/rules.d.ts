@@ -8466,6 +8466,7 @@ type NodeDependenciesCompatEngines = []|[{
 // ----- node-dependencies/no-deprecated -----
 type NodeDependenciesNoDeprecated = []|[{
   devDependencies?: boolean
+  allows?: string[]
 }]
 // ----- node-dependencies/no-restricted-deps -----
 type NodeDependenciesNoRestrictedDeps = (string | {
