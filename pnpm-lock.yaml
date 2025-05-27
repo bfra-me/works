@@ -130,8 +130,8 @@ importers:
         specifier: 2.1.0
         version: 2.1.0
       eslint-plugin-command:
-        specifier: 3.2.0
-        version: 3.2.0(eslint@9.27.0(jiti@2.4.2))
+        specifier: 3.2.1
+        version: 3.2.1(eslint@9.27.0(jiti@2.4.2))
       eslint-plugin-import-x:
         specifier: 4.12.2
         version: 4.12.2(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
@@ -1878,8 +1878,8 @@ packages:
       '@eslint/json':
         optional: true
 
-  eslint-plugin-command@3.2.0:
-    resolution: {integrity: sha512-PSDOB9k7Wd57pp4HD/l3C1D93pKX8/wQo0kWDI4q6/UpgrfMTyNsavklipgiZqbXl1+VBABY1buCcQE5LDpg5g==}
+  eslint-plugin-command@3.2.1:
+    resolution: {integrity: sha512-PcpzWe8dvAPaBobxE9zgz1w94fO4JYvzciDzw6thlUb9Uqf5e2/gJz97itOGxvdq+mFeudi71m1OGFgvWmb93w==}
     peerDependencies:
       eslint: '*'
 
@@ -5772,7 +5772,7 @@ snapshots:
       esquery: 1.6.0
       jsonc-eslint-parser: 2.4.0
 
-  eslint-plugin-command@3.2.0(eslint@9.27.0(jiti@2.4.2)):
+  eslint-plugin-command@3.2.1(eslint@9.27.0(jiti@2.4.2)):
     dependencies:
       '@es-joy/jsdoccomment': 0.50.2
       eslint: 9.27.0(jiti@2.4.2)
