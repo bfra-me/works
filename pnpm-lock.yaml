@@ -133,8 +133,8 @@ importers:
         specifier: 3.2.1
         version: 3.2.1(eslint@9.27.0(jiti@2.4.2))
       eslint-plugin-import-x:
-        specifier: 4.12.2
-        version: 4.12.2(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
+        specifier: 4.13.0
+        version: 4.13.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
       eslint-plugin-jsdoc:
         specifier: 50.6.17
         version: 50.6.17(eslint@9.27.0(jiti@2.4.2))
@@ -1845,6 +1845,15 @@ packages:
   eslint-flat-config-utils@2.1.0:
     resolution: {integrity: sha512-6fjOJ9tS0k28ketkUcQ+kKptB4dBZY2VijMZ9rGn8Cwnn1SH0cZBoPXT8AHBFHxmHcLFQK9zbELDinZ2Mr1rng==}
 
+  eslint-import-context@0.1.6:
+    resolution: {integrity: sha512-/e2ZNPDLCrU8niIy0pddcvXuoO2YrKjf3NAIX+60mHJBT4yv7mqCqvVdyCW2E720e25e4S/1OSVef4U6efGLFg==}
+    engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
+    peerDependencies:
+      unrs-resolver: ^1.0.0
+    peerDependenciesMeta:
+      unrs-resolver:
+        optional: true
+
   eslint-import-resolver-node@0.3.9:
     resolution: {integrity: sha512-WFj2isz22JahUv+B788TlO3N6zL3nNJGU8CcZbPZvVEkBPaJdCV4vy5wyghty5ROFbCRnm132v8BScu5/1BQ8g==}
 
@@ -1870,8 +1879,8 @@ packages:
     peerDependencies:
       eslint: '>=8'
 
-  eslint-plugin-import-x@4.12.2:
-    resolution: {integrity: sha512-0jVUgJQipbs0yUfLe7LwYD6p8rIGqCysWZdyJFgkPzDyJgiKpuCaXlywKUAWgJ6u1nLpfrdt21B60OUkupyBrQ==}
+  eslint-plugin-import-x@4.13.0:
+    resolution: {integrity: sha512-YtbaFHEQYGvR9zPuI525UhwPKEK0sXAvPyHKBUZYadJeIhD6UIuQE60Fje4q5nP17fkhzxjECrFV20nSdLrQtg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0
@@ -5739,6 +5748,13 @@ snapshots:
     dependencies:
       pathe: 2.0.3
 
+  eslint-import-context@0.1.6(unrs-resolver@1.7.2):
+    dependencies:
+      get-tsconfig: 4.10.1
+      stable-hash: 0.0.5
+    optionalDependencies:
+      unrs-resolver: 1.7.2
+
   eslint-import-resolver-node@0.3.9:
     dependencies:
       debug: 3.2.7
@@ -5765,14 +5781,14 @@ snapshots:
       eslint: 9.27.0(jiti@2.4.2)
       eslint-compat-utils: 0.5.1(eslint@9.27.0(jiti@2.4.2))
 
-  eslint-plugin-import-x@4.12.2(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3):
+  eslint-plugin-import-x@4.13.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3):
     dependencies:
       '@typescript-eslint/utils': 8.32.1(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)
       comment-parser: 1.4.1
       debug: 4.4.1
       eslint: 9.27.0(jiti@2.4.2)
+      eslint-import-context: 0.1.6(unrs-resolver@1.7.2)
       eslint-import-resolver-node: 0.3.9
-      get-tsconfig: 4.10.1
       is-glob: 4.0.3
       minimatch: 10.0.1
       semver: 7.7.2
