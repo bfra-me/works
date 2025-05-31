@@ -1,5 +1,11 @@
 # @bfra.me/semantic-release
 
+## 0.1.21
+### Patch Changes
+
+
+- Updated dependency `semantic-release` to `24.2.5`. ([#1314](https://github.com/bfra-me/works/pull/1314))
+
 ## 0.1.20
 ### Patch Changes
 
