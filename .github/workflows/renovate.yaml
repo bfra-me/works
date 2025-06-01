@@ -28,9 +28,7 @@ on:
 
 jobs:
   renovate:
-    if: >
-      (github.event.action == 'edited' && !contains(github.actor, '[bot]')) ||
-      github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     name: Renovate
     secrets: inherit
     uses: bfra-me/.github/.github/workflows/renovate.yaml@f0bfb00d23735cd50b40d557f5054afffb1205dc # v2.6.1
