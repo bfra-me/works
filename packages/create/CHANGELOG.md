@@ -1,5 +1,14 @@
 # @bfra.me/create
 
+## 0.4.8
+### Patch Changes
+
+
+- Updated dependency `@sxzz/create` to `0.15.1`. ([#1337](https://github.com/bfra-me/works/pull/1337))
+
+
+- Updated dependency `@clack/prompts` to `0.11.0`. ([#1320](https://github.com/bfra-me/works/pull/1320))
+
 ## 0.4.7
 ### Patch Changes
 
