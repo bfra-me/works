@@ -97,8 +97,8 @@ importers:
         specifier: 0.11.0
         version: 0.11.0
       '@sxzz/create':
-        specifier: 0.15.0
-        version: 0.15.0
+        specifier: 0.15.1
+        version: 0.15.1
       cac:
         specifier: 6.7.14
         version: 6.7.14
@@ -404,14 +404,8 @@ packages:
   '@changesets/write@0.4.0':
     resolution: {integrity: sha512-CdTLvIOPiCNuH71pyDu3rA+Q0n65cmAbXnwWH84rKGiFumFzkmHNT8KHTMEchcxN+Kl8I54xGUhJ7l3E7X396Q==}
 
-  '@clack/core@0.4.2':
-    resolution: {integrity: sha512-NYQfcEy8MWIxrT5Fj8nIVchfRFA26yYKJcvBS7WlUIlw2OmQOY9DhGGXMovyI5J5PpxrCPGkgUi207EBrjpBvg==}
-
   '@clack/core@0.5.0':
     resolution: {integrity: sha512-p3y0FIOwaYRUPRcMO7+dlmLh8PSRcrjuTndsiA0WAFbWES0mLZlrjVoBRZ9DzkPFJZG6KGkJmoEAY0ZcVWTkow==}
-
-  '@clack/prompts@0.10.1':
-    resolution: {integrity: sha512-Q0T02vx8ZM9XSv9/Yde0jTmmBQufZhPJfYAg2XrrrxWWaZgq1rr8nU8Hv710BQ1dhoP8rtY7YUdpGej2Qza/cw==}
 
   '@clack/prompts@0.11.0':
     resolution: {integrity: sha512-pMN5FcrEw9hUkZA4f+zLlzivQSeQf5dRGJjSUbvVYDLvpKCdQx5OaknvKzgbtXOizhP+SJJJjqEbOe55uKKfAw==}
@@ -1108,8 +1102,8 @@ packages:
   '@swc/types@0.1.21':
     resolution: {integrity: sha512-2YEtj5HJVbKivud9N4bpPBAyZhj4S2Ipe5LkUG94alTpr7in/GU/EARgPAd3BwU+YOmFVJC2+kjqhGRi3r0ZpQ==}
 
-  '@sxzz/create@0.15.0':
-    resolution: {integrity: sha512-6vrPVn8/Uqa/NKjby/b5BYBsDiB+V5OgUMyjGou21SN5zfioUAOGYTBE0HPI/wP0CuN7A/9GA5NC2jlhxJpOog==}
+  '@sxzz/create@0.15.1':
+    resolution: {integrity: sha512-Hz7zsKNpNoiwvsvgQz2ZaxWlnExVzrMau47G7VUyc1GTBi/CecY89TGxzT23I789/jfC0P3ZseexoCxRh+A9hQ==}
     engines: {node: '>=20.18.0'}
     hasBin: true
 
@@ -1420,8 +1414,8 @@ packages:
     resolution: {integrity: sha512-0qWUglt9JEqLFr3w1I1pbrChn1grhaiAR2ocX1PP/flRmxgtwTzPFFFnfIlD6aMOLQZgSuCRlidD70lvx8yhzg==}
     engines: {node: '>=14'}
 
-  ansis@4.0.0:
-    resolution: {integrity: sha512-P8nrHI1EyW9OfBt1X7hMSwGN2vwRuqHSKJAT1gbLWZRzDa24oHjYwGHvEgHeBepupzk878yS/HBZ0NMPYtbolw==}
+  ansis@4.1.0:
+    resolution: {integrity: sha512-BGcItUBWSMRgOCe+SVZJ+S7yTRG0eGt9cXAHev72yuGcY23hnLA7Bky5L/xLyPINoSN95geovfBkqoTlNZYa7w==}
     engines: {node: '>=14'}
 
   any-promise@1.3.0:
@@ -4338,19 +4332,8 @@ snapshots:
       human-id: 4.1.1
       prettier: 2.8.8
 
-  '@clack/core@0.4.2':
-    dependencies:
-      picocolors: 1.1.1
-      sisteransi: 1.0.5
-
   '@clack/core@0.5.0':
     dependencies:
-      picocolors: 1.1.1
-      sisteransi: 1.0.5
-
-  '@clack/prompts@0.10.1':
-    dependencies:
-      '@clack/core': 0.4.2
       picocolors: 1.1.1
       sisteransi: 1.0.5
 
@@ -5048,10 +5031,10 @@ snapshots:
     dependencies:
       '@swc/counter': 0.1.3
 
-  '@sxzz/create@0.15.0':
+  '@sxzz/create@0.15.1':
     dependencies:
-      '@clack/prompts': 0.10.1
-      ansis: 4.0.0
+      '@clack/prompts': 0.11.0
+      ansis: 4.1.0
       args-tokenizer: 0.3.0
       cac: 6.7.14
       consola: 3.4.2
@@ -5392,7 +5375,7 @@ snapshots:
 
   ansis@3.17.0: {}
 
-  ansis@4.0.0: {}
+  ansis@4.1.0: {}
 
   any-promise@1.3.0: {}
 
