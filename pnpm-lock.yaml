@@ -134,8 +134,8 @@ importers:
         specifier: 3.2.1
         version: 3.2.1(eslint@9.28.0(jiti@2.1.2))
       eslint-plugin-import-x:
-        specifier: 4.14.2
-        version: 4.14.2(eslint@9.28.0(jiti@2.1.2))(typescript@5.8.3)
+        specifier: 4.15.0
+        version: 4.15.0(@typescript-eslint/utils@8.33.0(eslint@9.28.0(jiti@2.1.2))(typescript@5.8.3))(eslint@9.28.0(jiti@2.1.2))
       eslint-plugin-jsdoc:
         specifier: 50.6.17
         version: 50.6.17(eslint@9.28.0(jiti@2.1.2))
@@ -1879,13 +1879,16 @@ packages:
     peerDependencies:
       eslint: '>=8'
 
-  eslint-plugin-import-x@4.14.2:
-    resolution: {integrity: sha512-lc5ZtgsLzjq2aDN+wGt6FyZFsfNDa3/hDFRM6fnaaqXFPkb0Wb5Gu087yed/K4GZkkHpzo75vbEmIb7mX5OOqA==}
+  eslint-plugin-import-x@4.15.0:
+    resolution: {integrity: sha512-oqCESQlM8r0iRioPHmDqrblH69u11NuglErCnMIY2FcY0UfCCs7qlEuiuqkYKT0puJSQq+fXpDD0MvMTQsAhoQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
+      '@typescript-eslint/utils': ^8.0.0
       eslint: ^8.57.0 || ^9.0.0
       eslint-import-resolver-node: '*'
     peerDependenciesMeta:
+      '@typescript-eslint/utils':
+        optional: true
       eslint-import-resolver-node:
         optional: true
 
@@ -5788,9 +5791,9 @@ snapshots:
       eslint: 9.28.0(jiti@2.1.2)
       eslint-compat-utils: 0.5.1(eslint@9.28.0(jiti@2.1.2))
 
-  eslint-plugin-import-x@4.14.2(eslint@9.28.0(jiti@2.1.2))(typescript@5.8.3):
+  eslint-plugin-import-x@4.15.0(@typescript-eslint/utils@8.33.0(eslint@9.28.0(jiti@2.1.2))(typescript@5.8.3))(eslint@9.28.0(jiti@2.1.2)):
     dependencies:
-      '@typescript-eslint/utils': 8.33.0(eslint@9.28.0(jiti@2.1.2))(typescript@5.8.3)
+      '@typescript-eslint/types': 8.33.0
       comment-parser: 1.4.1
       debug: 4.4.1
       eslint: 9.28.0(jiti@2.1.2)
@@ -5800,9 +5803,10 @@ snapshots:
       semver: 7.7.2
       stable-hash: 0.0.5
       unrs-resolver: 1.7.8
+    optionalDependencies:
+      '@typescript-eslint/utils': 8.33.0(eslint@9.28.0(jiti@2.1.2))(typescript@5.8.3)
     transitivePeerDependencies:
       - supports-color
-      - typescript
 
   eslint-plugin-jsdoc@50.6.17(eslint@9.28.0(jiti@2.1.2)):
     dependencies:
