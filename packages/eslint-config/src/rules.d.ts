@@ -6837,10 +6837,10 @@ type JsdocCheckLineAlignment = []|[("always" | "never" | "any")]|[("always" | "n
     postTag?: number
     postType?: number
   }
+  disableWrapIndent?: boolean
   preserveMainDescriptionPostDelimiter?: boolean
   tags?: string[]
   wrapIndent?: string
-  disableWrapIndent?: boolean
 }]
 // ----- jsdoc/check-param-names -----
 type JsdocCheckParamNames = []|[{
