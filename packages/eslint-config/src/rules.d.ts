@@ -2886,6 +2886,11 @@ export interface Rules {
    */
   'node/no-sync'?: Linter.RuleEntry<NodeNoSync>
   /**
+   * disallow top-level `await` in published modules
+   * @see https://github.com/eslint-community/eslint-plugin-n/blob/HEAD/docs/rules/no-top-level-await.md
+   */
+  'node/no-top-level-await'?: Linter.RuleEntry<NodeNoTopLevelAwait>
+  /**
    * disallow `bin` files that npm ignores
    * @see https://github.com/eslint-community/eslint-plugin-n/blob/HEAD/docs/rules/no-unpublished-bin.md
    */
@@ -8634,7 +8639,38 @@ type NodeNoRestrictedRequire = []|[(string | {
 // ----- node/no-sync -----
 type NodeNoSync = []|[{
   allowAtRootLevel?: boolean
-  ignores?: string[]
+  ignores?: (string | {
+    from?: "file"
+    path?: string
+    name?: string[]
+  } | {
+    from?: "lib"
+    name?: string[]
+  } | {
+    from?: "package"
+    package?: string
+    name?: string[]
+  })[]
+}]
+// ----- node/no-top-level-await -----
+type NodeNoTopLevelAwait = []|[{
+  ignoreBin?: boolean
+  convertPath?: ({
+    
+    [k: string]: [string, string]
+  } | [{
+    
+    include: [string, ...(string)[]]
+    exclude?: string[]
+    
+    replace: [string, string]
+  }, ...({
+    
+    include: [string, ...(string)[]]
+    exclude?: string[]
+    
+    replace: [string, string]
+  })[]])
 }]
 // ----- node/no-unpublished-bin -----
 type NodeNoUnpublishedBin = []|[{
