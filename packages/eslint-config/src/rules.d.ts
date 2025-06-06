@@ -9045,7 +9045,9 @@ type PerfectionistSortArrayIncludes = {
   
   groups?: (string | string[] | {
     
-    newlinesBetween: ("ignore" | "always" | "never")
+    newlinesBetween?: ("ignore" | "always" | "never")
+    
+    commentAbove?: string
   })[]
 }[]
 // ----- perfectionist/sort-classes -----
@@ -9241,7 +9243,9 @@ type PerfectionistSortClasses = []|[{
   
   groups?: (string | string[] | {
     
-    newlinesBetween: ("ignore" | "always" | "never")
+    newlinesBetween?: ("ignore" | "always" | "never")
+    
+    commentAbove?: string
   })[]
 }]
 // ----- perfectionist/sort-decorators -----
@@ -9319,7 +9323,9 @@ type PerfectionistSortDecorators = []|[{
   
   groups?: (string | string[] | {
     
-    newlinesBetween: ("ignore" | "always" | "never")
+    newlinesBetween?: ("ignore" | "always" | "never")
+    
+    commentAbove?: string
   })[]
 }]
 // ----- perfectionist/sort-enums -----
@@ -9476,7 +9482,9 @@ type PerfectionistSortEnums = []|[{
   
   groups?: (string | string[] | {
     
-    newlinesBetween: ("ignore" | "always" | "never")
+    newlinesBetween?: ("ignore" | "always" | "never")
+    
+    commentAbove?: string
   })[]
 }]
 // ----- perfectionist/sort-exports -----
@@ -9614,7 +9622,9 @@ type PerfectionistSortExports = {
   
   groups?: (string | string[] | {
     
-    newlinesBetween: ("ignore" | "always" | "never")
+    newlinesBetween?: ("ignore" | "always" | "never")
+    
+    commentAbove?: string
   })[]
 }[]
 // ----- perfectionist/sort-heritage-clauses -----
@@ -9645,7 +9655,9 @@ type PerfectionistSortHeritageClauses = []|[{
   
   groups?: (string | string[] | {
     
-    newlinesBetween: ("ignore" | "always" | "never")
+    newlinesBetween?: ("ignore" | "always" | "never")
+    
+    commentAbove?: string
   })[]
 }]
 // ----- perfectionist/sort-imports -----
@@ -9769,6 +9781,12 @@ type PerfectionistSortImports = {
       flags?: string
     } | string))
   })[])
+  tsconfig?: {
+    
+    rootDir: string
+    
+    filename?: string
+  }
   
   maxLineLength?: number
   
@@ -9833,7 +9851,9 @@ type PerfectionistSortImports = {
   
   groups?: (string | string[] | {
     
-    newlinesBetween: ("ignore" | "always" | "never")
+    newlinesBetween?: ("ignore" | "always" | "never")
+    
+    commentAbove?: string
   })[]
 }[]
 // ----- perfectionist/sort-interfaces -----
@@ -10041,7 +10061,9 @@ type PerfectionistSortInterfaces = {
   
   groups?: (string | string[] | {
     
-    newlinesBetween: ("ignore" | "always" | "never")
+    newlinesBetween?: ("ignore" | "always" | "never")
+    
+    commentAbove?: string
   })[]
 }[]
 // ----- perfectionist/sort-intersection-types -----
@@ -10173,7 +10195,9 @@ type PerfectionistSortIntersectionTypes = {
   
   groups?: (string | string[] | {
     
-    newlinesBetween: ("ignore" | "always" | "never")
+    newlinesBetween?: ("ignore" | "always" | "never")
+    
+    commentAbove?: string
   })[]
 }[]
 // ----- perfectionist/sort-jsx-props -----
@@ -10336,7 +10360,9 @@ type PerfectionistSortJsxProps = {
   
   groups?: (string | string[] | {
     
-    newlinesBetween: ("ignore" | "always" | "never")
+    newlinesBetween?: ("ignore" | "always" | "never")
+    
+    commentAbove?: string
   })[]
 }[]
 // ----- perfectionist/sort-maps -----
@@ -10479,7 +10505,9 @@ type PerfectionistSortMaps = {
   
   groups?: (string | string[] | {
     
-    newlinesBetween: ("ignore" | "always" | "never")
+    newlinesBetween?: ("ignore" | "always" | "never")
+    
+    commentAbove?: string
   })[]
 }[]
 // ----- perfectionist/sort-modules -----
@@ -10639,7 +10667,9 @@ type PerfectionistSortModules = []|[{
   
   groups?: (string | string[] | {
     
-    newlinesBetween: ("ignore" | "always" | "never")
+    newlinesBetween?: ("ignore" | "always" | "never")
+    
+    commentAbove?: string
   })[]
 }]
 // ----- perfectionist/sort-named-exports -----
@@ -10779,7 +10809,9 @@ type PerfectionistSortNamedExports = {
   
   groups?: (string | string[] | {
     
-    newlinesBetween: ("ignore" | "always" | "never")
+    newlinesBetween?: ("ignore" | "always" | "never")
+    
+    commentAbove?: string
   })[]
 }[]
 // ----- perfectionist/sort-named-imports -----
@@ -10919,7 +10951,9 @@ type PerfectionistSortNamedImports = {
   
   groups?: (string | string[] | {
     
-    newlinesBetween: ("ignore" | "always" | "never")
+    newlinesBetween?: ("ignore" | "always" | "never")
+    
+    commentAbove?: string
   })[]
 }[]
 // ----- perfectionist/sort-object-types -----
@@ -11127,7 +11161,9 @@ type PerfectionistSortObjectTypes = {
   
   groups?: (string | string[] | {
     
-    newlinesBetween: ("ignore" | "always" | "never")
+    newlinesBetween?: ("ignore" | "always" | "never")
+    
+    commentAbove?: string
   })[]
 }[]
 // ----- perfectionist/sort-objects -----
@@ -11338,7 +11374,9 @@ type PerfectionistSortObjects = {
   
   groups?: (string | string[] | {
     
-    newlinesBetween: ("ignore" | "always" | "never")
+    newlinesBetween?: ("ignore" | "always" | "never")
+    
+    commentAbove?: string
   })[]
 }[]
 // ----- perfectionist/sort-sets -----
@@ -11487,7 +11525,9 @@ type PerfectionistSortSets = {
   
   groups?: (string | string[] | {
     
-    newlinesBetween: ("ignore" | "always" | "never")
+    newlinesBetween?: ("ignore" | "always" | "never")
+    
+    commentAbove?: string
   })[]
 }[]
 // ----- perfectionist/sort-switch-case -----
@@ -11641,7 +11681,9 @@ type PerfectionistSortUnionTypes = {
   
   groups?: (string | string[] | {
     
-    newlinesBetween: ("ignore" | "always" | "never")
+    newlinesBetween?: ("ignore" | "always" | "never")
+    
+    commentAbove?: string
   })[]
 }[]
 // ----- perfectionist/sort-variable-declarations -----
@@ -11773,7 +11815,9 @@ type PerfectionistSortVariableDeclarations = []|[{
   
   groups?: (string | string[] | {
     
-    newlinesBetween: ("ignore" | "always" | "never")
+    newlinesBetween?: ("ignore" | "always" | "never")
+    
+    commentAbove?: string
   })[]
 }]
 // ----- prefer-arrow-callback -----
