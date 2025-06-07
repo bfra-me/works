@@ -3550,7 +3550,7 @@ export interface Rules {
    * enforce using quantifier
    * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/prefer-quantifier.html
    */
-  'regexp/prefer-quantifier'?: Linter.RuleEntry<[]>
+  'regexp/prefer-quantifier'?: Linter.RuleEntry<RegexpPreferQuantifier>
   /**
    * enforce using `?` quantifier
    * @see https://ota-meshi.github.io/eslint-plugin-regexp/rules/prefer-question-quantifier.html
@@ -11988,6 +11988,10 @@ type RegexpPreferLookaround = []|[{
 // ----- regexp/prefer-named-replacement -----
 type RegexpPreferNamedReplacement = []|[{
   strictTypes?: boolean
+}]
+// ----- regexp/prefer-quantifier -----
+type RegexpPreferQuantifier = []|[{
+  allows?: string[]
 }]
 // ----- regexp/prefer-range -----
 type RegexpPreferRange = []|[{
