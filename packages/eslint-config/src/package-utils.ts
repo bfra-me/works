@@ -2,8 +2,8 @@ import {spawnSync} from 'node:child_process'
 import {existsSync} from 'node:fs'
 import {resolve} from 'node:path'
 import process from 'node:process'
+import {packageDirectorySync} from 'package-directory'
 import {resolveCommand, type AgentName} from 'package-manager-detector'
-import {packageDirectorySync} from 'pkg-dir'
 
 const installedModules = new Set<string>()
 
