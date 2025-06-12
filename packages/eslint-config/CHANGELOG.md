@@ -1,5 +1,26 @@
 # @bfra.me/eslint-config
 
+## 0.21.0
+### Minor Changes
+
+
+- Add a unique prefix to the fallback plugin ([#1370](https://github.com/bfra-me/works/pull/1370))
+
+
+### Patch Changes
+
+
+- Update for rename of `pkg-dir` to `package-directory`. ([#1371](https://github.com/bfra-me/works/pull/1371))
+
+
+- Updated dependency `@eslint/config-inspector` to `1.1.0`. ([#1363](https://github.com/bfra-me/works/pull/1363))
+
+
+- Updated dependency `eslint-plugin-regexp` to `2.9.0`. ([#1369](https://github.com/bfra-me/works/pull/1369))
+
+
+- Updated dependency `eslint-plugin-node-dependencies` to `1.1.2`. ([#1365](https://github.com/bfra-me/works/pull/1365))
+
 ## 0.20.11
 ### Patch Changes
 
