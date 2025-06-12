@@ -1,4 +1,3 @@
-import type {ESLint} from 'eslint'
 import type {Config} from '../config'
 import {interopDefault} from '../plugins'
 
@@ -13,19 +12,26 @@ export async function fallback(
   options?: FallbackOptions,
 ): Promise<Config[]> {
   const rules = await interopDefault(import('../rules/missing-module-for-config'))
+  // Create a unique ID using the short hash of the missing modules to ensure the plugin name is unique
+  const pluginName = `@bfra.me${
+    missingList.length > 0
+      ? `/missing-modules-${missingList
+          .map(m => m.replaceAll(/[^a-z0-9]/gi, '-').toLowerCase())
+          .join('-')}`
+      : ''
+  }`
+
   return [
     {
       plugins: {
-        get '@bfra.me'() {
-          return {
-            rules: {
-              'missing-module-for-config': rules,
-            },
-          } as ESLint.Plugin
+        [pluginName]: {
+          rules: {
+            'missing-module-for-config': rules,
+          },
         },
       },
       rules: {
-        '@bfra.me/missing-module-for-config': ['error', missingList],
+        [`${pluginName}/missing-module-for-config`]: ['error', missingList],
       },
       ...(options ?? {}),
     } as Config,
