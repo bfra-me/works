@@ -84,6 +84,7 @@ jobs:
           else
             echo "pr-exists=false" >> $GITHUB_OUTPUT
           fi
+        shell: 'bash -Eeuxo pipefail {0}'
 
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
