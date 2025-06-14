@@ -6,6 +6,12 @@
   "exports": {
     "./clean-changesets": "./src/clean-changesets.ts"
   },
+  "files": [
+    "src",
+    "!**/*.test.ts",
+    "package.json",
+    "readme.md"
+  ],
   "scripts": {
     "lint": "eslint .",
     "test": "vitest run",
