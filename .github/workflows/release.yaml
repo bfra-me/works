@@ -22,24 +22,37 @@ concurrency:
 jobs:
   manage-release:
     name: Manage Release PR
+    env:
+      USE_APP_TOKEN: ${{ github.event_name == 'schedule' }}
     permissions:
       contents: write
       id-token: write
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      - id: get-workflow-access-token
+      - id: get-app-token
         name: Get Workflow Access Token
+        if: env.USE_APP_TOKEN == 'true'
         uses: actions/create-github-app-token@df432ceedc7162793a195dd1713ff69aefc7379e # v2.0.6
         with:
           app-id: ${{ secrets.APPLICATION_ID }}
           private-key: ${{ secrets.APPLICATION_PRIVATE_KEY }}
 
-      - name: Check for existing release PR
-        id: check-pr
+      - name: Setup Git user
+        if: env.USE_APP_TOKEN == 'true'
+        env:
+          GH_TOKEN: ${{ steps.get-app-token.outputs.token }}
+          GIT_USER_NAME: ${{ steps.get-app-token.outputs.app-slug }}[bot]
+        run: |
+          USER_ID=$(gh api "/users/${GIT_USER_NAME}" --jq .id)"
+          git config --global user.email "${USER_ID}+${GIT_USER_NAME}@users.noreply.github.com"
+          git config --global user.name "${GIT_USER_NAME}"
+
+      - id: check-pr
+        name: Check for existing release PR
         env:
           GH_REPO: ${{ github.repository }}
-          GH_TOKEN: ${{ steps.get-workflow-access-token.outputs.token }}
+          GH_TOKEN: ${{ env.USE_APP_TOKEN == 'true' && steps.get-app-token.outputs.token || secrets.GITHUB_TOKEN }}
         run: |
           PR_NUMBER=$(gh pr list \
             --head "changeset-release/main" \
@@ -72,16 +85,11 @@ jobs:
             echo "pr-exists=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Setup Git user
-        run: |
-          git config --global user.email '118100583+bfra-me[bot]@users.noreply.github.com'
-          git config --global user.name 'bfra-me[bot]'
-
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
-          fetch-depth: 0
-          token: ${{ steps.get-workflow-access-token.outputs.token }}
+          persist-credentials: false
+          token: ${{ env.USE_APP_TOKEN == 'true' && steps.get-app-token.outputs.token || secrets.GITHUB_TOKEN }}
 
       - name: Prepare job
         uses: ./.github/actions/pnpm-install
@@ -90,11 +98,12 @@ jobs:
         if: steps.check-pr.outputs.pr-exists == 'false' || steps.check-pr.outputs.mergeable == 'false'
         env:
           GH_REPO: ${{ github.repository }}
-          GITHUB_TOKEN: ${{ steps.get-workflow-access-token.outputs.token }}
+          GITHUB_TOKEN: ${{ env.USE_APP_TOKEN == 'true' && steps.get-app-token.outputs.token || secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         uses: changesets/action@e0145edc7d9d8679003495b11f87bd8ef63c0cba # v1.5.3
         with:
           commit: 'chore(changesets): publish packages'
+          commitMode: github-api
           publish: pnpm publish-changesets
           setupGitUser: false
           title: 'chore(🦋📦): publish packages'
@@ -110,7 +119,7 @@ jobs:
             inputs.force-release == true
           )
         env:
-          GH_TOKEN: ${{ steps.get-workflow-access-token.outputs.token }}
+          GH_TOKEN: ${{ env.USE_APP_TOKEN == 'true' && steps.get-app-token.outputs.token || secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ steps.check-pr.outputs.pr-number }}
         run: |
           gh pr merge $PR_NUMBER --squash --auto
