@@ -23,7 +23,7 @@ jobs:
   manage-release:
     name: Manage Release PR
     env:
-      USE_APP_TOKEN: ${{ github.event_name == 'schedule' }}
+      USE_APP_TOKEN: ${{ contains('["push", "schedule"]', github.event_name) }}
     permissions:
       contents: write
       id-token: write
