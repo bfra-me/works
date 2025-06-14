@@ -43,7 +43,7 @@ jobs:
           GH_TOKEN: ${{ env.USE_APP_TOKEN == 'true' && steps.get-app-token.outputs.token || secrets.GITHUB_TOKEN }}
           GIT_USER_NAME: ${{ env.USE_APP_TOKEN == 'true' && format('{0}[bot]', steps.get-app-token.outputs.app-slug) || github.actor }}
         run: |
-          USER_ID=$(gh api "/users/${GIT_USER_NAME}" --jq .id)"
+          USER_ID=$(gh api "/users/${GIT_USER_NAME}" --jq .id)
           git config --global user.email "${USER_ID}+${GIT_USER_NAME}@users.noreply.github.com"
           git config --global user.name "${GIT_USER_NAME}"
 
