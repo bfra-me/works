@@ -39,9 +39,10 @@ jobs:
           private-key: ${{ secrets.APPLICATION_PRIVATE_KEY }}
 
       - name: Setup Git user
+        if: env.USE_APP_TOKEN == 'true'
         env:
-          GH_TOKEN: ${{ env.USE_APP_TOKEN == 'true' && steps.get-app-token.outputs.token || secrets.GITHUB_TOKEN }}
-          GIT_USER_NAME: ${{ env.USE_APP_TOKEN == 'true' && format('{0}[bot]', steps.get-app-token.outputs.app-slug) || github.actor }}
+          GH_TOKEN: ${{ steps.get-app-token.outputs.token }}
+          GIT_USER_NAME: ${{ steps.get-app-token.outputs.app-slug }}[bot]
         run: |
           USER_ID=$(gh api "/users/${GIT_USER_NAME}" --jq .id)
           git config --global user.email "${USER_ID}+${GIT_USER_NAME}@users.noreply.github.com"
@@ -102,6 +103,7 @@ jobs:
         uses: changesets/action@e0145edc7d9d8679003495b11f87bd8ef63c0cba # v1.5.3
         with:
           commit: 'chore(changesets): publish packages'
+          commitMode: github-api
           publish: pnpm publish-changesets
           setupGitUser: false
           title: 'chore(🦋📦): publish packages'
