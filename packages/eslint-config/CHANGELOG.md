@@ -1,5 +1,29 @@
 # @bfra.me/eslint-config
 
+## 0.21.1
+### Patch Changes
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.2.3`. ([#1396](https://github.com/bfra-me/works/pull/1396))
+
+
+- Updated dependency `tsx` to `4.20.0`. ([#1376](https://github.com/bfra-me/works/pull/1376))
+
+
+- Updated dependency `tsx` to `4.20.1`. ([#1390](https://github.com/bfra-me/works/pull/1390))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `50.8.0`. ([#1391](https://github.com/bfra-me/works/pull/1391))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.34.0`. ([#1373](https://github.com/bfra-me/works/pull/1373))
+  Updated dependency `typescript-eslint` to `8.34.0`.
+
+- Updated dependency `eslint-plugin-import-x` to `4.15.2`. ([#1392](https://github.com/bfra-me/works/pull/1392))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.2.2`. ([#1375](https://github.com/bfra-me/works/pull/1375))
+
 ## 0.21.0
 ### Minor Changes
 
