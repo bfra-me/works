@@ -4624,6 +4624,11 @@ export interface Rules {
    */
   'vitest/consistent-test-it'?: Linter.RuleEntry<VitestConsistentTestIt>
   /**
+   * enforce using vitest or vi but not both
+   * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/consistent-vitest-vi.md
+   */
+  'vitest/consistent-vitest-vi'?: Linter.RuleEntry<VitestConsistentVitestVi>
+  /**
    * enforce having expectation in test body
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/expect-expect.md
    */
@@ -12570,6 +12575,10 @@ type VitestConsistentTestFilename = []|[{
 type VitestConsistentTestIt = []|[{
   fn?: ("test" | "it")
   withinDescribe?: ("test" | "it")
+}]
+// ----- vitest/consistent-vitest-vi -----
+type VitestConsistentVitestVi = []|[{
+  fn?: ("vi" | "vitest")
 }]
 // ----- vitest/expect-expect -----
 type VitestExpectExpect = []|[{
