@@ -74,6 +74,7 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
         rules: {
           // Only disable non-type-aware rules we want to skip for markdown code blocks
           'import-x/newline-after-import': 'off',
+          'jsdoc/require-returns-check': 'off',
           'no-alert': 'off',
           'no-console': 'off',
           'no-labels': 'off',
