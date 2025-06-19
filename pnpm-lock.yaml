@@ -207,8 +207,8 @@ importers:
         specifier: 8.34.0
         version: 8.34.0
       '@vitest/eslint-plugin':
-        specifier: 1.2.5
-        version: 1.2.5(eslint@9.29.0(jiti@2.1.2))(typescript@5.8.3)(vitest@3.2.3(@types/debug@4.1.12)(@types/node@22.15.31)(jiti@2.1.2)(tsx@4.20.3)(yaml@2.8.0))
+        specifier: 1.2.7
+        version: 1.2.7(eslint@9.29.0(jiti@2.1.2))(typescript@5.8.3)(vitest@3.2.3(@types/debug@4.1.12)(@types/node@22.15.31)(jiti@2.1.2)(tsx@4.20.3)(yaml@2.8.0))
       eslint:
         specifier: 9.29.0
         version: 9.29.0(jiti@2.1.2)
@@ -1329,8 +1329,8 @@ packages:
       '@vitest/browser':
         optional: true
 
-  '@vitest/eslint-plugin@1.2.5':
-    resolution: {integrity: sha512-cfmXz++mkqYpssrKymd7KJumxaZBsfFji2y22QV04kDYKRbiaZ+s4WZL/bzAkcefVKj4KkFctVALHdDZhFhHGg==}
+  '@vitest/eslint-plugin@1.2.7':
+    resolution: {integrity: sha512-7WHcGZo6uXsE4SsSnpGDqKyGrd6NfOMM52WKoHSpTRZLbjMuDyHfA5P7m8yrr73tpqYjsiAdSjSerOnx8uEhpA==}
     peerDependencies:
       eslint: '>= 8.57.0'
       typescript: '>= 5.0.0'
@@ -5307,7 +5307,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/eslint-plugin@1.2.5(eslint@9.29.0(jiti@2.1.2))(typescript@5.8.3)(vitest@3.2.3(@types/debug@4.1.12)(@types/node@22.15.31)(jiti@2.1.2)(tsx@4.20.3)(yaml@2.8.0))':
+  '@vitest/eslint-plugin@1.2.7(eslint@9.29.0(jiti@2.1.2))(typescript@5.8.3)(vitest@3.2.3(@types/debug@4.1.12)(@types/node@22.15.31)(jiti@2.1.2)(tsx@4.20.3)(yaml@2.8.0))':
     dependencies:
       '@typescript-eslint/utils': 8.34.0(eslint@9.29.0(jiti@2.1.2))(typescript@5.8.3)
       eslint: 9.29.0(jiti@2.1.2)
