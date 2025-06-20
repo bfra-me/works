@@ -53,7 +53,7 @@
     "@svitejs/changesets-changelog-github-compact": "1.2.0",
     "@types/fs-extra": "11.0.4",
     "@types/node": "22.15.31",
-    "@vitest/coverage-v8": "3.2.3",
+    "@vitest/coverage-v8": "3.2.4",
     "eslint": "9.29.0",
     "execa": "9.6.0",
     "fast-glob": "3.3.3",
@@ -68,7 +68,7 @@
     "tsx": "4.20.3",
     "type-fest": "4.41.0",
     "typescript": "5.8.3",
-    "vitest": "3.2.3"
+    "vitest": "3.2.4"
   },
   "packageManager": "pnpm@10.12.1",
   "pnpm": {
