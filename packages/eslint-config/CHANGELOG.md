@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.23.1
+### Patch Changes
+
+
+- Add a separate 'disabled' config for `*.md` files. ([#1420](https://github.com/bfra-me/works/pull/1420))
+
 ## 0.23.0
 ### Minor Changes
 
