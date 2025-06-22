@@ -76,6 +76,14 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
           },
         },
         {
+          name: '@bfra.me/markdown/disabled',
+          files: [GLOB_MARKDOWN],
+          ignores: [GLOB_MARKDOWN_CODE],
+          rules: {
+            'unicorn/filename-case': 'off',
+          },
+        },
+        {
           name: '@bfra.me/markdown/overrides',
           files: [GLOB_MARKDOWN_CODE],
           languageOptions: {
@@ -89,8 +97,6 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
           },
           rules: {
             // Only disable non-type-aware rules we want to skip for markdown code blocks
-
-            'unicorn/filename-case': 'off',
 
             '@typescript-eslint/consistent-type-imports': 'off',
             '@typescript-eslint/explicit-function-return-type': 'off',
