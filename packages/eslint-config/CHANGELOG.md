@@ -1,5 +1,51 @@
 # @bfra.me/eslint-config
 
+## 0.22.0
+### Minor Changes
+
+
+- Refactor Markdown config to support formatting ([#1416](https://github.com/bfra-me/works/pull/1416))
+
+
+### Patch Changes
+
+
+- Add a JSDoc rule override for code in Markdown code blocks. ([#1407](https://github.com/bfra-me/works/pull/1407))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.2.5`. ([#1403](https://github.com/bfra-me/works/pull/1403))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `51.0.3`. ([#1413](https://github.com/bfra-me/works/pull/1413))
+
+
+- Updated dependency `eslint-plugin-perfectionist` to `4.15.0`. ([#1414](https://github.com/bfra-me/works/pull/1414))
+
+
+- Updated dependency `eslint-plugin-n` to `17.20.0`. ([#1397](https://github.com/bfra-me/works/pull/1397))
+
+
+- Updated dependency `tsx` to `4.20.3`. ([#1394](https://github.com/bfra-me/works/pull/1394))
+
+
+- Updated dependency `eslint-plugin-prettier` to `5.5.0`. ([#1411](https://github.com/bfra-me/works/pull/1411))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `51.0.1`. ([#1404](https://github.com/bfra-me/works/pull/1404))
+
+
+- Updated dependency `@eslint/js` to `9.29.0`. ([#1402](https://github.com/bfra-me/works/pull/1402))
+  Updated dependency `eslint` to `9.29.0`.
+
+- Updated dependency `@vitest/eslint-plugin` to `1.2.4`. ([#1399](https://github.com/bfra-me/works/pull/1399))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.2.7`. ([#1409](https://github.com/bfra-me/works/pull/1409))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.34.1`. ([#1410](https://github.com/bfra-me/works/pull/1410))
+  Updated dependency `typescript-eslint` to `8.34.1`.
+
 ## 0.21.1
 ### Patch Changes
 
