@@ -18,6 +18,7 @@
 ## Implementation Patterns
 
 - **Pattern A**: [Description of the pattern]
+
   - **Applied in**: [Title / ID of the task or plan that applied the pattern and link]
   - **Context**: [Description of the context in which the pattern is applied]
   - **Benefits**: [Benefits of using the pattern]
@@ -31,8 +32,8 @@
 
 ## Terminology
 
-| Term | Definition | Context |
-|------|------------|---------|
+| Term   | Definition   | Context   |
+| ------ | ------------ | --------- |
 | [Term] | [Definition] | [Context] |
 
 ## External Resources

@@ -2,6 +2,7 @@
 description: 'APPLY when WRITING TypeScript to MAINTAIN code quality standards'
 applyTo: '**/*.ts,**/*.tsx'
 ---
+
 # TypeScript Patterns
 
 Guidelines for writing efficient, maintainable TypeScript code in the bfra.me/works ecosystem
@@ -13,6 +14,7 @@ This monorepo follows specific TypeScript patterns for consistency and maintaina
 ### Project Configuration
 
 - Always extend the shared configuration from [@bfra.me/tsconfig](../../packages/tsconfig):
+
   ```jsonc
   {
     "extends": "@bfra.me/tsconfig",
@@ -258,6 +260,7 @@ export type {ConfigOptions} from './types'
   }
 }
 ```
+
 ```typescript
 // Usage
 import {internalUtil} from '#internal/utils'
@@ -383,11 +386,13 @@ import {User, type Comment, type Post} from './models'
 ## Example User Interactions
 
 ### Structuring a New TypeScript Package
+
 **User**: How should I structure a new TypeScript package in this repo?
 
 **Assistant**: To structure a new TypeScript package in this monorepo:
 
 1. First, create your package directory and initial files:
+
 ```bash
 mkdir -p packages/your-package-name/{src,test}
 touch packages/your-package-name/{package.json,tsconfig.json}
@@ -395,6 +400,7 @@ touch packages/your-package-name/src/index.ts
 ```
 
 2. Configure package.json with proper TypeScript settings:
+
 ```json
 {
   "name": "@bfra.me/your-package-name",
@@ -425,6 +431,7 @@ touch packages/your-package-name/src/index.ts
 ```
 
 3. Set up tsconfig.json extending the shared config:
+
 ```json
 {
   "extends": "@bfra.me/tsconfig",
@@ -440,11 +447,13 @@ touch packages/your-package-name/src/index.ts
 4. Start building your package in the `src/` directory, exporting public APIs from `src/index.ts`.
 
 ### Using Function Overloads
+
 **User**: When should I use function overloads in TypeScript?
 
 **Assistant**: Use function overloads when you have a function that can be called with different argument types or counts, and you want to provide more specific type information for each call signature.
 
 **Good Use Case:** A function that accepts either a configuration object or a path string:
+
 ```typescript
 // Overloads define the specific call signatures
 function loadConfig(path: string): Config
@@ -460,6 +469,7 @@ function loadConfig(input: string | LoadOptions): Config {
   // ... load and return config
 }
 ```
+
 This provides better type checking and IntelliSense for callers compared to just using a union type (`input: string | LoadOptions`) in a single signature.
 
 **Avoid Overuse:** Don't use overloads if simple optional parameters or union types suffice. Overloads add complexity to the implementation signature.

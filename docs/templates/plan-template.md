@@ -23,6 +23,7 @@ Brief description of the plan and its goals.
 **Tasks**:
 
 1. [Task 1 description]
+
    - **Complexity**: [Low | Medium | High]
    - **Dependencies**: None
    - **Acceptance Criteria**: Clear criteria for completion

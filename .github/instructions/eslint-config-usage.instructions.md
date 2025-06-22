@@ -2,6 +2,7 @@
 description: FOLLOW when SETTING UP ESLint to ENFORCE consistent code style
 applyTo: '**/eslint.config.ts,**/*.config.ts'
 ---
+
 # Using @bfra.me/eslint-config
 
 The [`@bfra.me/eslint-config`](../../packages/eslint-config) package provides a comprehensive, modular, and highly configurable ESLint setup for JavaScript and TypeScript projects. It uses ESLint's Flat Config API and offers a wide range of presets.
