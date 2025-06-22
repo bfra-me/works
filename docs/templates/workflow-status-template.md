@@ -21,8 +21,8 @@
 
 ## Task History
 
-| Task ID | Task Name | Status | Completion Date |
-|---------|-----------|--------|-----------------|
+| Task ID       | Task Name   | Status   | Completion Date   |
+| ------------- | ----------- | -------- | ----------------- |
 | YYYY-MM-DD-XX | [Task name] | [Status] | [Completion date] |
 
 ## Context

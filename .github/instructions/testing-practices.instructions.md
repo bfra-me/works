@@ -2,6 +2,7 @@
 description: FOLLOW when WRITING tests to ENSURE comprehensive coverage
 applyTo: '**/*.test.ts,**/*.test.tsx,**/*.spec.ts,**/*.spec.tsx,**/vitest.config.*,**/test/**/*.ts,**/test/**/*.tsx'
 ---
+
 # Testing Practices (Vitest & Monorepo)
 
 Best practices for writing, organizing, and maintaining tests in the bfra.me/works monorepo using Vitest
@@ -11,6 +12,7 @@ Best practices for writing, organizing, and maintaining tests in the bfra.me/wor
 This monorepo uses [**Vitest**](https://vitest.dev/) for all testing. Follow these guidelines for effective, maintainable, and high-quality tests:
 
 ### 1. Test Organization
+
 - Place all tests in a `test/` directory at the package root or alongside source files as `*.test.ts`/`*.spec.ts`
 - Use descriptive file names: `feature-name.test.ts`
 - Group related tests with `describe()` blocks
@@ -18,8 +20,10 @@ This monorepo uses [**Vitest**](https://vitest.dev/) for all testing. Follow the
 - Keep test files focused: one feature/module per file
 
 ### 2. Vitest Setup
+
 - Use a `vitest.config.ts` file extending the shared config if needed
 - Example:
+
   ```typescript
   // vitest.config.ts
   import {defineConfig} from 'vitest/config'
@@ -48,6 +52,7 @@ This monorepo uses [**Vitest**](https://vitest.dev/) for all testing. Follow the
   ```
 
 ### 3. Test Patterns
+
 - Use fixtures and snapshots for config and output validation
 - Use type testing features for TypeScript APIs
 - Prefer functional test helpers over class-based test utilities
@@ -60,6 +65,7 @@ This monorepo uses [**Vitest**](https://vitest.dev/) for all testing. Follow the
 - Use test caching for local and CI runs
 
 ### 4. TDD & Test Quality
+
 - Write tests before or alongside implementation (TDD encouraged)
 - Cover edge cases and error conditions
 - Use clear, descriptive test names
@@ -68,6 +74,7 @@ This monorepo uses [**Vitest**](https://vitest.dev/) for all testing. Follow the
 - Use snapshots judiciously (update only with intent)
 
 ### 5. Example Test File
+
 ```typescript
 // test/math-utils.test.ts
 import {describe, expect, it} from 'vitest'
@@ -85,11 +92,13 @@ describe('add', () => {
 ```
 
 ### 6. Coverage & CI
+
 - Always check coverage locally before PRs: `pnpm test --coverage`
 - Coverage thresholds can be set in `vitest.config.ts`
 - CI will fail if tests or coverage do not pass
 
 ### 7. Troubleshooting
+
 - Use `pnpm test --watch` for local development
 - Use `vi.clearAllMocks()` in `afterEach` if needed
 - For flaky tests, investigate async handling and state leaks
@@ -110,33 +119,34 @@ These FAQs cover common questions about testing practices in the bfra.me/works m
 ### How do I set up Vitest for a new package?
 
 1. Add `vitest` to your `devDependencies`:
-    ```bash
-    pnpm add -D vitest
-    ```
+   ```bash
+   pnpm add -D vitest
+   ```
 2. Create a `vitest.config.ts` file:
-    ```typescript
-    import {defineConfig} from 'vitest/config'
-    export default defineConfig({
-      test: {
-        coverage: {provider: 'v8', reporter: ['text', 'html', 'json']},
-        environment: 'node',
-        include: ['test/**/*.test.ts']
-      }
-    })
-    ```
+   ```typescript
+   import {defineConfig} from 'vitest/config'
+   export default defineConfig({
+     test: {
+       coverage: {provider: 'v8', reporter: ['text', 'html', 'json']},
+       environment: 'node',
+       include: ['test/**/*.test.ts']
+     }
+   })
+   ```
 3. Add a `test` script to your `package.json`:
-    ```json
-    {
-      "scripts": {
-        "test": "vitest run"
-      }
-    }
-    ```
+   ```json
+   {
+     "scripts": {
+       "test": "vitest run"
+     }
+   }
+   ```
 4. Run tests with `pnpm test`
 
 ### How do I mock a dependency in Vitest?
 
 Use `vi.mock()` to mock modules and `vi.fn()` for spies/stubs:
+
 ```typescript
 import {vi} from 'vitest'
 vi.mock('../src/my-module', () => ({

@@ -34,6 +34,7 @@ Detailed description of the task.
 ## Solution Design
 
 1. Approach 1:
+
    - Description
    - Pros and cons
    - Technical considerations
@@ -68,9 +69,7 @@ Any additional notes or context.
 
 ## [Findings]
 
-This optional section can be used to document detailed analysis results, audit findings, or other
-task-specific information that doesn't fit cleanly into other sections. For tasks requiring complex
-analysis, this section may include:
+This optional section can be used to document detailed analysis results, audit findings, or other task-specific information that doesn't fit cleanly into other sections. For tasks requiring complex analysis, this section may include:
 
 - Detailed audit results
 - Code review findings

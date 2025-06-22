@@ -2,6 +2,7 @@
 description: FOLLOW when DESIGNING APIs to ENSURE consistency and type safety
 applyTo: '**/*.ts,**/*.tsx,**/package.json'
 ---
+
 # API Design Standards
 
 This guide outlines the standards for designing consistent, type-safe, and well-documented APIs across all packages in the bfra.me/works ecosystem.
@@ -111,13 +112,13 @@ export function createEntity<T extends Record<string, unknown>>(data: T): Entity
 - Be specific and clear: `generateTypescriptConfig` vs `makeConfig`
 - Use consistent verbs across packages:
 
-| Action | Verb to Use | Example |
-|--------|------------|---------|
-| Create a new instance | `create` | `createConfig()` |
-| Validate data | `validate` | `validateOptions()` |
-| Transform data | `transform` | `transformTsConfig()` |
-| Format output | `format` | `formatCode()` |
-| Parse input | `parse` | `parseConfigFile()` |
+| Action                | Verb to Use | Example               |
+| --------------------- | ----------- | --------------------- |
+| Create a new instance | `create`    | `createConfig()`      |
+| Validate data         | `validate`  | `validateOptions()`   |
+| Transform data        | `transform` | `transformTsConfig()` |
+| Format output         | `format`    | `formatCode()`        |
+| Parse input           | `parse`     | `parseConfigFile()`   |
 
 ### Type and Interface Names
 
@@ -125,19 +126,19 @@ export function createEntity<T extends Record<string, unknown>>(data: T): Entity
 - Use descriptive, clear names: `CompilerOptions` vs `Options`
 - Add suffixes for special types:
 
-| Type Category | Suffix | Example |
-|---------------|--------|---------|
-| Configuration objects | `Options`, `Config` | `LintOptions` |
-| Function options | `Options` | `CreatePackageOptions` |
-| Function results | `Result` | `ValidationResult` |
-| Callbacks | `Callback`, `Handler` | `ErrorHandler` |
-| React components | `Props` | `ButtonProps` |
+| Type Category         | Suffix                | Example                |
+| --------------------- | --------------------- | ---------------------- |
+| Configuration objects | `Options`, `Config`   | `LintOptions`          |
+| Function options      | `Options`             | `CreatePackageOptions` |
+| Function results      | `Result`              | `ValidationResult`     |
+| Callbacks             | `Callback`, `Handler` | `ErrorHandler`         |
+| React components      | `Props`               | `ButtonProps`          |
 
 ## Documentation Standards
 
 All public APIs must include TSDoc comments:
 
-```typescript
+````typescript
 /**
   * Creates a new configuration with standardized settings.
   *
@@ -159,7 +160,7 @@ All public APIs must include TSDoc comments:
 export function createConfig(options: ConfigOptions): Config {
   // Implementation
 }
-```
+````
 
 ### Required Documentation Elements
 
@@ -338,6 +339,7 @@ export interface PackageManager {
 According to our API design standards:
 
 - Use **`interface`** for defining the shape of objects that represent public API contracts, like function options or configuration objects. Interfaces are generally better for defining object shapes that might be extended.
+
   ```typescript
   export interface MyFunctionOptions {
     id: string
@@ -346,9 +348,9 @@ According to our API design standards:
   ```
 
 - Use **`type`** aliases primarily for:
-    - Complex types involving unions or intersections.
-    - Utility types.
-    - Naming primitive types or literals.
+  - Complex types involving unions or intersections.
+  - Utility types.
+  - Naming primitive types or literals.
   ```typescript
   export type ResultStatus = 'success' | 'error' | 'pending'
   export type ProcessData = (input: string) => number
@@ -366,6 +368,7 @@ For a function that validates configuration settings, the recommended pattern is
 - **Noun**: `Config` or `Options`
 
 Therefore, good names would be:
+
 - `validateConfig(config)`
 - `validateOptions(options)`
 
@@ -377,9 +380,11 @@ Making a breaking change requires careful handling according to our versioning a
 
 1.  **Versioning**: This change requires a **MAJOR** version bump for the package (e.g., v1.x.x -> v2.0.0) because it breaks backward compatibility.
 2.  **Deprecation (Recommended)**: Instead of immediately changing `createConfig`, consider:
-    *   Marking the old `createConfig` as `@deprecated` in TSDoc, pointing users to a new function (e.g., `createConfigV2`).
-    *   Keep the old `createConfig` functional (perhaps calling the new one internally) for at least one major version cycle to give users time to migrate.
-    *   Provide a clear migration path in the documentation.
+
+    - Marking the old `createConfig` as `@deprecated` in TSDoc, pointing users to a new function (e.g., `createConfigV2`).
+    - Keep the old `createConfig` functional (perhaps calling the new one internally) for at least one major version cycle to give users time to migrate.
+    - Provide a clear migration path in the documentation.
+
     ```typescript
     /**
       * @deprecated Use createConfigV2() instead. This signature will be removed in v3.0.0.
@@ -388,6 +393,7 @@ Making a breaking change requires careful handling according to our versioning a
 
     export function createConfigV2(newOptions: NewOptions): Config { /*...*/ }
     ```
+
 3.  **Changeset**: When you commit the change (or the deprecation + new function), create a changeset using `pnpm changeset`. Select the package and choose `major` as the bump type. Clearly explain the breaking change and migration path in the changeset description.
 4.  **Documentation**: Update all relevant documentation (README, TSDoc) to reflect the breaking change, the deprecation (if applicable), and the migration steps.
 5.  **Release**: Once the PR is merged, the release workflow will handle the major version bump and publish the new version.

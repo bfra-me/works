@@ -16,9 +16,9 @@
 
 ## Technical Decisions
 
-| Decision | Rationale | Date | Alternatives Considered |
-|----------|-----------|------|-------------------------|
-| [Decision] | [Rationale] | YYYY-MM-DD | [Alternatives] |
+| Decision   | Rationale   | Date       | Alternatives Considered |
+| ---------- | ----------- | ---------- | ----------------------- |
+| [Decision] | [Rationale] | YYYY-MM-DD | [Alternatives]          |
 
 ## Implementation Guidelines
 
