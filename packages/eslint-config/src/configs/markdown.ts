@@ -89,8 +89,21 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
           },
           rules: {
             // Only disable non-type-aware rules we want to skip for markdown code blocks
+
+            'unicorn/filename-case': 'off',
+
+            '@typescript-eslint/consistent-type-imports': 'off',
+            '@typescript-eslint/explicit-function-return-type': 'off',
+            '@typescript-eslint/no-redeclare': 'off',
+            '@typescript-eslint/no-require-imports': 'off',
+            '@typescript-eslint/no-unused-vars': 'off',
+            '@typescript-eslint/no-use-before-define': 'off',
+            '@typescript-eslint/no-var-requires': 'off',
+
             'import-x/newline-after-import': 'off',
+
             'jsdoc/require-returns-check': 'off',
+
             'no-alert': 'off',
             'no-console': 'off',
             'no-labels': 'off',
@@ -101,9 +114,14 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
             'no-unused-expressions': 'off',
             'no-unused-labels': 'off',
             'no-unused-vars': 'off',
+
             'node/prefer-global/process': 'off',
+
+            'unicode-bom': 'off',
+
             'unused-imports/no-unused-imports': 'off',
             'unused-imports/no-unused-vars': 'off',
+
             ...overrides,
           },
         },
