@@ -8,3 +8,6 @@
 
 # chore: format all package.json files (#160)
 aa7d21641e71854ad6f2f7b736963e2a8f669b2a
+
+# chore: format markdown files ahead of ESLint config change (#1415)
+52e92081863eb969ea006a0edf9b8a5516a9a0b9
