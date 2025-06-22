@@ -72,6 +72,10 @@
   },
   "packageManager": "pnpm@10.12.1",
   "pnpm": {
+    "onlyBuiltDependencies": [
+      "@swc/core",
+      "unrs-resolver"
+    ],
     "overrides": {
       "jiti": "<2.2.0",
       "read-pkg-up@^11": "npm:read-package-up"

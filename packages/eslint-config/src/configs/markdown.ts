@@ -1,5 +1,8 @@
 import type {Config} from '../config'
 import type {Flatten, OptionsFiles, OptionsOverrides} from '../options'
+import {mergeProcessors, processorPassThrough} from 'eslint-merge-processors'
+import {GLOB_MARKDOWN, GLOB_MARKDOWN_CODE, GLOB_MARKDOWN_IN_MARKDOWN} from '../globs'
+import {plainParser} from '../parsers/plain-parser'
 import {interopDefault} from '../plugins'
 import {requireOf} from '../require-of'
 import {fallback} from './fallback'
@@ -43,66 +46,68 @@ export const extInMdFiles = [
  * @see https://eslint.github.io/eslint-plugin-markdown/
  */
 export async function markdown(options: MarkdownOptions = {}): Promise<Config[]> {
-  const {files = mdFiles, overrides = {}} = options
+  const {files = [GLOB_MARKDOWN], overrides = {}} = options
   return requireOf(
-    ['@eslint/markdown', 'typescript-eslint'],
-    async () => {
-      const [pluginMarkdown, tselint] = await Promise.all([
-        interopDefault(import('@eslint/markdown')),
-        interopDefault(import('typescript-eslint')),
-      ])
+    ['@eslint/markdown'],
+    async (): Promise<Config[]> => {
+      const markdown = await interopDefault(import('@eslint/markdown'))
 
-      // Get the processor configs
-      const processorConfigs = Array.isArray(pluginMarkdown.configs?.processor)
-        ? pluginMarkdown.configs.processor.map(config => ({
-            ...config,
-            name: `@bfra.me/${config.name || 'unnamed'}`,
-            ...(config.name?.endsWith('processor') ? {files} : {}),
-          }))
-        : []
-
-      // Create the markdown code blocks config with type-checking disabled
-      const markdownCodeConfig: Config = {
-        name: '@bfra.me/markdown/overrides',
-        files: codeInMdFiles,
-        languageOptions: {
-          parserOptions: {
-            // Explicitly disable project for these files to prevent type-aware linting
-            project: false,
+      return [
+        {
+          name: '@bfra.me/markdown/plugin',
+          plugins: {
+            markdown: markdown as any,
           },
         },
-        rules: {
-          // Only disable non-type-aware rules we want to skip for markdown code blocks
-          'import-x/newline-after-import': 'off',
-          'jsdoc/require-returns-check': 'off',
-          'no-alert': 'off',
-          'no-console': 'off',
-          'no-labels': 'off',
-          'no-lone-blocks': 'off',
-          'no-restricted-imports': 'off',
-          'no-restricted-syntax': 'off',
-          'no-undef': 'off',
-          'no-unused-expressions': 'off',
-          'no-unused-labels': 'off',
-          'no-unused-vars': 'off',
-          'unused-imports/no-unused-imports': 'off',
-          'unused-imports/no-unused-vars': 'off',
-          ...overrides,
+        {
+          name: '@bfra.me/markdown/processor',
+          files,
+          ignores: [GLOB_MARKDOWN_IN_MARKDOWN],
+          // `eslint-plugin-markdown` only creates virtual files for code blocks,
+          // but not the markdown file itself. We use `eslint-merge-processors` to
+          // add a pass-through processor for the markdown file itself.
+          processor: mergeProcessors([markdown.processors.markdown, processorPassThrough]),
         },
-      }
-
-      // If typescript-eslint has the disableTypeChecked config, use it
-      if (tselint.configs?.disableTypeChecked) {
-        // Apply the disableTypeChecked config settings to our config
-        Object.assign(markdownCodeConfig, {
-          // We use the settings from disableTypeChecked while maintaining our own rules
+        {
+          name: '@bfra.me/markdown/code-blocks',
+          files,
           languageOptions: {
-            ...tselint.configs.disableTypeChecked.languageOptions,
+            parser: plainParser,
           },
-        })
-      }
-
-      return [...processorConfigs, markdownCodeConfig] as Config[]
+        },
+        {
+          name: '@bfra.me/markdown/overrides',
+          files: [GLOB_MARKDOWN_CODE],
+          languageOptions: {
+            parserOptions: {
+              ecmaFeatures: {
+                impliedStrict: true,
+              },
+              // Explicitly disable project for these files to prevent type-aware linting
+              project: false,
+            },
+          },
+          rules: {
+            // Only disable non-type-aware rules we want to skip for markdown code blocks
+            'import-x/newline-after-import': 'off',
+            'jsdoc/require-returns-check': 'off',
+            'no-alert': 'off',
+            'no-console': 'off',
+            'no-labels': 'off',
+            'no-lone-blocks': 'off',
+            'no-restricted-imports': 'off',
+            'no-restricted-syntax': 'off',
+            'no-undef': 'off',
+            'no-unused-expressions': 'off',
+            'no-unused-labels': 'off',
+            'no-unused-vars': 'off',
+            'node/prefer-global/process': 'off',
+            'unused-imports/no-unused-imports': 'off',
+            'unused-imports/no-unused-vars': 'off',
+            ...overrides,
+          },
+        },
+      ]
     },
     fallback,
   )
