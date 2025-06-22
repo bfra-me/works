@@ -70,6 +70,7 @@ export type ConfigNames =
   | '@bfra.me/markdown/plugin'
   | '@bfra.me/markdown/processor'
   | '@bfra.me/markdown/code-blocks'
+  | '@bfra.me/markdown/disabled'
   | '@bfra.me/markdown/overrides'
   | '@bfra.me/prettier'
   | '@bfra.me/prettier/markdown'
