@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.23.0
+### Minor Changes
+
+
+- Add overrides to Markdown formatting ([#1418](https://github.com/bfra-me/works/pull/1418))
+
 ## 0.22.0
 ### Minor Changes
 
