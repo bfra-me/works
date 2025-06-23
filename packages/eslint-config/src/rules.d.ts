@@ -1810,6 +1810,11 @@ export interface Rules {
    */
   'markdown/heading-increment'?: Linter.RuleEntry<[]>
   /**
+   * Disallow bare URLs
+   * @see https://github.com/eslint/markdown/blob/main/docs/rules/no-bare-urls.md
+   */
+  'markdown/no-bare-urls'?: Linter.RuleEntry<[]>
+  /**
    * Disallow duplicate definitions
    * @see https://github.com/eslint/markdown/blob/main/docs/rules/no-duplicate-definitions.md
    */
@@ -1818,7 +1823,7 @@ export interface Rules {
    * Disallow duplicate headings in the same document
    * @see https://github.com/eslint/markdown/blob/main/docs/rules/no-duplicate-headings.md
    */
-  'markdown/no-duplicate-headings'?: Linter.RuleEntry<[]>
+  'markdown/no-duplicate-headings'?: Linter.RuleEntry<MarkdownNoDuplicateHeadings>
   /**
    * Disallow empty definitions
    * @see https://github.com/eslint/markdown/blob/main/docs/rules/no-empty-definitions.md
@@ -1855,10 +1860,20 @@ export interface Rules {
    */
   'markdown/no-missing-label-refs'?: Linter.RuleEntry<[]>
   /**
+   * Disallow link fragments that do not reference valid headings
+   * @see https://github.com/eslint/markdown/blob/main/docs/rules/no-missing-link-fragments.md
+   */
+  'markdown/no-missing-link-fragments'?: Linter.RuleEntry<MarkdownNoMissingLinkFragments>
+  /**
    * Disallow multiple H1 headings in the same document
    * @see https://github.com/eslint/markdown/blob/main/docs/rules/no-multiple-h1.md
    */
   'markdown/no-multiple-h1'?: Linter.RuleEntry<MarkdownNoMultipleH1>
+  /**
+   * Disallow reversed link and image syntax
+   * @see https://github.com/eslint/markdown/blob/main/docs/rules/no-reversed-media-syntax.md
+   */
+  'markdown/no-reversed-media-syntax'?: Linter.RuleEntry<[]>
   /**
    * Require alternative text for images
    * @see https://github.com/eslint/markdown/blob/main/docs/rules/require-alt-text.md
@@ -7995,9 +8010,18 @@ type MarkdownNoDuplicateDefinitions = []|[{
   allowDefinitions?: string[]
   allowFootnoteDefinitions?: string[]
 }]
+// ----- markdown/no-duplicate-headings -----
+type MarkdownNoDuplicateHeadings = []|[{
+  checkSiblingsOnly?: boolean
+}]
 // ----- markdown/no-html -----
 type MarkdownNoHtml = []|[{
   allowed?: string[]
+}]
+// ----- markdown/no-missing-link-fragments -----
+type MarkdownNoMissingLinkFragments = []|[{
+  ignoreCase?: boolean
+  allowPattern?: string
 }]
 // ----- markdown/no-multiple-h1 -----
 type MarkdownNoMultipleH1 = []|[{
