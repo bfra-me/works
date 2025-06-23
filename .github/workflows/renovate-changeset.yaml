@@ -42,7 +42,7 @@ jobs:
       - name: Run changesets-renovate
         if: steps.filter.outputs.changes == 'true'
         env:
-          NPM_VERSION: 2.2.0 # renovate: datasource=npm depName=@scaleway/changesets-renovate
+          NPM_VERSION: 2.2.1 # renovate: datasource=npm depName=@scaleway/changesets-renovate
           SKIP_COMMIT: 'TRUE'
           SORT_CHANGESETS: 'TRUE'
         run: |
