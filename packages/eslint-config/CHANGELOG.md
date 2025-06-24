@@ -1,5 +1,23 @@
 # @bfra.me/eslint-config
 
+## 0.24.0
+### Minor Changes
+
+
+- Simplify Markdown config. ([#1434](https://github.com/bfra-me/works/pull/1434))
+
+
+### Patch Changes
+
+
+- Updated dependency `eslint-plugin-command` to `3.3.0`. ([#1423](https://github.com/bfra-me/works/pull/1423))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `51.0.4`. ([#1432](https://github.com/bfra-me/works/pull/1432))
+
+
+- Updated dependency `@eslint/markdown` to `6.6.0`. ([#1431](https://github.com/bfra-me/works/pull/1431))
+
 ## 0.23.1
 ### Patch Changes
 
