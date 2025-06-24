@@ -6993,6 +6993,7 @@ type JsdocLinesBeforeBlock = []|[{
   checkBlockStarts?: boolean
   excludedTags?: string[]
   ignoreSameLine?: boolean
+  ignoreSingleLines?: boolean
   lines?: number
 }]
 // ----- jsdoc/match-description -----
