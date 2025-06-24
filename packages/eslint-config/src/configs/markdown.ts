@@ -56,7 +56,7 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
         {
           name: '@bfra.me/markdown/plugin',
           plugins: {
-            markdown: markdown as any,
+            markdown,
           },
         },
         {
@@ -77,8 +77,7 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
         },
         {
           name: '@bfra.me/markdown/disabled',
-          files: [GLOB_MARKDOWN],
-          ignores: [GLOB_MARKDOWN_CODE],
+          files,
           rules: {
             'unicorn/filename-case': 'off',
           },
