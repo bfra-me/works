@@ -74,6 +74,7 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "@swc/core",
+      "esbuild",
       "unrs-resolver"
     ],
     "overrides": {
