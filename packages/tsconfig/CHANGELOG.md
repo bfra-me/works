@@ -1,5 +1,11 @@
 # @bfra.me/tsconfig
 
+## 0.10.0
+### Minor Changes
+
+
+- Remove `exactOptionalPropertyTypes`. ([#1433](https://github.com/bfra-me/works/pull/1433))
+
 ## 0.9.7
 ### Patch Changes
 
