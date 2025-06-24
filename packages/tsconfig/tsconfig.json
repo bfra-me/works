@@ -10,7 +10,6 @@
     "declarationMap": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
-    "exactOptionalPropertyTypes": true,
     "experimentalDecorators": true,
     "isolatedModules": true,
     "lib": ["ES2023"],
