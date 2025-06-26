@@ -380,7 +380,6 @@ Making a breaking change requires careful handling according to our versioning a
 
 1.  **Versioning**: This change requires a **MAJOR** version bump for the package (e.g., v1.x.x -> v2.0.0) because it breaks backward compatibility.
 2.  **Deprecation (Recommended)**: Instead of immediately changing `createConfig`, consider:
-
     - Marking the old `createConfig` as `@deprecated` in TSDoc, pointing users to a new function (e.g., `createConfigV2`).
     - Keep the old `createConfig` functional (perhaps calling the new one internally) for at least one major version cycle to give users time to migrate.
     - Provide a clear migration path in the documentation.

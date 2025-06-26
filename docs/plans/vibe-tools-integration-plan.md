@@ -27,19 +27,16 @@ This plan details the steps required to update the `ai-agile-workflow.mdc` Curso
 **Tasks**:
 
 1.  **Review Source Analysis Document**
-
     - **Complexity**: Low
     - **Dependencies**: None
     - **Acceptance Criteria**: Complete understanding of the integration points, command examples, and automation strategies outlined in [`docs/memory/agile-workflow-enhancements.md`](/docs/memory/agile-workflow-enhancements.md). Key command templates and examples identified for each workflow stage. Memory automation script examples noted for inclusion.
 
 2.  **Analyze Target Rule File**
-
     - **Complexity**: Low
     - **Dependencies**: None
     - **Acceptance Criteria**: Identify the specific sections within [`ai-agile-workflow.mdc`](/.cursor/rules/ai-agile-workflow.mdc) corresponding to feature definition, planning, task generation, execution, and completion. Understand the current flow and structure of the rule's guidance.
 
 3.  **Review Formatting & Structure Guidelines**
-
     - **Complexity**: Low
     - **Dependencies**: None
     - **Acceptance Criteria**: Clear understanding of the required structure, metadata, and cross-referencing syntax defined in [`cursor-rules-creation.mdc`](/.cursor/rules/cursor-rules-creation.mdc).
@@ -56,25 +53,21 @@ This plan details the steps required to update the `ai-agile-workflow.mdc` Curso
 **Tasks**:
 
 1.  **Integrate `vibe-tools web` for Feature Definition/Research**
-
     - **Complexity**: Medium
     - **Dependencies**: Phase 1 Tasks
     - **Acceptance Criteria**: Update the "Capture Features" or equivalent section in `ai-agile-workflow.mdc`. Add guidance on using `vibe-tools web` for initial research and competitor analysis. Include specific command examples from `agile-workflow-enhancements.md`. Add guidance on using `--with-doc` when specific URLs are provided.
 
 2.  **Integrate `vibe-tools plan` for Plan Creation**
-
     - **Complexity**: Medium
     - **Dependencies**: Phase 1 Tasks
     - **Acceptance Criteria**: Update the "Create Plan Documents" section. Add guidance on using `vibe-tools plan` to generate structured plans from feature descriptions. Include relevant command examples, including options like `--thinkingProvider`, `--thinkingModel`, and `--with-doc`.
 
 3.  **Integrate `vibe-tools plan` / `repo` for Task Generation**
-
     - **Complexity**: Medium
     - **Dependencies**: Phase 1 Tasks
     - **Acceptance Criteria**: Update the "Generate Task Documents" section. Add guidance on using `vibe-tools plan` or `vibe-tools repo` to break down plan phases into discrete tasks. Include command examples, potentially showing how to save output directly to task files (as shown in the analysis doc).
 
 4.  **Integrate `vibe-tools repo` / `web` / `browser` for Task Execution**
-
     - **Complexity**: Medium
     - **Dependencies**: Phase 1 Tasks
     - **Acceptance Criteria**: Update the "Execute Tasks" section. Add guidance on using `vibe-tools repo` for gathering codebase context before starting implementation. Add guidance on using `vibe-tools web` or `vibe-tools browser act/observe` for troubleshooting or researching solutions during implementation. Include specific command examples for context gathering and problem-solving.
@@ -91,13 +84,11 @@ This plan details the steps required to update the `ai-agile-workflow.mdc` Curso
 **Tasks**:
 
 1.  **Draft Memory Automation Section**
-
     - **Complexity**: Medium
     - **Dependencies**: Phase 1 Tasks
     - **Acceptance Criteria**: Create a new section within `ai-agile-workflow.mdc` titled "Memory File Automation with Vibe-Tools" or similar. Explain the concept of using `vibe-tools` (primarily `repo` and `ask`/`mcp`) to automate updates to memory files like `workflow-status.md`, `domain-knowledge.md`, etc.
 
 2.  **Incorporate Script Examples**
-
     - **Complexity**: Medium
     - **Dependencies**: Task 3.1
     - **Acceptance Criteria**: Add formatted script examples from `agile-workflow-enhancements.md` for: Automated Workflow Status Updates, Daily Standup Automation, Domain Knowledge Updates, Sprint Planning Integration, Retrospective Insights Processing. Ensure examples are clear and correctly formatted within the rule file.
@@ -114,19 +105,16 @@ This plan details the steps required to update the `ai-agile-workflow.mdc` Curso
 **Tasks**:
 
 1.  **Add/Update Cross-References**
-
     - **Complexity**: Low
     - **Dependencies**: Phase 2, Phase 3 Tasks
     - **Acceptance Criteria**: Add explicit links (`mdc:` syntax) to [`vibe-tools.mdc`](/.cursor/rules/vibe-tools.mdc) whenever `vibe-tools` commands are mentioned. Add/verify links to [`memory-management.mdc`](/.cursor/rules/memory-management.mdc) in the automation section. Add links to relevant memory files (e.g., [`agile-workflow-enhancements.md`](/docs/memory/agile-workflow-enhancements.md)).
 
 2.  **Ensure Rule Structure Compliance**
-
     - **Complexity**: Low
     - **Dependencies**: Phase 2, Phase 3 Tasks
     - **Acceptance Criteria**: Verify the entire `.mdc` file structure (frontmatter, title, `<rule>` block, filters, actions, examples, metadata) conforms to [`cursor-rules-creation.mdc`](/.cursor/rules/cursor-rules-creation.mdc). Ensure formatting (headings, code blocks, lists) is consistent.
 
 3.  **Update Rule Metadata**
-
     - **Complexity**: Low
     - **Dependencies**: Phase 2, Phase 3 Tasks
     - **Acceptance Criteria**: Increment the `version` number in the metadata (likely a MINOR bump).
