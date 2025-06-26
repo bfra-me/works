@@ -26,7 +26,6 @@ This plan outlines the approach for consolidating overlapping Cursor rules into 
 **Tasks**:
 
 1. Audit existing rule files
-
    - **Complexity**: Medium
    - **Dependencies**: None
    - **Acceptance Criteria**:
@@ -37,7 +36,6 @@ This plan outlines the approach for consolidating overlapping Cursor rules into 
      - Analysis of rule usage patterns
 
 2. Define consolidation strategy
-
    - **Complexity**: Medium
    - **Dependencies**: Task 1
    - **Acceptance Criteria**:
@@ -64,7 +62,6 @@ This plan outlines the approach for consolidating overlapping Cursor rules into 
 **Tasks**:
 
 1. Consolidate meta-rules
-
    - **Complexity**: High
    - **Dependencies**: Phase 1
    - **Acceptance Criteria**:
@@ -83,7 +80,6 @@ This plan outlines the approach for consolidating overlapping Cursor rules into 
        ```
 
 2. Create unified code standards rule
-
    - **Complexity**: High
    - **Dependencies**: Phase 1
    - **Acceptance Criteria**:
@@ -112,7 +108,6 @@ This plan outlines the approach for consolidating overlapping Cursor rules into 
 **Tasks**:
 
 1. Create validation test cases
-
    - **Complexity**: Medium
    - **Dependencies**: Phase 2
    - **Acceptance Criteria**:
@@ -123,7 +118,6 @@ This plan outlines the approach for consolidating overlapping Cursor rules into 
      - Documentation of test procedures
 
 2. Test consolidated rules with AI
-
    - **Complexity**: Medium
    - **Dependencies**: Task 1 (Phase 3)
    - **Acceptance Criteria**:
@@ -150,7 +144,6 @@ This plan outlines the approach for consolidating overlapping Cursor rules into 
 **Tasks**:
 
 1. Update rule registry and references
-
    - **Complexity**: Low
    - **Dependencies**: Phase 3
    - **Acceptance Criteria**:
@@ -161,7 +154,6 @@ This plan outlines the approach for consolidating overlapping Cursor rules into 
      - Clean migration of all relevant content
 
 2. Archive deprecated rules
-
    - **Complexity**: Low
    - **Dependencies**: Task 1 (Phase 4)
    - **Acceptance Criteria**:

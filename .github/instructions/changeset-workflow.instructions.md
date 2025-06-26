@@ -149,7 +149,6 @@ pnpm changeset
 ```
 
 2. When prompted:
-
    - Select all the packages you've modified using the space bar
    - For each package, specify the semver impact:
    - `major` for breaking changes
