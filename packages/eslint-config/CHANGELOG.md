@@ -1,5 +1,38 @@
 # @bfra.me/eslint-config
 
+## 0.24.1
+### Patch Changes
+
+
+- Updated dependency `eslint-plugin-prettier` to `5.5.1`. ([#1457](https://github.com/bfra-me/works/pull/1457))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.35.0`. ([#1448](https://github.com/bfra-me/works/pull/1448))
+  Updated dependency `typescript-eslint` to `8.35.0`.
+
+- Updated dependency `eslint-plugin-jsdoc` to `51.2.2`. ([#1450](https://github.com/bfra-me/works/pull/1450))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `51.1.0`. ([#1435](https://github.com/bfra-me/works/pull/1435))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `51.1.2`. ([#1440](https://github.com/bfra-me/works/pull/1440))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `51.2.3`. ([#1451](https://github.com/bfra-me/works/pull/1451))
+
+
+- Updated dependency `eslint-plugin-command` to `3.3.1`. ([#1444](https://github.com/bfra-me/works/pull/1444))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `51.1.1`. ([#1437](https://github.com/bfra-me/works/pull/1437))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `51.2.1`. ([#1442](https://github.com/bfra-me/works/pull/1442))
+
+
+- Updated dependency `eslint-plugin-import-x` to `4.16.0`. ([#1454](https://github.com/bfra-me/works/pull/1454))
+
 ## 0.24.0
 ### Minor Changes
 
