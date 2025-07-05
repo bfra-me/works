@@ -1,5 +1,29 @@
 # @bfra.me/works
 
+## 0.0.2
+### Patch Changes
+
+
+- Updated dependency `packageManager` to `pnpm@10.12.4`. ([#1458](https://github.com/bfra-me/works/pull/1458))
+
+
+- Updated dependency `@types/node` to `22.15.33`. ([#1467](https://github.com/bfra-me/works/pull/1467))
+
+
+- Updated dependency `prettier` to `3.6.2`. ([#1463](https://github.com/bfra-me/works/pull/1463))
+
+
+- Updated dependency `@types/node` to `22.15.34`. ([#1468](https://github.com/bfra-me/works/pull/1468))
+
+
+- Updated dependency `@eslint/js` to `9.30.0`. ([#1466](https://github.com/bfra-me/works/pull/1466))
+  Updated dependency `eslint` to `9.30.0`.
+
+- Updated dependency `@eslint/js` to `9.30.1`. ([#1474](https://github.com/bfra-me/works/pull/1474))
+  Updated dependency `eslint` to `9.30.1`.
+
+- Updated dependency `sort-package-json` to `3.4.0`. ([#1477](https://github.com/bfra-me/works/pull/1477))
+
 ## 0.0.1
 ### Patch Changes
 
