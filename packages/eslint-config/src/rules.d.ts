@@ -4815,6 +4815,16 @@ export interface Rules {
    */
   'vitest/padding-around-test-blocks'?: Linter.RuleEntry<[]>
   /**
+   * enforce using `toBeCalledOnce()` or `toHaveBeenCalledOnce()`
+   * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-called-once.md
+   */
+  'vitest/prefer-called-once'?: Linter.RuleEntry<[]>
+  /**
+   * enforce using `toBeCalledTimes(1)` or `toHaveBeenCalledTimes(1)`
+   * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-called-times.md
+   */
+  'vitest/prefer-called-times'?: Linter.RuleEntry<[]>
+  /**
    * enforce using `toBeCalledWith()` or `toHaveBeenCalledWith()`
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-called-with.md
    */
@@ -4979,6 +4989,11 @@ export interface Rules {
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/valid-title.md
    */
   'vitest/valid-title'?: Linter.RuleEntry<VitestValidTitle>
+  /**
+   * disallow `.todo` usage
+   * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/warn-todo.md
+   */
+  'vitest/warn-todo'?: Linter.RuleEntry<[]>
   /**
    * Require parentheses around immediate `function` invocations
    * @see https://eslint.org/docs/latest/rules/wrap-iife
