@@ -12,6 +12,8 @@ import {fallback} from './fallback'
  */
 export type VitestOptions = Flatten<OptionsFiles & OptionsIsInEditor & OptionsOverrides>
 
+let _pluginTest: any
+
 /**
  * Generates an ESLint configuration for the Vitest testing framework.
  *
@@ -31,19 +33,21 @@ export async function vitest(options: VitestOptions = {}): Promise<Config[]> {
         interopDefault(import('@vitest/eslint-plugin')),
         // @ts-expect-error - No types
         interopDefault(import('eslint-plugin-no-only-tests')),
-      ])
+      ] as const)
+
+      _pluginTest ??= {
+        ...vitest,
+        rules: {
+          ...vitest.rules,
+          ...noOnlyTests.rules,
+        },
+      }
 
       return [
         {
           name: '@bfra.me/vitest/plugins',
           plugins: {
-            vitest: {
-              ...vitest,
-              rules: {
-                ...vitest.rules,
-                ...noOnlyTests.rules,
-              } as typeof vitest.rules,
-            },
+            vitest: _pluginTest,
           },
           settings: {
             vitest: {
