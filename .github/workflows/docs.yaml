@@ -22,12 +22,12 @@ jobs:
       - id: vars
         run: |
           short_sha=$(git rev-parse --short ${{ github.sha }})
-          echo "COMMIT_HASH=$short_sha" >> $GITHUB_ENV
+          echo "SHORT_SHA=$short_sha" >> $GITHUB_OUTPUT
       - uses: withastro/action@v3
         env:
-          PUBLIC_COMMIT_HASH: ${{ env.COMMIT_HASH }}
+          PUBLIC_COMMIT_HASH: ${{ steps.vars.outputs.SHORT_SHA }}
         with:
-          path: ./packages/docs
+          path: docs
           node-version: 22
           package-manager: pnpm@latest
 
