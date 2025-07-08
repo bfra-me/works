@@ -8,6 +8,7 @@ export const config = defineConfig({
     parserOptions: {
       project: [
         './tsconfig.eslint.json',
+        './docs/tsconfig.json',
         './packages/*/tsconfig.json',
         './packages/*/tsconfig.eslint.json',
         './scripts/tsconfig.json',
