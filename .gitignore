@@ -16,7 +16,6 @@ _fixtures
 bfra.me-*.tgz
 .cache
 coverage/
-docs/memory/memory.json
 .cursor/mcp.json
 # SpecStory explanation file
 .specstory/.what-is-this.md
@@ -24,4 +23,8 @@ docs/memory/memory.json
 .specstory/
 .repomix-*
 .ai/generated/
-docs/generated/
+# environment variables
+.env
+.env.production
+# generated types
+.astro/

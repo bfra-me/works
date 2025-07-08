@@ -1,13 +1,14 @@
 {
     "version": "0.2.0",
     "configurations": [
+        // Configuration for running the Astro development server in a terminal
+        // This configuration is set to run in the 'docs' directory of the workspace
         {
-            "type": "node",
+            "command": "./node_modules/.bin/astro dev",
+            "name": "Development server",
             "request": "launch",
-            "name": "Execute Command",
-            "skipFiles": ["<node_internals>/**"],
-            "program": "${workspaceFolder}/bin/dev",
-            "args": ["hello", "world"]
+            "type": "node-terminal",
+            "cwd": "${workspaceFolder}/docs"
         }
     ]
 }
