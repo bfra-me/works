@@ -23,7 +23,7 @@ jobs:
         run: |
           short_sha=$(git rev-parse --short ${{ github.sha }})
           echo "SHORT_SHA=$short_sha" >> $GITHUB_OUTPUT
-      - uses: withastro/action@v3
+      - uses: withastro/action@v4
         env:
           PUBLIC_COMMIT_HASH: ${{ steps.vars.outputs.SHORT_SHA }}
         with:
