@@ -18,18 +18,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - id: vars
         run: |
           short_sha=$(git rev-parse --short ${{ github.sha }})
           echo "SHORT_SHA=$short_sha" >> $GITHUB_OUTPUT
-      - uses: withastro/action@v3
+      - uses: withastro/action@063f85a3c9fc861a0a5e5a956225d9031177eff9 # v4.0.0
         env:
           PUBLIC_COMMIT_HASH: ${{ steps.vars.outputs.SHORT_SHA }}
         with:
-          path: docs
-          node-version: 22
           package-manager: pnpm@latest
+          path: docs
 
   deploy:
     needs: build
@@ -40,4 +39,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
