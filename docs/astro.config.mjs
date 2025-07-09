@@ -6,8 +6,8 @@ import {defineConfig} from 'astro/config'
 export default defineConfig({
   integrations: [
     starlight({
-      title: 'My Docs',
-      social: [{icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight'}],
+      title: 'bfra.me Works',
+      social: [{icon: 'github', label: 'GitHub', href: 'https://github.com/bfra-me/works'}],
       sidebar: [
         {
           label: 'Guides',
@@ -23,6 +23,7 @@ export default defineConfig({
       ],
     }),
   ],
+  site: 'https://docs.bfra.me',
   base: 'works',
   trailingSlash: 'always',
 })
