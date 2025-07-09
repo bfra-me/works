@@ -23,4 +23,6 @@ export default defineConfig({
       ],
     }),
   ],
+  base: 'works',
+  trailingSlash: 'always',
 })
