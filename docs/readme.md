@@ -4,7 +4,7 @@
 
 > Documentation for the bfra.me/works monorepo.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/bfra-me/works/tree/main/docs) [![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/bfra-me/starlight/tree/main/docs)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/bfra-me/works/tree/main/docs) [![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/bfra-me/works/tree/main/docs)
 
 ## 🧞 Commands
 
