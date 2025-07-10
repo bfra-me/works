@@ -44,6 +44,5 @@ export default defineConfig({
     }),
   ],
   site: 'https://docs.bfra.me',
-  base: 'works',
   trailingSlash: 'always',
 })
