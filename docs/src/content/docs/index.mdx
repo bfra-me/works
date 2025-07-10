@@ -1,36 +1,67 @@
 ---
-title: Welcome to Starlight
-description: Get started building your docs site with Starlight.
+title: bfra.me Works
+description: Tools and components for modern ES development
 template: splash
 hero:
-  tagline: Congrats on setting up a new Starlight project!
-  image:
-    file: ../../assets/houston.webp
+  tagline: A comprehensive toolkit for modern JavaScript and TypeScript development
   actions:
-    - text: Example Guide
-      link: /guides/example/
+    - text: Get Started
+      link: ./getting-started/introduction/
       icon: right-arrow
-    - text: Read the Starlight docs
-      link: https://starlight.astro.build
+      variant: primary
+    - text: View on GitHub
+      link: https://github.com/bfra-me/works
       icon: external
       variant: minimal
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## Next steps
+## What is bfra.me Works?
+
+bfra.me Works is a collection of tools and shared configurations designed to streamline modern JavaScript and TypeScript development. It provides consistent, opinionated configurations for ESLint, Prettier, TypeScript, and more, along with utilities for creating new projects and managing releases.
+
+## Key Features
 
 <CardGrid stagger>
-	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
+	<Card title="@bfra.me/create" icon="rocket">
+		A powerful CLI tool for creating new packages from customizable templates. Bootstrap your projects with best practices built-in.
 	</Card>
-	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
+	<Card title="@bfra.me/eslint-config" icon="approve-check">
+		Shared ESLint configuration with sensible defaults for TypeScript projects. Consistent code quality across all your projects.
 	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
+	<Card title="@bfra.me/prettier-config" icon="pencil">
+		Opinionated Prettier configuration for consistent code formatting. Multiple variants available for different project needs.
 	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
+	<Card title="@bfra.me/tsconfig" icon="setting">
+		Shared TypeScript configuration extending from strictest settings. Get type safety without the configuration overhead.
+	</Card>
+	<Card title="@bfra.me/semantic-release" icon="star">
+		Semantic Release configuration for automated versioning and publishing. Streamline your release process.
+	</Card>
+	<Card title="Monorepo Ready" icon="puzzle">
+		All packages are designed to work together in monorepo setups with pnpm workspaces.
 	</Card>
 </CardGrid>
+
+## Quick Start
+
+Get started with bfra.me Works in minutes:
+
+```bash
+# Create a new project
+npx @bfra.me/create my-project
+
+# Or install individual packages
+pnpm add -D @bfra.me/eslint-config @bfra.me/prettier-config @bfra.me/tsconfig
+```
+
+## Philosophy
+
+bfra.me Works embraces these core principles:
+
+- **Consistency**: Shared configurations ensure consistent code style across projects
+- **Opinionated**: Sensible defaults that work out of the box
+- **Modular**: Use only what you need, packages work independently
+- **Modern**: Built for contemporary JavaScript and TypeScript development
+- **Extensible**: Easy to customize and extend for your specific needs

@@ -1,0 +1,540 @@
+---
+title: '@bfra.me/tsconfig'
+description: Shared TypeScript configuration for bfra.me with strict settings
+---
+
+import { Badge, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+
+# @bfra.me/tsconfig
+
+<Badge text="TypeScript Config" variant="tip" />
+<Badge text="v0.10.0" variant="note" />
+
+Shared TypeScript configuration for bfra.me with strict settings and modern best practices for type safety.
+
+## Features
+
+<CardGrid>
+  <Card title="Strict Type Checking" icon="approve-check">
+    Extends from @tsconfig/strictest for maximum type safety.
+  </Card>
+  <Card title="Modern JavaScript" icon="star">
+    Configured for latest ECMAScript features and Node.js compatibility.
+  </Card>
+  <Card title="Optimized Builds" icon="rocket">
+    Efficient compilation settings for both development and production.
+  </Card>
+  <Card title="Extensible" icon="setting">
+    Easy to extend and customize for specific project needs.
+  </Card>
+</CardGrid>
+
+## Installation
+
+<Tabs>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add -D @bfra.me/tsconfig typescript
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```bash
+    npm install --save-dev @bfra.me/tsconfig typescript
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add --dev @bfra.me/tsconfig typescript
+    ```
+  </TabItem>
+</Tabs>
+
+## Usage
+
+### Basic Setup
+
+Create a `tsconfig.json` file in your project root:
+
+```json
+{
+  "extends": "@bfra.me/tsconfig"
+}
+```
+
+### With Custom Settings
+
+```json
+{
+  "extends": "@bfra.me/tsconfig",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts"]
+}
+```
+
+### Library Configuration
+
+```json
+{
+  "extends": "@bfra.me/tsconfig",
+  "compilerOptions": {
+    "outDir": "./lib",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["**/*.test.ts", "**/*.spec.ts"]
+}
+```
+
+## Configuration Details
+
+### Base Configuration
+
+The configuration extends from `@tsconfig/strictest` and includes:
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true
+  }
+}
+```
+
+### Strict Settings
+
+All strict TypeScript options are enabled:
+
+- `strict: true` - Enables all strict type checking options
+- `noImplicitAny: true` - Error on expressions with implied 'any' type
+- `noImplicitThis: true` - Error on 'this' expressions with implied 'any' type
+- `alwaysStrict: true` - Parse in strict mode and emit "use strict"
+- `strictNullChecks: true` - Enable strict null checks
+- `strictFunctionTypes: true` - Enable strict checking of function types
+- `strictBindCallApply: true` - Enable strict 'bind', 'call', and 'apply' methods
+- `strictPropertyInitialization: true` - Enable strict checking of property initialization
+
+### Module Resolution
+
+Configured for modern module resolution:
+
+- `moduleResolution: "bundler"` - Use bundler-style module resolution
+- `allowSyntheticDefaultImports: true` - Allow default imports from modules
+- `esModuleInterop: true` - Enable interoperability between CommonJS and ES modules
+- `resolveJsonModule: true` - Allow importing JSON files
+- `isolatedModules: true` - Ensure each file can be safely transpiled
+
+## Project Types
+
+### Node.js Applications
+
+```json
+{
+  "extends": "@bfra.me/tsconfig",
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
+```
+
+### Web Applications
+
+```json
+{
+  "extends": "@bfra.me/tsconfig",
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
+```
+
+### Library Packages
+
+```json
+{
+  "extends": "@bfra.me/tsconfig",
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "outDir": "./lib",
+    "rootDir": "./src",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "removeComments": false
+  },
+  "include": ["src/**/*"],
+  "exclude": ["**/*.test.ts", "**/*.spec.ts", "node_modules"]
+}
+```
+
+## Common Patterns
+
+### Monorepo Setup
+
+For monorepo root `tsconfig.json`:
+
+```json
+{
+  "extends": "@bfra.me/tsconfig",
+  "compilerOptions": {
+    "noEmit": true,
+    "composite": true
+  },
+  "include": [],
+  "references": [
+    { "path": "./packages/package-a" },
+    { "path": "./packages/package-b" }
+  ]
+}
+```
+
+For individual packages:
+
+```json
+{
+  "extends": "@bfra.me/tsconfig",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "composite": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
+```
+
+### Testing Configuration
+
+Create `tsconfig.test.json` for test files:
+
+```json
+{
+  "extends": "@bfra.me/tsconfig",
+  "compilerOptions": {
+    "noEmit": true,
+    "types": ["node", "jest"]
+  },
+  "include": [
+    "src/**/*",
+    "test/**/*",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ]
+}
+```
+
+### Build Configuration
+
+Create `tsconfig.build.json` for production builds:
+
+```json
+{
+  "extends": "@bfra.me/tsconfig",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "removeComments": true,
+    "sourceMap": false
+  },
+  "include": ["src/**/*"],
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "node_modules"
+  ]
+}
+```
+
+## Package.json Scripts
+
+Add these scripts to your `package.json`:
+
+```json
+{
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "tsc --noEmit --watch"
+  }
+}
+```
+
+## IDE Integration
+
+### VS Code
+
+Create `.vscode/settings.json`:
+
+```json
+{
+  "typescript.preferences.includePackageJsonAutoImports": "on",
+  "typescript.suggest.autoImports": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  }
+}
+```
+
+### WebStorm/IntelliJ
+
+1. Go to **Preferences** → **Languages & Frameworks** → **TypeScript**
+2. Set **TypeScript** to the project's local installation
+3. Enable **TypeScript service** for error highlighting
+4. Configure **Code style** → **TypeScript** for formatting
+
+## Path Mapping
+
+For complex project structures, add path mapping:
+
+```json
+{
+  "extends": "@bfra.me/tsconfig",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@utils/*": ["src/utils/*"],
+      "@types/*": ["src/types/*"]
+    }
+  }
+}
+```
+
+## Troubleshooting
+
+### Common Issues
+
+#### Module Resolution Errors
+
+If you encounter module resolution issues:
+
+```json
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
+  }
+}
+```
+
+#### Strict Mode Errors
+
+To gradually adopt strict mode:
+
+```json
+{
+  "extends": "@bfra.me/tsconfig",
+  "compilerOptions": {
+    "strict": false,
+    "noImplicitAny": true,
+    "strictNullChecks": true
+  }
+}
+```
+
+#### Build Performance
+
+For large projects, optimize compilation:
+
+```json
+{
+  "compilerOptions": {
+    "incremental": true,
+    "tsBuildInfoFile": "./.tsbuildinfo"
+  }
+}
+```
+
+### Debug Commands
+
+```bash
+# Check TypeScript configuration
+npx tsc --showConfig
+
+# Compile with detailed output
+npx tsc --listFiles
+
+# Check for unused exports
+npx tsc --noUnusedLocals --noUnusedParameters
+```
+
+## Advanced Configuration
+
+### Custom Type Definitions
+
+Create `types/index.d.ts`:
+
+```typescript
+declare module '*.svg' {
+  const content: string
+  export default content
+}
+
+declare module '*.css' {
+  const content: Record<string, string>
+  export default content
+}
+```
+
+Update `tsconfig.json`:
+
+```json
+{
+  "extends": "@bfra.me/tsconfig",
+  "compilerOptions": {
+    "typeRoots": ["./types", "./node_modules/@types"]
+  }
+}
+```
+
+### Conditional Compilation
+
+```json
+{
+  "extends": "@bfra.me/tsconfig",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM"],
+    "types": ["node"]
+  },
+  "ts-node": {
+    "esm": true,
+    "compilerOptions": {
+      "module": "ESNext"
+    }
+  }
+}
+```
+
+## Migration Guide
+
+### From JavaScript
+
+1. Install TypeScript and configuration
+2. Rename `.js` files to `.ts`
+3. Add type annotations gradually
+4. Fix type errors incrementally
+
+### From Other Configurations
+
+1. Compare existing settings with @bfra.me/tsconfig
+2. Identify custom settings to preserve
+3. Extend the base configuration
+4. Test compilation and fix issues
+
+## Examples
+
+### Basic Node.js Project
+
+```json
+{
+  "extends": "@bfra.me/tsconfig",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts"]
+}
+```
+
+### React Application
+
+```json
+{
+  "extends": "@bfra.me/tsconfig",
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx"
+  },
+  "include": ["src"]
+}
+```
+
+### Express.js API
+
+```json
+{
+  "extends": "@bfra.me/tsconfig",
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "esModuleInterop": true,
+    "types": ["node", "express"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts"]
+}
+```
+
+## Best Practices
+
+1. **Start Strict**: Use strict settings from the beginning
+2. **Organize Types**: Keep type definitions in dedicated files
+3. **Use Path Mapping**: Simplify imports with path aliases
+4. **Incremental Builds**: Enable incremental compilation for large projects
+5. **Type-Only Imports**: Use type-only imports when possible
+
+## Contributing
+
+To contribute to @bfra.me/tsconfig:
+
+1. Fork the repository
+2. Create a feature branch
+3. Test with various project types
+4. Submit a pull request
+
+See our [Contributing Guide](/guides/contributing) for more details.

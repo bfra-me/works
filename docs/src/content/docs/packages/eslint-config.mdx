@@ -1,0 +1,423 @@
+---
+title: '@bfra.me/eslint-config'
+description: Shared ESLint configuration for bfra.me with TypeScript support
+---
+
+import { Badge, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+
+# @bfra.me/eslint-config
+
+<Badge text="ESLint Config" variant="tip" />
+<Badge text="v0.24.2" variant="note" />
+
+Shared ESLint configuration for bfra.me with comprehensive TypeScript support and modern best practices.
+
+## Features
+
+<CardGrid>
+  <Card title="TypeScript First" icon="approve-check">
+    Built-in TypeScript support with strict type checking rules.
+  </Card>
+  <Card title="Modern Standards" icon="star">
+    Follows latest ECMAScript standards and best practices.
+  </Card>
+  <Card title="Customizable" icon="setting">
+    Easily extend and customize for your specific needs.
+  </Card>
+  <Card title="Performance Optimized" icon="rocket">
+    Efficient rule configuration for fast linting.
+  </Card>
+</CardGrid>
+
+## Installation
+
+<Tabs>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add -D @bfra.me/eslint-config eslint
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```bash
+    npm install --save-dev @bfra.me/eslint-config eslint
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add --dev @bfra.me/eslint-config eslint
+    ```
+  </TabItem>
+</Tabs>
+
+## Usage
+
+### Basic Setup
+
+Create an `eslint.config.js` file in your project root:
+
+```javascript
+import preset from '@bfra.me/eslint-config'
+
+export default preset
+```
+
+### TypeScript Projects
+
+For TypeScript projects, the configuration automatically detects and applies TypeScript-specific rules:
+
+```javascript
+import preset from '@bfra.me/eslint-config'
+
+export default preset
+```
+
+### Custom Configuration
+
+Extend the base configuration with your own rules:
+
+```javascript
+import preset from '@bfra.me/eslint-config'
+
+export default [
+  ...preset,
+  {
+    rules: {
+      // Your custom rules
+      'no-console': 'warn',
+      '@typescript-eslint/no-unused-vars': 'error'
+    }
+  }
+]
+```
+
+### Framework-Specific Extensions
+
+#### React Projects
+
+```javascript
+import preset from '@bfra.me/eslint-config'
+
+export default [
+  ...preset,
+  {
+    files: ['**/*.jsx', '**/*.tsx'],
+    rules: {
+      'react/jsx-uses-react': 'error',
+      'react/jsx-uses-vars': 'error'
+    }
+  }
+]
+```
+
+#### Node.js Projects
+
+```javascript
+import preset from '@bfra.me/eslint-config'
+
+export default [
+  ...preset,
+  {
+    files: ['**/*.js', '**/*.ts'],
+    env: {
+      node: true
+    },
+    rules: {
+      'no-process-env': 'warn'
+    }
+  }
+]
+```
+
+## Configuration Details
+
+### Base Rules
+
+The configuration includes these rule categories:
+
+- **ECMAScript Rules**: Modern JavaScript best practices
+- **TypeScript Rules**: Type safety and TypeScript-specific patterns
+- **Import/Export Rules**: Clean module organization
+- **Code Quality Rules**: Maintainable and readable code
+- **Performance Rules**: Efficient code patterns
+
+### TypeScript Integration
+
+Automatic TypeScript support includes:
+
+- **Type checking**: Strict type validation
+- **Import resolution**: Proper TypeScript module resolution
+- **Unused code detection**: Identify unused imports and variables
+- **Async/await patterns**: Proper async code handling
+
+### File Pattern Matching
+
+The configuration applies different rules based on file types:
+
+| Pattern | Description | Special Rules |
+|---------|-------------|---------------|
+| `**/*.ts` | TypeScript files | TypeScript-specific rules |
+| `**/*.tsx` | React TypeScript files | React + TypeScript rules |
+| `**/*.js` | JavaScript files | JavaScript-only rules |
+| `**/*.jsx` | React JavaScript files | React + JavaScript rules |
+| `**/*.mjs` | ES modules | Module-specific rules |
+| `**/*.cjs` | CommonJS modules | CommonJS-specific rules |
+
+## Included Plugins
+
+The configuration includes these ESLint plugins:
+
+- **@typescript-eslint/eslint-plugin**: TypeScript support
+- **eslint-plugin-import**: Import/export linting
+- **eslint-plugin-promise**: Promise handling
+- **eslint-plugin-unicorn**: Additional quality rules
+- **eslint-plugin-n**: Node.js specific rules
+
+## Rule Categories
+
+### Code Quality
+
+```javascript
+{
+  'no-unused-vars': 'error',
+  'no-console': 'warn',
+  'no-debugger': 'error',
+  'prefer-const': 'error',
+  'no-var': 'error'
+}
+```
+
+### TypeScript Specific
+
+```javascript
+{
+  '@typescript-eslint/no-unused-vars': 'error',
+  '@typescript-eslint/explicit-function-return-type': 'warn',
+  '@typescript-eslint/no-explicit-any': 'warn',
+  '@typescript-eslint/prefer-nullish-coalescing': 'error'
+}
+```
+
+### Import/Export
+
+```javascript
+{
+  'import/no-unresolved': 'error',
+  'import/order': 'error',
+  'import/no-duplicates': 'error',
+  'import/first': 'error'
+}
+```
+
+## Package.json Scripts
+
+Add these scripts to your `package.json`:
+
+```json
+{
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:check": "eslint . --max-warnings 0"
+  }
+}
+```
+
+## IDE Integration
+
+### VS Code
+
+Install the ESLint extension and add to your `.vscode/settings.json`:
+
+```json
+{
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}
+```
+
+### WebStorm/IntelliJ
+
+1. Go to **Preferences** → **Languages & Frameworks** → **JavaScript** → **Code Quality Tools** → **ESLint**
+2. Check **Automatic ESLint configuration**
+3. Check **Run eslint --fix on save**
+
+## Ignoring Files
+
+Create a `.eslintignore` file to ignore specific files:
+
+```
+node_modules/
+dist/
+build/
+coverage/
+*.min.js
+```
+
+Or use the `ignores` property in your config:
+
+```javascript
+import preset from '@bfra.me/eslint-config'
+
+export default [
+  ...preset,
+  {
+    ignores: ['dist/**', 'build/**', 'coverage/**']
+  }
+]
+```
+
+## Customization Examples
+
+### Disable Specific Rules
+
+```javascript
+import preset from '@bfra.me/eslint-config'
+
+export default [
+  ...preset,
+  {
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+      'no-console': 'off'
+    }
+  }
+]
+```
+
+### Project-Specific Configuration
+
+```javascript
+import preset from '@bfra.me/eslint-config'
+
+export default [
+  ...preset,
+  {
+    files: ['src/**/*.ts'],
+    rules: {
+      '@typescript-eslint/explicit-function-return-type': 'error'
+    }
+  },
+  {
+    files: ['test/**/*.ts'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off'
+    }
+  }
+]
+```
+
+### Environment-Specific Rules
+
+```javascript
+import preset from '@bfra.me/eslint-config'
+
+export default [
+  ...preset,
+  {
+    files: ['**/*.test.ts', '**/*.spec.ts'],
+    env: {
+      jest: true
+    },
+    rules: {
+      '@typescript-eslint/no-non-null-assertion': 'off'
+    }
+  }
+]
+```
+
+## Troubleshooting
+
+### Common Issues
+
+#### "Unable to resolve path to module" Error
+
+Ensure TypeScript is properly configured:
+
+```javascript
+import preset from '@bfra.me/eslint-config'
+
+export default [
+  ...preset,
+  {
+    settings: {
+      'import/resolver': {
+        typescript: {
+          alwaysTryTypes: true,
+          project: './tsconfig.json'
+        }
+      }
+    }
+  }
+]
+```
+
+#### Performance Issues
+
+For large projects, consider these optimizations:
+
+```javascript
+import preset from '@bfra.me/eslint-config'
+
+export default [
+  ...preset,
+  {
+    // Only lint specific directories
+    files: ['src/**/*.ts', 'test/**/*.ts'],
+
+    // Exclude large directories
+    ignores: ['node_modules/**', 'dist/**', 'build/**']
+  }
+]
+```
+
+### Rule Conflicts
+
+If you encounter rule conflicts with other configurations:
+
+1. Use `eslint --print-config filename.ts` to debug
+2. Order your configurations appropriately
+3. Use rule overrides for specific conflicts
+
+## Migration Guide
+
+### From v0.23.x to v0.24.x
+
+The configuration now uses the new ESLint flat config format:
+
+**Old format:**
+```javascript
+module.exports = {
+  extends: ['@bfra.me/eslint-config']
+}
+```
+
+**New format:**
+```javascript
+import preset from '@bfra.me/eslint-config'
+
+export default preset
+```
+
+### From Legacy ESLint Configs
+
+1. Remove `.eslintrc.js` files
+2. Create `eslint.config.js` with the new format
+3. Update your scripts to use the new configuration
+
+## Contributing
+
+To contribute to @bfra.me/eslint-config:
+
+1. Fork the repository
+2. Create a feature branch
+3. Test with multiple project types
+4. Submit a pull request
+
+See our [Contributing Guide](/guides/contributing) for more details.

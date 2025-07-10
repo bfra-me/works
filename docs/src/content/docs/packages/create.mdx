@@ -1,0 +1,312 @@
+---
+title: '@bfra.me/create'
+description: A command line utility to create new packages from customizable templates
+---
+
+import { Badge, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+
+# @bfra.me/create
+
+<Badge text="CLI Tool" variant="tip" />
+<Badge text="v0.4.8" variant="note" />
+
+A command line utility to create new packages from customizable templates. Bootstrap your projects with best practices built-in.
+
+## Features
+
+<CardGrid>
+  <Card title="Template System" icon="document">
+    Create projects from customizable templates with built-in best practices.
+  </Card>
+  <Card title="Interactive CLI" icon="laptop">
+    Intuitive prompts guide you through project creation.
+  </Card>
+  <Card title="TypeScript First" icon="approve-check">
+    All templates include TypeScript configuration out of the box.
+  </Card>
+  <Card title="Modern Tooling" icon="star">
+    Includes ESLint, Prettier, and other essential development tools.
+  </Card>
+</CardGrid>
+
+## Installation
+
+### Global Installation (Recommended)
+
+<Tabs>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add -g @bfra.me/create
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```bash
+    npm install -g @bfra.me/create
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn global add @bfra.me/create
+    ```
+  </TabItem>
+</Tabs>
+
+### One-time Usage
+
+<Tabs>
+  <TabItem label="pnpm">
+    ```bash
+    pnpx @bfra.me/create my-package
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```bash
+    npx @bfra.me/create my-package
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn create @bfra.me my-package
+    ```
+  </TabItem>
+</Tabs>
+
+## Usage
+
+### Basic Usage
+
+```bash
+create my-package
+```
+
+This will prompt you to select a template and configure your new package.
+
+### Advanced Usage
+
+```bash
+create my-package --template typescript-library --author "John Doe" --license MIT
+```
+
+### Available Options
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `--template` | Template to use | Interactive prompt |
+| `--author` | Package author | Git config user.name |
+| `--license` | Package license | MIT |
+| `--description` | Package description | Interactive prompt |
+| `--keywords` | Package keywords | Interactive prompt |
+| `--private` | Create private package | false |
+| `--help` | Show help | - |
+| `--version` | Show version | - |
+
+## Available Templates
+
+### TypeScript Library
+
+A modern TypeScript library template with:
+- TypeScript configuration
+- ESLint and Prettier setup
+- Vitest for testing
+- tsup for building
+- Semantic release configuration
+
+```bash
+create my-library --template typescript-library
+```
+
+### Node.js CLI
+
+A Node.js CLI application template with:
+- Commander.js for CLI handling
+- TypeScript support
+- Testing setup
+- Build configuration
+
+```bash
+create my-cli --template node-cli
+```
+
+### React Component Library
+
+A React component library template with:
+- React and TypeScript
+- Storybook for documentation
+- Testing with React Testing Library
+- Build configuration for distribution
+
+```bash
+create my-components --template react-library
+```
+
+## Template Structure
+
+Each template includes:
+
+```
+my-package/
+├── src/
+│   └── index.ts
+├── test/
+│   └── index.test.ts
+├── package.json
+├── tsconfig.json
+├── eslint.config.js
+├── README.md
+├── LICENSE
+└── .gitignore
+```
+
+## Configuration
+
+### Custom Templates
+
+You can create custom templates by creating a directory structure and placing it in the templates folder. Templates support:
+
+- **Handlebars templating** in file contents
+- **Variable substitution** in file names
+- **Conditional file inclusion** based on answers
+- **Custom prompts** for template-specific questions
+
+### Template Variables
+
+Common variables available in templates:
+
+- `{{name}}` - Package name
+- `{{description}}` - Package description
+- `{{author}}` - Package author
+- `{{license}}` - Package license
+- `{{keywords}}` - Package keywords (array)
+- `{{private}}` - Whether package is private
+- `{{year}}` - Current year
+- `{{date}}` - Current date
+
+### Example Template File
+
+**src/index.ts.hbs**
+```typescript
+/**
+ * {{description}}
+ *
+ * @author {{author}}
+ * @license {{license}}
+ */
+
+export const {{camelCase name}} = (): string => {
+  return 'Hello from {{name}}!'
+}
+
+export default {{camelCase name}}
+```
+
+## API Reference
+
+### programmatic Usage
+
+```typescript
+import { create } from '@bfra.me/create'
+
+const result = await create({
+  name: 'my-package',
+  template: 'typescript-library',
+  author: 'John Doe',
+  license: 'MIT',
+  description: 'My awesome package',
+  keywords: ['library', 'typescript'],
+  private: false,
+  targetDir: './my-package'
+})
+```
+
+### Types
+
+```typescript
+interface CreateOptions {
+  name: string
+  template: string
+  author?: string
+  license?: string
+  description?: string
+  keywords?: string[]
+  private?: boolean
+  targetDir?: string
+}
+
+interface CreateResult {
+  success: boolean
+  path: string
+  template: string
+  files: string[]
+}
+```
+
+## Examples
+
+### Creating a TypeScript Library
+
+```bash
+create my-math-lib --template typescript-library --description "A collection of math utilities"
+```
+
+### Creating a Private Package
+
+```bash
+create @company/internal-tools --template typescript-library --private
+```
+
+### Creating with Custom Configuration
+
+```bash
+create my-package \
+  --template typescript-library \
+  --author "Jane Smith <jane@example.com>" \
+  --license "Apache-2.0" \
+  --description "A useful utility package" \
+  --keywords "utility,helper,tools"
+```
+
+## Best Practices
+
+1. **Use descriptive names** that clearly indicate the package purpose
+2. **Include keywords** to improve discoverability
+3. **Set appropriate license** based on your project requirements
+4. **Use semantic versioning** for version management
+5. **Include comprehensive documentation** in your README
+
+## Troubleshooting
+
+### Template Not Found
+
+If you receive a "template not found" error:
+
+1. Check available templates with `create --help`
+2. Ensure you're using the correct template name
+3. Update to the latest version of @bfra.me/create
+
+### Permission Errors
+
+If you encounter permission errors:
+
+1. Check directory permissions
+2. Ensure you have write access to the target directory
+3. Try running with appropriate permissions
+
+### Git Configuration
+
+If author information is not detected:
+
+1. Set git config: `git config --global user.name "Your Name"`
+2. Set git config: `git config --global user.email "your@email.com"`
+3. Or use the `--author` option explicitly
+
+## Contributing
+
+To contribute to @bfra.me/create:
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests for new functionality
+5. Submit a pull request
+
+See our [Contributing Guide](/guides/contributing) for more details.

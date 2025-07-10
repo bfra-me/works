@@ -1,0 +1,499 @@
+---
+title: '@bfra.me/semantic-release'
+description: Semantic Release shareable configuration and plugins for bfra.me
+---
+
+import { Badge, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+
+# @bfra.me/semantic-release
+
+<Badge text="Release Config" variant="tip" />
+<Badge text="v0.1.22" variant="note" />
+
+Semantic Release shareable configuration and plugins for bfra.me. Automate your versioning and release process with intelligent changelog generation.
+
+## Features
+
+<CardGrid>
+  <Card title="Automated Versioning" icon="star">
+    Automatic version bumping based on commit messages and conventional commits.
+  </Card>
+  <Card title="Changelog Generation" icon="document">
+    Generate comprehensive changelogs from commit history.
+  </Card>
+  <Card title="Multi-platform Publishing" icon="rocket">
+    Publish to npm, GitHub releases, and other platforms.
+  </Card>
+  <Card title="Customizable Workflow" icon="setting">
+    Flexible configuration to match your release workflow.
+  </Card>
+</CardGrid>
+
+## Installation
+
+<Tabs>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add -D @bfra.me/semantic-release semantic-release
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```bash
+    npm install --save-dev @bfra.me/semantic-release semantic-release
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add --dev @bfra.me/semantic-release semantic-release
+    ```
+  </TabItem>
+</Tabs>
+
+## Usage
+
+### Basic Setup
+
+Create a `semantic-release.config.js` file in your project root:
+
+```javascript
+import { defineConfig } from '@bfra.me/semantic-release'
+
+export default defineConfig()
+```
+
+### Custom Configuration
+
+```javascript
+import { defineConfig } from '@bfra.me/semantic-release'
+
+export default defineConfig({
+  branches: ['main', 'next'],
+  plugins: [
+    '@semantic-release/commit-analyzer',
+    '@semantic-release/release-notes-generator',
+    '@semantic-release/npm',
+    '@semantic-release/github'
+  ]
+})
+```
+
+### Monorepo Setup
+
+```javascript
+import { defineConfig } from '@bfra.me/semantic-release'
+
+export default defineConfig({
+  tagFormat: '${name}@${version}',
+  plugins: [
+    '@semantic-release/commit-analyzer',
+    '@semantic-release/release-notes-generator',
+    ['@semantic-release/npm', {
+      npmPublish: true,
+      tarballDir: 'dist'
+    }],
+    ['@semantic-release/github', {
+      assets: ['dist/*.tgz']
+    }]
+  ]
+})
+```
+
+## Configuration Options
+
+### Default Configuration
+
+The default configuration includes:
+
+```javascript
+{
+  branches: [
+    'main',
+    'master',
+    { name: 'next', prerelease: true },
+    { name: 'beta', prerelease: true },
+    { name: 'alpha', prerelease: true }
+  ],
+  plugins: [
+    '@semantic-release/commit-analyzer',
+    '@semantic-release/release-notes-generator',
+    '@semantic-release/changelog',
+    '@semantic-release/npm',
+    '@semantic-release/github',
+    '@semantic-release/git'
+  ]
+}
+```
+
+### Branch Configuration
+
+Control which branches trigger releases:
+
+```javascript
+import { defineConfig } from '@bfra.me/semantic-release'
+
+export default defineConfig({
+  branches: [
+    'main',
+    { name: 'next', prerelease: true },
+    { name: 'beta', prerelease: true },
+    { name: 'maintenance', range: '1.x.x' }
+  ]
+})
+```
+
+### Plugin Configuration
+
+Customize individual plugins:
+
+```javascript
+import { defineConfig } from '@bfra.me/semantic-release'
+
+export default defineConfig({
+  plugins: [
+    '@semantic-release/commit-analyzer',
+    '@semantic-release/release-notes-generator',
+    ['@semantic-release/changelog', {
+      changelogFile: 'CHANGELOG.md'
+    }],
+    ['@semantic-release/npm', {
+      npmPublish: true,
+      tarballDir: 'dist'
+    }],
+    ['@semantic-release/github', {
+      assets: [
+        { path: 'dist/*.tgz', label: 'Distribution' },
+        { path: 'coverage/lcov.info', label: 'Coverage' }
+      ]
+    }],
+    ['@semantic-release/git', {
+      assets: ['CHANGELOG.md', 'package.json'],
+      message: 'chore(release): ${nextRelease.version} [skip ci]'
+    }]
+  ]
+})
+```
+
+## Commit Message Convention
+
+Use conventional commits for automatic version determination:
+
+### Types
+
+- **feat**: New feature (minor version bump)
+- **fix**: Bug fix (patch version bump)
+- **docs**: Documentation changes
+- **style**: Code style changes
+- **refactor**: Code refactoring
+- **test**: Test changes
+- **chore**: Build process or auxiliary tool changes
+
+### Breaking Changes
+
+Add `BREAKING CHANGE:` in the commit footer for major version bumps:
+
+```
+feat: add new API endpoint
+
+BREAKING CHANGE: The old API endpoint has been removed
+```
+
+### Examples
+
+```bash
+# Patch release (1.0.0 → 1.0.1)
+git commit -m "fix: resolve authentication issue"
+
+# Minor release (1.0.0 → 1.1.0)
+git commit -m "feat: add user profile management"
+
+# Major release (1.0.0 → 2.0.0)
+git commit -m "feat: redesign API interface
+
+BREAKING CHANGE: API endpoints have been restructured"
+```
+
+## Release Process
+
+### Automatic Releases
+
+The release process is triggered automatically when:
+
+1. Code is pushed to a configured branch
+2. CI/CD pipeline runs semantic-release
+3. Conventional commits are analyzed
+4. Version is determined and release is created
+
+### Manual Release
+
+You can also trigger releases manually:
+
+```bash
+# Dry run to see what would be released
+npx semantic-release --dry-run
+
+# Force a release
+npx semantic-release --no-ci
+```
+
+## CI/CD Integration
+
+### GitHub Actions
+
+```yaml
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Test
+        run: pnpm test
+
+      - name: Release
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+```
+
+### GitLab CI
+
+```yaml
+release:
+  stage: release
+  image: node:18
+  script:
+    - pnpm install --frozen-lockfile
+    - pnpm build
+    - pnpm test
+    - npx semantic-release
+  only:
+    - main
+  variables:
+    GITLAB_TOKEN: $CI_JOB_TOKEN
+    NPM_TOKEN: $NPM_TOKEN
+```
+
+## Environment Variables
+
+Required environment variables for releases:
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `GITHUB_TOKEN` | GitHub personal access token | Yes (for GitHub releases) |
+| `NPM_TOKEN` | npm authentication token | Yes (for npm publishing) |
+| `GITLAB_TOKEN` | GitLab personal access token | Yes (for GitLab releases) |
+
+## Advanced Usage
+
+### Custom Release Rules
+
+```javascript
+import { defineConfig } from '@bfra.me/semantic-release'
+
+export default defineConfig({
+  plugins: [
+    ['@semantic-release/commit-analyzer', {
+      releaseRules: [
+        { type: 'docs', release: 'patch' },
+        { type: 'refactor', release: 'patch' },
+        { type: 'style', release: 'patch' },
+        { scope: 'no-release', release: false }
+      ]
+    }]
+  ]
+})
+```
+
+### Custom Changelog
+
+```javascript
+import { defineConfig } from '@bfra.me/semantic-release'
+
+export default defineConfig({
+  plugins: [
+    ['@semantic-release/release-notes-generator', {
+      preset: 'conventionalcommits',
+      presetConfig: {
+        types: [
+          { type: 'feat', section: 'Features' },
+          { type: 'fix', section: 'Bug Fixes' },
+          { type: 'docs', section: 'Documentation' },
+          { type: 'style', section: 'Styles' },
+          { type: 'refactor', section: 'Code Refactoring' },
+          { type: 'test', section: 'Tests' },
+          { type: 'chore', section: 'Miscellaneous' }
+        ]
+      }
+    }]
+  ]
+})
+```
+
+### Conditional Publishing
+
+```javascript
+import { defineConfig } from '@bfra.me/semantic-release'
+
+export default defineConfig({
+  plugins: [
+    ['@semantic-release/npm', {
+      npmPublish: process.env.NPM_PUBLISH !== 'false'
+    }],
+    ['@semantic-release/github', {
+      assets: process.env.GITHUB_ASSETS ? ['dist/*.tgz'] : false
+    }]
+  ]
+})
+```
+
+## Package.json Scripts
+
+Add these scripts to your `package.json`:
+
+```json
+{
+  "scripts": {
+    "release": "semantic-release",
+    "release:dry": "semantic-release --dry-run",
+    "release:debug": "semantic-release --debug"
+  }
+}
+```
+
+## Troubleshooting
+
+### Common Issues
+
+#### No Release Published
+
+1. Check that commits follow conventional format
+2. Verify branch configuration
+3. Ensure CI environment variables are set
+4. Check that changes warrant a release
+
+#### Authentication Errors
+
+1. Verify token permissions
+2. Check token expiration
+3. Ensure tokens are properly set in CI environment
+
+#### Version Conflicts
+
+1. Check for existing tags
+2. Verify branch protection rules
+3. Ensure proper git history
+
+### Debug Commands
+
+```bash
+# Debug mode with detailed output
+npx semantic-release --debug
+
+# Dry run to see what would happen
+npx semantic-release --dry-run
+
+# Check configuration
+npx semantic-release --verify-conditions
+```
+
+## Best Practices
+
+1. **Use Conventional Commits**: Follow the conventional commit format strictly
+2. **Protected Branches**: Use branch protection rules for release branches
+3. **Environment Separation**: Use different configurations for different environments
+4. **Comprehensive Testing**: Ensure all tests pass before release
+5. **Documentation**: Keep changelog and documentation up to date
+
+## Migration Guide
+
+### From Manual Releases
+
+1. Install semantic-release and configuration
+2. Update CI/CD pipeline to use semantic-release
+3. Start using conventional commits
+4. Remove manual release processes
+
+### From Other Release Tools
+
+1. Review existing release process
+2. Map existing patterns to conventional commits
+3. Configure semantic-release to match current workflow
+4. Test with dry-run mode
+
+## Examples
+
+### Library Package
+
+```javascript
+import { defineConfig } from '@bfra.me/semantic-release'
+
+export default defineConfig({
+  plugins: [
+    '@semantic-release/commit-analyzer',
+    '@semantic-release/release-notes-generator',
+    ['@semantic-release/changelog', {
+      changelogFile: 'CHANGELOG.md'
+    }],
+    '@semantic-release/npm',
+    ['@semantic-release/github', {
+      assets: ['README.md', 'CHANGELOG.md']
+    }],
+    ['@semantic-release/git', {
+      assets: ['CHANGELOG.md', 'package.json']
+    }]
+  ]
+})
+```
+
+### CLI Tool
+
+```javascript
+import { defineConfig } from '@bfra.me/semantic-release'
+
+export default defineConfig({
+  plugins: [
+    '@semantic-release/commit-analyzer',
+    '@semantic-release/release-notes-generator',
+    ['@semantic-release/npm', {
+      npmPublish: true
+    }],
+    ['@semantic-release/github', {
+      assets: [
+        { path: 'dist/*.tgz', label: 'Package' },
+        { path: 'bin/*', label: 'Binary' }
+      ]
+    }]
+  ]
+})
+```
+
+## Contributing
+
+To contribute to @bfra.me/semantic-release:
+
+1. Fork the repository
+2. Create a feature branch
+3. Test with various project types
+4. Submit a pull request
+
+See our [Contributing Guide](/guides/contributing) for more details.
