@@ -1,5 +1,5 @@
 {
-  "name": "@bfra.me/scripts",
+  "name": "scripts",
   "version": "0.0.0-development",
   "private": true,
   "type": "module",
