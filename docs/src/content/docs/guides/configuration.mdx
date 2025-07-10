@@ -1,0 +1,723 @@
+---
+title: Configuration Best Practices
+description: Best practices for configuring bfra.me Works in your projects
+---
+
+import { Badge, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+
+# Configuration Best Practices
+
+This guide covers best practices for configuring bfra.me Works packages to maximize developer productivity and maintain code quality.
+
+## General Principles
+
+<CardGrid>
+  <Card title="Consistency First" icon="approve-check">
+    Maintain consistent configurations across all projects for better team collaboration.
+  </Card>
+  <Card title="Progressive Enhancement" icon="star">
+    Start with defaults and customize only when necessary.
+  </Card>
+  <Card title="Documentation" icon="document">
+    Document all configuration changes and their reasoning.
+  </Card>
+  <Card title="Team Alignment" icon="users">
+    Ensure all team members understand and agree on configuration choices.
+  </Card>
+</CardGrid>
+
+## Project Structure
+
+### Recommended Structure
+
+```
+my-project/
+├── .vscode/               # VS Code settings
+│   ├── settings.json
+│   └── extensions.json
+├── src/                   # Source code
+│   ├── index.ts
+│   ├── types/             # Type definitions
+│   └── utils/             # Utility functions
+├── test/                  # Test files
+│   ├── __fixtures__/      # Test fixtures
+│   └── setup.ts           # Test setup
+├── docs/                  # Documentation
+├── scripts/               # Build/utility scripts
+├── .github/               # GitHub workflows
+├── config/                # Configuration files
+├── eslint.config.js       # ESLint configuration
+├── tsconfig.json          # TypeScript configuration
+├── tsconfig.build.json    # Build configuration
+├── vitest.config.ts       # Test configuration
+└── package.json           # Package manifest
+```
+
+### Configuration Organization
+
+Keep configuration files in logical locations:
+
+- **Root level**: Primary configurations (eslint, prettier, tsconfig)
+- **config/ directory**: Complex configurations with multiple files
+- **.vscode/**: IDE-specific settings
+- **scripts/**: Build and utility scripts
+
+## TypeScript Configuration
+
+### Base Configuration
+
+```json
+{
+  "extends": "@bfra.me/tsconfig",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "paths": {
+      "@/*": ["src/*"],
+      "@types/*": ["src/types/*"],
+      "@utils/*": ["src/utils/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts"]
+}
+```
+
+### Specialized Configurations
+
+<Tabs>
+  <TabItem label="Library">
+    ```json
+    {
+      "extends": "@bfra.me/tsconfig",
+      "compilerOptions": {
+        "outDir": "./lib",
+        "rootDir": "./src",
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true,
+        "removeComments": false
+      },
+      "include": ["src/**/*"],
+      "exclude": ["**/*.test.ts", "**/*.spec.ts"]
+    }
+    ```
+  </TabItem>
+  <TabItem label="Node.js App">
+    ```json
+    {
+      "extends": "@bfra.me/tsconfig",
+      "compilerOptions": {
+        "target": "ES2022",
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "types": ["node"]
+      },
+      "include": ["src/**/*"],
+      "exclude": ["node_modules", "dist"]
+    }
+    ```
+  </TabItem>
+  <TabItem label="Web App">
+    ```json
+    {
+      "extends": "@bfra.me/tsconfig",
+      "compilerOptions": {
+        "target": "ES2020",
+        "lib": ["ES2020", "DOM", "DOM.Iterable"],
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "jsx": "react-jsx"
+      },
+      "include": ["src/**/*"],
+      "exclude": ["node_modules", "dist"]
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+### Build Configuration
+
+Create separate `tsconfig.build.json` for production builds:
+
+```json
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "removeComments": true,
+    "sourceMap": false,
+    "declaration": true
+  },
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/*.stories.ts",
+    "test/**/*"
+  ]
+}
+```
+
+## ESLint Configuration
+
+### Base Configuration
+
+```javascript
+import preset from '@bfra.me/eslint-config'
+
+export default preset
+```
+
+### Custom Rules
+
+```javascript
+import preset from '@bfra.me/eslint-config'
+
+export default [
+  ...preset,
+  {
+    rules: {
+      // Project-specific rules
+      '@typescript-eslint/no-explicit-any': 'warn',
+      'no-console': 'warn',
+      'prefer-const': 'error'
+    }
+  }
+]
+```
+
+### Environment-Specific Rules
+
+<Tabs>
+  <TabItem label="Test Files">
+    ```javascript
+    import preset from '@bfra.me/eslint-config'
+
+    export default [
+      ...preset,
+      {
+        files: ['**/*.test.ts', '**/*.spec.ts'],
+        rules: {
+          '@typescript-eslint/no-explicit-any': 'off',
+          '@typescript-eslint/no-non-null-assertion': 'off'
+        }
+      }
+    ]
+    ```
+  </TabItem>
+  <TabItem label="Scripts">
+    ```javascript
+    import preset from '@bfra.me/eslint-config'
+
+    export default [
+      ...preset,
+      {
+        files: ['scripts/**/*.ts'],
+        rules: {
+          'no-console': 'off',
+          'no-process-exit': 'off'
+        }
+      }
+    ]
+    ```
+  </TabItem>
+  <TabItem label="Configuration Files">
+    ```javascript
+    import preset from '@bfra.me/eslint-config'
+
+    export default [
+      ...preset,
+      {
+        files: ['*.config.ts', '*.config.js'],
+        rules: {
+          'import/no-default-export': 'off'
+        }
+      }
+    ]
+    ```
+  </TabItem>
+</Tabs>
+
+## Prettier Configuration
+
+### Basic Setup
+
+```json
+{
+  "prettier": "@bfra.me/prettier-config"
+}
+```
+
+### Custom Configuration
+
+```javascript
+import config from '@bfra.me/prettier-config'
+
+export default {
+  ...config,
+  // Custom overrides
+  printWidth: 120,
+  tabWidth: 4,
+  overrides: [
+    {
+      files: '*.json',
+      options: {
+        tabWidth: 2
+      }
+    },
+    {
+      files: '*.md',
+      options: {
+        printWidth: 80,
+        proseWrap: 'always'
+      }
+    }
+  ]
+}
+```
+
+## Package.json Configuration
+
+### Essential Scripts
+
+```json
+{
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc -p tsconfig.build.json",
+    "lint": "eslint . --fix",
+    "lint:check": "eslint . --max-warnings 0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "type-check": "tsc --noEmit",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "clean": "rm -rf dist lib",
+    "validate": "pnpm lint:check && pnpm type-check && pnpm test && pnpm build"
+  }
+}
+```
+
+### Dependencies Organization
+
+<Tabs>
+  <TabItem label="Library">
+    ```json
+    {
+      "dependencies": {
+        "lodash": "^4.17.21"
+      },
+      "devDependencies": {
+        "@bfra.me/eslint-config": "^0.24.0",
+        "@bfra.me/prettier-config": "^0.15.0",
+        "@bfra.me/tsconfig": "^0.10.0",
+        "@types/lodash": "^4.14.195",
+        "eslint": "^9.0.0",
+        "prettier": "^3.0.0",
+        "typescript": "^5.0.0",
+        "vitest": "^1.0.0"
+      },
+      "peerDependencies": {
+        "typescript": ">=5.0.0"
+      }
+    }
+    ```
+  </TabItem>
+  <TabItem label="Application">
+    ```json
+    {
+      "dependencies": {
+        "express": "^4.18.2",
+        "lodash": "^4.17.21"
+      },
+      "devDependencies": {
+        "@bfra.me/eslint-config": "^0.24.0",
+        "@bfra.me/prettier-config": "^0.15.0",
+        "@bfra.me/tsconfig": "^0.10.0",
+        "@types/express": "^4.17.17",
+        "@types/lodash": "^4.14.195",
+        "@types/node": "^20.0.0",
+        "eslint": "^9.0.0",
+        "prettier": "^3.0.0",
+        "typescript": "^5.0.0",
+        "vitest": "^1.0.0"
+      }
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+## IDE Configuration
+
+### VS Code Settings
+
+Create `.vscode/settings.json`:
+
+```json
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.organizeImports": true
+  },
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.suggest.autoImports": true,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/lib": true,
+    "**/*.min.js": true
+  }
+}
+```
+
+### Recommended Extensions
+
+Create `.vscode/extensions.json`:
+
+```json
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "ms-vscode.vscode-typescript-next",
+    "bradlc.vscode-tailwindcss",
+    "ms-vscode.vscode-json"
+  ]
+}
+```
+
+## Git Configuration
+
+### .gitignore
+
+```gitignore
+# Dependencies
+node_modules/
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# Build outputs
+dist/
+lib/
+build/
+out/
+
+# Testing
+coverage/
+.nyc_output/
+
+# Cache
+.cache/
+.parcel-cache/
+.eslintcache
+*.tsbuildinfo
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+```
+
+### Git Hooks
+
+```bash
+# Install husky and lint-staged
+pnpm add -D husky lint-staged
+
+# Initialize husky
+pnpm exec husky init
+
+# Configure pre-commit hook
+echo 'pnpm exec lint-staged' > .husky/pre-commit
+```
+
+**package.json**:
+```json
+{
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
+  }
+}
+```
+
+## Testing Configuration
+
+### Vitest Setup
+
+```typescript
+// vitest.config.ts
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    globals: true,
+    environment: 'node',
+    setupFiles: ['./test/setup.ts'],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
+      exclude: [
+        'node_modules/',
+        'dist/',
+        'test/',
+        '**/*.test.ts',
+        '**/*.spec.ts'
+      ]
+    }
+  },
+  resolve: {
+    alias: {
+      '@': './src'
+    }
+  }
+})
+```
+
+### Test Setup
+
+```typescript
+// test/setup.ts
+import { vi } from 'vitest'
+
+// Global test setup
+beforeEach(() => {
+  // Clear all mocks
+  vi.clearAllMocks()
+})
+
+// Mock environment variables
+vi.mock('process', () => ({
+  env: {
+    NODE_ENV: 'test'
+  }
+}))
+```
+
+## Monorepo Configuration
+
+### Workspace Setup
+
+```json
+{
+  "name": "my-monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "pnpm -r --stream run build",
+    "lint": "pnpm -r --stream run lint",
+    "test": "pnpm -r --stream run test",
+    "format": "prettier --write ."
+  }
+}
+```
+
+### Root TypeScript Configuration
+
+```json
+{
+  "extends": "@bfra.me/tsconfig",
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true
+  },
+  "include": [],
+  "references": [
+    { "path": "./packages/core" },
+    { "path": "./packages/utils" },
+    { "path": "./apps/web" }
+  ]
+}
+```
+
+## Environment-Specific Configurations
+
+### Development
+
+```javascript
+// eslint.config.dev.js
+import preset from '@bfra.me/eslint-config'
+
+export default [
+  ...preset,
+  {
+    rules: {
+      'no-console': 'warn',
+      'no-debugger': 'warn'
+    }
+  }
+]
+```
+
+### Production
+
+```javascript
+// eslint.config.prod.js
+import preset from '@bfra.me/eslint-config'
+
+export default [
+  ...preset,
+  {
+    rules: {
+      'no-console': 'error',
+      'no-debugger': 'error'
+    }
+  }
+]
+```
+
+## Performance Optimization
+
+### TypeScript Performance
+
+```json
+{
+  "compilerOptions": {
+    "incremental": true,
+    "tsBuildInfoFile": "./.tsbuildinfo",
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true
+  }
+}
+```
+
+### ESLint Performance
+
+```javascript
+export default [
+  {
+    ignores: [
+      'node_modules/**',
+      'dist/**',
+      'lib/**',
+      '**/*.min.js'
+    ]
+  }
+]
+```
+
+## Configuration Validation
+
+### Package.json Validation
+
+```bash
+# Check for common issues
+npm audit
+publint
+
+# Validate package.json
+npm run validate
+```
+
+### Configuration Testing
+
+```typescript
+// test/config.test.ts
+import { describe, it, expect } from 'vitest'
+import eslintConfig from '../eslint.config.js'
+
+describe('Configuration', () => {
+  it('should have valid ESLint config', () => {
+    expect(eslintConfig).toBeDefined()
+    expect(Array.isArray(eslintConfig)).toBe(true)
+  })
+})
+```
+
+## Common Patterns
+
+### Library Configuration
+
+```json
+{
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "types": "./lib/index.d.ts"
+    }
+  },
+  "files": [
+    "lib",
+    "README.md",
+    "LICENSE"
+  ]
+}
+```
+
+### CLI Tool Configuration
+
+```json
+{
+  "bin": {
+    "my-tool": "./bin/cli.js"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "README.md",
+    "LICENSE"
+  ]
+}
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Configuration conflicts**: Use `--print-config` to debug
+2. **Performance issues**: Enable incremental compilation
+3. **Import resolution**: Check path mapping and module resolution
+4. **Type errors**: Verify TypeScript configuration
+
+### Debug Commands
+
+```bash
+# Check TypeScript configuration
+npx tsc --showConfig
+
+# Check ESLint configuration
+npx eslint --print-config src/index.ts
+
+# Check Prettier configuration
+npx prettier --find-config-path src/index.ts
+```
+
+## Best Practices Summary
+
+1. **Start with defaults**: Use base configurations and customize minimally
+2. **Document changes**: Explain why configurations were modified
+3. **Use environment-specific configs**: Different rules for development/production
+4. **Optimize for performance**: Enable incremental compilation and caching
+5. **Validate configurations**: Test and verify configuration correctness
+6. **Keep dependencies updated**: Regularly update bfra.me Works packages
+7. **Use consistent patterns**: Apply the same patterns across projects
+8. **Monitor configuration drift**: Use tools to detect configuration changes

@@ -1,0 +1,149 @@
+---
+title: Installation
+description: How to install and set up bfra.me Works packages
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+# Installation
+
+bfra.me Works packages can be installed individually or as a complete toolkit. Choose the approach that best fits your project needs.
+
+## Prerequisites
+
+- **Node.js**: Version 18.0.0 or higher
+- **Package Manager**: npm, pnpm, or yarn
+- **TypeScript**: Version 5.0.0 or higher (for TypeScript projects)
+
+## Individual Package Installation
+
+Install only the packages you need:
+
+<Tabs>
+  <TabItem label="pnpm">
+    ```bash
+    # Development tools
+    pnpm add -D @bfra.me/create
+    pnpm add -D @bfra.me/semantic-release
+
+    # Code quality
+    pnpm add -D @bfra.me/eslint-config eslint
+    pnpm add -D @bfra.me/prettier-config prettier
+
+    # TypeScript
+    pnpm add -D @bfra.me/tsconfig typescript
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```bash
+    # Development tools
+    npm install --save-dev @bfra.me/create
+    npm install --save-dev @bfra.me/semantic-release
+
+    # Code quality
+    npm install --save-dev @bfra.me/eslint-config eslint
+    npm install --save-dev @bfra.me/prettier-config prettier
+
+    # TypeScript
+    npm install --save-dev @bfra.me/tsconfig typescript
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    # Development tools
+    yarn add --dev @bfra.me/create
+    yarn add --dev @bfra.me/semantic-release
+
+    # Code quality
+    yarn add --dev @bfra.me/eslint-config eslint
+    yarn add --dev @bfra.me/prettier-config prettier
+
+    # TypeScript
+    yarn add --dev @bfra.me/tsconfig typescript
+    ```
+  </TabItem>
+</Tabs>
+
+## Complete Toolkit Installation
+
+For new projects, install the complete toolkit:
+
+<Tabs>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add -D @bfra.me/create @bfra.me/eslint-config @bfra.me/prettier-config @bfra.me/tsconfig @bfra.me/semantic-release eslint prettier typescript
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```bash
+    npm install --save-dev @bfra.me/create @bfra.me/eslint-config @bfra.me/prettier-config @bfra.me/tsconfig @bfra.me/semantic-release eslint prettier typescript
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add --dev @bfra.me/create @bfra.me/eslint-config @bfra.me/prettier-config @bfra.me/tsconfig @bfra.me/semantic-release eslint prettier typescript
+    ```
+  </TabItem>
+</Tabs>
+
+## Global Installation
+
+Some tools like `@bfra.me/create` are useful to install globally:
+
+<Tabs>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add -g @bfra.me/create
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```bash
+    npm install -g @bfra.me/create
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn global add @bfra.me/create
+    ```
+  </TabItem>
+</Tabs>
+
+## Using npx/pnpx
+
+You can also use packages without installation:
+
+```bash
+# Create a new project without installing
+npx @bfra.me/create my-project
+
+# Or with pnpm
+pnpx @bfra.me/create my-project
+```
+
+## Verification
+
+Verify your installation by checking the installed versions:
+
+```bash
+# Check installed packages
+npm list @bfra.me/create @bfra.me/eslint-config @bfra.me/prettier-config @bfra.me/tsconfig @bfra.me/semantic-release
+
+# Or check individual packages
+npm list @bfra.me/eslint-config
+```
+
+## Package Compatibility
+
+All bfra.me Works packages are designed to work together. Here's the compatibility matrix:
+
+| Package | Node.js | TypeScript | ESLint | Prettier |
+|---------|---------|------------|--------|----------|
+| @bfra.me/create | ≥18.0.0 | ≥5.0.0 | - | - |
+| @bfra.me/eslint-config | ≥18.0.0 | ≥5.0.0 | ≥9.0.0 | - |
+| @bfra.me/prettier-config | ≥18.0.0 | - | - | ≥3.0.0 |
+| @bfra.me/tsconfig | ≥18.0.0 | ≥5.0.0 | - | - |
+| @bfra.me/semantic-release | ≥18.0.0 | ≥5.0.0 | - | - |
+
+## Next Steps
+
+Once you've installed the packages you need, proceed to the [Quick Start Guide](/getting-started/quick-start) to begin using bfra.me Works in your project.

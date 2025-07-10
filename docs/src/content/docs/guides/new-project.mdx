@@ -1,0 +1,657 @@
+---
+title: Setting up a New Project
+description: Complete guide to setting up a new project with bfra.me Works
+---
+
+import { Steps, Tabs, TabItem, Card, CardGrid } from '@astrojs/starlight/components';
+
+# Setting up a New Project
+
+This comprehensive guide walks you through setting up a new project with bfra.me Works, from initial creation to production deployment.
+
+## Project Creation Methods
+
+<CardGrid>
+  <Card title="Using @bfra.me/create" icon="rocket">
+    **Recommended**: Fastest way to get started with built-in templates.
+  </Card>
+  <Card title="Manual Setup" icon="setting">
+    **Custom**: Full control over configuration and setup process.
+  </Card>
+  <Card title="Existing Project" icon="document">
+    **Migration**: Add bfra.me Works to an existing project.
+  </Card>
+</CardGrid>
+
+## Method 1: Using @bfra.me/create (Recommended)
+
+<Steps>
+
+1. **Create the project**
+
+   <Tabs>
+     <TabItem label="TypeScript Library">
+       ```bash
+       npx @bfra.me/create my-library --template typescript-library
+       ```
+     </TabItem>
+     <TabItem label="Node.js CLI">
+       ```bash
+       npx @bfra.me/create my-cli --template node-cli
+       ```
+     </TabItem>
+     <TabItem label="React Library">
+       ```bash
+       npx @bfra.me/create my-components --template react-library
+       ```
+     </TabItem>
+   </Tabs>
+
+2. **Navigate to the project**
+
+   ```bash
+   cd my-library
+   ```
+
+3. **Install dependencies**
+
+   <Tabs>
+     <TabItem label="pnpm">
+       ```bash
+       pnpm install
+       ```
+     </TabItem>
+     <TabItem label="npm">
+       ```bash
+       npm install
+       ```
+     </TabItem>
+     <TabItem label="yarn">
+       ```bash
+       yarn install
+       ```
+     </TabItem>
+   </Tabs>
+
+4. **Verify the setup**
+
+   ```bash
+   # Type check
+   pnpm type-check
+
+   # Lint code
+   pnpm lint
+
+   # Format code
+   pnpm format
+
+   # Run tests
+   pnpm test
+
+   # Build project
+   pnpm build
+   ```
+
+</Steps>
+
+## Method 2: Manual Setup
+
+<Steps>
+
+1. **Initialize the project**
+
+   ```bash
+   mkdir my-project
+   cd my-project
+   npm init -y
+   ```
+
+2. **Install bfra.me Works packages**
+
+   <Tabs>
+     <TabItem label="Complete Setup">
+       ```bash
+       pnpm add -D @bfra.me/eslint-config @bfra.me/prettier-config @bfra.me/tsconfig @bfra.me/semantic-release eslint prettier typescript
+       ```
+     </TabItem>
+     <TabItem label="Minimal Setup">
+       ```bash
+       pnpm add -D @bfra.me/eslint-config @bfra.me/prettier-config @bfra.me/tsconfig eslint prettier typescript
+       ```
+     </TabItem>
+   </Tabs>
+
+3. **Create configuration files**
+
+   **tsconfig.json**
+   ```json
+   {
+     "extends": "@bfra.me/tsconfig",
+     "compilerOptions": {
+       "outDir": "./dist",
+       "rootDir": "./src"
+     },
+     "include": ["src/**/*"],
+     "exclude": ["node_modules", "dist", "**/*.test.ts"]
+   }
+   ```
+
+   **eslint.config.js**
+   ```javascript
+   import preset from '@bfra.me/eslint-config'
+
+   export default preset
+   ```
+
+4. **Update package.json**
+
+   ```json
+   {
+     "name": "my-project",
+     "version": "1.0.0",
+     "type": "module",
+     "main": "./dist/index.js",
+     "types": "./dist/index.d.ts",
+     "prettier": "@bfra.me/prettier-config",
+     "scripts": {
+       "build": "tsc",
+       "dev": "tsc --watch",
+       "lint": "eslint . --fix",
+       "format": "prettier --write .",
+       "type-check": "tsc --noEmit",
+       "test": "vitest"
+     }
+   }
+   ```
+
+5. **Create project structure**
+
+   ```bash
+   mkdir src test
+   touch src/index.ts test/index.test.ts README.md
+   ```
+
+6. **Add initial code**
+
+   **src/index.ts**
+   ```typescript
+   export const greet = (name: string): string => {
+     return `Hello, ${name}!`
+   }
+
+   export default greet
+   ```
+
+   **test/index.test.ts**
+   ```typescript
+   import { describe, it, expect } from 'vitest'
+   import { greet } from '../src/index'
+
+   describe('greet', () => {
+     it('should greet with name', () => {
+       expect(greet('World')).toBe('Hello, World!')
+     })
+   })
+   ```
+
+</Steps>
+
+## Method 3: Adding to Existing Project
+
+<Steps>
+
+1. **Install packages**
+
+   ```bash
+   pnpm add -D @bfra.me/eslint-config @bfra.me/prettier-config @bfra.me/tsconfig eslint prettier typescript
+   ```
+
+2. **Update existing configurations**
+
+   **Replace existing tsconfig.json**
+   ```json
+   {
+     "extends": "@bfra.me/tsconfig",
+     "compilerOptions": {
+       "outDir": "./dist",
+       "rootDir": "./src"
+     },
+     "include": ["src/**/*"],
+     "exclude": ["node_modules", "dist"]
+   }
+   ```
+
+   **Replace existing eslint config**
+   ```javascript
+   import preset from '@bfra.me/eslint-config'
+
+   export default preset
+   ```
+
+3. **Update package.json**
+
+   ```json
+   {
+     "prettier": "@bfra.me/prettier-config",
+     "scripts": {
+       "lint": "eslint . --fix",
+       "format": "prettier --write .",
+       "type-check": "tsc --noEmit"
+     }
+   }
+   ```
+
+4. **Format existing code**
+
+   ```bash
+   pnpm format
+   pnpm lint
+   ```
+
+</Steps>
+
+## Project Structure
+
+Your project should follow this structure:
+
+```
+my-project/
+├── src/                    # Source code
+│   ├── index.ts           # Main entry point
+│   ├── types/             # Type definitions
+│   └── utils/             # Utility functions
+├── test/                   # Test files
+│   ├── index.test.ts      # Unit tests
+│   └── fixtures/          # Test fixtures
+├── dist/                   # Build output
+├── .vscode/               # VS Code settings
+│   └── settings.json
+├── eslint.config.js       # ESLint configuration
+├── tsconfig.json          # TypeScript configuration
+├── tsconfig.build.json    # Build configuration
+├── package.json           # Package manifest
+├── README.md              # Documentation
+├── LICENSE                # License file
+└── .gitignore             # Git ignore rules
+```
+
+## Testing Setup
+
+### Using Vitest (Recommended)
+
+<Tabs>
+  <TabItem label="Install">
+    ```bash
+    pnpm add -D vitest @vitest/ui
+    ```
+  </TabItem>
+  <TabItem label="Configuration">
+    **vitest.config.ts**
+    ```typescript
+    import { defineConfig } from 'vitest/config'
+
+    export default defineConfig({
+      test: {
+        globals: true,
+        environment: 'node',
+        coverage: {
+          provider: 'v8',
+          reporter: ['text', 'json', 'html']
+        }
+      }
+    })
+    ```
+  </TabItem>
+  <TabItem label="Scripts">
+    ```json
+    {
+      "scripts": {
+        "test": "vitest",
+        "test:ui": "vitest --ui",
+        "test:coverage": "vitest --coverage"
+      }
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+### Using Jest
+
+<Tabs>
+  <TabItem label="Install">
+    ```bash
+    pnpm add -D jest @types/jest ts-jest
+    ```
+  </TabItem>
+  <TabItem label="Configuration">
+    **jest.config.js**
+    ```javascript
+    export default {
+      preset: 'ts-jest',
+      testEnvironment: 'node',
+      collectCoverageFrom: [
+        'src/**/*.ts',
+        '!src/**/*.d.ts'
+      ],
+      coverageReporters: ['text', 'lcov', 'html']
+    }
+    ```
+  </TabItem>
+  <TabItem label="Scripts">
+    ```json
+    {
+      "scripts": {
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:coverage": "jest --coverage"
+      }
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+## Build Configuration
+
+### Library Build
+
+For libraries, create `tsconfig.build.json`:
+
+```json
+{
+  "extends": "@bfra.me/tsconfig",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "removeComments": false
+  },
+  "include": ["src/**/*"],
+  "exclude": ["**/*.test.ts", "**/*.spec.ts"]
+}
+```
+
+Update package.json:
+
+```json
+{
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "build:watch": "tsc -p tsconfig.build.json --watch"
+  }
+}
+```
+
+### Application Build
+
+For applications, use the standard tsconfig.json:
+
+```json
+{
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "start": "node dist/index.js"
+  }
+}
+```
+
+## Development Workflow
+
+### Git Hooks
+
+<Tabs>
+  <TabItem label="Husky + lint-staged">
+    ```bash
+    pnpm add -D husky lint-staged
+    ```
+
+    **package.json**
+    ```json
+    {
+      "lint-staged": {
+        "*.{js,ts,jsx,tsx}": [
+          "eslint --fix",
+          "prettier --write"
+        ],
+        "*.{json,md}": [
+          "prettier --write"
+        ]
+      }
+    }
+    ```
+
+    **Setup**
+    ```bash
+    pnpm exec husky init
+    echo 'pnpm exec lint-staged' > .husky/pre-commit
+    ```
+  </TabItem>
+  <TabItem label="Simple Scripts">
+    ```json
+    {
+      "scripts": {
+        "precommit": "pnpm lint && pnpm test",
+        "prepare": "pnpm build"
+      }
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+### VS Code Integration
+
+Create `.vscode/settings.json`:
+
+```json
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.organizeImports": true
+  },
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.updateImportsOnFileMove.enabled": "always"
+}
+```
+
+Create `.vscode/extensions.json`:
+
+```json
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "ms-vscode.vscode-typescript-next"
+  ]
+}
+```
+
+## Release Setup
+
+### Semantic Release
+
+<Tabs>
+  <TabItem label="Install">
+    ```bash
+    pnpm add -D @bfra.me/semantic-release semantic-release
+    ```
+  </TabItem>
+  <TabItem label="Configuration">
+    **semantic-release.config.js**
+    ```javascript
+    import { defineConfig } from '@bfra.me/semantic-release'
+
+    export default defineConfig()
+    ```
+  </TabItem>
+  <TabItem label="Scripts">
+    ```json
+    {
+      "scripts": {
+        "release": "semantic-release",
+        "release:dry": "semantic-release --dry-run"
+      }
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+### GitHub Actions
+
+Create `.github/workflows/ci.yml`:
+
+```yaml
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Type check
+        run: pnpm type-check
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Test
+        run: pnpm test
+
+      - name: Build
+        run: pnpm build
+
+  release:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Release
+        run: pnpm release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+```
+
+## Best Practices
+
+1. **Use TypeScript Strict Mode**: Enable all strict compiler options
+2. **Implement Testing**: Add comprehensive test coverage
+3. **Set Up CI/CD**: Automate testing and deployment
+4. **Use Conventional Commits**: Follow semantic versioning
+5. **Document Everything**: Keep README and code comments updated
+6. **Monitor Dependencies**: Keep packages up to date
+
+## Common Issues and Solutions
+
+### TypeScript Errors
+
+```bash
+# Clear TypeScript cache
+rm -rf node_modules/.cache/typescript
+rm -f tsconfig.tsbuildinfo
+
+# Reinstall dependencies
+pnpm install
+```
+
+### ESLint Conflicts
+
+```bash
+# Reset ESLint cache
+rm -rf node_modules/.cache/eslint
+
+# Check configuration
+npx eslint --print-config src/index.ts
+```
+
+### Build Issues
+
+```bash
+# Clean build
+rm -rf dist
+pnpm build
+
+# Check TypeScript configuration
+npx tsc --showConfig
+```
+
+## Next Steps
+
+After setting up your project:
+
+1. **Read the Configuration Guide**: Learn about [configuration best practices](/guides/configuration)
+2. **Explore Individual Packages**: Check out detailed package documentation
+3. **Set Up Monitoring**: Add error tracking and performance monitoring
+4. **Create Documentation**: Set up comprehensive project documentation
+5. **Plan Deployment**: Configure production deployment pipelines
+
+## Examples
+
+### Monorepo Setup
+
+```bash
+# Create monorepo structure
+npx @bfra.me/create my-monorepo --template monorepo
+
+# Or manually
+mkdir my-monorepo && cd my-monorepo
+npm init -y
+mkdir packages
+```
+
+### Library with CLI
+
+```bash
+# Create library with CLI
+npx @bfra.me/create my-lib-cli --template typescript-library
+
+# Add CLI dependencies
+pnpm add commander
+pnpm add -D @types/node
+```
+
+### Full-Stack Application
+
+```bash
+# Backend API
+npx @bfra.me/create my-app-api --template node-api
+
+# Frontend
+npx @bfra.me/create my-app-ui --template react-app
+```

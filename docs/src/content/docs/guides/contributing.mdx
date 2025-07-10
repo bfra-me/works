@@ -1,0 +1,563 @@
+---
+title: Contributing
+description: Guide for contributing to bfra.me Works
+---
+
+import { Steps, Tabs, TabItem, Card, CardGrid, Badge } from '@astrojs/starlight/components';
+
+# Contributing to bfra.me Works
+
+We welcome contributions to bfra.me Works! This guide will help you get started with contributing to the project.
+
+## Getting Started
+
+<CardGrid>
+  <Card title="Code of Conduct" icon="approve-check">
+    We expect all contributors to follow our code of conduct and maintain a respectful environment.
+  </Card>
+  <Card title="Issue First" icon="information">
+    Before starting work, please create or comment on an issue to discuss your contribution.
+  </Card>
+  <Card title="Quality Standards" icon="star">
+    All contributions must meet our quality standards including tests, documentation, and code style.
+  </Card>
+</CardGrid>
+
+## Development Setup
+
+<Steps>
+
+1. **Fork and clone the repository**
+
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/works.git
+   cd works
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   pnpm install
+   ```
+
+3. **Build all packages**
+
+   ```bash
+   pnpm build
+   ```
+
+4. **Run tests**
+
+   ```bash
+   pnpm test
+   ```
+
+5. **Verify the setup**
+
+   ```bash
+   pnpm validate
+   ```
+
+</Steps>
+
+## Project Structure
+
+```
+works/
+├── packages/              # Individual packages
+│   ├── create/           # @bfra.me/create
+│   ├── eslint-config/    # @bfra.me/eslint-config
+│   ├── prettier-config/  # @bfra.me/prettier-config
+│   ├── semantic-release/ # @bfra.me/semantic-release
+│   └── tsconfig/         # @bfra.me/tsconfig
+├── docs/                 # Documentation site
+├── scripts/              # Build and utility scripts
+├── .changeset/           # Changeset configuration
+├── pnpm-workspace.yaml   # pnpm workspace configuration
+└── package.json          # Root package.json
+```
+
+## Development Workflow
+
+### Making Changes
+
+<Steps>
+
+1. **Create a feature branch**
+
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+2. **Make your changes**
+
+   Edit the relevant files in the appropriate package directories.
+
+3. **Add tests**
+
+   Ensure your changes are covered by tests:
+
+   ```bash
+   # Run tests for a specific package
+   cd packages/eslint-config
+   pnpm test
+
+   # Run all tests
+   pnpm test
+   ```
+
+4. **Update documentation**
+
+   Update relevant documentation in:
+   - Package README files
+   - Documentation site in `docs/`
+   - Code comments
+
+5. **Validate your changes**
+
+   ```bash
+   # Lint and format code
+   pnpm lint
+   pnpm format
+
+   # Type check
+   pnpm type-check
+
+   # Run full validation
+   pnpm validate
+   ```
+
+</Steps>
+
+### Creating a Changeset
+
+We use changesets to manage version bumps and changelog generation:
+
+<Steps>
+
+1. **Create a changeset**
+
+   ```bash
+   pnpm changeset
+   ```
+
+2. **Select affected packages**
+
+   Choose which packages are affected by your changes.
+
+3. **Choose version bump type**
+
+   - **Major**: Breaking changes
+   - **Minor**: New features
+   - **Patch**: Bug fixes
+
+4. **Write a description**
+
+   Provide a clear description of your changes.
+
+</Steps>
+
+## Package-Specific Guidelines
+
+### @bfra.me/create
+
+<Tabs>
+  <TabItem label="Structure">
+    ```
+    packages/create/
+    ├── src/
+    │   ├── cli.ts          # CLI interface
+    │   ├── index.ts        # Main API
+    │   ├── types.ts        # Type definitions
+    │   └── templates/      # Project templates
+    ├── test/
+    │   └── index.test.ts   # Unit tests
+    └── __mocks__/          # Test mocks
+    ```
+  </TabItem>
+  <TabItem label="Adding Templates">
+    ```bash
+    # Create new template
+    mkdir src/templates/my-template
+
+    # Add template files
+    touch src/templates/my-template/package.json.hbs
+    touch src/templates/my-template/src/index.ts.hbs
+
+    # Update template registry
+    # Edit src/templates/index.ts
+    ```
+  </TabItem>
+  <TabItem label="Testing">
+    ```bash
+    # Test CLI
+    pnpm build
+    node dist/cli.js test-project --template typescript-library
+
+    # Run unit tests
+    pnpm test
+    ```
+  </TabItem>
+</Tabs>
+
+### @bfra.me/eslint-config
+
+<Tabs>
+  <TabItem label="Structure">
+    ```
+    packages/eslint-config/
+    ├── src/
+    │   ├── index.ts        # Main config
+    │   ├── configs/        # Rule configurations
+    │   └── plugins/        # Custom plugins
+    ├── test/
+    │   └── fixtures/       # Test fixtures
+    └── scripts/
+        └── generate-types.ts # Type generation
+    ```
+  </TabItem>
+  <TabItem label="Adding Rules">
+    ```typescript
+    // Add to src/configs/typescript.ts
+    export const typescriptRules = {
+      '@typescript-eslint/explicit-function-return-type': 'warn',
+      '@typescript-eslint/no-explicit-any': 'warn'
+    }
+    ```
+  </TabItem>
+  <TabItem label="Testing">
+    ```bash
+    # Test with fixtures
+    pnpm test
+
+    # Test against real projects
+    cd test-project
+    npx eslint . --config ../packages/eslint-config/lib/index.js
+    ```
+  </TabItem>
+</Tabs>
+
+### @bfra.me/prettier-config
+
+<Tabs>
+  <TabItem label="Structure">
+    ```
+    packages/prettier-config/
+    ├── src/
+    │   ├── index.ts        # Default config
+    │   ├── 80-proof.ts     # Relaxed variant
+    │   ├── 100-proof.ts    # Balanced variant
+    │   └── 120-proof.ts    # Strict variant
+    └── test/
+        └── fixtures/       # Test fixtures
+    ```
+  </TabItem>
+  <TabItem label="Adding Variants">
+    ```typescript
+    // Create new variant
+    export const newVariant = {
+      printWidth: 90,
+      tabWidth: 2,
+      semi: true,
+      singleQuote: true
+    }
+    ```
+  </TabItem>
+  <TabItem label="Testing">
+    ```bash
+    # Test formatting
+    pnpm test
+
+    # Test with real files
+    npx prettier --config lib/index.js --write test-file.ts
+    ```
+  </TabItem>
+</Tabs>
+
+## Testing Guidelines
+
+### Unit Tests
+
+Write comprehensive unit tests for all functionality:
+
+```typescript
+import { describe, it, expect } from 'vitest'
+import { myFunction } from '../src/index'
+
+describe('myFunction', () => {
+  it('should handle valid input', () => {
+    const result = myFunction('test')
+    expect(result).toBe('expected output')
+  })
+
+  it('should handle edge cases', () => {
+    expect(() => myFunction('')).toThrow('Invalid input')
+  })
+})
+```
+
+### Integration Tests
+
+Test packages work together:
+
+```typescript
+import { describe, it, expect } from 'vitest'
+import { execSync } from 'child_process'
+
+describe('Integration', () => {
+  it('should create project with all configs', () => {
+    const output = execSync('npx @bfra.me/create test-project --template typescript-library')
+    expect(output.toString()).toContain('Project created successfully')
+  })
+})
+```
+
+### End-to-End Tests
+
+Test the complete user experience:
+
+```bash
+# Create test project
+npx @bfra.me/create e2e-test --template typescript-library
+
+# Verify it works
+cd e2e-test
+pnpm install
+pnpm build
+pnpm test
+```
+
+## Documentation Guidelines
+
+### README Files
+
+Each package should have a comprehensive README:
+
+```markdown
+# @bfra.me/package-name
+
+> Brief description
+
+## Installation
+
+```bash
+pnpm add -D @bfra.me/package-name
+```
+
+## Usage
+
+Basic usage examples
+
+## API Reference
+
+Detailed API documentation
+
+## Contributing
+
+Link to this guide
+```
+
+### Code Comments
+
+Write clear, helpful comments:
+
+```typescript
+/**
+ * Creates a new project from a template
+ *
+ * @param name - Project name
+ * @param options - Configuration options
+ * @returns Promise resolving to project path
+ */
+export async function createProject(name: string, options: CreateOptions): Promise<string> {
+  // Implementation
+}
+```
+
+### Documentation Site
+
+Update the documentation site in `docs/`:
+
+```bash
+cd docs
+pnpm dev
+```
+
+## Release Process
+
+### Automated Releases
+
+Releases are automated using Changesets and GitHub Actions:
+
+1. **Merge to main**: Changes are merged to the main branch
+2. **Changeset PR**: A PR is created with version bumps
+3. **Merge changeset PR**: Triggers automated release
+4. **Publish**: Packages are published to npm
+
+### Manual Release
+
+For testing or emergency releases:
+
+```bash
+# Build all packages
+pnpm build
+
+# Create changeset
+pnpm changeset
+
+# Version packages
+pnpm version-changesets
+
+# Publish
+pnpm publish-changesets
+```
+
+## Code Style
+
+### TypeScript
+
+- Use strict TypeScript settings
+- Prefer type assertions over `any`
+- Use proper JSDoc comments
+- Follow naming conventions
+
+```typescript
+// Good
+interface CreateOptions {
+  template: string
+  author?: string
+}
+
+// Bad
+interface options {
+  template: any
+  author: any
+}
+```
+
+### Formatting
+
+All code is formatted with Prettier:
+
+```bash
+pnpm format
+```
+
+### Linting
+
+Code is linted with ESLint:
+
+```bash
+pnpm lint
+```
+
+## Commit Guidelines
+
+Use conventional commits:
+
+```bash
+# Features
+git commit -m "feat(create): add new template system"
+
+# Bug fixes
+git commit -m "fix(eslint-config): resolve typescript rule conflict"
+
+# Documentation
+git commit -m "docs(readme): update installation instructions"
+
+# Breaking changes
+git commit -m "feat(tsconfig): update to strict mode
+
+BREAKING CHANGE: strict mode is now enabled by default"
+```
+
+## Pull Request Process
+
+<Steps>
+
+1. **Create a descriptive PR title**
+
+   Use conventional commit format: `feat(package): description`
+
+2. **Fill out the PR template**
+
+   - Describe your changes
+   - Link to relevant issues
+   - Add testing instructions
+
+3. **Ensure all checks pass**
+
+   - Tests pass
+   - Code is formatted
+   - Documentation is updated
+
+4. **Request review**
+
+   Tag relevant maintainers for review
+
+5. **Address feedback**
+
+   Make requested changes and update the PR
+
+</Steps>
+
+## Issue Guidelines
+
+### Bug Reports
+
+Include:
+- Clear description of the issue
+- Steps to reproduce
+- Expected vs actual behavior
+- Environment details
+- Code examples
+
+### Feature Requests
+
+Include:
+- Use case description
+- Proposed solution
+- Alternative solutions considered
+- Breaking change analysis
+
+### Questions
+
+- Check existing documentation first
+- Search existing issues
+- Provide context and examples
+
+## Community
+
+### Communication
+
+- **GitHub Issues**: Bug reports and feature requests
+- **GitHub Discussions**: General questions and discussions
+- **Pull Requests**: Code contributions and reviews
+
+### Code of Conduct
+
+We expect all contributors to:
+
+- Be respectful and inclusive
+- Provide constructive feedback
+- Help maintain a positive environment
+- Follow project guidelines
+
+## Getting Help
+
+If you need help contributing:
+
+1. **Check the documentation**: Most questions are answered in the docs
+2. **Search existing issues**: Someone might have asked the same question
+3. **Create a discussion**: For general questions about contributing
+4. **Create an issue**: For specific bugs or feature requests
+
+## Recognition
+
+Contributors are recognized in:
+
+- **CHANGELOG.md**: All changes are credited
+- **Contributors list**: Active contributors are highlighted
+- **Release notes**: Significant contributions are mentioned
+
+Thank you for contributing to bfra.me Works! 🎉

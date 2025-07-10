@@ -1,0 +1,262 @@
+---
+title: Quick Start
+description: Get up and running with bfra.me Works in minutes
+---
+
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+
+# Quick Start
+
+This guide will help you get started with bfra.me Works in just a few minutes. We'll walk through creating a new project and setting up the essential configurations.
+
+## Method 1: Using @bfra.me/create (Recommended)
+
+The fastest way to get started is using the `@bfra.me/create` CLI tool:
+
+<Steps>
+
+1. **Create a new project**
+
+   <Tabs>
+     <TabItem label="pnpm">
+       ```bash
+       pnpx @bfra.me/create my-project
+       ```
+     </TabItem>
+     <TabItem label="npm">
+       ```bash
+       npx @bfra.me/create my-project
+       ```
+     </TabItem>
+     <TabItem label="yarn">
+       ```bash
+       yarn create @bfra.me my-project
+       ```
+     </TabItem>
+   </Tabs>
+
+2. **Navigate to your project**
+
+   ```bash
+   cd my-project
+   ```
+
+3. **Install dependencies**
+
+   <Tabs>
+     <TabItem label="pnpm">
+       ```bash
+       pnpm install
+       ```
+     </TabItem>
+     <TabItem label="npm">
+       ```bash
+       npm install
+       ```
+     </TabItem>
+     <TabItem label="yarn">
+       ```bash
+       yarn install
+       ```
+     </TabItem>
+   </Tabs>
+
+4. **Start developing**
+
+   ```bash
+   # Build the project
+   pnpm build
+
+   # Run tests
+   pnpm test
+
+   # Start development mode
+   pnpm dev
+   ```
+
+</Steps>
+
+## Method 2: Manual Setup
+
+If you prefer to set up an existing project manually:
+
+<Steps>
+
+1. **Install the packages**
+
+   <Tabs>
+     <TabItem label="pnpm">
+       ```bash
+       pnpm add -D @bfra.me/eslint-config @bfra.me/prettier-config @bfra.me/tsconfig eslint prettier typescript
+       ```
+     </TabItem>
+     <TabItem label="npm">
+       ```bash
+       npm install --save-dev @bfra.me/eslint-config @bfra.me/prettier-config @bfra.me/tsconfig eslint prettier typescript
+       ```
+     </TabItem>
+     <TabItem label="yarn">
+       ```bash
+       yarn add --dev @bfra.me/eslint-config @bfra.me/prettier-config @bfra.me/tsconfig eslint prettier typescript
+       ```
+     </TabItem>
+   </Tabs>
+
+2. **Create configuration files**
+
+   **eslint.config.js**
+   ```javascript
+   import preset from '@bfra.me/eslint-config'
+
+   export default preset
+   ```
+
+   **Add to package.json**
+   ```json
+   {
+     "prettier": "@bfra.me/prettier-config"
+   }
+   ```
+
+   **tsconfig.json**
+   ```json
+   {
+     "extends": "@bfra.me/tsconfig",
+     "compilerOptions": {
+       "outDir": "./dist"
+     },
+     "include": ["src/**/*"],
+     "exclude": ["node_modules", "dist"]
+   }
+   ```
+
+3. **Add scripts to package.json**
+
+   ```json
+   {
+     "scripts": {
+       "build": "tsc",
+       "lint": "eslint . --fix",
+       "format": "prettier --write .",
+       "type-check": "tsc --noEmit"
+     }
+   }
+   ```
+
+4. **Create your first TypeScript file**
+
+   **src/index.ts**
+   ```typescript
+   export const greet = (name: string): string => {
+     return `Hello, ${name}!`
+   }
+
+   export default greet
+   ```
+
+</Steps>
+
+## Verify Your Setup
+
+Test that everything is working correctly:
+
+```bash
+# Type check
+pnpm type-check
+
+# Lint code
+pnpm lint
+
+# Format code
+pnpm format
+
+# Build project
+pnpm build
+```
+
+## Project Structure
+
+Your project should now look like this:
+
+```
+my-project/
+├── src/
+│   └── index.ts
+├── dist/                 # Build output
+├── eslint.config.js
+├── tsconfig.json
+├── package.json
+└── node_modules/
+```
+
+## Common Next Steps
+
+### Add Testing
+
+<Tabs>
+  <TabItem label="Vitest">
+    ```bash
+    pnpm add -D vitest @vitest/ui
+    ```
+
+    Add to package.json:
+    ```json
+    {
+      "scripts": {
+        "test": "vitest",
+        "test:ui": "vitest --ui"
+      }
+    }
+    ```
+  </TabItem>
+  <TabItem label="Jest">
+    ```bash
+    pnpm add -D jest @types/jest ts-jest
+    ```
+
+    Add to package.json:
+    ```json
+    {
+      "scripts": {
+        "test": "jest"
+      }
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+### Add Semantic Release
+
+```bash
+pnpm add -D @bfra.me/semantic-release semantic-release
+```
+
+Create **semantic-release.config.js**:
+```javascript
+import { defineConfig } from '@bfra.me/semantic-release'
+
+export default defineConfig()
+```
+
+### Add Git Hooks
+
+```bash
+pnpm add -D husky lint-staged
+```
+
+Add to package.json:
+```json
+{
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx}": ["eslint --fix", "prettier --write"],
+    "*.{json,md}": ["prettier --write"]
+  }
+}
+```
+
+## What's Next?
+
+- Explore individual [package documentation](/packages/create)
+- Learn about [configuration best practices](/guides/configuration)
+- Set up [automated releases](/packages/semantic-release)
+- Read our [contributing guide](/guides/contributing)

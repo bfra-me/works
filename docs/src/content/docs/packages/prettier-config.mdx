@@ -1,0 +1,497 @@
+---
+title: '@bfra.me/prettier-config'
+description: Shared Prettier configuration for bfra.me with multiple formatting variants
+---
+
+import { Badge, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+
+# @bfra.me/prettier-config
+
+<Badge text="Prettier Config" variant="tip" />
+<Badge text="v0.15.7" variant="note" />
+
+Shared Prettier configuration for bfra.me with multiple formatting variants to suit different project needs and team preferences.
+
+## Features
+
+<CardGrid>
+  <Card title="Multiple Variants" icon="list">
+    Choose from 80-proof, 100-proof, and 120-proof configurations.
+  </Card>
+  <Card title="Consistent Formatting" icon="approve-check">
+    Ensure consistent code style across all your projects.
+  </Card>
+  <Card title="Opinionated Defaults" icon="star">
+    Sensible defaults that work well with TypeScript and modern JavaScript.
+  </Card>
+  <Card title="Extensible" icon="setting">
+    Easy to customize and extend for specific project needs.
+  </Card>
+</CardGrid>
+
+## Installation
+
+<Tabs>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add -D @bfra.me/prettier-config prettier
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```bash
+    npm install --save-dev @bfra.me/prettier-config prettier
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add --dev @bfra.me/prettier-config prettier
+    ```
+  </TabItem>
+</Tabs>
+
+## Usage
+
+### Basic Setup (Default Configuration)
+
+Add the following to your `package.json`:
+
+```json
+{
+  "prettier": "@bfra.me/prettier-config"
+}
+```
+
+### Configuration Variants
+
+Choose from different "proof" levels based on your formatting preferences:
+
+#### 80-proof (Relaxed)
+```json
+{
+  "prettier": "@bfra.me/prettier-config/80-proof"
+}
+```
+
+#### 100-proof (Balanced - Default)
+```json
+{
+  "prettier": "@bfra.me/prettier-config/100-proof"
+}
+```
+
+#### 120-proof (Strict)
+```json
+{
+  "prettier": "@bfra.me/prettier-config/120-proof"
+}
+```
+
+### Custom Configuration File
+
+For more control, create a `prettier.config.js` file:
+
+```javascript
+import config from '@bfra.me/prettier-config'
+
+export default config
+```
+
+### Extend with Custom Rules
+
+```javascript
+import config from '@bfra.me/prettier-config'
+
+export default {
+  ...config,
+  // Your custom overrides
+  tabWidth: 4,
+  semi: false
+}
+```
+
+## Configuration Details
+
+### Default Configuration (100-proof)
+
+```javascript
+{
+  printWidth: 100,
+  tabWidth: 2,
+  useTabs: false,
+  semi: true,
+  singleQuote: true,
+  quoteProps: 'as-needed',
+  trailingComma: 'es5',
+  bracketSpacing: true,
+  bracketSameLine: false,
+  arrowParens: 'avoid',
+  endOfLine: 'lf',
+  embeddedLanguageFormatting: 'auto',
+  singleAttributePerLine: false
+}
+```
+
+### Variant Differences
+
+| Setting | 80-proof | 100-proof | 120-proof |
+|---------|----------|-----------|-----------|
+| `printWidth` | 120 | 100 | 80 |
+| `tabWidth` | 2 | 2 | 2 |
+| `semi` | false | true | true |
+| `singleQuote` | true | true | true |
+| `trailingComma` | 'es5' | 'es5' | 'all' |
+| `bracketSpacing` | true | true | false |
+| `arrowParens` | 'avoid' | 'avoid' | 'always' |
+| `singleAttributePerLine` | false | false | true |
+
+## Language Support
+
+The configuration works with all languages supported by Prettier:
+
+- **JavaScript/TypeScript**: Full support including JSX/TSX
+- **JSON**: Formatted with consistent spacing
+- **Markdown**: Consistent formatting for documentation
+- **CSS/SCSS/Less**: Stylesheet formatting
+- **HTML**: Template and markup formatting
+- **YAML**: Configuration file formatting
+
+## File Patterns
+
+The configuration applies to these file patterns by default:
+
+```javascript
+// Automatically formatted files
+'**/*.{js,jsx,ts,tsx,json,css,scss,less,html,md,yaml,yml}'
+```
+
+## Package.json Scripts
+
+Add these scripts to your `package.json`:
+
+```json
+{
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "format:staged": "prettier --write"
+  }
+}
+```
+
+## IDE Integration
+
+### VS Code
+
+Install the Prettier extension and add to your `.vscode/settings.json`:
+
+```json
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
+```
+
+### WebStorm/IntelliJ
+
+1. Go to **Preferences** → **Languages & Frameworks** → **JavaScript** → **Prettier**
+2. Set **Prettier package** to your local installation
+3. Check **On 'Reformat Code' action**
+4. Check **On save**
+
+## Ignoring Files
+
+Create a `.prettierignore` file to ignore specific files:
+
+```
+node_modules/
+dist/
+build/
+coverage/
+*.min.js
+*.min.css
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+```
+
+Or use ignore comments in your files:
+
+```javascript
+// prettier-ignore
+const uglyCode = {
+  a   : 1,
+  b    : 2,
+  c     : 3
+}
+```
+
+## Git Integration
+
+### Pre-commit Hooks
+
+Using `husky` and `lint-staged`:
+
+```bash
+pnpm add -D husky lint-staged
+```
+
+Add to `package.json`:
+
+```json
+{
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css,md}": [
+      "prettier --write"
+    ]
+  }
+}
+```
+
+### Git Hooks Setup
+
+```bash
+# Initialize husky
+pnpm exec husky init
+
+# Add pre-commit hook
+echo 'pnpm exec lint-staged' > .husky/pre-commit
+```
+
+## Advanced Configuration
+
+### Project-Specific Overrides
+
+```javascript
+import config from '@bfra.me/prettier-config'
+
+export default {
+  ...config,
+  overrides: [
+    {
+      files: '*.json',
+      options: {
+        tabWidth: 2
+      }
+    },
+    {
+      files: '*.md',
+      options: {
+        printWidth: 80,
+        proseWrap: 'always'
+      }
+    }
+  ]
+}
+```
+
+### Plugin Integration
+
+```javascript
+import config from '@bfra.me/prettier-config'
+
+export default {
+  ...config,
+  plugins: ['prettier-plugin-organize-imports'],
+  organizeImportsSkipDestructiveCodeActions: true
+}
+```
+
+## Framework-Specific Usage
+
+### React Projects
+
+```javascript
+import config from '@bfra.me/prettier-config'
+
+export default {
+  ...config,
+  jsxSingleQuote: true,
+  jsxBracketSameLine: false
+}
+```
+
+### Vue Projects
+
+```javascript
+import config from '@bfra.me/prettier-config'
+
+export default {
+  ...config,
+  vueIndentScriptAndStyle: true
+}
+```
+
+### Angular Projects
+
+```javascript
+import config from '@bfra.me/prettier-config'
+
+export default {
+  ...config,
+  htmlWhitespaceSensitivity: 'ignore'
+}
+```
+
+## Troubleshooting
+
+### Common Issues
+
+#### Configuration Not Applied
+
+1. Ensure `prettier` is installed as a dependency
+2. Check that your editor has the Prettier extension installed
+3. Verify the configuration path in `package.json`
+
+#### Conflicts with ESLint
+
+Install `eslint-config-prettier` to disable conflicting rules:
+
+```bash
+pnpm add -D eslint-config-prettier
+```
+
+Update your ESLint config:
+
+```javascript
+import preset from '@bfra.me/eslint-config'
+import prettier from 'eslint-config-prettier'
+
+export default [
+  ...preset,
+  prettier
+]
+```
+
+#### Performance Issues
+
+For large projects, consider using `.prettierignore`:
+
+```
+# Ignore generated files
+dist/
+build/
+*.min.js
+*.min.css
+
+# Ignore large data files
+data/
+fixtures/
+```
+
+### Debug Commands
+
+```bash
+# Check which files would be formatted
+prettier --list-different .
+
+# Check configuration for a specific file
+prettier --find-config-path src/index.ts
+
+# Get effective configuration
+prettier --show-config src/index.ts
+```
+
+## Migration Guide
+
+### From v0.14.x to v0.15.x
+
+The configuration now uses ES modules:
+
+**Old format:**
+```javascript
+module.exports = require('@bfra.me/prettier-config')
+```
+
+**New format:**
+```javascript
+import config from '@bfra.me/prettier-config'
+
+export default config
+```
+
+### From Other Prettier Configs
+
+1. Remove your existing prettier configuration
+2. Install @bfra.me/prettier-config
+3. Update your package.json or create a new config file
+4. Run `prettier --write .` to reformat existing files
+
+## Examples
+
+### Basic TypeScript Project
+
+```json
+{
+  "prettier": "@bfra.me/prettier-config",
+  "scripts": {
+    "format": "prettier --write 'src/**/*.{ts,tsx,json,md}'",
+    "format:check": "prettier --check 'src/**/*.{ts,tsx,json,md}'"
+  }
+}
+```
+
+### Monorepo Setup
+
+```javascript
+// Root prettier.config.js
+import config from '@bfra.me/prettier-config'
+
+export default {
+  ...config,
+  overrides: [
+    {
+      files: 'packages/*/src/**/*.ts',
+      options: {
+        printWidth: 80
+      }
+    }
+  ]
+}
+```
+
+### Library with Documentation
+
+```javascript
+import config from '@bfra.me/prettier-config'
+
+export default {
+  ...config,
+  overrides: [
+    {
+      files: '*.md',
+      options: {
+        printWidth: 80,
+        proseWrap: 'always'
+      }
+    },
+    {
+      files: 'docs/**/*.md',
+      options: {
+        printWidth: 100,
+        proseWrap: 'preserve'
+      }
+    }
+  ]
+}
+```
+
+## Contributing
+
+To contribute to @bfra.me/prettier-config:
+
+1. Fork the repository
+2. Create a feature branch
+3. Test with various file types
+4. Submit a pull request
+
+See our [Contributing Guide](/guides/contributing) for more details.
