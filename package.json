@@ -23,7 +23,7 @@
     "inspect-eslint-config": "eslint-config-inspector --config eslint.config.ts --open false",
     "lint": "manypkg check && pnpm lint-source",
     "lint-packages": "pnpm -r --include-workspace-root --parallel exec publint",
-    "lint-source": "eslint --flag unstable_config_lookup_from_file . --cache --cache-location .cache/eslint/works.eslintcache",
+    "lint-source": "eslint --flag v10_config_lookup_from_file . --cache --cache-location .cache/eslint/works.eslintcache",
     "precommit": "lint-staged",
     "prepare": "husky",
     "publish-changesets": "changeset publish",

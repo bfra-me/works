@@ -13,7 +13,7 @@
     "editor.suggestSelection": "first",
 
     "eslint.options": {
-        "flags": ["unstable_config_lookup_from_file"]
+        "flags": ["v10_config_lookup_from_file"]
     },
 
     // Silent the stylistic rules in you IDE, but still auto fix them
