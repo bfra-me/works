@@ -21,8 +21,6 @@
         {"rule": "prettier/prettier", "severity": "off", "fixable": true}
     ],
 
-    "eslint.runtime": "node",
-
     // Enable eslint for all supported languages
     "eslint.validate": [
         "javascript",
@@ -41,6 +39,18 @@
     ],
 
     "explorer.fileNesting.enabled": false,
+
+    "git.diagnosticsCommitHook.enabled": true,
+    "git.diagnosticsCommitHook.sources": {
+        "*": "error",
+        "ts": "warning",
+        "eslint": "warning"
+    },
+
+    "github.copilot.chat.generateTests.codeLens": true,
+
+    "githubPullRequests.codingAgent.enabled": true,
+    "githubPullRequests.codingAgent.uiIntegration": true,
 
     "javascript.updateImportsOnFileMove.enabled": "always",
 

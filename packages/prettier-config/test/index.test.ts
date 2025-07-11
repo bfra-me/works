@@ -8,6 +8,9 @@ import fg from 'fast-glob'
 import fs from 'fs-extra'
 import {afterAll, beforeAll, it} from 'vitest'
 
+const pkgRoot = new URL('..', import.meta.url).pathname
+const resolveFixture = (p: string, ...paths: string[]) => resolve(join(pkgRoot, p, ...paths))
+
 const cleanup = async () => fs.rm('test/_fixtures', {force: true, recursive: true})
 
 beforeAll(async () => {
@@ -29,9 +32,9 @@ function testPreset(name: string, preset?: string, ...configs: Prettier.Config[]
   it.concurrent(
     name,
     async ({expect}) => {
-      const input = resolve('test/fixtures/input')
-      const output = resolve('test/fixtures/output', name)
-      const target = resolve('test/_fixtures', name)
+      const input = resolveFixture('test/fixtures/input')
+      const output = resolveFixture('test/fixtures/output', name)
+      const target = resolveFixture('test/_fixtures', name)
 
       await fs.copy(input, target, {filter: src => !src.includes('node_modules')})
 

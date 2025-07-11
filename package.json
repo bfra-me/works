@@ -14,10 +14,9 @@
   "author": "Marcus R. Brown <contact@bfra.me>",
   "type": "module",
   "scripts": {
-    "bootstrap": "pnpm install --prefer-offline --loglevel warn",
+    "bootstrap": "pnpm -r install --prefer-offline --loglevel warn",
     "build": "pnpm -r --stream run build && pnpm lint-packages",
     "clean": "pnpx rimraf --glob \"**/node_modules/**/!(.pnpm)\" \"packages/*/lib\" \"**/.turbo\" \"**/*.tsbuildinfo\"",
-    "clean-changesets": "tsx ./scripts/src/clean-changesets.ts",
     "dev": "pnpm --recursive --parallel --stream run dev",
     "fix": "manypkg fix && pnpm lint-source --fix",
     "inspect-eslint-config": "eslint-config-inspector --config eslint.config.ts --open false",
@@ -27,7 +26,8 @@
     "precommit": "lint-staged",
     "prepare": "husky",
     "publish-changesets": "changeset publish",
-    "test": "pnpm -r --parallel --stream --aggregate-output run test",
+    "pretest": "pnpm -r --filter @bfra.me/prettier-config --filter @bfra.me/eslint-config build",
+    "test": "vitest run",
     "type-check": "tsc --noEmit",
     "validate": "pnpm run lint && pnpm run test && pnpm run build",
     "version-changesets": "pnpm clean-changesets && changeset version && pnpm bootstrap --no-frozen-lockfile && pnpm build",
@@ -73,7 +73,6 @@
   "packageManager": "pnpm@10.12.4",
   "pnpm": {
     "onlyBuiltDependencies": [
-      "@swc/core",
       "esbuild",
       "sharp",
       "unrs-resolver"
