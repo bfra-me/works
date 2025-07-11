@@ -4,5 +4,5 @@
   "compilerOptions": {
     "noEmit": true
   },
-  "include": ["eslint.config.ts"]
+  "include": ["./*.config.ts"]
 }

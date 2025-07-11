@@ -45,7 +45,7 @@ runs:
       with:
         key: ${{ runner.os }}-development-cache-${{ hashFiles('**/pnpm-lock.yaml', '**/*.ts') }}
         path: |
-          .cache
+          **/.cache
           **/.tsup
           **/.turbo
           **/coverage

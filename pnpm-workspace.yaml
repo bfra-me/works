@@ -1,7 +1,6 @@
 packages:
   - docs
   - 'packages/*'
-  - scripts
 
 autoInstallPeers: false
 savePrefix: ''
