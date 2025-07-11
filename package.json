@@ -14,7 +14,7 @@
   "author": "Marcus R. Brown <contact@bfra.me>",
   "type": "module",
   "scripts": {
-    "bootstrap": "pnpm install --prefer-offline --loglevel warn",
+    "bootstrap": "pnpm -r install --prefer-offline --loglevel warn",
     "build": "pnpm -r --stream run build && pnpm lint-packages",
     "clean": "pnpx rimraf --glob \"**/node_modules/**/!(.pnpm)\" \"packages/*/lib\" \"**/.turbo\" \"**/*.tsbuildinfo\"",
     "dev": "pnpm --recursive --parallel --stream run dev",
@@ -26,6 +26,7 @@
     "precommit": "lint-staged",
     "prepare": "husky",
     "publish-changesets": "changeset publish",
+    "pretest": "pnpm -r --filter @bfra.me/prettier-config --filter @bfra.me/eslint-config build",
     "test": "vitest run",
     "type-check": "tsc --noEmit",
     "validate": "pnpm run lint && pnpm run test && pnpm run build",
