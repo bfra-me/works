@@ -47,8 +47,6 @@ jobs:
           SORT_CHANGESETS: 'TRUE'
         run: |
           pnpx @scaleway/changesets-renovate@${NPM_VERSION}
-          # Clean private package entries from changesets
-          pnpm run clean-changesets
           # Commit and push changes
           SHORT_HASH=$(git rev-parse --short HEAD)
           git add .changeset/

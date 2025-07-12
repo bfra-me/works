@@ -30,7 +30,7 @@
     "test": "vitest run",
     "type-check": "tsc --noEmit",
     "validate": "pnpm run lint && pnpm run test && pnpm run build",
-    "version-changesets": "pnpm clean-changesets && changeset version && pnpm bootstrap --no-frozen-lockfile && pnpm build",
+    "version-changesets": "changeset version && pnpm bootstrap --no-frozen-lockfile && pnpm build",
     "watch": "pnpm run build --watch"
   },
   "lint-staged": {

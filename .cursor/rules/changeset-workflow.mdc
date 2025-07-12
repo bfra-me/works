@@ -58,19 +58,6 @@ actions:
       Description of the changes made.
       ```
 
-      ### Cleaning Private Packages
-
-      The monorepo includes a utility to remove private packages from changesets:
-
-      ```bash
-      pnpm clean-changesets
-      ```
-
-      This is useful when:
-      - Working with Renovate dependency updates
-      - Private packages are referenced in changesets
-      - You need to prepare for publishing
-
       ### Release Process
 
       The release process has several parts:
