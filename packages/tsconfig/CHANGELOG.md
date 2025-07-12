@@ -1,5 +1,11 @@
 # @bfra.me/tsconfig
 
+## 0.11.0
+### Minor Changes
+
+
+- Remove the `emitDecoratorMetadata` and `experimentalDecorators` options. ([#1506](https://github.com/bfra-me/works/pull/1506))
+
 ## 0.10.0
 ### Minor Changes
 
