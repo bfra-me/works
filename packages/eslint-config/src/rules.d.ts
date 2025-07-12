@@ -1833,7 +1833,7 @@ export interface Rules {
    * Disallow empty definitions
    * @see https://github.com/eslint/markdown/blob/main/docs/rules/no-empty-definitions.md
    */
-  'markdown/no-empty-definitions'?: Linter.RuleEntry<[]>
+  'markdown/no-empty-definitions'?: Linter.RuleEntry<MarkdownNoEmptyDefinitions>
   /**
    * Disallow empty images
    * @see https://github.com/eslint/markdown/blob/main/docs/rules/no-empty-images.md
@@ -1879,6 +1879,11 @@ export interface Rules {
    * @see https://github.com/eslint/markdown/blob/main/docs/rules/no-reversed-media-syntax.md
    */
   'markdown/no-reversed-media-syntax'?: Linter.RuleEntry<[]>
+  /**
+   * Disallow unused definitions
+   * @see https://github.com/eslint/markdown/blob/main/docs/rules/no-unused-definitions.md
+   */
+  'markdown/no-unused-definitions'?: Linter.RuleEntry<MarkdownNoUnusedDefinitions>
   /**
    * Require alternative text for images
    * @see https://github.com/eslint/markdown/blob/main/docs/rules/require-alt-text.md
@@ -8042,6 +8047,12 @@ type MarkdownNoDuplicateDefinitions = []|[{
 type MarkdownNoDuplicateHeadings = []|[{
   checkSiblingsOnly?: boolean
 }]
+// ----- markdown/no-empty-definitions -----
+type MarkdownNoEmptyDefinitions = []|[{
+  allowDefinitions?: string[]
+  allowFootnoteDefinitions?: string[]
+  checkFootnoteDefinitions?: boolean
+}]
 // ----- markdown/no-html -----
 type MarkdownNoHtml = []|[{
   allowed?: string[]
@@ -8054,6 +8065,11 @@ type MarkdownNoMissingLinkFragments = []|[{
 // ----- markdown/no-multiple-h1 -----
 type MarkdownNoMultipleH1 = []|[{
   frontmatterTitle?: string
+}]
+// ----- markdown/no-unused-definitions -----
+type MarkdownNoUnusedDefinitions = []|[{
+  allowDefinitions?: string[]
+  allowFootnoteDefinitions?: string[]
 }]
 // ----- max-classes-per-file -----
 type MaxClassesPerFile = []|[(number | {
