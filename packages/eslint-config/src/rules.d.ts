@@ -2051,7 +2051,7 @@ export interface Rules {
    */
   'no-console'?: Linter.RuleEntry<NoConsole>
   /**
-   * Disallow reassigning `const` variables
+   * Disallow reassigning `const`, `using`, and `await using` variables
    * @see https://eslint.org/docs/latest/rules/no-const-assign
    */
   'no-const-assign'?: Linter.RuleEntry<[]>
