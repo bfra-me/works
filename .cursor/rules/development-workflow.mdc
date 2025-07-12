@@ -55,7 +55,6 @@ actions:
       pnpm build                # Builds all packages
       pnpm version-changesets   # Creates versions based on changesets
       pnpm publish-changesets   # Publishes packages to npm
-      pnpm clean-changesets     # Cleans private package entries from changesets
       ```
 
       ## Creating a New Feature
