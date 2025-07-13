@@ -1,4 +1,4 @@
-import {Linter, type Rule, type SourceCode} from 'eslint'
+import {Linter, type Rule} from 'eslint'
 import {getPackageInstallCommand, tryInstall} from '../package-utils'
 
 // Whether to install the missing module(s) for the config
@@ -9,14 +9,11 @@ let shouldFix = false
   const {verify} = Linter.prototype
   Object.defineProperty(Linter.prototype, 'verify', {
     configurable: true,
-    value(
-      code: string | SourceCode,
-      config: Linter.Config,
-      options: Linter.LintOptions | {fix?: boolean} | undefined,
-      ...args: Parameters<typeof verify>
-    ) {
-      shouldFix = typeof options === 'object' && options !== null && 'fix' in options && options.fix
-      return verify.call(this, code, config, options, ...args)
+    value(...args: Parameters<typeof verify>) {
+      const options: Linter.LintOptions | {fix?: boolean} | undefined = args[2]
+      shouldFix =
+        typeof options === 'object' && options !== null && 'fix' in options && Boolean(options.fix)
+      return verify.call(this, ...args)
     },
     writable: true,
   })
