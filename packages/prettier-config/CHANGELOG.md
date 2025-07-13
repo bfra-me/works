@@ -1,5 +1,11 @@
 # @bfra.me/prettier-config
 
+## 0.16.0
+### Minor Changes
+
+
+- Rebuild after removing decorators in @bfra.me/tsconfig. ([#1506](https://github.com/bfra-me/works/pull/1506))
+
 ## 0.15.7
 ### Patch Changes
 
