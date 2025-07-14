@@ -51,6 +51,8 @@ export type ConfigNames =
   | '@bfra.me/jsonc/json-schema/unnamed2'
   | '@bfra.me/jsonc/json-schema'
   | '@bfra.me/jsonc'
+  | '@bfra.me/pnpm/package-json'
+  | '@bfra.me/pnpm/pnpm-workspace-yaml'
   | '@bfra.me/toml/plugins'
   | '@bfra.me/toml/unnamed1'
   | '@bfra.me/toml/unnamed2'

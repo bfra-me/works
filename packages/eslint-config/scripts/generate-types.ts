@@ -12,6 +12,7 @@ const configs = await defineConfig(
         rules: Object.fromEntries(builtinRules),
       },
     },
+    pnpm: true,
     typescript: {
       tsconfigPath: 'tsconfig.json',
     },

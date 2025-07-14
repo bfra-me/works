@@ -3205,6 +3205,31 @@ export interface Rules {
    */
   'perfectionist/sort-variable-declarations'?: Linter.RuleEntry<PerfectionistSortVariableDeclarations>
   /**
+   * Enforce using "catalog:" in `package.json`
+   * @see https://github.com/antfu/pnpm-workspace-utils/tree/main/packages/eslint-plugin-pnpm/src/rules/json/json-enforce-catalog.test.ts
+   */
+  'pnpm/json-enforce-catalog'?: Linter.RuleEntry<PnpmJsonEnforceCatalog>
+  /**
+   * Prefer having pnpm settings in `pnpm-workspace.yaml` instead of `package.json`. This would requires pnpm v10.6+, see https://github.com/orgs/pnpm/discussions/9037.
+   * @see https://github.com/antfu/pnpm-workspace-utils/tree/main/packages/eslint-plugin-pnpm/src/rules/json/json-prefer-workspace-settings.test.ts
+   */
+  'pnpm/json-prefer-workspace-settings'?: Linter.RuleEntry<PnpmJsonPreferWorkspaceSettings>
+  /**
+   * Enforce using valid catalog in `package.json`
+   * @see https://github.com/antfu/pnpm-workspace-utils/tree/main/packages/eslint-plugin-pnpm/src/rules/json/json-valid-catalog.test.ts
+   */
+  'pnpm/json-valid-catalog'?: Linter.RuleEntry<PnpmJsonValidCatalog>
+  /**
+   * Disallow unused catalogs in `pnpm-workspace.yaml`
+   * @see https://github.com/antfu/pnpm-workspace-utils/tree/main/packages/eslint-plugin-pnpm/src/rules/yaml/yaml-no-duplicate-catalog-item.test.ts
+   */
+  'pnpm/yaml-no-duplicate-catalog-item'?: Linter.RuleEntry<PnpmYamlNoDuplicateCatalogItem>
+  /**
+   * Disallow unused catalogs in `pnpm-workspace.yaml`
+   * @see https://github.com/antfu/pnpm-workspace-utils/tree/main/packages/eslint-plugin-pnpm/src/rules/yaml/yaml-no-unused-catalog-item.test.ts
+   */
+  'pnpm/yaml-no-unused-catalog-item'?: Linter.RuleEntry<[]>
+  /**
    * Require using arrow functions for callbacks
    * @see https://eslint.org/docs/latest/rules/prefer-arrow-callback
    */
@@ -11877,6 +11902,43 @@ type PerfectionistSortVariableDeclarations = []|[{
     
     commentAbove?: string
   })[]
+}]
+// ----- pnpm/json-enforce-catalog -----
+type PnpmJsonEnforceCatalog = []|[{
+  
+  allowedProtocols?: string[]
+  
+  autofix?: boolean
+  
+  defaultCatalog?: string
+  
+  reuseExistingCatalog?: boolean
+  
+  conflicts?: ("new-catalog" | "overrides" | "error")
+  
+  fields?: string[]
+}]
+// ----- pnpm/json-prefer-workspace-settings -----
+type PnpmJsonPreferWorkspaceSettings = []|[{
+  
+  autofix?: boolean
+}]
+// ----- pnpm/json-valid-catalog -----
+type PnpmJsonValidCatalog = []|[{
+  
+  autoInsert?: boolean
+  
+  autoInsertDefaultSpecifier?: string
+  
+  autofix?: boolean
+  
+  enforceNoConflict?: boolean
+  
+  fields?: unknown[]
+}]
+// ----- pnpm/yaml-no-duplicate-catalog-item -----
+type PnpmYamlNoDuplicateCatalogItem = []|[{
+  allow?: string[]
 }]
 // ----- prefer-arrow-callback -----
 type PreferArrowCallback = []|[{
