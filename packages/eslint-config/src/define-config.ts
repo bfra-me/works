@@ -16,6 +16,7 @@ import {
   node,
   packageJson,
   perfectionist,
+  pnpm,
   prettier,
   regexp,
   toml,
@@ -60,6 +61,7 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
     jsx: enableJsx = true,
     packageJson: enablePackageJson = false,
     perfectionist: enablePerfectionist = true,
+    pnpm: enableCatalogs = false,
     prettier: enablePrettier = isPackageExists('prettier'),
     regexp: enableRegexp = true,
     typescript: enableTypeScript = isPackageExists('typescript'),
@@ -68,6 +70,7 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
 
   const isInEditor = options.isInEditor ?? Env.isInEditor
   if (isInEditor)
+    // eslint-disable-next-line no-console
     console.log(
       '[@bfra.me/eslint-config] Editor specific config is enabled. Some rules may be disabled.',
     )
@@ -142,6 +145,10 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
 
   if (options.jsonc ?? true) {
     configs.push(jsonc({overrides: getOverrides(options, 'jsonc')}))
+  }
+
+  if (enableCatalogs) {
+    configs.push(pnpm())
   }
 
   if (options.toml ?? true) {
