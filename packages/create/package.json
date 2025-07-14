@@ -43,15 +43,15 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@clack/prompts": "0.11.0",
-    "@sxzz/create": "0.15.1",
-    "cac": "6.7.14",
-    "consola": "3.4.2"
+    "@clack/prompts": "catalog:",
+    "@sxzz/create": "catalog:",
+    "cac": "catalog:",
+    "consola": "catalog:"
   },
   "devDependencies": {
-    "memfs": "4.17.2",
-    "tsup": "8.5.0",
-    "typescript": "5.8.3"
+    "memfs": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:"
   },
   "publishConfig": {
     "access": "public",
