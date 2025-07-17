@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.25.0
+### Minor Changes
+
+
+- Add ESLint config for pnpm. ([#1518](https://github.com/bfra-me/works/pull/1518))
+
 ## 0.24.3
 ### Patch Changes
 
