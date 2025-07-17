@@ -7080,8 +7080,8 @@ type JsdocMatchName = []|[{
     context?: string
     disallowName?: string
     message?: string
+    replacement?: string
     tags?: string[]
-    [k: string]: unknown | undefined
   }[]
 }]
 // ----- jsdoc/multiline-blocks -----
@@ -7155,7 +7155,6 @@ type JsdocRequireAsteriskPrefix = []|[("always" | "never" | "any")]|[("always" |
     always?: string[]
     any?: string[]
     never?: string[]
-    [k: string]: unknown | undefined
   }
 }]
 // ----- jsdoc/require-description -----
@@ -7365,7 +7364,6 @@ type JsdocSortTags = []|[{
   reportTagGroupSpacing?: boolean
   tagSequence?: {
     tags?: string[]
-    [k: string]: unknown | undefined
   }[]
 }]
 // ----- jsdoc/tag-lines -----
