@@ -73,6 +73,248 @@ packages/                   # Published packages
 └── tsconfig/              # @bfra.me/tsconfig - TypeScript configs
 ```
 
+### Package Creation Guide
+
+#### Prerequisites
+- Workspace properly initialized with `pnpm bootstrap`
+- Core packages built (`@bfra.me/eslint-config`, `@bfra.me/tsconfig`)
+- Understanding of package naming convention: `@bfra.me/package-name`
+
+#### Automated Creation (Recommended)
+```bash
+# Use the built-in package generator
+pnpx @bfra.me/create my-new-package
+
+# Follow interactive prompts for package type and configuration
+```
+
+#### Manual Creation Process
+
+##### Step 1: Create Package Directory Structure
+```bash
+# Create package directory
+mkdir packages/my-new-package
+cd packages/my-new-package
+
+# Create required directories
+mkdir src test
+```
+
+##### Step 2: Create package.json
+```json
+{
+  "name": "@bfra.me/my-new-package",
+  "version": "0.0.0",
+  "description": "Brief description of package purpose",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
+  },
+  "files": ["lib", "README.md"],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "@bfra.me/other-package": "workspace:*"
+  },
+  "devDependencies": {
+    "@bfra.me/eslint-config": "workspace:*",
+    "@bfra.me/tsconfig": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
+```
+
+##### Step 3: Create TypeScript Configuration
+```json
+// tsconfig.json
+{
+  "extends": "@bfra.me/tsconfig/library",
+  "include": ["src"],
+  "exclude": ["lib", "test"]
+}
+```
+
+```json
+// tsconfig.eslint.json
+{
+  "extends": "./tsconfig.json",
+  "include": ["src", "test", "*.ts", "*.js"]
+}
+```
+
+##### Step 4: Create Build Configuration
+```typescript
+// tsup.config.ts
+import {defineConfig} from 'tsup'
+
+export default defineConfig({
+  entry: ['src/index.ts'],
+  format: ['esm'],
+  dts: true,
+  clean: true,
+  sourcemap: true
+})
+```
+
+##### Step 5: Create ESLint Configuration
+```typescript
+// eslint.config.ts
+import {defineConfig} from '@bfra.me/eslint-config'
+
+export default defineConfig({
+  name: 'my-new-package',
+  typescript: {
+    tsconfigPath: './tsconfig.eslint.json',
+    typeAware: true
+  },
+  prettier: true,
+  vitest: true
+})
+```
+
+##### Step 6: Create Source Files
+```typescript
+// src/index.ts
+/**
+ * Main entry point for @bfra.me/my-new-package
+ */
+
+export {someFunction} from './some-function'
+export type {SomeType} from './types'
+```
+
+```typescript
+// src/types.ts
+export interface SomeType {
+  name: string
+  value: number
+}
+```
+
+##### Step 7: Create Initial Test
+```typescript
+// test/index.test.ts
+import {describe, expect, it} from 'vitest'
+import {someFunction} from '../src'
+
+describe('my-new-package', () => {
+  it('exports expected functions', () => {
+    expect(typeof someFunction).toBe('function')
+  })
+})
+```
+
+##### Step 8: Create README
+```markdown
+<!-- README.md -->
+# @bfra.me/my-new-package
+
+Brief description of what this package does.
+
+## Installation
+
+```bash
+npm install @bfra.me/my-new-package
+```
+
+## Usage
+
+```typescript
+import {someFunction} from '@bfra.me/my-new-package'
+
+someFunction()
+```
+```
+
+#### Integration and Validation
+
+##### Step 1: Update Workspace Dependencies
+```bash
+# From workspace root
+pnpm install
+
+# Verify workspace recognizes new package
+pnpm list --depth=0
+```
+
+##### Step 2: Build and Test
+```bash
+# Build the new package
+cd packages/my-new-package
+pnpm build
+
+# Run tests
+pnpm test
+
+# Lint code
+pnpm lint
+```
+
+##### Step 3: Workspace Integration
+```bash
+# From workspace root
+pnpm build        # Should include new package
+pnpm test         # Should run new package tests
+pnpm lint         # Should lint new package
+```
+
+##### Step 4: Validate Package Structure
+```bash
+# Check package exports are correct
+node -e "console.log(require('./packages/my-new-package/package.json'))"
+
+# Verify lib directory is created after build
+ls packages/my-new-package/lib/
+```
+
+#### Common Integration Patterns
+
+##### Consuming Other Workspace Packages
+```typescript
+// In package.json dependencies
+"@bfra.me/eslint-config": "workspace:*"
+
+// In TypeScript source
+import {defineConfig} from '@bfra.me/eslint-config'
+```
+
+##### Adding to Existing Package Dependencies
+```bash
+# Add new package as dependency to existing package
+cd packages/existing-package
+pnpm add @bfra.me/my-new-package@workspace:*
+```
+
+##### Publishing Preparation
+```bash
+# Create changeset for new package
+pnpm changeset
+
+# Select your new package
+# Choose 'minor' for new package
+# Write description: "Add @bfra.me/my-new-package"
+```
+
+#### Troubleshooting
+
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| `Module not found` errors | Package not built | Run `pnpm build` in package directory |
+| ESLint config errors | Missing eslint-config build | Build `@bfra.me/eslint-config` first |
+| Test import failures | Missing dependencies | Run `pnpm install` from workspace root |
+| TypeScript errors | Wrong tsconfig extends | Verify extends path to `@bfra.me/tsconfig` |
+| Package not in workspace | Not added to pnpm-workspace.yaml | Should be auto-detected in `packages/*` |
+
 ### Key Files per Package
 - `src/index.ts`: Main export barrel (use explicit exports, not `export *`)
 - `tsup.config.ts`: Build config (always present)
