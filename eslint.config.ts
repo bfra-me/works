@@ -6,15 +6,6 @@ export const config = defineConfig({
   packageJson: true,
   pnpm: true,
   typescript: {
-    parserOptions: {
-      project: [
-        './tsconfig.eslint.json',
-        './docs/tsconfig.json',
-        './packages/*/tsconfig.json',
-        './packages/*/tsconfig.eslint.json',
-      ],
-      projectService: false,
-    },
     tsconfigPath: './tsconfig.json',
   },
   vitest: true,

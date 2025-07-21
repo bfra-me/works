@@ -1,5 +1,16 @@
 {
   "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "composite": true,
+    "baseUrl": ".",
+    "paths": {
+      "@bfra.me/create": ["../packages/create/src"],
+      "@bfra.me/eslint-config": ["../packages/eslint-config/src"],
+      "@bfra.me/prettier-config": ["../packages/prettier-config/src"],
+      "@bfra.me/semantic-release": ["../packages/semantic-release/src"],
+      "@bfra.me/tsconfig": ["../packages/tsconfig/src"]
+    }
+  },
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"]
+  "exclude": ["dist", "node_modules"]
 }

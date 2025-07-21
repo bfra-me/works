@@ -35,3 +35,6 @@ jobs:
 
       - name: Run tests
         run: pnpm run test
+
+      - name: Type coverage check
+        run: pnpm run type-coverage

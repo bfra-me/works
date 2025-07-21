@@ -1,7 +1,16 @@
 {
   "extends": "./packages/tsconfig/tsconfig.json",
   "compilerOptions": {
-    "noEmit": true
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@bfra.me/create": ["packages/create/src"],
+      "@bfra.me/eslint-config": ["packages/eslint-config/src"],
+      "@bfra.me/prettier-config": ["packages/prettier-config/src"],
+      "@bfra.me/semantic-release": ["packages/semantic-release/src"],
+      "@bfra.me/tsconfig": ["packages/tsconfig/src"]
+    }
   },
-  "exclude": ["node_modules", "lib", "**/test/fixtures/**/*"]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.cts", "**/*.mts"],
+  "exclude": ["node_modules", "**/node_modules", "**/lib", "**/dist", "**/coverage"]
 }

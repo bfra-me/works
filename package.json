@@ -16,6 +16,7 @@
   "scripts": {
     "bootstrap": "pnpm -r install --prefer-offline --loglevel warn",
     "build": "pnpm -r --stream run build && pnpm lint-packages",
+    "build:references": "tsc --build",
     "clean": "pnpx rimraf --glob \"**/node_modules/**/!(.pnpm)\" \"packages/*/lib\" \"**/.turbo\" \"**/*.tsbuildinfo\"",
     "dev": "pnpm --recursive --parallel --stream run dev",
     "fix": "manypkg fix && pnpm lint-source --fix",
@@ -29,7 +30,10 @@
     "pretest": "pnpm -r --filter @bfra.me/prettier-config --filter @bfra.me/eslint-config build",
     "test": "vitest run",
     "type-check": "tsc --noEmit",
-    "validate": "pnpm run lint && pnpm run test && pnpm run build",
+    "type-coverage": "type-coverage --project .",
+    "type-coverage:detail": "type-coverage --detail --project .",
+    "type-coverage:report": "type-coverage --detail --reportSemanticError --project .",
+    "validate": "pnpm run lint && pnpm run test && pnpm run type-coverage && pnpm run build",
     "version-changesets": "changeset version && pnpm bootstrap --no-frozen-lockfile && pnpm build",
     "watch": "pnpm run build --watch"
   },
@@ -66,6 +70,7 @@
     "sort-package-json": "catalog:",
     "ts-essentials": "catalog:",
     "tsx": "catalog:",
+    "type-coverage": "catalog:",
     "type-fest": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"

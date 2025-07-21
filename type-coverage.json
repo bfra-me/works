@@ -1,0 +1,20 @@
+{
+  "atLeast": 100,
+  "exactOptionalPropertyTypes": true,
+  "ignoreNonNullAssertion": false,
+  "ignoreEmpty": false,
+  "reportSemanticError": true,
+  "ignoreCatch": false,
+  "ignoreFiles": [
+    "**/node_modules/**",
+    "**/test/fixtures/**",
+    "**/test/_fixtures/**",
+    "**/*.d.ts",
+    "**/lib/**",
+    "**/dist/**",
+    "**/.turbo/**",
+    "coverage/**"
+  ],
+  "showRelativePath": true,
+  "cache": true
+}
