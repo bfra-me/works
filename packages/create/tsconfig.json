@@ -1,8 +1,10 @@
 {
   "$schema": "http://json.schemastore.org/tsconfig",
-  "extends": "../../tsconfig.json",
+  "extends": "../tsconfig/tsconfig.json",
   "compilerOptions": {
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "noEmit": false
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "package.json"],
+  "exclude": ["node_modules", "dist"]
 }
