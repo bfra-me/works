@@ -37,7 +37,7 @@ catalog:
   consola: 3.4.2
   eslint: 9.31.0
   eslint-config-flat-gitignore: 2.1.0
-  eslint-config-prettier: 10.1.5
+  eslint-config-prettier: 10.1.8
   eslint-flat-config-utils: 2.1.0
   eslint-merge-processors: 2.0.0
   eslint-plugin-command: 3.3.1
