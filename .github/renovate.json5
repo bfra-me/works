@@ -1,14 +1,12 @@
 {
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   extends: [
-    'github>bfra-me/renovate-config#v3',
-    'github>bfra-me/renovate-config:internal.json5#v3',
+    'github>bfra-me/renovate-config#v4',
     'github>sanity-io/renovate-config:semantic-commit-type',
     'security:openssf-scorecard',
     'npm:unpublishSafe',
   ],
   addLabels: ['{{{parentDir}}}'],
-  automergeType: 'pr',
   ignorePaths: [
     '**/node_modules/**',
     '**/test/**',
@@ -55,19 +53,6 @@
       schedule: ['every 2 weeks on Sunday at 00:00'],
     },
     {
-      description: 'Show Merge Confidence, OpenSSF Scorecard, and GitHub Search badges for Renovate dependencies.',
-      matchDatasources: ['go', 'maven', 'npm', 'nuget', 'packagist', 'pypi', 'rubygems'],
-      matchUpdateTypes: ['pin', 'patch', 'minor', 'major'],
-      prBodyColumns: ['Package', 'Change', 'Age', 'Confidence', 'GitHub'],
-    },
-    {
-      description: 'Show Merge Confidence, OpenSSF Scorecard, and GitHub Search badges for Renovate dependencies.',
-      matchDatasources: ['go', 'maven', 'npm', 'nuget', 'packagist', 'pypi', 'rubygems'],
-      matchUpdateTypes: ['pin', 'patch', 'minor', 'major'],
-      matchSourceUrls: ['https://github.com/**'],
-      prBodyColumns: ['Package', 'Change', 'Age', 'Confidence', 'OpenSSF', 'GitHub'],
-    },
-    {
       description: 'Disable Mise updates',
       matchManagers: ['mise'],
       enabled: false,
@@ -82,9 +67,4 @@
     commands: ['pnpm bootstrap', 'pnpm build', 'pnpm fix'],
     executionMode: 'branch',
   },
-  prBodyDefinitions: {
-    GitHub: '[![GitHub Code Search for "{{{depName}}}"](https://img.shields.io/badge/code_search-{{{replace "-" "--" depName}}}-2671E5.svg?logo=github)](https://github.com/search?q=repo:{{{encodeURIComponent repository}}}+NOT+path:/package(-lock)%3F%5C.json%7Cyarn%5C.lock%7Cpnpm-lock%5C.yaml/+{{{encodeURIComponent depName}}})',
-  },
-  prCreation: 'immediate',
-  rebaseWhen: 'behind-base-branch',
 }
