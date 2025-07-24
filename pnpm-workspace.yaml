@@ -80,7 +80,7 @@ catalog:
   type-coverage: 2.29.7
   type-fest: 4.41.0
   typescript: 5.8.3
-  typescript-eslint: 8.37.0
+  typescript-eslint: 8.38.0
   vitest: 3.2.4
 overrides:
   jiti: <2.2.0
