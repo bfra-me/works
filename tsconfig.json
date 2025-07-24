@@ -5,12 +5,25 @@
     "baseUrl": ".",
     "paths": {
       "@bfra.me/create": ["packages/create/src"],
+      "@bfra.me/create/*": ["packages/create/src/*"],
       "@bfra.me/eslint-config": ["packages/eslint-config/src"],
+      "@bfra.me/eslint-config/*": ["packages/eslint-config/src/*"],
       "@bfra.me/prettier-config": ["packages/prettier-config/src"],
+      "@bfra.me/prettier-config/*": ["packages/prettier-config/src/*"],
       "@bfra.me/semantic-release": ["packages/semantic-release/src"],
-      "@bfra.me/tsconfig": ["packages/tsconfig/src"]
+      "@bfra.me/semantic-release/*": ["packages/semantic-release/src/*"],
+      "@bfra.me/tsconfig": ["packages/tsconfig"],
+      "@bfra.me/tsconfig/*": ["packages/tsconfig/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.cts", "**/*.mts"],
-  "exclude": ["node_modules", "**/node_modules", "**/lib", "**/dist", "**/coverage"]
+  "files": [],
+  "references": [
+    {"path": "./docs"},
+    {"path": "./packages/tsconfig"},
+    {"path": "./packages/prettier-config"},
+    {"path": "./packages/eslint-config"},
+    {"path": "./packages/semantic-release"},
+    {"path": "./packages/create"},
+    {"path": "./tsconfig.eslint.json"}
+  ]
 }

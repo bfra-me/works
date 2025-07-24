@@ -7,6 +7,6 @@
     "noPropertyAccessFromIndexSignature": false,
     "outDir": "./lib"
   },
-  "include": ["src/**/*.ts", "package.json"],
-  "exclude": ["node_modules", "lib"]
+  "include": ["**/*.ts", "package.json"],
+  "exclude": ["node_modules", "lib", "test/fixtures"]
 }

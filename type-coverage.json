@@ -5,6 +5,8 @@
   "ignoreEmpty": false,
   "reportSemanticError": true,
   "ignoreCatch": false,
+  "ignoreUnread": true,
+  "strict": true,
   "ignoreFiles": [
     "**/node_modules/**",
     "**/test/fixtures/**",
@@ -16,5 +18,7 @@
     "coverage/**"
   ],
   "showRelativePath": true,
-  "cache": true
+  "cache": true,
+  "enableCache": true,
+  "debug": false
 }

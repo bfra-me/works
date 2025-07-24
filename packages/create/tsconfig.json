@@ -5,6 +5,6 @@
     "outDir": "./dist",
     "noEmit": false
   },
-  "include": ["src/**/*.ts", "package.json"],
+  "include": ["**/*.ts", "package.json"],
   "exclude": ["node_modules", "dist"]
 }
