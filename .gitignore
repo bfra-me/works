@@ -28,3 +28,4 @@ coverage/
 .env.production
 # generated types
 .astro/
+.type-coverage/
