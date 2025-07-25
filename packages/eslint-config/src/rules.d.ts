@@ -1893,7 +1893,7 @@ export interface Rules {
    * Disallow data rows in a GitHub Flavored Markdown table from having more cells than the header row
    * @see https://github.com/eslint/markdown/blob/main/docs/rules/table-column-count.md
    */
-  'markdown/table-column-count'?: Linter.RuleEntry<[]>
+  'markdown/table-column-count'?: Linter.RuleEntry<MarkdownTableColumnCount>
   /**
    * Enforce a maximum number of classes per file
    * @see https://eslint.org/docs/latest/rules/max-classes-per-file
@@ -8091,6 +8091,10 @@ type MarkdownNoMultipleH1 = []|[{
 type MarkdownNoUnusedDefinitions = []|[{
   allowDefinitions?: string[]
   allowFootnoteDefinitions?: string[]
+}]
+// ----- markdown/table-column-count -----
+type MarkdownTableColumnCount = []|[{
+  checkMissingCells?: boolean
 }]
 // ----- max-classes-per-file -----
 type MaxClassesPerFile = []|[(number | {
