@@ -34,8 +34,8 @@
   },
   "devDependencies": {
     "@bfra.me/tsconfig": "workspace:*",
-    "ajv": "catalog:",
-    "ajv-draft-04": "catalog:"
+    "ajv": "8.17.1",
+    "ajv-draft-04": "1.0.0"
   },
   "publishConfig": {
     "access": "public",

@@ -43,8 +43,8 @@
   "devDependencies": {
     "@bfra.me/semantic-release": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
-    "semantic-release": "catalog:",
-    "tsup": "catalog:"
+    "semantic-release": "24.2.7",
+    "tsup": "8.5.0"
   },
   "peerDependencies": {
     "semantic-release": ">=23"
