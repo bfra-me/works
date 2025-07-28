@@ -4,7 +4,6 @@ export const config = defineConfig({
   name: '@bfra.me/works',
   ignores: ['.github/**/*instructions.md', '**/test/fixtures'],
   packageJson: true,
-  pnpm: true,
   typescript: {
     tsconfigPath: './tsconfig.json',
   },
