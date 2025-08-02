@@ -1,5 +1,20 @@
 # @bfra.me/eslint-config
 
+## 0.25.1
+### Patch Changes
+
+
+- Updated dependency `eslint-plugin-n` to `17.21.3`. ([#1578](https://github.com/bfra-me/works/pull/1578))
+
+
+- Updated dependency `eslint-flat-config-utils` to `2.1.1`. ([#1580](https://github.com/bfra-me/works/pull/1580))
+
+
+- Updated dependency `eslint-plugin-n` to `17.21.1`. ([#1575](https://github.com/bfra-me/works/pull/1575))
+
+
+- Updated dependency `eslint-plugin-n` to `17.21.2`. ([#1576](https://github.com/bfra-me/works/pull/1576))
+
 ## 0.25.0
 ### Minor Changes
 
