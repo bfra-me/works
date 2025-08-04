@@ -49,7 +49,7 @@
     "consola": "3.4.2"
   },
   "devDependencies": {
-    "memfs": "4.28.1",
+    "memfs": "4.29.0",
     "tsup": "8.5.0",
     "typescript": "5.8.3"
   },
