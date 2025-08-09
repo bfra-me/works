@@ -1,5 +1,38 @@
 # @bfra.me/create
 
+## 0.4.10
+### Patch Changes
+
+
+- Updated dependency `memfs` to `4.28.0`. ([#1592](https://github.com/bfra-me/works/pull/1592))
+
+
+- Updated dependency `memfs` to `4.32.0`. ([#1600](https://github.com/bfra-me/works/pull/1600))
+
+
+- Updated dependency `memfs` to `4.27.0`. ([#1589](https://github.com/bfra-me/works/pull/1589))
+
+
+- Updated dependency `memfs` to `4.31.0`. ([#1599](https://github.com/bfra-me/works/pull/1599))
+
+
+- Updated dependency `memfs` to `4.28.1`. ([#1595](https://github.com/bfra-me/works/pull/1595))
+
+
+- Updated dependency `memfs` to `4.29.0`. ([#1596](https://github.com/bfra-me/works/pull/1596))
+
+
+- Updated dependency `memfs` to `4.30.1`. ([#1598](https://github.com/bfra-me/works/pull/1598))
+
+
+- Updated dependency `memfs` to `4.30.0`. ([#1597](https://github.com/bfra-me/works/pull/1597))
+
+
+- Updated dependency `memfs` to `4.35.0`. ([#1602](https://github.com/bfra-me/works/pull/1602))
+
+
+- Updated dependency `memfs` to `4.34.0`. ([#1601](https://github.com/bfra-me/works/pull/1601))
+
 ## 0.4.9
 ### Patch Changes
 
