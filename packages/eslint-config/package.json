@@ -83,7 +83,7 @@
     "eslint-plugin-no-only-tests": "3.3.0",
     "eslint-plugin-node-dependencies": "1.1.2",
     "eslint-plugin-pnpm": "1.1.0",
-    "eslint-plugin-prettier": "5.5.3",
+    "eslint-plugin-prettier": "5.5.4",
     "eslint-typegen": "2.3.0",
     "tsup": "8.5.0",
     "tsx": "4.20.3"

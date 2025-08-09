@@ -12004,7 +12004,6 @@ type PrettierPrettier = []|[{
   fileInfoOptions?: {
     [k: string]: unknown | undefined
   }
-  [k: string]: unknown | undefined
 }]
 // ----- quote-props -----
 type QuoteProps = ([]|[("always" | "as-needed" | "consistent" | "consistent-as-needed")] | []|[("always" | "as-needed" | "consistent" | "consistent-as-needed")]|[("always" | "as-needed" | "consistent" | "consistent-as-needed"), {
