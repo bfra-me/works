@@ -85,7 +85,7 @@ export async function javascript(options: JavaScriptOptions = {}): Promise<Confi
             'no-dupe-class-members': 'error',
             'no-dupe-keys': 'error',
             'no-duplicate-case': 'error',
-            'no-duplicate-imports': 'error',
+            'no-duplicate-imports': ['error', {allowSeparateTypeImports: true}],
             'no-empty': ['error', {allowEmptyCatch: true}],
             'no-empty-character-class': 'error',
             'no-empty-pattern': 'error',
