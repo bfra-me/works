@@ -1,5 +1,14 @@
 # @bfra.me/eslint-config
 
+## 0.25.3
+### Patch Changes
+
+
+- Updated the 'no-duplicate-imports' rule to allow separate type imports. ([#1618](https://github.com/bfra-me/works/pull/1618))
+
+
+- Updated dependency `eslint-plugin-regexp` to `2.10.0`. ([#1615](https://github.com/bfra-me/works/pull/1615))
+
 ## 0.25.2
 ### Patch Changes
 
