@@ -1,6 +1,6 @@
 import type {Config} from '../config'
-import {interopDefault} from '../plugins'
 import {requireOf} from '../require-of'
+import {interopDefault} from '../utils'
 import {fallback} from './fallback'
 
 export async function node(): Promise<Config[]> {

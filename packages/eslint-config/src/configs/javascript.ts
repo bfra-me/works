@@ -2,8 +2,8 @@ import type {Config} from '../config'
 import type {Flatten, OptionsIsInEditor, OptionsOverrides} from '../options'
 import globals from 'globals'
 import {GLOB_JSX, GLOB_TSX} from '../globs'
-import {interopDefault} from '../plugins'
 import {requireOf} from '../require-of'
+import {interopDefault} from '../utils'
 import {fallback} from './fallback'
 
 /**

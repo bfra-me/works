@@ -3,8 +3,8 @@ import type {Flatten, OptionsFiles, OptionsOverrides} from '../options'
 import {mergeProcessors, processorPassThrough} from 'eslint-merge-processors'
 import {GLOB_MARKDOWN, GLOB_MARKDOWN_CODE, GLOB_MARKDOWN_IN_MARKDOWN} from '../globs'
 import {plainParser} from '../parsers/plain-parser'
-import {interopDefault} from '../plugins'
 import {requireOf} from '../require-of'
+import {interopDefault} from '../utils'
 import {fallback} from './fallback'
 
 /**

@@ -11,9 +11,9 @@ import {run} from '@sxzz/create'
  * @returns A Promise that resolves when the package has been created.
  */
 export async function createPackage(options: CreatePackageOptions) {
-  const template = options.template || 'default'
+  const template = options.template ?? 'default'
   const templateDir = path.join(import.meta.dirname, 'templates', template)
-  const targetDir = options.outputDir || process.cwd()
+  const targetDir = options.outputDir ?? process.cwd()
 
   // Create target directory
   await fs.mkdir(targetDir, {recursive: true})

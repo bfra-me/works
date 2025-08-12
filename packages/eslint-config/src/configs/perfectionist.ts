@@ -1,7 +1,7 @@
 import type {Config} from '../config'
 import type {Flatten, OptionsIsInEditor, OptionsOverrides, OptionsPerfectionist} from '../options'
-import {interopDefault} from '../plugins'
 import {requireOf} from '../require-of'
+import {interopDefault} from '../utils'
 import {fallback} from './fallback'
 
 /**
@@ -33,7 +33,7 @@ export async function perfectionist(options: PerfectionistOptions = {}): Promise
         {
           name: '@bfra.me/perfectionist',
           plugins: {
-            perfectionist: pluginPerfectionist as any,
+            perfectionist: pluginPerfectionist,
           },
           rules: {
             ...(sortNamedExports && {

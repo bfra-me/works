@@ -1,6 +1,6 @@
 import type {Config} from '../config'
-import {interopDefault} from '../plugins'
 import {requireOf} from '../require-of'
+import {interopDefault} from '../utils'
 import {fallback} from './fallback'
 
 export async function imports(): Promise<Config[]> {
@@ -12,7 +12,7 @@ export async function imports(): Promise<Config[]> {
         {
           name: '@bfra.me/imports',
           plugins: {
-            'import-x': pluginImportX as any,
+            'import-x': pluginImportX,
           },
           rules: {
             'import-x/no-named-default': 'error',

@@ -1,7 +1,7 @@
 import type {Config} from '../config'
 import type {OptionsOverrides} from '../options'
-import {interopDefault} from '../plugins'
 import {requireOf} from '../require-of'
+import {interopDefault} from '../utils'
 import {fallback} from './fallback'
 
 /**

@@ -41,7 +41,7 @@ export type PluginConfig<TSpec extends PluginSpec> = TSpec extends [string, infe
 
 export type PluginName = LiteralUnion<keyof KnownPlugins, string>
 
-export type Plugin<TLookup extends any = PluginName> = TLookup extends keyof KnownPlugins
+export type Plugin<TLookup extends PluginName = PluginName> = TLookup extends keyof KnownPlugins
   ? PluginSpec<[TLookup, PluginConfig<KnownPlugins[TLookup]>]>
   : TLookup extends string
     ? PluginSpec<[TLookup, {[key: string]: unknown}]>

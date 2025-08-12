@@ -40,7 +40,7 @@ describe('createPackage', () => {
         templates: [
           {
             name: 'default',
-            url: expect.stringContaining('/templates/default'),
+            url: expect.stringContaining('/templates/default') as string,
           },
         ],
       },
@@ -62,7 +62,7 @@ describe('createPackage', () => {
         templates: [
           {
             name: 'default',
-            url: expect.stringContaining('/templates/custom'),
+            url: expect.stringContaining('/templates/custom') as string,
           },
         ],
       },
@@ -82,7 +82,7 @@ describe('createPackage', () => {
         templates: [
           {
             name: 'default',
-            url: expect.stringContaining('/templates/default'),
+            url: expect.stringContaining('/templates/default') as string,
           },
         ],
       },

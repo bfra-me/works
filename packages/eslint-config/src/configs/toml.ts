@@ -1,8 +1,8 @@
 import type {Config} from '../config'
 import type {Flatten, OptionsFiles, OptionsOverrides} from '../options'
 import {anyParser} from '../parsers/any-parser'
-import {interopDefault} from '../plugins'
 import {requireOf} from '../require-of'
+import {interopDefault} from '../utils'
 import {fallback} from './fallback'
 import {jsonSchema} from './json-schema'
 
@@ -30,7 +30,7 @@ export async function toml(options: TomlOptions = {}): Promise<Config[]> {
           ...config,
           name: config.plugins
             ? `@bfra.me/toml/plugins`
-            : `@bfra.me/${config.name || `toml/unnamed${index}`}`,
+            : `@bfra.me/${(config.name ?? '') || `toml/unnamed${index}`}`,
         })),
         ...(await jsonSchema('toml', files as string[])),
         {

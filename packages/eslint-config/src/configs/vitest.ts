@@ -2,8 +2,8 @@ import type {Config} from '../config'
 import type {Flatten, OptionsFiles, OptionsIsInEditor, OptionsOverrides} from '../options'
 import {GLOB_TESTS} from '../globs'
 import {anyParser} from '../parsers/any-parser'
-import {interopDefault} from '../plugins'
 import {requireOf} from '../require-of'
+import {interopDefault} from '../utils'
 import {fallback} from './fallback'
 
 /**
@@ -11,8 +11,6 @@ import {fallback} from './fallback'
  * This type is a flattened union of the {@link OptionsFiles}, {@link OptionsIsInEditor}, and {@link OptionsOverrides} types.
  */
 export type VitestOptions = Flatten<OptionsFiles & OptionsIsInEditor & OptionsOverrides>
-
-let _pluginTest: any
 
 /**
  * Generates an ESLint configuration for the Vitest testing framework.
@@ -27,27 +25,16 @@ export async function vitest(options: VitestOptions = {}): Promise<Config[]> {
   const {files = GLOB_TESTS, isInEditor = false, overrides = {}} = options
 
   return requireOf(
-    ['@vitest/eslint-plugin', 'eslint-plugin-no-only-tests'],
+    ['@vitest/eslint-plugin'],
     async (): Promise<Config[]> => {
-      const [vitest, noOnlyTests] = await Promise.all([
-        interopDefault(import('@vitest/eslint-plugin')),
-        // @ts-expect-error - No types
-        interopDefault(import('eslint-plugin-no-only-tests')),
-      ] as const)
-
-      _pluginTest ??= {
-        ...vitest,
-        rules: {
-          ...vitest.rules,
-          ...noOnlyTests.rules,
-        },
-      }
+      const vitest = await interopDefault(import('@vitest/eslint-plugin'))
 
       return [
         {
           name: '@bfra.me/vitest/plugins',
           plugins: {
-            vitest: _pluginTest,
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            vitest: vitest as any,
           },
           settings: {
             vitest: {
@@ -64,13 +51,20 @@ export async function vitest(options: VitestOptions = {}): Promise<Config[]> {
           rules: {
             ...(vitest.configs?.recommended.rules ?? {}),
 
-            '@typescript-eslint/explicit-function-return-type': 'off',
-
-            'no-unused-expressions': 'off',
-
-            'vitest/no-only-tests': isInEditor ? 'warn' : 'error',
+            'vitest/consistent-test-it': ['error', {fn: 'it', withinDescribe: 'it'}],
+            'vitest/no-focused-tests': isInEditor ? 'off' : ['error', {fixable: true}],
+            'vitest/no-import-node-test': 'error',
+            'vitest/prefer-hooks-in-order': 'error',
+            'vitest/prefer-lowercase-title': 'error',
             // @ts-expect-error - @vitest/eslint-plugin types are incorrect
             'vitest/valid-title': ['error', {allowArguments: true}],
+
+            // Disabled rules
+            ...{
+              '@typescript-eslint/explicit-function-return-type': 'off',
+              'no-unused-expressions': 'off',
+              'node/prefer-global/process': 'off',
+            },
 
             ...overrides,
           },

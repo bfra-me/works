@@ -1,8 +1,8 @@
 import type {Config} from '../config'
 import type {Flatten, OptionsFiles, OptionsOverrides} from '../options'
 import {anyParser} from '../parsers/any-parser'
-import {interopDefault} from '../plugins'
 import {requireOf} from '../require-of'
+import {interopDefault} from '../utils'
 import {fallback} from './fallback'
 import {jsonSchema} from './json-schema'
 
@@ -30,7 +30,7 @@ export async function yaml(options: YamlOptions = {}): Promise<Config[]> {
           ...config,
           name: config.plugins
             ? `@bfra.me/yaml/plugins`
-            : `@bfra.me/${config.name || `yaml/unnamed${index}`}`,
+            : `@bfra.me/${(config.name ?? '') || `yaml/unnamed${index}`}`,
         })),
         ...(await jsonSchema('yaml', files as string[])),
         {

@@ -26,7 +26,7 @@ import {
   yaml,
 } from './configs'
 import * as Env from './env'
-import {interopDefault} from './plugins'
+import {interopDefault} from './utils'
 
 // These are merged into the Options interface
 type AllowedConfigForOptions = Omit<Config, 'files'>

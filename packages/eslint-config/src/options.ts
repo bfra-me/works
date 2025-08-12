@@ -5,6 +5,7 @@ import type {Config} from './config'
 /**
   Flattens an object type to a mapped type with the same keys and values.
  */
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export type Flatten<T> = T extends Function ? T : {[K in keyof T]: T[K]} & {}
 
 /**
@@ -92,13 +93,13 @@ export interface OptionsTypeScriptParserOptions {
      * Glob patterns for files that should be type aware.
      * @default ['**\/*.{ts,tsx}']
      */
-    files?: Config['files']
+    files?: string[]
 
     /**
      * Glob patterns for files that should not be type aware.
      * @default ['**\/*.md\/**', '**\/*.astro/*.ts']
      */
-    ignores?: Config['ignores']
+    ignores?: string[]
   }
 }
 

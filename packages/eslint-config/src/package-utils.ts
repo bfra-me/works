@@ -11,10 +11,10 @@ export function tryInstall(module: string, targetFile: string = process.cwd()) {
   if (installedModules.has(module)) {
     return null
   }
-  const cwd = packageDirectorySync({cwd: targetFile})
+  const cwd = packageDirectorySync({cwd: targetFile}) ?? ''
   if (cwd) {
     installedModules.add(module)
-    const {moduleName, version} = parseModule(module)
+    const {moduleName, version = ''} = parseModule(module)
     const result = installPackageSync(moduleName + (version ? `@^${version}` : ''), {
       cwd,
       dev: true,
@@ -25,7 +25,7 @@ export function tryInstall(module: string, targetFile: string = process.cwd()) {
 }
 
 export function getPackageInstallCommand(module: string, targetFile: string = process.cwd()) {
-  const cwd = packageDirectorySync({cwd: targetFile})
+  const cwd = packageDirectorySync({cwd: targetFile}) ?? ''
   if (!cwd) {
     return null
   }
@@ -45,11 +45,11 @@ function parseModule(name: string) {
       version: parts.at(-1),
     }
   }
-  return {moduleName: name, version: null}
+  return {moduleName: name}
 }
 
 function installPackageSync(packages: string | string[], options: {cwd: string; dev: boolean}) {
-  const manager = detectPackageManagerSync(options.cwd)?.split('@')[0] || 'npm'
+  const manager = (detectPackageManagerSync(options.cwd)?.split('@')[0] ?? '') || 'npm'
 
   if (!Array.isArray(packages)) {
     packages = [packages]
@@ -80,11 +80,11 @@ function installPackageSync(packages: string | string[], options: {cwd: string; 
 
   if (result.error || result.status !== 0) {
     const errorMessage =
-      result.error?.message || `Package installation failed with status ${result.status}`
+      (result.error?.message ?? '') || `Package installation failed with status ${result.status}`
     throw new Error(errorMessage)
   }
 
-  return `${result.output}`
+  return `${result.output?.toString() ?? ''}`
 }
 
 function detectPackageManagerSync(cwd = process.cwd()): AgentName | null {

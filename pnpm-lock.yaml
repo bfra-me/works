@@ -233,9 +233,6 @@ importers:
       eslint-config-prettier:
         specifier: 10.1.8
         version: 10.1.8(eslint@9.33.0(jiti@2.1.2))
-      eslint-plugin-no-only-tests:
-        specifier: 3.3.0
-        version: 3.3.0
       eslint-plugin-node-dependencies:
         specifier: 1.1.2
         version: 1.1.2(eslint@9.33.0(jiti@2.1.2))
@@ -2411,10 +2408,6 @@ packages:
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: '>=8.23.0'
-
-  eslint-plugin-no-only-tests@3.3.0:
-    resolution: {integrity: sha512-brcKcxGnISN2CcVhXJ/kEQlNa0MEfGRtwKtWA16SkqXHKitaKIMrfemJKLKX1YqDU5C/5JY3PvZXd5jEW04e0Q==}
-    engines: {node: '>=5.0.0'}
 
   eslint-plugin-node-dependencies@1.1.2:
     resolution: {integrity: sha512-H6tN05wH2DluXFgbOFpHMgfycJnvkCNfmFqcyTZd8spZRnSv67Tpk8JpopL8HSMlwRoiYRNol1IqHD8lz9g0QA==}
@@ -7663,8 +7656,6 @@ snapshots:
       ts-declaration-location: 1.0.7(typescript@5.8.3)
     transitivePeerDependencies:
       - typescript
-
-  eslint-plugin-no-only-tests@3.3.0: {}
 
   eslint-plugin-node-dependencies@1.1.2(eslint@9.33.0(jiti@2.1.2)):
     dependencies:

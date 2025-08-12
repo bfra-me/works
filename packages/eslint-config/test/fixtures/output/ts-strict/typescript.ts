@@ -51,7 +51,7 @@ const numericValue = inputValue as number
 
 // Define a class with access modifiers
 class Animal {
-  private name: string
+  private readonly name: string
   constructor(name: string) {
     this.name = name
   }
@@ -62,7 +62,7 @@ class Animal {
 
 // Extend a class
 class Dog extends Animal {
-  constructor(private alias: string) {
+  constructor(private readonly alias: string) {
     super(alias)
   }
   bark() {

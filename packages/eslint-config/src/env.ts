@@ -14,8 +14,8 @@ import isInCI from 'is-in-ci'
  * ```
  */
 export const isInGitLifecycle = !!(
-  env.GIT_PARAMS ||
-  env.VSCODE_GIT_COMMAND ||
+  (typeof env.GIT_PARAMS === 'string' && env.GIT_PARAMS.length > 0) ||
+  (typeof env.VSCODE_GIT_COMMAND === 'string' && env.VSCODE_GIT_COMMAND.length > 0) ||
   env.npm_lifecycle_script?.startsWith('lint-staged')
 )
 
@@ -33,4 +33,10 @@ export const isInGitLifecycle = !!(
 export const isInEditor =
   !isInCI &&
   !isInGitLifecycle &&
-  !!(env.VSCODE_PID || env.VSCODE_CWD || env.JETBRAINS_IDE || env.VIM || env.NVIM)
+  Boolean(
+    (typeof env.VSCODE_PID === 'string' && env.VSCODE_PID.length > 0) ||
+      (typeof env.VSCODE_CWD === 'string' && env.VSCODE_CWD.length > 0) ||
+      (typeof env.JETBRAINS_IDE === 'string' && env.JETBRAINS_IDE.length > 0) ||
+      (typeof env.VIM === 'string' && env.VIM.length > 0) ||
+      (typeof env.NVIM === 'string' && env.NVIM.length > 0),
+  )
