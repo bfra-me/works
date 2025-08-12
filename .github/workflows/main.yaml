@@ -28,6 +28,9 @@ jobs:
       - name: Prepare job
         uses: ./.github/actions/pnpm-install
 
+      - name: Build
+        run: pnpm run build
+
       - env:
           TIMING: 1
         name: Lint
