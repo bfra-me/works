@@ -1,5 +1,14 @@
 # @bfra.me/create
 
+## 0.4.11
+### Patch Changes
+
+
+- Apply linter fixes from increased type-aware checks. ([#1625](https://github.com/bfra-me/works/pull/1625))
+
+
+- Updated dependency `memfs` to `4.36.0`. ([#1603](https://github.com/bfra-me/works/pull/1603))
+
 ## 0.4.10
 ### Patch Changes
 

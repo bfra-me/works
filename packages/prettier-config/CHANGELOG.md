@@ -1,5 +1,11 @@
 # @bfra.me/prettier-config
 
+## 0.16.1
+### Patch Changes
+
+
+- Apply linter fixes from increased type-aware checks. ([#1625](https://github.com/bfra-me/works/pull/1625))
+
 ## 0.16.0
 ### Minor Changes
 
