@@ -41,7 +41,8 @@ export type PluginConfig<TSpec extends PluginSpec> = TSpec extends [string, infe
 
 export type PluginName = LiteralUnion<keyof KnownPlugins, string>
 
-export type Plugin<TLookup = PluginName> = TLookup extends keyof KnownPlugins
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
+export type Plugin<TLookup extends any = PluginName> = TLookup extends keyof KnownPlugins
   ? PluginSpec<[TLookup, PluginConfig<KnownPlugins[TLookup]>]>
   : TLookup extends string
     ? PluginSpec<[TLookup, {[key: string]: unknown}]>
