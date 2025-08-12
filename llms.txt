@@ -1,0 +1,39 @@
+# bfra.me Works
+
+> A comprehensive toolkit for modern JavaScript and TypeScript development, providing shared configurations, development tools, and utilities for building consistent, high-quality projects.
+
+bfra.me Works is a monorepo containing multiple packages designed to streamline development with opinionated, battle-tested configurations. The toolkit includes ESLint and Prettier configurations, TypeScript configs, a project creation CLI, and automated release tooling.
+
+Built with a focus on consistency, quality, and developer experience, it enables teams to maintain professional-grade projects with minimal configuration overhead. All packages work independently but are designed to complement each other for a cohesive development experience.
+
+## Documentation
+
+- [Project Overview](docs/src/content/docs/index.mdx): Main documentation homepage with features and philosophy
+- [Introduction](docs/src/content/docs/getting-started/introduction.mdx): Comprehensive introduction to bfra.me Works and its design principles
+- [Quick Start Guide](docs/src/content/docs/getting-started/quick-start.mdx): Get started with bfra.me Works in minutes
+- [Configuration Guide](docs/src/content/docs/guides/configuration.mdx): Best practices for configuring bfra.me Works packages
+- [New Project Setup](docs/src/content/docs/guides/new-project.mdx): Complete guide to setting up new projects
+
+## Packages
+
+- [@bfra.me/create](packages/create/README.md): Command-line utility for creating new packages from customizable templates
+- [@bfra.me/eslint-config](packages/eslint-config/readme.md): Shared ESLint configuration with TypeScript, Prettier, and Vitest support
+- [@bfra.me/prettier-config](packages/prettier-config/readme.md): Prettier configuration with multiple line-length variants
+- [@bfra.me/tsconfig](packages/tsconfig/readme.md): Strict TypeScript configurations for libraries and applications
+- [@bfra.me/semantic-release](packages/semantic-release/readme.md): Automated versioning and release configuration
+
+## Development
+
+- [Contributing Guide](docs/src/content/docs/guides/contributing.mdx): Guidelines for contributing to bfra.me Works
+- [Copilot Instructions](.github/copilot-instructions.md): Comprehensive development guide and project patterns
+- [Package Configuration](package.json): Root package.json with workspace scripts and dependencies
+- [Workspace Configuration](pnpm-workspace.yaml): pnpm workspace setup for monorepo management
+
+## Optional
+
+- [API Reference](docs/src/content/docs/reference/index.mdx): Complete API documentation for all packages
+- [TypeScript Patterns](.github/instructions/typescript-patterns.instructions.md): TypeScript coding standards and patterns
+- [ESLint Config Usage](.github/instructions/eslint-config-usage.instructions.md): Guidelines for ESLint configuration
+- [Testing Practices](.github/instructions/testing-practices.instructions.md): Testing standards and best practices
+- [Changeset Workflow](.github/instructions/changeset-workflow.instructions.md): Release and versioning workflow
+- [API Design Standards](.github/instructions/api-design-standards.instructions.md): API design consistency guidelines

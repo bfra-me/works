@@ -4,6 +4,8 @@
 
 This is the **bfra.me/works** monorepo - a collection of shared development tools, configurations, and utilities for building TypeScript projects with consistent quality standards.
 
+For comprehensive project navigation, see [`llms.txt`](../llms.txt) which provides structured access to all documentation and package information for AI agents.
+
 ### Key Features
 - **Shared Configurations**: Centralized ESLint, Prettier, and TypeScript configurations
 - **Development Tools**: CLI for project creation and development utilities
@@ -27,7 +29,7 @@ This is the **bfra.me/works** monorepo - a collection of shared development tool
 ### Development Setup
 ```bash
 # Clone and setup (use bootstrap, not install)
-pnpm bootstrap               # Installs deps with --prefer-offline optimization
+pnpm bootstrap               # Installs deps with --prefer-offline --loglevel warn
 
 # Development mode
 pnpm dev                    # Parallel dev mode across all packages
@@ -37,10 +39,10 @@ pnpm watch                  # Build and watch for changes
 ### Quality Assurance Commands
 ```bash
 # Validation pipeline (use this order for efficiency)
-pnpm validate               # Runs lint → test → build sequence
+pnpm validate               # Runs type-check → lint → test → type-coverage → build
 pnpm fix                    # Auto-fixes linting + runs manypkg fix
 pnpm lint-packages          # Runs publint on all packages (package.json validation)
-pnpm inspect-eslint-config  # Debug ESLint config issues
+pnpm inspect-eslint-config  # Debug ESLint config issues with --open false
 ```
 
 ### Package Creation & Management
@@ -374,6 +376,7 @@ export default defineConfig({
 | `manypkg` errors | Inconsistent dependencies | Run `pnpm fix` (runs manypkg fix) |
 | ESLint config loading issues | Wrong ESLint flag | Use `--flag v10_config_lookup_from_file` |
 | Test imports failing | Missing pretest build | `pnpm pretest` builds config packages first |
+| Type coverage errors | Type coverage below threshold | Run `pnpm type-coverage:detail` to see specifics |
 
 ## Integration Points
 
@@ -394,6 +397,9 @@ export default defineConfig({
 - Tests in `test/` directory, not `__tests__` or `src/`
 - Coverage aggregated across entire monorepo
 - Use `describe()` for grouping, `it()` for individual tests
+- **Fixture-based testing**: Packages use `test/fixtures/input` and `test/fixtures/output` for integration tests
+- **Test patterns**: `it.concurrent()` for parallel test execution, `expect.soft()` for multiple assertions
+- **File snapshots**: Use `toMatchFileSnapshot()` for comparing formatted output files
 
 ## Development Standards
 
@@ -737,7 +743,7 @@ export {publicFunction} from './public-api'
 ## Development Workflow
 
 ### Getting Started
-1. Clone repository and install dependencies: `pnpm install`
+1. Clone repository and install dependencies: `pnpm bootstrap`
 2. Build all packages: `pnpm build`
 3. Run tests: `pnpm test`
 4. Start development mode: `pnpm dev`
