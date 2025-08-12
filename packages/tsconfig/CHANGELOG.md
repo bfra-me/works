@@ -1,5 +1,11 @@
 # @bfra.me/tsconfig
 
+## 0.12.0
+### Minor Changes
+
+
+- Remove `noPropertyAccessFromIndexSignature`. ([#1625](https://github.com/bfra-me/works/pull/1625))
+
 ## 0.11.0
 ### Minor Changes
 

@@ -1,5 +1,14 @@
 # @bfra.me/semantic-release
 
+## 0.1.23
+### Patch Changes
+
+
+- Simplify type parameter for Plugin<TLookup>. ([#1626](https://github.com/bfra-me/works/pull/1626))
+
+
+- Apply linter fixes from increased type-aware checks. ([#1625](https://github.com/bfra-me/works/pull/1625))
+
 ## 0.1.22
 ### Patch Changes
 
