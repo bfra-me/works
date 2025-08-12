@@ -14,10 +14,10 @@ const freeze = <C extends Config>(config: C): Readonly<C> => {
     if (property === 'overrides') {
       const overrides = value as NonNullable<Config['overrides']>
       for (const override of overrides) {
-        const {files, excludeFiles, options} = override
+        const {files, excludeFiles = null, options} = override
 
         Object.freeze(files)
-        if (excludeFiles) {
+        if (excludeFiles != null) {
           Object.freeze(excludeFiles)
         }
         if (options) {

@@ -1,7 +1,7 @@
 import type {Linter} from 'eslint'
 import type {Config} from '../config'
-import {interopDefault} from '../plugins'
 import {requireOf} from '../require-of'
+import {interopDefault} from '../utils'
 import {fallback} from './fallback'
 
 /**

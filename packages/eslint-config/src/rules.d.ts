@@ -4775,11 +4775,6 @@ export interface Rules {
    */
   'vitest/no-mocks-import'?: Linter.RuleEntry<[]>
   /**
-   * disallow .only blocks in tests
-   * @see https://github.com/levibuzolic/eslint-plugin-no-only-tests
-   */
-  'vitest/no-only-tests'?: Linter.RuleEntry<VitestNoOnlyTests>
-  /**
    * disallow the use of certain matchers
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-restricted-matchers.md
    */
@@ -12682,13 +12677,6 @@ type VitestNoLargeSnapshots = []|[{
   allowedSnapshots?: {
     [k: string]: unknown[] | undefined
   }
-}]
-// ----- vitest/no-only-tests -----
-type VitestNoOnlyTests = []|[{
-  block?: string[]
-  focus?: string[]
-  functions?: string[]
-  fix?: boolean
 }]
 // ----- vitest/no-restricted-matchers -----
 type VitestNoRestrictedMatchers = []|[{

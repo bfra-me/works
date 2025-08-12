@@ -1,8 +1,8 @@
 import type {Config} from '../config'
 import type {Flatten, OptionsFiles} from '../options'
 import {anyParser} from '../parsers/any-parser'
-import {interopDefault} from '../plugins'
 import {requireOf} from '../require-of'
+import {interopDefault} from '../utils'
 import {fallback} from './fallback'
 import {jsonSchema} from './json-schema'
 
@@ -25,7 +25,7 @@ export async function packageJson(options: PackageJsonOptions = {}): Promise<Con
             ...(config as Config),
             name: (config as Config).plugins
               ? `@bfra.me/package-json/plugins`
-              : `@bfra.me/${(config as Config).name || `package-json/unnamed${index}`}`,
+              : `@bfra.me/${((config as Config).name ?? '') || `package-json/unnamed${index}`}`,
             files,
           }),
         ),

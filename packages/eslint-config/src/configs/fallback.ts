@@ -1,7 +1,7 @@
 import type {Config} from '../config'
-import {interopDefault} from '../plugins'
+import {interopDefault} from '../utils'
 
-export type FallbackOptions = {
+export interface FallbackOptions {
   files?: Config['files']
   languageOptions?: Config['languageOptions']
   name?: Config['name']

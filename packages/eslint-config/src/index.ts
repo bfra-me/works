@@ -9,5 +9,6 @@ export * from './globs'
 export * from './options'
 export * from './rules.d'
 
+export {defineConfig}
 export const config = defineConfig()
 export default config

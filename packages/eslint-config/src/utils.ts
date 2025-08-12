@@ -7,5 +7,5 @@ export async function interopDefault<T>(
   const resolved = await m
   return typeof resolved === 'object' && resolved !== null && 'default' in resolved
     ? interopDefault(resolved.default as Awaitable<T>)
-    : (resolved as any)
+    : (resolved as T extends {default: infer U} ? U : T)
 }

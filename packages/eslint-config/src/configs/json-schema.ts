@@ -1,7 +1,7 @@
 import type {Config} from '../config'
 import {anyParser} from '../parsers/any-parser'
-import {interopDefault} from '../plugins'
 import {requireOf} from '../require-of'
+import {interopDefault} from '../utils'
 import {fallback} from './fallback'
 
 export async function jsonSchema(name: string, files: string[]): Promise<Config[]> {
@@ -27,7 +27,7 @@ export async function jsonSchema(name: string, files: string[]): Promise<Config[
             ...config,
             name: config.plugins
               ? `@bfra.me/${name}/json-schema/plugins`
-              : `@bfra.me/${name}/json-schema/${config.name || `unnamed${index}`}`,
+              : `@bfra.me/${name}/json-schema/${(config.name ?? '') || `unnamed${index}`}`,
           })),
         {
           name: `@bfra.me/${name}/json-schema`,

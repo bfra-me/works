@@ -11,7 +11,7 @@ import {afterAll, beforeAll, it} from 'vitest'
 const pkgRoot = new URL('..', import.meta.url).pathname
 const resolveFixture = (p: string, ...paths: string[]) => resolve(join(pkgRoot, p, ...paths))
 
-const cleanup = async () => fs.rm('test/_fixtures', {force: true, recursive: true})
+const cleanup = async () => fs.rm(resolveFixture('test/_fixtures'), {force: true, recursive: true})
 
 beforeAll(async () => {
   await cleanup()

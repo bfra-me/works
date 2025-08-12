@@ -19,7 +19,7 @@ export async function requireOf<
   C extends Config[] | Promise<Config[]>,
   D extends Config[] | Promise<Config[]> = C,
 >(names: string[], getConfig: () => C, fallback: (missingList: string[]) => D): Promise<C | D> {
-  const missingList = names.filter(n => n && !has(n))
+  const missingList = names.filter(n => n !== '' && !has(n))
   if (missingList.length) {
     return fallback(missingList)
   }

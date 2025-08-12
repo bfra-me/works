@@ -35,14 +35,15 @@ export const meta: Rule.RuleMetaData = {
 }
 
 export function create(context: Rule.RuleContext) {
-  const [modules] = context.options
+  const [modules] = context.options as [string[]]
   for (const module of modules) {
     let output = ''
     if (shouldFix) {
-      const result = tryInstall(module, context.filename || context.getFilename())
+      const result = tryInstall(module, context.filename || context.getFilename()) ?? ''
       output = result ? `\n${result}` : ''
     }
-    const command = getPackageInstallCommand(module, context.filename || context.getFilename())
+    const command =
+      getPackageInstallCommand(module, context.filename || context.getFilename()) ?? ''
     context.report({
       loc: {column: 0, line: 1},
       message: `Missing module for config: ${module}. Run: \`${command || `npm i -D ${module}`}\`${output}`,
