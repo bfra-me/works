@@ -54,6 +54,8 @@
 
     "javascript.updateImportsOnFileMove.enabled": "always",
 
+    "markdown.validate.referenceLinks.enabled": "ignore",
+
     "typescript.enablePromptUseWorkspaceTsdk": true,
     "typescript.format.enable": false,
     "typescript.preferences.importModuleSpecifier": "non-relative",

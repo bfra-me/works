@@ -1,0 +1,239 @@
+---
+goal: Redesign @bfra.me/create with Modern Template Architecture and AI-Powered Features
+version: 1.0
+date_created: 2025-08-12
+last_updated: 2025-08-12
+owner: bfra-me/works
+status: 'Planned'
+tags: ['refactor', 'architecture', 'cli', 'ai', 'templates', 'typescript']
+---
+
+# Introduction
+
+![Status: Planned](https://img.shields.io/badge/status-Planned-blue)
+
+Completely redesign `@bfra.me/create` to transform it from a simple template-based package generator into a comprehensive CLI for TypeScript project scaffolding. This involves removing the `@sxzz/create` dependency, implementing modern template repository patterns using `giget`, integrating AI-powered features with LLM APIs, and extending functionality to support adding components to existing projects. The redesign includes interactive CLI experiences, flexible template architecture, and comprehensive fixture-based testing.
+
+## 1. Requirements & Constraints
+
+- **REQ-001**: Remove `@sxzz/create` dependency completely and replace with modern template architecture
+- **REQ-002**: Implement template fetching using `giget` for GitHub repositories, local directories, and URLs
+- **REQ-003**: Integrate `@clack/prompts` for multi-step interactive CLI experiences
+- **REQ-004**: Add AI-powered features using LLM APIs for project analysis and code generation
+- **REQ-005**: Extend functionality with `add` command for adding features to existing projects
+- **REQ-006**: Implement comprehensive fixture-based testing with parallel execution and file snapshots
+- **REQ-007**: Maintain backward compatibility for existing CLI usage patterns
+
+- **SEC-001**: Validate and sanitize all template inputs to prevent code injection
+- **SEC-002**: Secure API key management for AI features with environment variable configuration
+- **SEC-003**: Safe execution environment for template processing and code generation
+
+- **TYP-001**: Comprehensive TypeScript types for template configurations, AI responses, and CLI options
+- **TYP-002**: Type-safe template variable substitution and validation
+- **TYP-003**: Strict typing for AI-generated code and project analysis results
+
+- **CON-001**: Must maintain ES module compatibility and existing package structure
+- **CON-002**: AI features must be optional and fail gracefully without API keys
+- **CON-003**: Template processing must be memory-efficient for large repositories
+- **CON-004**: CLI commands must provide clear progress feedback for long-running operations
+
+- **GUD-001**: Follow TypeScript patterns from monorepo instructions
+- **GUD-002**: Implement comprehensive error handling and user feedback
+- **GUD-003**: Use fixture-based testing patterns established in monorepo
+
+- **PAT-001**: Implement modular architecture with clear separation of concerns
+- **PAT-002**: Use dependency injection for AI services and template processors
+- **PAT-003**: Create plugin-based system for extensible feature addition
+
+## 2. Implementation Steps
+
+### Implementation Phase 1: Core Infrastructure Redesign
+
+- GOAL-001: Remove @sxzz/create dependency and establish new template architecture foundation
+
+| Task | Description | Completed | Date |
+| --- | --- | --- | --- |
+| TASK-001 | Remove `@sxzz/create` dependency from package.json and update dependency list |  |  |
+| TASK-002 | Add new dependencies: `giget`, `mustache`, `glob`, `detect-package-manager`, `semver` |  |  |
+| TASK-003 | Redesign `src/types.ts` with comprehensive interfaces for templates, AI, and CLI options |  |  |
+| TASK-004 | Create `src/templates/resolver.ts` for template source resolution (GitHub, local, URL) |  |  |
+| TASK-005 | Implement `src/templates/fetcher.ts` using `giget` for template downloading and caching |  |  |
+| TASK-006 | Create `src/templates/processor.ts` for template processing and variable substitution |  |  |
+| TASK-007 | Update `src/cli.ts` with new command structure supporting create and add commands |  |  |
+| TASK-008 | Refactor `src/index.ts` to remove @sxzz/create and implement new createPackage API |  |  |
+| TASK-009 | Create `src/utils/` directory with file-system, validation, and project-detection utilities |  |  |
+| TASK-010 | Update tsup configuration for new file structure and ensure proper builds |  |  |
+
+### Implementation Phase 2: Enhanced Template System
+
+- GOAL-002: Implement comprehensive template support for multiple sources and formats
+
+| Task | Description | Completed | Date |
+| --- | --- | --- | --- |
+| TASK-011 | Implement GitHub repository template support with branch and subdirectory handling |  |  |
+| TASK-012 | Add local directory template support with recursive copying and filtering |  |  |
+| TASK-013 | Create URL-based template fetching for zip files and direct downloads |  |  |
+| TASK-014 | Implement template variable substitution using Mustache templating engine |  |  |
+| TASK-015 | Create template metadata system with `template.json` configuration files |  |  |
+| TASK-016 | Build template validation system for structure and metadata verification |  |  |
+| TASK-017 | Expand built-in template library with library, CLI, React, and Node.js templates |  |  |
+| TASK-018 | Implement template caching system for improved performance and offline usage |  |  |
+| TASK-019 | Create template discovery mechanism for listing available templates |  |  |
+| TASK-020 | Add template version management and compatibility checking |  |  |
+
+### Implementation Phase 3: Interactive CLI Enhancement
+
+- GOAL-003: Create sophisticated interactive CLI experience using @clack/prompts
+
+| Task | Description | Completed | Date |
+| --- | --- | --- | --- |
+| TASK-021 | Design multi-step project setup workflow in `src/prompts/project-setup.ts` |  |  |
+| TASK-022 | Implement template selection interface with preview and description support |  |  |
+| TASK-023 | Create project customization prompts for name, description, author, and options |  |  |
+| TASK-024 | Add progress indicators and status feedback for template processing operations |  |  |
+| TASK-025 | Implement confirmation steps and summary display before project creation |  |  |
+| TASK-026 | Create interactive mode flag handling and non-interactive fallback options |  |  |
+| TASK-027 | Add command-line argument parsing for template and configuration overrides |  |  |
+| TASK-028 | Implement error recovery and retry mechanisms for failed operations |  |  |
+| TASK-029 | Create help system with contextual guidance and examples |  |  |
+| TASK-030 | Add colored output and emoji support for enhanced user experience |  |  |
+
+### Implementation Phase 4: AI-Powered Features Integration
+
+- GOAL-004: Integrate LLM APIs for intelligent project setup and code generation
+
+| Task | Description | Completed | Date |
+| --- | --- | --- | --- |
+| TASK-031 | Create `src/ai/llm-client.ts` with support for OpenAI and Anthropic APIs |  |  |
+| TASK-032 | Implement `src/ai/project-analyzer.ts` for analyzing project requirements from user input |  |  |
+| TASK-033 | Build `src/ai/dependency-recommender.ts` for intelligent package suggestions |  |  |
+| TASK-034 | Create `src/ai/code-generator.ts` for generating boilerplate code and configurations |  |  |
+| TASK-035 | Implement AI-powered template selection based on project description |  |  |
+| TASK-036 | Add configuration optimization suggestions using AI analysis |  |  |
+| TASK-037 | Create AI assist mode with conversational project setup |  |  |
+| TASK-038 | Implement code quality analysis and improvement suggestions |  |  |
+| TASK-039 | Add AI-powered documentation generation for created projects |  |  |
+| TASK-040 | Create fallback mechanisms and graceful degradation without AI API access |  |  |
+
+### Implementation Phase 5: Extended Functionality - Add Command
+
+- GOAL-005: Implement feature addition capabilities for existing projects
+
+| Task | Description | Completed | Date |
+| --- | --- | --- | --- |
+| TASK-041 | Create `src/commands/add.ts` for adding features to existing projects |  |  |
+| TASK-042 | Implement project detection and analysis in `src/utils/project-detection.ts` |  |  |
+| TASK-043 | Build feature registry system for available addable components and configurations |  |  |
+| TASK-044 | Create ESLint configuration addition workflow with proper integration |  |  |
+| TASK-045 | Implement Vitest setup addition with test file generation |  |  |
+| TASK-046 | Add component generation for React/Vue/Angular projects |  |  |
+| TASK-047 | Create configuration file addition (Prettier, TypeScript, etc.) |  |  |
+| TASK-048 | Implement package.json modification for new dependencies and scripts |  |  |
+| TASK-049 | Add conflict detection and resolution for existing configurations |  |  |
+| TASK-050 | Create backup and rollback mechanisms for failed feature additions |  |  |
+
+### Implementation Phase 6: Comprehensive Testing and Documentation
+
+- GOAL-006: Implement fixture-based testing and complete documentation
+
+| Task | Description | Completed | Date |
+| --- | --- | --- | --- |
+| TASK-051 | Create comprehensive test fixture structure in `test/fixtures/input/` and `test/fixtures/output/` |  |  |
+| TASK-052 | Implement template resolution tests with mock GitHub and URL responses |  |  |
+| TASK-053 | Create project generation tests using `it.concurrent()` and `toMatchFileSnapshot()` |  |  |
+| TASK-054 | Build CLI interaction tests with mocked prompts and user inputs |  |  |
+| TASK-055 | Implement AI feature tests with mocked LLM API responses |  |  |
+| TASK-056 | Create add command tests for feature addition to existing projects |  |  |
+| TASK-057 | Add performance tests for template processing and large repository handling |  |  |
+| TASK-058 | Implement integration tests for end-to-end CLI workflows |  |  |
+| TASK-059 | Write comprehensive README.md with usage examples and API documentation |  |  |
+| TASK-060 | Create migration guide for users upgrading from previous versions |  |  |
+
+## 3. Alternatives
+
+- **ALT-001**: Keep `@sxzz/create` and extend it - Rejected due to architectural limitations and lack of control over template processing
+- **ALT-002**: Use `degit` instead of `giget` - Rejected as `giget` provides better caching, error handling, and broader source support
+- **ALT-003**: Build custom LLM integration instead of using existing APIs - Rejected due to complexity and maintenance overhead
+- **ALT-004**: Create separate CLI for add functionality - Rejected to maintain unified user experience and code reuse
+- **ALT-005**: Use Handlebars instead of Mustache for templating - Rejected due to Mustache's simplicity and security benefits
+
+## 4. Dependencies
+
+- **DEP-001**: `giget` - Modern template fetching library supporting GitHub, URLs, and caching
+- **DEP-002**: `@clack/prompts` - Already present, enhanced usage for interactive CLI
+- **DEP-003**: `mustache` - Logic-less templating for variable substitution
+- **DEP-004**: `glob` - File pattern matching for template processing
+- **DEP-005**: `detect-package-manager` - Package manager detection for proper installation commands
+- **DEP-006**: `semver` - Semantic version parsing and comparison
+- **DEP-007**: `openai` or `@anthropic-ai/sdk` - LLM API integration for AI features
+- **DEP-008**: `consola` - Enhanced logging and progress indicators
+- **DEP-009**: `cac` - Command-line argument parsing (already present)
+- **DEP-010**: Vitest and related testing dependencies for comprehensive test suite
+
+## 5. Files
+
+- **FILE-001**: `packages/create/package.json` - Updated dependencies and scripts
+- **FILE-002**: `packages/create/src/types.ts` - Comprehensive type definitions for new architecture
+- **FILE-003**: `packages/create/src/cli.ts` - Redesigned CLI entry point with new command structure
+- **FILE-004**: `packages/create/src/index.ts` - Refactored main API without @sxzz/create dependency
+- **FILE-005**: `packages/create/src/commands/create.ts` - Project creation command implementation
+- **FILE-006**: `packages/create/src/commands/add.ts` - Feature addition command implementation
+- **FILE-007**: `packages/create/src/templates/resolver.ts` - Template source resolution logic
+- **FILE-008**: `packages/create/src/templates/fetcher.ts` - Template downloading using giget
+- **FILE-009**: `packages/create/src/templates/processor.ts` - Template processing and variable substitution
+- **FILE-010**: `packages/create/src/templates/built-in/` - Expanded built-in template library
+- **FILE-011**: `packages/create/src/ai/llm-client.ts` - LLM API integration
+- **FILE-012**: `packages/create/src/ai/project-analyzer.ts` - AI-powered project analysis
+- **FILE-013**: `packages/create/src/ai/dependency-recommender.ts` - Intelligent dependency suggestions
+- **FILE-014**: `packages/create/src/ai/code-generator.ts` - AI code generation capabilities
+- **FILE-015**: `packages/create/src/prompts/project-setup.ts` - Interactive project setup prompts
+- **FILE-016**: `packages/create/src/utils/file-system.ts` - File system utilities
+- **FILE-017**: `packages/create/src/utils/validation.ts` - Input validation and sanitization
+- **FILE-018**: `packages/create/src/utils/project-detection.ts` - Existing project analysis
+- **FILE-019**: `packages/create/test/fixtures/input/` - Test input configurations and templates
+- **FILE-020**: `packages/create/test/fixtures/output/` - Expected output structures
+- **FILE-021**: `packages/create/test/commands/` - Command-specific test files
+- **FILE-022**: `packages/create/test/templates/` - Template processing test files
+- **FILE-023**: `packages/create/test/ai/` - AI feature test files with mocked responses
+- **FILE-024**: `packages/create/README.md` - Comprehensive documentation and usage guide
+
+## 6. Testing
+
+- **TEST-001**: Template resolution tests for GitHub repositories, local directories, and URLs
+- **TEST-002**: Template fetching tests with mocked network responses and caching validation
+- **TEST-003**: Template processing tests with variable substitution and file generation
+- **TEST-004**: Project creation tests using fixture-based approach with `toMatchFileSnapshot()`
+- **TEST-005**: CLI interaction tests with mocked prompts and user input simulation
+- **TEST-006**: AI integration tests with mocked LLM API responses and error handling
+- **TEST-007**: Add command tests for feature addition to various project types
+- **TEST-008**: Project detection tests for analyzing existing project structures
+- **TEST-009**: Error handling tests for network failures, invalid templates, and user errors
+- **TEST-010**: Performance tests for large template processing and concurrent operations
+- **TEST-011**: Integration tests for complete CLI workflows from start to finish
+- **TEST-012**: Backward compatibility tests ensuring existing workflows continue to work
+
+## 7. Risks & Assumptions
+
+- **RISK-001**: LLM API rate limits and costs could impact AI feature usage - Mitigation: Implement caching, rate limiting, and cost monitoring
+- **RISK-002**: Template repository changes could break existing templates - Mitigation: Template versioning and validation
+- **RISK-003**: Network dependencies for template fetching could cause failures - Mitigation: Comprehensive caching and offline fallback modes
+- **RISK-004**: Large template repositories could cause memory issues - Mitigation: Streaming processing and memory optimization
+- **RISK-005**: Breaking changes could disrupt existing user workflows - Mitigation: Comprehensive backward compatibility testing
+
+- **ASSUMPTION-001**: Users will have internet access for template fetching in most use cases
+- **ASSUMPTION-002**: AI API services will maintain stable interfaces and reasonable pricing
+- **ASSUMPTION-003**: GitHub API will remain accessible for repository template fetching
+- **ASSUMPTION-004**: Template authors will adopt new metadata format for enhanced features
+- **ASSUMPTION-005**: Users will prefer interactive CLI experience over purely command-line driven workflows
+- **ASSUMPTION-006**: TypeScript projects will remain the primary use case for the tool
+
+## 8. Related Specifications / Further Reading
+
+- [giget Documentation](https://github.com/unjs/giget)
+- [@clack/prompts Documentation](https://github.com/natemoo-re/clack/tree/main/packages/prompts)
+- [OpenAI API Documentation](https://platform.openai.com/docs)
+- [Mustache Template Documentation](https://mustache.github.io/)
+- [bfra.me Works Monorepo Copilot Instructions](../../.github/copilot-instructions.md)
+- [TypeScript Patterns Instructions](../../.github/instructions/typescript-patterns.instructions.md)
+- [Testing Practices Instructions](../../.github/instructions/testing-practices.instructions.md)
+- [ESLint Config Usage Instructions](../../.github/instructions/eslint-config-usage.instructions.md)
