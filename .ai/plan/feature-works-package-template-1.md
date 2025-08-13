@@ -68,7 +68,7 @@ Develop a specialized template within the revamped `@bfra.me/create` system for 
 | Task | Description | Completed | Date |
 | --- | --- | --- | --- |
 | TASK-009 | Create `package.json.mustache` template with proper exports, workspace dependencies, and scripts |  |  |
-| TASK-010 | Design `tsconfig.json.mustache` template extending `@bfra.me/tsconfig/library` with package-specific paths |  |  |
+| TASK-010 | Design `tsconfig.json.mustache` template extending `@bfra.me/tsconfig` with package-specific paths |  |  |
 | TASK-011 | Implement `eslint.config.ts.mustache` template using `defineConfig()` pattern with TypeScript support |  |  |
 | TASK-012 | Create `tsup.config.ts.mustache` template for ES module builds with conditional CLI binary configuration |  |  |
 | TASK-013 | Design package type-specific configuration variations (CLI tools vs libraries vs configs) |  |  |
