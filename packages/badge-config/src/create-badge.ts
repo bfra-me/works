@@ -1,3 +1,9 @@
+/**
+ * @module
+ * This module provides the core `createBadge` function for generating shields.io badge URLs.
+ * It handles URL construction, parameter validation, and optional SVG fetching.
+ */
+
 import type {BadgeOptions, BadgeResult, FetchOptions} from './types'
 import {BadgeError} from './types'
 import {
@@ -9,10 +15,30 @@ import {
 } from './utils'
 
 /**
- * Creates a shield.io badge URL and optionally fetches the SVG content
- * @param options - Badge configuration options
- * @param fetchOptions - Options for fetching SVG content
- * @returns Badge result with URL and optional SVG content
+ * Creates a shields.io badge URL and optionally fetches the SVG content.
+ *
+ * This function constructs a URL based on the provided options, validates inputs,
+ * and can fetch the resulting SVG image. It's the primary entry point for badge generation.
+ *
+ * @param options - The configuration for the badge, including label, message, and colors.
+ * @param fetchOptions - Optional settings for fetching the SVG content, such as a timeout.
+ * @returns A promise that resolves to a `BadgeResult` object containing the URL and optional SVG.
+ * @throws {BadgeError} If required fields are missing or if fetching fails.
+ *
+ * @example
+ * ```typescript
+ * import { createBadge } from '@bfra.me/badge-config';
+ *
+ * const badge = await createBadge({
+ *   label: 'build',
+ *   message: 'passing',
+ *   color: 'green',
+ *   style: 'flat-square',
+ * });
+ *
+ * console.log(badge.url);
+ * // => https://img.shields.io/badge/build-passing-green?style=flat-square
+ * ```
  */
 export async function createBadge(
   options: BadgeOptions,

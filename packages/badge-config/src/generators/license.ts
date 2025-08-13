@@ -1,16 +1,19 @@
 /**
- * License badge generator for common open source and proprietary licenses
+ * @module
+ * This module provides a preset generator for creating software license badges.
+ * It includes a database of common licenses and assigns colors based on license category.
  */
 
 import type {BadgeColor, BadgeOptions, BadgeStyle} from '../types'
 
 /**
- * License categories with associated colors
+ * Defines categories for software licenses, each with an associated default color.
  */
 export type LicenseCategory = 'permissive' | 'copyleft' | 'creative-commons' | 'proprietary' | 'custom'
 
 /**
- * Common license identifiers and their metadata
+ * Represents metadata for a specific license.
+ * @internal
  */
 interface LicenseInfo {
   name: string
@@ -19,31 +22,32 @@ interface LicenseInfo {
 }
 
 /**
- * Configuration options for license badges
+ * Configuration options for creating a license badge.
  */
 export interface LicenseOptions {
-  /** License identifier (e.g., 'MIT', 'Apache-2.0', 'GPL-3.0') */
+  /** The SPDX identifier of the license (e.g., 'MIT', 'Apache-2.0'). */
   license: string
-  /** Badge label text */
+  /** The text for the left side of the badge. @default 'license' */
   label?: string
-  /** Badge style */
+  /** The visual style of the badge. */
   style?: BadgeStyle
-  /** Custom color override */
+  /** Overrides the default color for the license category. */
   color?: BadgeColor
-  /** License category override */
+  /** Overrides the auto-detected license category. */
   category?: LicenseCategory
-  /** Custom license URL */
+  /** A custom URL for the license details. */
   url?: string
-  /** Custom logo */
+  /** A logo to embed in the badge. */
   logo?: string
-  /** Logo color */
+  /** The color of the embedded logo. */
   logoColor?: BadgeColor
-  /** Cache seconds */
+  /** The number of seconds to cache the badge URL. */
   cacheSeconds?: number
 }
 
 /**
- * Colors for license categories
+ * A map of license categories to their default colors.
+ * @internal
  */
 const LICENSE_CATEGORY_COLORS: Record<LicenseCategory, BadgeColor> = {
   permissive: 'blue',
@@ -54,7 +58,8 @@ const LICENSE_CATEGORY_COLORS: Record<LicenseCategory, BadgeColor> = {
 } as const
 
 /**
- * Common license information database
+ * A database of common licenses and their metadata.
+ * @internal
  */
 const COMMON_LICENSES: Record<string, LicenseInfo> = {
   // Permissive licenses

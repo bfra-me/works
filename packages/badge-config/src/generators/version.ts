@@ -1,42 +1,45 @@
 /**
- * Version badge generator supporting npm, git tag, and semantic version formats
+ * @module
+ * This module provides a preset generator for creating version badges.
+ * It supports versions from various sources like npm, Git, and custom strings.
  */
 
 import type {BadgeColor, BadgeOptions, BadgeStyle} from '../types'
 
 /**
- * Version source types
+ * Defines the source of the version information.
  */
 export type VersionSource = 'npm' | 'git' | 'github' | 'custom'
 
 /**
- * Configuration options for version badges
+ * Configuration options for creating a version badge.
  */
 export interface VersionOptions {
-  /** Version string */
+  /** The version string to display (e.g., '1.2.3'). */
   version: string
-  /** Version source type */
+  /** The source of the version information. @default 'custom' */
   source?: VersionSource
-  /** Package name for npm source */
+  /** The name of the package (required for 'npm' source). */
   packageName?: string
-  /** Repository for git/github source */
+  /** The repository name in 'owner/repo' format (for 'git' or 'github' source). */
   repository?: string
-  /** Badge label text */
+  /** The text for the left side of the badge. */
   label?: string
-  /** Badge style */
+  /** The visual style of the badge. */
   style?: BadgeStyle
-  /** Custom color override */
+  /** Overrides the default color for the version source. */
   color?: BadgeColor
-  /** Custom logo */
+  /** A logo to embed in the badge. */
   logo?: string
-  /** Logo color */
+  /** The color of the embedded logo. */
   logoColor?: BadgeColor
-  /** Cache seconds */
+  /** The number of seconds to cache the badge URL. */
   cacheSeconds?: number
 }
 
 /**
- * Default colors for version sources
+ * A map of version sources to their default colors.
+ * @internal
  */
 const VERSION_SOURCE_COLORS: Record<VersionSource, BadgeColor> = {
   npm: 'red',
@@ -46,7 +49,8 @@ const VERSION_SOURCE_COLORS: Record<VersionSource, BadgeColor> = {
 } as const
 
 /**
- * Default labels for version sources
+ * A map of version sources to their default labels.
+ * @internal
  */
 const VERSION_SOURCE_LABELS: Record<VersionSource, string> = {
   npm: 'npm',
@@ -56,7 +60,8 @@ const VERSION_SOURCE_LABELS: Record<VersionSource, string> = {
 } as const
 
 /**
- * Validate semantic version format
+ * Validates if a string follows the semantic versioning format.
+ * @internal
  */
 function isValidSemver(version: string): boolean {
   // Basic semver pattern: major.minor.patch with optional prerelease and build metadata
@@ -66,7 +71,8 @@ function isValidSemver(version: string): boolean {
 }
 
 /**
- * Format version string for display
+ * Formats a version string for display, adding or removing 'v' prefix as needed.
+ * @internal
  */
 function formatVersionMessage(version: string, source: VersionSource): string {
   // Remove 'v' prefix if present for cleaner display
@@ -87,34 +93,27 @@ function formatVersionMessage(version: string, source: VersionSource): string {
 }
 
 /**
- * Generate badge options for version information
+ * Generates the configuration for a version badge.
  *
- * @param options - Version configuration
- * @returns Badge options for use with createBadge
+ * @param options - The version configuration.
+ * @returns Badge options that can be passed to the `createBadge` function.
  *
  * @example
  * ```typescript
- * // NPM package version
- * const badgeOptions = version({
- *   version: '1.2.3',
- *   source: 'npm',
- *   packageName: '@bfra.me/badge-config'
- * })
+ * import { version } from '@bfra.me/badge-config/generators';
+ * import { createBadge } from '@bfra.me/badge-config';
  *
- * // Git tag version
- * const badgeOptions = version({
- *   version: 'v2.1.0',
- *   source: 'git',
- *   repository: 'bfra-me/works'
- * })
+ * // Generate a badge for an npm package version
+ * const npmOptions = version({ version: '1.2.3', source: 'npm', packageName: 'react' });
+ * const npmBadge = await createBadge(npmOptions);
+ * console.log(npmBadge.url);
+ * // => https://img.shields.io/badge/npm-1.2.3-red
  *
- * // Custom version
- * const badgeOptions = version({
- *   version: '2025.01.15',
- *   source: 'custom',
- *   label: 'release',
- *   color: 'purple'
- * })
+ * // Generate a badge for a Git tag
+ * const gitOptions = version({ version: 'v2.0.1', source: 'git' });
+ * const gitBadge = await createBadge(gitOptions);
+ * console.log(gitBadge.url);
+ * // => https://img.shields.io/badge/version-v2.0.1-blue
  * ```
  */
 export function version(options: VersionOptions): BadgeOptions {

@@ -1,10 +1,17 @@
 /**
- * Badge style options supported by shields.io
+ * @module
+ * This module contains type definitions for the @bfra.me/badge-config package.
+ * It includes types for badge styles, colors, options, and results.
+ */
+
+/**
+ * Defines the visual style of the badge.
+ * @see https://shields.io/#style
  */
 export type BadgeStyle = 'flat' | 'flat-square' | 'plastic' | 'for-the-badge' | 'social'
 
 /**
- * Named colors supported by shields.io
+ * A set of named colors supported by shields.io for badges.
  */
 export type BadgeNamedColor =
   | 'brightgreen'
@@ -21,50 +28,80 @@ export type BadgeNamedColor =
   | 'white'
 
 /**
- * Badge color type supporting hex colors, named colors, and RGB values
+ * Represents a color for a badge, which can be a named color, a hex code, or an RGB value.
  */
 export type BadgeColor = BadgeNamedColor | `#${string}` | `rgb(${string})`
 
 /**
- * Core badge configuration interface
+ * Defines the core configuration options for creating a badge.
  */
 export interface BadgeOptions {
-  /** The left-hand-side text */
+  /**
+   * The text displayed on the left side of the badge.
+   * @example 'build'
+   */
   label: string
-  /** The right-hand-side text */
+  /**
+   * The text displayed on the right side of the badge.
+   * @example 'passing'
+   */
   message: string
-  /** Badge color (hex, named color, or RGB) */
+  /**
+   * The color of the message part of the badge.
+   * @default 'lightgrey'
+   */
   color?: BadgeColor
-  /** Label color (hex, named color, or RGB) */
+  /**
+   * The color of the label part of the badge.
+   */
   labelColor?: BadgeColor
-  /** Badge style */
+  /**
+   * The visual style of the badge.
+   * @default 'flat'
+   */
   style?: BadgeStyle
-  /** Custom logo name or data URI */
+  /**
+   * A logo from simple-icons to embed in the badge, or a data URI.
+   * @see https://simpleicons.org/
+   */
   logo?: string
-  /** Logo color */
+  /**
+   * The color of the embedded logo.
+   */
   logoColor?: BadgeColor
-  /** Logo size (number or 'auto' for adaptive sizing) */
+  /**
+   * The width of the embedded logo.
+   */
   logoSize?: number | 'auto'
-  /** Cache seconds for the badge */
+  /**
+   * The number of seconds to cache the badge URL.
+   * @see https://shields.io/docs/performance
+   */
   cacheSeconds?: number
 }
 
 /**
- * Result from badge generation
+ * Represents the result of a badge generation operation.
  */
 export interface BadgeResult {
-  /** The generated shields.io URL */
+  /** The complete shields.io URL for the generated badge. */
   url: string
-  /** Optional SVG content if fetched */
+  /** The SVG content of the badge, if fetched. */
   svg?: string
 }
 
 /**
- * Badge generation error
+ * Custom error class for badge generation failures.
  */
 export class BadgeError extends Error {
+  /** An optional error code for specific failure types. */
   readonly code?: string
 
+  /**
+   * Creates a new BadgeError instance.
+   * @param message - The error message.
+   * @param code - An optional error code.
+   */
   constructor(message: string, code?: string) {
     super(message)
     this.name = 'BadgeError'
@@ -73,11 +110,17 @@ export class BadgeError extends Error {
 }
 
 /**
- * Options for fetching badge SVG content
+ * Options for fetching the SVG content of a generated badge.
  */
 export interface FetchOptions {
-  /** Whether to fetch the SVG content */
+  /**
+   * If true, the SVG content of the badge will be fetched and included in the result.
+   * @default false
+   */
   fetchSvg?: boolean
-  /** Timeout for fetch request in milliseconds */
+  /**
+   * The timeout for the fetch request in milliseconds.
+   * @default 5000
+   */
   timeout?: number
 }
