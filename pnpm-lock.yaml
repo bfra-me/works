@@ -91,7 +91,7 @@ importers:
         specifier: 5.9.2
         version: 5.9.2
       vitest:
-        specifier: ' 3.2.4'
+        specifier: 3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@22.16.5)(jiti@2.1.2)(tsx@4.20.3)(yaml@2.8.1)
 
   docs:
@@ -105,6 +105,24 @@ importers:
       sharp:
         specifier: ^0.34.2
         version: 0.34.3
+
+  packages/badge-config:
+    devDependencies:
+      '@bfra.me/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@bfra.me/prettier-config':
+        specifier: workspace:*
+        version: link:../prettier-config
+      '@bfra.me/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      tsup:
+        specifier: 8.5.0
+        version: 8.5.0(@microsoft/api-extractor@7.52.10(@types/node@22.16.5))(jiti@2.1.2)(postcss@8.5.6)(tsx@4.20.3)(typescript@5.9.2)(yaml@2.8.1)
+      vitest:
+        specifier: 3.2.4
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@22.16.5)(jiti@2.1.2)(tsx@4.20.3)(yaml@2.8.1)
 
   packages/create:
     dependencies:

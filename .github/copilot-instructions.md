@@ -140,7 +140,7 @@ mkdir src test
 ```json
 // tsconfig.json
 {
-  "extends": "@bfra.me/tsconfig/library",
+  "extends": "@bfra.me/tsconfig",
   "include": ["src"],
   "exclude": ["lib", "test"]
 }
@@ -361,7 +361,7 @@ export default defineConfig({
 ```json
 // tsconfig.json - Always extend shared config
 {
-  "extends": "@bfra.me/tsconfig/library",
+  "extends": "@bfra.me/tsconfig",
   "include": ["src"],
   "exclude": ["lib", "test"]
 }

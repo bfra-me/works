@@ -4,6 +4,8 @@
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
+      "@bfra.me/badge-config": ["packages/badge-config/src"],
+      "@bfra.me/badge-config/*": ["packages/badge-config/src/*"],
       "@bfra.me/create": ["packages/create/src"],
       "@bfra.me/create/*": ["packages/create/src/*"],
       "@bfra.me/eslint-config": ["packages/eslint-config/src"],
@@ -20,6 +22,7 @@
   "references": [
     {"path": "./docs"},
     {"path": "./packages/tsconfig"},
+    {"path": "./packages/badge-config"},
     {"path": "./packages/prettier-config"},
     {"path": "./packages/eslint-config"},
     {"path": "./packages/semantic-release"},

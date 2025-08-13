@@ -1,0 +1,56 @@
+{
+  "name": "@bfra.me/badge-config",
+  "version": "0.0.0",
+  "description": "TypeScript API for generating shields.io badge URLs with preset generators",
+  "keywords": [
+    "badges",
+    "bfra.me",
+    "ci-cd",
+    "config",
+    "shields.io",
+    "typescript",
+    "works"
+  ],
+  "homepage": "https://github.com/bfra-me/works/tree/main/packages/badge-config#readme",
+  "bugs": "https://github.com/bfra-me/works/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bfra-me/works.git",
+    "directory": "packages/badge-config"
+  },
+  "license": "MIT",
+  "author": "Marcus R. Brown <contact@bfra.me>",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "source": "./src/index.ts",
+      "import": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "src",
+    "lib",
+    "!**/*.map"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "prepack": "pnpm --filter-prod=\"{.}...\" run build",
+    "test": "pnpm --filter-prod=\"{.}...\" run build && vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@bfra.me/eslint-config": "workspace:*",
+    "@bfra.me/prettier-config": "workspace:*",
+    "@bfra.me/tsconfig": "workspace:*",
+    "tsup": "8.5.0",
+    "vitest": "3.2.4"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}
