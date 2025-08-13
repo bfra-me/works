@@ -5,6 +5,21 @@
 // Core functions
 export {createBadge, createBadgeUrl} from './create-badge'
 
+// Preset generators
+export {buildStatus, coverage, license, social, version} from './generators'
+export type {
+  BuildStatus,
+  BuildStatusOptions,
+  CoverageOptions,
+  CoverageThresholds,
+  LicenseCategory,
+  LicenseOptions,
+  SocialBadgeOptions,
+  SocialBadgeType,
+  VersionOptions,
+  VersionSource,
+} from './generators'
+
 // Types
 export type {
   BadgeColor,

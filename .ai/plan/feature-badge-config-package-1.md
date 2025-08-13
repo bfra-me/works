@@ -68,14 +68,14 @@ Create a new `@bfra.me/badge-config` package in the bfra.me/works monorepo that 
 
 | Task | Description | Completed | Date |
 | --- | --- | --- | --- |
-| TASK-011 | Create generators directory structure in `src/generators/` |  |  |
-| TASK-012 | Implement build status generator in `src/generators/build-status.ts` |  |  |
-| TASK-013 | Implement coverage generator with thresholds in `src/generators/coverage.ts` |  |  |
-| TASK-014 | Implement version generator in `src/generators/version.ts` |  |  |
-| TASK-015 | Implement license generator in `src/generators/license.ts` |  |  |
-| TASK-016 | Implement social badges generator in `src/generators/social.ts` |  |  |
-| TASK-017 | Create generators export barrel in `src/generators/index.ts` |  |  |
-| TASK-018 | Add generator exports to main `src/index.ts` |  |  |
+| TASK-011 | Create generators directory structure in `src/generators/` | ✅ | 2025-08-13 |
+| TASK-012 | Implement build status generator in `src/generators/build-status.ts` | ✅ | 2025-08-13 |
+| TASK-013 | Implement coverage generator with thresholds in `src/generators/coverage.ts` | ✅ | 2025-08-13 |
+| TASK-014 | Implement version generator in `src/generators/version.ts` | ✅ | 2025-08-13 |
+| TASK-015 | Implement license generator in `src/generators/license.ts` | ✅ | 2025-08-13 |
+| TASK-016 | Implement social badges generator in `src/generators/social.ts` | ✅ | 2025-08-13 |
+| TASK-017 | Create generators export barrel in `src/generators/index.ts` | ✅ | 2025-08-13 |
+| TASK-018 | Add generator exports to main `src/index.ts` | ✅ | 2025-08-13 |
 
 ### Implementation Phase 3: Testing Implementation
 
