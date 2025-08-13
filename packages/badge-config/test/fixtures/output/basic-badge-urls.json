@@ -1,0 +1,13 @@
+{
+  "basic": "https://img.shields.io/badge/build-passing-blue",
+  "withColor": "https://img.shields.io/badge/test-success-green",
+  "withNamedColor": "https://img.shields.io/badge/status-stable-brightgreen",
+  "withHexColor": "https://img.shields.io/badge/coverage-85%25-%2344cc11",
+  "withStyle": "https://img.shields.io/badge/license-MIT-blue?style=flat-square",
+  "withLogo": "https://img.shields.io/badge/node-v18-blue?logo=node.js&logoColor=white",
+  "withLabelColor": "https://img.shields.io/badge/download-1.2k-yellow?labelColor=blue",
+  "withCacheSeconds": "https://img.shields.io/badge/uptime-99.9%25-blue?cacheSeconds=3600",
+  "specialCharacters": "https://img.shields.io/badge/my--package-v1.0.0--beta.1-blue",
+  "spaces": "https://img.shields.io/badge/build%20status-all%20tests%20passing-blue",
+  "symbols": "https://img.shields.io/badge/%E2%9A%A1%20speed-fast%20%E2%9C%A8-blue"
+}

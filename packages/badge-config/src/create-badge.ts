@@ -5,7 +5,7 @@ import {
   sanitizeInput,
   validateCacheSeconds,
   validateColor,
-  validateLogoWidth,
+  validateLogoSize,
 } from './utils'
 
 /**
@@ -27,16 +27,20 @@ export async function createBadge(
   const label = encodeText(sanitizeInput(options.label))
   const message = encodeText(sanitizeInput(options.message))
 
-  // Build the base URL
+  // Build the base URL with the shields.io format: label-message-color
   const baseUrl = 'https://img.shields.io/badge'
-  let url = `${baseUrl}/${label}-${message}`
+  const color =
+    options.color !== undefined && options.color !== null && options.color.trim() !== ''
+      ? validateColor(options.color)
+      : 'blue'
+  let url = `${baseUrl}/${label}-${message}-${color}`
 
   // Add optional parameters
   const searchParams = new URLSearchParams()
 
-  if (options.color !== undefined) {
-    const color = validateColor(options.color)
-    searchParams.set('color', color)
+  if (options.labelColor !== undefined) {
+    const labelColor = validateColor(options.labelColor)
+    searchParams.set('labelColor', labelColor)
   }
 
   if (options.style !== undefined) {
@@ -52,9 +56,9 @@ export async function createBadge(
     searchParams.set('logoColor', logoColor)
   }
 
-  if (options.logoWidth !== undefined) {
-    const logoWidth = validateLogoWidth(options.logoWidth)
-    searchParams.set('logoWidth', logoWidth.toString())
+  if (options.logoSize !== undefined) {
+    const logoSize = validateLogoSize(options.logoSize)
+    searchParams.set('logoSize', logoSize)
   }
 
   if (options.cacheSeconds !== undefined) {
@@ -116,16 +120,20 @@ export function createBadgeUrl(options: BadgeOptions): string {
   const label = encodeText(sanitizeInput(options.label))
   const message = encodeText(sanitizeInput(options.message))
 
-  // Build the base URL
+  // Build the base URL with the correct shields.io format: label-message-color
   const baseUrl = 'https://img.shields.io/badge'
-  let url = `${baseUrl}/${label}-${message}`
+  const color =
+    options.color !== undefined && options.color !== null && options.color.trim() !== ''
+      ? validateColor(options.color)
+      : 'blue'
+  let url = `${baseUrl}/${label}-${message}-${color}`
 
   // Add optional parameters
   const searchParams = new URLSearchParams()
 
-  if (options.color !== undefined) {
-    const color = validateColor(options.color)
-    searchParams.set('color', color)
+  if (options.labelColor !== undefined) {
+    const labelColor = validateColor(options.labelColor)
+    searchParams.set('labelColor', labelColor)
   }
 
   if (options.style !== undefined) {
@@ -141,9 +149,9 @@ export function createBadgeUrl(options: BadgeOptions): string {
     searchParams.set('logoColor', logoColor)
   }
 
-  if (options.logoWidth !== undefined) {
-    const logoWidth = validateLogoWidth(options.logoWidth)
-    searchParams.set('logoWidth', logoWidth.toString())
+  if (options.logoSize !== undefined) {
+    const logoSize = validateLogoSize(options.logoSize)
+    searchParams.set('logoSize', logoSize)
   }
 
   if (options.cacheSeconds !== undefined) {

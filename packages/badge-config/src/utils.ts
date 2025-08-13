@@ -11,12 +11,15 @@ export function encodeText(text: string): string {
     throw new BadgeError('Text must be a string', 'INVALID_TEXT_TYPE')
   }
 
-  // Shields.io special encoding rules
-  return text
-    .replaceAll('-', '--') // Escape hyphens
-    .replaceAll('_', '__') // Escape underscores
-    .replaceAll(' ', '_') // Replace spaces with underscores
-    .replaceAll('|', '%7C') // Encode pipes
+  // First apply URL encoding for special characters including Unicode
+  let encoded = encodeURIComponent(text)
+
+  // Then apply shields.io specific rules
+  encoded = encoded
+    .replaceAll('-', '--') // Escape hyphens (-- becomes -)
+    .replaceAll('_', '__') // Escape underscores (__ becomes _)
+
+  return encoded
 }
 
 /**
@@ -35,7 +38,7 @@ export function validateColor(color: BadgeColor): string {
     if (!/^[\da-f]{3}$|^[\da-f]{6}$/i.test(hex)) {
       throw new BadgeError(`Invalid hex color: ${color}`, 'INVALID_HEX_COLOR')
     }
-    return color
+    return encodeURIComponent(color) // URL encode the # character
   }
 
   // Check for RGB color
@@ -72,15 +75,20 @@ export function validateCacheSeconds(cacheSeconds: number): number {
 }
 
 /**
- * Validates a logo width value
- * @param logoWidth - The logo width to validate
- * @returns The validated logo width
+ * Validates a logo size value
+ * @param logoSize - The logo size to validate (number or 'auto')
+ * @returns The validated logo size
  */
-export function validateLogoWidth(logoWidth: number): number {
-  if (!Number.isInteger(logoWidth) || logoWidth <= 0) {
-    throw new BadgeError('Logo width must be a positive integer', 'INVALID_LOGO_WIDTH')
+export function validateLogoSize(logoSize: number | 'auto'): string {
+  if (logoSize === 'auto') {
+    return 'auto'
   }
-  return logoWidth
+
+  if (!Number.isInteger(logoSize) || logoSize <= 0) {
+    throw new BadgeError('Logo size must be a positive integer or "auto"', 'INVALID_LOGO_SIZE')
+  }
+
+  return logoSize.toString()
 }
 
 /**

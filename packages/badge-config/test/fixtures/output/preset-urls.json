@@ -1,0 +1,27 @@
+{
+  "buildStatus": {
+    "success": "https://img.shields.io/badge/build-passing-brightgreen",
+    "failure": "https://img.shields.io/badge/build-failing-red",
+    "pending": "https://img.shields.io/badge/build-pending-yellow",
+    "cancelled": "https://img.shields.io/badge/build-cancelled-lightgrey"
+  },
+  "coverage": {
+    "high": "https://img.shields.io/badge/coverage-95%25-brightgreen",
+    "medium": "https://img.shields.io/badge/coverage-75%25-yellow",
+    "low": "https://img.shields.io/badge/coverage-45%25-orange"
+  },
+  "license": {
+    "mit": "https://img.shields.io/badge/license-MIT-blue",
+    "apache": "https://img.shields.io/badge/license-Apache%202.0-blue",
+    "gpl": "https://img.shields.io/badge/license-GPL%203.0-orange"
+  },
+  "version": {
+    "npm": "https://img.shields.io/badge/%40bfra.me%2Fbadge--config-1.0.0-red",
+    "github": "https://img.shields.io/badge/version-1.0.0-blue"
+  },
+  "social": {
+    "githubStars": "https://img.shields.io/badge/stars-0-yellow?logo=github",
+    "githubForks": "https://img.shields.io/badge/forks-0-blue?logo=github",
+    "npmDownloads": "https://img.shields.io/badge/downloads-0-green"
+  }
+}

@@ -35,14 +35,16 @@ export interface BadgeOptions {
   message: string
   /** Badge color (hex, named color, or RGB) */
   color?: BadgeColor
+  /** Label color (hex, named color, or RGB) */
+  labelColor?: BadgeColor
   /** Badge style */
   style?: BadgeStyle
   /** Custom logo name or data URI */
   logo?: string
   /** Logo color */
   logoColor?: BadgeColor
-  /** Logo width */
-  logoWidth?: number
+  /** Logo size (number or 'auto' for adaptive sizing) */
+  logoSize?: number | 'auto'
   /** Cache seconds for the badge */
   cacheSeconds?: number
 }

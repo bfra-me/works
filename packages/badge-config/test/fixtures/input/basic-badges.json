@@ -1,0 +1,55 @@
+{
+  "basic": {
+    "label": "build",
+    "message": "passing"
+  },
+  "withColor": {
+    "label": "test",
+    "message": "success",
+    "color": "green"
+  },
+  "withNamedColor": {
+    "label": "status",
+    "message": "stable",
+    "color": "brightgreen"
+  },
+  "withHexColor": {
+    "label": "coverage",
+    "message": "85%",
+    "color": "#44cc11"
+  },
+  "withStyle": {
+    "label": "license",
+    "message": "MIT",
+    "style": "flat-square"
+  },
+  "withLogo": {
+    "label": "node",
+    "message": "v18",
+    "logo": "node.js",
+    "logoColor": "white"
+  },
+  "withLabelColor": {
+    "label": "download",
+    "message": "1.2k",
+    "labelColor": "blue",
+    "color": "yellow"
+  },
+  "withCacheSeconds": {
+    "label": "uptime",
+    "message": "99.9%",
+    "cacheSeconds": 3600
+  },
+  "specialCharacters": {
+    "label": "my-package",
+    "message": "v1.0.0-beta.1"
+  },
+  "spaces": {
+    "label": "build status",
+    "message": "all tests passing"
+  },
+  "symbols": {
+    "label": "⚡ speed",
+    "message": "fast ✨"
+  }
+}

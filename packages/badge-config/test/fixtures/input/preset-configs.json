@@ -1,0 +1,103 @@
+{
+  "buildStatus": {
+    "success": {
+      "status": "success"
+    },
+    "failure": {
+      "status": "failure"
+    },
+    "pending": {
+      "status": "pending"
+    },
+    "cancelled": {
+      "status": "cancelled"
+    },
+    "withCustomLabel": {
+      "status": "success",
+      "label": "tests"
+    }
+  },
+  "coverage": {
+    "high": {
+      "percentage": 95
+    },
+    "medium": {
+      "percentage": 75
+    },
+    "low": {
+      "percentage": 45
+    },
+    "customThresholds": {
+      "percentage": 82,
+      "thresholds": {
+        "high": 90,
+        "medium": 70
+      }
+    },
+    "withLabel": {
+      "percentage": 88,
+      "label": "test coverage"
+    }
+  },
+  "version": {
+    "npm": {
+      "source": "npm",
+      "packageName": "@bfra.me/badge-config",
+      "version": "1.0.0"
+    },
+    "github": {
+      "source": "github",
+      "owner": "bfra-me",
+      "repo": "works",
+      "repository": "bfra-me/works",
+      "version": "1.0.0"
+    },
+    "custom": {
+      "source": "custom",
+      "version": "1.2.3"
+    },
+    "semver": {
+      "source": "custom",
+      "version": "2.0.0-beta.1"
+    }
+  },
+  "license": {
+    "mit": {
+      "license": "MIT"
+    },
+    "apache": {
+      "license": "Apache-2.0"
+    },
+    "gpl": {
+      "license": "GPL-3.0"
+    },
+    "bsd": {
+      "license": "BSD-3-Clause"
+    },
+    "unlicense": {
+      "license": "Unlicense"
+    }
+  },
+  "social": {
+    "githubStars": {
+      "type": "stars",
+      "repository": "bfra-me/works"
+    },
+    "githubForks": {
+      "type": "forks",
+      "repository": "bfra-me/works"
+    },
+    "githubWatchers": {
+      "type": "watchers",
+      "repository": "bfra-me/works"
+    },
+    "npmDownloads": {
+      "type": "downloads",
+      "packageName": "@bfra.me/badge-config"
+    },
+    "userFollowers": {
+      "type": "followers",
+      "user": "marcusrbrown"
+    }
+  }
+}
