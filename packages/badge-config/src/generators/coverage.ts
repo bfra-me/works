@@ -1,47 +1,51 @@
 /**
- * Coverage badge generator with dynamic colors based on percentage thresholds
+ * @module
+ * This module provides a preset generator for creating code coverage badges.
+ * It dynamically sets the badge color based on the coverage percentage.
  */
 
 import type {BadgeColor, BadgeOptions, BadgeStyle} from '../types'
 
 /**
- * Coverage percentage thresholds for color determination
+ * Defines the percentage thresholds for determining the badge color for coverage.
  */
 export interface CoverageThresholds {
-  /** Excellent coverage threshold (default: 90) */
+  /** Threshold for 'excellent' coverage. @default 90 */
   excellent?: number
-  /** Good coverage threshold (default: 80) */
+  /** Threshold for 'good' coverage. @default 80 */
   good?: number
-  /** Moderate coverage threshold (default: 60) */
+  /** Threshold for 'moderate' coverage. @default 60 */
   moderate?: number
-  /** Poor coverage threshold (default: 40) */
+  /** Threshold for 'poor' coverage. @default 40 */
   poor?: number
 }
 
 /**
- * Configuration options for coverage badges
+ * Configuration options for creating a coverage badge.
  */
 export interface CoverageOptions {
-  /** Coverage percentage (0-100) */
+  /** The code coverage percentage (0-100). */
   percentage: number
-  /** Badge label text */
+  /** The text for the left side of the badge. @default 'coverage' */
   label?: string
-  /** Badge style */
+  /** The visual style of the badge. */
   style?: BadgeStyle
-  /** Custom color override */
+  /** Overrides the default dynamic color. */
   color?: BadgeColor
-  /** Custom thresholds for color determination */
+  /** Custom thresholds for determining the badge color. */
   thresholds?: CoverageThresholds
-  /** Custom logo */
+  /** A logo to embed in the badge. */
   logo?: string
-  /** Logo color */
+  /** The color of the embedded logo. */
   logoColor?: BadgeColor
-  /** Cache seconds */
+  /** The number of seconds to cache the badge URL. */
   cacheSeconds?: number
 }
 
 /**
- * Default coverage thresholds
+
+ * The default thresholds for coverage percentage colors.
+ * @internal
  */
 const DEFAULT_THRESHOLDS: Required<CoverageThresholds> = {
   excellent: 90,
@@ -51,7 +55,8 @@ const DEFAULT_THRESHOLDS: Required<CoverageThresholds> = {
 }
 
 /**
- * Determine color based on coverage percentage and thresholds
+ * Determines the badge color based on the coverage percentage and defined thresholds.
+ * @internal
  */
 function getCoverageColor(
   percentage: number,
@@ -73,7 +78,8 @@ function getCoverageColor(
 }
 
 /**
- * Format coverage percentage for display
+ * Formats the coverage percentage for display in the badge message.
+ * @internal
  */
 function formatCoverageMessage(percentage: number): string {
   // Round to 1 decimal place if needed, otherwise show as integer
@@ -82,28 +88,29 @@ function formatCoverageMessage(percentage: number): string {
 }
 
 /**
- * Generate badge options for coverage percentage
+ * Generates the configuration for a code coverage badge.
  *
- * @param options - Coverage configuration
- * @returns Badge options for use with createBadge
+ * The color of the badge is determined by the coverage percentage, but can be overridden.
+ *
+ * @param options - The coverage configuration.
+ * @returns Badge options that can be passed to the `createBadge` function.
  *
  * @example
  * ```typescript
- * // Basic usage
- * const badgeOptions = coverage({ percentage: 85.5 })
- * const badge = createBadge(badgeOptions)
+ * import { coverage } from '@bfra.me/badge-config/generators';
+ * import { createBadge } from '@bfra.me/badge-config';
  *
- * // Custom thresholds and label
- * const badgeOptions = coverage({
- *   percentage: 73.2,
- *   label: 'test coverage',
- *   thresholds: {
- *     excellent: 95,
- *     good: 85,
- *     moderate: 70,
- *     poor: 50
- *   }
- * })
+ * // Generate a badge for 85% coverage
+ * const highCoverageOptions = coverage({ percentage: 85 });
+ * const highCoverageBadge = await createBadge(highCoverageOptions);
+ * console.log(highCoverageBadge.url);
+ * // => https://img.shields.io/badge/coverage-85%25-green
+ *
+ * // Generate a badge for 55% coverage with a custom label
+ * const lowCoverageOptions = coverage({ percentage: 55, label: 'unit tests' });
+ * const lowCoverageBadge = await createBadge(lowCoverageOptions);
+ * console.log(lowCoverageBadge.url);
+ * // => https://img.shields.io/badge/unit%20tests-55%25-yellow
  * ```
  */
 export function coverage(options: CoverageOptions): BadgeOptions {

@@ -1,11 +1,13 @@
 /**
- * Build status badge generator for CI/CD workflows
+ * @module
+ * This module provides a preset generator for creating build status badges.
+ * It simplifies the creation of badges for common CI/CD states like success, failure, and pending.
  */
 
 import type {BadgeColor, BadgeOptions, BadgeStyle} from '../types'
 
 /**
- * Supported build status types
+ * Defines the possible states for a build status badge.
  */
 export type BuildStatus =
   | 'success'
@@ -17,27 +19,28 @@ export type BuildStatus =
   | 'unknown'
 
 /**
- * Configuration options for build status badges
+ * Configuration options for creating a build status badge.
  */
 export interface BuildStatusOptions {
-  /** Build status */
+  /** The current status of the build. */
   status: BuildStatus
-  /** Badge label text */
+  /** The text for the left side of the badge. @default 'build' */
   label?: string
-  /** Badge style */
+  /** The visual style of the badge. */
   style?: BadgeStyle
-  /** Custom color override */
+  /** Overrides the default color for the status. */
   color?: BadgeColor
-  /** Custom logo */
+  /** A logo to embed in the badge. */
   logo?: string
-  /** Logo color */
+  /** The color of the embedded logo. */
   logoColor?: BadgeColor
-  /** Cache seconds */
+  /** The number of seconds to cache the badge URL. */
   cacheSeconds?: number
 }
 
 /**
- * Default colors for build status types
+ * A map of build statuses to their default colors.
+ * @internal
  */
 const BUILD_STATUS_COLORS: Record<BuildStatus, BadgeColor> = {
   success: 'brightgreen',
@@ -50,7 +53,8 @@ const BUILD_STATUS_COLORS: Record<BuildStatus, BadgeColor> = {
 } as const
 
 /**
- * Default messages for build status types
+ * A map of build statuses to their default messages.
+ * @internal
  */
 const BUILD_STATUS_MESSAGES: Record<BuildStatus, string> = {
   success: 'passing',
@@ -63,23 +67,27 @@ const BUILD_STATUS_MESSAGES: Record<BuildStatus, string> = {
 } as const
 
 /**
- * Generate badge options for build status
+ * Generates the configuration for a build status badge.
  *
- * @param options - Build status configuration
- * @returns Badge options for use with createBadge
+ * @param options - The build status configuration.
+ * @returns Badge options that can be passed to the `createBadge` function.
  *
  * @example
  * ```typescript
- * // Basic usage
- * const badgeOptions = buildStatus({ status: 'success' })
- * const badge = createBadge(badgeOptions)
+ * import { buildStatus } from '@bfra.me/badge-config/generators';
+ * import { createBadge } from '@bfra.me/badge-config';
  *
- * // Custom label and style
- * const badgeOptions = buildStatus({
- *   status: 'failure',
- *   label: 'tests',
- *   style: 'flat-square'
- * })
+ * // Generate a success badge
+ * const successOptions = buildStatus({ status: 'success' });
+ * const successBadge = await createBadge(successOptions);
+ * console.log(successBadge.url);
+ * // => https://img.shields.io/badge/build-passing-brightgreen
+ *
+ * // Generate a failing badge with a custom label
+ * const failureOptions = buildStatus({ status: 'failure', label: 'tests' });
+ * const failureBadge = await createBadge(failureOptions);
+ * console.log(failureBadge.url);
+ * // => https://img.shields.io/badge/tests-failing-red
  * ```
  */
 export function buildStatus(options: BuildStatusOptions): BadgeOptions {

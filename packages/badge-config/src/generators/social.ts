@@ -1,44 +1,47 @@
 /**
- * Social badges generator for GitHub stars, forks, and other social metrics
+ * @module
+ * This module provides a preset generator for creating social media badges,
+ * such as GitHub stars, forks, and followers.
  */
 
 import type {BadgeColor, BadgeOptions, BadgeStyle} from '../types'
 
 /**
- * Supported social badge types
+ * Defines the supported types of social media badges.
  */
 export type SocialBadgeType = 'stars' | 'forks' | 'watchers' | 'issues' | 'followers' | 'downloads'
 
 /**
- * Configuration options for social badges
+ * Configuration options for creating a social media badge.
  */
 export interface SocialBadgeOptions {
-  /** Type of social badge */
+  /** The type of social badge to create. */
   type: SocialBadgeType
-  /** Repository name in format 'owner/repo' (for GitHub badges) */
+  /** The repository name in 'owner/repo' format (required for most GitHub badges). */
   repository?: string
-  /** User/organization name (for followers) */
+  /** The user or organization name (required for followers). */
   user?: string
-  /** Package name (for downloads) */
+  /** The name of the package (required for downloads). */
   packageName?: string
-  /** Count value (if providing custom count) */
+  /** A custom count to display, overriding any fetched value. */
   count?: number
-  /** Badge label text override */
+  /** Overrides the default label for the badge type. */
   label?: string
-  /** Badge style */
+  /** The visual style of the badge. */
   style?: BadgeStyle
-  /** Custom color override */
+  /** Overrides the default color for the badge type. */
   color?: BadgeColor
-  /** Custom logo */
+  /** Overrides the default logo for the badge type. */
   logo?: string
-  /** Logo color */
+  /** The color of the embedded logo. */
   logoColor?: BadgeColor
-  /** Cache seconds */
+  /** The number of seconds to cache the badge URL. */
   cacheSeconds?: number
 }
 
 /**
- * Default colors for social badge types
+ * A map of social badge types to their default colors.
+ * @internal
  */
 const SOCIAL_BADGE_COLORS: Record<SocialBadgeType, BadgeColor> = {
   stars: 'yellow',
@@ -50,7 +53,8 @@ const SOCIAL_BADGE_COLORS: Record<SocialBadgeType, BadgeColor> = {
 } as const
 
 /**
- * Default labels for social badge types
+ * A map of social badge types to their default labels.
+ * @internal
  */
 const SOCIAL_BADGE_LABELS: Record<SocialBadgeType, string> = {
   stars: 'stars',
@@ -62,7 +66,8 @@ const SOCIAL_BADGE_LABELS: Record<SocialBadgeType, string> = {
 } as const
 
 /**
- * Default logos for social badge types
+ * A map of social badge types to their default logos.
+ * @internal
  */
 const SOCIAL_BADGE_LOGOS: Partial<Record<SocialBadgeType, string>> = {
   stars: 'github',
@@ -73,7 +78,8 @@ const SOCIAL_BADGE_LOGOS: Partial<Record<SocialBadgeType, string>> = {
 } as const
 
 /**
- * Format count for display (adds 'k' suffix for thousands, 'M' for millions)
+ * Formats a number into a compact string representation (e.g., 1.2k, 3M).
+ * @internal
  */
 function formatCount(count: number): string {
   if (count >= 1_000_000) {
@@ -90,40 +96,27 @@ function formatCount(count: number): string {
 }
 
 /**
- * Generate badge options for social metrics
+ * Generates the configuration for a social media badge.
  *
- * @param options - Social badge configuration
- * @returns Badge options for use with createBadge
+ * @param options - The social badge configuration.
+ * @returns Badge options that can be passed to the `createBadge` function.
  *
  * @example
  * ```typescript
- * // GitHub stars
- * const badgeOptions = social({
- *   type: 'stars',
- *   repository: 'bfra-me/works'
- * })
+ * import { social } from '@bfra.me/badge-config/generators';
+ * import { createBadge } from '@bfra.me/badge-config';
  *
- * // GitHub forks with custom count
- * const badgeOptions = social({
- *   type: 'forks',
- *   repository: 'bfra-me/works',
- *   count: 42
- * })
+ * // Generate a GitHub stars badge
+ * const starsOptions = social({ type: 'stars', repository: 'bfra-me/works' });
+ * const starsBadge = await createBadge(starsOptions);
+ * console.log(starsBadge.url);
+ * // => https://img.shields.io/github/stars/bfra-me/works?style=social
  *
- * // User followers
- * const badgeOptions = social({
- *   type: 'followers',
- *   user: 'marcusrbrown',
- *   count: 150
- * })
- *
- * // NPM downloads
- * const badgeOptions = social({
- *   type: 'downloads',
- *   packageName: '@bfra.me/badge-config',
- *   count: 1250,
- *   label: 'weekly downloads'
- * })
+ * // Generate a followers badge with a custom count
+ * const followersOptions = social({ type: 'followers', user: 'marcusrbrown', count: 1234 });
+ * const followersBadge = await createBadge(followersOptions);
+ * console.log(followersBadge.url);
+ * // => https://img.shields.io/badge/followers-1.2k-blue?logo=github
  * ```
  */
 export function social(options: SocialBadgeOptions): BadgeOptions {

@@ -1,10 +1,19 @@
+/**
+ * @module
+ * This module contains utility functions for the @bfra.me/badge-config package.
+ * It provides helpers for encoding text, validating inputs, and sanitizing data.
+ */
+
 import type {BadgeColor} from './types'
 import {BadgeError} from './types'
 
 /**
- * Encodes a string for use in a shields.io URL
- * @param text - The text to encode
- * @returns The encoded text
+ * Encodes a string for use in a shields.io badge URL.
+ * It handles special characters and shields.io-specific escaping.
+ *
+ * @param text - The text to encode.
+ * @returns The encoded and escaped text.
+ * @throws {BadgeError} If the input is not a string.
  */
 export function encodeText(text: string): string {
   if (typeof text !== 'string') {
@@ -23,9 +32,12 @@ export function encodeText(text: string): string {
 }
 
 /**
- * Validates and normalizes a badge color
- * @param color - The color to validate
- * @returns The normalized color string
+ * Validates and normalizes a badge color string.
+ * It supports named colors, hex codes, and RGB values.
+ *
+ * @param color - The color to validate.
+ * @returns The normalized and encoded color string.
+ * @throws {BadgeError} If the color format is invalid.
  */
 export function validateColor(color: BadgeColor): string {
   if (typeof color !== 'string') {
@@ -63,9 +75,11 @@ export function validateColor(color: BadgeColor): string {
 }
 
 /**
- * Validates a cache seconds value
- * @param cacheSeconds - The cache seconds to validate
- * @returns The validated cache seconds
+ * Validates the `cacheSeconds` value to ensure it's a non-negative integer.
+ *
+ * @param cacheSeconds - The cache duration in seconds.
+ * @returns The validated cache duration.
+ * @throws {BadgeError} If the value is not a non-negative integer.
  */
 export function validateCacheSeconds(cacheSeconds: number): number {
   if (!Number.isInteger(cacheSeconds) || cacheSeconds < 0) {
@@ -75,9 +89,11 @@ export function validateCacheSeconds(cacheSeconds: number): number {
 }
 
 /**
- * Validates a logo size value
- * @param logoSize - The logo size to validate (number or 'auto')
- * @returns The validated logo size
+ * Validates the `logoSize` value to ensure it's a positive integer or 'auto'.
+ *
+ * @param logoSize - The size of the logo.
+ * @returns The validated logo size as a string.
+ * @throws {BadgeError} If the value is invalid.
  */
 export function validateLogoSize(logoSize: number | 'auto'): string {
   if (logoSize === 'auto') {
@@ -92,9 +108,12 @@ export function validateLogoSize(logoSize: number | 'auto'): string {
 }
 
 /**
- * Sanitizes user input to prevent URL injection
- * @param input - The input to sanitize
- * @returns The sanitized input
+ * Sanitizes user-provided strings to prevent URL injection attacks
+ * by removing potentially harmful characters.
+ *
+ * @param input - The string to sanitize.
+ * @returns The sanitized string.
+ * @throws {BadgeError} If the input is not a string.
  */
 export function sanitizeInput(input: string): string {
   if (typeof input !== 'string') {
