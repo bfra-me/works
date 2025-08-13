@@ -1,5 +1,11 @@
 # @bfra.me/create
 
+## 0.4.12
+### Patch Changes
+
+
+- Updated dependency `typescript` to `5.9.2`. ([#1627](https://github.com/bfra-me/works/pull/1627))
+
 ## 0.4.11
 ### Patch Changes
 
