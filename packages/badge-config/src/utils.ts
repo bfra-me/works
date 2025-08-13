@@ -97,6 +97,7 @@ export function sanitizeInput(input: string): string {
   const sanitized = input
     .replaceAll(/[<>"']/g, '') // Remove HTML/XSS characters
     .replaceAll(/javascript:/gi, '') // Remove javascript: protocol
+    .replaceAll(/vbscript:/gi, '') // Remove vbscript: protocol
     .replaceAll(/data:/gi, '') // Remove data: protocol (except for logo)
     .trim()
 
