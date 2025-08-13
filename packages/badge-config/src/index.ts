@@ -37,5 +37,5 @@ export {
   sanitizeInput,
   validateCacheSeconds,
   validateColor,
-  validateLogoWidth,
+  validateLogoSize,
 } from './utils'
