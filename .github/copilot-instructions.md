@@ -59,6 +59,7 @@ pnpm publish-changesets     # Publish to npm
 ## Monorepo Architecture
 
 ### Package Dependencies (Critical for Understanding)
+- **`@bfra.me/badge-config`**: TypeScript API for generating shields.io badge URLs with preset generators
 - **`@bfra.me/create`**: Standalone CLI - generates packages with templates
 - **`@bfra.me/eslint-config`**: Used by ALL packages - provides `defineConfig()`
 - **`@bfra.me/prettier-config`**: 3 variants (80/100/120-proof) - referenced in package.json
@@ -68,6 +69,7 @@ pnpm publish-changesets     # Publish to npm
 ### Workspace Structure (pnpm workspaces)
 ```
 packages/                   # Published packages
+├── badge-config/          # @bfra.me/badge-config - shields.io badge generation
 ├── create/                # @bfra.me/create - package generator
 ├── eslint-config/         # @bfra.me/eslint-config - linting
 ├── prettier-config/       # @bfra.me/prettier-config - formatting
