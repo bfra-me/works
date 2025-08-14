@@ -10,12 +10,14 @@ Built with a focus on consistency, quality, and developer experience, it enables
 
 - [Project Overview](docs/src/content/docs/index.mdx): Main documentation homepage with features and philosophy
 - [Introduction](docs/src/content/docs/getting-started/introduction.mdx): Comprehensive introduction to bfra.me Works and its design principles
+- [Installation](docs/src/content/docs/getting-started/installation.mdx): How to install and set up bfra.me Works packages
 - [Quick Start Guide](docs/src/content/docs/getting-started/quick-start.mdx): Get started with bfra.me Works in minutes
 - [Configuration Guide](docs/src/content/docs/guides/configuration.mdx): Best practices for configuring bfra.me Works packages
 - [New Project Setup](docs/src/content/docs/guides/new-project.mdx): Complete guide to setting up new projects
 
 ## Packages
 
+- [@bfra.me/badge-config](packages/badge-config/README.md): TypeScript API for generating shields.io badge URLs with presets for common use cases
 - [@bfra.me/create](packages/create/README.md): Command-line utility for creating new packages from customizable templates
 - [@bfra.me/eslint-config](packages/eslint-config/readme.md): Shared ESLint configuration with TypeScript, Prettier, and Vitest support
 - [@bfra.me/prettier-config](packages/prettier-config/readme.md): Prettier configuration with multiple line-length variants
