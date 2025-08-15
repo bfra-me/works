@@ -2,7 +2,7 @@
 goal: Redesign @bfra.me/create with Modern Template Architecture and AI-Powered Features
 version: 1.0
 date_created: 2025-08-12
-last_updated: 2025-08-12
+last_updated: 2025-08-14
 owner: bfra-me/works
 status: 'Planned'
 tags: ['refactor', 'architecture', 'cli', 'ai', 'templates', 'typescript']
@@ -12,7 +12,7 @@ tags: ['refactor', 'architecture', 'cli', 'ai', 'templates', 'typescript']
 
 ![Status: Planned](https://img.shields.io/badge/status-Planned-blue)
 
-Completely redesign `@bfra.me/create` to transform it from a simple template-based package generator into a comprehensive CLI for TypeScript project scaffolding. This involves removing the `@sxzz/create` dependency, implementing modern template repository patterns using `giget`, integrating AI-powered features with LLM APIs, and extending functionality to support adding components to existing projects. The redesign includes interactive CLI experiences, flexible template architecture, and comprehensive fixture-based testing.
+Completely redesign `@bfra.me/create` to transform it from a simple template-based package generator into a comprehensive CLI for TypeScript project scaffolding. This involves removing the `@sxzz/create` dependency, implementing modern template repository patterns using `giget`, integrating AI-powered features with LLM APIs, and extending functionality to support adding components to existing projects. The redesign includes interactive CLI experiences, flexible template architecture using Eta templating engine, and comprehensive fixture-based testing.
 
 ## 1. Requirements & Constraints
 
@@ -54,7 +54,7 @@ Completely redesign `@bfra.me/create` to transform it from a simple template-bas
 | Task | Description | Completed | Date |
 | --- | --- | --- | --- |
 | TASK-001 | Remove `@sxzz/create` dependency from package.json and update dependency list |  |  |
-| TASK-002 | Add new dependencies: `giget`, `mustache`, `glob`, `detect-package-manager`, `semver` |  |  |
+| TASK-002 | Add new dependencies: `giget`, `eta`, `glob`, `package-manager-detector'`, `semver` |  |  |
 | TASK-003 | Redesign `src/types.ts` with comprehensive interfaces for templates, AI, and CLI options |  |  |
 | TASK-004 | Create `src/templates/resolver.ts` for template source resolution (GitHub, local, URL) |  |  |
 | TASK-005 | Implement `src/templates/fetcher.ts` using `giget` for template downloading and caching |  |  |
@@ -73,7 +73,7 @@ Completely redesign `@bfra.me/create` to transform it from a simple template-bas
 | TASK-011 | Implement GitHub repository template support with branch and subdirectory handling |  |  |
 | TASK-012 | Add local directory template support with recursive copying and filtering |  |  |
 | TASK-013 | Create URL-based template fetching for zip files and direct downloads |  |  |
-| TASK-014 | Implement template variable substitution using Mustache templating engine |  |  |
+| TASK-014 | Implement template variable substitution using Eta templating engine |  |  |
 | TASK-015 | Create template metadata system with `template.json` configuration files |  |  |
 | TASK-016 | Build template validation system for structure and metadata verification |  |  |
 | TASK-017 | Expand built-in template library with library, CLI, React, and Node.js templates |  |  |
@@ -155,15 +155,15 @@ Completely redesign `@bfra.me/create` to transform it from a simple template-bas
 - **ALT-002**: Use `degit` instead of `giget` - Rejected as `giget` provides better caching, error handling, and broader source support
 - **ALT-003**: Build custom LLM integration instead of using existing APIs - Rejected due to complexity and maintenance overhead
 - **ALT-004**: Create separate CLI for add functionality - Rejected to maintain unified user experience and code reuse
-- **ALT-005**: Use Handlebars instead of Mustache for templating - Rejected due to Mustache's simplicity and security benefits
+- **ALT-005**: Use Handlebars or Mustache instead of Eta for templating - Rejected as Eta provides smaller size, better TypeScript support, greater extensibility, and more flexibility
 
 ## 4. Dependencies
 
 - **DEP-001**: `giget` - Modern template fetching library supporting GitHub, URLs, and caching
 - **DEP-002**: `@clack/prompts` - Already present, enhanced usage for interactive CLI
-- **DEP-003**: `mustache` - Logic-less templating for variable substitution
+- **DEP-003**: `eta` - Fast, lightweight, and configurable templating engine with TypeScript support
 - **DEP-004**: `glob` - File pattern matching for template processing
-- **DEP-005**: `detect-package-manager` - Package manager detection for proper installation commands
+- **DEP-005**: `package-manager-detector'` - Package manager detection for proper installation commands
 - **DEP-006**: `semver` - Semantic version parsing and comparison
 - **DEP-007**: `openai` or `@anthropic-ai/sdk` - LLM API integration for AI features
 - **DEP-008**: `consola` - Enhanced logging and progress indicators
@@ -232,7 +232,7 @@ Completely redesign `@bfra.me/create` to transform it from a simple template-bas
 - [giget Documentation](https://github.com/unjs/giget)
 - [@clack/prompts Documentation](https://github.com/natemoo-re/clack/tree/main/packages/prompts)
 - [OpenAI API Documentation](https://platform.openai.com/docs)
-- [Mustache Template Documentation](https://mustache.github.io/)
+- [Eta Template Documentation](https://eta.js.org/)
 - [bfra.me Works Monorepo Copilot Instructions](../../.github/copilot-instructions.md)
 - [TypeScript Patterns Instructions](../../.github/instructions/typescript-patterns.instructions.md)
 - [Testing Practices Instructions](../../.github/instructions/testing-practices.instructions.md)
