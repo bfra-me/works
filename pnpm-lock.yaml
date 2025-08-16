@@ -60,6 +60,9 @@ importers:
       husky:
         specifier: 9.1.7
         version: 9.1.7
+      jiti:
+        specifier: <2.2.0
+        version: 2.1.2
       lint-staged:
         specifier: 16.1.5
         version: 16.1.5
@@ -129,15 +132,27 @@ importers:
       '@clack/prompts':
         specifier: 0.11.0
         version: 0.11.0
-      '@sxzz/create':
-        specifier: 0.15.1
-        version: 0.15.1
       cac:
         specifier: 6.7.14
         version: 6.7.14
       consola:
         specifier: 3.4.2
         version: 3.4.2
+      eta:
+        specifier: 3.5.0
+        version: 3.5.0
+      giget:
+        specifier: 2.0.0
+        version: 2.0.0
+      glob:
+        specifier: 11.0.3
+        version: 11.0.3
+      package-manager-detector:
+        specifier: 1.3.0
+        version: 1.3.0
+      semver:
+        specifier: 7.7.2
+        version: 7.7.2
     devDependencies:
       memfs:
         specifier: 4.36.0
@@ -1194,9 +1209,6 @@ packages:
     resolution: {integrity: sha512-S+9ANAvUmjutrshV4jZjaiG8XQyuJIZ8a4utWmN/vW1sgQ9IfBnPndwkmQYw53QmouOIytT874u65HEmu6H5jw==}
     engines: {node: '>=18'}
 
-  '@quansync/fs@0.1.4':
-    resolution: {integrity: sha512-vy/41FCdnIalPTQCb2Wl0ic1caMdzGus4ktDp+gpZesQNydXcx8nhh8qB3qMPbGkictOTaXgXEUUfQEm8DQYoA==}
-
   '@rollup/pluginutils@5.2.0':
     resolution: {integrity: sha512-qWJ2ZTbmumwiLFomfzTyt5Kng4hwPi9rwCYN4SHb6eaRU1KNO4ccxINHr/VhH4GgPlt1XfSTLX2LBTme8ne4Zw==}
     engines: {node: '>=14.0.0'}
@@ -1398,11 +1410,6 @@ packages:
 
   '@swc/helpers@0.5.17':
     resolution: {integrity: sha512-5IKx/Y13RsYd+sauPb2x+U/xZikHjolzfuDgTAl/Tdf3Q8rslRvC19NKDLgAJQ6wsqADk10ntlv08nPFw/gO/A==}
-
-  '@sxzz/create@0.15.1':
-    resolution: {integrity: sha512-Hz7zsKNpNoiwvsvgQz2ZaxWlnExVzrMau47G7VUyc1GTBi/CecY89TGxzT23I789/jfC0P3ZseexoCxRh+A9hQ==}
-    engines: {node: '>=20.18.0'}
-    hasBin: true
 
   '@tybys/wasm-util@0.10.0':
     resolution: {integrity: sha512-VyyPYFlOMNylG45GoAe0xDoLwWuowvf92F9kySqzYh8vmYm7D2u4iUJKa1tOUpS70Ku13ASrOkS4ScXFsTaCNQ==}
@@ -1781,9 +1788,6 @@ packages:
 
   argparse@2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
-
-  args-tokenizer@0.3.0:
-    resolution: {integrity: sha512-xXAd7G2Mll5W8uo37GETpQ2VrE84M181Z7ugHFGQnJZ50M2mbOv0osSZ9VsSgPfJQ+LVG0prSi0th+ELMsno7Q==}
 
   argv-formatter@1.0.0:
     resolution: {integrity: sha512-F2+Hkm9xFaRg+GkaNnbwXNDV5O6pnCFEmqyhvfC/Ic5LbgOWjJh3L+mN/s91rxVL3znE7DYVpW0GJFT+4YBgWw==}
@@ -2570,6 +2574,10 @@ packages:
   esutils@2.0.3:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
+
+  eta@3.5.0:
+    resolution: {integrity: sha512-e3x3FBvGzeCIHhF+zhK8FZA2vC5uFn6b4HJjegUbIWrDb4mJ7JjTGMJY9VGIbRVpmSwHopNiaJibhjIr+HfLug==}
+    engines: {node: '>=6.0.0'}
 
   eventemitter3@5.0.1:
     resolution: {integrity: sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA==}
@@ -4847,9 +4855,6 @@ packages:
   ultrahtml@1.6.0:
     resolution: {integrity: sha512-R9fBn90VTJrqqLDwyMph+HGne8eqY1iPfYhPzZrvKpIfwkWZbcYlfpsb8B9dTvBfpy1/hqAD7Wi8EKfP9e8zdw==}
 
-  unconfig@7.3.2:
-    resolution: {integrity: sha512-nqG5NNL2wFVGZ0NA/aCFw0oJ2pxSf1lwg4Z5ill8wd7K4KX/rQbHlwbh+bjctXL5Ly1xtzHenHGOK0b+lG6JVg==}
-
   uncrypto@0.1.3:
     resolution: {integrity: sha512-Ql87qFHB3s/De2ClA9e0gsnS6zXG27SkTiSJwjCc9MebbfapQfuPzumMIUMi38ezPZVNFcHI9sUIepeQfw8J8Q==}
 
@@ -6307,10 +6312,6 @@ snapshots:
 
   '@publint/pack@0.1.2': {}
 
-  '@quansync/fs@0.1.4':
-    dependencies:
-      quansync: 0.2.10
-
   '@rollup/pluginutils@5.2.0(rollup@4.46.2)':
     dependencies:
       '@types/estree': 1.0.8
@@ -6535,20 +6536,6 @@ snapshots:
   '@swc/helpers@0.5.17':
     dependencies:
       tslib: 2.8.1
-
-  '@sxzz/create@0.15.1':
-    dependencies:
-      '@clack/prompts': 0.11.0
-      ansis: 4.1.0
-      args-tokenizer: 0.3.0
-      cac: 6.7.14
-      consola: 3.4.2
-      escape-string-regexp: 5.0.0
-      find-up-simple: 1.0.1
-      giget: 2.0.0
-      js-yaml: 4.1.0
-      tinyexec: 1.0.1
-      unconfig: 7.3.2
 
   '@tybys/wasm-util@0.10.0':
     dependencies:
@@ -6946,8 +6933,6 @@ snapshots:
       sprintf-js: 1.0.3
 
   argparse@2.0.1: {}
-
-  args-tokenizer@0.3.0: {}
 
   argv-formatter@1.0.0: {}
 
@@ -7890,6 +7875,8 @@ snapshots:
       '@types/estree': 1.0.8
 
   esutils@2.0.3: {}
+
+  eta@3.5.0: {}
 
   eventemitter3@5.0.1: {}
 
@@ -10626,13 +10613,6 @@ snapshots:
     optional: true
 
   ultrahtml@1.6.0: {}
-
-  unconfig@7.3.2:
-    dependencies:
-      '@quansync/fs': 0.1.4
-      defu: 6.1.4
-      jiti: 2.1.2
-      quansync: 0.2.10
 
   uncrypto@0.1.3: {}
 
