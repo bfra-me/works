@@ -23,6 +23,7 @@ Completely redesign `@bfra.me/create` to transform it from a simple template-bas
 - **REQ-005**: Extend functionality with `add` command for adding features to existing projects
 - **REQ-006**: Implement comprehensive fixture-based testing with parallel execution and file snapshots
 - **REQ-007**: Maintain backward compatibility for existing CLI usage patterns
+- **REQ-008**: Reorganize template projects from `src/templates/` to root-level `templates/` directory for better maintainability and separation of concerns
 
 - **SEC-001**: Validate and sanitize all template inputs to prevent code injection
 - **SEC-002**: Secure API key management for AI features with environment variable configuration
@@ -81,73 +82,90 @@ Completely redesign `@bfra.me/create` to transform it from a simple template-bas
 | TASK-019 | Create template discovery mechanism for listing available templates | ✅ | 2025-08-15 |
 | TASK-020 | Add template version management and compatibility checking | ✅ | 2025-08-15 |
 
-### Implementation Phase 3: Interactive CLI Enhancement
+### Implementation Phase 3: Template Structure Reorganization
 
-- GOAL-003: Create sophisticated interactive CLI experience using @clack/prompts
-
-| Task | Description | Completed | Date |
-| --- | --- | --- | --- |
-| TASK-021 | Design multi-step project setup workflow in `src/prompts/project-setup.ts` |  |  |
-| TASK-022 | Implement template selection interface with preview and description support |  |  |
-| TASK-023 | Create project customization prompts for name, description, author, and options |  |  |
-| TASK-024 | Add progress indicators and status feedback for template processing operations |  |  |
-| TASK-025 | Implement confirmation steps and summary display before project creation |  |  |
-| TASK-026 | Create interactive mode flag handling and non-interactive fallback options |  |  |
-| TASK-027 | Add command-line argument parsing for template and configuration overrides |  |  |
-| TASK-028 | Implement error recovery and retry mechanisms for failed operations |  |  |
-| TASK-029 | Create help system with contextual guidance and examples |  |  |
-| TASK-030 | Add colored output and emoji support for enhanced user experience |  |  |
-
-### Implementation Phase 4: AI-Powered Features Integration
-
-- GOAL-004: Integrate LLM APIs for intelligent project setup and code generation
+- GOAL-003: Reorganize template projects from src/templates/ to root-level templates/ directory for better separation and maintainability
 
 | Task | Description | Completed | Date |
 | --- | --- | --- | --- |
-| TASK-031 | Create `src/ai/llm-client.ts` with support for OpenAI and Anthropic APIs |  |  |
-| TASK-032 | Implement `src/ai/project-analyzer.ts` for analyzing project requirements from user input |  |  |
-| TASK-033 | Build `src/ai/dependency-recommender.ts` for intelligent package suggestions |  |  |
-| TASK-034 | Create `src/ai/code-generator.ts` for generating boilerplate code and configurations |  |  |
-| TASK-035 | Implement AI-powered template selection based on project description |  |  |
-| TASK-036 | Add configuration optimization suggestions using AI analysis |  |  |
-| TASK-037 | Create AI assist mode with conversational project setup |  |  |
-| TASK-038 | Implement code quality analysis and improvement suggestions |  |  |
-| TASK-039 | Add AI-powered documentation generation for created projects |  |  |
-| TASK-040 | Create fallback mechanisms and graceful degradation without AI API access |  |  |
+| TASK-021 | Move `src/templates/default/` to `templates/default/` preserving all files and structure |  |  |
+| TASK-022 | Move `src/templates/library/` to `templates/library/` preserving all files and structure |  |  |
+| TASK-023 | Move `src/templates/node/` to `templates/node/` preserving all files and structure |  |  |
+| TASK-024 | Move `src/templates/react/` to `templates/react/` preserving all files and structure |  |  |
+| TASK-025 | Move `src/templates/cli/` to `templates/cli/` preserving all files and structure |  |  |
+| TASK-026 | Update `tsup.config.ts` to handle new template directory structure and ensure proper bundling |  |  |
+| TASK-027 | Update all code references in `src/templates/` modules to point to new template locations |  |  |
+| TASK-028 | Update test files and fixtures to reference new template directory structure |  |  |
+| TASK-029 | Run comprehensive verification: lint, type-check, test, and build to ensure no errors |  |  |
+| TASK-030 | Update documentation and README to reflect new template directory structure |  |  |
 
-### Implementation Phase 5: Extended Functionality - Add Command
+### Implementation Phase 4: Interactive CLI Enhancement
 
-- GOAL-005: Implement feature addition capabilities for existing projects
-
-| Task | Description | Completed | Date |
-| --- | --- | --- | --- |
-| TASK-041 | Create `src/commands/add.ts` for adding features to existing projects |  |  |
-| TASK-042 | Implement project detection and analysis in `src/utils/project-detection.ts` |  |  |
-| TASK-043 | Build feature registry system for available addable components and configurations |  |  |
-| TASK-044 | Create ESLint configuration addition workflow with proper integration |  |  |
-| TASK-045 | Implement Vitest setup addition with test file generation |  |  |
-| TASK-046 | Add component generation for React/Vue/Angular projects |  |  |
-| TASK-047 | Create configuration file addition (Prettier, TypeScript, etc.) |  |  |
-| TASK-048 | Implement package.json modification for new dependencies and scripts |  |  |
-| TASK-049 | Add conflict detection and resolution for existing configurations |  |  |
-| TASK-050 | Create backup and rollback mechanisms for failed feature additions |  |  |
-
-### Implementation Phase 6: Comprehensive Testing and Documentation
-
-- GOAL-006: Implement fixture-based testing and complete documentation
+- GOAL-004: Create sophisticated interactive CLI experience using @clack/prompts
 
 | Task | Description | Completed | Date |
 | --- | --- | --- | --- |
-| TASK-051 | Create comprehensive test fixture structure in `test/fixtures/input/` and `test/fixtures/output/` |  |  |
-| TASK-052 | Implement template resolution tests with mock GitHub and URL responses |  |  |
-| TASK-053 | Create project generation tests using `it.concurrent()` and `toMatchFileSnapshot()` |  |  |
-| TASK-054 | Build CLI interaction tests with mocked prompts and user inputs |  |  |
-| TASK-055 | Implement AI feature tests with mocked LLM API responses |  |  |
-| TASK-056 | Create add command tests for feature addition to existing projects |  |  |
-| TASK-057 | Add performance tests for template processing and large repository handling |  |  |
-| TASK-058 | Implement integration tests for end-to-end CLI workflows |  |  |
-| TASK-059 | Write comprehensive README.md with usage examples and API documentation |  |  |
-| TASK-060 | Create migration guide for users upgrading from previous versions |  |  |
+| TASK-031 | Design multi-step project setup workflow in `src/prompts/project-setup.ts` |  |  |
+| TASK-032 | Implement template selection interface with preview and description support |  |  |
+| TASK-033 | Create project customization prompts for name, description, author, and options |  |  |
+| TASK-034 | Add progress indicators and status feedback for template processing operations |  |  |
+| TASK-035 | Implement confirmation steps and summary display before project creation |  |  |
+| TASK-036 | Create interactive mode flag handling and non-interactive fallback options |  |  |
+| TASK-037 | Add command-line argument parsing for template and configuration overrides |  |  |
+| TASK-038 | Implement error recovery and retry mechanisms for failed operations |  |  |
+| TASK-039 | Create help system with contextual guidance and examples |  |  |
+| TASK-040 | Add colored output and emoji support for enhanced user experience |  |  |
+
+### Implementation Phase 5: AI-Powered Features Integration
+
+- GOAL-005: Integrate LLM APIs for intelligent project setup and code generation
+
+| Task | Description | Completed | Date |
+| --- | --- | --- | --- |
+| TASK-041 | Create `src/ai/llm-client.ts` with support for OpenAI and Anthropic APIs |  |  |
+| TASK-042 | Implement `src/ai/project-analyzer.ts` for analyzing project requirements from user input |  |  |
+| TASK-043 | Build `src/ai/dependency-recommender.ts` for intelligent package suggestions |  |  |
+| TASK-044 | Create `src/ai/code-generator.ts` for generating boilerplate code and configurations |  |  |
+| TASK-045 | Implement AI-powered template selection based on project description |  |  |
+| TASK-046 | Add configuration optimization suggestions using AI analysis |  |  |
+| TASK-047 | Create AI assist mode with conversational project setup |  |  |
+| TASK-048 | Implement code quality analysis and improvement suggestions |  |  |
+| TASK-049 | Add AI-powered documentation generation for created projects |  |  |
+| TASK-050 | Create fallback mechanisms and graceful degradation without AI API access |  |  |
+
+### Implementation Phase 6: Extended Functionality - Add Command
+
+- GOAL-006: Implement feature addition capabilities for existing projects
+
+| Task | Description | Completed | Date |
+| --- | --- | --- | --- |
+| TASK-051 | Create `src/commands/add.ts` for adding features to existing projects |  |  |
+| TASK-052 | Implement project detection and analysis in `src/utils/project-detection.ts` |  |  |
+| TASK-053 | Build feature registry system for available addable components and configurations |  |  |
+| TASK-054 | Create ESLint configuration addition workflow with proper integration |  |  |
+| TASK-055 | Implement Vitest setup addition with test file generation |  |  |
+| TASK-056 | Add component generation for React/Vue/Angular projects |  |  |
+| TASK-057 | Create configuration file addition (Prettier, TypeScript, etc.) |  |  |
+| TASK-058 | Implement package.json modification for new dependencies and scripts |  |  |
+| TASK-059 | Add conflict detection and resolution for existing configurations |  |  |
+| TASK-060 | Create backup and rollback mechanisms for failed feature additions |  |  |
+
+### Implementation Phase 7: Comprehensive Testing and Documentation
+
+- GOAL-007: Implement fixture-based testing and complete documentation
+
+| Task | Description | Completed | Date |
+| --- | --- | --- | --- |
+| TASK-061 | Create comprehensive test fixture structure in `test/fixtures/input/` and `test/fixtures/output/` |  |  |
+| TASK-062 | Implement template resolution tests with mock GitHub and URL responses |  |  |
+| TASK-063 | Create project generation tests using `it.concurrent()` and `toMatchFileSnapshot()` |  |  |
+| TASK-064 | Build CLI interaction tests with mocked prompts and user inputs |  |  |
+| TASK-065 | Implement AI feature tests with mocked LLM API responses |  |  |
+| TASK-066 | Create add command tests for feature addition to existing projects |  |  |
+| TASK-067 | Add performance tests for template processing and large repository handling |  |  |
+| TASK-068 | Implement integration tests for end-to-end CLI workflows |  |  |
+| TASK-069 | Write comprehensive README.md with usage examples and API documentation |  |  |
+| TASK-070 | Create migration guide for users upgrading from previous versions |  |  |
 
 ## 3. Alternatives
 
@@ -181,21 +199,28 @@ Completely redesign `@bfra.me/create` to transform it from a simple template-bas
 - **FILE-007**: `packages/create/src/templates/resolver.ts` - Template source resolution logic
 - **FILE-008**: `packages/create/src/templates/fetcher.ts` - Template downloading using giget
 - **FILE-009**: `packages/create/src/templates/processor.ts` - Template processing and variable substitution
-- **FILE-010**: `packages/create/src/templates/built-in/` - Expanded built-in template library
-- **FILE-011**: `packages/create/src/ai/llm-client.ts` - LLM API integration
-- **FILE-012**: `packages/create/src/ai/project-analyzer.ts` - AI-powered project analysis
-- **FILE-013**: `packages/create/src/ai/dependency-recommender.ts` - Intelligent dependency suggestions
-- **FILE-014**: `packages/create/src/ai/code-generator.ts` - AI code generation capabilities
-- **FILE-015**: `packages/create/src/prompts/project-setup.ts` - Interactive project setup prompts
-- **FILE-016**: `packages/create/src/utils/file-system.ts` - File system utilities
-- **FILE-017**: `packages/create/src/utils/validation.ts` - Input validation and sanitization
-- **FILE-018**: `packages/create/src/utils/project-detection.ts` - Existing project analysis
-- **FILE-019**: `packages/create/test/fixtures/input/` - Test input configurations and templates
-- **FILE-020**: `packages/create/test/fixtures/output/` - Expected output structures
-- **FILE-021**: `packages/create/test/commands/` - Command-specific test files
-- **FILE-022**: `packages/create/test/templates/` - Template processing test files
-- **FILE-023**: `packages/create/test/ai/` - AI feature test files with mocked responses
-- **FILE-024**: `packages/create/README.md` - Comprehensive documentation and usage guide
+- **FILE-010**: `packages/create/src/templates/metadata.ts` - Template metadata management system
+- **FILE-011**: `packages/create/src/templates/validator.ts` - Template validation and verification system
+- **FILE-012**: `packages/create/templates/default/` - Moved from src/templates/default/, basic TypeScript template
+- **FILE-013**: `packages/create/templates/library/` - Moved from src/templates/library/, NPM library template
+- **FILE-014**: `packages/create/templates/cli/` - Moved from src/templates/cli/, CLI application template
+- **FILE-015**: `packages/create/templates/react/` - Moved from src/templates/react/, React application template
+- **FILE-016**: `packages/create/templates/node/` - Moved from src/templates/node/, Node.js server template
+- **FILE-017**: `packages/create/src/ai/llm-client.ts` - LLM API integration
+- **FILE-018**: `packages/create/src/ai/project-analyzer.ts` - AI-powered project analysis
+- **FILE-019**: `packages/create/src/ai/dependency-recommender.ts` - Intelligent dependency suggestions
+- **FILE-020**: `packages/create/src/ai/code-generator.ts` - AI code generation capabilities
+- **FILE-021**: `packages/create/src/prompts/project-setup.ts` - Interactive project setup prompts
+- **FILE-022**: `packages/create/src/utils/file-system.ts` - File system utilities
+- **FILE-023**: `packages/create/src/utils/validation.ts` - Input validation and sanitization
+- **FILE-024**: `packages/create/src/utils/project-detection.ts` - Existing project analysis
+- **FILE-025**: `packages/create/test/fixtures/input/` - Test input configurations and templates
+- **FILE-026**: `packages/create/test/fixtures/output/` - Expected output structures
+- **FILE-027**: `packages/create/test/commands/` - Command-specific test files
+- **FILE-028**: `packages/create/test/templates/` - Template processing test files
+- **FILE-029**: `packages/create/test/ai/` - AI feature test files with mocked responses
+- **FILE-030**: `packages/create/README.md` - Comprehensive documentation and usage guide
+- **FILE-031**: `packages/create/tsup.config.ts` - Updated build configuration for new template structure
 
 ## 6. Testing
 
@@ -211,6 +236,9 @@ Completely redesign `@bfra.me/create` to transform it from a simple template-bas
 - **TEST-010**: Performance tests for large template processing and concurrent operations
 - **TEST-011**: Integration tests for complete CLI workflows from start to finish
 - **TEST-012**: Backward compatibility tests ensuring existing workflows continue to work
+- **TEST-013**: Template structure reorganization tests verifying new template/ directory paths work correctly
+- **TEST-014**: Build configuration tests ensuring tsup.config.ts properly handles reorganized template structure
+- **TEST-015**: Quality gate verification tests for lint, type-check, test, and build after template reorganization
 
 ## 7. Risks & Assumptions
 
@@ -219,6 +247,7 @@ Completely redesign `@bfra.me/create` to transform it from a simple template-bas
 - **RISK-003**: Network dependencies for template fetching could cause failures - Mitigation: Comprehensive caching and offline fallback modes
 - **RISK-004**: Large template repositories could cause memory issues - Mitigation: Streaming processing and memory optimization
 - **RISK-005**: Breaking changes could disrupt existing user workflows - Mitigation: Comprehensive backward compatibility testing
+- **RISK-006**: Template structure reorganization could break existing code references and build processes - Mitigation: Comprehensive testing and systematic path updates
 
 - **ASSUMPTION-001**: Users will have internet access for template fetching in most use cases
 - **ASSUMPTION-002**: AI API services will maintain stable interfaces and reasonable pricing
@@ -226,6 +255,7 @@ Completely redesign `@bfra.me/create` to transform it from a simple template-bas
 - **ASSUMPTION-004**: Template authors will adopt new metadata format for enhanced features
 - **ASSUMPTION-005**: Users will prefer interactive CLI experience over purely command-line driven workflows
 - **ASSUMPTION-006**: TypeScript projects will remain the primary use case for the tool
+- **ASSUMPTION-007**: Moving templates to root-level templates/ directory will improve maintainability and clarity without breaking existing functionality
 
 ## 8. Related Specifications / Further Reading
 
