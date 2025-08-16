@@ -237,6 +237,57 @@ export interface ValidationResult {
   warnings?: string[]
 }
 
+// Interactive Prompts Types
+export interface ProjectSetupResult {
+  /** Final project name */
+  projectName: string
+  /** Selected template */
+  template: TemplateSelection
+  /** Final command options */
+  options: CreateCommandOptions
+  /** Customization results */
+  customization: ProjectCustomization
+}
+
+export interface TemplateSelection {
+  /** Template type */
+  type: 'github' | 'local' | 'url' | 'builtin'
+  /** Template location */
+  location: string
+  /** Template metadata */
+  metadata: TemplateMetadata
+  /** Template branch/ref */
+  ref?: string
+  /** Template subdirectory */
+  subdir?: string
+}
+
+export interface ProjectCustomization {
+  /** Project description */
+  description?: string
+  /** Project author */
+  author?: string
+  /** Project version */
+  version?: string
+  /** Package manager choice */
+  packageManager?: 'npm' | 'yarn' | 'pnpm' | 'bun'
+  /** Output directory */
+  outputDir?: string
+  /** Selected features */
+  features: string[]
+  /** Custom variables */
+  variables?: Record<string, unknown>
+}
+
+export interface ConfirmationSummary {
+  /** Project name */
+  projectName: string
+  /** Template information */
+  template: TemplateSelection
+  /** Customization details */
+  customization: ProjectCustomization
+}
+
 // Utility Types
 export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P]
