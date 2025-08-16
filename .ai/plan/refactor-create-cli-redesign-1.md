@@ -70,16 +70,16 @@ Completely redesign `@bfra.me/create` to transform it from a simple template-bas
 
 | Task | Description | Completed | Date |
 | --- | --- | --- | --- |
-| TASK-011 | Implement GitHub repository template support with branch and subdirectory handling |  |  |
-| TASK-012 | Add local directory template support with recursive copying and filtering |  |  |
-| TASK-013 | Create URL-based template fetching for zip files and direct downloads |  |  |
-| TASK-014 | Implement template variable substitution using Eta templating engine |  |  |
-| TASK-015 | Create template metadata system with `template.json` configuration files |  |  |
-| TASK-016 | Build template validation system for structure and metadata verification |  |  |
-| TASK-017 | Expand built-in template library with library, CLI, React, and Node.js templates |  |  |
-| TASK-018 | Implement template caching system for improved performance and offline usage |  |  |
-| TASK-019 | Create template discovery mechanism for listing available templates |  |  |
-| TASK-020 | Add template version management and compatibility checking |  |  |
+| TASK-011 | Implement GitHub repository template support with branch and subdirectory handling | ✅ | 2025-08-15 |
+| TASK-012 | Add local directory template support with recursive copying and filtering | ✅ | 2025-08-15 |
+| TASK-013 | Create URL-based template fetching for zip files and direct downloads | ✅ | 2025-08-15 |
+| TASK-014 | Implement template variable substitution using Eta templating engine | ✅ | 2025-08-15 |
+| TASK-015 | Create template metadata system with `template.json` configuration files | ✅ | 2025-08-15 |
+| TASK-016 | Build template validation system for structure and metadata verification | ✅ | 2025-08-15 |
+| TASK-017 | Expand built-in template library with library, CLI, React, and Node.js templates | ✅ | 2025-08-15 |
+| TASK-018 | Implement template caching system for improved performance and offline usage | ✅ | 2025-08-15 |
+| TASK-019 | Create template discovery mechanism for listing available templates | ✅ | 2025-08-15 |
+| TASK-020 | Add template version management and compatibility checking | ✅ | 2025-08-15 |
 
 ### Implementation Phase 3: Interactive CLI Enhancement
 

@@ -1,0 +1,29 @@
+{
+  "name": "CLI Application",
+  "description": "A command-line interface application template with TypeScript, CAC, and testing setup",
+  "version": "1.0.0",
+  "author": "bfra.me",
+  "tags": ["cli", "typescript", "command-line", "cac"],
+  "variables": [
+    {
+      "name": "name",
+      "description": "The name of the CLI application",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "description",
+      "description": "Description of the CLI application",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "author",
+      "description": "Author of the CLI application",
+      "type": "string",
+      "required": false
+    }
+  ],
+  "dependencies": ["cac", "consola"],
+  "nodeVersion": ">=18"
+}

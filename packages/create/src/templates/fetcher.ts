@@ -1,11 +1,13 @@
 import type {Result, TemplateMetadata, TemplateSource} from '../types.js'
-import {existsSync} from 'node:fs'
+import {existsSync, statSync} from 'node:fs'
 import {cp, mkdir, readFile} from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
 import {fileURLToPath} from 'node:url'
 import {consola} from 'consola'
 import {downloadTemplate} from 'giget'
+import {glob} from 'glob'
+import {templateMetadataManager} from './metadata.js'
 
 /**
  * Cache configuration for template fetching.
@@ -210,6 +212,9 @@ export class TemplateFetcher {
    * Fetch template from URL.
    */
   private async fetchUrl(source: TemplateSource, targetDir: string): Promise<string> {
+    // Validate URL format and supported types
+    this.validateUrl(source.location)
+
     const cacheKey = this.getCacheKey('url', source)
     const cachedPath = await this.getFromCache(cacheKey)
 
@@ -220,11 +225,20 @@ export class TemplateFetcher {
 
     // Download using giget
     const tempDir = await this.createTempDir()
-    await downloadTemplate(source.location, {
-      dir: tempDir,
-      offline: false,
-      force: true,
-    })
+
+    try {
+      await downloadTemplate(source.location, {
+        dir: tempDir,
+        offline: false,
+        force: true,
+      })
+    } catch (error) {
+      throw new Error(
+        `Failed to fetch template from URL: ${source.location}. ${
+          error instanceof Error ? error.message : String(error)
+        }`,
+      )
+    }
 
     // Cache the template
     await this.saveToCache(cacheKey, tempDir)
@@ -243,7 +257,13 @@ export class TemplateFetcher {
       throw new Error(`Local template directory does not exist: ${source.location}`)
     }
 
-    await this.copyToTarget(source.location, targetDir)
+    const stats = statSync(source.location)
+    if (!stats.isDirectory()) {
+      throw new Error(`Local template path is not a directory: ${source.location}`)
+    }
+
+    // Use filtered copying for local templates to exclude unwanted files
+    await this.copyFiltered(source.location, targetDir)
     return targetDir
   }
 
@@ -266,34 +286,18 @@ export class TemplateFetcher {
    * Load template metadata from template.json file.
    */
   private async loadMetadata(templatePath: string): Promise<TemplateMetadata> {
-    const metadataPath = path.join(templatePath, 'template.json')
+    const result = await templateMetadataManager.load(templatePath)
 
-    // Default metadata
-    const defaultMetadata: TemplateMetadata = {
-      name: 'Unknown',
-      description: 'Template description not available',
-      version: '1.0.0',
-    }
-
-    if (!existsSync(metadataPath)) {
-      return defaultMetadata
-    }
-
-    try {
-      const content = await readFile(metadataPath, 'utf-8')
-      const metadata = JSON.parse(content) as TemplateMetadata
-
-      // Validate required fields
+    if (result.success) {
+      return result.data
+    } else {
+      // Return default metadata if loading fails
+      consola.warn('Failed to load template metadata, using defaults:', result.error)
       return {
-        ...defaultMetadata,
-        ...metadata,
-        name: metadata.name || defaultMetadata.name,
-        description: metadata.description || defaultMetadata.description,
-        version: metadata.version || defaultMetadata.version,
+        name: 'Unknown',
+        description: 'Template description not available',
+        version: '1.0.0',
       }
-    } catch (error) {
-      consola.warn('Failed to load template metadata, using defaults:', error)
-      return defaultMetadata
     }
   }
 
@@ -379,6 +383,52 @@ export class TemplateFetcher {
   }
 
   /**
+   * Copy template files with filtering to exclude unwanted files and directories.
+   */
+  private async copyFiltered(sourcePath: string, targetPath: string): Promise<void> {
+    const ignorePatterns = [
+      '**/node_modules/**',
+      '**/.git/**',
+      '**/dist/**',
+      '**/lib/**',
+      '**/build/**',
+      '**/*.log',
+      '**/template.json',
+      '**/.cache-meta.json',
+      '**/.DS_Store',
+      '**/Thumbs.db',
+      '**/.env',
+      '**/.env.local',
+    ]
+
+    // Create target directory
+    await mkdir(targetPath, {recursive: true})
+
+    // Get all files in source directory
+    const files = await glob(['**/*'], {
+      cwd: sourcePath,
+      dot: true,
+      ignore: ignorePatterns,
+    })
+
+    // Copy each file
+    for (const file of files) {
+      const sourceFile = path.join(sourcePath, file)
+      const targetFile = path.join(targetPath, file)
+
+      const stats = statSync(sourceFile)
+      if (stats.isDirectory()) {
+        await mkdir(targetFile, {recursive: true})
+      } else if (stats.isFile()) {
+        // Ensure parent directory exists
+        await mkdir(path.dirname(targetFile), {recursive: true})
+        // Copy file
+        await cp(sourceFile, targetFile)
+      }
+    }
+  }
+
+  /**
    * Create temporary directory for template processing.
    */
   private async createTempDir(): Promise<string> {
@@ -386,6 +436,38 @@ export class TemplateFetcher {
     const {tmpdir} = await import('node:os')
 
     return mkdtemp(path.join(tmpdir(), 'bfra-me-create-'))
+  }
+
+  /**
+   * Validate URL format and supported types.
+   */
+  private validateUrl(url: string): void {
+    try {
+      const parsedUrl = new URL(url)
+      const protocol = parsedUrl.protocol.toLowerCase()
+
+      // Check supported protocols
+      const supportedProtocols = ['https:', 'http:']
+      if (!supportedProtocols.includes(protocol)) {
+        throw new Error(
+          `Unsupported protocol: ${protocol}. Supported protocols: ${supportedProtocols.join(', ')}`,
+        )
+      }
+
+      // Check for common archive formats or direct download URLs
+      const pathname = parsedUrl.pathname.toLowerCase()
+      const supportedExtensions = ['.zip', '.tar.gz', '.tgz', '.tar']
+      const isArchive = supportedExtensions.some(ext => pathname.endsWith(ext))
+      const isGitHub =
+        parsedUrl.hostname === 'github.com' || parsedUrl.hostname === 'raw.githubusercontent.com'
+      const isGenericUrl = pathname === '/' || pathname.includes('/')
+
+      if (!isArchive && !isGitHub && !isGenericUrl) {
+        consola.warn(`URL does not appear to be a supported template source: ${url}`)
+      }
+    } catch {
+      throw new Error(`Invalid URL format: ${url}`)
+    }
   }
 }
 
