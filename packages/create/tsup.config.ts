@@ -12,6 +12,8 @@ export default defineConfig([
       'src/templates/metadata.ts',
       'src/templates/validator.ts',
       'src/utils/index.ts',
+      'src/utils/retry.ts',
+      'src/utils/ui.ts',
       'src/prompts/project-setup.ts',
       'src/prompts/template-selection.ts',
       'src/prompts/customization.ts',

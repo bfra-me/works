@@ -107,6 +107,18 @@ export interface CreateCommandOptions extends BaseCommandOptions {
   force?: boolean
   /** Interactive mode */
   interactive?: boolean
+  /** Template git reference (branch/tag) */
+  templateRef?: string
+  /** Template subdirectory */
+  templateSubdir?: string
+  /** Comma-separated features list */
+  features?: string
+  /** Skip git initialization */
+  git?: boolean
+  /** Skip dependency installation */
+  install?: boolean
+  /** Configuration preset */
+  preset?: 'minimal' | 'standard' | 'full'
 }
 
 export interface AddCommandOptions extends BaseCommandOptions {
