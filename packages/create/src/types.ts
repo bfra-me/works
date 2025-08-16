@@ -308,3 +308,263 @@ export type DeepPartial<T> = {
 export type RequiredFields<T, K extends keyof T> = T & Required<Pick<T, K>>
 
 export type OptionalFields<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
+
+// AI-Powered Features Types
+export interface AIConfig {
+  /** Whether AI features are enabled */
+  enabled: boolean
+  /** OpenAI API configuration */
+  openai?: {
+    apiKey?: string
+    model?: string
+    baseURL?: string
+  }
+  /** Anthropic API configuration */
+  anthropic?: {
+    apiKey?: string
+    model?: string
+    baseURL?: string
+  }
+  /** Preferred LLM provider */
+  provider?: 'openai' | 'anthropic' | 'auto'
+  /** Maximum tokens for AI responses */
+  maxTokens?: number
+  /** Temperature for AI responses (0-1) */
+  temperature?: number
+}
+
+export interface LLMProvider {
+  /** Provider name */
+  name: 'openai' | 'anthropic'
+  /** Whether the provider is available */
+  available: boolean
+  /** Initialize the provider */
+  initialize: (config: AIConfig) => Promise<void>
+  /** Generate text completion */
+  complete: (prompt: string, options?: LLMOptions) => Promise<LLMResponse>
+  /** Check if the provider is healthy */
+  healthCheck: () => Promise<boolean>
+}
+
+export interface LLMOptions {
+  /** Maximum tokens for the response */
+  maxTokens?: number
+  /** Temperature for response randomness (0-1) */
+  temperature?: number
+  /** System prompt to guide the model */
+  systemPrompt?: string
+  /** Additional context for the model */
+  context?: string
+}
+
+export interface LLMResponse {
+  /** Whether the request was successful */
+  success: boolean
+  /** Generated text content */
+  content: string
+  /** Error message if request failed */
+  error?: string
+  /** Usage statistics */
+  usage?: {
+    promptTokens: number
+    completionTokens: number
+    totalTokens: number
+  }
+  /** Response metadata */
+  metadata?: Record<string, unknown>
+}
+
+export interface ProjectAnalysis {
+  /** Detected project type */
+  projectType: 'library' | 'cli' | 'web-app' | 'api' | 'config' | 'other'
+  /** Confidence score (0-1) */
+  confidence: number
+  /** Project description summary */
+  description: string
+  /** Recommended features */
+  features: string[]
+  /** Suggested dependencies */
+  dependencies: DependencyRecommendation[]
+  /** Technology stack recommendations */
+  techStack: TechStackRecommendation[]
+  /** Template recommendations */
+  templates: TemplateRecommendation[]
+}
+
+export interface DependencyRecommendation {
+  /** Package name */
+  name: string
+  /** Package description */
+  description: string
+  /** Reason for recommendation */
+  reason: string
+  /** Confidence score (0-1) */
+  confidence: number
+  /** Whether it's a dev dependency */
+  isDev: boolean
+  /** Suggested version range */
+  version?: string
+  /** Installation command */
+  installCommand?: string
+}
+
+export interface TechStackRecommendation {
+  /** Technology name */
+  name: string
+  /** Technology category */
+  category: 'runtime' | 'framework' | 'build-tool' | 'testing' | 'linting' | 'other'
+  /** Recommendation reason */
+  reason: string
+  /** Confidence score (0-1) */
+  confidence: number
+  /** Configuration suggestions */
+  config?: Record<string, unknown>
+}
+
+export interface TemplateRecommendation {
+  /** Template source */
+  source: TemplateSource
+  /** Recommendation reason */
+  reason: string
+  /** Confidence score (0-1) */
+  confidence: number
+  /** Match score based on requirements */
+  matchScore: number
+}
+
+export interface CodeGenerationRequest {
+  /** Type of code to generate */
+  type: 'component' | 'function' | 'class' | 'test' | 'config' | 'documentation'
+  /** Context description */
+  description: string
+  /** Target language/framework */
+  language: string
+  /** Additional context */
+  context?: {
+    projectType?: string
+    existingCode?: string
+    requirements?: string[]
+    style?: 'functional' | 'class-based' | 'mixed'
+  }
+}
+
+export interface CodeGenerationResult {
+  /** Whether generation was successful */
+  success: boolean
+  /** Generated code */
+  code: string
+  /** Generated file path suggestion */
+  suggestedPath?: string
+  /** Additional files to create */
+  additionalFiles?: {
+    path: string
+    content: string
+    description: string
+  }[]
+  /** Explanation of the generated code */
+  explanation?: string
+  /** Suggestions for next steps */
+  nextSteps?: string[]
+  /** Error message if generation failed */
+  error?: string
+}
+
+export interface ConfigOptimizationSuggestion {
+  /** Configuration file type */
+  type: 'eslint' | 'typescript' | 'prettier' | 'vitest' | 'package.json' | 'other'
+  /** Current configuration */
+  current: Record<string, unknown>
+  /** Suggested configuration */
+  suggested: Record<string, unknown>
+  /** Reason for the suggestion */
+  reason: string
+  /** Confidence score (0-1) */
+  confidence: number
+  /** Impact level */
+  impact: 'low' | 'medium' | 'high'
+  /** Whether it's a breaking change */
+  breaking: boolean
+}
+
+export interface DocumentationGenerationRequest {
+  /** Project information */
+  project: {
+    name: string
+    description?: string
+    type: string
+    features?: string[]
+  }
+  /** Existing files to analyze */
+  files?: {
+    path: string
+    content: string
+    language: string
+  }[]
+  /** Documentation type to generate */
+  type: 'readme' | 'api' | 'guide' | 'changelog' | 'contributing'
+  /** Documentation style */
+  style?: 'technical' | 'user-friendly' | 'comprehensive' | 'minimal'
+}
+
+export interface DocumentationGenerationResult {
+  /** Whether generation was successful */
+  success: boolean
+  /** Generated documentation content */
+  content: string
+  /** Suggested file path */
+  path: string
+  /** Additional sections suggested */
+  additionalSections?: {
+    title: string
+    content: string
+    priority: number
+  }[]
+  /** Error message if generation failed */
+  error?: string
+}
+
+export interface AIAssistantMessage {
+  /** Message role */
+  role: 'user' | 'assistant' | 'system'
+  /** Message content */
+  content: string
+  /** Message timestamp */
+  timestamp: Date
+  /** Message context */
+  context?: {
+    step?: string
+    suggestions?: string[]
+    actions?: string[]
+  }
+}
+
+export interface AIAssistSession {
+  /** Session ID */
+  id: string
+  /** Session messages */
+  messages: AIAssistantMessage[]
+  /** Current project context */
+  projectContext: {
+    name?: string
+    description?: string
+    type?: string
+    currentStep?: string
+  }
+  /** Session configuration */
+  config: AIConfig
+  /** Session start time */
+  startTime: Date
+  /** Whether session is active */
+  active: boolean
+}
+
+export interface AIFallbackStrategy {
+  /** Strategy name */
+  name: string
+  /** Whether this strategy is available */
+  available: boolean
+  /** Execute the fallback strategy */
+  execute: (context: unknown) => Promise<unknown>
+  /** Description of what this strategy provides */
+  description: string
+}
