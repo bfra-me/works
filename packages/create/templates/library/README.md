@@ -29,9 +29,11 @@ console.log(result) // 5
 Returns a greeting message for the given name.
 
 **Parameters:**
+
 - `name` - The name to greet
 
 **Returns:**
+
 - A greeting message string
 
 ### `add(a: number, b: number): number`
@@ -39,10 +41,12 @@ Returns a greeting message for the given name.
 Adds two numbers together.
 
 **Parameters:**
+
 - `a` - First number
 - `b` - Second number
 
 **Returns:**
+
 - The sum of a and b
 
 ## Development

@@ -32,6 +32,7 @@
   "files": [
     "src",
     "dist",
+    "templates",
     "!**/*.map"
   ],
   "scripts": {

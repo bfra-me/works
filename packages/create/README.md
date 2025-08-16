@@ -83,6 +83,32 @@ Creates a new package with the given name and options.
   - `description` (string): The description of the package.
   - `author` (string): The author of the package.
 
+## Available Templates
+
+The following built-in templates are available in the `templates/` directory:
+
+- **default** - Basic TypeScript package template
+- **library** - NPM library template with TypeScript, testing, and build setup
+- **cli** - Command-line interface application template with CAC and Consola
+- **node** - Node.js server application template with Fastify
+- **react** - React application template with Vite and TypeScript
+
+### Custom Templates
+
+You can use custom templates by specifying:
+
+- GitHub repositories: `user/repo` or `github:user/repo#branch`
+- Local directories: `./path/to/template` or `/absolute/path/to/template`
+- URLs: `https://example.com/template.zip`
+
+### Template Structure
+
+Templates are located in the `templates/` directory at the root of the package. Each template contains:
+
+- Template files with Eta templating syntax (`<%= it.variable %>`)
+- A `template.json` file with metadata and variable definitions
+- Source files, configuration files, and documentation
+
 ## License
 
 This project is licensed under the MIT License.
