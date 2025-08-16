@@ -11,8 +11,9 @@ export class TemplateResolver {
 
   constructor() {
     // Resolve the built-in templates directory relative to this module
+    // Templates are now at root level: templates/
     const currentDir = path.dirname(fileURLToPath(import.meta.url))
-    this.builtinTemplatesDir = path.join(currentDir, '..', 'templates')
+    this.builtinTemplatesDir = path.join(currentDir, '..', '..', 'templates')
   }
 
   /**

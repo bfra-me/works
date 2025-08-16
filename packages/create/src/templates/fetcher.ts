@@ -272,7 +272,8 @@ export class TemplateFetcher {
    */
   private async fetchBuiltin(source: TemplateSource, targetDir: string): Promise<string> {
     const currentDir = path.dirname(fileURLToPath(import.meta.url))
-    const builtinPath = path.join(currentDir, '..', 'templates', source.location)
+    // Templates are now at root level: templates/
+    const builtinPath = path.join(currentDir, '..', '..', 'templates', source.location)
 
     if (!existsSync(builtinPath)) {
       throw new Error(`Built-in template does not exist: ${source.location}`)
