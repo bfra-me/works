@@ -1,8 +1,8 @@
 import type {CreateCommandOptions, CreatePackageOptions, Result, TemplateContext} from './types.js'
 import path from 'node:path'
 import process from 'node:process'
-import {cancel, confirm, intro, isCancel, outro, select, text} from '@clack/prompts'
 import {consola} from 'consola'
+import {projectSetup} from './prompts/project-setup.js'
 import {templateFetcher} from './templates/fetcher.js'
 import {templateProcessor} from './templates/processor.js'
 import {templateResolver} from './templates/resolver.js'
@@ -54,10 +54,22 @@ export async function createPackage(
       }
     }
 
-    // Interactive mode
+    // Interactive mode - Use sophisticated prompts for enhanced UX
     let finalOptions = {...options}
     if (options.interactive && !options.skipPrompts) {
-      finalOptions = await runInteractivePrompts(options)
+      const setupResult = await projectSetup(options)
+
+      // Extract the finalized options from the setup result
+      finalOptions = {
+        ...options,
+        name: setupResult.projectName,
+        template: setupResult.template.location,
+        description: setupResult.customization.description,
+        author: setupResult.customization.author,
+        outputDir: setupResult.customization.outputDir,
+        packageManager: setupResult.customization.packageManager,
+        force: options.force || false, // Use original option or default to false
+      }
     }
 
     // Set defaults
@@ -186,168 +198,6 @@ export async function createPackage(
       success: false,
       error: error as Error,
     }
-  }
-}
-
-/**
- * Run interactive prompts to gather project information.
- */
-async function runInteractivePrompts(
-  initialOptions: CreateCommandOptions,
-): Promise<CreateCommandOptions> {
-  intro('🚀 Create a new project')
-
-  try {
-    // Project name
-    const name =
-      initialOptions.name ??
-      (await text({
-        message: 'What is the name of your project?',
-        placeholder: 'my-awesome-project',
-        validate: value => {
-          const validation = ValidationUtils.validateProjectName(value)
-          return validation.valid ? undefined : validation.errors?.[0]
-        },
-      }))
-
-    if (isCancel(name)) {
-      cancel('Project creation cancelled.')
-      process.exit(0)
-    }
-
-    // Template selection
-    const availableTemplates = templateResolver.getBuiltinTemplates()
-    const templateChoices = [
-      {value: 'default', label: 'Default - Basic TypeScript project'},
-      ...availableTemplates
-        .filter(t => t !== 'default')
-        .map(t => ({
-          value: t,
-          label: `${t} - Built-in template`,
-        })),
-      {value: 'custom', label: 'Custom - Enter GitHub repo or URL'},
-    ]
-
-    const templateChoice =
-      initialOptions.template ??
-      (await select({
-        message: 'Which template would you like to use?',
-        options: templateChoices,
-      }))
-
-    if (isCancel(templateChoice)) {
-      cancel('Project creation cancelled.')
-      process.exit(0)
-    }
-
-    let template = templateChoice
-    if (template === 'custom') {
-      const customTemplate = await text({
-        message: 'Enter template (GitHub repo, URL, or local path):',
-        placeholder: 'user/repo or https://example.com/template.zip',
-        validate: value => {
-          const validation = ValidationUtils.validateTemplateId(value)
-          return validation.valid ? undefined : validation.errors?.[0]
-        },
-      })
-
-      if (isCancel(customTemplate)) {
-        cancel('Project creation cancelled.')
-        process.exit(0)
-      }
-
-      template = customTemplate
-    }
-
-    // Project description
-    const description =
-      initialOptions.description ??
-      (await text({
-        message: 'Describe your project:',
-        placeholder: 'A fantastic new project',
-      }))
-
-    if (isCancel(description)) {
-      cancel('Project creation cancelled.')
-      process.exit(0)
-    }
-
-    // Project author
-    const author =
-      initialOptions.author ??
-      (await text({
-        message: 'Who is the author?',
-        placeholder: 'Your Name <your.email@example.com>',
-      }))
-
-    if (isCancel(author)) {
-      cancel('Project creation cancelled.')
-      process.exit(0)
-    }
-
-    // Output directory
-    const defaultOutputDir = path.join(process.cwd(), name)
-    const outputDir =
-      initialOptions.outputDir ??
-      (await text({
-        message: 'Where should the project be created?',
-        placeholder: defaultOutputDir,
-        defaultValue: defaultOutputDir,
-      }))
-
-    if (isCancel(outputDir)) {
-      cancel('Project creation cancelled.')
-      process.exit(0)
-    }
-
-    // Package manager
-    const packageManager =
-      initialOptions.packageManager ||
-      (await select({
-        message: 'Which package manager do you prefer?',
-        options: [
-          {value: 'npm', label: 'npm'},
-          {value: 'yarn', label: 'Yarn'},
-          {value: 'pnpm', label: 'pnpm'},
-          {value: 'bun', label: 'Bun'},
-        ],
-      }))
-
-    if (isCancel(packageManager)) {
-      cancel('Project creation cancelled.')
-      process.exit(0)
-    }
-
-    // Force overwrite confirmation if directory exists
-    let force = initialOptions.force
-    if (!force && (await import('node:fs').then(fs => fs.existsSync(outputDir)))) {
-      const forceConfirm = await confirm({
-        message: 'Output directory already exists. Overwrite existing files?',
-      })
-
-      if (isCancel(forceConfirm)) {
-        cancel('Project creation cancelled.')
-        process.exit(0)
-      }
-
-      force = forceConfirm
-    }
-
-    outro('✅ Project configuration complete!')
-
-    return {
-      ...initialOptions,
-      name,
-      template,
-      description,
-      author,
-      outputDir,
-      packageManager,
-      force: force as boolean,
-    }
-  } catch (error) {
-    cancel('Project creation cancelled due to error.')
-    throw error
   }
 }
 
