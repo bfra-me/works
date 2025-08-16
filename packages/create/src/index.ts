@@ -206,3 +206,15 @@ export {createPackage as default}
 
 // Re-export types
 export type {CreateCommandOptions, CreatePackageOptions, TemplateContext}
+
+// AI Components (Phase 5 - AI-Powered Features)
+export {
+  CliAIIntegration,
+  type AICliOptions,
+  type AIEnhancementResult,
+  type ProjectAnalysisInput,
+} from './ai/cli-integration.js'
+export {CodeGenerator, type CodeGenerationResult} from './ai/code-generator.js'
+export {DependencyRecommender} from './ai/dependency-recommender.js'
+export {LLMClient} from './ai/llm-client.js'
+export {ProjectAnalyzer} from './ai/project-analyzer.js'
