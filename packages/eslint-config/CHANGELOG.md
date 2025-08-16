@@ -1,5 +1,15 @@
 # @bfra.me/eslint-config
 
+## 0.26.1
+### Patch Changes
+
+
+- Updated dependency `tsx` to `4.20.4`. ([#1661](https://github.com/bfra-me/works/pull/1661))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.39.1`. ([#1651](https://github.com/bfra-me/works/pull/1651))
+  Updated dependency `typescript-eslint` to `8.39.1`.
+
 ## 0.26.0
 ### Minor Changes
 
