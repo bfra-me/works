@@ -1,0 +1,29 @@
+{
+  "name": "React Application",
+  "description": "A modern React application template with TypeScript, Vite, and testing setup",
+  "version": "1.0.0",
+  "author": "bfra.me",
+  "tags": ["react", "typescript", "vite", "frontend"],
+  "variables": [
+    {
+      "name": "name",
+      "description": "The name of the React application",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "description",
+      "description": "Description of the React application",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "author",
+      "description": "Author of the React application",
+      "type": "string",
+      "required": false
+    }
+  ],
+  "dependencies": ["react", "react-dom", "vite"],
+  "nodeVersion": ">=18"
+}

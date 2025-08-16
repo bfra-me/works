@@ -1,0 +1,29 @@
+{
+  "name": "Node.js Application",
+  "description": "A Node.js server application template with TypeScript, Fastify, and testing setup",
+  "version": "1.0.0",
+  "author": "bfra.me",
+  "tags": ["nodejs", "typescript", "fastify", "api", "server"],
+  "variables": [
+    {
+      "name": "name",
+      "description": "The name of the Node.js application",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "description",
+      "description": "Description of the Node.js application",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "author",
+      "description": "Author of the Node.js application",
+      "type": "string",
+      "required": false
+    }
+  ],
+  "dependencies": ["fastify", "consola"],
+  "nodeVersion": ">=18"
+}

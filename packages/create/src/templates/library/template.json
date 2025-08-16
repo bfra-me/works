@@ -1,0 +1,28 @@
+{
+  "name": "TypeScript Library",
+  "description": "A TypeScript library template with modern tooling and testing setup",
+  "version": "1.0.0",
+  "author": "bfra.me",
+  "tags": ["library", "typescript", "npm", "package"],
+  "variables": [
+    {
+      "name": "name",
+      "description": "The name of the library",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "description",
+      "description": "Description of the library",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "author",
+      "description": "Author of the library",
+      "type": "string",
+      "required": false
+    }
+  ],
+  "nodeVersion": ">=18"
+}

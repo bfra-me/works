@@ -1,0 +1,38 @@
+{
+  "name": "<%= it.name %>",
+  "version": "1.0.0",
+  "description": "<%= it.description %>",
+  "keywords": [
+    "nodejs",
+    "api",
+    "server"
+  ],
+  "license": "MIT",
+  "author": "<%= it.author %>",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch && node dist/index.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "start": "node dist/index.js",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "consola": "^3.2.3",
+    "fastify": "^5.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.17.1",
+    "eslint": "^9.18.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3",
+    "vitest": "^2.3.5"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

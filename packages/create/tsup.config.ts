@@ -9,6 +9,8 @@ export default defineConfig([
       'src/templates/resolver.ts',
       'src/templates/fetcher.ts',
       'src/templates/processor.ts',
+      'src/templates/metadata.ts',
+      'src/templates/validator.ts',
       'src/utils/index.ts',
     ],
     format: ['esm'],
