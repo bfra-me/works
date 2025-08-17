@@ -568,3 +568,79 @@ export interface AIFallbackStrategy {
   /** Description of what this strategy provides */
   description: string
 }
+
+// Feature System Types
+export interface FeatureInfo {
+  /** Feature name */
+  name: string
+  /** Feature description */
+  description: string
+  /** Category of the feature */
+  category: 'linting' | 'testing' | 'build' | 'documentation' | 'component' | 'configuration'
+  /** Dependencies required for this feature */
+  dependencies?: string[]
+  /** Dev dependencies required for this feature */
+  devDependencies?: string[]
+  /** Supported frameworks */
+  supportedFrameworks?: string[]
+  /** Files that will be created/modified */
+  files?: string[]
+  /** Configuration options */
+  options?: FeatureOption[]
+  /** Next steps to show after installation */
+  nextSteps?: string[]
+}
+
+export interface FeatureOption {
+  /** Option name */
+  name: string
+  /** Option description */
+  description: string
+  /** Option type */
+  type: 'string' | 'boolean' | 'number' | 'select'
+  /** Default value */
+  default?: unknown
+  /** Required flag */
+  required?: boolean
+  /** Options for select type */
+  choices?: string[]
+}
+
+export interface FeatureAddContext {
+  /** Target directory */
+  targetDir: string
+  /** Project information */
+  projectInfo: ProjectInfo
+  /** Verbose output */
+  verbose?: boolean
+  /** Dry run mode */
+  dryRun?: boolean
+  /** Feature-specific options */
+  options?: Record<string, unknown>
+}
+
+export interface ConflictInfo {
+  /** Conflict type */
+  type: 'file' | 'dependency' | 'configuration'
+  /** Description of the conflict */
+  description: string
+  /** Existing file/config path */
+  existing?: string
+  /** Proposed new file/config path */
+  proposed?: string
+  /** Severity level */
+  severity: 'low' | 'medium' | 'high'
+}
+
+export interface BackupInfo {
+  /** Backup ID */
+  id: string
+  /** Backup timestamp */
+  timestamp: Date
+  /** Feature that triggered the backup */
+  feature: string
+  /** Files that were backed up */
+  files: string[]
+  /** Backup directory */
+  backupDir: string
+}
