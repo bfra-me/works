@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
-import type {AddCommandOptions, CreateCommandOptions} from './types.js'
+import type {CreateCommandOptions} from './types.js'
 import process from 'node:process'
 import cac from 'cac'
 import {consola} from 'consola'
 import {name, version} from '../package.json'
+import {handleAddCommand} from './commands/add.js'
 import {createPackage} from './index.js'
 import {isRetryableError, promptRetry, retry} from './utils/retry.js'
 import {displayProjectSummary, logger} from './utils/ui.js'
@@ -197,26 +198,43 @@ cli
 
 // Add command - for adding features to existing projects
 cli
-  .command('add <feature>', 'Add a feature to an existing project')
+  .command('add [feature]', 'Add a feature to an existing project')
   .option('--skip-confirm', 'Skip confirmation prompts')
-  .action(async (feature: string, options: Omit<AddCommandOptions, 'feature'> = {}) => {
+  .option('--list', 'List available features')
+  .action(async (feature?: string, cliOptions: Record<string, unknown> = {}) => {
     try {
-      consola.info(`Adding feature: ${feature}`)
+      const options = {
+        skipConfirm: cliOptions.skipConfirm as boolean | undefined,
+        verbose: cliOptions.verbose as boolean | undefined,
+        dryRun: cliOptions.dryRun as boolean | undefined,
+        list: cliOptions.list as boolean | undefined,
+      }
 
-      // TODO: Implement add command in future phases
-      consola.warn('Add command is not yet implemented. Coming in Phase 5!')
+      // Handle list option
+      if (options.list === true || feature === 'list') {
+        await handleAddCommand({
+          feature: 'list',
+          skipConfirm: options.skipConfirm,
+          verbose: options.verbose,
+          dryRun: options.dryRun,
+        })
+        return
+      }
 
-      // Placeholder for future implementation
-      const addOptions: AddCommandOptions = {
-        feature,
+      await handleAddCommand({
+        feature: feature ?? '',
         skipConfirm: options.skipConfirm,
         verbose: options.verbose,
         dryRun: options.dryRun,
+      })
+    } catch (error) {
+      const err = error as Error
+      consola.error(`Failed to add feature: ${err.message}`)
+
+      if (cliOptions.verbose === true) {
+        consola.error(err.stack)
       }
 
-      console.log('Add options:', addOptions)
-    } catch (error) {
-      consola.error('Failed to add feature:', error)
       process.exit(1)
     }
   })
