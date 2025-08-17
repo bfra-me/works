@@ -1,0 +1,29 @@
+{
+  "name": "simple-template",
+  "description": "A simple test template for fixture-based testing",
+  "version": "1.0.0",
+  "author": "Test Author",
+  "variables": {
+    "name": {
+      "type": "string",
+      "description": "Package name",
+      "required": true
+    },
+    "description": {
+      "type": "string",
+      "description": "Package description",
+      "required": false,
+      "default": "A new package"
+    },
+    "author": {
+      "type": "string",
+      "description": "Package author",
+      "required": false,
+      "default": "Anonymous"
+    }
+  },
+  "files": {
+    "include": ["**/*"],
+    "exclude": ["node_modules", ".git", "*.log"]
+  }
+}

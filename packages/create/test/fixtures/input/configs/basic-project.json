@@ -1,0 +1,11 @@
+{
+  "name": "test-project",
+  "description": "A test project for fixture testing",
+  "author": "Test Author",
+  "template": "simple-template",
+  "options": {
+    "typescript": true,
+    "eslint": true,
+    "prettier": true
+  }
+}

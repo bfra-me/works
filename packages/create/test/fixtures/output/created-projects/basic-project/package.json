@@ -1,0 +1,11 @@
+{
+  "name": "test-project",
+  "version": "0.1.0",
+  "description": "A test project for fixture testing",
+  "author": "Test Author",
+  "type": "module",
+  "scripts": {
+    "build": "echo 'Building test-project'",
+    "test": "echo 'Testing test-project'"
+  }
+}

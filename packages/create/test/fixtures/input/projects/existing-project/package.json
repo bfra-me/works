@@ -1,0 +1,12 @@
+{
+  "name": "existing-project",
+  "version": "1.0.0",
+  "description": "An existing project for testing feature addition",
+  "scripts": {
+    "build": "echo 'build'",
+    "test": "echo 'test'"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}
