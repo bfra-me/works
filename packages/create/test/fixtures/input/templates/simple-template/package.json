@@ -1,0 +1,11 @@
+{
+  "name": "<%= it.name %>",
+  "version": "0.1.0",
+  "description": "<%= it.description %>",
+  "author": "<%= it.author %>",
+  "type": "module",
+  "scripts": {
+    "build": "echo 'Building <%= it.name %>'",
+    "test": "echo 'Testing <%= it.name %>'"
+  }
+}

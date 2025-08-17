@@ -162,8 +162,8 @@ Completely redesign `@bfra.me/create` to transform it from a simple template-bas
 
 | Task | Description | Completed | Date |
 | --- | --- | --- | --- |
-| TASK-061 | Create comprehensive test fixture structure in `test/fixtures/input/` and `test/fixtures/output/` |  |  |
-| TASK-062 | Implement template resolution tests with mock GitHub and URL responses |  |  |
+| TASK-061 | Create comprehensive test fixture structure in `test/fixtures/input/` and `test/fixtures/output/` | ✅ | 2025-08-17 |
+| TASK-062 | Implement template resolution tests with mock GitHub and URL responses | ✅ | 2025-08-17 |
 | TASK-063 | Create project generation tests using `it.concurrent()` and `toMatchFileSnapshot()` |  |  |
 | TASK-064 | Build CLI interaction tests with mocked prompts and user inputs |  |  |
 | TASK-065 | Implement AI feature tests with mocked LLM API responses |  |  |

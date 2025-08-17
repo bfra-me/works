@@ -1,0 +1,11 @@
+{
+  "name": "@test/library-package",
+  "description": "A test library package",
+  "author": "Library Author",
+  "template": "library",
+  "options": {
+    "typescript": true,
+    "vitest": true,
+    "tsup": true
+  }
+}
