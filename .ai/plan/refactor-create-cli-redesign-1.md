@@ -167,8 +167,8 @@ Completely redesign `@bfra.me/create` to transform it from a simple template-bas
 | TASK-063 | Create project generation tests using `it.concurrent()` and `toMatchFileSnapshot()` | ✅ | 2025-08-17 |
 | TASK-064 | Build CLI interaction tests with mocked prompts and user inputs | ✅ | 2025-08-17 |
 | TASK-065 | Implement AI feature tests with mocked LLM API responses | ✅ | 2025-08-17 |
-| TASK-066 | Create add command tests for feature addition to existing projects |  |  |
-| TASK-067 | Add performance tests for template processing and large repository handling |  |  |
+| TASK-066 | Create add command tests for feature addition to existing projects | ✅ | 2025-08-17 |
+| TASK-067 | Add performance tests for template processing and large repository handling | ✅ | 2025-08-17 |
 | TASK-068 | Implement integration tests for end-to-end CLI workflows |  |  |
 | TASK-069 | Write comprehensive README.md with usage examples and API documentation |  |  |
 | TASK-070 | Create migration guide for users upgrading from previous versions |  |  |
