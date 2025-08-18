@@ -187,7 +187,7 @@ export async function listAvailableFeatures(): Promise<void> {
     if (info.supportedFrameworks && info.supportedFrameworks.length > 0) {
       consola.info(`  Supported frameworks: ${info.supportedFrameworks.join(', ')}`)
     }
-    console.log()
+    consola.log('')
   }
 
   outro('Use `add <feature>` to add a specific feature to your project')

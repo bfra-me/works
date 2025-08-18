@@ -143,6 +143,25 @@ export async function createPackage(
         version,
         year: new Date().getFullYear(),
         date: new Date().toISOString().split('T')[0],
+        // Utility functions for templates
+        kebabCase: (str: string) =>
+          str
+            .replaceAll(/([a-z])([A-Z])/g, '$1-$2')
+            .replaceAll(/[\s_]+/g, '-')
+            .toLowerCase(),
+        camelCase: (str: string) =>
+          str
+            .replaceAll(/^\w|[A-Z]|\b\w/g, (word, index) =>
+              index === 0 ? word.toLowerCase() : word.toUpperCase(),
+            )
+            .replaceAll(/\s+/g, ''),
+        pascalCase: (str: string) =>
+          str.replaceAll(/^\w|[A-Z]|\b\w/g, word => word.toUpperCase()).replaceAll(/\s+/g, ''),
+        snakeCase: (str: string) =>
+          str
+            .replaceAll(/([a-z])([A-Z])/g, '$1_$2')
+            .replaceAll(/[\s-]+/g, '_')
+            .toLowerCase(),
       },
     }
 
@@ -153,6 +172,27 @@ export async function createPackage(
     )
     if (!contextValidation.valid) {
       consola.warn('Template context validation warnings:', contextValidation.missing)
+    }
+
+    // If force is true and output directory exists with files, clear it first
+    if (finalOptions.force === true) {
+      try {
+        const {existsSync, readdirSync} = await import('node:fs')
+        const {rm} = await import('node:fs/promises')
+
+        if (existsSync(outputDir)) {
+          const entries = readdirSync(outputDir)
+          for (const entry of entries) {
+            const entryPath = path.join(outputDir, entry)
+            if (entry !== '.template') {
+              // Don't delete our template directory
+              await rm(entryPath, {recursive: true, force: true})
+            }
+          }
+        }
+      } catch (error) {
+        consola.warn('Failed to clear existing directory:', error)
+      }
     }
 
     // Process template
