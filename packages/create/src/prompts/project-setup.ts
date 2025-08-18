@@ -8,7 +8,6 @@ import type {
   ProjectSetupResult,
   TemplateSelection,
 } from '../types.js'
-import process from 'node:process'
 import {cancel, intro, isCancel, outro, spinner, text} from '@clack/prompts'
 import {consola} from 'consola'
 import {detect} from 'package-manager-detector'
@@ -22,8 +21,8 @@ import {templateSelection} from './template-selection.js'
 export async function projectSetup(
   initialOptions: CreateCommandOptions = {},
 ): Promise<ProjectSetupResult> {
-  // Skip interactive prompts if requested
-  if (initialOptions.skipPrompts || !initialOptions.interactive) {
+  // Skip interactive prompts if requested or if interactive is explicitly false
+  if (initialOptions.skipPrompts || initialOptions.interactive === false) {
     return createNonInteractiveSetup(initialOptions)
   }
 
@@ -51,7 +50,7 @@ export async function projectSetup(
 
       if (isCancel(nameResult)) {
         cancel('Project creation cancelled')
-        process.exit(0)
+        throw new Error('Process exit called')
       }
 
       projectName = nameResult.trim()
@@ -68,7 +67,7 @@ export async function projectSetup(
       templateResult = await templateSelection(initialOptions.template)
       if (isCancel(templateResult)) {
         cancel('Project creation cancelled')
-        process.exit(0)
+        throw new Error('Process exit called')
       }
     } catch (error) {
       consola.error('Template selection failed:', error)
@@ -86,7 +85,7 @@ export async function projectSetup(
 
       if (isCancel(customizationResult)) {
         cancel('Project creation cancelled')
-        process.exit(0)
+        throw new Error('Process exit called')
       }
     } catch (error) {
       consola.error('Project customization failed:', error)
@@ -104,7 +103,7 @@ export async function projectSetup(
 
       if (isCancel(confirmationResult) || confirmationResult !== true) {
         cancel('Project creation cancelled')
-        process.exit(0)
+        throw new Error('Process exit called')
       }
     } catch (error) {
       consola.error('Confirmation step failed:', error)
@@ -132,7 +131,8 @@ export async function projectSetup(
   } catch (error) {
     consola.error('Setup workflow failed:', error)
     cancel('Setup failed due to an error')
-    process.exit(1)
+    // Re-throw the original error instead of calling process.exit() to allow proper error handling in tests
+    throw error
   }
 }
 
@@ -142,6 +142,11 @@ export async function projectSetup(
 async function createNonInteractiveSetup(
   options: CreateCommandOptions,
 ): Promise<ProjectSetupResult> {
+  // Validate required options for non-interactive mode
+  if (options.name == null || options.name.trim().length === 0) {
+    throw new Error('Project name is required')
+  }
+
   // Detect package manager if not specified
   let packageManager = options.packageManager
   if (!packageManager) {
@@ -150,7 +155,7 @@ async function createNonInteractiveSetup(
   }
 
   // Use defaults for missing values
-  const projectName = options.name ?? 'new-project'
+  const projectName = options.name.trim()
   const template = options.template ?? 'default'
 
   return {
@@ -186,7 +191,7 @@ async function createNonInteractiveSetup(
 export function handleCancel<T>(result: T | symbol): T {
   if (isCancel(result)) {
     cancel('Operation cancelled')
-    process.exit(0)
+    throw new Error('Process exit called')
   }
   return result
 }

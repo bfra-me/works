@@ -61,7 +61,7 @@ export interface TemplateContext {
   version?: string
   /** Package manager */
   packageManager?: 'npm' | 'yarn' | 'pnpm' | 'bun'
-  /** Additional variables */
+  /** Additional variables including utility functions */
   variables?: Record<string, unknown>
 }
 

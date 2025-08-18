@@ -1,4 +1,12 @@
-import {existsSync, mkdirSync, readFileSync, rmSync, writeFileSync} from 'node:fs'
+import {
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+  statSync,
+  writeFileSync,
+} from 'node:fs'
 import path from 'node:path'
 import {fileURLToPath} from 'node:url'
 
@@ -52,15 +60,73 @@ export const testUtils = {
   },
 
   /**
-   * Create a temporary test directory
+   * Create a temporary directory for testing
    */
   createTempDir(testName: string): string {
-    const tempPath = testUtils.getFixturePath('temp', testName)
-    if (existsSync(tempPath)) {
-      rmSync(tempPath, {recursive: true, force: true})
+    const tempPath = path.join(testUtils.TEMP_DIR, testName, Date.now().toString())
+    if (!existsSync(tempPath)) {
+      mkdirSync(tempPath, {recursive: true})
     }
-    mkdirSync(tempPath, {recursive: true})
     return tempPath
+  },
+
+  /**
+   * Create a directory
+   */
+  createDirectory(dirPath: string): void {
+    if (!existsSync(dirPath)) {
+      mkdirSync(dirPath, {recursive: true})
+    }
+  },
+
+  /**
+   * Write content to a file
+   */
+  writeFile(filePath: string, content: string): void {
+    const dir = path.dirname(filePath)
+    if (!existsSync(dir)) {
+      mkdirSync(dir, {recursive: true})
+    }
+    writeFileSync(filePath, content, 'utf-8')
+  },
+
+  /**
+   * Read content from a file
+   */
+  readFile(filePath: string): string {
+    return readFileSync(filePath, 'utf-8')
+  },
+
+  /**
+   * Get a directory snapshot for testing (recursive structure)
+   */
+  async getDirectorySnapshot(dirPath: string): Promise<Record<string, any>> {
+    const snapshot: Record<string, any> = {}
+
+    if (!existsSync(dirPath)) {
+      return snapshot
+    }
+
+    const entries = readdirSync(dirPath)
+    for (const entry of entries) {
+      const entryPath = path.join(dirPath, entry)
+      const stat = statSync(entryPath)
+
+      if (stat.isDirectory()) {
+        snapshot[entry] = await testUtils.getDirectorySnapshot(entryPath)
+      } else {
+        try {
+          // Try to read as text file
+          const content = readFileSync(entryPath, 'utf-8')
+          snapshot[entry] = content
+        } catch {
+          // If it fails (binary file), just mark as binary
+          snapshot[entry] = '<binary-file>'
+        }
+      }
+    }
+
+    return snapshot
   },
 
   /**

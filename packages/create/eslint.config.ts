@@ -5,12 +5,7 @@ export default composeConfig(rootConfig)
   .insertAfter('@bfra.me/ignores', {
     name: '@bfra.me/create/ignores',
     ignores: [
-      'src/templates/**/package.json', // Legacy src templates
-      'templates/**/package.json', // New root-level templates
-      'templates/**/*.ts', // Template TypeScript files with Eta syntax
-      'templates/**/*.tsx', // Template React files with Eta syntax
-      'templates/**/*.json', // Template JSON files with Eta syntax
-      'templates/**/*.html', // Template HTML files with Eta syntax
+      'templates/**/*', // Exclude all template files including subdirectories
     ],
   })
   .append({
