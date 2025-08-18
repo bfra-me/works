@@ -3210,7 +3210,7 @@ export interface Rules {
    */
   'pnpm/json-enforce-catalog'?: Linter.RuleEntry<PnpmJsonEnforceCatalog>
   /**
-   * Prefer having pnpm settings in `pnpm-workspace.yaml` instead of `package.json`. This would requires pnpm v10.6+, see https://github.com/orgs/pnpm/discussions/9037.
+   * Prefer having pnpm settings in `pnpm-workspace.yaml` instead of `package.json`. This requires pnpm v10.6+, see https://github.com/orgs/pnpm/discussions/9037.
    * @see https://github.com/antfu/pnpm-workspace-utils/tree/main/packages/eslint-plugin-pnpm/src/rules/json/json-prefer-workspace-settings.test.ts
    */
   'pnpm/json-prefer-workspace-settings'?: Linter.RuleEntry<PnpmJsonPreferWorkspaceSettings>
@@ -3220,7 +3220,7 @@ export interface Rules {
    */
   'pnpm/json-valid-catalog'?: Linter.RuleEntry<PnpmJsonValidCatalog>
   /**
-   * Disallow unused catalogs in `pnpm-workspace.yaml`
+   * Disallow duplicate catalog items in `pnpm-workspace.yaml`
    * @see https://github.com/antfu/pnpm-workspace-utils/tree/main/packages/eslint-plugin-pnpm/src/rules/yaml/yaml-no-duplicate-catalog-item.test.ts
    */
   'pnpm/yaml-no-duplicate-catalog-item'?: Linter.RuleEntry<PnpmYamlNoDuplicateCatalogItem>
