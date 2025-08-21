@@ -14,12 +14,20 @@ tags: ['refactor', 'architecture', 'cli', 'ai', 'templates', 'typescript']
 
 Completely redesign `@bfra.me/create` to transform it from a simple template-based package generator into a comprehensive CLI for TypeScript project scaffolding. This involves removing the `@sxzz/create` dependency, implementing modern template repository patterns using `giget`, integrating AI-powered features with LLM APIs, and extending functionality to support adding components to existing projects. The redesign includes interactive CLI experiences, flexible template architecture using Eta templating engine, and comprehensive fixture-based testing.
 
+**Current Status**: Core infrastructure, template system, and AI backend classes are complete. CLI integration for AI features is partially implemented and requires completion of the bridge between existing AI infrastructure and the command-line interface.
+
+**Remaining Work**: Complete Phase 5 (AI backend to CLI integration) and Phase 5B (AI user experience enhancements) to bridge the gap between the implemented AI infrastructure and the CLI interface.
+
 ## 1. Requirements & Constraints
 
 - **REQ-001**: Remove `@sxzz/create` dependency completely and replace with modern template architecture
 - **REQ-002**: Implement template fetching using `giget` for GitHub repositories, local directories, and URLs
 - **REQ-003**: Integrate `@clack/prompts` for multi-step interactive CLI experiences
 - **REQ-004**: Add AI-powered features using LLM APIs for project analysis and code generation
+- **REQ-004A**: Add `--ai` flag to CLI interface for enabling AI features
+- **REQ-004B**: Add `--describe` option for natural language project descriptions
+- **REQ-004C**: Implement environment variable detection for `OPENAI_API_KEY` and `ANTHROPIC_API_KEY`
+- **REQ-004D**: Ensure AI features work as optional enhancements, not required dependencies
 - **REQ-005**: Extend functionality with `add` command for adding features to existing projects
 - **REQ-006**: Implement comprehensive fixture-based testing with parallel execution and file snapshots
 - **REQ-007**: Maintain backward compatibility for existing CLI usage patterns
@@ -35,6 +43,9 @@ Completely redesign `@bfra.me/create` to transform it from a simple template-bas
 
 - **CON-001**: Must maintain ES module compatibility and existing package structure
 - **CON-002**: AI features must be optional and fail gracefully without API keys
+- **CON-002A**: CLI must maintain existing simplicity and reliability when AI is disabled
+- **CON-002B**: All AI operations must have proper fallback mechanisms
+- **CON-002C**: AI features must enhance rather than complicate the user experience
 - **CON-003**: Template processing must be memory-efficient for large repositories
 - **CON-004**: CLI commands must provide clear progress feedback for long-running operations
 
@@ -120,22 +131,37 @@ Completely redesign `@bfra.me/create` to transform it from a simple template-bas
 
 ### Implementation Phase 5: AI-Powered Features Integration
 
-![Status: Completed](https://img.shields.io/badge/status-Completed-green)
-
-- GOAL-005: Integrate LLM APIs for intelligent project setup and code generation
+- GOAL-005: Implement AI backend infrastructure and CLI integration for intelligent project setup
 
 | Task | Description | Completed | Date |
 | --- | --- | --- | --- |
 | TASK-041 | Create `src/ai/llm-client.ts` with support for OpenAI and Anthropic APIs | ✅ | 2025-08-16 |
 | TASK-042 | Implement `src/ai/project-analyzer.ts` for analyzing project requirements from user input | ✅ | 2025-08-16 |
 | TASK-043 | Build `src/ai/dependency-recommender.ts` for intelligent package suggestions | ✅ | 2025-08-16 |
-| TASK-044 | Create `src/ai/code-generator.ts` for generating boilerplate code and configurations | ✅ | 2025-08-16 |
-| TASK-045 | Implement AI-powered CLI integration for enhanced package creation | ✅ | 2025-08-16 |
-| TASK-046 | Add configuration optimization suggestions using AI analysis | ✅ | 2025-08-16 |
-| TASK-047 | Create AI assist mode with conversational project setup | ✅ | 2025-08-16 |
-| TASK-048 | Implement code quality analysis and improvement suggestions | ✅ | 2025-08-16 |
-| TASK-049 | Add AI-powered documentation generation for created projects | ✅ | 2025-08-16 |
-| TASK-050 | Create fallback mechanisms and graceful degradation without AI API access | ✅ | 2025-08-16 |
+| TASK-044 | Create `src/ai/code-analyzer.ts` for code quality analysis and improvement suggestions | ✅ | 2025-08-16 |
+| TASK-045 | Add `--ai` flag and AI-related options to CLI interface in `src/cli.ts` |  |  |
+| TASK-046 | Extend `CreateCommandOptions` interface to include AI options (`ai`, `describe`) |  |  |
+| TASK-047 | Integrate AI services into create command workflow with conditional usage |  |  |
+| TASK-048 | Implement AI-powered template selection when `--describe` option is used |  |  |
+| TASK-049 | Add environment variable detection for API keys (OPENAI_API_KEY, ANTHROPIC_API_KEY) |  |  |
+| TASK-050 | Create comprehensive fallback handling when AI APIs are unavailable or fail |  |  |
+
+### Implementation Phase 5B: AI CLI Integration and User Experience
+
+- GOAL-005B: Complete AI integration with CLI interface and user experience enhancements
+
+| Task | Description | Completed | Date |
+| --- | --- | --- | --- |
+| TASK-051 | Enhance prompts to display AI recommendations with clear indicators |  |  |
+| TASK-052 | Add progress indicators for AI operations in CLI interface |  |  |
+| TASK-053 | Implement informative help text for all AI-related CLI options |  |  |
+| TASK-054 | Create intelligent template recommendations based on project descriptions |  |  |
+| TASK-055 | Add AI-powered dependency suggestions with reasoning and confidence scores |  |  |
+| TASK-056 | Implement error messaging and user feedback for AI feature status |  |  |
+| TASK-057 | Create tests for AI-enabled CLI workflows with mocked responses |  |  |
+| TASK-058 | Add integration tests verifying fallback behavior when AI is disabled |  |  |
+| TASK-059 | Implement AI recommendation display in existing CLI flow without disruption |  |  |
+| TASK-060 | Validate AI features work as optional enhancements rather than requirements |  |  |
 
 ### Implementation Phase 6: Extended Functionality - Add Command
 
@@ -197,8 +223,8 @@ Completely redesign `@bfra.me/create` to transform it from a simple template-bas
 ## 5. Files
 
 - **FILE-001**: `packages/create/package.json` - Updated dependencies and scripts
-- **FILE-002**: `packages/create/src/types.ts` - Comprehensive type definitions for new architecture
-- **FILE-003**: `packages/create/src/cli.ts` - Redesigned CLI entry point with new command structure
+- **FILE-002**: `packages/create/src/types.ts` - Extended with AI-related options in CreateCommandOptions interface
+- **FILE-003**: `packages/create/src/cli.ts` - Enhanced CLI entry point with AI options (--ai, --describe) and integration
 - **FILE-004**: `packages/create/src/index.ts` - Refactored main API without @sxzz/create dependency
 - **FILE-005**: `packages/create/src/commands/create.ts` - Project creation command implementation
 - **FILE-006**: `packages/create/src/commands/add.ts` - Feature addition command implementation
@@ -236,6 +262,10 @@ Completely redesign `@bfra.me/create` to transform it from a simple template-bas
 - **TEST-004**: Project creation tests using fixture-based approach with `toMatchFileSnapshot()`
 - **TEST-005**: CLI interaction tests with mocked prompts and user input simulation
 - **TEST-006**: AI integration tests with mocked LLM API responses and error handling
+- **TEST-006A**: CLI AI option parsing tests for --ai and --describe flags
+- **TEST-006B**: AI-enabled workflow tests with mocked ProjectAnalyzer and DependencyRecommender responses
+- **TEST-006C**: Environment variable detection tests for API key handling
+- **TEST-006D**: Fallback behavior verification when AI services are unavailable
 - **TEST-007**: Add command tests for feature addition to various project types
 - **TEST-008**: Project detection tests for analyzing existing project structures
 - **TEST-009**: Error handling tests for network failures, invalid templates, and user errors
