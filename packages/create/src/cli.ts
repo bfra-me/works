@@ -144,10 +144,9 @@ cli
       const duration = Date.now() - startTime
 
       if (options.dryRun === false || options.dryRun === undefined) {
-        logger.projectSuccess(projectName ?? 'new-project', process.cwd())
-
-        // Display enhanced project summary
         if (result.success) {
+          logger.projectSuccess(projectName ?? 'new-project', process.cwd())
+
           displayProjectSummary({
             name: projectName ?? 'new-project',
             template: createOptions.template ?? 'default',
@@ -155,10 +154,12 @@ cli
             dependencies: features,
             scripts: ['build', 'test', 'lint'],
           })
-        }
 
-        if (options.verbose) {
-          logger.info(`Project created in ${duration}ms`)
+          if (options.verbose) {
+            logger.info(`Project created in ${duration}ms`)
+          }
+        } else {
+          throw result.error
         }
       } else {
         logger.info('Dry run completed successfully')

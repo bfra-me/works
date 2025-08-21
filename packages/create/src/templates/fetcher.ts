@@ -278,8 +278,11 @@ export class TemplateFetcher {
     if (currentDir.includes('/src/templates')) {
       // Development context: src/templates/ -> go up to package root then to templates/
       builtinPath = path.join(currentDir, '..', '..', 'templates', source.location)
+    } else if (import.meta.url.includes('/dist/index.js')) {
+      // Bundled context: dist/index.js -> templates are in dist/templates/
+      builtinPath = path.join(currentDir, 'templates', source.location)
     } else {
-      // Production context: dist/templates/ -> templates are co-located
+      // Standalone module context: dist/templates/ -> templates are co-located
       builtinPath = path.join(currentDir, source.location)
     }
 

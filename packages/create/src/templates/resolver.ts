@@ -11,9 +11,19 @@ export class TemplateResolver {
 
   constructor() {
     // Resolve the built-in templates directory relative to this module
-    // Templates are now at root level: templates/
+    // Handle both development and production contexts
     const currentDir = path.dirname(fileURLToPath(import.meta.url))
-    this.builtinTemplatesDir = path.join(currentDir, '..', '..', 'templates')
+
+    if (currentDir.includes('/src/templates')) {
+      // Development context: src/templates/ -> go up to package root then to templates/
+      this.builtinTemplatesDir = path.join(currentDir, '..', '..', 'templates')
+    } else if (import.meta.url.includes('/dist/index.js')) {
+      // Bundled context: dist/index.js -> templates are in dist/templates/
+      this.builtinTemplatesDir = path.join(currentDir, 'templates')
+    } else {
+      // Standalone module context: dist/templates/ -> templates are co-located
+      this.builtinTemplatesDir = currentDir
+    }
   }
 
   /**
