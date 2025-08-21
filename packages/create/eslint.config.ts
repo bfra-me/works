@@ -6,6 +6,8 @@ export default composeConfig(rootConfig)
     name: '@bfra.me/create/ignores',
     ignores: [
       'templates/**/*', // Exclude all template files including subdirectories
+      'MIGRATION.md',
+      'README.md',
     ],
   })
   .append({
