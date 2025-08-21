@@ -240,8 +240,8 @@ importers:
         specifier: 59.0.1
         version: 59.0.1(eslint@9.33.0(jiti@2.1.2))
       eslint-plugin-unused-imports:
-        specifier: 4.1.4
-        version: 4.1.4(@typescript-eslint/eslint-plugin@8.39.1(@typescript-eslint/parser@8.39.1(eslint@9.33.0(jiti@2.1.2))(typescript@5.9.2))(eslint@9.33.0(jiti@2.1.2))(typescript@5.9.2))(eslint@9.33.0(jiti@2.1.2))
+        specifier: 4.2.0
+        version: 4.2.0(@typescript-eslint/eslint-plugin@8.39.1(@typescript-eslint/parser@8.39.1(eslint@9.33.0(jiti@2.1.2))(typescript@5.9.2))(eslint@9.33.0(jiti@2.1.2))(typescript@5.9.2))(eslint@9.33.0(jiti@2.1.2))
       eslint-plugin-yml:
         specifier: 1.18.0
         version: 1.18.0(eslint@9.33.0(jiti@2.1.2))
@@ -2617,8 +2617,8 @@ packages:
     peerDependencies:
       eslint: '>=9.22.0'
 
-  eslint-plugin-unused-imports@4.1.4:
-    resolution: {integrity: sha512-YptD6IzQjDardkl0POxnnRBhU1OEePMV0nd6siHaRBbd+lyh6NAhFEobiznKU7kTsSsDeSD62Pe7kAM1b7dAZQ==}
+  eslint-plugin-unused-imports@4.2.0:
+    resolution: {integrity: sha512-hLbJ2/wnjKq4kGA9AUaExVFIbNzyxYdVo49QZmKCnhk5pc9wcYRbfgLHvWJ8tnsdcseGhoUAddm9gn/lt+d74w==}
     peerDependencies:
       '@typescript-eslint/eslint-plugin': ^8.0.0-0 || ^7.0.0 || ^6.0.0 || ^5.0.0
       eslint: ^9.0.0 || ^8.0.0
@@ -8077,7 +8077,7 @@ snapshots:
       semver: 7.7.2
       strip-indent: 4.0.0
 
-  eslint-plugin-unused-imports@4.1.4(@typescript-eslint/eslint-plugin@8.39.1(@typescript-eslint/parser@8.39.1(eslint@9.33.0(jiti@2.1.2))(typescript@5.9.2))(eslint@9.33.0(jiti@2.1.2))(typescript@5.9.2))(eslint@9.33.0(jiti@2.1.2)):
+  eslint-plugin-unused-imports@4.2.0(@typescript-eslint/eslint-plugin@8.39.1(@typescript-eslint/parser@8.39.1(eslint@9.33.0(jiti@2.1.2))(typescript@5.9.2))(eslint@9.33.0(jiti@2.1.2))(typescript@5.9.2))(eslint@9.33.0(jiti@2.1.2)):
     dependencies:
       eslint: 9.33.0(jiti@2.1.2)
     optionalDependencies:
