@@ -119,6 +119,10 @@ export interface CreateCommandOptions extends BaseCommandOptions {
   install?: boolean
   /** Configuration preset */
   preset?: 'minimal' | 'standard' | 'full'
+  /** Enable AI-powered features */
+  ai?: boolean
+  /** Natural language project description for AI analysis */
+  describe?: string
 }
 
 export interface AddCommandOptions extends BaseCommandOptions {
