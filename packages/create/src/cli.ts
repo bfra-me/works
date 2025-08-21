@@ -72,6 +72,8 @@ cli
   .option('--no-git', 'Skip git repository initialization')
   .option('--no-install', 'Skip dependency installation')
   .option('--preset <preset>', 'Use a configuration preset (minimal, standard, full)')
+  .option('--ai', 'Enable AI-powered features for intelligent project setup')
+  .option('--describe <description>', 'Natural language description of the project for AI analysis')
   .action(async (projectName?: string, options: CreateCommandOptions = {}): Promise<void> => {
     const startTime = Date.now()
 
@@ -107,6 +109,8 @@ cli
         git: options.git !== false,
         install: options.install !== false,
         preset: options.preset,
+        ai: options.ai,
+        describe: options.describe,
       }
 
       // Show configuration summary if verbose
@@ -118,6 +122,11 @@ cli
           interactive: createOptions.interactive,
           features: features.length > 0 ? features : 'none',
           preset: createOptions.preset ?? 'none',
+          ai: createOptions.ai ? 'enabled' : 'disabled',
+          aiDescription:
+            createOptions.describe != null && createOptions.describe.length > 0
+              ? `"${createOptions.describe}"`
+              : 'none',
         })
       }
 

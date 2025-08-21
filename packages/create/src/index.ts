@@ -2,6 +2,7 @@ import type {CreateCommandOptions, CreatePackageOptions, Result, TemplateContext
 import path from 'node:path'
 import process from 'node:process'
 import {consola} from 'consola'
+import {ProjectAnalyzer} from './ai/project-analyzer.js'
 import {projectSetup} from './prompts/project-setup.js'
 import {templateFetcher} from './templates/fetcher.js'
 import {templateProcessor} from './templates/processor.js'
@@ -40,6 +41,23 @@ export async function createPackage(
   options: CreateCommandOptions,
 ): Promise<Result<{projectPath: string}>> {
   try {
+    // Environment variable detection for AI features (TASK-049)
+    const aiEnabled = options.ai === true || options.describe != null
+    const hasOpenAI = process.env.OPENAI_API_KEY != null && process.env.OPENAI_API_KEY.length > 0
+    const hasAnthropic =
+      process.env.ANTHROPIC_API_KEY != null && process.env.ANTHROPIC_API_KEY.length > 0
+    const hasAIKeys = hasOpenAI || hasAnthropic
+
+    // Show AI status if verbose
+    if (options.verbose && aiEnabled) {
+      consola.info('AI features:', {
+        enabled: aiEnabled,
+        openai: hasOpenAI ? 'available' : 'not available',
+        anthropic: hasAnthropic ? 'available' : 'not available',
+        fallback: hasAIKeys ? 'AI analysis enabled' : 'will use non-AI mode',
+      })
+    }
+
     // Validation
     const validation = ValidationUtils.validateCreateOptions(options)
     if (!validation.valid) {
@@ -74,11 +92,63 @@ export async function createPackage(
 
     // Set defaults
     const projectName = finalOptions.name ?? 'new-project'
-    const template = finalOptions.template ?? 'default'
+    let template = finalOptions.template ?? 'default'
     let outputDir = finalOptions.outputDir ?? path.join(process.cwd(), projectName)
     const author = finalOptions.author ?? 'Anonymous'
     const description = finalOptions.description ?? 'A new project'
     const version = finalOptions.version ?? '1.0.0'
+
+    // AI-powered template selection when --describe option is used (TASK-048)
+    if (aiEnabled && hasAIKeys && options.describe != null) {
+      try {
+        const projectAnalyzer = new ProjectAnalyzer({
+          enabled: true,
+          provider: hasOpenAI ? 'openai' : 'anthropic',
+        })
+
+        if (finalOptions.verbose) {
+          consola.info('Analyzing project requirements with AI...')
+        }
+
+        const aiAnalysis = await projectAnalyzer.analyzeProject({
+          description: options.describe,
+          name: projectName,
+          preferences: {
+            packageManager: finalOptions.packageManager,
+          },
+        })
+
+        // Use AI-recommended template if available and not explicitly specified
+        if (aiAnalysis.templates.length > 0 && finalOptions.template == null) {
+          const recommendedTemplate = aiAnalysis.templates[0]
+          if (recommendedTemplate != null) {
+            template = recommendedTemplate.source.location
+
+            if (finalOptions.verbose) {
+              consola.info('AI template recommendation:', {
+                recommended: template,
+                confidence: recommendedTemplate.confidence,
+                reason: recommendedTemplate.reason,
+              })
+            }
+          }
+        }
+
+        // Show AI insights if verbose
+        if (finalOptions.verbose && aiAnalysis.dependencies.length > 0) {
+          consola.info(
+            'AI dependency suggestions:',
+            aiAnalysis.dependencies.map(dep => dep.name).slice(0, 5),
+          )
+        }
+      } catch (aiError) {
+        // Comprehensive fallback handling when AI APIs fail (TASK-050)
+        if (finalOptions.verbose) {
+          consola.warn('AI analysis failed, continuing with standard mode:', aiError)
+        }
+        // Continue with normal operation - AI is optional enhancement
+      }
+    }
 
     // If dryRun is requested, use a temporary directory to avoid writing to the repo
     let tempOutputDir: string | undefined
