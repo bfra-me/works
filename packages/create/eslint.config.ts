@@ -17,3 +17,10 @@ export default composeConfig(rootConfig)
       'no-console': 'off',
     },
   })
+  .append({
+    name: '@bfra.me/create/tests/overrides',
+    files: ['test/**/*.ts'],
+    rules: {
+      'vitest/prefer-lowercase-title': 'off',
+    },
+  })

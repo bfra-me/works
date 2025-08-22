@@ -4,10 +4,13 @@
 
 import type {
   CreateCommandOptions,
+  DependencyRecommendation,
+  ProjectAnalysis,
   ProjectCustomization,
   ProjectSetupResult,
   TemplateSelection,
 } from '../types.js'
+import process from 'node:process'
 import {cancel, intro, isCancel, outro, spinner, text} from '@clack/prompts'
 import {consola} from 'consola'
 import {detect} from 'package-manager-detector'
@@ -29,6 +32,20 @@ export async function projectSetup(
   // Step 1: Welcome and introduction
   intro('🚀 Welcome to @bfra.me/create')
   consola.info("Let's create your new TypeScript project step by step!")
+
+  // Check if AI features should be enabled
+  const aiEnabled = initialOptions.ai === true || initialOptions.describe != null
+  const hasOpenAI = process.env.OPENAI_API_KEY != null && process.env.OPENAI_API_KEY.length > 0
+  const hasAnthropic =
+    process.env.ANTHROPIC_API_KEY != null && process.env.ANTHROPIC_API_KEY.length > 0
+  const hasAIKeys = hasOpenAI || hasAnthropic
+
+  // AI Status indication
+  if (aiEnabled && hasAIKeys) {
+    consola.info('🤖 AI-powered project analysis enabled')
+  } else if (aiEnabled && !hasAIKeys) {
+    consola.warn('⚠️  AI features requested but no API keys found - using standard mode')
+  }
 
   try {
     // Step 2: Project name (if not provided)
@@ -61,10 +78,113 @@ export async function projectSetup(
       throw new Error('Project name is required')
     }
 
-    // Step 3: Template selection
+    // Step 2.5: AI Analysis (if enabled and available)
+    let aiAnalysis: ProjectAnalysis | undefined
+    let aiRecommendations: DependencyRecommendation[] = []
+
+    if (aiEnabled && hasAIKeys && initialOptions.describe != null) {
+      try {
+        const {ProjectAnalyzer} = await import('../ai/project-analyzer.js')
+        const {DependencyRecommender} = await import('../ai/dependency-recommender.js')
+        const {
+          AIProgressIndicator,
+          displayAIAnalysisSummary,
+          displayDependencyRecommendations,
+          displayTemplateRecommendations,
+        } = await import('../utils/ui.js')
+
+        const progressIndicator = new AIProgressIndicator()
+        await progressIndicator.startAnalysis(initialOptions.describe)
+
+        const projectAnalyzer = new ProjectAnalyzer({
+          enabled: true,
+          provider: hasOpenAI ? 'openai' : 'anthropic',
+        })
+
+        progressIndicator.updateMessage('Analyzing project requirements')
+        aiAnalysis = await projectAnalyzer.analyzeProject({
+          description: initialOptions.describe,
+          name: projectName,
+          preferences: {
+            packageManager: initialOptions.packageManager,
+          },
+        })
+
+        progressIndicator.updateMessage('Generating dependency recommendations')
+        const dependencyRecommender = new DependencyRecommender({
+          enabled: true,
+          provider: hasOpenAI ? 'openai' : 'anthropic',
+        })
+
+        aiRecommendations = await dependencyRecommender.recommendDependencies(aiAnalysis)
+
+        progressIndicator.complete('AI analysis complete')
+
+        // Display AI insights
+        displayAIAnalysisSummary({
+          projectType: aiAnalysis.projectType,
+          confidence: aiAnalysis.confidence,
+          description: aiAnalysis.description,
+          features: aiAnalysis.features,
+        })
+
+        if (aiAnalysis.templates.length > 0) {
+          displayTemplateRecommendations(aiAnalysis.templates)
+        }
+
+        if (aiRecommendations.length > 0) {
+          displayDependencyRecommendations(aiRecommendations)
+        }
+      } catch (aiError) {
+        const {logger} = await import('../utils/ui.js')
+        const {showErrorHelp} = await import('../utils/help.js')
+
+        // Determine the type of AI error for appropriate feedback
+        let errorType = 'ai'
+        let fallbackReason = 'Unknown error'
+
+        if (aiError instanceof Error) {
+          const errorMessage = aiError.message.toLowerCase()
+          if (errorMessage.includes('rate limit') || errorMessage.includes('quota')) {
+            fallbackReason = 'API rate limit exceeded'
+            errorType = 'ai-rate-limit'
+          } else if (errorMessage.includes('network') || errorMessage.includes('connection')) {
+            fallbackReason = 'Network connection failed'
+            errorType = 'network'
+          } else if (errorMessage.includes('api key') || errorMessage.includes('unauthorized')) {
+            fallbackReason = 'Invalid or missing API key'
+            errorType = 'ai-auth'
+          } else {
+            fallbackReason = aiError.message
+          }
+        }
+
+        const progressIndicator = new (await import('../utils/ui.js')).AIProgressIndicator()
+        progressIndicator.fallback(fallbackReason)
+
+        logger.aiFallback(fallbackReason)
+
+        // Show specific help for AI errors if verbose mode
+        if (initialOptions.verbose) {
+          showErrorHelp(errorType, aiError instanceof Error ? aiError : undefined)
+        } else {
+          // Show brief guidance about AI features being optional
+          consola.info("💡 Don't worry - the CLI works great without AI features too!")
+        }
+
+        aiAnalysis = undefined
+        aiRecommendations = []
+      }
+    }
+
+    // Step 3: Template selection (with AI recommendations if available)
     let templateResult: TemplateSelection
     try {
-      templateResult = await templateSelection(initialOptions.template)
+      // Use AI recommended template if available and no template was specified
+      const aiRecommendedTemplate = aiAnalysis?.templates?.[0]?.source?.location
+      const templateToUse = initialOptions.template ?? aiRecommendedTemplate
+
+      templateResult = await templateSelection(templateToUse)
       if (isCancel(templateResult)) {
         cancel('Project creation cancelled')
         throw new Error('Process exit called')
@@ -74,13 +194,14 @@ export async function projectSetup(
       throw error
     }
 
-    // Step 4: Project customization
+    // Step 4: Project customization (with AI recommendations)
     let customizationResult: ProjectCustomization
     try {
       customizationResult = await projectCustomization({
         projectName,
         template: templateResult,
         initialOptions,
+        aiRecommendations,
       })
 
       if (isCancel(customizationResult)) {

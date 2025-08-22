@@ -123,6 +123,14 @@ Environment Variables:
 • NO_COLOR=1 - Disable colored output
 • DEBUG=create:* - Enable debug logging
 • CI=true - Enable CI mode (non-interactive)
+• OPENAI_API_KEY - Enable OpenAI-powered AI features
+• ANTHROPIC_API_KEY - Enable Anthropic Claude AI features
+
+AI-Powered Features:
+• Use --ai flag to enable intelligent recommendations
+• Use --describe to get template suggestions from natural language
+• AI analyzes your description to recommend templates and dependencies
+• Features work offline with graceful fallback to standard mode
 
 Template Development:
 • Use template.json for metadata
@@ -233,6 +241,11 @@ Quick Start:
 • npx @bfra.me/create my-lib --template=library
 • npx @bfra.me/create my-app --template=react
 
+AI-Powered Quick Start:
+• npx @bfra.me/create my-dashboard --describe="React admin dashboard"
+• npx @bfra.me/create my-cli --ai --describe="TypeScript CLI tool"
+• Set OPENAI_API_KEY or ANTHROPIC_API_KEY for AI features
+
 Available Commands:
 • create - Create a new project
 • add - Add features to existing project (coming soon)
@@ -244,6 +257,7 @@ For detailed help on a command:
 Interactive Mode:
 The tool will guide you through project setup
 with prompts for templates, customization, and options.
+When AI is enabled, you'll see intelligent recommendations.
 
 Non-Interactive Mode:
 Use CLI flags to skip prompts:
@@ -265,7 +279,7 @@ Use CLI flags to skip prompts:
         'npx @bfra.me/create my-app --template=github:user/repo',
         'npx @bfra.me/create my-project --template=./local-template',
       ],
-      relatedTopics: ['customization', 'examples'],
+      relatedTopics: ['customization', 'examples', 'ai'],
     })
 
     this.topics.set('customization', {
@@ -276,7 +290,18 @@ Use CLI flags to skip prompts:
         '--description="My awesome project"',
         '--package-manager=pnpm',
       ],
-      relatedTopics: ['templates', 'examples'],
+      relatedTopics: ['templates', 'examples', 'ai'],
+    })
+
+    this.topics.set('ai', {
+      name: 'AI Features',
+      description: 'Using AI-powered project analysis and recommendations',
+      examples: [
+        '--ai --describe="React dashboard with charts"',
+        '--describe="TypeScript CLI tool for file processing"',
+        'export OPENAI_API_KEY=your-key-here',
+      ],
+      relatedTopics: ['templates', 'customization'],
     })
 
     this.topics.set('troubleshooting', {
@@ -287,7 +312,7 @@ Use CLI flags to skip prompts:
         'npx @bfra.me/create my-project --force',
         'npx @bfra.me/create my-project --dry-run',
       ],
-      relatedTopics: ['examples'],
+      relatedTopics: ['examples', 'ai'],
     })
   }
 
@@ -350,12 +375,24 @@ Use CLI flags to skip prompts:
           flag: '--verbose',
           description: 'Enable verbose output',
         },
+        {
+          flag: '--ai',
+          description: 'Enable AI-powered features for intelligent project setup',
+          example: '--ai --describe="React dashboard with charts"',
+        },
+        {
+          flag: '--describe <description>',
+          description: 'Natural language description of the project for AI analysis',
+          example: '--describe="TypeScript CLI tool for file processing"',
+        },
       ],
       examples: [
         'npx @bfra.me/create my-project',
         'npx @bfra.me/create my-lib --template=library',
         'npx @bfra.me/create my-app --template=react --package-manager=pnpm',
         'npx @bfra.me/create my-project --template=github:user/repo --no-interactive',
+        'npx @bfra.me/create my-dashboard --ai --describe="React admin dashboard with charts"',
+        'npx @bfra.me/create my-cli --describe="TypeScript CLI for file processing"',
       ],
     })
   }
@@ -410,6 +447,17 @@ export function showErrorHelp(errorType: string, error?: Error): void {
 • Version must follow semver format (e.g., 1.0.0)
 • Output directory path must be valid
 • Check all required fields are provided
+      `)
+      break
+    }
+    case 'ai': {
+      consola.info(`
+💡 AI Feature Error Help:
+• Ensure OPENAI_API_KEY or ANTHROPIC_API_KEY is set
+• Check API key has sufficient credits/usage limits
+• Verify internet connection for AI API access
+• AI features are optional - CLI works without them
+• Use --verbose flag to see AI-specific error details
       `)
       break
     }
