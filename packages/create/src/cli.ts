@@ -211,6 +211,7 @@ cli
   .command('add [feature]', 'Add a feature to an existing project')
   .option('--skip-confirm', 'Skip confirmation prompts')
   .option('--list', 'List available features')
+  .option('--dry-run', 'Show what would be done without making changes')
   .action(async (feature?: string, cliOptions: Record<string, unknown> = {}) => {
     try {
       const options = {

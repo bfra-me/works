@@ -93,7 +93,10 @@ export async function createPackage(
     // Set defaults
     const projectName = finalOptions.name ?? 'new-project'
     let template = finalOptions.template ?? 'default'
-    let outputDir = finalOptions.outputDir ?? path.join(process.cwd(), projectName)
+    let outputDir =
+      finalOptions.outputDir != null && finalOptions.outputDir.trim().length > 0
+        ? path.join(finalOptions.outputDir, projectName)
+        : path.join(process.cwd(), projectName)
     const author = finalOptions.author ?? 'Anonymous'
     const description = finalOptions.description ?? 'A new project'
     const version = finalOptions.version ?? '1.0.0'

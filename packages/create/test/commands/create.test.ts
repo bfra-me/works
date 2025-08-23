@@ -241,7 +241,7 @@ describe('create command', () => {
       const options: CreateCommandOptions = {
         name: 'force-overwrite',
         template: 'default',
-        outputDir: existingDir,
+        outputDir: tempOutputDir, // Pass parent directory so projectName gets joined correctly
         interactive: false,
         force: true,
       }
