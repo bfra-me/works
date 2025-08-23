@@ -3,11 +3,11 @@ import {existsSync, statSync} from 'node:fs'
 import {cp, mkdir, readFile} from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
-import {fileURLToPath} from 'node:url'
 import {consola} from 'consola'
 import {downloadTemplate} from 'giget'
 import {glob} from 'glob'
 import {templateMetadataManager} from './metadata.js'
+import {templateResolver} from './resolver.js'
 
 /**
  * Cache configuration for template fetching.
@@ -271,20 +271,7 @@ export class TemplateFetcher {
    * Fetch built-in template.
    */
   private async fetchBuiltin(source: TemplateSource, targetDir: string): Promise<string> {
-    const currentDir = path.dirname(fileURLToPath(import.meta.url))
-
-    // Handle both development and production contexts
-    let builtinPath: string
-    if (currentDir.includes('/src/templates')) {
-      // Development context: src/templates/ -> go up to package root then to templates/
-      builtinPath = path.join(currentDir, '..', '..', 'templates', source.location)
-    } else if (import.meta.url.includes('/dist/index.js')) {
-      // Bundled context: dist/index.js -> templates are in dist/templates/
-      builtinPath = path.join(currentDir, 'templates', source.location)
-    } else {
-      // Standalone module context: dist/templates/ -> templates are co-located
-      builtinPath = path.join(currentDir, source.location)
-    }
+    const builtinPath = templateResolver.getBuiltinTemplatePath(source.location)
 
     if (!existsSync(builtinPath)) {
       throw new Error(`Built-in template does not exist: ${source.location}`)

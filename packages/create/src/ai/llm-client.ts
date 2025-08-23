@@ -5,7 +5,7 @@ import {config} from 'dotenv'
 import OpenAI from 'openai'
 
 // Load environment variables
-config()
+config({quiet: true})
 
 export type LLMProviderName = 'openai' | 'anthropic'
 

@@ -17,8 +17,11 @@ export class TemplateResolver {
     if (currentDir.includes('/src/templates')) {
       // Development context: src/templates/ -> go up to package root then to templates/
       this.builtinTemplatesDir = path.join(currentDir, '..', '..', 'templates')
-    } else if (import.meta.url.includes('/dist/index.js')) {
-      // Bundled context: dist/index.js -> templates are in dist/templates/
+    } else if (
+      import.meta.url.includes('/dist/index.js') ||
+      import.meta.url.includes('/dist/cli.js')
+    ) {
+      // Bundled context: dist/index.js or dist/cli.js -> templates are in dist/templates/
       this.builtinTemplatesDir = path.join(currentDir, 'templates')
     } else {
       // Standalone module context: dist/templates/ -> templates are co-located
@@ -152,6 +155,16 @@ export class TemplateResolver {
     } catch {
       return []
     }
+  }
+
+  /**
+   * Get the full path to a built-in template.
+   *
+   * @param templateName - Name of the built-in template
+   * @returns Absolute path to the built-in template directory
+   */
+  getBuiltinTemplatePath(templateName: string): string {
+    return path.join(this.builtinTemplatesDir, templateName)
   }
 
   /**

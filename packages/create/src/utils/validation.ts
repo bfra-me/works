@@ -377,6 +377,7 @@ export const ValidationUtils = {
     author?: string
     description?: string
     force?: boolean
+    dryRun?: boolean
   }): ValidationResult {
     const errors: string[] = []
     const warnings: string[] = []
@@ -401,9 +402,10 @@ export const ValidationUtils = {
       if (dirValidation.errors) errors.push(...dirValidation.errors)
       if (dirValidation.warnings) warnings.push(...dirValidation.warnings)
 
-      // Convert directory non-empty warning to error if force is false
+      // Convert directory non-empty warning to error if force is false (skip in dry run mode)
       if (
         !options.force &&
+        options.dryRun !== true &&
         dirValidation.warnings?.some(w => w.includes('Directory is not empty'))
       ) {
         errors.push('Target directory already exists and is not empty. Use --force to overwrite.')
