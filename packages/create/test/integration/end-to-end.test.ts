@@ -437,7 +437,7 @@ describe('End-to-End CLI Integration', () => {
       })
 
       expect(result.exitCode).toBe(0)
-      expect(result.stdout + result.stderr).toContain('Dry run completed successfully')
+      expect(result.stdout + result.stderr).toContain('Dry run completed - no files were modified')
     })
   })
 
