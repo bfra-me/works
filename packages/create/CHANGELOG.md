@@ -1,5 +1,17 @@
 # @bfra.me/create
 
+## 0.4.13
+### Patch Changes
+
+
+- Updated dependency `memfs` to `4.36.2`. ([#1691](https://github.com/bfra-me/works/pull/1691))
+
+
+- Updated dependency `memfs` to `4.36.3`. ([#1693](https://github.com/bfra-me/works/pull/1693))
+
+
+- Updated dependency `openai` to `5.13.1`. ([#1699](https://github.com/bfra-me/works/pull/1699))
+
 ## 0.4.12
 ### Patch Changes
 

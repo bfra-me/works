@@ -1,5 +1,33 @@
 # @bfra.me/eslint-config
 
+## 0.27.0
+### Minor Changes
+
+
+- Remove `@typescript-eslint/member-ordering` rule. ([#1701](https://github.com/bfra-me/works/pull/1701))
+
+
+### Patch Changes
+
+
+- Updated dependency `eslint-plugin-pnpm` to `1.1.1`. ([#1680](https://github.com/bfra-me/works/pull/1680))
+
+
+- Updated dependency `tsx` to `4.20.4`. ([#1661](https://github.com/bfra-me/works/pull/1661))
+
+
+- Updated dependency `@eslint/config-inspector` to `1.2.0`. ([#1673](https://github.com/bfra-me/works/pull/1673))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.39.1`. ([#1651](https://github.com/bfra-me/works/pull/1651))
+  Updated dependency `typescript-eslint` to `8.39.1`.
+
+- Updated dependency `eslint-plugin-unused-imports` to `4.2.0`. ([#1686](https://github.com/bfra-me/works/pull/1686))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.40.0`. ([#1694](https://github.com/bfra-me/works/pull/1694))
+  Updated dependency `typescript-eslint` to `8.40.0`.
+
 ## 0.26.0
 ### Minor Changes
 
