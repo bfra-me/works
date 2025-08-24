@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.27.1
+### Patch Changes
+
+
+- Updated dependency `local-pkg` to `1.1.2`. ([#1702](https://github.com/bfra-me/works/pull/1702))
+
 ## 0.27.0
 ### Minor Changes
 
