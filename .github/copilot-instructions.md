@@ -8,7 +8,8 @@ For comprehensive project navigation, see [`llms.txt`](../llms.txt) which provid
 
 ### Key Features
 - **Shared Configurations**: Centralized ESLint, Prettier, and TypeScript configurations
-- **Development Tools**: CLI for project creation and development utilities
+- **AI-Powered CLI**: Modern project creation tool with AI analysis and template recommendations
+- **Advanced Templates**: Support for GitHub repos, local directories, and URLs with Eta templating
 - **Release Automation**: Changesets for versioning and semantic release
 - **Testing Framework**: Vitest-based testing across all packages
 - **Type Safety**: TypeScript-first development with strict type checking
@@ -23,6 +24,9 @@ For comprehensive project navigation, see [`llms.txt`](../llms.txt) which provid
 - **Prettier**: Code formatting with shared configurations
 - **Node.js**: Runtime for CLI tools and build processes
 - **tsup**: TypeScript compilation and bundling
+- **Eta**: Template engine for advanced template processing
+- **giget**: Template fetching from GitHub/URLs with caching
+- **@clack/prompts**: Modern interactive CLI prompts
 
 ## Critical Workflows
 
@@ -60,11 +64,21 @@ pnpm publish-changesets     # Publish to npm
 
 ### Package Dependencies (Critical for Understanding)
 - **`@bfra.me/badge-config`**: TypeScript API for generating shields.io badge URLs with preset generators
-- **`@bfra.me/create`**: Standalone CLI - generates packages with templates
-- **`@bfra.me/eslint-config`**: Used by ALL packages - provides `defineConfig()`
+- **`@bfra.me/create`**: Modern AI-powered CLI for project creation with template system (GitHub/URL/local support)
+- **`@bfra.me/eslint-config`**: Used by ALL packages - provides `defineConfig()` with TypeScript/Prettier/Vitest support
 - **`@bfra.me/prettier-config`**: 3 variants (80/100/120-proof) - referenced in package.json
 - **`@bfra.me/tsconfig`**: Extended by all TS configs - provides base + library configs
 - **`@bfra.me/semantic-release`**: Provides typed semantic-release configs
+
+### Modern CLI Architecture (@bfra.me/create)
+- **AI Integration**: OpenAI/Anthropic support for project analysis and template recommendations
+- **Template System**: Supports GitHub repos (`user/repo`), URLs, local paths, and built-in templates
+- **Template Engine**: Uses Eta for variable substitution and conditional logic
+- **Template Fetching**: giget for efficient GitHub/URL downloading with caching
+- **Interactive UX**: @clack/prompts for beautiful CLI experience
+- **Feature Addition**: `create add` command for adding components/configs to existing projects
+- **Template Types**: Built-in templates (default, library, cli, node, react) in `packages/create/templates/`
+- **AI Features**: `--describe` flag for natural language project requirements → AI template selection
 
 ### Workspace Structure (pnpm workspaces)
 ```
@@ -86,11 +100,33 @@ packages/                   # Published packages
 
 #### Automated Creation (Recommended)
 ```bash
-# Use the built-in package generator
+# Use the modern AI-powered generator
 pnpx @bfra.me/create my-new-package
+
+# With specific template
+pnpx @bfra.me/create my-library --template library
+
+# With AI-powered template selection
+pnpx @bfra.me/create my-project --describe "REST API with authentication and database"
+
+# Add features to existing project
+cd existing-project
+pnpx @bfra.me/create add eslint
+pnpx @bfra.me/create add vitest
+pnpx @bfra.me/create add component --name MyComponent
+
+# From GitHub repository
+pnpx @bfra.me/create my-app --template user/repo
 
 # Follow interactive prompts for package type and configuration
 ```
+
+#### Template System Architecture
+- **Built-in Templates**: Located in `packages/create/templates/` (default, library, cli, node, react)
+- **Template Resolution**: Supports GitHub repos, URLs, local paths via `TemplateResolver`
+- **Template Processing**: Eta templating engine for variable substitution and logic
+- **Template Caching**: giget provides efficient caching for remote templates
+- **Template Variables**: Standard variables (name, description, author) + custom template-specific vars
 
 #### Manual Creation Process
 
@@ -379,6 +415,9 @@ export default defineConfig({
 | ESLint config loading issues | Wrong ESLint flag | Use `--flag v10_config_lookup_from_file` |
 | Test imports failing | Missing pretest build | `pnpm pretest` builds config packages first |
 | Type coverage errors | Type coverage below threshold | Run `pnpm type-coverage:detail` to see specifics |
+| AI features not working in `@bfra.me/create` | Missing API keys | Set `OPENAI_API_KEY` or `ANTHROPIC_API_KEY` env vars |
+| Template resolution failures | Invalid template source | Check template exists (GitHub repo, local path, or built-in) |
+| Eta template processing errors | Invalid template syntax | Check template files for proper Eta syntax |
 
 ## Integration Points
 
@@ -394,6 +433,14 @@ export default defineConfig({
 - Automated "Version Packages" PR created weekly
 - Never manually edit CHANGELOG.md (auto-generated)
 
+### AI Integration Patterns (@bfra.me/create)
+- **Environment Detection**: Auto-detects `OPENAI_API_KEY` and `ANTHROPIC_API_KEY` environment variables
+- **Graceful Fallback**: Falls back to non-AI mode when API keys unavailable or API calls fail
+- **Project Analysis**: Uses `ProjectAnalyzer` class for natural language requirement processing
+- **Template Recommendation**: AI suggests optimal templates based on project description
+- **Dependency Suggestions**: AI provides smart dependency recommendations for project setup
+- **Error Recovery**: Comprehensive error handling for AI service failures with informative fallbacks
+
 ### Testing Architecture
 - All packages use Vitest with shared config from workspace root
 - Tests in `test/` directory, not `__tests__` or `src/`
@@ -402,6 +449,8 @@ export default defineConfig({
 - **Fixture-based testing**: Packages use `test/fixtures/input` and `test/fixtures/output` for integration tests
 - **Test patterns**: `it.concurrent()` for parallel test execution, `expect.soft()` for multiple assertions
 - **File snapshots**: Use `toMatchFileSnapshot()` for comparing formatted output files
+- **AI Testing**: `@bfra.me/create` includes comprehensive AI feature testing with mocked API responses
+- **Template Testing**: Template processing and resolution tested with real and mock templates
 
 ## Development Standards
 
@@ -420,21 +469,39 @@ const CONFIG = {
   features: ['auth', 'api'] as const
 } as const
 
-// Prefer interfaces for public APIs
-export interface ConfigOptions {
-  name: string
-  typescript?: boolean | TypescriptOptions
-  prettier?: boolean
+// Prefer interfaces for public APIs with comprehensive documentation
+export interface CreateCommandOptions {
+  name?: string
+  template?: string
+  description?: string
+  author?: string
+  version?: string
+  outputDir?: string
+  packageManager?: 'npm' | 'yarn' | 'pnpm' | 'bun'
+  skipPrompts?: boolean
+  interactive?: boolean
+  ai?: boolean
+  describe?: string // AI-powered project description
+  force?: boolean
+  verbose?: boolean
+}
+
+// Use discriminated unions for result types
+export type Result<T, E = Error> =
+  | { success: true; data: T }
+  | { success: false; error: E }
+
+// Template system types for flexible source handling
+export interface TemplateSource {
+  type: 'builtin' | 'github' | 'local' | 'url'
+  location: string
+  ref?: string
+  subdir?: string
 }
 
 // Use type aliases for unions and utility types
 export type ConfigValue = boolean | string | number | ConfigObject
 export type PackageName = `@bfra.me/${string}`
-
-// Use discriminated unions for result types
-type Result<T, E = Error> =
-  | { success: true; data: T }
-  | { success: false; error: E }
 ```
 
 #### Function Patterns
@@ -446,18 +513,53 @@ export function defineConfig(options: string | ConfigOptions): Config {
   // Implementation
 }
 
-// Named parameters with defaults
-function createPackage({
-  name,
-  version = '0.0.0',
-  template = 'default'
-}: PackageOptions): Promise<void> {
-  // Implementation
+// Async patterns with Result types for error handling
+export async function createPackage(
+  options: CreateCommandOptions,
+): Promise<Result<{projectPath: string}>> {
+  try {
+    // Modern template processing with AI integration
+    if (options.describe && hasAIKeys()) {
+      const analysis = await projectAnalyzer.analyzeProject(options)
+      // Use AI recommendations
+    }
+
+    const result = await templateProcessor.process(template, context)
+    return { success: true, data: { projectPath: result.path } }
+  } catch (error) {
+    return { success: false, error: error as Error }
+  }
 }
 
-// Type predicates for runtime checking
-function isConfigObject(value: unknown): value is ConfigObject {
-  return typeof value === 'object' && value !== null && 'name' in value
+// Named parameters with defaults and comprehensive options
+function createPackage({
+  name,
+  template = 'default',
+  version = '1.0.0',
+  packageManager = 'npm',
+  ai = false,
+  interactive = true
+}: CreateCommandOptions): Promise<Result<PackageInfo>> {
+  // Implementation with modern template system
+}
+
+// Type predicates for runtime checking with template sources
+function isTemplateSource(value: unknown): value is TemplateSource {
+  return typeof value === 'object' &&
+         value !== null &&
+         'type' in value &&
+         'location' in value
+}
+
+// AI integration patterns with graceful fallbacks
+async function analyzeWithAI(description: string): Promise<AnalysisResult | null> {
+  try {
+    if (!hasAIKeys()) return null
+    return await projectAnalyzer.analyze(description)
+  } catch (error) {
+    consola.warn('AI analysis failed, using defaults:', error)
+    return null
+  }
 }
 ```
 
@@ -489,17 +591,40 @@ export type {ConfigOptions, PackageOptions} from './types'
 #### Documentation Standards
 ```typescript
 /**
- * Creates a new configuration with standardized settings.
+ * Creates a new package using the modern template system with AI assistance.
  *
- * @param options - The configuration options
- * @param options.name - The name of the configuration
- * @returns The created configuration object
+ * @param options - The package creation options
+ * @param options.name - The name of the package
+ * @param options.template - Template source (builtin, GitHub repo, URL, or local path)
+ * @param options.describe - Natural language description for AI-powered template selection
+ * @param options.ai - Enable AI features for enhanced project setup
+ * @returns Promise resolving to the creation result with project path
+ *
  * @example
  * ```typescript
- * const config = createConfig({ name: 'my-app' })
+ * // Basic package creation
+ * const result = await createPackage({
+ *   name: 'my-library',
+ *   template: 'library'
+ * })
+ *
+ * // AI-powered template selection
+ * const aiResult = await createPackage({
+ *   name: 'my-api',
+ *   describe: 'REST API with authentication and database',
+ *   ai: true
+ * })
+ *
+ * // From GitHub repository with subfolder
+ * const githubResult = await createPackage({
+ *   name: 'my-app',
+ *   template: 'user/repo/subfolder'
+ * })
  * ```
  */
-export function createConfig(options: ConfigOptions): Config {
+export async function createPackage(
+  options: CreateCommandOptions
+): Promise<Result<{projectPath: string}>> {
   // Implementation
 }
 ```
