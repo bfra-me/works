@@ -1,5 +1,11 @@
 # @bfra.me/create
 
+## 0.5.0
+### Minor Changes
+
+
+- Completely redesign `@bfra.me/create` to transform it from a simple template-based package generator into a comprehensive CLI for TypeScript project scaffolding. ([#1704](https://github.com/bfra-me/works/pull/1704))
+
 ## 0.4.13
 ### Patch Changes
 
