@@ -34,6 +34,7 @@ Built with a focus on consistency, quality, and developer experience, it enables
 ## Optional
 
 - [API Reference](docs/src/content/docs/reference/index.mdx): Complete API documentation for all packages
+- [License](license.md): MIT license for the project and all packages
 - [TypeScript Patterns](.github/instructions/typescript-patterns.instructions.md): TypeScript coding standards and patterns
 - [ESLint Config Usage](.github/instructions/eslint-config-usage.instructions.md): Guidelines for ESLint configuration
 - [Testing Practices](.github/instructions/testing-practices.instructions.md): Testing standards and best practices
