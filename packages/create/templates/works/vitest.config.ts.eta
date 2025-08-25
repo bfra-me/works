@@ -1,0 +1,40 @@
+import {defineConfig} from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    globals: false,
+    environment: 'node',
+    include: ['test/**/*.test.ts'<% if (it.hasReact) { %>, 'test/**/*.test.tsx'<% } %>],<% if (it.packageType === 'config' || it.packageType === 'tool') { %>
+    setupFiles: ['test/setup.ts'],<% } %>
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],<% if (it.packageType === 'config') { %>
+      thresholds: {
+        lines: 80,
+        functions: 80,
+        branches: 70,
+        statements: 80
+      },<% } else if (it.packageType === 'tool' || it.hasCLI) { %>
+      thresholds: {
+        lines: 90,
+        functions: 85,
+        branches: 80,
+        statements: 90
+      },<% } else { %>
+      thresholds: {
+        lines: 95,
+        functions: 90,
+        branches: 90,
+        statements: 95
+      },<% } %>
+      exclude: [
+        'coverage/**',<% if (!it.isTypeOnly) { %>
+        'lib/**',<% } %>
+        'node_modules/**',
+        'test/**',<% if (it.packageType === 'config') { %>
+        'scripts/**',<% } %>
+        '*.config.*'
+      ]
+    }
+  }
+})

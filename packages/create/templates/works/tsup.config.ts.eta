@@ -1,11 +1,28 @@
 <% if (!it.isTypeOnly) { %>import {defineConfig} from 'tsup'
 
-export default defineConfig({
-  entry: ['src/index.ts'<% if (it.hasCLI) { %>, 'src/cli.ts'<% } %>],
-  format: ['esm'],
-  dts: true,
+export default defineConfig({<% if (it.packageType === 'config') { %>
+  banner: {
+    js: "import {createRequire} from 'node:module';const require=createRequire(import.meta.url);",
+  },<% } %>
   clean: true,
-  sourcemap: true<% if (it.hasReact) { %>,
-  jsx: 'react-jsx'<% } %>
+  dts: true,
+  entry: ['src/index.ts'<% if (it.hasCLI) { %>, 'src/cli.ts'<% } %><% if (it.packageType === 'config') { %>, 'src/define-config.ts'<% } %>],<% if (it.packageType === 'config') { %>
+  external: [<% if (it.packageName.includes('eslint')) { %>
+    'eslint-config-prettier',
+    'eslint-plugin-prettier'<% } else if (it.packageName.includes('prettier')) { %>
+    'prettier'<% } %>
+  ],<% } %>
+  format: ['esm'],<% if (it.hasReact) { %>
+  jsx: 'react-jsx',<% } %>
+  outDir: 'lib',
+  sourcemap: true,
+  target: 'esnext'<% if (it.packageType === 'config') { %>,
+  // Splitting helps with tree-shaking for config packages
+  splitting: false<% } %>
 })<% } else { %>// Type-only packages use tsc for compilation
-// See package.json scripts for build configuration<% } %>
+// See package.json scripts for build configuration
+//
+// If you need to build this package, you can:
+// 1. Remove the "isTypeOnly" flag from template variables
+// 2. Run the template generator again
+// 3. Or manually set up tsup configuration based on your needs<% } %>

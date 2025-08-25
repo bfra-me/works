@@ -1,8 +1,15 @@
 {
-  "extends": "@bfra.me/tsconfig",
-  "include": ["src"],
-  "exclude": ["lib", "test"]<% if (it.hasReact) { %>,
-  "compilerOptions": {
-    "jsx": "react-jsx"
-  }<% } %>
+  "$schema": "http://json.schemastore.org/tsconfig",
+  "extends": "../tsconfig/tsconfig.json",
+  "compilerOptions": {<% if (!it.isTypeOnly) { %>
+    "outDir": "./lib"<% if (it.packageType === 'config') { %>,
+    "esModuleInterop": true,
+    "noEmit": false,
+    "noPropertyAccessFromIndexSignature": false<% } %><% } else { %>
+    "noEmit": true<% } %><% if (it.hasReact) { %>,
+    "jsx": "react-jsx"<% } %>
+  },<% if (it.packageType === 'config') { %>
+  "include": ["**/*.ts", "package.json"],<% } else { %>
+  "include": ["**/*.ts"<% if (it.hasReact) { %>, "**/*.tsx"<% } %>],<% } %>
+  "exclude": ["node_modules"<% if (!it.isTypeOnly) { %>, "lib"<% } %><% if (it.packageType === 'config' || it.packageType === 'tool') { %>, "test/fixtures"<% } %>]
 }
