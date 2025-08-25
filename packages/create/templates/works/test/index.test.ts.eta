@@ -1,0 +1,120 @@
+import {describe, expect, it} from 'vitest'
+
+<% if (it.packageType === 'utility') { %>import {processData, isValid} from '../src/utils.js'
+
+describe('@bfra.me/<%= it.packageName %>', () => {
+  describe('processData', () => {
+    it('should process data successfully', () => {
+      const input = 'test data'
+      const result = processData(input)
+      
+      expect(result.success).toBe(true)
+      if (result.success) {
+        expect(result.data).toBe(input)
+      }
+    })
+    
+    it('should handle errors gracefully', () => {
+      // Test error handling if needed
+      const result = processData(null)
+      expect(result.success).toBe(true) // Adjust based on implementation
+    })
+  })
+  
+  describe('isValid', () => {
+    it('should validate values correctly', () => {
+      expect(isValid('test')).toBe(true)
+      expect(isValid(null)).toBe(false)
+      expect(isValid(undefined)).toBe(false)
+    })
+  })
+})<% } else if (it.packageType === 'config') { %>import {createConfig, validateConfig} from '../src/config.js'
+
+describe('@bfra.me/<%= it.packageName %>', () => {
+  describe('createConfig', () => {
+    it('should create config with defaults', () => {
+      const config = createConfig()
+      
+      expect(config).toBeDefined()
+      expect(config.resolved).toBe(true)
+    })
+    
+    it('should merge provided options', () => {
+      const options = {test: 'value'}
+      const config = createConfig(options)
+      
+      expect(config.test).toBe('value')
+      expect(config.resolved).toBe(true)
+    })
+  })
+  
+  describe('validateConfig', () => {
+    it('should validate config correctly', () => {
+      expect(validateConfig({})).toBe(true)
+      expect(validateConfig({test: 'value'})).toBe(true)
+    })
+  })
+})<% } else if (it.packageType === 'tool') { %>import {runTool, initTool} from '../src/tool.js'
+
+describe('@bfra.me/<%= it.packageName %>', () => {
+  describe('runTool', () => {
+    it('should run tool successfully', async () => {
+      const result = await runTool()
+      
+      expect(result.success).toBe(true)
+      expect(result.data).toBeDefined()
+    })
+    
+    it('should handle options correctly', async () => {
+      const options = {test: 'value'}
+      const result = await runTool(options)
+      
+      expect(result.success).toBe(true)
+    })
+  })
+  
+  describe('initTool', () => {
+    it('should initialize tool successfully', () => {
+      const result = initTool()
+      
+      expect(result.success).toBe(true)
+      expect(result.data).toBeDefined()
+    })
+  })
+})<% } else if (it.packageType === 'library') { %>import {createLibrary, getLibraryInfo, initLibrary} from '../src/lib.js'
+
+describe('@bfra.me/<%= it.packageName %>', () => {
+  describe('createLibrary', () => {
+    it('should create library component', () => {
+      const library = createLibrary()
+      
+      expect(library.name).toBe('<%= it.packageName %>')
+      expect(library.version).toBe('<%= it.version %>')
+    })
+    
+    it('should merge options correctly', () => {
+      const options = {test: 'value'}
+      const library = createLibrary(options)
+      
+      expect(library.test).toBe('value')
+    })
+  })
+  
+  describe('getLibraryInfo', () => {
+    it('should return library info', () => {
+      const library = createLibrary()
+      const info = getLibraryInfo(library)
+      
+      expect(info).toBe('<%= it.packageName %> v<%= it.version %>')
+    })
+  })
+  
+  describe('initLibrary', () => {
+    it('should initialize library', () => {
+      const library = initLibrary()
+      
+      expect(library.name).toBe('<%= it.packageName %>')
+      expect(library.version).toBe('<%= it.version %>')
+    })
+  })
+})<% } %>

@@ -1,0 +1,156 @@
+# @bfra.me/<%= it.packageName %>
+
+<%= it.description %>
+
+## Installation
+
+```bash
+npm install @bfra.me/<%= it.packageName %>
+```
+
+## Usage
+
+<% if (it.packageType === 'utility') { %>```typescript
+import {processData, isValid} from '@bfra.me/<%= it.packageName %>'
+
+// Process data with utility functions
+const result = processData('input data')
+if (result.success) {
+  console.log('Processed:', result.data)
+}
+
+// Validate values
+if (isValid(someValue)) {
+  console.log('Value is valid')
+}
+```<% } else if (it.packageType === 'config') { %>```typescript
+import {createConfig, validateConfig} from '@bfra.me/<%= it.packageName %>'
+
+// Create configuration with defaults
+const config = createConfig({
+  // your options here
+})
+
+// Validate configuration
+if (validateConfig(config)) {
+  console.log('Configuration is valid')
+}
+```<% } else if (it.packageType === 'tool') { %>```typescript
+import {runTool, initTool} from '@bfra.me/<%= it.packageName %>'
+
+// Initialize the tool
+const initResult = initTool({
+  // initialization options
+})
+
+// Run the tool
+const result = await runTool({
+  // tool options
+})
+```<% if (it.hasCLI) { %>
+
+### CLI Usage
+
+```bash
+# Run the tool
+<%= it.packageName %> run --config ./config.json
+
+# Initialize the tool
+<%= it.packageName %> init
+```<% } %><% } else if (it.packageType === 'library') { %>```typescript
+import {createLibrary, getLibraryInfo, initLibrary} from '@bfra.me/<%= it.packageName %>'
+
+// Create library instance
+const library = createLibrary({
+  // library options
+})
+
+// Get library information
+const info = getLibraryInfo(library)
+console.log(info)
+
+// Initialize library with options
+const initializedLibrary = initLibrary({
+  // initialization options
+})
+```<% } %>
+
+## API
+
+<% if (it.packageType === 'utility') { %>### Functions
+
+#### `processData<T>(input: T, options?: UtilityOptions): UtilityResult<T>`
+
+Process input data with the provided options.
+
+- `input` - Data to process
+- `options` - Optional configuration
+- Returns: Result object with success status and data/error
+
+#### `isValid(value: unknown): boolean`
+
+Validate if a value is valid (not null or undefined).
+
+- `value` - Value to validate
+- Returns: `true` if valid, `false` otherwise<% } else if (it.packageType === 'config') { %>### Functions
+
+#### `createConfig(options?: ConfigOptions): ResolvedConfig`
+
+Create configuration with default values merged with provided options.
+
+- `options` - Configuration options
+- Returns: Resolved configuration object
+
+#### `validateConfig(config: ConfigOptions): boolean`
+
+Validate configuration options.
+
+- `config` - Configuration to validate
+- Returns: `true` if valid, `false` otherwise<% } else if (it.packageType === 'tool') { %>### Functions
+
+#### `runTool(options?: ToolOptions): Promise<ToolResult>`
+
+Run the tool with the provided options.
+
+- `options` - Tool configuration options
+- Returns: Promise resolving to tool result
+
+#### `initTool(options?: ToolOptions): ToolResult`
+
+Initialize the tool with the provided options.
+
+- `options` - Initialization options
+- Returns: Tool result object<% } else if (it.packageType === 'library') { %>### Functions
+
+#### `createLibrary(options?: LibraryOptions): LibraryComponent`
+
+Create a library component instance.
+
+- `options` - Library configuration options
+- Returns: Library component
+
+#### `getLibraryInfo(component: LibraryComponent): string`
+
+Get information about a library component.
+
+- `component` - Library component
+- Returns: Formatted component information
+
+#### `initLibrary(options?: LibraryOptions): LibraryComponent`
+
+Initialize library with configuration and logging.
+
+- `options` - Initialization options
+- Returns: Initialized library component<% } %>
+
+## Types
+
+<% if (it.packageType === 'utility') { %>See [types.ts](./src/types.ts) for complete type definitions including `UtilityOptions` and `UtilityResult`.<% } else if (it.packageType === 'config') { %>See [types.ts](./src/types.ts) for complete type definitions including `ConfigOptions` and `ResolvedConfig`.<% } else if (it.packageType === 'tool') { %>See [types.ts](./src/types.ts) for complete type definitions including `ToolOptions` and `ToolResult`.<% } else if (it.packageType === 'library') { %>See [types.ts](./src/types.ts) for complete type definitions including `LibraryOptions` and `LibraryComponent`.<% } %>
+
+## Contributing
+
+See the [main repository](https://github.com/bfra-me/works) for contribution guidelines.
+
+## License
+
+<%= it.license %>
