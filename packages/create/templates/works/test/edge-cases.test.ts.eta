@@ -1,0 +1,345 @@
+// Edge cases and error handling tests for <%= it.packageName %>
+import {describe, expect, it} from 'vitest'
+<% if (it.packageType === 'utility') { %>import {processData, isValid} from '../src/utils.js'<% } else if (it.packageType === 'config') { %>import {createConfig, validateConfig} from '../src/config.js'<% } else if (it.packageType === 'tool') { %>import {runTool, initTool} from '../src/tool.js'<% } else if (it.packageType === 'library') { %>import {createLibrary, getLibraryInfo, initLibrary} from '../src/lib.js'<% } %>
+
+describe('@bfra.me/<%= it.packageName %> - Edge Cases & Error Handling', () => {
+  describe('Input validation edge cases', () => {
+    it.concurrent('should handle null input gracefully', async ({expect}) => {
+<% if (it.packageType === 'utility') { %>      const result = processData(null)
+      expect(result).toBeDefined()
+      expect(typeof result).toBe('object')
+      // Should not throw an error
+      expect(() => processData(null)).not.toThrow()
+<% } else if (it.packageType === 'config') { %>      const result = createConfig(null)
+      expect(result).toBeDefined()
+      expect(result).toHaveProperty('resolved')
+      expect(result.resolved).toBe(true)
+<% } else if (it.packageType === 'tool') { %>      const result = await runTool(null)
+      expect(result).toBeDefined()
+      expect(result).toHaveProperty('success')
+      // Tool should handle null gracefully
+      expect(typeof result.success).toBe('boolean')
+<% } else if (it.packageType === 'library') { %>      const result = createLibrary(null)
+      expect(result).toBeDefined()
+      expect(result).toHaveProperty('name')
+      expect(result.name).toBe('<%= it.packageName %>')
+<% } %>    })
+
+    it.concurrent('should handle undefined input gracefully', async ({expect}) => {
+<% if (it.packageType === 'utility') { %>      const result = processData(undefined)
+      expect(result).toBeDefined()
+      expect(() => processData(undefined)).not.toThrow()
+<% } else if (it.packageType === 'config') { %>      const result = createConfig(undefined)
+      expect(result).toBeDefined()
+      expect(result.resolved).toBe(true)
+<% } else if (it.packageType === 'tool') { %>      const result = await runTool(undefined)
+      expect(result).toBeDefined()
+      expect(typeof result.success).toBe('boolean')
+<% } else if (it.packageType === 'library') { %>      const result = createLibrary(undefined)
+      expect(result).toBeDefined()
+      expect(result.name).toBe('<%= it.packageName %>')
+<% } %>    })
+
+    it.concurrent('should handle empty objects and arrays', async ({expect}) => {
+      const emptyObject = {}
+      const emptyArray: any[] = []
+
+<% if (it.packageType === 'utility') { %>      expect(() => processData(emptyObject)).not.toThrow()
+      expect(() => processData(emptyArray)).not.toThrow()
+
+      const objectResult = processData(emptyObject)
+      const arrayResult = processData(emptyArray)
+
+      expect(objectResult).toBeDefined()
+      expect(arrayResult).toBeDefined()
+<% } else if (it.packageType === 'config') { %>      const objectResult = createConfig(emptyObject)
+      const arrayResult = createConfig(emptyArray as any)
+
+      expect(objectResult).toBeDefined()
+      expect(arrayResult).toBeDefined()
+      expect(objectResult.resolved).toBe(true)
+<% } else if (it.packageType === 'tool') { %>      const objectResult = await runTool(emptyObject)
+      const arrayResult = await runTool(emptyArray as any)
+
+      expect(objectResult).toBeDefined()
+      expect(arrayResult).toBeDefined()
+<% } else if (it.packageType === 'library') { %>      const objectResult = createLibrary(emptyObject)
+      const arrayResult = createLibrary(emptyArray as any)
+
+      expect(objectResult).toBeDefined()
+      expect(arrayResult).toBeDefined()
+      expect(objectResult.name).toBe('<%= it.packageName %>')
+<% } %>    })
+
+    it.concurrent('should handle circular references', async ({expect}) => {
+      const circular: any = {name: 'test'}
+      circular.self = circular
+      circular.nested = {parent: circular}
+
+<% if (it.packageType === 'utility') { %>      // Should not crash with circular references
+      expect(() => processData(circular)).not.toThrow()
+      const result = processData(circular)
+      expect(result).toBeDefined()
+<% } else if (it.packageType === 'config') { %>      // Config should handle circular references gracefully
+      expect(() => createConfig(circular)).not.toThrow()
+      const result = createConfig(circular)
+      expect(result).toBeDefined()
+      expect(result.resolved).toBe(true)
+<% } else if (it.packageType === 'tool') { %>      // Tool should handle circular references gracefully
+      const result = await runTool(circular)
+      expect(result).toBeDefined()
+<% } else if (it.packageType === 'library') { %>      // Library should handle circular references gracefully
+      expect(() => createLibrary(circular)).not.toThrow()
+      const result = createLibrary(circular)
+      expect(result).toBeDefined()
+<% } %>    })
+  })
+
+  describe('Type safety edge cases', () => {
+    it.concurrent('should handle invalid types gracefully', async ({expect}) => {
+      const invalidTypes = [
+        Symbol('test'),
+        function() { return 'test' },
+        new Date(),
+        new RegExp('test'),
+        new Map(),
+        new Set(),
+        BigInt(123),
+        () => 'arrow function'
+      ]
+
+      for (const invalidType of invalidTypes) {
+<% if (it.packageType === 'utility') { %>        expect(() => processData(invalidType as any)).not.toThrow()
+        const result = processData(invalidType as any)
+        expect(result).toBeDefined()
+<% } else if (it.packageType === 'config') { %>        expect(() => createConfig(invalidType as any)).not.toThrow()
+        const result = createConfig(invalidType as any)
+        expect(result).toBeDefined()
+<% } else if (it.packageType === 'tool') { %>        const result = await runTool(invalidType as any)
+        expect(result).toBeDefined()
+<% } else if (it.packageType === 'library') { %>        expect(() => createLibrary(invalidType as any)).not.toThrow()
+        const result = createLibrary(invalidType as any)
+        expect(result).toBeDefined()
+<% } %>      }
+    })
+
+    it.concurrent('should handle very large numbers', async ({expect}) => {
+      const largeNumbers = [
+        Number.MAX_SAFE_INTEGER,
+        Number.MAX_VALUE,
+        -Number.MAX_SAFE_INTEGER,
+        -Number.MAX_VALUE,
+        Infinity,
+        -Infinity,
+        NaN
+      ]
+
+      for (const num of largeNumbers) {
+<% if (it.packageType === 'utility') { %>        expect(() => processData(num)).not.toThrow()
+<% } else if (it.packageType === 'config') { %>        expect(() => createConfig({value: num})).not.toThrow()
+<% } else if (it.packageType === 'tool') { %>        const result = await runTool({value: num})
+        expect(result).toBeDefined()
+<% } else if (it.packageType === 'library') { %>        expect(() => createLibrary({value: num})).not.toThrow()
+<% } %>      }
+    })
+
+    it.concurrent('should handle very long strings', async ({expect}) => {
+      const veryLongString = 'x'.repeat(1000000) // 1MB string
+      const stringWithUnicode = '🚀'.repeat(10000) // Unicode string
+      const stringWithNull = 'test\0null\0test'
+      const stringWithEscapes = 'test\n\r\t\\"\\'\\\\'
+
+      const testStrings = [veryLongString, stringWithUnicode, stringWithNull, stringWithEscapes]
+
+      for (const testString of testStrings) {
+<% if (it.packageType === 'utility') { %>        expect(() => processData(testString)).not.toThrow()
+        const result = processData(testString)
+        expect(result).toBeDefined()
+<% } else if (it.packageType === 'config') { %>        expect(() => createConfig({test: testString})).not.toThrow()
+        const result = createConfig({test: testString})
+        expect(result).toBeDefined()
+<% } else if (it.packageType === 'tool') { %>        const result = await runTool({test: testString})
+        expect(result).toBeDefined()
+<% } else if (it.packageType === 'library') { %>        expect(() => createLibrary({test: testString})).not.toThrow()
+        const result = createLibrary({test: testString})
+        expect(result).toBeDefined()
+<% } %>      }
+    })
+  })
+
+  describe('Error conditions', () => {
+    it.concurrent('should handle thrown errors gracefully', async ({expect}) => {
+      // Mock a function that throws
+      const originalConsoleError = console.error
+      console.error = () => {} // Suppress error logs during test
+
+      try {
+        // Test various error scenarios
+        const errorScenarios = [
+          () => { throw new Error('Test error') },
+          () => { throw new TypeError('Type error') },
+          () => { throw new RangeError('Range error') },
+          () => { throw 'String error' },
+          () => { throw {custom: 'object error'} },
+          () => { throw null },
+          () => { throw undefined }
+        ]
+
+        for (const errorFn of errorScenarios) {
+          try {
+<% if (it.packageType === 'utility') { %>            // Test if our functions handle thrown errors
+            const result = processData(errorFn as any)
+            expect(result).toBeDefined()
+<% } else if (it.packageType === 'config') { %>            const result = createConfig(errorFn as any)
+            expect(result).toBeDefined()
+<% } else if (it.packageType === 'tool') { %>            const result = await runTool(errorFn as any)
+            expect(result).toBeDefined()
+<% } else if (it.packageType === 'library') { %>            const result = createLibrary(errorFn as any)
+            expect(result).toBeDefined()
+<% } %>          } catch (error) {
+            // If the function does throw, it should be a controlled error
+            expect(error).toBeDefined()
+          }
+        }
+      } finally {
+        console.error = originalConsoleError
+      }
+    })
+
+<% if (it.packageType === 'tool') { %>    it.concurrent('should handle process and environment errors', async ({expect}) => {
+      // Test various environment error scenarios
+      const originalEnv = process.env
+      const originalCwd = process.cwd
+
+      try {
+        // Mock problematic environment
+        process.env = {} as any
+        process.cwd = () => { throw new Error('Cannot access cwd') }
+
+        const result = await runTool({})
+        expect(result).toBeDefined()
+
+        // Test with missing environment variables
+        process.env = {PATH: '/usr/bin'}
+        const envResult = await runTool({})
+        expect(envResult).toBeDefined()
+
+      } finally {
+        process.env = originalEnv
+        process.cwd = originalCwd
+      }
+    })
+<% } %>
+<% if (it.packageType === 'config') { %>    it.concurrent('should handle configuration validation errors', async ({expect}) => {
+      const invalidConfigs = [
+        {version: 'invalid-version'},
+        {numbers: 'should-be-number'},
+        {required: undefined},
+        {enum: 'invalid-enum-value'},
+        {pattern: '***invalid-regex'},
+        {dependencies: {circular: 'reference'}}
+      ]
+
+      for (const invalidConfig of invalidConfigs) {
+        // Validation should catch these
+        const isValid = validateConfig(invalidConfig)
+        expect(typeof isValid).toBe('boolean')
+
+        // Create config should handle invalid gracefully
+        const result = createConfig(invalidConfig)
+        expect(result).toBeDefined()
+      }
+    })
+<% } %>  })
+
+  describe('Resource limitations', () => {
+    it.concurrent('should handle memory pressure', async ({expect}) => {
+      // Simulate memory pressure by creating large objects
+      const largeObjects: any[] = []
+      const objectSize = 1000 // Array of 1000 items each
+      const objectCount = 1000 // 1000 objects
+
+      try {
+        // Create memory pressure
+        for (let i = 0; i < objectCount; i++) {
+          largeObjects.push(Array.from({length: objectSize}, (_, j) => ({
+            id: `${i}-${j}`,
+            data: `large object ${i}-${j}`,
+            nested: {value: Math.random()}
+          })))
+        }
+
+        // Test function under memory pressure
+<% if (it.packageType === 'utility') { %>        const result = processData('test under memory pressure')
+        expect(result).toBeDefined()
+<% } else if (it.packageType === 'config') { %>        const result = createConfig({test: 'memory pressure'})
+        expect(result).toBeDefined()
+<% } else if (it.packageType === 'tool') { %>        const result = await runTool({test: 'memory pressure'})
+        expect(result).toBeDefined()
+<% } else if (it.packageType === 'library') { %>        const result = createLibrary({test: 'memory pressure'})
+        expect(result).toBeDefined()
+<% } %>
+      } finally {
+        // Cleanup memory
+        largeObjects.length = 0
+        if (global.gc) {
+          global.gc()
+        }
+      }
+    })
+
+    it.concurrent('should handle deep recursion scenarios', async ({expect}) => {
+      // Create deeply nested object
+      const createDeepObject = (depth: number): any => {
+        if (depth === 0) return {value: 'end'}
+        return {
+          level: depth,
+          nested: createDeepObject(depth - 1)
+        }
+      }
+
+      const deepObject = createDeepObject(1000) // 1000 levels deep
+
+<% if (it.packageType === 'utility') { %>      // Should handle deep objects without stack overflow
+      expect(() => processData(deepObject)).not.toThrow()
+      const result = processData(deepObject)
+      expect(result).toBeDefined()
+<% } else if (it.packageType === 'config') { %>      expect(() => createConfig(deepObject)).not.toThrow()
+      const result = createConfig(deepObject)
+      expect(result).toBeDefined()
+<% } else if (it.packageType === 'tool') { %>      const result = await runTool(deepObject)
+      expect(result).toBeDefined()
+<% } else if (it.packageType === 'library') { %>      expect(() => createLibrary(deepObject)).not.toThrow()
+      const result = createLibrary(deepObject)
+      expect(result).toBeDefined()
+<% } %>    })
+  })
+
+  describe('Concurrent access patterns', () => {
+    it.concurrent('should handle race conditions gracefully', async ({expect}) => {
+      const concurrentOperations = 100
+      let sharedState = 0
+
+      // Create concurrent operations that modify shared state
+      const operations = Array.from({length: concurrentOperations}, async (_, i) => {
+        const localState = sharedState
+
+<% if (it.packageType === 'utility') { %>        const result = processData(`concurrent ${i}`)
+<% } else if (it.packageType === 'config') { %>        const result = createConfig({concurrent: i})
+<% } else if (it.packageType === 'tool') { %>        const result = await runTool({concurrent: i})
+<% } else if (it.packageType === 'library') { %>        const result = createLibrary({concurrent: i})
+<% } %>
+        sharedState = localState + 1
+        return result
+      })
+
+      const results = await Promise.all(operations)
+
+      expect(results).toHaveLength(concurrentOperations)
+      // All operations should complete successfully despite race conditions
+      results.forEach(result => {
+        expect(result).toBeDefined()
+      })
+    })
+  })
+})

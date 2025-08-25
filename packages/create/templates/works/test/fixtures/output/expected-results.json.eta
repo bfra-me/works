@@ -1,0 +1,41 @@
+<% if (it.packageType === 'utility') { %>{
+  "processData": {
+    "success": true,
+    "data": "test sample data"
+  },
+  "isValid": {
+    "valid": true,
+    "invalid": false,
+    "undefined": false
+  }
+}<% } else if (it.packageType === 'config') { %>{
+  "createConfig": {
+    "resolved": true,
+    "test": "default",
+    "enabled": true
+  },
+  "validateConfig": {
+    "valid": true,
+    "invalid": false
+  }
+}<% } else if (it.packageType === 'tool') { %>{
+  "runTool": {
+    "success": true,
+    "output": "Tool executed successfully"
+  },
+  "initTool": {
+    "success": true,
+    "initialized": true
+  }
+}<% } else if (it.packageType === 'library') { %>{
+  "createLibrary": {
+    "name": "<%= it.packageName %>",
+    "version": "<%= it.version %>"
+  },
+  "getLibraryInfo": "<%= it.packageName %> v<%= it.version %>",
+  "initLibrary": {
+    "name": "<%= it.packageName %>",
+    "version": "<%= it.version %>",
+    "initialized": true
+  }
+}<% } %>

@@ -1,0 +1,225 @@
+// Performance and benchmarking tests for <%= it.packageName %>
+import {describe, expect, it} from 'vitest'
+import {getMemoryUsage, waitFor, retry} from './setup.js'
+<% if (it.packageType === 'utility') { %>import {processData, isValid} from '../src/utils.js'<% } else if (it.packageType === 'config') { %>import {createConfig, validateConfig} from '../src/config.js'<% } else if (it.packageType === 'tool') { %>import {runTool, initTool} from '../src/tool.js'<% } else if (it.packageType === 'library') { %>import {createLibrary, getLibraryInfo, initLibrary} from '../src/lib.js'<% } %>
+
+describe('@bfra.me/<%= it.packageName %> - Performance Tests', () => {
+  describe('Execution time benchmarks', () => {
+    it.concurrent('should execute basic operations within performance thresholds', async ({expect}) => {
+      const iterations = 1000
+      const measurements: number[] = []
+
+      for (let i = 0; i < iterations; i++) {
+        const start = performance.now()
+
+<% if (it.packageType === 'utility') { %>        processData(`test data ${i}`)
+<% } else if (it.packageType === 'config') { %>        createConfig({test: `value ${i}`})
+<% } else if (it.packageType === 'tool') { %>        await runTool({test: `value ${i}`})
+<% } else if (it.packageType === 'library') { %>        createLibrary({test: `value ${i}`})
+<% } %>
+        const end = performance.now()
+        measurements.push(end - start)
+      }
+
+      const average = measurements.reduce((a, b) => a + b, 0) / measurements.length
+      const max = Math.max(...measurements)
+      const min = Math.min(...measurements)
+
+      console.log(`Performance stats for ${iterations} iterations:`)
+      console.log(`  Average: ${average.toFixed(2)}ms`)
+      console.log(`  Min: ${min.toFixed(2)}ms`)
+      console.log(`  Max: ${max.toFixed(2)}ms`)
+
+      // Performance thresholds (adjust based on requirements)
+<% if (it.packageType === 'tool') { %>      expect(average).toBeLessThan(100) // 100ms average for tools
+      expect(max).toBeLessThan(500) // 500ms max for tools
+<% } else if (it.packageType === 'config') { %>      expect(average).toBeLessThan(10) // 10ms average for config
+      expect(max).toBeLessThan(50) // 50ms max for config
+<% } else { %>      expect(average).toBeLessThan(5) // 5ms average for utilities/libraries
+      expect(max).toBeLessThan(25) // 25ms max for utilities/libraries
+<% } %>    })
+
+    it.concurrent('should handle concurrent operations efficiently', async ({expect}) => {
+      const concurrentTasks = 50
+      const operations = Array.from({length: concurrentTasks}, (_, i) => {
+        return async () => {
+          const start = performance.now()
+<% if (it.packageType === 'utility') { %>          const result = processData(`concurrent test ${i}`)
+<% } else if (it.packageType === 'config') { %>          const result = createConfig({test: `concurrent ${i}`})
+<% } else if (it.packageType === 'tool') { %>          const result = await runTool({test: `concurrent ${i}`})
+<% } else if (it.packageType === 'library') { %>          const result = createLibrary({test: `concurrent ${i}`})
+<% } %>          const end = performance.now()
+
+          return {
+            result,
+            duration: end - start
+          }
+        }
+      })
+
+      const startTime = performance.now()
+      const results = await Promise.all(operations.map(op => op()))
+      const totalTime = performance.now() - startTime
+
+      expect(results).toHaveLength(concurrentTasks)
+      expect(totalTime).toBeLessThan(concurrentTasks * 10) // Should be much faster than sequential
+
+      // All operations should complete successfully
+      results.forEach(({result, duration}) => {
+        expect(result).toBeDefined()
+<% if (it.packageType === 'utility' || it.packageType === 'tool') { %>        expect(result).toHaveProperty('success')
+<% } else if (it.packageType === 'config') { %>        expect(result).toHaveProperty('resolved')
+<% } else if (it.packageType === 'library') { %>        expect(result).toHaveProperty('name')
+<% } %>        expect(duration).toBeLessThan(100) // Individual operation threshold
+      })
+    })
+  })
+
+  describe('Memory usage benchmarks', () => {
+    it.concurrent('should maintain stable memory usage', async ({expect}) => {
+      const initialMemory = getMemoryUsage()
+      const iterations = 10000
+
+      // Perform many operations
+      for (let i = 0; i < iterations; i++) {
+<% if (it.packageType === 'utility') { %>        processData(`memory test ${i}`)
+<% } else if (it.packageType === 'config') { %>        createConfig({test: `memory ${i}`})
+<% } else if (it.packageType === 'tool') { %>        await runTool({test: `memory ${i}`})
+<% } else if (it.packageType === 'library') { %>        createLibrary({test: `memory ${i}`})
+<% } %>
+        // Occasional garbage collection check
+        if (i % 1000 === 0 && global.gc) {
+          global.gc()
+        }
+      }
+
+      // Force garbage collection if available
+      if (global.gc) {
+        global.gc()
+        await waitFor(100) // Allow GC to complete
+      }
+
+      const finalMemory = getMemoryUsage()
+      const memoryIncrease = finalMemory.heapUsed - initialMemory.heapUsed
+
+      console.log(`Memory usage after ${iterations} operations:`)
+      console.log(`  Initial: ${(initialMemory.heapUsed / 1024 / 1024).toFixed(2)}MB`)
+      console.log(`  Final: ${(finalMemory.heapUsed / 1024 / 1024).toFixed(2)}MB`)
+      console.log(`  Increase: ${(memoryIncrease / 1024 / 1024).toFixed(2)}MB`)
+
+      // Memory leak threshold (adjust based on requirements)
+      const maxMemoryIncrease = 10 * 1024 * 1024 // 10MB
+      expect(memoryIncrease).toBeLessThan(maxMemoryIncrease)
+    })
+
+    it.concurrent('should handle large datasets efficiently', async ({expect}) => {
+      const largeDataSize = 100000 // 100k items
+      const largeDataset = Array.from({length: largeDataSize}, (_, i) => ({
+        id: i,
+        data: `large dataset item ${i}`,
+        metadata: {
+          index: i,
+          processed: false
+        }
+      }))
+
+      const initialMemory = getMemoryUsage()
+      const start = performance.now()
+
+      // Process large dataset
+<% if (it.packageType === 'utility') { %>      const results = largeDataset.map(item => processData(item))
+<% } else if (it.packageType === 'config') { %>      const results = largeDataset.map(item => createConfig(item))
+<% } else if (it.packageType === 'tool') { %>      // Process in chunks for tools to avoid overwhelming
+      const chunkSize = 1000
+      const results = []
+      for (let i = 0; i < largeDataset.length; i += chunkSize) {
+        const chunk = largeDataset.slice(i, i + chunkSize)
+        const chunkResults = await Promise.all(chunk.map(item => runTool(item)))
+        results.push(...chunkResults)
+      }
+<% } else if (it.packageType === 'library') { %>      const results = largeDataset.map(item => createLibrary(item))
+<% } %>
+      const end = performance.now()
+      const finalMemory = getMemoryUsage()
+
+      const processingTime = end - start
+      const memoryUsed = finalMemory.heapUsed - initialMemory.heapUsed
+
+      console.log(`Large dataset processing (${largeDataSize} items):`)
+      console.log(`  Processing time: ${processingTime.toFixed(2)}ms`)
+      console.log(`  Memory used: ${(memoryUsed / 1024 / 1024).toFixed(2)}MB`)
+      console.log(`  Items per second: ${(largeDataSize / (processingTime / 1000)).toFixed(0)}`)
+
+      expect(results).toHaveLength(largeDataSize)
+<% if (it.packageType === 'tool') { %>      expect(processingTime).toBeLessThan(60000) // 60 seconds for tools
+<% } else { %>      expect(processingTime).toBeLessThan(10000) // 10 seconds for others
+<% } %>      expect(memoryUsed).toBeLessThan(500 * 1024 * 1024) // 500MB max
+    })
+  })
+
+  describe('Stress testing', () => {
+    it.concurrent('should handle rapid successive calls', async ({expect}) => {
+      const rapidCalls = 1000
+      const delay = 1 // 1ms between calls
+
+      const promises = Array.from({length: rapidCalls}, async (_, i) => {
+        await waitFor(i * delay)
+<% if (it.packageType === 'utility') { %>        return processData(`rapid ${i}`)
+<% } else if (it.packageType === 'config') { %>        return createConfig({rapid: i})
+<% } else if (it.packageType === 'tool') { %>        return runTool({rapid: i})
+<% } else if (it.packageType === 'library') { %>        return createLibrary({rapid: i})
+<% } %>      })
+
+      const start = performance.now()
+      const results = await Promise.all(promises)
+      const end = performance.now()
+
+      expect(results).toHaveLength(rapidCalls)
+      console.log(`Rapid calls test: ${rapidCalls} calls in ${(end - start).toFixed(2)}ms`)
+
+      // All calls should succeed
+      results.forEach(result => {
+        expect(result).toBeDefined()
+<% if (it.packageType === 'utility' || it.packageType === 'tool') { %>        expect(result).toHaveProperty('success')
+<% } else if (it.packageType === 'config') { %>        expect(result).toHaveProperty('resolved')
+<% } else if (it.packageType === 'library') { %>        expect(result).toHaveProperty('name')
+<% } %>      })
+    })
+
+    it.concurrent('should recover from errors gracefully', async ({expect}) => {
+      const mixedOperations = 1000
+      let successCount = 0
+      let errorCount = 0
+
+      const operations = Array.from({length: mixedOperations}, (_, i) => {
+        return async () => {
+          try {
+            // Mix valid and invalid operations
+            const isValid = i % 10 !== 0 // 90% valid, 10% invalid
+            const input = isValid ? `valid ${i}` : null
+
+<% if (it.packageType === 'utility') { %>            const result = processData(input)
+<% } else if (it.packageType === 'config') { %>            const result = createConfig(isValid ? {test: i} : null)
+<% } else if (it.packageType === 'tool') { %>            const result = await runTool(isValid ? {test: i} : null)
+<% } else if (it.packageType === 'library') { %>            const result = createLibrary(isValid ? {test: i} : null)
+<% } %>
+            successCount++
+            return result
+          } catch (error) {
+            errorCount++
+            return {error: error.message}
+          }
+        }
+      })
+
+      const results = await Promise.all(operations.map(op => op()))
+
+      console.log(`Mixed operations: ${successCount} success, ${errorCount} errors`)
+      expect(results).toHaveLength(mixedOperations)
+      expect(successCount).toBeGreaterThan(0)
+
+      // Should handle errors gracefully without crashing
+      expect(successCount + errorCount).toBe(mixedOperations)
+    })
+  })
+})

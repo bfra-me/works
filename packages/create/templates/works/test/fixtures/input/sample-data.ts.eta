@@ -1,0 +1,42 @@
+<% if (it.packageType === 'utility') { %>// Test utility functions
+export const sampleData = 'test sample data'
+export const validInput = {
+  type: 'valid',
+  data: 'sample'
+}
+export const invalidInput = null
+export const complexInput = {
+  nested: {
+    value: 'deep',
+    array: [1, 2, 3]
+  }
+}<% } else if (it.packageType === 'config') { %>// Test configuration data
+export const defaultConfig = {}
+export const customConfig = {
+  test: 'custom value',
+  enabled: false,
+  options: {
+    debug: true,
+    verbose: true
+  }
+}
+export const invalidConfig = {
+  unknown: 'property'
+}<% } else if (it.packageType === 'tool') { %>// Test tool data
+export const basicOptions = {}
+export const verboseOptions = {
+  verbose: true,
+  debug: true
+}
+export const invalidOptions = {
+  unknown: 'option'
+}<% } else if (it.packageType === 'library') { %>// Test library data
+export const basicOptions = {}
+export const customOptions = {
+  test: 'custom',
+  feature: 'enabled'
+}
+export const libraryConfig = {
+  name: '<%= it.packageName %>',
+  version: '<%= it.version %>'
+}<% } %>

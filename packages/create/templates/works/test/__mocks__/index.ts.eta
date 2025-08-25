@@ -1,0 +1,211 @@
+// Mock utilities for testing <%= it.packageName %>
+import {vi} from 'vitest'
+
+<% if (it.packageType === 'utility') { %>// Mock external dependencies for utility functions
+export const mockProcessData = vi.fn()
+export const mockIsValid = vi.fn()
+
+// Mock data generators
+export const createMockData = (type: 'valid' | 'invalid' | 'complex' = 'valid') => {
+  switch (type) {
+    case 'valid':
+      return {
+        type: 'test',
+        data: 'sample',
+        timestamp: new Date().toISOString()
+      }
+    case 'invalid':
+      return null
+    case 'complex':
+      return {
+        nested: {
+          deep: {
+            value: 'test',
+            array: [1, 2, 3],
+            boolean: true
+          }
+        }
+      }
+    default:
+      return 'simple string'
+  }
+}
+
+// Mock API responses
+export const mockApiResponses = {
+  success: {
+    success: true,
+    data: createMockData('valid')
+  },
+  error: {
+    success: false,
+    error: 'Mock error message'
+  }
+}<% } else if (it.packageType === 'config') { %>// Mock configuration dependencies
+export const mockCreateConfig = vi.fn()
+export const mockValidateConfig = vi.fn()
+
+// Mock configuration generators
+export const createMockConfig = (type: 'default' | 'custom' | 'invalid' = 'default') => {
+  switch (type) {
+    case 'default':
+      return {
+        resolved: true,
+        test: 'default',
+        enabled: true
+      }
+    case 'custom':
+      return {
+        resolved: true,
+        test: 'custom value',
+        enabled: false,
+        options: {
+          debug: true,
+          verbose: true
+        }
+      }
+    case 'invalid':
+      return {
+        unknown: 'property',
+        invalid: Symbol('test')
+      }
+    default:
+      return {}
+  }
+}
+
+// Mock file system operations
+export const mockFs = {
+  readFile: vi.fn(),
+  writeFile: vi.fn(),
+  access: vi.fn(),
+  stat: vi.fn()
+}<% } else if (it.packageType === 'tool') { %>// Mock tool dependencies
+export const mockRunTool = vi.fn()
+export const mockInitTool = vi.fn()
+
+// Mock command line interface
+export const mockCli = {
+  input: vi.fn(),
+  confirm: vi.fn(),
+  select: vi.fn(),
+  multiselect: vi.fn()
+}
+
+// Mock tool options generator
+export const createMockOptions = (type: 'basic' | 'verbose' | 'invalid' = 'basic') => {
+  switch (type) {
+    case 'basic':
+      return {}
+    case 'verbose':
+      return {
+        verbose: true,
+        debug: true,
+        output: 'detailed'
+      }
+    case 'invalid':
+      return {
+        nonExistent: 'option',
+        invalid: Symbol('test')
+      }
+    default:
+      return {}
+  }
+}
+
+// Mock process and environment
+export const mockProcess = {
+  cwd: vi.fn(() => '/mock/cwd'),
+  exit: vi.fn(),
+  env: {
+    NODE_ENV: 'test',
+    <%= it.packageName.toUpperCase().replace(/-/g, '_') %>_ENV: 'test'
+  }
+}<% } else if (it.packageType === 'library') { %>// Mock library dependencies
+export const mockCreateLibrary = vi.fn()
+export const mockGetLibraryInfo = vi.fn()
+export const mockInitLibrary = vi.fn()
+
+// Mock library instance generator
+export const createMockLibrary = (type: 'basic' | 'custom' | 'invalid' = 'basic') => {
+  switch (type) {
+    case 'basic':
+      return {
+        name: '<%= it.packageName %>',
+        version: '<%= it.version %>',
+        initialized: true
+      }
+    case 'custom':
+      return {
+        name: '<%= it.packageName %>',
+        version: '<%= it.version %>',
+        test: 'custom',
+        feature: 'enabled',
+        initialized: true
+      }
+    case 'invalid':
+      return {
+        name: null,
+        version: undefined,
+        invalid: Symbol('test')
+      }
+    default:
+      return {
+        name: '<%= it.packageName %>',
+        version: '<%= it.version %>'
+      }
+  }
+}
+
+// Mock external APIs
+export const mockApi = {
+  fetch: vi.fn(),
+  get: vi.fn(),
+  post: vi.fn(),
+  put: vi.fn(),
+  delete: vi.fn()
+}<% } %>
+
+// Common mock utilities
+export const createMockTimestamp = () => new Date('2024-01-01T00:00:00.000Z')
+
+export const mockConsole = {
+  log: vi.fn(),
+  warn: vi.fn(),
+  error: vi.fn(),
+  info: vi.fn(),
+  debug: vi.fn()
+}
+
+// Mock performance utilities
+export const mockPerformance = {
+  now: vi.fn(() => 1000),
+  mark: vi.fn(),
+  measure: vi.fn()
+}
+
+// Reset all mocks utility
+export const resetAllMocks = () => {
+  vi.clearAllMocks()
+  vi.restoreAllMocks()
+}
+
+// Mock setup and teardown helpers
+export const setupMocks = () => {
+  // Setup common mocks
+  vi.spyOn(console, 'log').mockImplementation(mockConsole.log)
+  vi.spyOn(console, 'warn').mockImplementation(mockConsole.warn)
+  vi.spyOn(console, 'error').mockImplementation(mockConsole.error)
+
+  // Setup performance mocks
+  vi.spyOn(performance, 'now').mockImplementation(mockPerformance.now)
+
+  // Setup date mocks for consistent testing
+  vi.useFakeTimers()
+  vi.setSystemTime(createMockTimestamp())
+}
+
+export const teardownMocks = () => {
+  resetAllMocks()
+  vi.useRealTimers()
+}

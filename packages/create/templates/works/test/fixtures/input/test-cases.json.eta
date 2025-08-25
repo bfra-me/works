@@ -1,0 +1,79 @@
+<% if (it.packageType === 'utility') { %>[
+  {
+    "input": "test data 1",
+    "expected": {
+      "success": true,
+      "data": "test data 1"
+    }
+  },
+  {
+    "input": "test data 2",
+    "expected": {
+      "success": true,
+      "data": "test data 2"
+    }
+  },
+  {
+    "input": null,
+    "expected": {
+      "success": false,
+      "error": "Invalid input"
+    }
+  }
+]<% } else if (it.packageType === 'config') { %>[
+  {
+    "config": {},
+    "expected": {
+      "resolved": true,
+      "test": "default",
+      "enabled": true
+    }
+  },
+  {
+    "config": {
+      "test": "custom",
+      "enabled": false
+    },
+    "expected": {
+      "resolved": true,
+      "test": "custom",
+      "enabled": false
+    }
+  }
+]<% } else if (it.packageType === 'tool') { %>[
+  {
+    "options": {},
+    "expected": {
+      "success": true,
+      "output": "Tool executed successfully"
+    }
+  },
+  {
+    "options": {
+      "verbose": true
+    },
+    "expected": {
+      "success": true,
+      "output": "Tool executed successfully",
+      "verbose": true
+    }
+  }
+]<% } else if (it.packageType === 'library') { %>[
+  {
+    "options": {},
+    "expected": {
+      "name": "<%= it.packageName %>",
+      "version": "<%= it.version %>"
+    }
+  },
+  {
+    "options": {
+      "test": "value"
+    },
+    "expected": {
+      "name": "<%= it.packageName %>",
+      "version": "<%= it.version %>",
+      "test": "value"
+    }
+  }
+]<% } %>
