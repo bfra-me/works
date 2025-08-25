@@ -74,7 +74,7 @@
     "@bfra.me/prettier-config": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
     "@eslint/config-inspector": "1.2.0",
-    "@eslint/js": "9.33.0",
+    "@eslint/js": "9.34.0",
     "@types/eslint-config-prettier": "6.11.3",
     "@typescript-eslint/types": "8.40.0",
     "@vitest/eslint-plugin": "1.3.4",
