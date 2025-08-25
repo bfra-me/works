@@ -1,0 +1,12 @@
+import {defineConfig} from '@bfra.me/eslint-config'
+
+export default defineConfig({
+  name: '<%= it.packageName %>',
+  typescript: {
+    tsconfigPath: './tsconfig.json',
+    typeAware: true
+  },<% if (it.hasReact) { %>
+  jsx: true,<% } %>
+  prettier: true,
+  vitest: true
+})

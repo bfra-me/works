@@ -1,0 +1,38 @@
+<% if (it.packageType === 'utility') { %>import type {UtilityOptions, UtilityResult} from './types.js'
+
+/**
+ * Example utility function for <%= it.packageName %>
+ * 
+ * @param input - Input data to process
+ * @param options - Configuration options
+ * @returns Result of the utility operation
+ */
+export function processData<T>(
+  input: T,
+  options: UtilityOptions = {}
+): UtilityResult<T> {
+  try {
+    // Add your utility logic here
+    const result = input // placeholder
+    
+    return {
+      success: true,
+      data: result
+    }
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error : new Error(String(error))
+    }
+  }
+}
+
+/**
+ * Example validation utility
+ * 
+ * @param value - Value to validate
+ * @returns True if valid, false otherwise
+ */
+export function isValid(value: unknown): boolean {
+  return value != null
+}<% } %>

@@ -1,0 +1,15 @@
+/**
+ * <%= it.description %>
+ * 
+ * @packageDocumentation
+ */
+
+<% if (it.packageType === 'utility') { %>// Export utility functions
+export * from './utils.js'<% } else if (it.packageType === 'config') { %>// Export configuration
+export * from './config.js'<% } else if (it.packageType === 'tool') { %>// Export tool functionality
+export * from './tool.js'<% if (it.hasCLI) { %>
+// CLI functionality is exported separately in cli.ts<% } %><% } else if (it.packageType === 'library') { %>// Export library components
+export * from './lib.js'<% } %>
+
+// Export types
+export type * from './types.js'

@@ -1,0 +1,81 @@
+{
+  "name": "Works Package",
+  "description": "A template for creating new packages within the bfra.me Works monorepo with comprehensive configuration and testing setup",
+  "version": "1.0.0",
+  "author": "bfra.me",
+  "tags": ["monorepo", "typescript", "package", "works", "bfra.me"],
+  "variables": [
+    {
+      "name": "packageName",
+      "description": "The name of the package (without @bfra.me/ prefix)",
+      "type": "string",
+      "required": true,
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    {
+      "name": "description",
+      "description": "Description of the package",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "packageType",
+      "description": "Type of package to create",
+      "type": "select",
+      "required": true,
+      "default": "utility",
+      "options": ["utility", "config", "tool", "library"]
+    },
+    {
+      "name": "author",
+      "description": "Author of the package",
+      "type": "string",
+      "required": false,
+      "default": "Marcus R. Brown <contact@bfra.me>"
+    },
+    {
+      "name": "version",
+      "description": "Initial version of the package",
+      "type": "string",
+      "required": false,
+      "default": "0.1.0",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(?:-[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*)?$"
+    },
+    {
+      "name": "license",
+      "description": "License for the package",
+      "type": "string",
+      "required": false,
+      "default": "MIT"
+    },
+    {
+      "name": "keywords",
+      "description": "Comma-separated keywords for the package",
+      "type": "string",
+      "required": false
+    },
+    {
+      "name": "hasReact",
+      "description": "Include React support (JSX/TSX)",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "name": "hasCLI",
+      "description": "Include CLI binary configuration",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "name": "isTypeOnly",
+      "description": "Package contains only TypeScript types",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    }
+  ],
+  "dependencies": [],
+  "nodeVersion": ">=18"
+}

@@ -1,0 +1,8 @@
+{
+  "extends": "@bfra.me/tsconfig",
+  "include": ["src"],
+  "exclude": ["lib", "test"]<% if (it.hasReact) { %>,
+  "compilerOptions": {
+    "jsx": "react-jsx"
+  }<% } %>
+}

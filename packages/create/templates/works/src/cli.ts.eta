@@ -1,0 +1,75 @@
+<% if (it.hasCLI) { %>#!/usr/bin/env node
+
+/**
+ * CLI for @bfra.me/<%= it.packageName %>
+ */
+
+import {cac} from 'cac'
+import {consola} from 'consola'
+import {readFileSync} from 'node:fs'
+import {dirname, join} from 'node:path'
+import {fileURLToPath} from 'node:url'
+
+<% if (it.packageType === 'tool') { %>import {runTool, initTool} from './tool.js'<% } else if (it.packageType === 'library') { %>import {createLibrary, getLibraryInfo} from './lib.js'<% } else { %>import {processData} from './utils.js'<% } %>
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const packageJson = JSON.parse(
+  readFileSync(join(__dirname, '../package.json'), 'utf8')
+)
+
+const cli = cac('<%= it.packageName %>')
+
+cli
+  .version(packageJson.version)
+  .help()
+
+<% if (it.packageType === 'tool') { %>// Tool commands
+cli
+  .command('run', 'Run the tool')
+  .option('--config <path>', 'Configuration file path')
+  .action(async (options) => {
+    try {
+      const result = await runTool(options)
+      if (result.success) {
+        consola.success('Tool completed successfully')
+      } else {
+        consola.error('Tool failed:', result.error?.message)
+        process.exit(1)
+      }
+    } catch (error) {
+      consola.error('Error running tool:', error)
+      process.exit(1)
+    }
+  })
+
+cli
+  .command('init', 'Initialize the tool')
+  .action((options) => {
+    try {
+      const result = initTool(options)
+      if (result.success) {
+        consola.success('Tool initialized successfully')
+      } else {
+        consola.error('Initialization failed:', result.error?.message)
+        process.exit(1)
+      }
+    } catch (error) {
+      consola.error('Error initializing tool:', error)
+      process.exit(1)
+    }
+  })<% } else { %>// Default commands
+cli
+  .command('[input]', 'Process input data')
+  .option('--output <path>', 'Output file path')
+  .action(async (input, options) => {
+    try {
+      consola.info(`Processing: ${input}`)
+      // Add your CLI logic here
+      consola.success('Processing completed')
+    } catch (error) {
+      consola.error('Error:', error)
+      process.exit(1)
+    }
+  })<% } %>
+
+cli.parse()<% } %>

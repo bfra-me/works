@@ -1,0 +1,47 @@
+<% if (it.packageType === 'tool') { %>import type {ToolOptions, ToolResult} from './types.js'
+
+/**
+ * Main tool functionality for <%= it.packageName %>
+ * 
+ * @param options - Tool configuration options
+ * @returns Tool operation result
+ */
+export async function runTool(options: ToolOptions = {}): Promise<ToolResult> {
+  try {
+    // Add your tool logic here
+    console.log('Running tool with options:', options)
+    
+    return {
+      success: true,
+      data: 'Tool completed successfully'
+    }
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error : new Error(String(error))
+    }
+  }
+}
+
+/**
+ * Tool initialization
+ * 
+ * @param options - Initialization options
+ * @returns Initialization result
+ */
+export function initTool(options: ToolOptions = {}): ToolResult {
+  try {
+    // Add initialization logic here
+    console.log('Initializing tool with options:', options)
+    
+    return {
+      success: true,
+      data: 'Tool initialized successfully'
+    }
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error : new Error(String(error))
+    }
+  }
+}<% } %>

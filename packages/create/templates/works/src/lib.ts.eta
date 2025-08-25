@@ -1,0 +1,37 @@
+<% if (it.packageType === 'library') { %>import type {LibraryOptions, LibraryComponent} from './types.js'
+
+/**
+ * Main library component for <%= it.packageName %>
+ * 
+ * @param options - Library configuration options
+ * @returns Library component instance
+ */
+export function createLibrary(options: LibraryOptions = {}): LibraryComponent {
+  return {
+    name: '<%= it.packageName %>',
+    version: '<%= it.version %>',
+    ...options
+  }
+}
+
+/**
+ * Library utility function
+ * 
+ * @param component - Library component
+ * @returns Component information
+ */
+export function getLibraryInfo(component: LibraryComponent): string {
+  return `${component.name} v${component.version}`
+}
+
+/**
+ * Initialize library with configuration
+ * 
+ * @param options - Initialization options
+ * @returns Initialized library component
+ */
+export function initLibrary(options: LibraryOptions = {}): LibraryComponent {
+  const library = createLibrary(options)
+  console.log(`Initialized library: ${getLibraryInfo(library)}`)
+  return library
+}<% } %>

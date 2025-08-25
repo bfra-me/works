@@ -1,0 +1,48 @@
+/**
+ * Type definitions for @bfra.me/<%= it.packageName %>
+ */
+
+<% if (it.packageType === 'utility') { %>// Utility function types
+export interface UtilityOptions {
+  /** Configuration options */
+  [key: string]: unknown
+}
+
+export type UtilityResult<T = unknown> = {
+  success: true
+  data: T
+} | {
+  success: false
+  error: Error
+}<% } else if (it.packageType === 'config') { %>// Configuration types
+export interface ConfigOptions {
+  /** Configuration properties */
+  [key: string]: unknown
+}
+
+export interface ResolvedConfig extends ConfigOptions {
+  /** Resolved configuration with defaults */
+  readonly resolved: true
+}<% } else if (it.packageType === 'tool') { %>// Tool types
+export interface ToolOptions {
+  /** Tool configuration options */
+  [key: string]: unknown
+}
+
+export interface ToolResult {
+  /** Operation success status */
+  success: boolean
+  /** Result data or error */
+  data?: unknown
+  error?: Error
+}<% } else if (it.packageType === 'library') { %>// Library types
+export interface LibraryOptions {
+  /** Library configuration */
+  [key: string]: unknown
+}
+
+export interface LibraryComponent {
+  /** Component properties */
+  name: string
+  version: string
+}<% } %>

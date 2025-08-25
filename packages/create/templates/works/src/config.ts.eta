@@ -1,0 +1,33 @@
+<% if (it.packageType === 'config') { %>import type {ConfigOptions, ResolvedConfig} from './types.js'
+
+/**
+ * Default configuration options
+ */
+const defaultConfig: ConfigOptions = {
+  // Add default configuration here
+}
+
+/**
+ * Create configuration with defaults
+ * 
+ * @param options - Configuration options
+ * @returns Resolved configuration
+ */
+export function createConfig(options: ConfigOptions = {}): ResolvedConfig {
+  return {
+    ...defaultConfig,
+    ...options,
+    resolved: true
+  }
+}
+
+/**
+ * Validate configuration options
+ * 
+ * @param config - Configuration to validate
+ * @returns True if valid, false otherwise
+ */
+export function validateConfig(config: ConfigOptions): boolean {
+  // Add validation logic here
+  return typeof config === 'object' && config !== null
+}<% } %>

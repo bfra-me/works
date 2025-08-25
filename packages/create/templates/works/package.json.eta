@@ -1,0 +1,72 @@
+{
+  "name": "@bfra.me/<%= it.packageName %>",
+  "version": "<%= it.version %>",
+  "description": "<%= it.description %>",
+  "keywords": [<% if (it.keywords) { %>
+    <%= it.keywords.split(',').map(k => `"${k.trim()}"`).join(',\n    ') %>,<% } %>
+    "bfra.me",<% if (it.packageType === 'config') { %>
+    "config",<% } %><% if (it.packageType === 'tool' || it.hasCLI) { %>
+    "cli",
+    "tool",<% } %><% if (it.packageType === 'library') { %>
+    "library",<% } %>
+    "typescript",
+    "works"
+  ],
+  "homepage": "https://github.com/bfra-me/works/tree/main/packages/<%= it.packageName %>#readme",
+  "bugs": "https://github.com/bfra-me/works/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bfra-me/works.git",
+    "directory": "packages/<%= it.packageName %>"
+  },
+  "license": "<%= it.license %>",
+  "author": "<%= it.author %>",
+  "type": "module",<% if (it.hasCLI) { %>
+  "bin": {
+    "<%= it.packageName %>": "./lib/cli.js"
+  },<% } %>
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",<% if (!it.isTypeOnly) { %>
+      "source": "./src/index.ts",
+      "import": "./lib/index.js"<% } else { %>
+      "source": "./src/index.ts"<% } %>
+    },
+    "./package.json": "./package.json"
+  },<% if (!it.isTypeOnly) { %>
+  "main": "./lib/index.js",<% } %>
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib",
+    "README.md"
+  ],
+  "scripts": {<% if (!it.isTypeOnly) { %>
+    "build": "tsup",
+    "dev": "tsup --watch",<% } else { %>
+    "build": "tsc",<% } %>
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",<% if (!it.isTypeOnly) { %>
+    "prepack": "pnpm build",<% } %>
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "type-check": "tsc --noEmit"
+  },<% if (!it.isTypeOnly && (it.packageType === 'utility' || it.packageType === 'library' || it.packageType === 'tool')) { %>
+  "dependencies": {},<% } %>
+  "devDependencies": {
+    "@bfra.me/eslint-config": "workspace:*",
+    "@bfra.me/tsconfig": "workspace:*",<% if (it.hasReact) { %>
+    "@types/react": "^18.3.18",<% } %>
+    "@types/node": "^22.17.1",
+    "eslint": "^9.18.0",<% if (!it.isTypeOnly) { %>
+    "tsup": "^8.5.0",<% } %>
+    "typescript": "^5.8.3",
+    "vitest": "^2.3.5"
+  },<% if (it.packageType === 'config') { %>
+  "peerDependencies": {},<% } %>
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
