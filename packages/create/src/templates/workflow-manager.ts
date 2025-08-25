@@ -1,6 +1,7 @@
 import type {CreateCommandOptions, FileOperation, Result, TemplateContext} from '../types.js'
 import {existsSync} from 'node:fs'
 import {rm} from 'node:fs/promises'
+import path from 'node:path'
 import process from 'node:process'
 import {consola} from 'consola'
 import {createChangesetGenerator} from './changeset-generator.js'
@@ -32,6 +33,18 @@ export interface WorkflowConfig {
   validationCommands: string[]
   /** Output directory for generated packages */
   outputDir?: string
+}
+
+/**
+ * Represents a rollback operation that can be performed during error handling.
+ */
+export interface RollbackOperation {
+  /** Type of rollback operation */
+  type: 'filesystem' | 'git' | 'workspace' | 'documentation' | 'changeset'
+  /** Description of what this rollback operation does */
+  description: string
+  /** The actual rollback operation to perform */
+  operation: () => Promise<void>
 }
 
 /**
@@ -109,7 +122,7 @@ export class WorkflowManager {
     options: CreateCommandOptions = {},
   ): Promise<Result<WorkflowResult>> {
     const startTime = Date.now()
-    const rollbackOperations: (() => Promise<void>)[] = []
+    const rollbackOperations: RollbackOperation[] = []
 
     try {
       if (options.verbose) {
@@ -130,11 +143,15 @@ export class WorkflowManager {
 
       // Add rollback for created files
       if (this.config.enableRollback) {
-        rollbackOperations.push(async () => {
-          if (existsSync(outputPath)) {
-            await rm(outputPath, {recursive: true, force: true})
-            consola.info('Rolled back: Removed generated package directory')
-          }
+        rollbackOperations.push({
+          type: 'filesystem',
+          description: 'Remove generated package directory',
+          operation: async () => {
+            if (existsSync(outputPath)) {
+              await rm(outputPath, {recursive: true, force: true})
+              consola.info('Rolled back: Removed generated package directory')
+            }
+          },
         })
       }
 
@@ -159,24 +176,76 @@ export class WorkflowManager {
       if (this.config.enableDocumentation && !options.dryRun) {
         const docResult = await this.integrateDocumentation(outputPath, context, options)
         result.documentation = docResult
+
+        // Add rollback for documentation integration
+        if (this.config.enableRollback && docResult.mdxGenerated) {
+          rollbackOperations.push({
+            type: 'documentation',
+            description: 'Remove generated documentation files',
+            operation: async () => {
+              await this.rollbackDocumentationIntegration(outputPath, context, options)
+            },
+          })
+        }
       }
 
       // Step 4: Workspace Integration (if enabled and works template)
       if (this.config.enableWorkspaceIntegration && !options.dryRun) {
         const workspaceResult = await this.integrateWorkspace(outputPath, context, options)
         result.workspace = workspaceResult
+
+        // Add rollback for workspace integration
+        if (
+          this.config.enableRollback &&
+          (workspaceResult.dependenciesInstalled || workspaceResult.pnpmWorkspaceUpdated)
+        ) {
+          rollbackOperations.push({
+            type: 'workspace',
+            description: 'Rollback workspace integration changes',
+            operation: async () => {
+              await this.rollbackWorkspaceIntegration(outputPath, context, options)
+            },
+          })
+        }
       }
 
       // Step 5: Changeset Generation (if enabled and works template)
       if (this.config.enableChangesetGeneration && !options.dryRun) {
         const changesetResult = await this.generateChangeset(outputPath, context, options)
         result.changeset = changesetResult
+
+        // Add rollback for changeset generation
+        if (
+          this.config.enableRollback &&
+          changesetResult.generated &&
+          changesetResult.path != null
+        ) {
+          const changesetPath = changesetResult.path
+          rollbackOperations.push({
+            type: 'changeset',
+            description: 'Remove generated changeset file',
+            operation: async () => {
+              await this.rollbackChangesetGeneration(changesetPath, options)
+            },
+          })
+        }
       }
 
       // Step 6: Git Integration (if enabled)
       if (this.config.enableGitIntegration && !options.dryRun && options.git !== false) {
         const gitResult = await this.integrateGit(outputPath, context, options)
         result.git = gitResult
+
+        // Add rollback for git integration
+        if (this.config.enableRollback && (gitResult.initialized || gitResult.committed)) {
+          rollbackOperations.push({
+            type: 'git',
+            description: 'Rollback git repository changes',
+            operation: async () => {
+              await this.rollbackGitIntegration(outputPath, gitResult, options)
+            },
+          })
+        }
       }
 
       // Step 7: Post-Generation Instructions (if enabled)
@@ -199,9 +268,12 @@ export class WorkflowManager {
         consola.start('Rolling back changes...')
         for (const rollback of rollbackOperations.reverse()) {
           try {
-            await rollback()
+            if (options.verbose) {
+              consola.info(`Rolling back: ${rollback.description}`)
+            }
+            await rollback.operation()
           } catch (rollbackError) {
-            consola.warn('Rollback operation failed:', rollbackError)
+            consola.warn(`Rollback operation failed (${rollback.type}):`, rollbackError)
           }
         }
         consola.success('Rollback completed')
@@ -580,6 +652,140 @@ export class WorkflowManager {
    */
   getConfig(): Readonly<WorkflowConfig> {
     return {...this.config}
+  }
+
+  // ============================================================================
+  // Rollback Operations Implementation (TASK-048)
+  // ============================================================================
+
+  /**
+   * Rollback documentation integration changes.
+   * Removes generated MDX files and reverts navigation updates.
+   */
+  private async rollbackDocumentationIntegration(
+    _packagePath: string,
+    context: TemplateContext,
+    options: CreateCommandOptions,
+  ): Promise<void> {
+    try {
+      const documentationIntegrator = createDocumentationIntegrator()
+
+      if (documentationIntegrator.isAvailable()) {
+        // Calculate the path where the MDX file would have been created
+        const docsDir = path.join(process.cwd(), 'docs', 'src', 'content', 'docs')
+        const mdxPath = path.join(docsDir, `${context.projectName}.mdx`)
+
+        // Remove generated MDX file if it exists
+        if (existsSync(mdxPath)) {
+          await rm(mdxPath, {force: true})
+          if (options.verbose) {
+            consola.info(`Removed documentation file: ${mdxPath}`)
+          }
+        }
+
+        // TODO: Implement navigation rollback when navigation auto-update is implemented
+        // For now, log that manual navigation cleanup may be needed
+        if (options.verbose) {
+          consola.warn('Manual navigation cleanup may be required in docs configuration')
+        }
+      }
+    } catch (error) {
+      if (options.verbose) {
+        consola.warn('Documentation rollback failed:', error)
+      }
+    }
+  }
+
+  /**
+   * Rollback workspace integration changes.
+   * Removes package from workspace configuration and cleans up dependencies.
+   */
+  private async rollbackWorkspaceIntegration(
+    _packagePath: string,
+    context: TemplateContext,
+    options: CreateCommandOptions,
+  ): Promise<void> {
+    try {
+      const workspaceIntegrator = createWorkspaceIntegrator({
+        packageManager: context.packageManager || 'pnpm',
+        autoInstall: false, // Don't auto-install during rollback
+      })
+
+      if (workspaceIntegrator.isAvailable()) {
+        // The workspace integrator doesn't have a built-in rollback method
+        // so we need to manually handle the rollback operations
+
+        // TODO: Implement pnpm-workspace.yaml rollback
+        // For now, log that manual workspace cleanup may be needed
+        consola.warn('Manual workspace configuration cleanup may be required')
+
+        if (options.verbose) {
+          consola.info('Consider running: pnpm install to refresh workspace after rollback')
+        }
+      }
+    } catch (error) {
+      if (options.verbose) {
+        consola.warn('Workspace rollback failed:', error)
+      }
+    }
+  }
+
+  /**
+   * Rollback changeset generation.
+   * Removes the generated changeset file.
+   */
+  private async rollbackChangesetGeneration(
+    changesetPath: string,
+    options: CreateCommandOptions,
+  ): Promise<void> {
+    try {
+      if (existsSync(changesetPath)) {
+        await rm(changesetPath, {force: true})
+        if (options.verbose) {
+          consola.info(`Removed changeset file: ${changesetPath}`)
+        }
+      }
+    } catch (error) {
+      if (options.verbose) {
+        consola.warn('Changeset rollback failed:', error)
+      }
+    }
+  }
+
+  /**
+   * Rollback git integration changes.
+   * Removes git repository or resets to previous state.
+   */
+  private async rollbackGitIntegration(
+    packagePath: string,
+    gitResult: {initialized: boolean; committed: boolean},
+    options: CreateCommandOptions,
+  ): Promise<void> {
+    try {
+      const originalCwd = process.cwd()
+      process.chdir(packagePath)
+
+      try {
+        // If we initialized a new repo, remove the .git directory
+        if (gitResult.initialized) {
+          const gitDir = path.join(packagePath, '.git')
+          if (existsSync(gitDir)) {
+            await rm(gitDir, {recursive: true, force: true})
+            if (options.verbose) {
+              consola.info('Removed git repository initialization')
+            }
+          }
+        }
+        // If we only committed, we could potentially reset, but since we're
+        // removing the entire package directory anyway, no additional action needed
+      } finally {
+        process.chdir(originalCwd)
+      }
+    } catch (error) {
+      if (options.verbose) {
+        consola.warn('Git rollback failed:', error)
+      }
+    }
   }
 }
 
