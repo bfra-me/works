@@ -115,14 +115,14 @@ Develop a specialized template within the fully redesigned `@bfra.me/create` sys
 
 | Task | Description | Completed | Date |
 | --- | --- | --- | --- |
-| TASK-033 | Create `README.md.eta` template using Eta helpers for consistent documentation formatting |  |  |
-| TASK-034 | Design `docs/<%=packageName%>.mdx.eta` template with Eta variable substitution for site integration |  |  |
-| TASK-035 | Implement frontmatter template using Eta's date and string helpers for metadata generation |  |  |
-| TASK-036 | Create navigation integration logic using Eta conditionals for automatic menu updates |  |  |
-| TASK-037 | Design cross-reference templates using Eta helpers for linking related packages |  |  |
-| TASK-038 | Implement badge and card component templates using Eta's helper functions |  |  |
-| TASK-039 | Create API reference template sections using Eta's string manipulation for TypeScript signatures |  |  |
-| TASK-040 | Add example and usage template sections using Eta conditionals for code highlighting |  |  |
+| TASK-033 | Create `README.md.eta` template using Eta helpers for consistent documentation formatting | ✅ | 2025-08-25 |
+| TASK-034 | Design `docs/<%=packageName%>.mdx.eta` template with Eta variable substitution for site integration | ✅ | 2025-08-25 |
+| TASK-035 | Implement frontmatter template using Eta's date and string helpers for metadata generation | ✅ | 2025-08-25 |
+| TASK-036 | Create navigation integration logic using Eta conditionals for automatic menu updates | ✅ | 2025-08-25 |
+| TASK-037 | Design cross-reference templates using Eta helpers for linking related packages | ✅ | 2025-08-25 |
+| TASK-038 | Implement badge and card component templates using Eta's helper functions | ✅ | 2025-08-25 |
+| TASK-039 | Create API reference template sections using Eta's string manipulation for TypeScript signatures | ✅ | 2025-08-25 |
+| TASK-040 | Add example and usage template sections using Eta conditionals for code highlighting | ✅ | 2025-08-25 |
 
 ### Implementation Phase 6: Automation Workflows with TemplateProcessor
 

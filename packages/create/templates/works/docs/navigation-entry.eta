@@ -1,0 +1,20 @@
+<%#
+/**
+ * Navigation integration template for Astro Starlight sidebar configuration
+ * This template generates the navigation entry for the new package
+ *
+ * Usage: This template should be processed and the output manually added to
+ * docs/astro.config.mjs in the packages sidebar section
+ *
+ * The generated output should be inserted in alphabetical order within:
+ * sidebar: [
+ *   {
+ *     label: 'Packages',
+ *     items: [
+ *       // INSERT HERE
+ *     ]
+ *   }
+ * ]
+ */
+%>
+            {label: '<%= it.packageName %>', slug: 'packages/<%= it.packageName %>'},

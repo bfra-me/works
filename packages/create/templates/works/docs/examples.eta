@@ -1,0 +1,910 @@
+<%#
+/**
+ * Example and usage template with Eta conditionals for code highlighting
+ * Provides comprehensive examples for different package types and features
+ */
+%>
+
+<%#
+/**
+ * Generate examples section based on package type
+ * @param {string} packageType - Type of package
+ * @param {string} packageName - Name of the package
+ * @param {Object} options - Package options (hasCLI, hasReact, etc.)
+ * @returns {string} Complete examples section
+ */
+%>
+<%
+function generateExamples(packageType, packageName, options = {}) {
+  const exampleSections = {
+    utility: generateUtilityExamples(packageName, options),
+    config: generateConfigExamples(packageName, options),
+    tool: generateToolExamples(packageName, options),
+    library: generateLibraryExamples(packageName, options)
+  }
+
+  return exampleSections[packageType] || exampleSections.library
+}
+%>
+
+<%#
+/**
+ * Generate utility package examples
+ */
+%>
+<%
+function generateUtilityExamples(packageName, options) {
+  return `## Examples
+
+### Basic Usage
+
+\`\`\`typescript title="basic-usage.ts"
+import {processData, isValid} from '@bfra.me/${packageName}'
+
+// Simple data processing
+const data = ['item1', 'item2', 'item3']
+const result = processData(data, {
+  transform: (item: string) => item.toUpperCase(),
+  filter: (item: string) => item.length > 4
+})
+
+if (result.success) {
+  console.log('Processed items:', result.data)
+  // Output: ['ITEM1', 'ITEM2', 'ITEM3']
+} else {
+  console.error('Processing failed:', result.error)
+}
+
+// Validation example
+const userInput: unknown = 'hello world'
+if (isValid(userInput)) {
+  // TypeScript knows userInput is not null/undefined
+  console.log('Valid input:', userInput.toString())
+}
+\`\`\`
+
+### Advanced Processing
+
+\`\`\`typescript title="advanced-processing.ts"
+import {processData, create${packageName.charAt(0).toUpperCase() + packageName.slice(1)}Processor} from '@bfra.me/${packageName}'
+
+// Create custom processor with error handling
+const processor = create${packageName.charAt(0).toUpperCase() + packageName.slice(1)}Processor({
+  maxRetries: 3,
+  timeout: 5000,
+  concurrency: 4,
+  onError: (error, context) => {
+    console.error(\`Processing failed for \${context.item}:\`, error.message)
+  },
+  onProgress: (progress) => {
+    console.log(\`Progress: \${Math.round(progress * 100)}%\`)
+  }
+})
+
+// Process multiple items with progress tracking
+const items = [
+  { id: 1, data: 'first item' },
+  { id: 2, data: 'second item' },
+  { id: 3, data: 'third item' }
+]
+
+const result = await processor.processMany(items, {
+  preserveOrder: true,
+  onProgress: (progress) => {
+    console.log(\`Batch progress: \${Math.round(progress * 100)}%\`)
+  }
+})
+
+console.log(\`Successfully processed: \${result.successful.length} items\`)
+console.log(\`Failed: \${result.failed.length} items\`)
+
+// Handle results
+result.successful.forEach((item, index) => {
+  console.log(\`Item \${index + 1}:\`, item.data)
+})
+
+result.failed.forEach((item, index) => {
+  console.error(\`Failed item \${index + 1}:\`, item.error?.message)
+})
+\`\`\`
+
+### Error Handling and Retry Logic
+
+\`\`\`typescript title="error-handling.ts"
+import {processData} from '@bfra.me/${packageName}'
+
+// Custom error handling with retry logic
+async function processWithRetry<T>(
+  data: T,
+  maxRetries: number = 3
+): Promise<T | null> {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const result = processData(data, {
+        timeout: 2000 * attempt, // Increase timeout with each retry
+        onError: (error) => {
+          console.warn(\`Attempt \${attempt} failed:\`, error.message)
+        }
+      })
+
+      if (result.success) {
+        console.log(\`Success on attempt \${attempt}\`)
+        return result.data
+      }
+
+      if (attempt === maxRetries) {
+        console.error('All retry attempts failed')
+        return null
+      }
+
+      // Wait before retry (exponential backoff)
+      await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, attempt - 1)))
+
+    } catch (error) {
+      console.error(\`Unexpected error on attempt \${attempt}:\`, error)
+      if (attempt === maxRetries) return null
+    }
+  }
+
+  return null
+}
+
+// Usage
+const result = await processWithRetry({ id: 1, name: 'test' })
+if (result) {
+  console.log('Final result:', result)
+}
+\`\`\``
+}
+%>
+
+<%#
+/**
+ * Generate config package examples
+ */
+%>
+<%
+function generateConfigExamples(packageName, options) {
+  return `## Examples
+
+### Basic Configuration
+
+\`\`\`typescript title="basic-config.ts"
+import {createConfig, validateConfig} from '@bfra.me/${packageName}'
+
+// Create configuration with defaults
+const config = createConfig({
+  timeout: 5000,
+  retries: 3,
+  verbose: true
+})
+
+console.log('Timeout:', config.timeout) // 5000
+console.log('Max size:', config.maxSize) // Default value applied
+console.log('Resolved:', config.resolved) // true
+
+// Validate configuration
+const validation = validateConfig(config)
+if (validation.isValid) {
+  console.log('✓ Configuration is valid')
+} else {
+  console.error('✗ Validation errors:', validation.errors)
+  validation.warnings.forEach(warning => {
+    console.warn('⚠ Warning:', warning)
+  })
+}
+\`\`\`
+
+### Environment-Based Configuration
+
+\`\`\`typescript title="environment-config.ts"
+import {createConfig, mergeConfigs} from '@bfra.me/${packageName}'
+
+// Base configuration
+const baseConfig = createConfig({
+  timeout: 5000,
+  retries: 3,
+  verbose: false
+})
+
+// Environment-specific configurations
+const developmentConfig = {
+  verbose: true,
+  debug: true,
+  maxSize: 50
+}
+
+const productionConfig = {
+  timeout: 10000,
+  retries: 5,
+  enableCache: true,
+  maxSize: 1000
+}
+
+const testConfig = {
+  timeout: 1000,
+  retries: 1,
+  verbose: false
+}
+
+// Merge based on environment
+const environment = process.env.NODE_ENV || 'development'
+let envConfig = {}
+
+switch (environment) {
+  case 'production':
+    envConfig = productionConfig
+    break
+  case 'test':
+    envConfig = testConfig
+    break
+  default:
+    envConfig = developmentConfig
+}
+
+const finalConfig = mergeConfigs(baseConfig, envConfig)
+
+console.log(\`Configuration for \${environment}:\`, finalConfig)
+
+// Use configuration in application
+function setupApplication() {
+  if (finalConfig.verbose) {
+    console.log('Verbose logging enabled')
+  }
+
+  if (finalConfig.debug) {
+    console.log('Debug mode enabled')
+  }
+
+  return {
+    timeout: finalConfig.timeout,
+    retries: finalConfig.retries,
+    cache: finalConfig.enableCache ? new Map() : null
+  }
+}
+
+const app = setupApplication()
+\`\`\`
+
+### Configuration Validation and Schema
+
+\`\`\`typescript title="config-validation.ts"
+import {validateConfig, createConfig} from '@bfra.me/${packageName}'
+import type {ConfigOptions} from '@bfra.me/${packageName}'
+
+// Custom validation function
+function validateUserConfig(userConfig: unknown): ConfigOptions | null {
+  try {
+    // Basic type checking
+    if (typeof userConfig !== 'object' || userConfig === null) {
+      throw new Error('Configuration must be an object')
+    }
+
+    const config = userConfig as Record<string, unknown>
+
+    // Validate required fields
+    if (config.timeout && typeof config.timeout !== 'number') {
+      throw new Error('timeout must be a number')
+    }
+
+    if (config.retries && typeof config.retries !== 'number') {
+      throw new Error('retries must be a number')
+    }
+
+    // Create and validate final config
+    const finalConfig = createConfig(config as ConfigOptions)
+    const validation = validateConfig(finalConfig)
+
+    if (!validation.isValid) {
+      throw new Error(\`Configuration validation failed: \${validation.errors.join(', ')}\`)
+    }
+
+    return finalConfig
+
+  } catch (error) {
+    console.error('Configuration validation error:', error.message)
+    return null
+  }
+}
+
+// Usage with user input
+const userInput = {
+  timeout: 3000,
+  retries: 2,
+  verbose: true,
+  customField: 'custom value'
+}
+
+const validatedConfig = validateUserConfig(userInput)
+if (validatedConfig) {
+  console.log('✓ Configuration validated successfully:', validatedConfig)
+} else {
+  console.error('✗ Configuration validation failed')
+}
+\`\`\``
+}
+%>
+
+<%#
+/**
+ * Generate tool package examples
+ */
+%>
+<%
+function generateToolExamples(packageName, options) {
+  const cliSection = options.hasCLI ? `
+
+### Command Line Usage
+
+\`\`\`bash title="cli-usage.sh"
+# Basic tool execution
+${packageName} run --input "./src/**/*.ts" --output "./dist"
+
+# With configuration file
+${packageName} run --config ./tool.config.json
+
+# Watch mode for development
+${packageName} run --watch --verbose
+
+# Initialize new project
+${packageName} init --template default
+
+# Validate configuration
+${packageName} validate --strict
+
+# Get help for specific command
+${packageName} run --help
+\`\`\`
+
+### Configuration File
+
+\`\`\`json title="tool.config.json"
+{
+  "input": "./src/**/*.ts",
+  "output": "./dist",
+  "verbose": true,
+  "options": {
+    "minify": true,
+    "sourcemap": true,
+    "preserveComments": false
+  },
+  "watch": false,
+  "plugins": [
+    {
+      "name": "custom-plugin",
+      "options": {
+        "enabled": true
+      }
+    }
+  ]
+}
+\`\`\`` : ''
+
+  return `## Examples
+
+### Basic Tool Usage
+
+\`\`\`typescript title="basic-tool-usage.ts"
+import {runTool, initTool} from '@bfra.me/${packageName}'
+
+// Initialize the tool
+const initResult = await initTool({
+  template: 'default',
+  configPath: './tool.config.js',
+  force: false
+})
+
+if (initResult.success) {
+  console.log('✓ Tool initialized successfully')
+  console.log('Created files:', initResult.files)
+} else {
+  console.error('✗ Initialization failed:', initResult.error)
+  process.exit(1)
+}
+
+// Run the tool
+const result = await runTool({
+  input: './src/**/*.ts',
+  output: './dist',
+  verbose: true,
+  options: {
+    minify: true,
+    sourcemap: true
+  }
+})
+
+if (result.success) {
+  console.log(\`✓ Tool completed in \${result.duration}ms\`)
+  console.log('Generated files:', result.files)
+
+  if (result.warnings.length > 0) {
+    console.warn('Warnings:')
+    result.warnings.forEach(warning => console.warn('  ⚠', warning))
+  }
+} else {
+  console.error('✗ Tool execution failed')
+  result.errors.forEach(error => console.error('  ×', error))
+  process.exit(1)
+}
+\`\`\`${cliSection}
+
+### Advanced Tool Workflow
+
+\`\`\`typescript title="advanced-workflow.ts"
+import {create${packageName.charAt(0).toUpperCase() + packageName.slice(1)}Runner, runTool} from '@bfra.me/${packageName}'
+
+// Create a tool runner with custom configuration
+const runner = create${packageName.charAt(0).toUpperCase() + packageName.slice(1)}Runner({
+  concurrency: 4,
+  timeout: 30000,
+  retries: 2,
+  onProgress: (step, progress) => {
+    console.log(\`\${step}: \${Math.round(progress * 100)}%\`)
+  },
+  onStepComplete: (step, result) => {
+    console.log(\`✓ \${step} completed in \${result.duration}ms\`)
+  },
+  onError: (step, error) => {
+    console.error(\`✗ \${step} failed:\`, error.message)
+  }
+})
+
+// Define workflow tasks
+const tasks = [
+  {
+    name: 'validate',
+    input: './src/**/*.ts',
+    options: { strict: true, schema: './schema.json' }
+  },
+  {
+    name: 'transform',
+    input: './src/**/*.ts',
+    output: './intermediate',
+    options: { format: 'optimized', preserveComments: false }
+  },
+  {
+    name: 'bundle',
+    input: './intermediate/**/*.js',
+    output: './dist',
+    options: { minify: true, sourcemap: true }
+  }
+]
+
+// Execute workflow with progress tracking
+try {
+  const workflowResult = await runner.execute(tasks)
+
+  console.log('Workflow Summary:')
+  console.log(\`- Total Duration: \${workflowResult.duration}ms\`)
+  console.log(\`- Files Processed: \${workflowResult.files.length}\`)
+  console.log(\`- Success Rate: \${Math.round((workflowResult.files.length / tasks.length) * 100)}%\`)
+
+  if (workflowResult.warnings.length > 0) {
+    console.warn('Workflow Warnings:')
+    workflowResult.warnings.forEach(warning => {
+      console.warn(\`  ⚠ \${warning}\`)
+    })
+  }
+
+} catch (error) {
+  console.error('Workflow failed:', error.message)
+  process.exit(1)
+}
+\`\`\`
+
+### Custom Plugin Development
+
+\`\`\`typescript title="custom-plugin.ts"
+import {runTool} from '@bfra.me/${packageName}'
+
+// Define a custom plugin
+interface PluginContext {
+  input: string
+  output: string
+  options: Record<string, unknown>
+}
+
+interface Plugin {
+  name: string
+  execute(context: PluginContext): Promise<void>
+}
+
+class LoggingPlugin implements Plugin {
+  name = 'logging'
+
+  async execute(context: PluginContext): Promise<void> {
+    console.log(\`[LoggingPlugin] Processing: \${context.input} → \${context.output}\`)
+
+    const startTime = Date.now()
+
+    // Your plugin logic here
+    await this.processFiles(context)
+
+    const duration = Date.now() - startTime
+    console.log(\`[LoggingPlugin] Completed in \${duration}ms\`)
+  }
+
+  private async processFiles(context: PluginContext): Promise<void> {
+    // Implementation specific to your plugin
+    console.log('Processing files with options:', context.options)
+  }
+}
+
+class OptimizationPlugin implements Plugin {
+  name = 'optimization'
+
+  async execute(context: PluginContext): Promise<void> {
+    console.log(\`[OptimizationPlugin] Optimizing: \${context.input}\`)
+
+    // Optimization logic
+    if (context.options.minify) {
+      console.log('Minifying files...')
+    }
+
+    if (context.options.compress) {
+      console.log('Compressing files...')
+    }
+  }
+}
+
+// Use plugins with the tool
+async function runWithPlugins() {
+  const plugins = [
+    new LoggingPlugin(),
+    new OptimizationPlugin()
+  ]
+
+  const result = await runTool({
+    input: './src',
+    output: './dist',
+    plugins: plugins,
+    options: {
+      minify: true,
+      compress: true
+    }
+  })
+
+  return result
+}
+
+runWithPlugins().catch(console.error)
+\`\`\``
+}
+%>
+
+<%#
+/**
+ * Generate library package examples
+ */
+%>
+<%
+function generateLibraryExamples(packageName, options) {
+  const reactSection = options.hasReact ? `
+
+### React Integration
+
+\`\`\`tsx title="react-example.tsx"
+import React, {useEffect, useState} from 'react'
+import {createLibrary} from '@bfra.me/${packageName}'
+import type {ExecutionResult} from '@bfra.me/${packageName}'
+
+interface LibraryComponentProps {
+  data: unknown
+  onResult?: (result: ExecutionResult) => void
+}
+
+export function LibraryComponent({ data, onResult }: LibraryComponentProps) {
+  const [library] = useState(() => createLibrary({
+    enableCache: true,
+    maxCacheSize: 50
+  }))
+
+  const [result, setResult] = useState<ExecutionResult | null>(null)
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    async function processData() {
+      if (!data) return
+
+      setLoading(true)
+      try {
+        const execResult = await library.execute({
+          action: 'process',
+          data,
+          options: { async: true }
+        })
+
+        setResult(execResult)
+        onResult?.(execResult)
+      } catch (error) {
+        console.error('Library execution failed:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    processData()
+  }, [data, library, onResult])
+
+  return (
+    <div className="library-component">
+      <h3>Library Processing</h3>
+
+      {loading && <p>Processing...</p>}
+
+      {result && (
+        <div>
+          <p>Status: {result.success ? '✓ Success' : '✗ Failed'}</p>
+          {result.success && <pre>{JSON.stringify(result.data, null, 2)}</pre>}
+          {result.error && <p>Error: {result.error.message}</p>}
+          <p>Duration: {result.metrics.duration}ms</p>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// Usage in app
+function App() {
+  const [inputData, setInputData] = useState({ id: 1, name: 'test' })
+
+  const handleResult = (result: ExecutionResult) => {
+    console.log('Processing completed:', result)
+  }
+
+  return (
+    <div>
+      <h1>Library Demo</h1>
+      <LibraryComponent data={inputData} onResult={handleResult} />
+
+      <button onClick={() => setInputData({ ...inputData, id: inputData.id + 1 })}>
+        Update Data
+      </button>
+    </div>
+  )
+}
+\`\`\`` : ''
+
+  return `## Examples
+
+### Basic Library Usage
+
+\`\`\`typescript title="basic-library.ts"
+import {createLibrary, getLibraryInfo} from '@bfra.me/${packageName}'
+
+// Create library instance
+const library = createLibrary({
+  enableCache: true,
+  maxCacheSize: 100,
+  config: {
+    timeout: 5000,
+    retries: 3
+  }
+})
+
+// Get library information
+const info = getLibraryInfo(library)
+console.log(\`Library: \${info.name} v\${info.version}\`)
+console.log(\`Features: \${info.features.join(', ')}\`)
+console.log('Plugins:', info.plugins.map(p => \`\${p.name} v\${p.version}\`))
+
+// Execute library operation
+const result = await library.execute({
+  action: 'process',
+  data: { id: 1, name: 'example', items: ['a', 'b', 'c'] },
+  options: {
+    format: 'json',
+    validate: true
+  }
+})
+
+if (result.success) {
+  console.log('Processing successful:')
+  console.log('- Data:', result.data)
+  console.log(\`- Duration: \${result.metrics.duration}ms\`)
+  console.log(\`- Memory used: \${result.metrics.memory} bytes\`)
+  console.log(\`- Operations: \${result.metrics.operations}\`)
+} else {
+  console.error('Processing failed:', result.error?.message)
+}
+\`\`\`
+
+### Advanced Library with Plugins
+
+\`\`\`typescript title="advanced-library.ts"
+import {createLibrary, createPlugin} from '@bfra.me/${packageName}'
+
+// Create custom plugins
+const loggingPlugin = createPlugin({
+  name: 'logger',
+  version: '1.0.0',
+  execute: async (context, next) => {
+    console.log(\`[Logger] Starting: \${context.action}\`)
+    const startTime = Date.now()
+
+    try {
+      const result = await next()
+      const duration = Date.now() - startTime
+      console.log(\`[Logger] Completed: \${context.action} in \${duration}ms\`)
+      return result
+    } catch (error) {
+      console.error(\`[Logger] Failed: \${context.action}\`, error)
+      throw error
+    }
+  }
+})
+
+const cachePlugin = createPlugin({
+  name: 'cache',
+  version: '1.0.0',
+  execute: async (context, next) => {
+    const cacheKey = \`\${context.action}:\${JSON.stringify(context.data)}\`
+
+    // Check cache
+    const cached = await getCachedResult(cacheKey)
+    if (cached) {
+      console.log('[Cache] Hit:', cacheKey)
+      return cached
+    }
+
+    // Execute and cache result
+    const result = await next()
+    await setCachedResult(cacheKey, result)
+    console.log('[Cache] Stored:', cacheKey)
+
+    return result
+  }
+})
+
+// Simple cache implementation
+const cache = new Map()
+async function getCachedResult(key: string) {
+  return cache.get(key)
+}
+async function setCachedResult(key: string, result: any) {
+  cache.set(key, result)
+}
+
+// Create library with plugins
+const library = createLibrary({
+  enableCache: true,
+  plugins: [loggingPlugin, cachePlugin]
+})
+
+// Execute with plugin chain
+const result1 = await library.execute({
+  action: 'transform',
+  data: { text: 'hello world', format: 'uppercase' }
+})
+
+// Second execution should hit cache
+const result2 = await library.execute({
+  action: 'transform',
+  data: { text: 'hello world', format: 'uppercase' }
+})
+
+console.log('First result:', result1.data)
+console.log('Second result (cached):', result2.data)
+\`\`\`${reactSection}
+
+### Middleware and Error Handling
+
+\`\`\`typescript title="middleware-example.ts"
+import {createLibrary} from '@bfra.me/${packageName}'
+import type {ExecutionContext, ExecutionResult, MiddlewareFunction} from '@bfra.me/${packageName}'
+
+// Authentication middleware
+const authMiddleware: MiddlewareFunction = async (context, next) => {
+  if (!context.metadata?.user?.authenticated) {
+    throw new Error('Authentication required')
+  }
+
+  console.log(\`Authenticated user: \${context.metadata.user.id}\`)
+  return next()
+}
+
+// Rate limiting middleware
+const rateLimitMiddleware: MiddlewareFunction = async (context, next) => {
+  const userId = context.metadata?.user?.id
+  if (!userId) {
+    throw new Error('User ID required for rate limiting')
+  }
+
+  await checkRateLimit(userId)
+  return next()
+}
+
+// Validation middleware
+const validationMiddleware: MiddlewareFunction = async (context, next) => {
+  if (!context.data || typeof context.data !== 'object') {
+    throw new Error('Invalid data format')
+  }
+
+  // Perform data validation
+  const validationResult = validateInputData(context.data)
+  if (!validationResult.isValid) {
+    throw new Error(\`Validation failed: \${validationResult.errors.join(', ')}\`)
+  }
+
+  return next()
+}
+
+// Simple rate limiting implementation
+const rateLimits = new Map<string, { count: number; resetTime: number }>()
+
+async function checkRateLimit(userId: string): Promise<void> {
+  const now = Date.now()
+  const userLimit = rateLimits.get(userId)
+
+  if (!userLimit || now > userLimit.resetTime) {
+    rateLimits.set(userId, { count: 1, resetTime: now + 60000 }) // 1 minute window
+    return
+  }
+
+  if (userLimit.count >= 10) { // 10 requests per minute
+    throw new Error('Rate limit exceeded')
+  }
+
+  userLimit.count++
+}
+
+function validateInputData(data: unknown): { isValid: boolean; errors: string[] } {
+  const errors: string[] = []
+
+  if (!data || typeof data !== 'object') {
+    errors.push('Data must be an object')
+  }
+
+  // Add more validation rules as needed
+
+  return { isValid: errors.length === 0, errors }
+}
+
+// Create library with middleware
+const library = createLibrary({
+  middleware: [
+    authMiddleware,
+    rateLimitMiddleware,
+    validationMiddleware
+  ]
+})
+
+// Usage with proper context
+async function executeWithContext() {
+  try {
+    const result = await library.execute({
+      action: 'processUserData',
+      data: {
+        name: 'John Doe',
+        email: 'john@example.com',
+        preferences: { theme: 'dark', notifications: true }
+      },
+      metadata: {
+        user: {
+          id: 'user123',
+          authenticated: true,
+          role: 'admin'
+        }
+      }
+    })
+
+    console.log('Processing successful:', result.data)
+
+  } catch (error) {
+    console.error('Processing failed:', error.message)
+
+    // Handle specific error types
+    if (error.message.includes('Authentication')) {
+      console.log('Redirecting to login...')
+    } else if (error.message.includes('Rate limit')) {
+      console.log('Please try again later')
+    } else if (error.message.includes('Validation')) {
+      console.log('Please check your input data')
+    }
+  }
+}
+
+executeWithContext()
+\`\`\``
+}
+%>

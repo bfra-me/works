@@ -1,0 +1,293 @@
+<%~ include('./frontmatter.eta', it) %>
+<%~ generateFrontmatter(it) %>
+
+<%~ include('./cross-references.eta', it) %>
+<%~ include('./components.eta', it) %>
+
+import { Badge, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+
+# @bfra.me/<%= it.packageName %>
+
+<%~ featureBadges(it) %>
+<%~ statusBadge(it.version) %>
+
+<%= it.description %>
+
+## Features
+
+<%~ featureHighlights(it.packageType, it) %>
+
+## Installation
+
+### Package Manager Installation
+
+<Tabs>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add @bfra.me/<%= it.packageName %>
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```bash
+    npm install @bfra.me/<%= it.packageName %>
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add @bfra.me/<%= it.packageName %>
+    ```
+  </TabItem>
+  <TabItem label="bun">
+    ```bash
+    bun add @bfra.me/<%= it.packageName %>
+    ```
+  </TabItem>
+</Tabs>
+
+<% if (it.hasCLI) { %>### Global Installation
+
+For command-line usage, install globally:
+
+<Tabs>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add -g @bfra.me/<%= it.packageName %>
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```bash
+    npm install -g @bfra.me/<%= it.packageName %>
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn global add @bfra.me/<%= it.packageName %>
+    ```
+  </TabItem>
+</Tabs>
+
+### One-time Usage
+
+<Tabs>
+  <TabItem label="pnpm">
+    ```bash
+    pnpx @bfra.me/<%= it.packageName %>
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```bash
+    npx @bfra.me/<%= it.packageName %>
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn dlx @bfra.me/<%= it.packageName %>
+    ```
+  </TabItem>
+</Tabs>
+
+<% } %>## Usage
+
+### Basic Usage
+
+<% if (it.packageType === 'utility') { %>```typescript
+import {processData, isValid} from '@bfra.me/<%= it.packageName %>'
+
+// Process data with utility functions
+const result = processData('input data')
+if (result.success) {
+  console.log('Processed:', result.data)
+}
+
+// Validate values
+if (isValid(someValue)) {
+  console.log('Value is valid')
+}
+```
+<% } else if (it.packageType === 'config') { %>```typescript
+import {createConfig, validateConfig} from '@bfra.me/<%= it.packageName %>'
+
+// Create configuration with defaults
+const config = createConfig({
+  // your options here
+})
+
+// Validate configuration
+if (validateConfig(config)) {
+  console.log('Configuration is valid')
+}
+```
+<% } else if (it.packageType === 'tool') { %>```typescript
+import {runTool, initTool} from '@bfra.me/<%= it.packageName %>'
+
+// Initialize the tool
+const initResult = initTool({
+  // initialization options
+})
+
+// Run the tool
+const result = await runTool({
+  // tool options
+})
+```
+<% } else if (it.packageType === 'library') { %>```typescript
+import {createLibrary, getLibraryInfo, initLibrary} from '@bfra.me/<%= it.packageName %>'
+
+// Create library instance
+const library = createLibrary({
+  // library options
+})
+
+// Get library information
+const info = getLibraryInfo(library)
+console.log(info)
+
+// Initialize library with options
+const initializedLibrary = initLibrary({
+  // initialization options
+})
+```
+<% } %>
+
+<% if (it.hasCLI) { %>### Command Line Usage
+
+```bash
+# Basic usage
+<%= it.packageName %> [command] [options]
+
+# Get help
+<%= it.packageName %> --help
+
+# Run with configuration
+<%= it.packageName %> run --config ./config.json
+```
+
+### Available Commands
+
+| Command | Description | Options |
+|---------|-------------|---------|
+| `run` | Execute the main operation | `--config`, `--verbose` |
+| `init` | Initialize configuration | `--template`, `--force` |
+| `validate` | Validate configuration | `--fix`, `--strict` |
+| `help` | Show help information | `--all` |
+
+<% } %>### Advanced Usage
+
+<% if (it.packageType === 'utility') { %>```typescript
+import {processData, isValid, createProcessor} from '@bfra.me/<%= it.packageName %>'
+
+// Create custom processor
+const processor = createProcessor({
+  maxRetries: 3,
+  timeout: 5000,
+  onError: (error) => console.error('Processing failed:', error)
+})
+
+// Process with custom options
+const result = await processor.process({
+  data: complexData,
+  transform: (item) => item.processed = true,
+  filter: (item) => item.isValid
+})
+```
+<% } else if (it.packageType === 'config') { %>```typescript
+import {createConfig, mergeConfigs, resolveConfig} from '@bfra.me/<%= it.packageName %>'
+
+// Merge multiple configurations
+const baseConfig = createConfig({ /* base options */ })
+const userConfig = { /* user overrides */ }
+const finalConfig = mergeConfigs(baseConfig, userConfig)
+
+// Resolve configuration with environment variables
+const resolvedConfig = resolveConfig(finalConfig, {
+  env: process.env,
+  cwd: process.cwd()
+})
+```
+<% } else if (it.packageType === 'tool') { %>```typescript
+import {runTool, createToolChain, ToolRunner} from '@bfra.me/<%= it.packageName %>'
+
+// Create tool chain for complex workflows
+const toolChain = createToolChain([
+  { name: 'validate', options: { strict: true } },
+  { name: 'transform', options: { format: 'json' } },
+  { name: 'output', options: { destination: './dist' } }
+])
+
+// Run tool chain
+const result = await toolChain.execute(inputData)
+```
+<% } else if (it.packageType === 'library') { %>```typescript
+import {createLibrary, LibraryPlugin, MiddlewareChain} from '@bfra.me/<%= it.packageName %>'
+
+// Create library with plugins
+const library = createLibrary({
+  plugins: [
+    new LibraryPlugin({ /* plugin options */ }),
+    // additional plugins
+  ],
+  middleware: new MiddlewareChain([
+    // middleware functions
+  ])
+})
+
+// Use library with advanced features
+const result = await library.execute({
+  // execution options
+})
+```
+<% } %>
+
+<%~ include('./api-reference.eta', it) %>
+
+<%~ generateAPIReference(it.packageType, it.packageName) %>
+
+<%~ include('./examples.eta', it) %>
+
+<%~ generateExamples(it.packageType, it.packageName, it) %>
+
+<%~ getRelatedPackages(it.packageType) %>
+
+## Contributing
+
+We welcome contributions! Please see the [contributing guide](https://github.com/bfra-me/works/blob/main/docs/src/content/docs/guides/contributing.mdx) for details on:
+
+- Setting up the development environment
+- Code style and conventions
+- Submitting pull requests
+- Reporting issues
+
+### Development Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/bfra-me/works.git
+cd works
+
+# Install dependencies
+pnpm install
+
+# Build the package
+pnpm build
+
+# Run tests
+pnpm test
+
+# Start development mode
+pnpm dev
+```
+
+## Changelog
+
+See the [CHANGELOG.md](https://github.com/bfra-me/works/blob/main/packages/<%= it.packageName %>/CHANGELOG.md) for detailed release notes and version history.
+
+## License
+
+<%= it.license %> - see the [LICENSE](https://github.com/bfra-me/works/blob/main/license.md) file for details.
+
+## Support
+
+- 📖 [Documentation](https://bfra-me.github.io/works/)
+- 🐛 [Issue Tracker](https://github.com/bfra-me/works/issues)
+- 💬 [Discussions](https://github.com/bfra-me/works/discussions)
+- 📧 [Email Support](mailto:contact@bfra.me)
