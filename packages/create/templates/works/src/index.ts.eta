@@ -1,15 +1,54 @@
 /**
  * <%= it.description %>
- * 
+ *
  * @packageDocumentation
+ * @author <%= it.author %>
+ * @since <%= it.version %>
+ * @created <%= it.currentDate %>
  */
 
-<% if (it.packageType === 'utility') { %>// Export utility functions
-export * from './utils.js'<% } else if (it.packageType === 'config') { %>// Export configuration
-export * from './config.js'<% } else if (it.packageType === 'tool') { %>// Export tool functionality
-export * from './tool.js'<% if (it.hasCLI) { %>
-// CLI functionality is exported separately in cli.ts<% } %><% } else if (it.packageType === 'library') { %>// Export library components
-export * from './lib.js'<% } %>
+<% /* Main functionality exports based on package type */ %>
+<% if (it.packageType === 'utility') { -%>
+// Core utility functions
+export * from './utils.js'
 
-// Export types
+<% } else if (it.packageType === 'config') { -%>
+// Configuration functionality
+export * from './config.js'
+
+<% } else if (it.packageType === 'tool') { -%>
+// Tool functionality
+export * from './tool.js'
+
+<% if (it.hasCLI) { -%>
+// CLI functionality is exported separately in cli.ts for binary execution
+<% } -%>
+<% } else if (it.packageType === 'library') { -%>
+// Library components and functions
+export * from './lib.js'
+
+<% } -%>
+
+<% /* React-specific exports */ %>
+<% if (it.hasReact) { -%>
+// React components and hooks
+export * from './components/index.js'
+
+<% } -%>
+
+<% /* Error handling exports - always included */ %>
+// Error handling and validation utilities
+export * from './errors.js'
+
+<% /* Type exports - always included unless type-only package */ %>
+<% if (it.isTypeOnly) { -%>
+// Type-only package - export all types
 export type * from './types.js'
+<% } else { -%>
+// Type definitions
+export type * from './types.js'
+<% } -%>
+
+<% /* Version and metadata exports for debugging and introspection */ %>
+export const VERSION = '<%= it.version %>' as const
+export const PACKAGE_NAME = '<%= it.packageScope %>/<%= it.packageName %>' as const

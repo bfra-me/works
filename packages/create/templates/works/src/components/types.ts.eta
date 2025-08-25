@@ -1,0 +1,174 @@
+<% if (it.hasReact) { -%>
+/**
+ * React-specific type definitions for @bfra.me/<%= it.packageName %>
+ *
+ * @module
+ * @author <%= it.author %>
+ * @since <%= it.version %>
+ * @created <%= it.currentDate %>
+ */
+
+import type {ComponentProps, ReactNode} from 'react'
+
+/**
+ * Base props that all <%= it.capitalizeFirst(it.packageName) %> React components should extend.
+ */
+export interface <%= it.pascalCase(it.packageName) %>ReactBaseProps {
+  /** CSS class name */
+  className?: string
+  /** Inline styles */
+  style?: React.CSSProperties
+  /** Child elements */
+  children?: ReactNode
+  /** Data test ID for testing */
+  'data-testid'?: string
+}
+
+/**
+ * Component variant types for visual styling.
+ */
+export type <%= it.pascalCase(it.packageName) %>ComponentVariant =
+  | 'primary'
+  | 'secondary'
+  | 'outlined'
+  | 'text'
+  | 'ghost'
+
+/**
+ * Component size types for different scale options.
+ */
+export type <%= it.pascalCase(it.packageName) %>ComponentSize =
+  | 'xs'
+  | 'sm'
+  | 'md'
+  | 'lg'
+  | 'xl'
+
+/**
+ * Color scheme types for theming.
+ */
+export type <%= it.pascalCase(it.packageName) %>ColorScheme =
+  | 'light'
+  | 'dark'
+  | 'auto'
+
+/**
+ * Props that support forwarding refs to HTML elements.
+ */
+export type <%= it.pascalCase(it.packageName) %>ForwardRefProps<T extends keyof JSX.IntrinsicElements> =
+  ComponentProps<T> & <%= it.pascalCase(it.packageName) %>ReactBaseProps
+
+/**
+ * Event handler types for common interactions.
+ */
+export interface <%= it.pascalCase(it.packageName) %>EventHandlers {
+  /** Click event handler */
+  onClick?: (event: React.MouseEvent) => void
+  /** Focus event handler */
+  onFocus?: (event: React.FocusEvent) => void
+  /** Blur event handler */
+  onBlur?: (event: React.FocusEvent) => void
+  /** Key down event handler */
+  onKeyDown?: (event: React.KeyboardEvent) => void
+}
+
+/**
+ * Accessibility props for improved screen reader support.
+ */
+export interface <%= it.pascalCase(it.packageName) %>AccessibilityProps {
+  /** ARIA label */
+  'aria-label'?: string
+  /** ARIA described by */
+  'aria-describedby'?: string
+  /** ARIA expanded */
+  'aria-expanded'?: boolean
+  /** ARIA disabled */
+  'aria-disabled'?: boolean
+  /** Tab index */
+  tabIndex?: number
+  /** Role */
+  role?: string
+}
+
+/**
+ * Animation and transition props.
+ */
+export interface <%= it.pascalCase(it.packageName) %>AnimationProps {
+  /** Whether animations are enabled */
+  animate?: boolean
+  /** Animation duration in milliseconds */
+  animationDuration?: number
+  /** Animation easing function */
+  animationEasing?: string
+}
+
+/**
+ * Complete props interface combining all common prop types.
+ */
+export interface <%= it.pascalCase(it.packageName) %>CompleteProps
+  extends <%= it.pascalCase(it.packageName) %>ReactBaseProps,
+          <%= it.pascalCase(it.packageName) %>EventHandlers,
+          <%= it.pascalCase(it.packageName) %>AccessibilityProps,
+          <%= it.pascalCase(it.packageName) %>AnimationProps {
+  /** Component variant */
+  variant?: <%= it.pascalCase(it.packageName) %>ComponentVariant
+  /** Component size */
+  size?: <%= it.pascalCase(it.packageName) %>ComponentSize
+  /** Color scheme */
+  colorScheme?: <%= it.pascalCase(it.packageName) %>ColorScheme
+  /** Whether the component is disabled */
+  disabled?: boolean
+  /** Whether the component is loading */
+  loading?: boolean
+}
+
+/**
+ * Hook return type for stateful <%= it.capitalizeFirst(it.packageName) %> hooks.
+ */
+export interface <%= it.pascalCase(it.packageName) %>HookReturn<T = unknown> {
+  /** Current data */
+  data: T | null
+  /** Loading state */
+  loading: boolean
+  /** Error state */
+  error: Error | null
+  /** Success state */
+  success: boolean
+  /** Retry function */
+  retry: () => void
+  /** Reset function */
+  reset: () => void
+}
+
+/**
+ * Context value type for <%= it.capitalizeFirst(it.packageName) %> providers.
+ */
+export interface <%= it.pascalCase(it.packageName) %>ContextValue<T = unknown> {
+  /** Current state */
+  state: T
+  /** Update state function */
+  setState: (state: T | ((prev: T) => T)) => void
+  /** Reset to initial state */
+  reset: () => void
+}
+
+/**
+ * Render prop pattern types.
+ */
+export type <%= it.pascalCase(it.packageName) %>RenderProp<T = unknown> = (
+  value: T,
+  helpers: {
+    loading: boolean
+    error: Error | null
+    retry: () => void
+  }
+) => ReactNode
+
+/**
+ * Compound component pattern types.
+ */
+export interface <%= it.pascalCase(it.packageName) %>CompoundComponent<T = {}> extends React.FC<T> {
+  /** Sub-components */
+  [key: string]: React.ComponentType<any>
+}
+<% } -%>

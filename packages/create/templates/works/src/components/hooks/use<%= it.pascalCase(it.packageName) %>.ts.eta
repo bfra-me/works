@@ -1,0 +1,260 @@
+<% if (it.hasReact) { -%>
+import {useState, useEffect, useCallback} from 'react'
+import type {<%= it.pascalCase(it.packageName) %>Options, <%= it.pascalCase(it.packageName) %>Instance, Result} from '../../types.js'
+
+<% if (it.packageType === 'library') { -%>
+import {create<%= it.pascalCase(it.packageName) %>} from '../../lib.js'
+<% } else if (it.packageType === 'utility') { -%>
+import {process<%= it.pascalCase(it.packageName) %>} from '../../utils.js'
+<% } else if (it.packageType === 'config') { -%>
+import {create<%= it.pascalCase(it.packageName) %>Config} from '../../config.js'
+<% } else if (it.packageType === 'tool') { -%>
+import {run<%= it.pascalCase(it.packageName) %>Tool} from '../../tool.js'
+<% } -%>
+
+/**
+ * Hook state for <%= it.capitalizeFirst(it.packageName) %>.
+ */
+export interface Use<%= it.pascalCase(it.packageName) %>State {
+  /** Whether the hook is currently loading */
+  loading: boolean
+  /** Any error that occurred */
+  error: Error | null
+  /** Whether the operation was successful */
+  success: boolean
+<% if (it.packageType === 'library') { -%>
+  /** The library instance */
+  instance: <%= it.pascalCase(it.packageName) %>Instance | null
+  /** Initialize the library */
+  initialize: () => Promise<void>
+  /** Cleanup the library */
+  cleanup: () => Promise<void>
+<% } else if (it.packageType === 'utility') { -%>
+  /** Process data with the utility */
+  process: <T>(data: T) => Promise<T | null>
+  /** The last processed result */
+  result: unknown
+<% } else if (it.packageType === 'config') { -%>
+  /** The current configuration */
+  config: any
+  /** Update the configuration */
+  updateConfig: (updates: any) => void
+<% } else if (it.packageType === 'tool') { -%>
+  /** Run the tool */
+  run: (options?: any) => Promise<void>
+  /** The last tool result */
+  result: any
+<% } -%>
+}
+
+/**
+ * Custom hook for <%= it.capitalizeFirst(it.packageName) %> functionality.
+ *
+ * @param options - Configuration options
+ * @returns Hook state and methods
+ *
+ * @example
+ * ```tsx
+ * function MyComponent() {
+ *   const {<% if (it.packageType === 'library') { %>initialize, cleanup, instance, loading, error<% } else if (it.packageType === 'utility') { %>process, result, loading, error<% } else if (it.packageType === 'config') { %>config, updateConfig, loading, error<% } else if (it.packageType === 'tool') { %>run, result, loading, error<% } %>} = use<%= it.pascalCase(it.packageName) %>({
+ *     debug: true
+ *   })
+ *
+ *   return (
+ *     <div>
+ *       {loading && <p>Loading...</p>}
+ *       {error && <p>Error: {error.message}</p>}
+ *       <% if (it.packageType === 'library') { -%>
+ *       <button onClick={initialize} disabled={loading}>
+ *         Initialize Library
+ *       </button>
+ *       <% } else if (it.packageType === 'utility') { -%>
+ *       <button onClick={() => process('test data')} disabled={loading}>
+ *         Process Data
+ *       </button>
+ *       <% } else if (it.packageType === 'config') { -%>
+ *       <button onClick={() => updateConfig({ newOption: true })} disabled={loading}>
+ *         Update Config
+ *       </button>
+ *       <% } else if (it.packageType === 'tool') { -%>
+ *       <button onClick={() => run()} disabled={loading}>
+ *         Run Tool
+ *       </button>
+ *       <% } -%>
+ *     </div>
+ *   )
+ * }
+ * ```
+ */
+export function use<%= it.pascalCase(it.packageName) %>(
+  options: <%= it.pascalCase(it.packageName) %>Options = {}
+): Use<%= it.pascalCase(it.packageName) %>State {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<Error | null>(null)
+  const [success, setSuccess] = useState(false)
+
+<% if (it.packageType === 'library') { -%>
+  const [instance, setInstance] = useState<<%= it.pascalCase(it.packageName) %>Instance | null>(null)
+
+  const initialize = useCallback(async () => {
+    try {
+      setLoading(true)
+      setError(null)
+
+      const newInstance = create<%= it.pascalCase(it.packageName) %>(options)
+      const result = await newInstance.init()
+
+      if (result.success) {
+        setInstance(newInstance)
+        setSuccess(true)
+      } else {
+        setError(result.error)
+        setSuccess(false)
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error(String(err)))
+      setSuccess(false)
+    } finally {
+      setLoading(false)
+    }
+  }, [options])
+
+  const cleanup = useCallback(async () => {
+    if (instance) {
+      try {
+        setLoading(true)
+        await instance.cleanup()
+        setInstance(null)
+        setSuccess(false)
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error(String(err)))
+      } finally {
+        setLoading(false)
+      }
+    }
+  }, [instance])
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (instance) {
+        instance.cleanup().catch(console.error)
+      }
+    }
+  }, [instance])
+
+  return {
+    loading,
+    error,
+    success,
+    instance,
+    initialize,
+    cleanup
+  }
+
+<% } else if (it.packageType === 'utility') { -%>
+  const [result, setResult] = useState<unknown>(null)
+
+  const process = useCallback(async <T>(data: T): Promise<T | null> => {
+    try {
+      setLoading(true)
+      setError(null)
+
+      const processResult = await process<%= it.pascalCase(it.packageName) %>(data, options)
+
+      if (processResult.success) {
+        setResult(processResult.data)
+        setSuccess(true)
+        return processResult.data
+      } else {
+        setError(processResult.error)
+        setSuccess(false)
+        return null
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error(String(err)))
+      setSuccess(false)
+      return null
+    } finally {
+      setLoading(false)
+    }
+  }, [options])
+
+  return {
+    loading,
+    error,
+    success,
+    result,
+    process
+  }
+
+<% } else if (it.packageType === 'config') { -%>
+  const [config, setConfig] = useState<any>(null)
+
+  const updateConfig = useCallback((updates: any) => {
+    try {
+      setLoading(true)
+      setError(null)
+
+      const newConfig = create<%= it.pascalCase(it.packageName) %>Config({
+        ...config,
+        ...updates
+      })
+
+      setConfig(newConfig)
+      setSuccess(true)
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error(String(err)))
+      setSuccess(false)
+    } finally {
+      setLoading(false)
+    }
+  }, [config])
+
+  // Initialize config on mount
+  useEffect(() => {
+    updateConfig(options)
+  }, [])
+
+  return {
+    loading,
+    error,
+    success,
+    config,
+    updateConfig
+  }
+
+<% } else if (it.packageType === 'tool') { -%>
+  const [result, setResult] = useState<any>(null)
+
+  const run = useCallback(async (toolOptions: any = {}) => {
+    try {
+      setLoading(true)
+      setError(null)
+
+      const toolResult = await run<%= it.pascalCase(it.packageName) %>Tool({
+        ...options,
+        ...toolOptions
+      })
+
+      setResult(toolResult)
+      setSuccess(true)
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error(String(err)))
+      setSuccess(false)
+    } finally {
+      setLoading(false)
+    }
+  }, [options])
+
+  return {
+    loading,
+    error,
+    success,
+    result,
+    run
+  }
+
+<% } -%>
+}
+<% } -%>

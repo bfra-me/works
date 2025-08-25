@@ -1,0 +1,458 @@
+/**
+ * JSDoc comment utilities and templates for @bfra.me/<%= it.packageName %>
+ *
+ * This module provides utilities for generating consistent JSDoc comments
+ * throughout the <%= it.capitalizeFirst(it.packageName) %> package.
+ *
+ * @module
+ * @author <%= it.author %>
+ * @since <%= it.version %>
+ * @created <%= it.currentDate %>
+ * @internal
+ */
+
+/**
+ * Standard JSDoc comment templates for consistent documentation.
+ */
+export const <%= it.camelCase(it.packageName) %>JSDocTemplates = {
+  /**
+   * Creates a standard file header JSDoc comment.
+   *
+   * @param description - Description of the file/module
+   * @param isPublic - Whether this is a public API module
+   * @returns Formatted JSDoc comment string
+   *
+   * @example
+   * ```typescript
+   * const header = createFileHeader('Main utility functions', true)
+   * // Returns:
+   * // /**
+   * //  * Main utility functions for @bfra.me/<%= it.packageName %>
+   * //  *
+   * //  * @module
+   * //  * @author <%= it.author %>
+   * //  * @since <%= it.version %>
+   * //  * @created <%= it.currentDate %>
+   * //  */
+   * ```
+   */
+  createFileHeader(description: string, isPublic: boolean = true): string {
+    const lines = [
+      `${description} for @bfra.me/<%= it.packageName %>`,
+      '',
+      '@module',
+      '@author <%= it.author %>',
+      '@since <%= it.version %>',
+      '@created <%= it.currentDate %>'
+    ]
+
+    if (!isPublic) {
+      lines.push('@internal')
+    }
+
+    return [
+      '/**',
+      ...lines.map(line => line ? ` * ${line}` : ' *'),
+      ' */'
+    ].join('\n')
+  },
+
+  /**
+   * Creates a function JSDoc comment with parameters and return type.
+   *
+   * @param description - Function description
+   * @param parameters - Array of parameter descriptions
+   * @param returnDescription - Description of return value
+   * @param examples - Array of usage examples
+   * @param isAsync - Whether the function is async
+   * @returns Formatted JSDoc comment string
+   */
+  createFunctionDoc(
+    description: string,
+    parameters: Array<{name: string; type: string; description: string; optional?: boolean}> = [],
+    returnDescription?: string,
+    examples: string[] = [],
+    isAsync: boolean = false
+  ): string {
+    const lines = [description]
+
+    if (parameters.length > 0) {
+      lines.push('')
+      for (const param of parameters) {
+        const optionalMarker = param.optional ? '?' : ''
+        lines.push(`@param {${param.type}} ${param.name}${optionalMarker} - ${param.description}`)
+      }
+    }
+
+    if (returnDescription) {
+      lines.push('')
+      const returnType = isAsync ? 'Promise' : 'any'
+      lines.push(`@returns {${returnType}} ${returnDescription}`)
+    }
+
+    if (examples.length > 0) {
+      lines.push('')
+      for (const example of examples) {
+        lines.push('@example')
+        lines.push('```typescript')
+        lines.push(example)
+        lines.push('```')
+      }
+    }
+
+    return [
+      '/**',
+      ...lines.map(line => ` * ${line}`),
+      ' */'
+    ].join('\n')
+  },
+
+  /**
+   * Creates an interface JSDoc comment.
+   *
+   * @param description - Interface description
+   * @param properties - Array of property descriptions
+   * @param examples - Array of usage examples
+   * @returns Formatted JSDoc comment string
+   */
+  createInterfaceDoc(
+    description: string,
+    properties: Array<{name: string; type: string; description: string; optional?: boolean}> = [],
+    examples: string[] = []
+  ): string {
+    const lines = [description]
+
+    if (properties.length > 0) {
+      lines.push('')
+      for (const prop of properties) {
+        const optionalMarker = prop.optional ? '?' : ''
+        lines.push(`@property {${prop.type}} ${prop.name}${optionalMarker} - ${prop.description}`)
+      }
+    }
+
+    if (examples.length > 0) {
+      lines.push('')
+      for (const example of examples) {
+        lines.push('@example')
+        lines.push('```typescript')
+        lines.push(example)
+        lines.push('```')
+      }
+    }
+
+    return [
+      '/**',
+      ...lines.map(line => ` * ${line}`),
+      ' */'
+    ].join('\n')
+  },
+
+  /**
+   * Creates a class JSDoc comment.
+   *
+   * @param description - Class description
+   * @param examples - Array of usage examples
+   * @param isAbstract - Whether the class is abstract
+   * @returns Formatted JSDoc comment string
+   */
+  createClassDoc(
+    description: string,
+    examples: string[] = [],
+    isAbstract: boolean = false
+  ): string {
+    const lines = [description]
+
+    if (isAbstract) {
+      lines.push('')
+      lines.push('@abstract')
+    }
+
+    if (examples.length > 0) {
+      lines.push('')
+      for (const example of examples) {
+        lines.push('@example')
+        lines.push('```typescript')
+        lines.push(example)
+        lines.push('```')
+      }
+    }
+
+    return [
+      '/**',
+      ...lines.map(line => ` * ${line}`),
+      ' */'
+    ].join('\n')
+  },
+
+  /**
+   * Creates a constant/variable JSDoc comment.
+   *
+   * @param description - Variable description
+   * @param type - Type of the variable
+   * @param isConstant - Whether this is a constant
+   * @param isReadonly - Whether this is readonly
+   * @returns Formatted JSDoc comment string
+   */
+  createVariableDoc(
+    description: string,
+    type?: string,
+    isConstant: boolean = false,
+    isReadonly: boolean = false
+  ): string {
+    const lines = [description]
+
+    if (type) {
+      lines.push('')
+      lines.push(`@type {${type}}`)
+    }
+
+    if (isConstant) {
+      lines.push('@constant')
+    }
+
+    if (isReadonly) {
+      lines.push('@readonly')
+    }
+
+    return [
+      '/**',
+      ...lines.map(line => ` * ${line}`),
+      ' */'
+    ].join('\n')
+  },
+
+  /**
+   * Creates a type alias JSDoc comment.
+   *
+   * @param description - Type description
+   * @param examples - Array of usage examples
+   * @returns Formatted JSDoc comment string
+   */
+  createTypeDoc(
+    description: string,
+    examples: string[] = []
+  ): string {
+    const lines = [description]
+
+    if (examples.length > 0) {
+      lines.push('')
+      for (const example of examples) {
+        lines.push('@example')
+        lines.push('```typescript')
+        lines.push(example)
+        lines.push('```')
+      }
+    }
+
+    return [
+      '/**',
+      ...lines.map(line => ` * ${line}`),
+      ' */'
+    ].join('\n')
+  }
+}
+
+/**
+ * Utility functions for working with JSDoc comments.
+ */
+export const <%= it.camelCase(it.packageName) %>JSDocUtils = {
+  /**
+   * Formats a description to fit JSDoc line length requirements.
+   *
+   * @param description - Description to format
+   * @param maxLength - Maximum line length (default: 80)
+   * @returns Array of formatted lines
+   */
+  formatDescription(description: string, maxLength: number = 80): string[] {
+    const words = description.split(' ')
+    const lines: string[] = []
+    let currentLine = ''
+
+    for (const word of words) {
+      if (currentLine.length + word.length + 1 > maxLength) {
+        if (currentLine) {
+          lines.push(currentLine.trim())
+          currentLine = word
+        } else {
+          lines.push(word)
+        }
+      } else {
+        currentLine += (currentLine ? ' ' : '') + word
+      }
+    }
+
+    if (currentLine) {
+      lines.push(currentLine.trim())
+    }
+
+    return lines
+  },
+
+  /**
+   * Extracts parameter information from a function signature.
+   *
+   * @param signature - Function signature string
+   * @returns Array of parameter objects
+   */
+  extractParameters(signature: string): Array<{name: string; type: string; optional: boolean}> {
+    // This is a simplified implementation for demonstration
+    const paramMatch = signature.match(/\(([^)]*)\)/)
+    if (!paramMatch) return []
+
+    const paramString = paramMatch[1]
+    if (!paramString.trim()) return []
+
+    return paramString.split(',').map(param => {
+      const trimmed = param.trim()
+      const optional = trimmed.includes('?')
+      const [name, type] = trimmed.split(':').map(s => s.trim().replace('?', ''))
+
+      return {
+        name: name || 'param',
+        type: type || 'unknown',
+        optional
+      }
+    })
+  },
+
+  /**
+   * Generates standard tags for <%= it.capitalizeFirst(it.packageName) %> documentation.
+   *
+   * @param context - Context for tag generation
+   * @returns Object with standard tags
+   */
+  generateStandardTags(context: {
+    isPublic?: boolean
+    isDeprecated?: boolean
+    since?: string
+    author?: string
+    created?: string
+  } = {}): Record<string, string> {
+    const tags: Record<string, string> = {}
+
+    if (context.author) {
+      tags.author = context.author
+    }
+
+    if (context.since) {
+      tags.since = context.since
+    }
+
+    if (context.created) {
+      tags.created = context.created
+    }
+
+    if (context.isDeprecated) {
+      tags.deprecated = 'This will be removed in a future version'
+    }
+
+    if (context.isPublic === false) {
+      tags.internal = ''
+    }
+
+    return tags
+  },
+
+  /**
+   * Validates JSDoc comment completeness.
+   *
+   * @param comment - JSDoc comment to validate
+   * @returns Validation result with issues
+   */
+  validateJSDoc(comment: string): {
+    valid: boolean
+    issues: string[]
+    suggestions: string[]
+  } {
+    const issues: string[] = []
+    const suggestions: string[] = []
+
+    if (!comment.includes('@param') && comment.includes('function')) {
+      issues.push('Missing @param tags for function parameters')
+    }
+
+    if (!comment.includes('@returns') && comment.includes('function')) {
+      suggestions.push('Consider adding @returns tag for better documentation')
+    }
+
+    if (!comment.includes('@example')) {
+      suggestions.push('Consider adding @example for better usability')
+    }
+
+    if (!comment.includes('@since')) {
+      suggestions.push('Consider adding @since tag for version tracking')
+    }
+
+    return {
+      valid: issues.length === 0,
+      issues,
+      suggestions
+    }
+  }
+}
+
+/**
+ * Package-specific JSDoc comment generators for <%= it.capitalizeFirst(it.packageName) %>.
+ */
+export const <%= it.camelCase(it.packageName) %>Docs = {
+<% if (it.packageType === 'utility') { -%>
+  /**
+   * Creates JSDoc for utility functions.
+   */
+  utilityFunction(name: string, description: string): string {
+    return <%= it.camelCase(it.packageName) %>JSDocTemplates.createFunctionDoc(
+      `${description} utility for <%= it.capitalizeFirst(it.packageName) %>`,
+      [
+        { name: 'input', type: 'T', description: 'Input data to process' },
+        { name: 'options', type: '<%= it.pascalCase(it.packageName) %>Options', description: 'Processing options', optional: true }
+      ],
+      'Processing result with success/error information',
+      [`const result = await ${name}(data, { verbose: true })`],
+      true
+    )
+  }
+<% } else if (it.packageType === 'config') { -%>
+  /**
+   * Creates JSDoc for configuration functions.
+   */
+  configFunction(name: string, description: string): string {
+    return <%= it.camelCase(it.packageName) %>JSDocTemplates.createFunctionDoc(
+      `${description} configuration for <%= it.capitalizeFirst(it.packageName) %>`,
+      [
+        { name: 'options', type: '<%= it.pascalCase(it.packageName) %>Config', description: 'Configuration options', optional: true }
+      ],
+      'Resolved configuration object',
+      [`const config = ${name}({ strict: true })`]
+    )
+  }
+<% } else if (it.packageType === 'tool') { -%>
+  /**
+   * Creates JSDoc for tool functions.
+   */
+  toolFunction(name: string, description: string): string {
+    return <%= it.camelCase(it.packageName) %>JSDocTemplates.createFunctionDoc(
+      `${description} tool operation for <%= it.capitalizeFirst(it.packageName) %>`,
+      [
+        { name: 'options', type: '<%= it.pascalCase(it.packageName) %>ToolOptions', description: 'Tool execution options', optional: true }
+      ],
+      'Tool execution result with file list and duration',
+      [`const result = await ${name}({ input: './src', output: './dist' })`],
+      true
+    )
+  }
+<% } else if (it.packageType === 'library') { -%>
+  /**
+   * Creates JSDoc for library functions.
+   */
+  libraryFunction(name: string, description: string): string {
+    return <%= it.camelCase(it.packageName) %>JSDocTemplates.createFunctionDoc(
+      `${description} library function for <%= it.capitalizeFirst(it.packageName) %>`,
+      [
+        { name: 'options', type: '<%= it.pascalCase(it.packageName) %>Options', description: 'Library configuration options', optional: true }
+      ],
+      'Library instance ready for use',
+      [`const instance = ${name}({ debug: true }); await instance.init()`]
+    )
+  }
+<% } -%>
+}

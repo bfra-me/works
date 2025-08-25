@@ -1,33 +1,189 @@
 /**
  * Type definitions for @bfra.me/<%= it.packageName %>
+ *
+ * @module
+ * @author <%= it.author %>
+ * @since <%= it.version %>
+ * @created <%= it.currentDate %>
  */
 
-<% if (it.packageType === 'utility') { %>// Utility function types
-export interface UtilityOptions {
-  /** Configuration options */
+<% /* Common result type pattern used throughout bfra.me packages */ %>
+/**
+ * Standard result type for operations that can succeed or fail.
+ *
+ * @template T - The type of the success data
+ * @template E - The type of the error (defaults to Error)
+ */
+export type Result<T, E = Error> =
+  | { success: true; data: T }
+  | { success: false; error: E }
+
+<% /* Package type-specific interfaces */ %>
+<% if (it.packageType === 'utility') { -%>
+/**
+ * Configuration options for <%= it.capitalizeFirst(it.packageName) %> utilities.
+ */
+export interface <%= it.pascalCase(it.packageName) %>Options {
+  /** Enable verbose logging */
+  verbose?: boolean
+  /** Custom configuration */
   [key: string]: unknown
 }
 
-export type UtilityResult<T = unknown> = {
-  success: true
-  data: T
-} | {
-  success: false
-  error: Error
-}<% } else if (it.packageType === 'config') { %>// Configuration types
-export interface ConfigOptions {
-  /** Configuration properties */
+/**
+ * Utility operation result type.
+ *
+ * @template T - The type of the utility operation result
+ */
+export type <%= it.pascalCase(it.packageName) %>Result<T = unknown> = Result<T>
+
+<% } else if (it.packageType === 'config') { -%>
+/**
+ * Configuration options for <%= it.capitalizeFirst(it.packageName) %>.
+ */
+export interface <%= it.pascalCase(it.packageName) %>Config {
+  /** Configuration name */
+  name?: string
+  /** Enable strict mode */
+  strict?: boolean
+  /** Additional configuration properties */
   [key: string]: unknown
 }
 
-export interface ResolvedConfig extends ConfigOptions {
-  /** Resolved configuration with defaults */
+/**
+ * Resolved configuration with all defaults applied.
+ */
+export interface Resolved<%= it.pascalCase(it.packageName) %>Config extends <%= it.pascalCase(it.packageName) %>Config {
+  /** Indicates configuration has been resolved */
   readonly resolved: true
-}<% } else if (it.packageType === 'tool') { %>// Tool types
-export interface ToolOptions {
-  /** Tool configuration options */
+  /** Resolution timestamp */
+  readonly resolvedAt: Date
+}
+
+<% } else if (it.packageType === 'tool') { -%>
+/**
+ * Tool execution options for <%= it.capitalizeFirst(it.packageName) %>.
+ */
+export interface <%= it.pascalCase(it.packageName) %>ToolOptions {
+  /** Input file or directory */
+  input?: string
+  /** Output file or directory */
+  output?: string
+  /** Enable dry run mode */
+  dryRun?: boolean
+  /** Additional tool options */
   [key: string]: unknown
 }
+
+/**
+ * Tool execution result.
+ */
+export interface <%= it.pascalCase(it.packageName) %>ToolResult {
+  /** Files processed */
+  files: string[]
+  /** Execution duration in milliseconds */
+  duration: number
+  /** Any warnings generated */
+  warnings: string[]
+}
+
+<% if (it.hasCLI) { -%>
+/**
+ * CLI command interface for <%= it.capitalizeFirst(it.packageName) %>.
+ */
+export interface <%= it.pascalCase(it.packageName) %>CLIOptions extends <%= it.pascalCase(it.packageName) %>ToolOptions {
+  /** Help flag */
+  help?: boolean
+  /** Version flag */
+  version?: boolean
+  /** Verbose output */
+  verbose?: boolean
+}
+
+<% } -%>
+<% } else if (it.packageType === 'library') { -%>
+/**
+ * Core library options for <%= it.capitalizeFirst(it.packageName) %>.
+ */
+export interface <%= it.pascalCase(it.packageName) %>Options {
+  /** Library configuration */
+  config?: Record<string, unknown>
+  /** Enable debug mode */
+  debug?: boolean
+}
+
+/**
+ * Library instance interface.
+ */
+export interface <%= it.pascalCase(it.packageName) %>Instance {
+  /** Instance configuration */
+  readonly config: <%= it.pascalCase(it.packageName) %>Options
+  /** Instance creation time */
+  readonly createdAt: Date
+
+  /** Initialize the library instance */
+  init(): Promise<Result<void>>
+
+  /** Cleanup resources */
+  cleanup(): Promise<void>
+}
+
+<% } -%>
+
+<% /* React-specific types */ %>
+<% if (it.hasReact) { -%>
+import type {ReactNode} from 'react'
+
+/**
+ * Base props for <%= it.capitalizeFirst(it.packageName) %> React components.
+ */
+export interface <%= it.pascalCase(it.packageName) %>BaseProps {
+  /** CSS class name */
+  className?: string
+  /** Inline styles */
+  style?: React.CSSProperties
+  /** Child elements */
+  children?: ReactNode
+}
+
+/**
+ * Component variant types.
+ */
+export type <%= it.pascalCase(it.packageName) %>Variant = 'primary' | 'secondary' | 'outlined' | 'text'
+
+/**
+ * Component size types.
+ */
+export type <%= it.pascalCase(it.packageName) %>Size = 'small' | 'medium' | 'large'
+
+<% } -%>
+
+<% /* Common type utilities */ %>
+/**
+ * Extract keys from an object type that have values of a specific type.
+ *
+ * @template T - The object type
+ * @template U - The value type to match
+ */
+export type KeysOfType<T, U> = {
+  [K in keyof T]: T[K] extends U ? K : never
+}[keyof T]
+
+/**
+ * Make specified properties optional.
+ *
+ * @template T - The object type
+ * @template K - The keys to make optional
+ */
+export type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
+
+/**
+ * Make specified properties required.
+ *
+ * @template T - The object type
+ * @template K - The keys to make required
+ */
+export type RequiredBy<T, K extends keyof T> = T & Required<Pick<T, K>>
 
 export interface ToolResult {
   /** Operation success status */

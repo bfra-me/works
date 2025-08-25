@@ -1,0 +1,93 @@
+<% if (it.hasReact) { -%>
+import {forwardRef} from 'react'
+import type {<%= it.pascalCase(it.packageName) %>BaseProps, <%= it.pascalCase(it.packageName) %>Variant, <%= it.pascalCase(it.packageName) %>Size} from '../types.js'
+
+/**
+ * Props for the <%= it.pascalCase(it.packageName) %>Component.
+ */
+export interface <%= it.pascalCase(it.packageName) %>ComponentProps extends <%= it.pascalCase(it.packageName) %>BaseProps {
+  /** Component variant */
+  variant?: <%= it.pascalCase(it.packageName) %>Variant
+  /** Component size */
+  size?: <%= it.pascalCase(it.packageName) %>Size
+  /** Whether the component is disabled */
+  disabled?: boolean
+  /** Click handler */
+  onClick?: () => void
+}
+
+/**
+ * The main <%= it.capitalizeFirst(it.packageName) %> React component.
+ *
+ * @example
+ * ```tsx
+ * import {<%= it.pascalCase(it.packageName) %>Component} from '@bfra.me/<%= it.packageName %>'
+ *
+ * function App() {
+ *   return (
+ *     <<%= it.pascalCase(it.packageName) %>Component
+ *       variant="primary"
+ *       size="medium"
+ *       onClick={() => console.log('Clicked!')}
+ *     >
+ *       <%= it.capitalizeFirst(it.packageName) %> Component
+ *     </<%= it.pascalCase(it.packageName) %>Component>
+ *   )
+ * }
+ * ```
+ */
+export const <%= it.pascalCase(it.packageName) %>Component = forwardRef<
+  HTMLDivElement,
+  <%= it.pascalCase(it.packageName) %>ComponentProps
+>(function <%= it.pascalCase(it.packageName) %>Component(
+  {
+    variant = 'primary',
+    size = 'medium',
+    disabled = false,
+    className = '',
+    style,
+    children,
+    onClick,
+    ...props
+  },
+  ref
+) {
+  const handleClick = () => {
+    if (!disabled && onClick) {
+      onClick()
+    }
+  }
+
+  const componentClassName = [
+    '<%= it.packageName %>-component',
+    `<%= it.packageName %>-component--${variant}`,
+    `<%= it.packageName %>-component--${size}`,
+    disabled && '<%= it.packageName %>-component--disabled',
+    className
+  ]
+    .filter(Boolean)
+    .join(' ')
+
+  return (
+    <div
+      ref={ref}
+      className={componentClassName}
+      style={style}
+      onClick={handleClick}
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick && !disabled ? 0 : undefined}
+      onKeyDown={(event) => {
+        if (onClick && !disabled && (event.key === 'Enter' || event.key === ' ')) {
+          event.preventDefault()
+          onClick()
+        }
+      }}
+      {...props}
+    >
+      {children}
+    </div>
+  )
+})
+
+<%= it.pascalCase(it.packageName) %>Component.displayName = '<%= it.pascalCase(it.packageName) %>Component'
+<% } -%>
