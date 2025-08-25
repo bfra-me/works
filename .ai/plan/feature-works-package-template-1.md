@@ -70,14 +70,14 @@ Develop a specialized template within the fully redesigned `@bfra.me/create` sys
 
 | Task | Description | Completed | Date |
 | --- | --- | --- | --- |
-| TASK-009 | Create `package.json.eta` template with proper exports, workspace dependencies, and Eta helper functions |  |  |
-| TASK-010 | Design `tsconfig.json.eta` template extending `@bfra.me/tsconfig` with Eta-based path logic |  |  |
-| TASK-011 | Implement `eslint.config.ts.eta` template using `defineConfig()` pattern with Eta conditionals |  |  |
-| TASK-012 | Create `tsup.config.ts.eta` template for ES module builds with Eta-based CLI binary configuration |  |  |
-| TASK-013 | Design package type-specific configuration variations using Eta's conditional and loop features |  |  |
-| TASK-014 | Implement workspace dependency template logic using Eta helper functions for package references |  |  |
-| TASK-015 | Create version and metadata template logic using Eta's built-in date and helper functions |  |  |
-| TASK-016 | Add Eta-based template logic for optional features (React support, CLI binaries, type-only packages) |  |  |
+| TASK-009 | Create `package.json.eta` template with proper exports, workspace dependencies, and Eta helper functions | ✅ | 2025-08-24 |
+| TASK-010 | Design `tsconfig.json.eta` template extending `@bfra.me/tsconfig` with Eta-based path logic | ✅ | 2025-08-24 |
+| TASK-011 | Implement `eslint.config.ts.eta` template using `defineConfig()` pattern with Eta conditionals | ✅ | 2025-08-24 |
+| TASK-012 | Create `tsup.config.ts.eta` template for ES module builds with Eta-based CLI binary configuration | ✅ | 2025-08-24 |
+| TASK-013 | Design package type-specific configuration variations using Eta's conditional and loop features | ✅ | 2025-08-24 |
+| TASK-014 | Implement workspace dependency template logic using Eta helper functions for package references | ✅ | 2025-08-24 |
+| TASK-015 | Create version and metadata template logic using Eta's built-in date and helper functions | ✅ | 2025-08-24 |
+| TASK-016 | Add Eta-based template logic for optional features (React support, CLI binaries, type-only packages) | ✅ | 2025-08-24 |
 
 ### Implementation Phase 3: Source Code Templates with Eta Power
 

@@ -77,5 +77,15 @@
     }
   ],
   "dependencies": [],
-  "nodeVersion": ">=18"
+  "nodeVersion": ">=18",
+  "helpers": {
+    "currentYear": "new Date().getFullYear()",
+    "currentDate": "new Date().toISOString().split('T')[0]",
+    "packageScope": "@bfra.me",
+    "repoUrl": "https://github.com/bfra-me/works",
+    "formatPackageName": "function(name) { return name.replace(/[^a-z0-9-]/g, '').toLowerCase() }",
+    "capitalizeFirst": "function(str) { return str.charAt(0).toUpperCase() + str.slice(1) }",
+    "camelCase": "function(str) { return str.replace(/-([a-z])/g, (g) => g[1].toUpperCase()) }",
+    "pascalCase": "function(str) { return str.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('') }"
+  }
 }

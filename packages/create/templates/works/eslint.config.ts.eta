@@ -4,9 +4,29 @@ export default defineConfig({
   name: '<%= it.packageName %>',
   typescript: {
     tsconfigPath: './tsconfig.json',
-    typeAware: true
+    typeAware: true<% if (it.packageType === 'config') { %>,
+    overrides: {
+      // Config packages need more flexible type checking for generated types
+      '@typescript-eslint/no-unsafe-argument': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off'
+    }<% } %>
   },<% if (it.hasReact) { %>
   jsx: true,<% } %>
   prettier: true,
-  vitest: true
+  vitest: true,<% if (it.packageType === 'config' || it.packageType === 'tool') { %>
+  ignores: [<% if (it.packageType === 'config') { %>
+    'lib/**/*', // Generated output<% if (it.packageName.includes('eslint')) { %>
+    'test/fixtures/**/*' // Test fixtures should not be linted<% } %><% } %><% if (it.packageType === 'tool') { %>
+    'test/fixtures/**/*', // Test fixtures
+    'test-*/**/*' // Test output directories<% } %>
+  ],<% } %>
+  overrides: {<% if (it.packageType === 'tool' || it.hasCLI) { %>
+    // CLI tools may need console output
+    'no-console': 'warn',<% } %><% if (it.packageType === 'config') { %>
+    // Config packages may have complex generated code
+    'complexity': 'off',
+    'max-lines-per-function': 'off'<% } %>
+  }
 })

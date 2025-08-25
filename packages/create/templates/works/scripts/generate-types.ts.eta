@@ -1,0 +1,49 @@
+<% if (it.packageType === 'config' && it.packageName.includes('eslint')) { %>import fs from 'node:fs/promises'
+import {flatConfigsToRulesDTS} from 'eslint-typegen/core'
+import {builtinRules} from 'eslint/use-at-your-own-risk'
+import {defineConfig} from '../src/define-config'
+
+const configs = await defineConfig(
+  {
+    packageJson: true,
+    plugins: {
+      '': {
+        rules: Object.fromEntries(builtinRules),
+      },
+    },
+    typescript: {
+      tsconfigPath: 'tsconfig.json',
+    },
+    vitest: true,
+  },
+)
+
+const dts = await flatConfigsToRulesDTS(configs, {
+  includeAugmentation: false,
+})
+
+await fs.writeFile('src/rules.d.ts', dts)
+<% } else if (it.packageType === 'config') { %>// Configuration package type generator script
+// Add your specific type generation logic here
+// This script is run during the build process
+
+import fs from 'node:fs/promises'
+import path from 'node:path'
+
+async function generateTypes() {
+  // Generate type definitions based on your config structure
+  const configTypes = `
+// Generated types for <%= it.packageName %>
+export interface <%= it.packageName.replace(/-/g, '').replace(/config/i, 'Config') %> {
+  // Add your configuration interface here
+}
+`
+
+  await fs.mkdir('src', { recursive: true })
+  await fs.writeFile(path.join('src', 'types.generated.ts'), configTypes.trim())
+
+  console.log('✅ Generated types for <%= it.packageName %>')
+}
+
+generateTypes().catch(console.error)
+<% } %>

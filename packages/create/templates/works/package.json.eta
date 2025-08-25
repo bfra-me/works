@@ -1,16 +1,40 @@
 {
   "name": "@bfra.me/<%= it.packageName %>",
   "version": "<%= it.version %>",
-  "description": "<%= it.description %>",
-  "keywords": [<% if (it.keywords) { %>
-    <%= it.keywords.split(',').map(k => `"${k.trim()}"`).join(',\n    ') %>,<% } %>
-    "bfra.me",<% if (it.packageType === 'config') { %>
-    "config",<% } %><% if (it.packageType === 'tool' || it.hasCLI) { %>
-    "cli",
-    "tool",<% } %><% if (it.packageType === 'library') { %>
-    "library",<% } %>
-    "typescript",
-    "works"
+  "description": "<%= it.description %>",<%
+// Generate keywords array with proper conditional logic
+const keywordsList = [];
+if (it.keywords) {
+  keywordsList.push(...it.keywords.split(',').map(k => k.trim()).filter(k => k));
+}
+keywordsList.push("bfra.me");
+
+// Add package type-specific keywords
+if (it.packageType === 'config') {
+  keywordsList.push("config", it.packageName + "-config", "shared");
+} else if (it.packageType === 'tool' || it.hasCLI) {
+  keywordsList.push("cli", "tool");
+} else if (it.packageType === 'library') {
+  keywordsList.push("library");
+} else if (it.packageType === 'utility') {
+  keywordsList.push("utility", "utils");
+}
+
+// Add feature-specific keywords
+if (it.hasReact) {
+  keywordsList.push("react", "jsx");
+}
+if (it.isTypeOnly) {
+  keywordsList.push("types", "typescript-types");
+}
+
+keywordsList.push("typescript", "works");
+
+// Remove duplicates and sort
+const uniqueKeywords = [...new Set(keywordsList)].sort();
+%>
+  "keywords": [
+    <%= uniqueKeywords.map(k => `"${k}"`).join(',\n    ') %>
   ],
   "homepage": "https://github.com/bfra-me/works/tree/main/packages/<%= it.packageName %>#readme",
   "bugs": "https://github.com/bfra-me/works/issues",
@@ -28,43 +52,82 @@
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",<% if (!it.isTypeOnly) { %>
-      "source": "./src/index.ts",
-      "import": "./lib/index.js"<% } else { %>
+      "source": "./src/index.ts",<% if (it.packageType === 'config') { %>
+      "default": "./lib/index.js"<% } else { %>
+      "import": "./lib/index.js"<% } %><% } else { %>
       "source": "./src/index.ts"<% } %>
-    },
+    },<% if (it.packageType === 'config') { %>
+    "./define-config": {
+      "types": "./lib/define-config.d.ts",
+      "source": "./src/define-config.ts",
+      "default": "./lib/define-config.js"
+    },<% } %>
     "./package.json": "./package.json"
   },<% if (!it.isTypeOnly) { %>
-  "main": "./lib/index.js",<% } %>
+  "main": "./lib/index.js",<% if (it.packageType === 'config') { %>
+  "module": "./lib/index.js",<% } %><% } %>
   "types": "./lib/index.d.ts",
-  "files": [
-    "lib",
-    "README.md"
+  "files": [<% if (!it.isTypeOnly) { %>
+    "lib",<% } else { %>
+    "src",<% } %>
+    "README.md"<% if (!it.isTypeOnly) { %>,
+    "!**/*.map"<% } %>
   ],
   "scripts": {<% if (!it.isTypeOnly) { %>
-    "build": "tsup",
+    "build": "<% if (it.packageType === 'config') { %>pnpm run generate-types && <% } %>tsup",
     "dev": "tsup --watch",<% } else { %>
     "build": "tsc",<% } %>
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",<% if (!it.isTypeOnly) { %>
-    "prepack": "pnpm build",<% } %>
-    "test": "vitest run",
+    "prepack": "pnpm <% if (it.packageType === 'config') { %>run <% } %>build",<% } %>
+    "test": "<% if (!it.isTypeOnly && it.packageType !== 'config') { %>pnpm --filter-prod=\"{.}...\" run build && <% } %>vitest run",
     "test:watch": "vitest",
-    "type-check": "tsc --noEmit"
-  },<% if (!it.isTypeOnly && (it.packageType === 'utility' || it.packageType === 'library' || it.packageType === 'tool')) { %>
-  "dependencies": {},<% } %>
+    "type-check": "tsc --noEmit"<% if (it.packageType === 'config') { %>,
+    "generate-types": "tsx scripts/generate-types.ts"<% } %>
+  },
+    "test:watch": "vitest",
+    "type-check": "tsc --noEmit"<% if (it.packageType === 'config') { %>,
+    "generate-types": "tsx scripts/generate-types.ts"<% } %>
+  },<%
+// Dependencies logic based on package type
+const hasDependencies = it.packageType === 'config' || it.packageType === 'tool' || it.hasCLI;
+const hasWorkspaceDeps = it.packageType === 'config' || (it.packageType === 'tool' && it.hasCLI);
+%><% if (hasDependencies) { %>
+  "dependencies": {<% if (hasWorkspaceDeps) { %>
+    "@bfra.me/prettier-config": "workspace:*"<% } %><% if (it.packageType === 'config') { %>,
+    "eslint": "^9.33.0",
+    "prettier": "^3.4.2"<% } %><% if (it.hasCLI) { %>,
+    "@clack/prompts": "^0.11.0",
+    "consola": "^3.3.3"<% } %>
+  },<% } %>
   "devDependencies": {
-    "@bfra.me/eslint-config": "workspace:*",
+    "@bfra.me/eslint-config": "workspace:*",<% if (it.packageType !== 'config') { %>
+    "@bfra.me/prettier-config": "workspace:*",<% } %>
     "@bfra.me/tsconfig": "workspace:*",<% if (it.hasReact) { %>
     "@types/react": "^18.3.18",<% } %>
     "@types/node": "^22.17.1",
     "eslint": "^9.18.0",<% if (!it.isTypeOnly) { %>
-    "tsup": "^8.5.0",<% } %>
+    "tsup": "^8.5.0",<% } %><% if (it.packageType === 'config') { %>
+    "tsx": "^4.20.4",<% } %>
     "typescript": "^5.8.3",
     "vitest": "^2.3.5"
   },<% if (it.packageType === 'config') { %>
-  "peerDependencies": {},<% } %>
+  "peerDependencies": {<% if (it.packageName.includes('eslint')) { %>
+    "eslint": "^9.10.0"<% } else if (it.packageName.includes('prettier')) { %>
+    "prettier": "^3.0.0"<% } else if (it.packageName.includes('typescript') || it.packageName.includes('tsconfig')) { %>
+    "typescript": "^5.0.0"<% } %>
+  },<% if (it.packageName.includes('eslint') || it.packageName.includes('prettier')) { %>
+  "peerDependenciesMeta": {<% if (it.packageName.includes('eslint')) { %>
+    "eslint": {
+      "optional": false
+    }<% } else if (it.packageName.includes('prettier')) { %>
+    "prettier": {
+      "optional": false
+    }<% } %>
+  },<% } %><% } %>
   "publishConfig": {
-    "access": "public"
+    "access": "public"<% if (!it.isTypeOnly) { %>,
+    "provenance": true<% } %>
   },
   "engines": {
     "node": ">=18"
