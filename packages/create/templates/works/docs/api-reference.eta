@@ -1,0 +1,585 @@
+<%#
+/**
+ * API reference template using Eta's string manipulation for TypeScript signatures
+ * Provides structured API documentation with type information
+ */
+%>
+
+<%#
+/**
+ * Generate API reference section based on package type
+ * @param {string} packageType - Type of package (utility, config, tool, library)
+ * @param {string} packageName - Name of the package
+ * @returns {string} Complete API reference section
+ */
+%>
+<%
+function generateAPIReference(packageType, packageName) {
+  const apiSections = {
+    utility: generateUtilityAPI(packageName),
+    config: generateConfigAPI(packageName),
+    tool: generateToolAPI(packageName),
+    library: generateLibraryAPI(packageName)
+  }
+
+  return apiSections[packageType] || apiSections.library
+}
+%>
+
+<%#
+/**
+ * Generate utility package API documentation
+ */
+%>
+<%
+function generateUtilityAPI(packageName) {
+  const capitalizedName = packageName.charAt(0).toUpperCase() + packageName.slice(1)
+
+  return `## API Reference
+
+### Core Functions
+
+#### \`processData<T>(input: T, options?: UtilityOptions): UtilityResult<T>\`
+
+Process input data with the provided options.
+
+**Type Parameters:**
+- \`T\` - Type of the input data
+
+**Parameters:**
+- \`input: T\` - Data to process
+- \`options?: UtilityOptions\` - Optional configuration object
+
+**Returns:** \`UtilityResult<T>\` - Result object with success status and data/error
+
+**Example:**
+\`\`\`typescript
+const result = processData({ id: 1, name: 'test' }, {
+  timeout: 5000,
+  retries: 3
+})
+
+if (result.success) {
+  console.log('Processed:', result.data)
+} else {
+  console.error('Error:', result.error)
+}
+\`\`\`
+
+#### \`isValid(value: unknown): value is NonNullable<unknown>\`
+
+Type predicate to validate if a value is valid (not null or undefined).
+
+**Parameters:**
+- \`value: unknown\` - Value to validate
+
+**Returns:** \`boolean\` - Type predicate confirming the value is not null/undefined
+
+**Example:**
+\`\`\`typescript
+function processValue(value: unknown) {
+  if (isValid(value)) {
+    // TypeScript knows value is not null/undefined here
+    console.log('Valid value:', value)
+  }
+}
+\`\`\`
+
+#### \`create${capitalizedName}Processor(options?: ProcessorOptions): ${capitalizedName}Processor\`
+
+Create a custom processor instance with specific configuration.
+
+**Parameters:**
+- \`options?: ProcessorOptions\` - Processor configuration options
+
+**Returns:** \`${capitalizedName}Processor\` - Configured processor instance
+
+**Example:**
+\`\`\`typescript
+const processor = create${capitalizedName}Processor({
+  maxRetries: 5,
+  timeout: 10000,
+  onError: (error) => console.error('Processing failed:', error)
+})
+
+const result = await processor.process(data)
+\`\`\`
+
+### Types
+
+\`\`\`typescript
+interface UtilityOptions {
+  /** Maximum time to wait for processing (ms) */
+  timeout?: number
+  /** Number of retry attempts on failure */
+  retries?: number
+  /** Error handler callback */
+  onError?: (error: Error) => void
+  /** Progress callback */
+  onProgress?: (progress: number) => void
+}
+
+interface UtilityResult<T> {
+  /** Whether the operation succeeded */
+  success: boolean
+  /** Processed data (only present if success is true) */
+  data?: T
+  /** Error information (only present if success is false) */
+  error?: Error
+  /** Processing duration in milliseconds */
+  duration?: number
+}
+
+interface ProcessorOptions extends UtilityOptions {
+  /** Maximum number of concurrent operations */
+  concurrency?: number
+  /** Whether to preserve order of results */
+  preserveOrder?: boolean
+}
+
+interface ${capitalizedName}Processor {
+  /** Process a single item */
+  process<T>(item: T, options?: UtilityOptions): Promise<UtilityResult<T>>
+  /** Process multiple items */
+  processMany<T>(items: T[], options?: ProcessorOptions): Promise<{
+    successful: UtilityResult<T>[]
+    failed: UtilityResult<T>[]
+  }>
+}
+\`\`\``
+}
+%>
+
+<%#
+/**
+ * Generate config package API documentation
+ */
+%>
+<%
+function generateConfigAPI(packageName) {
+  const capitalizedName = packageName.charAt(0).toUpperCase() + packageName.slice(1)
+
+  return `## API Reference
+
+### Configuration Functions
+
+#### \`createConfig(options?: ConfigOptions): ResolvedConfig\`
+
+Create configuration with default values merged with provided options.
+
+**Parameters:**
+- \`options?: ConfigOptions\` - Configuration options to merge with defaults
+
+**Returns:** \`ResolvedConfig\` - Resolved configuration object with all defaults applied
+
+**Example:**
+\`\`\`typescript
+const config = createConfig({
+  timeout: 1000,
+  retries: 3,
+  verbose: true
+})
+
+console.log(config.timeout) // 1000
+console.log(config.maxSize) // Default value applied
+\`\`\`
+
+#### \`validateConfig(config: ConfigOptions): ValidationResult\`
+
+Validate configuration options against the schema.
+
+**Parameters:**
+- \`config: ConfigOptions\` - Configuration to validate
+
+**Returns:** \`ValidationResult\` - Validation result with errors if any
+
+**Example:**
+\`\`\`typescript
+const result = validateConfig({
+  timeout: 1000,
+  retries: -1 // Invalid: must be positive
+})
+
+if (result.isValid) {
+  console.log('Configuration is valid')
+} else {
+  console.error('Validation errors:', result.errors)
+}
+\`\`\`
+
+#### \`mergeConfigs(...configs: ConfigOptions[]): ResolvedConfig\`
+
+Merge multiple configuration objects with deep merging support.
+
+**Parameters:**
+- \`...configs: ConfigOptions[]\` - Configuration objects to merge
+
+**Returns:** \`ResolvedConfig\` - Merged configuration object
+
+**Example:**
+\`\`\`typescript
+const baseConfig = { timeout: 1000, retries: 3 }
+const userConfig = { timeout: 2000, verbose: true }
+const finalConfig = mergeConfigs(baseConfig, userConfig)
+
+console.log(finalConfig.timeout) // 2000 (overridden)
+console.log(finalConfig.retries) // 3 (from base)
+console.log(finalConfig.verbose) // true (from user)
+\`\`\`
+
+### Types
+
+\`\`\`typescript
+interface ConfigOptions {
+  /** Request timeout in milliseconds */
+  timeout?: number
+  /** Number of retry attempts */
+  retries?: number
+  /** Enable verbose logging */
+  verbose?: boolean
+  /** Maximum cache size */
+  maxSize?: number
+  /** Custom configuration properties */
+  [key: string]: unknown
+}
+
+interface ResolvedConfig extends Required<ConfigOptions> {
+  /** Indicates configuration has been resolved */
+  readonly resolved: true
+  /** Timestamp when configuration was created */
+  readonly timestamp: number
+  /** Configuration schema version */
+  readonly version: string
+}
+
+interface ValidationResult {
+  /** Whether the configuration is valid */
+  isValid: boolean
+  /** Validation error messages */
+  errors: string[]
+  /** Warnings (non-blocking issues) */
+  warnings: string[]
+}
+
+interface ${capitalizedName}Schema {
+  /** Schema definition for validation */
+  properties: Record<string, SchemaProperty>
+  /** Required property names */
+  required: string[]
+  /** Additional properties allowed */
+  additionalProperties: boolean
+}
+\`\`\``
+}
+%>
+
+<%#
+/**
+ * Generate tool package API documentation
+ */
+%>
+<%
+function generateToolAPI(packageName) {
+  const capitalizedName = packageName.charAt(0).toUpperCase() + packageName.slice(1)
+
+  return `## API Reference
+
+### Tool Functions
+
+#### \`runTool(options?: ToolOptions): Promise<ToolResult>\`
+
+Execute the tool with the provided options.
+
+**Parameters:**
+- \`options?: ToolOptions\` - Tool configuration options
+
+**Returns:** \`Promise<ToolResult>\` - Promise resolving to tool execution result
+
+**Example:**
+\`\`\`typescript
+const result = await runTool({
+  input: './src/**/*.ts',
+  output: './dist',
+  verbose: true,
+  watch: false
+})
+
+if (result.success) {
+  console.log(\`Tool completed in \${result.duration}ms\`)
+  console.log('Output files:', result.files)
+} else {
+  console.error('Tool failed:', result.errors)
+}
+\`\`\`
+
+#### \`initTool(options?: InitOptions): Promise<ToolInitResult>\`
+
+Initialize the tool with configuration and setup.
+
+**Parameters:**
+- \`options?: InitOptions\` - Initialization options
+
+**Returns:** \`Promise<ToolInitResult>\` - Tool initialization result
+
+**Example:**
+\`\`\`typescript
+const initResult = await initTool({
+  template: 'default',
+  configPath: './tool.config.js',
+  force: false
+})
+
+if (initResult.success) {
+  console.log('Tool initialized successfully')
+} else {
+  console.error('Initialization failed:', initResult.error)
+}
+\`\`\`
+
+#### \`create${capitalizedName}Runner(config: ToolConfig): ${capitalizedName}Runner\`
+
+Create a tool runner instance with specific configuration.
+
+**Parameters:**
+- \`config: ToolConfig\` - Tool configuration
+
+**Returns:** \`${capitalizedName}Runner\` - Configured tool runner
+
+**Example:**
+\`\`\`typescript
+const runner = create${capitalizedName}Runner({
+  concurrency: 4,
+  timeout: 30000,
+  retries: 2
+})
+
+const result = await runner.execute(taskList)
+\`\`\`
+
+### Types
+
+\`\`\`typescript
+interface ToolOptions {
+  /** Input file patterns or paths */
+  input?: string | string[]
+  /** Output directory or file path */
+  output?: string
+  /** Enable verbose logging */
+  verbose?: boolean
+  /** Configuration file path */
+  configPath?: string
+  /** Watch mode for file changes */
+  watch?: boolean
+  /** Force overwrite existing files */
+  force?: boolean
+}
+
+interface ToolResult {
+  /** Whether the tool execution succeeded */
+  success: boolean
+  /** Execution duration in milliseconds */
+  duration: number
+  /** List of processed/generated files */
+  files: string[]
+  /** Error messages if execution failed */
+  errors: string[]
+  /** Warning messages */
+  warnings: string[]
+  /** Tool output/logs */
+  output: string
+}
+
+interface InitOptions {
+  /** Template to use for initialization */
+  template?: string
+  /** Configuration file path */
+  configPath?: string
+  /** Force initialization even if files exist */
+  force?: boolean
+  /** Additional template variables */
+  variables?: Record<string, unknown>
+}
+
+interface ToolInitResult {
+  /** Whether initialization succeeded */
+  success: boolean
+  /** Created files */
+  files: string[]
+  /** Error message if failed */
+  error?: string
+}
+
+interface ${capitalizedName}Runner {
+  /** Execute the tool with given tasks */
+  execute(tasks: ToolTask[]): Promise<ToolResult>
+  /** Get tool configuration */
+  getConfig(): ToolConfig
+  /** Update tool configuration */
+  updateConfig(config: Partial<ToolConfig>): void
+}
+\`\`\``
+}
+%>
+
+<%#
+/**
+ * Generate library package API documentation
+ */
+%>
+<%
+function generateLibraryAPI(packageName) {
+  const capitalizedName = packageName.charAt(0).toUpperCase() + packageName.slice(1)
+
+  return `## API Reference
+
+### Library Functions
+
+#### \`createLibrary(options?: LibraryOptions): ${capitalizedName}Library\`
+
+Create a library instance with the specified configuration.
+
+**Parameters:**
+- \`options?: LibraryOptions\` - Library configuration options
+
+**Returns:** \`${capitalizedName}Library\` - Configured library instance
+
+**Example:**
+\`\`\`typescript
+const library = createLibrary({
+  enableCache: true,
+  maxCacheSize: 100,
+  plugins: [new CustomPlugin()]
+})
+
+const result = await library.execute({
+  action: 'process',
+  data: inputData
+})
+\`\`\`
+
+#### \`getLibraryInfo(library: ${capitalizedName}Library): LibraryInfo\`
+
+Get detailed information about a library instance.
+
+**Parameters:**
+- \`library: ${capitalizedName}Library\` - Library instance to inspect
+
+**Returns:** \`LibraryInfo\` - Library information object
+
+**Example:**
+\`\`\`typescript
+const library = createLibrary()
+const info = getLibraryInfo(library)
+
+console.log(\`Library: \${info.name} v\${info.version}\`)
+console.log(\`Features: \${info.features.join(', ')}\`)
+\`\`\`
+
+#### \`createPlugin(definition: PluginDefinition): LibraryPlugin\`
+
+Create a custom plugin for the library.
+
+**Parameters:**
+- \`definition: PluginDefinition\` - Plugin definition object
+
+**Returns:** \`LibraryPlugin\` - Plugin instance
+
+**Example:**
+\`\`\`typescript
+const customPlugin = createPlugin({
+  name: 'custom-processor',
+  version: '1.0.0',
+  execute: async (context, next) => {
+    console.log('Processing:', context.data)
+    const result = await next()
+    console.log('Processed:', result)
+    return result
+  }
+})
+
+const library = createLibrary({
+  plugins: [customPlugin]
+})
+\`\`\`
+
+### Types
+
+\`\`\`typescript
+interface LibraryOptions {
+  /** Enable caching for improved performance */
+  enableCache?: boolean
+  /** Maximum number of cached items */
+  maxCacheSize?: number
+  /** Plugins to register with the library */
+  plugins?: LibraryPlugin[]
+  /** Middleware functions */
+  middleware?: MiddlewareFunction[]
+  /** Library configuration */
+  config?: LibraryConfig
+}
+
+interface ${capitalizedName}Library {
+  /** Unique library instance ID */
+  readonly id: string
+  /** Library version */
+  readonly version: string
+  /** Execute library operation */
+  execute(context: ExecutionContext): Promise<ExecutionResult>
+  /** Register a plugin */
+  use(plugin: LibraryPlugin): void
+  /** Get library configuration */
+  getConfig(): LibraryConfig
+  /** Update library configuration */
+  updateConfig(config: Partial<LibraryConfig>): void
+}
+
+interface ExecutionContext {
+  /** Action to perform */
+  action: string
+  /** Input data */
+  data: unknown
+  /** Execution options */
+  options?: ExecutionOptions
+  /** Additional metadata */
+  metadata?: Record<string, unknown>
+}
+
+interface ExecutionResult {
+  /** Execution success status */
+  success: boolean
+  /** Result data */
+  data?: unknown
+  /** Error information */
+  error?: Error
+  /** Execution metrics */
+  metrics: {
+    duration: number
+    memory: number
+    operations: number
+  }
+}
+
+interface LibraryPlugin {
+  /** Plugin name */
+  name: string
+  /** Plugin version */
+  version: string
+  /** Plugin execution function */
+  execute(context: ExecutionContext, next: () => Promise<ExecutionResult>): Promise<ExecutionResult>
+}
+
+interface LibraryInfo {
+  /** Library name */
+  name: string
+  /** Library version */
+  version: string
+  /** Available features */
+  features: string[]
+  /** Plugin information */
+  plugins: Array<{ name: string; version: string }>
+  /** Configuration summary */
+  config: Record<string, unknown>
+}
+\`\`\``
+}
+%>

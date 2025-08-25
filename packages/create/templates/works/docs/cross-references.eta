@@ -1,0 +1,136 @@
+<%#
+/**
+ * Cross-reference template for linking related packages
+ * Provides Eta helpers for generating cross-reference links
+ */
+%>
+
+<%#
+/**
+ * Generate a link to another package in the monorepo
+ * @param {string} packageName - Name of the package to link to
+ * @param {string} [text] - Optional link text (defaults to package name)
+ * @returns {string} Markdown link to the package documentation
+ */
+%>
+<%
+function packageLink(packageName, text) {
+  const linkText = text || `@bfra.me/${packageName}`
+  return `[\`${linkText}\`](/works/packages/${packageName}/)`
+}
+%>
+
+<%#
+/**
+ * Generate a grid of related package cards
+ * @param {Array<{name: string, description: string, type?: string}>} packages - Array of package info
+ * @returns {string} MDX CardGrid with related packages
+ */
+%>
+<%
+function relatedPackagesGrid(packages) {
+  const cards = packages.map(pkg => {
+    const typeVariant = {
+      'config': 'note',
+      'tool': 'caution',
+      'utility': 'tip',
+      'library': 'success'
+    }[pkg.type || 'library'] || 'default'
+
+    return `  <Card title="@bfra.me/${pkg.name}" icon="document">
+    ${pkg.description}
+
+    <Badge text="${pkg.type || 'Library'}" variant="${typeVariant}" />
+
+    [View Documentation →](/works/packages/${pkg.name}/)
+  </Card>`
+  }).join('\n')
+
+  return `<CardGrid>
+${cards}
+</CardGrid>`
+}
+%>
+
+<%#
+/**
+ * Generate badges for package features and compatibility
+ * @param {Object} options - Package options from template variables
+ * @returns {string} MDX badges for package features
+ */
+%>
+<%
+function featureBadges(options) {
+  const badges = []
+
+  if (options.hasReact) badges.push('<Badge text="React" variant="success" />')
+  if (options.hasCLI) badges.push('<Badge text="CLI" variant="tip" />')
+  if (options.isTypeOnly) badges.push('<Badge text="Types Only" variant="note" />')
+
+  // Package type badge
+  const typeVariants = {
+    'utility': 'tip',
+    'config': 'note',
+    'tool': 'caution',
+    'library': 'success'
+  }
+  badges.unshift(`<Badge text="${options.packageType.charAt(0).toUpperCase() + options.packageType.slice(1)}" variant="${typeVariants[options.packageType] || 'success'}" />`)
+
+  // Version badge
+  badges.push(`<Badge text="v${options.version}" variant="note" />`)
+
+  return badges.join('\n')
+}
+%>
+
+<%#
+/**
+ * Common package links for the ecosystem
+ */
+%>
+<%
+const commonPackageLinks = {
+  create: packageLink('create', '@bfra.me/create - Package creation tool'),
+  eslintConfig: packageLink('eslint-config', '@bfra.me/eslint-config - ESLint configuration'),
+  prettierConfig: packageLink('prettier-config', '@bfra.me/prettier-config - Prettier configuration'),
+  tsconfig: packageLink('tsconfig', '@bfra.me/tsconfig - TypeScript configuration'),
+  semanticRelease: packageLink('semantic-release', '@bfra.me/semantic-release - Release automation')
+}
+%>
+
+<%#
+/**
+ * Generate related packages section based on package type
+ * @param {string} packageType - Type of the current package
+ * @returns {string} Formatted related packages section
+ */
+%>
+<%
+function getRelatedPackages(packageType) {
+  const related = {
+    config: [
+      { name: 'eslint-config', description: 'ESLint configuration with TypeScript support', type: 'config' },
+      { name: 'prettier-config', description: 'Prettier configuration with multiple line length options', type: 'config' },
+      { name: 'tsconfig', description: 'TypeScript configuration for libraries and applications', type: 'config' }
+    ],
+    tool: [
+      { name: 'create', description: 'Command-line utility for creating new packages', type: 'tool' },
+      { name: 'semantic-release', description: 'Automated versioning and release configuration', type: 'config' }
+    ],
+    utility: [
+      { name: 'create', description: 'Package creation utilities and templates', type: 'tool' }
+    ],
+    library: [
+      { name: 'create', description: 'Package creation utilities and templates', type: 'tool' },
+      { name: 'tsconfig', description: 'TypeScript configuration for libraries', type: 'config' }
+    ]
+  }
+
+  const packages = related[packageType] || []
+  if (packages.length === 0) return ''
+
+  return `## Related Packages
+
+${relatedPackagesGrid(packages)}`
+}
+%>

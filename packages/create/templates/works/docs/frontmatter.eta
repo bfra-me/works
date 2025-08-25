@@ -1,0 +1,155 @@
+<%#
+/**
+ * Frontmatter template helpers using Eta's date and string manipulation
+ * Provides consistent metadata generation for documentation files
+ */
+%>
+
+<%#
+/**
+ * Generate standard frontmatter for package documentation
+ * @param {Object} packageInfo - Package information from template variables
+ * @returns {string} YAML frontmatter block
+ */
+%>
+<%
+function generateFrontmatter(packageInfo) {
+  const currentDate = new Date().toISOString().split('T')[0]
+  const currentYear = new Date().getFullYear()
+
+  // Escape quotes in description
+  const escapedDescription = packageInfo.description.replace(/"/g, '\\"')
+
+  return `---
+title: '@bfra.me/${packageInfo.packageName}'
+description: "${escapedDescription}"
+keywords: [${packageInfo.keywords ? packageInfo.keywords.split(',').map(k => `"${k.trim()}"`).join(', ') : `"${packageInfo.packageType}", "typescript", "bfra.me"`}]
+author: "${packageInfo.author}"
+version: "${packageInfo.version}"
+license: "${packageInfo.license}"
+repository: "https://github.com/bfra-me/works"
+homepage: "https://bfra-me.github.io/works/packages/${packageInfo.packageName}/"
+publishDate: "${currentDate}"
+lastModified: "${currentDate}"
+category: "${packageInfo.packageType}"
+tags: ["${packageInfo.packageType}", "typescript", "monorepo", "bfra.me"]
+sidebar:
+  order: 10
+head:
+  - tag: "meta"
+    attrs:
+      property: "og:title"
+      content: "@bfra.me/${packageInfo.packageName}"
+  - tag: "meta"
+    attrs:
+      property: "og:description"
+      content: "${escapedDescription}"
+  - tag: "meta"
+    attrs:
+      property: "og:type"
+      content: "article"
+  - tag: "meta"
+    attrs:
+      property: "og:url"
+      content: "https://bfra-me.github.io/works/packages/${packageInfo.packageName}/"
+  - tag: "meta"
+    attrs:
+      name: "twitter:card"
+      content: "summary"
+  - tag: "meta"
+    attrs:
+      name: "twitter:title"
+      content: "@bfra.me/${packageInfo.packageName}"
+  - tag: "meta"
+    attrs:
+      name: "twitter:description"
+      content: "${escapedDescription}"
+  - tag: "link"
+    attrs:
+      rel: "canonical"
+      href: "https://bfra-me.github.io/works/packages/${packageInfo.packageName}/"
+---`
+}
+%>
+
+<%#
+/**
+ * Generate simplified frontmatter for internal templates
+ * @param {Object} packageInfo - Package information
+ * @returns {string} Minimal YAML frontmatter
+ */
+%>
+<%
+function generateSimpleFrontmatter(packageInfo) {
+  const escapedDescription = packageInfo.description.replace(/"/g, '\\"')
+
+  return `---
+title: '@bfra.me/${packageInfo.packageName}'
+description: "${escapedDescription}"
+---`
+}
+%>
+
+<%#
+/**
+ * Generate schema.org structured data for package documentation
+ * @param {Object} packageInfo - Package information
+ * @returns {string} JSON-LD structured data
+ */
+%>
+<%
+function generateStructuredData(packageInfo) {
+  const currentDate = new Date().toISOString()
+
+  return `<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareSourceCode",
+  "name": "@bfra.me/${packageInfo.packageName}",
+  "description": "${packageInfo.description.replace(/"/g, '\\"')}",
+  "url": "https://bfra-me.github.io/works/packages/${packageInfo.packageName}/",
+  "codeRepository": "https://github.com/bfra-me/works/tree/main/packages/${packageInfo.packageName}",
+  "license": "${packageInfo.license}",
+  "version": "${packageInfo.version}",
+  "author": {
+    "@type": "Person",
+    "name": "${packageInfo.author.split('<')[0].trim()}"
+  },
+  "programmingLanguage": "TypeScript",
+  "operatingSystem": "Cross-platform",
+  "applicationCategory": "DeveloperApplication",
+  "dateCreated": "${currentDate}",
+  "dateModified": "${currentDate}",
+  "downloadUrl": "https://www.npmjs.com/package/@bfra.me/${packageInfo.packageName}",
+  "installUrl": "https://www.npmjs.com/package/@bfra.me/${packageInfo.packageName}",
+  "keywords": [${packageInfo.keywords ? packageInfo.keywords.split(',').map(k => `"${k.trim()}"`).join(', ') : `"${packageInfo.packageType}", "typescript", "bfra.me"`}]
+}
+</script>`
+}
+%>
+
+<%#
+/**
+ * Generate Astro Starlight navigation metadata
+ * @param {string} packageName - Name of the package
+ * @param {string} packageType - Type of package
+ * @returns {Object} Navigation metadata object
+ */
+%>
+<%
+function generateNavigationMetadata(packageName, packageType) {
+  const typeOrder = {
+    'config': 1,
+    'utility': 2,
+    'tool': 3,
+    'library': 4
+  }
+
+  return {
+    label: packageName,
+    slug: `packages/${packageName}`,
+    order: typeOrder[packageType] || 5,
+    badge: packageType
+  }
+}
+%>

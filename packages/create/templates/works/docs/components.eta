@@ -1,0 +1,241 @@
+<%#
+/**
+ * Reusable badge and card component templates using Eta helper functions
+ * These templates provide consistent styling and structure across documentation
+ */
+%>
+
+<%#
+/**
+ * Package status badge based on version and stability
+ * @param {string} version - Package version
+ * @param {boolean} isStable - Whether the package is considered stable
+ * @returns {string} MDX Badge component
+ */
+%>
+<%
+function statusBadge(version, isStable = true) {
+  const majorVersion = parseInt(version.split('.')[0])
+
+  if (majorVersion === 0) {
+    return '<Badge text="Beta" variant="caution" />'
+  } else if (majorVersion >= 1 && isStable) {
+    return '<Badge text="Stable" variant="success" />'
+  } else {
+    return '<Badge text="Development" variant="note" />'
+  }
+}
+%>
+
+<%#
+/**
+ * Installation instruction card with multiple package managers
+ * @param {string} packageName - Name of the package
+ * @param {boolean} hasGlobal - Whether global installation is supported
+ * @returns {string} MDX Card with installation instructions
+ */
+%>
+<%
+function installationCard(packageName, hasGlobal = false) {
+  const globalSection = hasGlobal ? `
+
+### Global Installation
+
+<Tabs>
+  <TabItem label="pnpm">
+    \`\`\`bash
+    pnpm add -g @bfra.me/${packageName}
+    \`\`\`
+  </TabItem>
+  <TabItem label="npm">
+    \`\`\`bash
+    npm install -g @bfra.me/${packageName}
+    \`\`\`
+  </TabItem>
+  <TabItem label="yarn">
+    \`\`\`bash
+    yarn global add @bfra.me/${packageName}
+    \`\`\`
+  </TabItem>
+</Tabs>` : ''
+
+  return `<Card title="Installation" icon="laptop">
+
+### Package Installation
+
+<Tabs>
+  <TabItem label="pnpm">
+    \`\`\`bash
+    pnpm add @bfra.me/${packageName}
+    \`\`\`
+  </TabItem>
+  <TabItem label="npm">
+    \`\`\`bash
+    npm install @bfra.me/${packageName}
+    \`\`\`
+  </TabItem>
+  <TabItem label="yarn">
+    \`\`\`bash
+    yarn add @bfra.me/${packageName}
+    \`\`\`
+  </TabItem>
+  <TabItem label="bun">
+    \`\`\`bash
+    bun add @bfra.me/${packageName}
+    \`\`\`
+  </TabItem>
+</Tabs>${globalSection}
+
+</Card>`
+}
+%>
+
+<%#
+/**
+ * Feature highlight card grid for package capabilities
+ * @param {string} packageType - Type of package (utility, config, tool, library)
+ * @param {Object} options - Package options (hasReact, hasCLI, etc.)
+ * @returns {string} MDX CardGrid with feature cards
+ */
+%>
+<%
+function featureHighlights(packageType, options = {}) {
+  const features = {
+    utility: [
+      { title: 'Utility Functions', icon: 'seti:config', description: 'Provides essential utility functions for common development tasks.' },
+      { title: 'Type Safe', icon: 'approve-check', description: 'Full TypeScript support with comprehensive type definitions.' },
+      { title: 'Performance Optimized', icon: 'rocket', description: 'Lightweight and optimized for production use.' },
+      { title: 'Well Tested', icon: 'test-tube', description: 'Comprehensive test suite ensuring reliability.' }
+    ],
+    config: [
+      { title: 'Configuration Management', icon: 'setting', description: 'Streamlined configuration with sensible defaults and validation.' },
+      { title: 'Type Safe', icon: 'approve-check', description: 'Full TypeScript support with comprehensive type definitions.' },
+      { title: 'Validation', icon: 'approve-check', description: 'Built-in validation to catch configuration errors early.' },
+      { title: 'Flexible', icon: 'puzzle', description: 'Customizable options to fit your specific needs.' }
+    ],
+    tool: [
+      { title: 'Development Tool', icon: 'seti:config', description: 'Professional development tool with comprehensive features.' },
+      { title: 'Command Line', icon: 'laptop', description: options.hasCLI ? 'Interactive CLI with intuitive commands and options.' : 'Programmatic API for integration into your workflow.' },
+      { title: 'Automated', icon: 'rocket', description: 'Automates repetitive tasks to improve development efficiency.' },
+      { title: 'Configurable', icon: 'setting', description: 'Extensive configuration options for different use cases.' }
+    ],
+    library: [
+      { title: 'Library Components', icon: 'document', description: 'Reusable components and functions for building applications.' },
+      { title: 'Modular Design', icon: 'puzzle', description: 'Modular architecture allows importing only what you need.' },
+      { title: 'Framework Agnostic', icon: 'star', description: options.hasReact ? 'Optimized for React but works with any JavaScript framework.' : 'Works with any JavaScript framework or vanilla JavaScript.' },
+      { title: 'Production Ready', icon: 'approve-check', description: 'Battle-tested and ready for production environments.' }
+    ]
+  }
+
+  const packageFeatures = features[packageType] || features.library
+  const cards = packageFeatures.map(feature =>
+    `  <Card title="${feature.title}" icon="${feature.icon}">
+    ${feature.description}
+  </Card>`
+  ).join('\n')
+
+  return `<CardGrid>
+${cards}
+</CardGrid>`
+}
+%>
+
+<%#
+/**
+ * Quick start card with basic usage example
+ * @param {string} packageName - Name of the package
+ * @param {string} packageType - Type of package
+ * @param {Object} options - Package options
+ * @returns {string} MDX Card with quick start example
+ */
+%>
+<%
+function quickStartCard(packageName, packageType, options = {}) {
+  const examples = {
+    utility: `import {processData} from '@bfra.me/${packageName}'
+
+const result = processData('input')
+console.log(result.data)`,
+    config: `import {createConfig} from '@bfra.me/${packageName}'
+
+const config = createConfig({
+  // your options
+})`,
+    tool: options.hasCLI ?
+      `# CLI usage
+${packageName} --help
+
+# Programmatic usage
+import {runTool} from '@bfra.me/${packageName}'
+await runTool()` :
+      `import {runTool} from '@bfra.me/${packageName}'
+
+await runTool({
+  // tool options
+})`,
+    library: `import {createLibrary} from '@bfra.me/${packageName}'
+
+const lib = createLibrary()
+const result = await lib.execute()`
+  }
+
+  const example = examples[packageType] || examples.library
+  const language = options.hasCLI && packageType === 'tool' ? 'bash' : 'typescript'
+
+  return `<Card title="Quick Start" icon="rocket">
+
+\`\`\`${language}
+${example}
+\`\`\`
+
+</Card>`
+}
+%>
+
+<%#
+/**
+ * Compatibility matrix card showing Node.js and package manager support
+ * @param {string} nodeVersion - Minimum Node.js version
+ * @returns {string} MDX Card with compatibility information
+ */
+%>
+<%
+function compatibilityCard(nodeVersion = '>=18') {
+  return `<Card title="Compatibility" icon="approve-check">
+
+| Requirement | Supported |
+|-------------|-----------|
+| Node.js | ${nodeVersion} |
+| pnpm | ✅ |
+| npm | ✅ |
+| yarn | ✅ |
+| bun | ✅ |
+| TypeScript | ✅ |
+| ESM | ✅ |
+| CommonJS | ❌ |
+
+</Card>`
+}
+%>
+
+<%#
+/**
+ * Performance and bundle size card
+ * @param {string} packageName - Name of the package
+ * @returns {string} MDX Card with performance metrics
+ */
+%>
+<%
+function performanceCard(packageName) {
+  return `<Card title="Performance" icon="rocket">
+
+- **Bundle Size**: Optimized for minimal footprint
+- **Tree Shaking**: Full ESM support for optimal bundling
+- **Zero Dependencies**: No runtime dependencies for faster installs
+- **TypeScript**: Compile-time type checking for better performance
+
+[View bundle analysis →](https://bundlephobia.com/package/@bfra.me/${packageName})
+
+</Card>`
+}
+%>
