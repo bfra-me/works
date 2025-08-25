@@ -1,0 +1,21 @@
+<% if (it.hasReact) { -%>
+/**
+ * React components for @bfra.me/<%= it.packageName %>
+ *
+ * @module
+ * @author <%= it.author %>
+ * @since <%= it.version %>
+ * @created <%= it.currentDate %>
+ */
+
+// Core components
+export {<%= it.pascalCase(it.packageName) %>Component} from './<%= it.pascalCase(it.packageName) %>Component.js'
+export {<%= it.pascalCase(it.packageName) %>Provider} from './<%= it.pascalCase(it.packageName) %>Provider.js'
+
+// Hooks
+export {use<%= it.pascalCase(it.packageName) %>} from './hooks/use<%= it.pascalCase(it.packageName) %>.js'
+export {use<%= it.pascalCase(it.packageName) %>Config} from './hooks/use<%= it.pascalCase(it.packageName) %>Config.js'
+
+// Types
+export type * from './types.js'
+<% } -%>

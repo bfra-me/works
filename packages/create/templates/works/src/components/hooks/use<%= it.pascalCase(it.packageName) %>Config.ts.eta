@@ -1,0 +1,34 @@
+<% if (it.hasReact) { -%>
+import {use<%= it.pascalCase(it.packageName) %>Context} from '../<%= it.pascalCase(it.packageName) %>Provider.js'
+
+/**
+ * Hook to access and update <%= it.capitalizeFirst(it.packageName) %> configuration.
+ *
+ * @returns Configuration state and updater
+ *
+ * @example
+ * ```tsx
+ * function ConfigPanel() {
+ *   const {config, updateConfig} = use<%= it.pascalCase(it.packageName) %>Config()
+ *
+ *   return (
+ *     <div>
+ *       <h3>Configuration</h3>
+ *       <label>
+ *         <input
+ *           type="checkbox"
+ *           checked={config.debug || false}
+ *           onChange={(e) => updateConfig({ debug: e.target.checked })}
+ *         />
+ *         Debug Mode
+ *       </label>
+ *       <pre>{JSON.stringify(config, null, 2)}</pre>
+ *     </div>
+ *   )
+ * }
+ * ```
+ */
+export function use<%= it.pascalCase(it.packageName) %>Config() {
+  return use<%= it.pascalCase(it.packageName) %>Context()
+}
+<% } -%>

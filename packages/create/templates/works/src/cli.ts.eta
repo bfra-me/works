@@ -1,7 +1,12 @@
-<% if (it.hasCLI) { %>#!/usr/bin/env node
+<% if (it.hasCLI) { %><% if (it.hasCLI) { -%>
+#!/usr/bin/env node
 
 /**
  * CLI for @bfra.me/<%= it.packageName %>
+ *
+ * @author <%= it.author %>
+ * @since <%= it.version %>
+ * @created <%= it.currentDate %>
  */
 
 import {cac} from 'cac'
@@ -9,45 +14,259 @@ import {consola} from 'consola'
 import {readFileSync} from 'node:fs'
 import {dirname, join} from 'node:path'
 import {fileURLToPath} from 'node:url'
+import type {<%= it.pascalCase(it.packageName) %>CLIOptions} from './types.js'
 
-<% if (it.packageType === 'tool') { %>import {runTool, initTool} from './tool.js'<% } else if (it.packageType === 'library') { %>import {createLibrary, getLibraryInfo} from './lib.js'<% } else { %>import {processData} from './utils.js'<% } %>
+<% if (it.packageType === 'tool') { -%>
+import {run<%= it.pascalCase(it.packageName) %>Tool, validate<%= it.pascalCase(it.packageName) %>ToolOptions} from './tool.js'
+<% } else if (it.packageType === 'library') { -%>
+import {create<%= it.pascalCase(it.packageName) %>, get<%= it.pascalCase(it.packageName) %>Info} from './lib.js'
+<% } else if (it.packageType === 'utility') { -%>
+import {process<%= it.pascalCase(it.packageName) %>, validate<%= it.pascalCase(it.packageName) %>Input} from './utils.js'
+<% } else if (it.packageType === 'config') { -%>
+import {create<%= it.pascalCase(it.packageName) %>Config, validate<%= it.pascalCase(it.packageName) %>Config} from './config.js'
+<% } -%>
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const packageJson = JSON.parse(
-  readFileSync(join(__dirname, '../package.json'), 'utf8')
-)
 
-const cli = cac('<%= it.packageName %>')
+/**
+ * Reads package.json for version information.
+ */
+function getPackageInfo(): {name: string; version: string; description: string} {
+  try {
+    const packageJson = JSON.parse(
+      readFileSync(join(__dirname, '../package.json'), 'utf8')
+    )
+    return {
+      name: packageJson.name || '@bfra.me/<%= it.packageName %>',
+      version: packageJson.version || '<%= it.version %>',
+      description: packageJson.description || '<%= it.description %>'
+    }
+  } catch (error) {
+    consola.warn('Could not read package.json, using defaults')
+    return {
+      name: '@bfra.me/<%= it.packageName %>',
+      version: '<%= it.version %>',
+      description: '<%= it.description %>'
+    }
+  }
+}
 
-cli
-  .version(packageJson.version)
-  .help()
+/**
+ * Main CLI setup and command handling.
+ */
+async function main(): Promise<void> {
+  const pkg = getPackageInfo()
+  const cli = cac('<%= it.packageName %>')
 
-<% if (it.packageType === 'tool') { %>// Tool commands
-cli
-  .command('run', 'Run the tool')
-  .option('--config <path>', 'Configuration file path')
-  .action(async (options) => {
-    try {
-      const result = await runTool(options)
-      if (result.success) {
-        consola.success('Tool completed successfully')
-      } else {
-        consola.error('Tool failed:', result.error?.message)
+  // Global options
+  cli
+    .version(pkg.version)
+    .help()
+    .option('--verbose', 'Enable verbose output')
+    .option('--quiet', 'Suppress non-error output')
+
+<% if (it.packageType === 'tool') { -%>
+  // Tool-specific commands
+  cli
+    .command('run [input]', 'Run the <%= it.packageName %> tool')
+    .option('--input <path>', 'Input file or directory')
+    .option('--output <path>', 'Output file or directory')
+    .option('--dry-run', 'Show what would be done without making changes')
+    .option('--config <path>', 'Configuration file path')
+    .action(async (input: string | undefined, options: <%= it.pascalCase(it.packageName) %>CLIOptions) => {
+      try {
+        if (options.verbose) {
+          consola.info(`Running <%= it.packageName %> tool...`)
+        }
+
+        const toolOptions = {
+          input: input || options.input,
+          output: options.output,
+          dryRun: options.dryRun || false,
+          verbose: options.verbose || false
+        }
+
+        validate<%= it.pascalCase(it.packageName) %>ToolOptions(toolOptions)
+
+        const result = await run<%= it.pascalCase(it.packageName) %>Tool(toolOptions)
+
+        if (!options.quiet) {
+          consola.success(`Processed ${result.files.length} files in ${result.duration}ms`)
+
+          if (result.warnings.length > 0) {
+            consola.warn(`Warnings (${result.warnings.length}):`)
+            for (const warning of result.warnings) {
+              consola.warn(`  ${warning}`)
+            }
+          }
+        }
+
+        if (options.verbose) {
+          consola.info('Files processed:', result.files)
+        }
+
+      } catch (error) {
+        consola.error('Tool execution failed:', error)
         process.exit(1)
       }
-    } catch (error) {
-      consola.error('Error running tool:', error)
-      process.exit(1)
-    }
+    })
+
+<% } else if (it.packageType === 'library') { -%>
+  // Library-specific commands
+  cli
+    .command('info', 'Show library information')
+    .action(() => {
+      const info = get<%= it.pascalCase(it.packageName) %>Info()
+      consola.info(`${info.name} v${info.version}`)
+      consola.info(`Author: ${info.author}`)
+      consola.info(`Created: ${info.created}`)
+    })
+
+  cli
+    .command('init', 'Initialize a new <%= it.packageName %> instance')
+    .option('--debug', 'Enable debug mode')
+    .option('--config <path>', 'Configuration file path')
+    .action(async (options: <%= it.pascalCase(it.packageName) %>CLIOptions) => {
+      try {
+        if (options.verbose) {
+          consola.info(`Initializing <%= it.packageName %> library...`)
+        }
+
+        const instance = create<%= it.pascalCase(it.packageName) %>({
+          debug: options.debug || options.verbose || false
+        })
+
+        const result = await instance.init()
+
+        if (result.success) {
+          if (!options.quiet) {
+            consola.success('<%= it.capitalizeFirst(it.packageName) %> library initialized successfully')
+          }
+        } else {
+          consola.error('Initialization failed:', result.error.message)
+          process.exit(1)
+        }
+
+      } catch (error) {
+        consola.error('Library initialization failed:', error)
+        process.exit(1)
+      }
+    })
+
+<% } else if (it.packageType === 'utility') { -%>
+  // Utility-specific commands
+  cli
+    .command('process <input>', 'Process data using <%= it.packageName %> utilities')
+    .option('--output <path>', 'Output file path')
+    .option('--format <type>', 'Output format (json|text)')
+    .action(async (input: string, options: <%= it.pascalCase(it.packageName) %>CLIOptions) => {
+      try {
+        if (options.verbose) {
+          consola.info(`Processing data with <%= it.packageName %>...`)
+        }
+
+        // Read input (simplified example)
+        let inputData: unknown
+        try {
+          inputData = JSON.parse(input)
+        } catch {
+          inputData = input
+        }
+
+        validate<%= it.pascalCase(it.packageName) %>Input(inputData)
+
+        const result = await process<%= it.pascalCase(it.packageName) %>(inputData, {
+          verbose: options.verbose || false
+        })
+
+        if (result.success) {
+          if (options.output) {
+            // Write to file logic would go here
+            if (!options.quiet) {
+              consola.success(`Output written to ${options.output}`)
+            }
+          } else {
+            // Output to console
+            const formatted = options.format === 'json'
+              ? JSON.stringify(result.data, null, 2)
+              : String(result.data)
+            console.log(formatted)
+          }
+        } else {
+          consola.error('Processing failed:', result.error.message)
+          process.exit(1)
+        }
+
+      } catch (error) {
+        consola.error('Utility execution failed:', error)
+        process.exit(1)
+      }
+    })
+
+<% } else if (it.packageType === 'config') { -%>
+  // Config-specific commands
+  cli
+    .command('create [name]', 'Create a new configuration')
+    .option('--strict', 'Enable strict mode')
+    .option('--output <path>', 'Output configuration file path')
+    .action(async (name: string | undefined, options: <%= it.pascalCase(it.packageName) %>CLIOptions) => {
+      try {
+        if (options.verbose) {
+          consola.info(`Creating <%= it.packageName %> configuration...`)
+        }
+
+        const config = create<%= it.pascalCase(it.packageName) %>Config({
+          name: name || '<%= it.packageName %>-config',
+          strict: options.strict || false
+        })
+
+        validate<%= it.pascalCase(it.packageName) %>Config(config)
+
+        if (options.output) {
+          // Write config to file logic would go here
+          if (!options.quiet) {
+            consola.success(`Configuration written to ${options.output}`)
+          }
+        } else {
+          // Output to console
+          console.log(JSON.stringify(config, null, 2))
+        }
+
+      } catch (error) {
+        consola.error('Configuration creation failed:', error)
+        process.exit(1)
+      }
+    })
+
+<% } -%>
+
+  // Common commands
+  cli
+    .command('version', 'Show version information')
+    .action(() => {
+      console.log(pkg.version)
+    })
+
+  // Global error handling
+  process.on('uncaughtException', (error) => {
+    consola.error('Uncaught exception:', error)
+    process.exit(1)
   })
 
-cli
-  .command('init', 'Initialize the tool')
-  .action((options) => {
-    try {
-      const result = initTool(options)
-      if (result.success) {
+  process.on('unhandledRejection', (reason) => {
+    consola.error('Unhandled rejection:', reason)
+    process.exit(1)
+  })
+
+  // Parse CLI arguments
+  cli.parse()
+}
+
+// Run the CLI
+main().catch((error) => {
+  consola.error('CLI error:', error)
+  process.exit(1)
+})
         consola.success('Tool initialized successfully')
       } else {
         consola.error('Initialization failed:', result.error?.message)

@@ -1,0 +1,448 @@
+/**
+ * Error handling and validation utilities for @bfra.me/<%= it.packageName %>
+ *
+ * @module
+ * @author <%= it.author %>
+ * @since <%= it.version %>
+ * @created <%= it.currentDate %>
+ */
+
+/**
+ * Base error class for <%= it.capitalizeFirst(it.packageName) %> errors.
+ */
+export class <%= it.pascalCase(it.packageName) %>Error extends Error {
+  /** Error code for programmatic handling */
+  public readonly code: string
+  /** Additional context for debugging */
+  public readonly context?: Record<string, unknown>
+  /** Timestamp when error occurred */
+  public readonly timestamp: Date
+
+  constructor(
+    message: string,
+    code: string = '<%= it.packageName.toUpperCase() %>_ERROR',
+    context?: Record<string, unknown>
+  ) {
+    super(message)
+    this.name = '<%= it.pascalCase(it.packageName) %>Error'
+    this.code = code
+    this.context = context
+    this.timestamp = new Date()
+
+    // Ensure proper prototype chain for instanceof checks
+    Object.setPrototypeOf(this, <%= it.pascalCase(it.packageName) %>Error.prototype)
+  }
+
+  /**
+   * Creates a formatted error message with context.
+   */
+  getFormattedMessage(): string {
+    const parts = [
+      `[${this.code}]`,
+      this.message
+    ]
+
+    if (this.context) {
+      parts.push(`Context: ${JSON.stringify(this.context)}`)
+    }
+
+    return parts.join(' ')
+  }
+
+  /**
+   * Converts error to a JSON-serializable object.
+   */
+  toJSON(): Record<string, unknown> {
+    return {
+      name: this.name,
+      message: this.message,
+      code: this.code,
+      context: this.context,
+      timestamp: this.timestamp.toISOString(),
+      stack: this.stack
+    }
+  }
+}
+
+/**
+ * Validation error for input validation failures.
+ */
+export class <%= it.pascalCase(it.packageName) %>ValidationError extends <%= it.pascalCase(it.packageName) %>Error {
+  /** Field that failed validation */
+  public readonly field?: string
+  /** Expected value or format */
+  public readonly expected?: string
+  /** Actual value received */
+  public readonly received?: unknown
+
+  constructor(
+    message: string,
+    field?: string,
+    expected?: string,
+    received?: unknown
+  ) {
+    super(
+      message,
+      '<%= it.packageName.toUpperCase() %>_VALIDATION_ERROR',
+      { field, expected, received }
+    )
+    this.name = '<%= it.pascalCase(it.packageName) %>ValidationError'
+    this.field = field
+    this.expected = expected
+    this.received = received
+
+    Object.setPrototypeOf(this, <%= it.pascalCase(it.packageName) %>ValidationError.prototype)
+  }
+}
+
+/**
+ * Configuration error for setup and configuration issues.
+ */
+export class <%= it.pascalCase(it.packageName) %>ConfigurationError extends <%= it.pascalCase(it.packageName) %>Error {
+  /** Configuration key that caused the error */
+  public readonly configKey?: string
+
+  constructor(message: string, configKey?: string, context?: Record<string, unknown>) {
+    super(
+      message,
+      '<%= it.packageName.toUpperCase() %>_CONFIGURATION_ERROR',
+      { configKey, ...context }
+    )
+    this.name = '<%= it.pascalCase(it.packageName) %>ConfigurationError'
+    this.configKey = configKey
+
+    Object.setPrototypeOf(this, <%= it.pascalCase(it.packageName) %>ConfigurationError.prototype)
+  }
+}
+
+/**
+ * Operation error for runtime operation failures.
+ */
+export class <%= it.pascalCase(it.packageName) %>OperationError extends <%= it.pascalCase(it.packageName) %>Error {
+  /** Operation that failed */
+  public readonly operation?: string
+  /** Retry count when error occurred */
+  public readonly retryCount?: number
+
+  constructor(
+    message: string,
+    operation?: string,
+    retryCount?: number,
+    context?: Record<string, unknown>
+  ) {
+    super(
+      message,
+      '<%= it.packageName.toUpperCase() %>_OPERATION_ERROR',
+      { operation, retryCount, ...context }
+    )
+    this.name = '<%= it.pascalCase(it.packageName) %>OperationError'
+    this.operation = operation
+    this.retryCount = retryCount
+
+    Object.setPrototypeOf(this, <%= it.pascalCase(it.packageName) %>OperationError.prototype)
+  }
+}
+
+/**
+ * Type guard to check if an error is a <%= it.pascalCase(it.packageName) %>Error.
+ */
+export function is<%= it.pascalCase(it.packageName) %>Error(error: unknown): error is <%= it.pascalCase(it.packageName) %>Error {
+  return error instanceof <%= it.pascalCase(it.packageName) %>Error
+}
+
+/**
+ * Type guard to check if an error is a validation error.
+ */
+export function is<%= it.pascalCase(it.packageName) %>ValidationError(
+  error: unknown
+): error is <%= it.pascalCase(it.packageName) %>ValidationError {
+  return error instanceof <%= it.pascalCase(it.packageName) %>ValidationError
+}
+
+/**
+ * Type guard to check if an error is a configuration error.
+ */
+export function is<%= it.pascalCase(it.packageName) %>ConfigurationError(
+  error: unknown
+): error is <%= it.pascalCase(it.packageName) %>ConfigurationError {
+  return error instanceof <%= it.pascalCase(it.packageName) %>ConfigurationError
+}
+
+/**
+ * Type guard to check if an error is an operation error.
+ */
+export function is<%= it.pascalCase(it.packageName) %>OperationError(
+  error: unknown
+): error is <%= it.pascalCase(it.packageName) %>OperationError {
+  return error instanceof <%= it.pascalCase(it.packageName) %>OperationError
+}
+
+/**
+ * Error recovery strategies.
+ */
+export type <%= it.pascalCase(it.packageName) %>ErrorRecoveryStrategy =
+  | 'retry'
+  | 'fallback'
+  | 'abort'
+  | 'ignore'
+
+/**
+ * Error recovery options.
+ */
+export interface <%= it.pascalCase(it.packageName) %>ErrorRecoveryOptions {
+  /** Recovery strategy to use */
+  strategy: <%= it.pascalCase(it.packageName) %>ErrorRecoveryStrategy
+  /** Maximum retry attempts */
+  maxRetries?: number
+  /** Delay between retries in milliseconds */
+  retryDelay?: number
+  /** Fallback value to use */
+  fallbackValue?: unknown
+  /** Custom recovery function */
+  customRecovery?: (error: Error) => Promise<unknown>
+}
+
+/**
+ * Handles errors with recovery strategies.
+ *
+ * @param error - The error to handle
+ * @param options - Recovery options
+ * @returns Recovery result or re-throws error
+ */
+export async function handle<%= it.pascalCase(it.packageName) %>Error(
+  error: Error,
+  options: <%= it.pascalCase(it.packageName) %>ErrorRecoveryOptions
+): Promise<unknown> {
+  const { strategy, maxRetries = 3, retryDelay = 1000, fallbackValue } = options
+
+  switch (strategy) {
+    case 'retry':
+      if (is<%= it.pascalCase(it.packageName) %>OperationError(error) &&
+          error.retryCount !== undefined &&
+          error.retryCount < maxRetries) {
+        await new Promise(resolve => setTimeout(resolve, retryDelay))
+        throw new <%= it.pascalCase(it.packageName) %>OperationError(
+          error.message,
+          error.operation,
+          (error.retryCount || 0) + 1,
+          error.context
+        )
+      }
+      throw error
+
+    case 'fallback':
+      return fallbackValue
+
+    case 'abort':
+      throw error
+
+    case 'ignore':
+      return null
+
+    default:
+      if (options.customRecovery) {
+        return await options.customRecovery(error)
+      }
+      throw error
+  }
+}
+
+/**
+ * Validation utilities for common patterns.
+ */
+export const <%= it.camelCase(it.packageName) %>Validators = {
+  /**
+   * Validates that a value is not null or undefined.
+   */
+  required<T>(value: T | null | undefined, fieldName: string): T {
+    if (value === null || value === undefined) {
+      throw new <%= it.pascalCase(it.packageName) %>ValidationError(
+        `${fieldName} is required`,
+        fieldName,
+        'non-null value',
+        value
+      )
+    }
+    return value
+  },
+
+  /**
+   * Validates that a value is a string.
+   */
+  string(value: unknown, fieldName: string): string {
+    if (typeof value !== 'string') {
+      throw new <%= it.pascalCase(it.packageName) %>ValidationError(
+        `${fieldName} must be a string`,
+        fieldName,
+        'string',
+        typeof value
+      )
+    }
+    return value
+  },
+
+  /**
+   * Validates that a value is a number.
+   */
+  number(value: unknown, fieldName: string): number {
+    if (typeof value !== 'number' || isNaN(value)) {
+      throw new <%= it.pascalCase(it.packageName) %>ValidationError(
+        `${fieldName} must be a valid number`,
+        fieldName,
+        'number',
+        typeof value
+      )
+    }
+    return value
+  },
+
+  /**
+   * Validates that a value is a boolean.
+   */
+  boolean(value: unknown, fieldName: string): boolean {
+    if (typeof value !== 'boolean') {
+      throw new <%= it.pascalCase(it.packageName) %>ValidationError(
+        `${fieldName} must be a boolean`,
+        fieldName,
+        'boolean',
+        typeof value
+      )
+    }
+    return value
+  },
+
+  /**
+   * Validates that a value is an array.
+   */
+  array<T>(value: unknown, fieldName: string): T[] {
+    if (!Array.isArray(value)) {
+      throw new <%= it.pascalCase(it.packageName) %>ValidationError(
+        `${fieldName} must be an array`,
+        fieldName,
+        'array',
+        typeof value
+      )
+    }
+    return value as T[]
+  },
+
+  /**
+   * Validates that a value is an object.
+   */
+  object(value: unknown, fieldName: string): Record<string, unknown> {
+    if (typeof value !== 'object' || value === null || Array.isArray(value)) {
+      throw new <%= it.pascalCase(it.packageName) %>ValidationError(
+        `${fieldName} must be an object`,
+        fieldName,
+        'object',
+        typeof value
+      )
+    }
+    return value as Record<string, unknown>
+  },
+
+  /**
+   * Validates that a string matches a pattern.
+   */
+  pattern(value: string, pattern: RegExp, fieldName: string): string {
+    if (!pattern.test(value)) {
+      throw new <%= it.pascalCase(it.packageName) %>ValidationError(
+        `${fieldName} does not match required pattern`,
+        fieldName,
+        pattern.source,
+        value
+      )
+    }
+    return value
+  },
+
+  /**
+   * Validates that a number is within a range.
+   */
+  range(value: number, min: number, max: number, fieldName: string): number {
+    if (value < min || value > max) {
+      throw new <%= it.pascalCase(it.packageName) %>ValidationError(
+        `${fieldName} must be between ${min} and ${max}`,
+        fieldName,
+        `${min} <= value <= ${max}`,
+        value
+      )
+    }
+    return value
+  },
+
+  /**
+   * Validates that a value is one of the allowed values.
+   */
+  oneOf<T>(value: T, allowedValues: readonly T[], fieldName: string): T {
+    if (!allowedValues.includes(value)) {
+      throw new <%= it.pascalCase(it.packageName) %>ValidationError(
+        `${fieldName} must be one of: ${allowedValues.join(', ')}`,
+        fieldName,
+        allowedValues.join(' | '),
+        value
+      )
+    }
+    return value
+  }
+}
+
+/**
+ * Error boundary utility for catching and handling errors in a consistent way.
+ *
+ * @param fn - Function to execute
+ * @param recoveryOptions - Error recovery options
+ * @returns Result with error handling
+ */
+export async function withErrorBoundary<T>(
+  fn: () => Promise<T>,
+  recoveryOptions?: <%= it.pascalCase(it.packageName) %>ErrorRecoveryOptions
+): Promise<{ success: true; data: T } | { success: false; error: Error }> {
+  try {
+    const data = await fn()
+    return { success: true, data }
+  } catch (error) {
+    const err = error instanceof Error ? error : new Error(String(error))
+
+    if (recoveryOptions) {
+      try {
+        const recoveredData = await handle<%= it.pascalCase(it.packageName) %>Error(err, recoveryOptions)
+        return { success: true, data: recoveredData as T }
+      } catch (recoveryError) {
+        return {
+          success: false,
+          error: recoveryError instanceof Error ? recoveryError : new Error(String(recoveryError))
+        }
+      }
+    }
+
+    return { success: false, error: err }
+  }
+}
+
+/**
+ * Debug utility to log errors with formatted output.
+ *
+ * @param error - Error to log
+ * @param context - Additional context for debugging
+ */
+export function debug<%= it.pascalCase(it.packageName) %>Error(
+  error: Error,
+  context?: Record<string, unknown>
+): void {
+  if (is<%= it.pascalCase(it.packageName) %>Error(error)) {
+    console.error('[<%= it.packageName.toUpperCase() %>]', error.getFormattedMessage())
+    if (context) {
+      console.error('[<%= it.packageName.toUpperCase() %>] Additional context:', context)
+    }
+  } else {
+    console.error('[<%= it.packageName.toUpperCase() %>] Unexpected error:', error.message)
+    if (context) {
+      console.error('[<%= it.packageName.toUpperCase() %>] Context:', context)
+    }
+  }
+
+  if (error.stack) {
+    console.error('[<%= it.packageName.toUpperCase() %>] Stack trace:', error.stack)
+  }
+}

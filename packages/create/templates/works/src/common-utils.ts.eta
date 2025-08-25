@@ -1,0 +1,593 @@
+/**
+ * Common utilities and helpers for @bfra.me/<%= it.packageName %>
+ *
+ * This module provides shared utility functions that can be used across
+ * different package types and components within <%= it.capitalizeFirst(it.packageName) %>.
+ *
+ * @module
+ * @author <%= it.author %>
+ * @since <%= it.version %>
+ * @created <%= it.currentDate %>
+ */
+
+/**
+ * Package-specific constants for <%= it.capitalizeFirst(it.packageName) %>.
+ */
+export const <%= it.camelCase(it.packageName) %>Constants = {
+  /** Package name */
+  PACKAGE_NAME: '<%= it.packageScope %>/<%= it.packageName %>',
+  /** Package version */
+  VERSION: '<%= it.version %>',
+  /** Package author */
+  AUTHOR: '<%= it.author %>',
+  /** Creation date */
+  CREATED: '<%= it.currentDate %>',
+  /** Package type */
+  TYPE: '<%= it.packageType %>',
+  /** Default configuration key */
+  CONFIG_KEY: '<%= it.packageName %>',
+  /** Environment variable prefix */
+  ENV_PREFIX: '<%= it.packageName.toUpperCase().replace(/-/g, '_') %>_',
+  /** Error code prefix */
+  ERROR_PREFIX: '<%= it.packageName.toUpperCase().replace(/-/g, '_') %>',
+<% if (it.hasReact) { -%>
+  /** React component display name prefix */
+  COMPONENT_PREFIX: '<%= it.pascalCase(it.packageName) %>',
+<% } -%>
+<% if (it.hasCLI) { -%>
+  /** CLI command name */
+  CLI_NAME: '<%= it.packageName %>',
+<% } -%>
+} as const
+
+/**
+ * String manipulation utilities for <%= it.capitalizeFirst(it.packageName) %>.
+ */
+export const <%= it.camelCase(it.packageName) %>StringUtils = {
+  /**
+   * Converts a string to camelCase using the same logic as the Eta helper.
+   *
+   * @param str - String to convert
+   * @returns camelCase string
+   *
+   * @example
+   * ```typescript
+   * <%= it.camelCase(it.packageName) %>StringUtils.toCamelCase('hello-world') // 'helloWorld'
+   * <%= it.camelCase(it.packageName) %>StringUtils.toCamelCase('hello_world') // 'helloWorld'
+   * ```
+   */
+  toCamelCase(str: string): string {
+    return str.replace(/[-_]([a-z])/g, (match, letter) => letter.toUpperCase())
+  },
+
+  /**
+   * Converts a string to PascalCase using the same logic as the Eta helper.
+   *
+   * @param str - String to convert
+   * @returns PascalCase string
+   *
+   * @example
+   * ```typescript
+   * <%= it.camelCase(it.packageName) %>StringUtils.toPascalCase('hello-world') // 'HelloWorld'
+   * <%= it.camelCase(it.packageName) %>StringUtils.toPascalCase('hello_world') // 'HelloWorld'
+   * ```
+   */
+  toPascalCase(str: string): string {
+    return str
+      .split(/[-_]/)
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join('')
+  },
+
+  /**
+   * Converts a string to kebab-case.
+   *
+   * @param str - String to convert
+   * @returns kebab-case string
+   *
+   * @example
+   * ```typescript
+   * <%= it.camelCase(it.packageName) %>StringUtils.toKebabCase('helloWorld') // 'hello-world'
+   * <%= it.camelCase(it.packageName) %>StringUtils.toKebabCase('HelloWorld') // 'hello-world'
+   * ```
+   */
+  toKebabCase(str: string): string {
+    return str
+      .replace(/([a-z])([A-Z])/g, '$1-$2')
+      .toLowerCase()
+  },
+
+  /**
+   * Converts a string to snake_case.
+   *
+   * @param str - String to convert
+   * @returns snake_case string
+   *
+   * @example
+   * ```typescript
+   * <%= it.camelCase(it.packageName) %>StringUtils.toSnakeCase('helloWorld') // 'hello_world'
+   * <%= it.camelCase(it.packageName) %>StringUtils.toSnakeCase('HelloWorld') // 'hello_world'
+   * ```
+   */
+  toSnakeCase(str: string): string {
+    return str
+      .replace(/([a-z])([A-Z])/g, '$1_$2')
+      .toLowerCase()
+  },
+
+  /**
+   * Capitalizes the first letter of a string.
+   *
+   * @param str - String to capitalize
+   * @returns String with first letter capitalized
+   *
+   * @example
+   * ```typescript
+   * <%= it.camelCase(it.packageName) %>StringUtils.capitalizeFirst('hello') // 'Hello'
+   * ```
+   */
+  capitalizeFirst(str: string): string {
+    return str.charAt(0).toUpperCase() + str.slice(1)
+  },
+
+  /**
+   * Generates a safe identifier name from a string.
+   *
+   * @param str - String to convert
+   * @returns Safe identifier
+   *
+   * @example
+   * ```typescript
+   * <%= it.camelCase(it.packageName) %>StringUtils.toSafeIdentifier('my-package') // 'myPackage'
+   * <%= it.camelCase(it.packageName) %>StringUtils.toSafeIdentifier('123-invalid') // '_123Invalid'
+   * ```
+   */
+  toSafeIdentifier(str: string): string {
+    // Remove invalid characters and convert to camelCase
+    const cleaned = str.replace(/[^a-zA-Z0-9_$]/g, '-')
+    const camelCased = this.toCamelCase(cleaned)
+
+    // Ensure it starts with a letter or underscore
+    return /^[a-zA-Z_$]/.test(camelCased) ? camelCased : `_${camelCased}`
+  }
+}
+
+/**
+ * Object manipulation utilities for <%= it.capitalizeFirst(it.packageName) %>.
+ */
+export const <%= it.camelCase(it.packageName) %>ObjectUtils = {
+  /**
+   * Deep clones an object.
+   *
+   * @param obj - Object to clone
+   * @returns Deep cloned object
+   *
+   * @example
+   * ```typescript
+   * const original = { a: { b: 1 } }
+   * const cloned = <%= it.camelCase(it.packageName) %>ObjectUtils.deepClone(original)
+   * cloned.a.b = 2
+   * console.log(original.a.b) // 1 (unchanged)
+   * ```
+   */
+  deepClone<T>(obj: T): T {
+    if (obj === null || typeof obj !== 'object') {
+      return obj
+    }
+
+    if (obj instanceof Date) {
+      return new Date(obj.getTime()) as unknown as T
+    }
+
+    if (obj instanceof Array) {
+      return obj.map(item => this.deepClone(item)) as unknown as T
+    }
+
+    if (typeof obj === 'object') {
+      const cloned = {} as T
+      for (const key in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, key)) {
+          cloned[key] = this.deepClone(obj[key])
+        }
+      }
+      return cloned
+    }
+
+    return obj
+  },
+
+  /**
+   * Deep merges multiple objects.
+   *
+   * @param target - Target object
+   * @param sources - Source objects to merge
+   * @returns Merged object
+   *
+   * @example
+   * ```typescript
+   * const result = <%= it.camelCase(it.packageName) %>ObjectUtils.deepMerge(
+   *   { a: { b: 1 } },
+   *   { a: { c: 2 } },
+   *   { a: { d: 3 } }
+   * )
+   * // Result: { a: { b: 1, c: 2, d: 3 } }
+   * ```
+   */
+  deepMerge<T extends Record<string, any>>(target: T, ...sources: Partial<T>[]): T {
+    const result = this.deepClone(target)
+
+    for (const source of sources) {
+      if (source && typeof source === 'object') {
+        for (const key in source) {
+          if (Object.prototype.hasOwnProperty.call(source, key)) {
+            const sourceValue = source[key]
+            const targetValue = result[key]
+
+            if (
+              sourceValue &&
+              typeof sourceValue === 'object' &&
+              !Array.isArray(sourceValue) &&
+              targetValue &&
+              typeof targetValue === 'object' &&
+              !Array.isArray(targetValue)
+            ) {
+              result[key] = this.deepMerge(targetValue, sourceValue)
+            } else {
+              result[key] = sourceValue
+            }
+          }
+        }
+      }
+    }
+
+    return result
+  },
+
+  /**
+   * Picks specific keys from an object.
+   *
+   * @param obj - Source object
+   * @param keys - Keys to pick
+   * @returns Object with only picked keys
+   *
+   * @example
+   * ```typescript
+   * const obj = { a: 1, b: 2, c: 3 }
+   * const picked = <%= it.camelCase(it.packageName) %>ObjectUtils.pick(obj, ['a', 'c'])
+   * // Result: { a: 1, c: 3 }
+   * ```
+   */
+  pick<T extends Record<string, any>, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
+    const result = {} as Pick<T, K>
+    for (const key of keys) {
+      if (key in obj) {
+        result[key] = obj[key]
+      }
+    }
+    return result
+  },
+
+  /**
+   * Omits specific keys from an object.
+   *
+   * @param obj - Source object
+   * @param keys - Keys to omit
+   * @returns Object without omitted keys
+   *
+   * @example
+   * ```typescript
+   * const obj = { a: 1, b: 2, c: 3 }
+   * const omitted = <%= it.camelCase(it.packageName) %>ObjectUtils.omit(obj, ['b'])
+   * // Result: { a: 1, c: 3 }
+   * ```
+   */
+  omit<T extends Record<string, any>, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
+    const result = {} as Omit<T, K>
+    for (const key in obj) {
+      if (!keys.includes(key as any)) {
+        ;(result as any)[key] = obj[key]
+      }
+    }
+    return result
+  }
+}
+
+/**
+ * Array manipulation utilities for <%= it.capitalizeFirst(it.packageName) %>.
+ */
+export const <%= it.camelCase(it.packageName) %>ArrayUtils = {
+  /**
+   * Removes duplicate items from an array.
+   *
+   * @param array - Array to deduplicate
+   * @param keyFn - Optional key function for complex objects
+   * @returns Array without duplicates
+   *
+   * @example
+   * ```typescript
+   * const numbers = [1, 2, 2, 3, 3, 3]
+   * const unique = <%= it.camelCase(it.packageName) %>ArrayUtils.unique(numbers)
+   * // Result: [1, 2, 3]
+   *
+   * const objects = [{ id: 1 }, { id: 2 }, { id: 1 }]
+   * const uniqueObjects = <%= it.camelCase(it.packageName) %>ArrayUtils.unique(objects, obj => obj.id)
+   * // Result: [{ id: 1 }, { id: 2 }]
+   * ```
+   */
+  unique<T>(array: T[], keyFn?: (item: T) => any): T[] {
+    if (!keyFn) {
+      return [...new Set(array)]
+    }
+
+    const seen = new Set()
+    return array.filter(item => {
+      const key = keyFn(item)
+      if (seen.has(key)) {
+        return false
+      }
+      seen.add(key)
+      return true
+    })
+  },
+
+  /**
+   * Groups array items by a key function.
+   *
+   * @param array - Array to group
+   * @param keyFn - Function to extract grouping key
+   * @returns Object with grouped items
+   *
+   * @example
+   * ```typescript
+   * const items = [
+   *   { type: 'fruit', name: 'apple' },
+   *   { type: 'fruit', name: 'banana' },
+   *   { type: 'vegetable', name: 'carrot' }
+   * ]
+   * const grouped = <%= it.camelCase(it.packageName) %>ArrayUtils.groupBy(items, item => item.type)
+   * // Result: {
+   * //   fruit: [{ type: 'fruit', name: 'apple' }, { type: 'fruit', name: 'banana' }],
+   * //   vegetable: [{ type: 'vegetable', name: 'carrot' }]
+   * // }
+   * ```
+   */
+  groupBy<T, K extends string | number | symbol>(
+    array: T[],
+    keyFn: (item: T) => K
+  ): Record<K, T[]> {
+    const result = {} as Record<K, T[]>
+
+    for (const item of array) {
+      const key = keyFn(item)
+      if (!result[key]) {
+        result[key] = []
+      }
+      result[key].push(item)
+    }
+
+    return result
+  },
+
+  /**
+   * Chunks an array into smaller arrays of specified size.
+   *
+   * @param array - Array to chunk
+   * @param size - Size of each chunk
+   * @returns Array of chunks
+   *
+   * @example
+   * ```typescript
+   * const numbers = [1, 2, 3, 4, 5, 6, 7]
+   * const chunks = <%= it.camelCase(it.packageName) %>ArrayUtils.chunk(numbers, 3)
+   * // Result: [[1, 2, 3], [4, 5, 6], [7]]
+   * ```
+   */
+  chunk<T>(array: T[], size: number): T[][] {
+    if (size <= 0) {
+      throw new Error('Chunk size must be greater than 0')
+    }
+
+    const chunks: T[][] = []
+    for (let i = 0; i < array.length; i += size) {
+      chunks.push(array.slice(i, i + size))
+    }
+    return chunks
+  }
+}
+
+/**
+ * Environment and configuration utilities for <%= it.capitalizeFirst(it.packageName) %>.
+ */
+export const <%= it.camelCase(it.packageName) %>EnvUtils = {
+  /**
+   * Gets an environment variable with the package prefix.
+   *
+   * @param key - Environment variable key (without prefix)
+   * @param defaultValue - Default value if not found
+   * @returns Environment variable value
+   *
+   * @example
+   * ```typescript
+   * // For environment variable <%= it.camelCase(it.packageName) %>Constants.ENV_PREFIX %>DEBUG=true
+   * const debug = <%= it.camelCase(it.packageName) %>EnvUtils.get('DEBUG', 'false')
+   * // Result: 'true'
+   * ```
+   */
+  get(key: string, defaultValue?: string): string | undefined {
+    const fullKey = `${<%= it.camelCase(it.packageName) %>Constants.ENV_PREFIX}${key}`
+    return process.env[fullKey] ?? defaultValue
+  },
+
+  /**
+   * Gets an environment variable as a boolean.
+   *
+   * @param key - Environment variable key (without prefix)
+   * @param defaultValue - Default boolean value
+   * @returns Boolean value
+   *
+   * @example
+   * ```typescript
+   * const debug = <%= it.camelCase(it.packageName) %>EnvUtils.getBoolean('DEBUG', false)
+   * ```
+   */
+  getBoolean(key: string, defaultValue: boolean = false): boolean {
+    const value = this.get(key)
+    if (value === undefined) return defaultValue
+
+    const lowercased = value.toLowerCase()
+    return lowercased === 'true' || lowercased === '1' || lowercased === 'yes'
+  },
+
+  /**
+   * Gets an environment variable as a number.
+   *
+   * @param key - Environment variable key (without prefix)
+   * @param defaultValue - Default number value
+   * @returns Number value
+   *
+   * @example
+   * ```typescript
+   * const port = <%= it.camelCase(it.packageName) %>EnvUtils.getNumber('PORT', 3000)
+   * ```
+   */
+  getNumber(key: string, defaultValue: number = 0): number {
+    const value = this.get(key)
+    if (value === undefined) return defaultValue
+
+    const parsed = parseInt(value, 10)
+    return isNaN(parsed) ? defaultValue : parsed
+  },
+
+  /**
+   * Gets all environment variables with the package prefix.
+   *
+   * @returns Object with all prefixed environment variables
+   *
+   * @example
+   * ```typescript
+   * const <%= it.camelCase(it.packageName) %>Env = <%= it.camelCase(it.packageName) %>EnvUtils.getAll()
+   * ```
+   */
+  getAll(): Record<string, string> {
+    const prefix = <%= it.camelCase(it.packageName) %>Constants.ENV_PREFIX
+    const result: Record<string, string> = {}
+
+    for (const [key, value] of Object.entries(process.env)) {
+      if (key.startsWith(prefix) && value !== undefined) {
+        const strippedKey = key.substring(prefix.length)
+        result[strippedKey] = value
+      }
+    }
+
+    return result
+  }
+}
+
+/**
+ * Performance and timing utilities for <%= it.capitalizeFirst(it.packageName) %>.
+ */
+export const <%= it.camelCase(it.packageName) %>PerfUtils = {
+  /**
+   * Measures execution time of a function.
+   *
+   * @param fn - Function to measure
+   * @param label - Optional label for logging
+   * @returns Object with result and duration
+   *
+   * @example
+   * ```typescript
+   * const measured = await <%= it.camelCase(it.packageName) %>PerfUtils.time(
+   *   async () => await someExpensiveOperation(),
+   *   'expensive-operation'
+   * )
+   * console.log(`Operation took ${measured.duration}ms`)
+   * ```
+   */
+  async time<T>(
+    fn: () => Promise<T> | T,
+    label?: string
+  ): Promise<{ result: T; duration: number }> {
+    const start = performance.now()
+
+    try {
+      const result = await fn()
+      const duration = performance.now() - start
+
+      if (label) {
+        console.log(`[<%= it.packageName %>] ${label}: ${duration.toFixed(2)}ms`)
+      }
+
+      return { result, duration }
+    } catch (error) {
+      const duration = performance.now() - start
+
+      if (label) {
+        console.error(`[<%= it.packageName %>] ${label} failed after ${duration.toFixed(2)}ms`)
+      }
+
+      throw error
+    }
+  },
+
+  /**
+   * Creates a debounced version of a function.
+   *
+   * @param fn - Function to debounce
+   * @param delay - Delay in milliseconds
+   * @returns Debounced function
+   *
+   * @example
+   * ```typescript
+   * const debouncedSave = <%= it.camelCase(it.packageName) %>PerfUtils.debounce(
+   *   () => saveToDatabase(),
+   *   1000
+   * )
+   * ```
+   */
+  debounce<T extends (...args: any[]) => any>(
+    fn: T,
+    delay: number
+  ): (...args: Parameters<T>) => void {
+    let timeoutId: NodeJS.Timeout | undefined
+
+    return (...args: Parameters<T>) => {
+      if (timeoutId) {
+        clearTimeout(timeoutId)
+      }
+
+      timeoutId = setTimeout(() => {
+        fn(...args)
+      }, delay)
+    }
+  },
+
+  /**
+   * Creates a throttled version of a function.
+   *
+   * @param fn - Function to throttle
+   * @param limit - Time limit in milliseconds
+   * @returns Throttled function
+   *
+   * @example
+   * ```typescript
+   * const throttledUpdate = <%= it.camelCase(it.packageName) %>PerfUtils.throttle(
+   *   () => updateUI(),
+   *   100
+   * )
+   * ```
+   */
+  throttle<T extends (...args: any[]) => any>(
+    fn: T,
+    limit: number
+  ): (...args: Parameters<T>) => void {
+    let inThrottle: boolean = false
+
+    return (...args: Parameters<T>) => {
+      if (!inThrottle) {
+        fn(...args)
+        inThrottle = true
+        setTimeout(() => inThrottle = false, limit)
+      }
+    }
+  }
+}

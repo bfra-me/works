@@ -1,33 +1,96 @@
-<% if (it.packageType === 'config') { %>import type {ConfigOptions, ResolvedConfig} from './types.js'
+<% if (it.packageType === 'config') { -%>
+import type {<%= it.pascalCase(it.packageName) %>Config, Resolved<%= it.pascalCase(it.packageName) %>Config} from './types.js'
 
 /**
- * Default configuration options
+ * Default configuration options for <%= it.capitalizeFirst(it.packageName) %>
  */
-const defaultConfig: ConfigOptions = {
-  // Add default configuration here
+const default<%= it.pascalCase(it.packageName) %>Config: <%= it.pascalCase(it.packageName) %>Config = {
+  name: '<%= it.packageName %>',
+  strict: false,
+  // Add your default configuration properties here
 }
 
 /**
- * Create configuration with defaults
- * 
- * @param options - Configuration options
- * @returns Resolved configuration
+ * Creates a resolved configuration with defaults applied.
+ *
+ * @param options - Configuration options to merge with defaults
+ * @returns Fully resolved configuration object
+ *
+ * @example
+ * ```typescript
+ * const config = create<%= it.pascalCase(it.packageName) %>Config({
+ *   strict: true,
+ *   customOption: 'value'
+ * })
+ * console.log(config.resolved) // true
+ * ```
  */
-export function createConfig(options: ConfigOptions = {}): ResolvedConfig {
-  return {
-    ...defaultConfig,
+export function create<%= it.pascalCase(it.packageName) %>Config(
+  options: <%= it.pascalCase(it.packageName) %>Config = {}
+): Resolved<%= it.pascalCase(it.packageName) %>Config {
+  const resolvedConfig = {
+    ...default<%= it.pascalCase(it.packageName) %>Config,
     ...options,
-    resolved: true
+    resolved: true as const,
+    resolvedAt: new Date()
   }
+
+  // Validate the resolved configuration
+  validate<%= it.pascalCase(it.packageName) %>Config(resolvedConfig)
+
+  return resolvedConfig
 }
 
 /**
- * Validate configuration options
- * 
+ * Validates configuration options for <%= it.capitalizeFirst(it.packageName) %>.
+ *
  * @param config - Configuration to validate
- * @returns True if valid, false otherwise
+ * @returns True if valid
+ * @throws Error if configuration is invalid
  */
-export function validateConfig(config: ConfigOptions): boolean {
-  // Add validation logic here
-  return typeof config === 'object' && config !== null
-}<% } %>
+export function validate<%= it.pascalCase(it.packageName) %>Config(
+  config: <%= it.pascalCase(it.packageName) %>Config
+): config is <%= it.pascalCase(it.packageName) %>Config {
+  if (typeof config !== 'object' || config === null) {
+    throw new Error('<%= it.capitalizeFirst(it.packageName) %> configuration must be an object')
+  }
+
+  if (config.name !== undefined && typeof config.name !== 'string') {
+    throw new Error('<%= it.capitalizeFirst(it.packageName) %> configuration name must be a string')
+  }
+
+  if (config.strict !== undefined && typeof config.strict !== 'boolean') {
+    throw new Error('<%= it.capitalizeFirst(it.packageName) %> configuration strict must be a boolean')
+  }
+
+  // Add additional validation logic here
+
+  return true
+}
+
+/**
+ * Merges multiple configuration objects with proper precedence.
+ *
+ * @param configs - Configuration objects to merge (later ones take precedence)
+ * @returns Merged configuration
+ */
+export function merge<%= it.pascalCase(it.packageName) %>Configs(
+  ...configs: <%= it.pascalCase(it.packageName) %>Config[]
+): <%= it.pascalCase(it.packageName) %>Config {
+  return configs.reduce((merged, config) => ({
+    ...merged,
+    ...config
+  }), {})
+}
+
+/**
+ * Utility function to check if a configuration is resolved.
+ *
+ * @param config - Configuration to check
+ * @returns True if the configuration is resolved
+ */
+export function isResolved<%= it.pascalCase(it.packageName) %>Config(
+  config: <%= it.pascalCase(it.packageName) %>Config | Resolved<%= it.pascalCase(it.packageName) %>Config
+): config is Resolved<%= it.pascalCase(it.packageName) %>Config {
+  return 'resolved' in config && config.resolved === true
+}

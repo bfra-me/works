@@ -1,37 +1,157 @@
-<% if (it.packageType === 'library') { %>import type {LibraryOptions, LibraryComponent} from './types.js'
+<% if (it.packageType === 'library') { -%>
+import type {<%= it.pascalCase(it.packageName) %>Options, <%= it.pascalCase(it.packageName) %>Instance, Result} from './types.js'
 
 /**
- * Main library component for <%= it.packageName %>
- * 
+ * Creates a new <%= it.capitalizeFirst(it.packageName) %> library instance.
+ *
  * @param options - Library configuration options
- * @returns Library component instance
+ * @returns Library instance
+ *
+ * @example
+ * ```typescript
+ * const library = create<%= it.pascalCase(it.packageName) %>({ debug: true })
+ * await library.init()
+ * // Use library...
+ * await library.cleanup()
+ * ```
  */
-export function createLibrary(options: LibraryOptions = {}): LibraryComponent {
-  return {
-    name: '<%= it.packageName %>',
-    version: '<%= it.version %>',
+export function create<%= it.pascalCase(it.packageName) %>(
+  options: <%= it.pascalCase(it.packageName) %>Options = {}
+): <%= it.pascalCase(it.packageName) %>Instance {
+  const config = {
+    debug: false,
     ...options
+  }
+
+  const instance: <%= it.pascalCase(it.packageName) %>Instance = {
+    config: Object.freeze(config),
+    createdAt: new Date(),
+
+    async init(): Promise<Result<void>> {
+      try {
+        if (config.debug) {
+          console.log(`Initializing <%= it.packageName %> library`)
+        }
+
+        // Add initialization logic here
+        await initializeResources(config)
+
+        if (config.debug) {
+          console.log(`<%= it.capitalizeFirst(it.packageName) %> library initialized successfully`)
+        }
+
+        return { success: true, data: undefined }
+      } catch (error) {
+        return {
+          success: false,
+          error: error instanceof Error ? error : new Error(String(error))
+        }
+      }
+    },
+
+    async cleanup(): Promise<void> {
+      if (config.debug) {
+        console.log(`Cleaning up <%= it.packageName %> library`)
+      }
+
+      // Add cleanup logic here
+      await cleanupResources(config)
+
+      if (config.debug) {
+        console.log(`<%= it.capitalizeFirst(it.packageName) %> library cleanup completed`)
+      }
+    }
+  }
+
+  return instance
+}
+
+/**
+ * Utility function to get library version information.
+ *
+ * @returns Library version and metadata
+ */
+export function get<%= it.pascalCase(it.packageName) %>Info(): {
+  name: string
+  version: string
+  author: string
+  created: string
+} {
+  return {
+    name: '@bfra.me/<%= it.packageName %>',
+    version: '<%= it.version %>',
+    author: '<%= it.author %>',
+    created: '<%= it.currentDate %>'
   }
 }
 
 /**
- * Library utility function
- * 
- * @param component - Library component
- * @returns Component information
+ * Validates library options for <%= it.capitalizeFirst(it.packageName) %>.
+ *
+ * @param options - Options to validate
+ * @returns True if valid
+ * @throws Error if options are invalid
  */
-export function getLibraryInfo(component: LibraryComponent): string {
-  return `${component.name} v${component.version}`
+export function validate<%= it.pascalCase(it.packageName) %>Options(
+  options: <%= it.pascalCase(it.packageName) %>Options
+): options is <%= it.pascalCase(it.packageName) %>Options {
+  if (typeof options !== 'object' || options === null) {
+    throw new Error('<%= it.capitalizeFirst(it.packageName) %> options must be an object')
+  }
+
+  if (options.debug !== undefined && typeof options.debug !== 'boolean') {
+    throw new Error('<%= it.capitalizeFirst(it.packageName) %> debug option must be a boolean')
+  }
+
+  if (options.config !== undefined && (typeof options.config !== 'object' || options.config === null)) {
+    throw new Error('<%= it.capitalizeFirst(it.packageName) %> config option must be an object')
+  }
+
+  return true
 }
 
 /**
- * Initialize library with configuration
- * 
- * @param options - Initialization options
- * @returns Initialized library component
+ * Internal resource initialization.
+ *
+ * @internal
+ * @param config - Configuration options
  */
-export function initLibrary(options: LibraryOptions = {}): LibraryComponent {
-  const library = createLibrary(options)
-  console.log(`Initialized library: ${getLibraryInfo(library)}`)
-  return library
-}<% } %>
+async function initializeResources(config: <%= it.pascalCase(it.packageName) %>Options): Promise<void> {
+  // Add your resource initialization logic here
+  // Examples: database connections, external service setup, etc.
+
+  if (config.debug) {
+    console.log('Resources initialized')
+  }
+}
+
+/**
+ * Internal resource cleanup.
+ *
+ * @internal
+ * @param config - Configuration options
+ */
+async function cleanupResources(config: <%= it.pascalCase(it.packageName) %>Options): Promise<void> {
+  // Add your resource cleanup logic here
+  // Examples: close database connections, cleanup temporary files, etc.
+
+  if (config.debug) {
+    console.log('Resources cleaned up')
+  }
+}
+
+/**
+ * Creates default library options for <%= it.capitalizeFirst(it.packageName) %>.
+ *
+ * @param overrides - Option overrides
+ * @returns Default options with overrides applied
+ */
+export function createDefault<%= it.pascalCase(it.packageName) %>Options(
+  overrides: Partial<<%= it.pascalCase(it.packageName) %>Options> = {}
+): <%= it.pascalCase(it.packageName) %>Options {
+  return {
+    debug: false,
+    config: {},
+    ...overrides
+  }
+}
