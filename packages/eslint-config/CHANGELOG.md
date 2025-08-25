@@ -1,5 +1,17 @@
 # @bfra.me/eslint-config
 
+## 0.27.2
+### Patch Changes
+
+
+- Updated dependency `eslint-plugin-unicorn` to `60.0.0`. ([#1737](https://github.com/bfra-me/works/pull/1737))
+
+
+- Updated dependency `@eslint/markdown` to `7.2.0`. ([#1739](https://github.com/bfra-me/works/pull/1739))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `54.1.1`. ([#1707](https://github.com/bfra-me/works/pull/1707))
+
 ## 0.27.1
 ### Patch Changes
 
