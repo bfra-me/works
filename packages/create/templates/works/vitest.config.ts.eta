@@ -6,9 +6,27 @@ export default defineConfig({
     environment: 'node',
     include: ['test/**/*.test.ts'<% if (it.hasReact) { %>, 'test/**/*.test.tsx'<% } %>],<% if (it.packageType === 'config' || it.packageType === 'tool') { %>
     setupFiles: ['test/setup.ts'],<% } %>
+    // Enable concurrent testing for performance
+    pool: 'threads',
+    poolOptions: {
+      threads: {
+        minThreads: 1,
+        maxThreads: 4
+      }
+    },
+    // Test timeouts
+    testTimeout: 10000,
+    hookTimeout: 10000,
+    // Snapshot configuration
+    snapshotFormat: {
+      escapeString: false,
+      printBasicPrototype: false
+    },
     coverage: {
       provider: 'v8',
-      reporter: ['text', 'json', 'html'],<% if (it.packageType === 'config') { %>
+      reporter: ['text', 'json', 'html', 'lcov'],
+      reportOnFailure: true,
+      skipFull: false,<% if (it.packageType === 'config') { %>
       thresholds: {
         lines: 80,
         functions: 80,
@@ -27,14 +45,35 @@ export default defineConfig({
         branches: 90,
         statements: 95
       },<% } %>
+      include: ['src/**/*.ts'<% if (it.hasReact) { %>, 'src/**/*.tsx'<% } %>],
       exclude: [
         'coverage/**',<% if (!it.isTypeOnly) { %>
         'lib/**',<% } %>
         'node_modules/**',
         'test/**',<% if (it.packageType === 'config') { %>
         'scripts/**',<% } %>
-        '*.config.*'
+        '*.config.*',
+        'src/**/*.d.ts',
+        'src/**/*.test.ts',
+        'src/**/*.spec.ts'
       ]
+    },
+    // Mock configuration
+    deps: {
+      inline: [
+        // Inline dependencies for better performance
+      ]
+    },
+    // Browser configuration for component testing
+    browser: {
+      enabled: false, // Enable if needed for browser tests
+      name: 'chrome',
+      headless: true
     }
+  },
+  // Shared configuration
+  define: {
+    __TEST__: true,
+    __VERSION__: JSON.stringify('<%= it.version %>')
   }
 })

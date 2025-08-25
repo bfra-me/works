@@ -1,120 +1,433 @@
+import {readFile} from 'node:fs/promises'
+import {join, resolve} from 'node:path'
 import {describe, expect, it} from 'vitest'
-
 <% if (it.packageType === 'utility') { %>import {processData, isValid} from '../src/utils.js'
+import {sampleData, validInput, invalidInput, complexInput} from './fixtures/input/sample-data.js'<% } else if (it.packageType === 'config') { %>import {createConfig, validateConfig} from '../src/config.js'
+import {defaultConfig, customConfig, invalidConfig} from './fixtures/input/sample-data.js'<% } else if (it.packageType === 'tool') { %>import {runTool, initTool} from '../src/tool.js'
+import {basicOptions, verboseOptions, invalidOptions} from './fixtures/input/sample-data.js'<% } else if (it.packageType === 'library') { %>import {createLibrary, getLibraryInfo, initLibrary} from '../src/lib.js'
+import {basicOptions, customOptions, libraryConfig} from './fixtures/input/sample-data.js'<% } %>
+
+const fixturesDir = new URL('./fixtures', import.meta.url).pathname
+const loadFixture = async (name: string) => {
+  const content = await readFile(join(fixturesDir, 'input', name), 'utf-8')
+  return JSON.parse(content)
+}
 
 describe('@bfra.me/<%= it.packageName %>', () => {
-  describe('processData', () => {
-    it('should process data successfully', () => {
-      const input = 'test data'
-      const result = processData(input)
-      
+<% if (it.packageType === 'utility') { %>  describe('processData', () => {
+    it.concurrent('should process data successfully', async ({expect}) => {
+      const result = processData(sampleData)
+
       expect(result.success).toBe(true)
       if (result.success) {
-        expect(result.data).toBe(input)
+        expect(result.data).toBe(sampleData)
+      }
+
+      // Snapshot testing for consistent output format
+      await expect(JSON.stringify(result, null, 2))
+        .toMatchFileSnapshot(resolve(fixturesDir, 'output/utility-process-success.json'))
+    })
+
+    it.concurrent('should handle valid input correctly', async ({expect}) => {
+      const result = processData(validInput)
+
+      expect(result.success).toBe(true)
+      expect(result.data).toEqual(validInput)
+    })
+
+    it.concurrent('should handle errors gracefully', async ({expect}) => {
+      const result = processData(invalidInput)
+
+      // Test error handling based on implementation
+      expect(result).toBeDefined()
+      await expect(JSON.stringify(result, null, 2))
+        .toMatchFileSnapshot(resolve(fixturesDir, 'output/utility-process-error.json'))
+    })
+
+    it.concurrent('should handle complex nested data', async ({expect}) => {
+      const result = processData(complexInput)
+
+      expect(result.success).toBe(true)
+      expect(result.data).toEqual(complexInput)
+    })
+  })
+
+  describe('isValid', () => {
+    it.concurrent('should validate values correctly', async ({expect}) => {
+      const testCases = await loadFixture('test-cases.json')
+
+      for (const testCase of testCases) {
+        const result = isValid(testCase.input)
+        expect(result).toBe(testCase.expected.success)
       }
     })
-    
-    it('should handle errors gracefully', () => {
-      // Test error handling if needed
-      const result = processData(null)
-      expect(result.success).toBe(true) // Adjust based on implementation
-    })
-  })
-  
-  describe('isValid', () => {
-    it('should validate values correctly', () => {
+
+    it.concurrent('should handle edge cases', async ({expect}) => {
       expect(isValid('test')).toBe(true)
+      expect(isValid('')).toBe(false)
       expect(isValid(null)).toBe(false)
       expect(isValid(undefined)).toBe(false)
+      expect(isValid(0)).toBe(false)
+      expect(isValid([])).toBe(true)
+      expect(isValid({})).toBe(true)
     })
-  })
-})<% } else if (it.packageType === 'config') { %>import {createConfig, validateConfig} from '../src/config.js'
+  })<% } else if (it.packageType === 'config') { %>  describe('createConfig', () => {
+    it.concurrent('should create config with defaults', async ({expect}) => {
+      const config = createConfig(defaultConfig)
 
-describe('@bfra.me/<%= it.packageName %>', () => {
-  describe('createConfig', () => {
-    it('should create config with defaults', () => {
-      const config = createConfig()
-      
       expect(config).toBeDefined()
       expect(config.resolved).toBe(true)
+
+      await expect(JSON.stringify(config, null, 2))
+        .toMatchFileSnapshot(resolve(fixturesDir, 'output/config-default.json'))
     })
-    
-    it('should merge provided options', () => {
-      const options = {test: 'value'}
-      const config = createConfig(options)
-      
-      expect(config.test).toBe('value')
+
+    it.concurrent('should merge provided options', async ({expect}) => {
+      const config = createConfig(customConfig)
+
+      expect(config.test).toBe(customConfig.test)
+      expect(config.enabled).toBe(customConfig.enabled)
       expect(config.resolved).toBe(true)
+
+      await expect(JSON.stringify(config, null, 2))
+        .toMatchFileSnapshot(resolve(fixturesDir, 'output/config-custom.json'))
+    })
+
+    it.concurrent('should handle fixture-based test cases', async ({expect}) => {
+      const testCases = await loadFixture('test-cases.json')
+
+      for (const testCase of testCases) {
+        const config = createConfig(testCase.config)
+        expect(config).toMatchObject(testCase.expected)
+      }
     })
   })
-  
+
   describe('validateConfig', () => {
-    it('should validate config correctly', () => {
-      expect(validateConfig({})).toBe(true)
-      expect(validateConfig({test: 'value'})).toBe(true)
+    it.concurrent('should validate config correctly', async ({expect}) => {
+      expect(validateConfig(defaultConfig)).toBe(true)
+      expect(validateConfig(customConfig)).toBe(true)
     })
-  })
-})<% } else if (it.packageType === 'tool') { %>import {runTool, initTool} from '../src/tool.js'
 
-describe('@bfra.me/<%= it.packageName %>', () => {
-  describe('runTool', () => {
-    it('should run tool successfully', async () => {
-      const result = await runTool()
-      
+    it.concurrent('should reject invalid config', async ({expect}) => {
+      expect(validateConfig(invalidConfig)).toBe(false)
+    })
+  })<% } else if (it.packageType === 'tool') { %>  describe('runTool', () => {
+    it.concurrent('should run tool successfully', async ({expect}) => {
+      const result = await runTool(basicOptions)
+
       expect(result.success).toBe(true)
       expect(result.data).toBeDefined()
+
+      await expect(JSON.stringify(result, null, 2))
+        .toMatchFileSnapshot(resolve(fixturesDir, 'output/tool-basic-run.json'))
     })
-    
-    it('should handle options correctly', async () => {
-      const options = {test: 'value'}
-      const result = await runTool(options)
-      
+
+    it.concurrent('should handle verbose options correctly', async ({expect}) => {
+      const result = await runTool(verboseOptions)
+
       expect(result.success).toBe(true)
+      expect(result.verbose).toBe(true)
+
+      await expect(JSON.stringify(result, null, 2))
+        .toMatchFileSnapshot(resolve(fixturesDir, 'output/tool-verbose-run.json'))
+    })
+
+    it.concurrent('should handle fixture-based test cases', async ({expect}) => {
+      const testCases = await loadFixture('test-cases.json')
+
+      for (const testCase of testCases) {
+        const result = await runTool(testCase.options)
+        expect(result).toMatchObject(testCase.expected)
+      }
+    })
+
+    it.concurrent('should reject invalid options', async ({expect}) => {
+      const result = await runTool(invalidOptions)
+      expect(result.success).toBe(false)
     })
   })
-  
+
   describe('initTool', () => {
-    it('should initialize tool successfully', () => {
+    it.concurrent('should initialize tool successfully', async ({expect}) => {
       const result = initTool()
-      
+
       expect(result.success).toBe(true)
       expect(result.data).toBeDefined()
-    })
-  })
-})<% } else if (it.packageType === 'library') { %>import {createLibrary, getLibraryInfo, initLibrary} from '../src/lib.js'
 
-describe('@bfra.me/<%= it.packageName %>', () => {
-  describe('createLibrary', () => {
-    it('should create library component', () => {
-      const library = createLibrary()
-      
+      await expect(JSON.stringify(result, null, 2))
+        .toMatchFileSnapshot(resolve(fixturesDir, 'output/tool-init.json'))
+    })
+  })<% } else if (it.packageType === 'library') { %>  describe('createLibrary', () => {
+    it.concurrent('should create library component', async ({expect}) => {
+      const library = createLibrary(basicOptions)
+
       expect(library.name).toBe('<%= it.packageName %>')
       expect(library.version).toBe('<%= it.version %>')
+
+      await expect(JSON.stringify(library, null, 2))
+        .toMatchFileSnapshot(resolve(fixturesDir, 'output/library-basic.json'))
     })
-    
-    it('should merge options correctly', () => {
-      const options = {test: 'value'}
-      const library = createLibrary(options)
-      
-      expect(library.test).toBe('value')
+
+    it.concurrent('should merge options correctly', async ({expect}) => {
+      const library = createLibrary(customOptions)
+
+      expect(library.test).toBe(customOptions.test)
+      expect(library.feature).toBe(customOptions.feature)
+
+      await expect(JSON.stringify(library, null, 2))
+        .toMatchFileSnapshot(resolve(fixturesDir, 'output/library-custom.json'))
+    })
+
+    it.concurrent('should handle fixture-based test cases', async ({expect}) => {
+      const testCases = await loadFixture('test-cases.json')
+
+      for (const testCase of testCases) {
+        const library = createLibrary(testCase.options)
+        expect(library).toMatchObject(testCase.expected)
+      }
     })
   })
-  
+
   describe('getLibraryInfo', () => {
-    it('should return library info', () => {
-      const library = createLibrary()
+    it.concurrent('should return library info', async ({expect}) => {
+      const library = createLibrary(libraryConfig)
       const info = getLibraryInfo(library)
-      
+
       expect(info).toBe('<%= it.packageName %> v<%= it.version %>')
+
+      await expect(info)
+        .toMatchFileSnapshot(resolve(fixturesDir, 'output/library-info.txt'))
     })
   })
-  
+
   describe('initLibrary', () => {
-    it('should initialize library', () => {
+    it.concurrent('should initialize library', async ({expect}) => {
       const library = initLibrary()
-      
+
       expect(library.name).toBe('<%= it.packageName %>')
       expect(library.version).toBe('<%= it.version %>')
+
+      await expect(JSON.stringify(library, null, 2))
+        .toMatchFileSnapshot(resolve(fixturesDir, 'output/library-init.json'))
+    })
+  })<% } %>
+
+  // Performance testing patterns
+  describe('Performance benchmarks', () => {
+    it.concurrent('should meet performance requirements', async ({expect}) => {
+      const startTime = performance.now()
+
+<% if (it.packageType === 'utility') { %>      // Run utility function multiple times
+      for (let i = 0; i < 1000; i++) {
+        processData(sampleData)
+      }
+<% } else if (it.packageType === 'config') { %>      // Run config creation multiple times
+      for (let i = 0; i < 1000; i++) {
+        createConfig(defaultConfig)
+      }
+<% } else if (it.packageType === 'tool') { %>      // Run tool execution multiple times
+      for (let i = 0; i < 100; i++) {
+        await runTool(basicOptions)
+      }
+<% } else if (it.packageType === 'library') { %>      // Run library creation multiple times
+      for (let i = 0; i < 1000; i++) {
+        createLibrary(basicOptions)
+      }
+<% } %>
+      const endTime = performance.now()
+      const duration = endTime - startTime
+
+      // Performance threshold (adjust based on requirements)
+      expect(duration).toBeLessThan(5000) // 5 seconds
+    })
+
+    it.concurrent('should handle memory usage efficiently', async ({expect}) => {
+      const initialMemory = process.memoryUsage().heapUsed
+      const iterations = 1000
+
+<% if (it.packageType === 'utility') { %>      for (let i = 0; i < iterations; i++) {
+        processData(`test data ${i}`)
+      }
+<% } else if (it.packageType === 'config') { %>      for (let i = 0; i < iterations; i++) {
+        createConfig({test: `value ${i}`})
+      }
+<% } else if (it.packageType === 'tool') { %>      for (let i = 0; i < iterations; i++) {
+        await runTool({test: `value ${i}`})
+      }
+<% } else if (it.packageType === 'library') { %>      for (let i = 0; i < iterations; i++) {
+        createLibrary({test: `value ${i}`})
+      }
+<% } %>
+      // Force garbage collection if available
+      if (global.gc) {
+        global.gc()
+      }
+
+      const finalMemory = process.memoryUsage().heapUsed
+      const memoryIncrease = finalMemory - initialMemory
+
+      // Memory threshold (adjust based on requirements)
+      expect(memoryIncrease).toBeLessThan(50 * 1024 * 1024) // 50MB
     })
   })
-})<% } %>
+
+  // Error handling and edge cases
+  describe('Error handling', () => {
+<% if (it.packageType === 'utility') { %>    it.concurrent('should handle null input gracefully', async ({expect}) => {
+      const result = processData(null)
+
+      expect(result).toBeDefined()
+      expect(typeof result).toBe('object')
+    })
+
+    it.concurrent('should handle undefined input gracefully', async ({expect}) => {
+      const result = processData(undefined)
+
+      expect(result).toBeDefined()
+      expect(typeof result).toBe('object')
+    })
+
+    it.concurrent('should handle empty string input', async ({expect}) => {
+      const result = processData('')
+
+      expect(result).toBeDefined()
+      expect(typeof result).toBe('object')
+    })
+
+    it.concurrent('should handle very large input', async ({expect}) => {
+      const largeInput = 'x'.repeat(1000000) // 1MB string
+      const result = processData(largeInput)
+
+      expect(result).toBeDefined()
+      expect(typeof result).toBe('object')
+    })
+<% } else if (it.packageType === 'config') { %>    it.concurrent('should handle null config gracefully', async ({expect}) => {
+      const result = createConfig(null)
+
+      expect(result).toBeDefined()
+      expect(result.resolved).toBe(true)
+    })
+
+    it.concurrent('should handle circular references', async ({expect}) => {
+      const circular: any = {test: 'value'}
+      circular.self = circular
+
+      const result = createConfig(circular)
+
+      expect(result).toBeDefined()
+      expect(result.resolved).toBe(true)
+    })
+
+    it.concurrent('should validate configuration schema', async ({expect}) => {
+      const invalidConfig = {
+        unknown: 'property',
+        invalid: Symbol('test')
+      }
+
+      expect(validateConfig(invalidConfig)).toBe(false)
+    })
+<% } else if (it.packageType === 'tool') { %>    it.concurrent('should handle tool execution errors', async ({expect}) => {
+      const invalidOptions = {
+        nonExistent: 'option',
+        invalid: Symbol('test')
+      }
+
+      const result = await runTool(invalidOptions)
+
+      expect(result).toBeDefined()
+      expect(result.success).toBe(false)
+      expect(result.error).toBeDefined()
+    })
+
+    it.concurrent('should handle timeout scenarios', async ({expect}) => {
+      // Mock a long-running operation
+      const slowOptions = {
+        timeout: 1 // Very short timeout
+      }
+
+      const result = await runTool(slowOptions)
+
+      expect(result).toBeDefined()
+      // Result depends on implementation
+    })
+<% } else if (it.packageType === 'library') { %>    it.concurrent('should handle invalid library options', async ({expect}) => {
+      const invalidOptions = {
+        name: null,
+        version: undefined,
+        invalid: Symbol('test')
+      }
+
+      const result = createLibrary(invalidOptions)
+
+      expect(result).toBeDefined()
+      expect(result.name).toBe('<%= it.packageName %>')
+      expect(result.version).toBe('<%= it.version %>')
+    })
+
+    it.concurrent('should handle version mismatch scenarios', async ({expect}) => {
+      const mismatchOptions = {
+        version: '0.0.0-invalid'
+      }
+
+      const library = createLibrary(mismatchOptions)
+
+      expect(library).toBeDefined()
+      expect(library.version).toBe('<%= it.version %>') // Should use default
+    })
+<% } %>  })
+
+  // Integration tests
+  describe('Integration scenarios', () => {
+    it.concurrent('should work with real-world data patterns', async ({expect}) => {
+      // Load and test with real fixture data
+      const testCases = await loadFixture('test-cases.json')
+
+      for (const testCase of testCases) {
+<% if (it.packageType === 'utility') { %>        const result = processData(testCase.input)
+        expect(result).toMatchObject(testCase.expected)
+<% } else if (it.packageType === 'config') { %>        const config = createConfig(testCase.config)
+        expect(config).toMatchObject(testCase.expected)
+<% } else if (it.packageType === 'tool') { %>        const result = await runTool(testCase.options)
+        expect(result).toMatchObject(testCase.expected)
+<% } else if (it.packageType === 'library') { %>        const library = createLibrary(testCase.options)
+        expect(library).toMatchObject(testCase.expected)
+<% } %>      }
+    })
+
+    it.concurrent('should maintain consistency across multiple operations', async ({expect}) => {
+<% if (it.packageType === 'utility') { %>      const inputs = ['test1', 'test2', 'test3']
+      const results = inputs.map(input => processData(input))
+
+      // All results should have consistent structure
+      results.forEach(result => {
+        expect(result).toHaveProperty('success')
+        expect(typeof result.success).toBe('boolean')
+      })
+<% } else if (it.packageType === 'config') { %>      const configs = [{test: 'a'}, {test: 'b'}, {test: 'c'}]
+      const results = configs.map(config => createConfig(config))
+
+      // All results should have consistent structure
+      results.forEach(result => {
+        expect(result).toHaveProperty('resolved')
+        expect(result.resolved).toBe(true)
+      })
+<% } else if (it.packageType === 'tool') { %>      const options = [{test: 'a'}, {test: 'b'}, {test: 'c'}]
+      const results = await Promise.all(options.map(option => runTool(option)))
+
+      // All results should have consistent structure
+      results.forEach(result => {
+        expect(result).toHaveProperty('success')
+        expect(typeof result.success).toBe('boolean')
+      })
+<% } else if (it.packageType === 'library') { %>      const options = [{test: 'a'}, {test: 'b'}, {test: 'c'}]
+      const results = options.map(option => createLibrary(option))
+
+      // All results should have consistent structure
+      results.forEach(result => {
+        expect(result).toHaveProperty('name')
+        expect(result).toHaveProperty('version')
+      })
+<% } %>    })
+  })
+})

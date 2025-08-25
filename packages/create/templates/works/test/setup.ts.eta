@@ -1,0 +1,163 @@
+// Test setup configuration for <%= it.packageName %>
+import {beforeEach, afterEach, vi} from 'vitest'
+import {setupMocks, teardownMocks} from './__mocks__/index.js'
+
+// Global test setup
+beforeEach(() => {
+  // Setup mocks before each test
+  setupMocks()
+
+  // Reset any global state
+  if (globalThis.__TEST_STATE__) {
+    delete globalThis.__TEST_STATE__
+  }
+
+<% if (it.packageType === 'tool') { %>  // Mock CLI environment
+  process.env.NODE_ENV = 'test'
+  process.env.CI = 'false'
+  process.env.FORCE_COLOR = '0'
+<% } %>
+<% if (it.packageType === 'config') { %>  // Mock config environment
+  process.env.NODE_ENV = 'test'
+  delete process.env.CONFIG_PATH
+  delete process.env.CONFIG_ENV
+<% } %>
+})
+
+// Global test teardown
+afterEach(() => {
+  // Cleanup mocks after each test
+  teardownMocks()
+
+  // Cleanup any global state
+  if (globalThis.__TEST_STATE__) {
+    delete globalThis.__TEST_STATE__
+  }
+})
+
+// Global test utilities
+declare global {
+  var __TEST_STATE__: Record<string, any> | undefined
+  var __VERSION__: string
+}
+
+// Enhance expect with custom matchers
+declare module 'vitest' {
+  interface Assertion<T = any> {
+    toBeValidResult(): T
+    toHaveSuccessfulOutput(): T
+    toMatchSchema(schema: any): T
+  }
+}
+
+// Custom matchers
+expect.extend({
+  toBeValidResult(received: any) {
+    const pass = received &&
+      typeof received === 'object' &&
+      'success' in received &&
+      typeof received.success === 'boolean'
+
+    return {
+      pass,
+      message: () =>
+        pass
+          ? `Expected ${received} not to be a valid result object`
+          : `Expected ${received} to be a valid result object with success property`
+    }
+  },
+
+  toHaveSuccessfulOutput(received: any) {
+    const pass = received &&
+      received.success === true &&
+      'data' in received
+
+    return {
+      pass,
+      message: () =>
+        pass
+          ? `Expected ${received} not to have successful output`
+          : `Expected ${received} to have successful output (success: true, data: ...)`
+    }
+  },
+
+  toMatchSchema(received: any, schema: any) {
+    // Basic schema validation - extend as needed
+    const pass = typeof received === typeof schema
+
+    return {
+      pass,
+      message: () =>
+        pass
+          ? `Expected ${received} not to match schema ${schema}`
+          : `Expected ${received} to match schema ${schema}`
+    }
+  }
+})
+
+// Performance testing utilities
+globalThis.performance = globalThis.performance || {
+  now: () => Date.now(),
+  mark: vi.fn(),
+  measure: vi.fn(),
+  clearMarks: vi.fn(),
+  clearMeasures: vi.fn(),
+  getEntries: vi.fn(() => []),
+  getEntriesByName: vi.fn(() => []),
+  getEntriesByType: vi.fn(() => [])
+} as any
+
+// Memory usage helper
+export const getMemoryUsage = () => {
+  if (typeof process !== 'undefined' && process.memoryUsage) {
+    return process.memoryUsage()
+  }
+  return {
+    rss: 0,
+    heapTotal: 0,
+    heapUsed: 0,
+    external: 0,
+    arrayBuffers: 0
+  }
+}
+
+// Test utilities
+export const createTestEnvironment = () => {
+  return {
+    packageName: '<%= it.packageName %>',
+    version: '<%= it.version %>',
+    packageType: '<%= it.packageType %>',
+    isTest: true
+  }
+}
+
+// Async test helpers
+export const waitFor = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
+export const retry = async <T>(
+  fn: () => Promise<T> | T,
+  options: { retries?: number; delay?: number } = {}
+): Promise<T> => {
+  const { retries = 3, delay = 100 } = options
+
+  for (let i = 0; i < retries; i++) {
+    try {
+      return await fn()
+    } catch (error) {
+      if (i === retries - 1) throw error
+      await waitFor(delay)
+    }
+  }
+
+  throw new Error('Should not reach here')
+}
+
+// Fixture loading utility
+export const loadTestFixture = async (path: string) => {
+  try {
+    const module = await import(`./fixtures/${path}`)
+    return module.default || module
+  } catch (error) {
+    throw new Error(`Failed to load test fixture: ${path}`)
+  }
+}

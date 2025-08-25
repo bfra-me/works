@@ -1,0 +1,57 @@
+<% if (it.packageType === 'utility') { %>// Expected processed data output
+export const processedData = {
+  success: true,
+  data: 'test sample data',
+  timestamp: expect.any(Date)
+}
+
+export const validationResults = {
+  'test': true,
+  'null': false,
+  'undefined': false,
+  'empty': false
+}<% } else if (it.packageType === 'config') { %>// Expected configuration output
+export const resolvedConfig = {
+  resolved: true,
+  test: 'default',
+  enabled: true,
+  options: {
+    debug: false,
+    verbose: false
+  }
+}
+
+export const customResolvedConfig = {
+  resolved: true,
+  test: 'custom value',
+  enabled: false,
+  options: {
+    debug: true,
+    verbose: true
+  }
+}<% } else if (it.packageType === 'tool') { %>// Expected tool output
+export const toolResult = {
+  success: true,
+  output: 'Tool executed successfully',
+  timestamp: expect.any(Date)
+}
+
+export const verboseToolResult = {
+  success: true,
+  output: 'Tool executed successfully',
+  verbose: true,
+  debug: true,
+  timestamp: expect.any(Date)
+}<% } else if (it.packageType === 'library') { %>// Expected library output
+export const libraryInstance = {
+  name: '<%= it.packageName %>',
+  version: '<%= it.version %>',
+  initialized: true
+}
+
+export const customLibraryInstance = {
+  name: '<%= it.packageName %>',
+  version: '<%= it.version %>',
+  test: 'custom',
+  feature: 'enabled'
+}<% } %>

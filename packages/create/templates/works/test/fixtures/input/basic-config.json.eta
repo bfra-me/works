@@ -1,0 +1,31 @@
+{
+  "name": "<%= it.packageName %>",
+  "version": "<%= it.version %>",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
+  }<% if (it.packageType === 'config') { %>,
+  "config": {
+    "test": "value",
+    "enabled": true,
+    "options": {
+      "debug": false,
+      "verbose": false
+    }
+  }<% } else if (it.packageType === 'tool') { %>,
+  "bin": {
+    "<%= it.packageName %>": "./bin/cli.js"
+  },
+  "scripts": {
+    "start": "node ./bin/cli.js"
+  }<% } else if (it.packageType === 'library') { %>,
+  "keywords": ["library", "<%= it.packageName %>"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bfra-me/works.git",
+    "directory": "packages/<%= it.packageName %>"
+  }<% } %>
+}
