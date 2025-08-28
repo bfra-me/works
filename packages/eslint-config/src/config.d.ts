@@ -44,6 +44,8 @@ export type ConfigNames =
   | '@bfra.me/regexp'
   | '@bfra.me/vitest/plugins'
   | '@bfra.me/vitest'
+  | '@bfra.me/astro/setup'
+  | '@bfra.me/astro/rules'
   | '@bfra.me/jsonc/plugins'
   | '@bfra.me/jsonc/unnamed1'
   | '@bfra.me/jsonc/json-schema/plugins'

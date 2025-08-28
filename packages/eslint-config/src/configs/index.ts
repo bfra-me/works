@@ -1,3 +1,4 @@
+export * from './astro'
 export * from './command'
 export * from './epilogue'
 export * from './eslint-comments'

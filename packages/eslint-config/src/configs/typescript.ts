@@ -7,7 +7,7 @@ import type {
   OptionsTypeScriptWithTypes,
 } from '../options'
 import process from 'node:process'
-import {GLOB_MARKDOWN, GLOB_TS, GLOB_TSX} from '../globs'
+import {GLOB_ASTRO_TS, GLOB_MARKDOWN, GLOB_TS, GLOB_TSX} from '../globs'
 import {anyParser} from '../parsers/any-parser'
 import {requireOf} from '../require-of'
 import {interopDefault} from '../utils'
@@ -73,7 +73,7 @@ export async function typescript(options: TypeScriptOptions = {}): Promise<Confi
   const {overrides = {}, parserOptions = {}, typeAware = {overrides: {}}} = options
   const files = options.files ?? [GLOB_TS, GLOB_TSX]
   const typeAwareFiles = typeAware.files ?? [GLOB_TS, GLOB_TSX]
-  const typeAwareIgnores = typeAware.ignores ?? [`${GLOB_MARKDOWN}/**`, '**/*.astro/*.ts']
+  const typeAwareIgnores = typeAware.ignores ?? [`${GLOB_MARKDOWN}/**`, GLOB_ASTRO_TS]
   const tsconfigPath = options.tsconfigPath ?? undefined
   const isTypeAware = Boolean(tsconfigPath)
 

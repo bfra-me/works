@@ -1,6 +1,7 @@
 import type {ParserOptions} from '@typescript-eslint/types'
 import type {FlatGitignoreOptions} from 'eslint-config-flat-gitignore'
 import type {Config} from './config'
+import type {AstroOptions} from './configs'
 
 /**
   Flattens an object type to a mapped type with the same keys and values.
@@ -150,6 +151,13 @@ export type OptionsTypeScript =
 export type Options = Flatten<
   // @keep-sorted
   {
+    /**
+     * Enable Astro support.
+     *
+     * @default false
+     */
+    astro?: boolean | AstroOptions
+
     /**
      * Enable gitignore support.
      *

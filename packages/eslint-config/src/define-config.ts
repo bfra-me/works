@@ -4,6 +4,7 @@ import type {Options} from './options'
 import {isPackageExists} from 'local-pkg'
 import {composeConfig} from './compose-config'
 import {
+  astro,
   command,
   epilogue,
   eslintComments,
@@ -57,6 +58,7 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
   // `FlatConfigComposer<>` which acts like a `Promise<T>`.
 ): FlatConfigComposer<Config extends C ? C : Config, CN> {
   const {
+    astro: enableAstro = false,
     gitignore: enableGitignore = true,
     jsx: enableJsx = true,
     packageJson: enablePackageJson = false,
@@ -139,6 +141,15 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
     configs.push(
       vitest({
         overrides: getOverrides(options, 'vitest'),
+      }),
+    )
+  }
+
+  if (enableAstro) {
+    configs.push(
+      astro({
+        ...resolveSubOptions(options, 'astro'),
+        overrides: getOverrides(options, 'astro'),
       }),
     )
   }
