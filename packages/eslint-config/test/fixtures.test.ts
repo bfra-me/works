@@ -75,6 +75,11 @@ export default defineConfig(
   )
 }
 
+testPreset('all', {
+  astro: true,
+  typescript: true,
+})
+
 testPreset('default', {})
 
 testPreset('js', {typescript: false})
