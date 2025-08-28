@@ -1,5 +1,26 @@
 # @bfra.me/create
 
+## 0.5.1
+### Patch Changes
+
+
+- Updated dependency `openai` to `5.15.0`. ([#1723](https://github.com/bfra-me/works/pull/1723))
+
+
+- Updated dependency `memfs` to `4.38.0`. ([#1745](https://github.com/bfra-me/works/pull/1745))
+
+
+- Updated dependency `memfs` to `4.37.1`. ([#1740](https://github.com/bfra-me/works/pull/1740))
+
+
+- Updated dependency `memfs` to `4.38.1`. ([#1746](https://github.com/bfra-me/works/pull/1746))
+
+
+- Updated dependency `memfs` to `4.37.0`. ([#1735](https://github.com/bfra-me/works/pull/1735))
+
+
+- Updated dependency `zod` to `4.0.17`. ([#1709](https://github.com/bfra-me/works/pull/1709))
+
 ## 0.5.0
 ### Minor Changes
 
