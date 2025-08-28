@@ -56,6 +56,8 @@
 
     "markdown.validate.referenceLinks.enabled": "ignore",
 
+    "prettier.enable": false,
+
     "typescript.enablePromptUseWorkspaceTsdk": true,
     "typescript.format.enable": false,
     "typescript.preferences.importModuleSpecifier": "non-relative",
