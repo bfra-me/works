@@ -1,5 +1,35 @@
 # @bfra.me/eslint-config
 
+## 0.28.0
+### Minor Changes
+
+
+- Add support for linting Astro (*.astro) files. ([#1747](https://github.com/bfra-me/works/pull/1747))
+
+
+### Patch Changes
+
+
+- Updated dependency `eslint` to `9.34.0`. ([#1742](https://github.com/bfra-me/works/pull/1742))
+
+
+- Updated dependency `@eslint/js` to `9.34.0`. ([#1741](https://github.com/bfra-me/works/pull/1741))
+
+
+- Updated dependency `eslint-plugin-unicorn` to `60.0.0`. ([#1737](https://github.com/bfra-me/works/pull/1737))
+
+
+- Updated dependency `tsx` to `4.20.5`. ([#1744](https://github.com/bfra-me/works/pull/1744))
+
+
+- Updated dependency `is-in-ci` to `2.0.0`. ([#1738](https://github.com/bfra-me/works/pull/1738))
+
+
+- Updated dependency `@eslint/markdown` to `7.2.0`. ([#1739](https://github.com/bfra-me/works/pull/1739))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `54.1.1`. ([#1707](https://github.com/bfra-me/works/pull/1707))
+
 ## 0.27.1
 ### Patch Changes
 
