@@ -281,11 +281,18 @@ export function createReleaseUrl(baseUrl: string, version: string): string {
   const cleanUrl = baseUrl.replace(/\/$/, '')
   const taggedVersion = getTaggedVersion(version)
 
-  if (cleanUrl.includes('github.com')) {
+  let hostname = '';
+  try {
+    hostname = new URL(cleanUrl).hostname.replace(/^www\./, '');
+  } catch {
+    hostname = '';
+  }
+
+  if (hostname === 'github.com') {
     return `${cleanUrl}/releases/tag/${taggedVersion}`
   }
 
-  if (cleanUrl.includes('gitlab.com')) {
+  if (hostname === 'gitlab.com') {
     return `${cleanUrl}/-/releases/${taggedVersion}`
   }
 
