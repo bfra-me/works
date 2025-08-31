@@ -9,4 +9,4 @@ Enhance TypeScript support and configuration utilities.
 - Add factory functions for JavaScript configuration files with TypeScript support.
 - Implement preset factory functions for common workflows like npm and GitHub releases.
 - Update tests to reflect changes in configuration structure and validation.
-- Modify build configuration to include new entry points for TypeScript files.
+- Implement configuration composition utilities for merging, extending, and overriding semantic-release configurations.

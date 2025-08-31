@@ -64,7 +64,7 @@ Complete rewrite of the `@bfra.me/semantic-release` package to provide comprehen
 | TASK-012 | Create factory functions for JavaScript config files (release.config.mjs) with full typing | ✅ | 2024-12-28 |
 | TASK-013 | Implement configuration builder pattern for complex setups | ✅ | 2024-12-28 |
 | TASK-014 | Create preset factory functions for common workflows (npm, GitHub, monorepo) | ✅ | 2024-12-28 |
-| TASK-015 | Implement configuration composition utilities (merge, extend, override) | | |
+| TASK-015 | Implement configuration composition utilities (merge, extend, override) | ✅ | 2024-12-28 |
 | TASK-016 | Add configuration validation with detailed error messages and suggestions | | |
 | TASK-017 | Create type-safe plugin configuration helpers for popular plugins | | |
 | TASK-018 | Implement environment-based configuration switching (dev, staging, production) | | |
