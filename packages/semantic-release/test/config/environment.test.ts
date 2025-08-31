@@ -242,6 +242,8 @@ describe('environment configuration', () => {
     })
 
     it('detects GitLab CI', () => {
+      vi.unstubAllEnvs()
+      vi.stubEnv('GITHUB_ACTIONS', undefined)
       vi.stubEnv('GITLAB_CI', 'true')
       const result = detectEnvironment()
       expect(result.isCI).toBe(true)
@@ -250,6 +252,8 @@ describe('environment configuration', () => {
     })
 
     it('detects CircleCI', () => {
+      vi.unstubAllEnvs()
+      vi.stubEnv('GITHUB_ACTIONS', undefined)
       vi.stubEnv('CIRCLECI', 'true')
       const result = detectEnvironment()
       expect(result.isCI).toBe(true)
@@ -259,6 +263,14 @@ describe('environment configuration', () => {
 
     it('handles no CI environment', () => {
       vi.unstubAllEnvs()
+      vi.stubEnv('CI', undefined)
+      vi.stubEnv('CONTINUOUS_INTEGRATION', undefined)
+      vi.stubEnv('GITHUB_ACTIONS', undefined)
+      vi.stubEnv('GITLAB_CI', undefined)
+      vi.stubEnv('CIRCLECI', undefined)
+      vi.stubEnv('TRAVIS', undefined)
+      vi.stubEnv('BUILDKITE', undefined)
+      vi.stubEnv('JENKINS_URL', undefined)
       const result = detectEnvironment()
       expect(result.isCI).toBe(false)
       expect(result.metadata.ciVendor).toBeUndefined()
@@ -267,6 +279,7 @@ describe('environment configuration', () => {
 
   describe('branch detection', () => {
     it('detects GitHub branch name', () => {
+      vi.unstubAllEnvs()
       vi.stubEnv('GITHUB_REF_NAME', 'feature/test')
       const result = detectEnvironment()
       expect(result.metadata.branchName).toBe('feature/test')
@@ -274,6 +287,8 @@ describe('environment configuration', () => {
     })
 
     it('detects GitLab branch name', () => {
+      vi.unstubAllEnvs()
+      vi.stubEnv('GITHUB_REF_NAME', undefined)
       vi.stubEnv('CI_COMMIT_REF_NAME', 'develop')
       const result = detectEnvironment()
       expect(result.metadata.branchName).toBe('develop')
@@ -282,6 +297,12 @@ describe('environment configuration', () => {
 
     it('handles no branch detection', () => {
       vi.unstubAllEnvs()
+      vi.stubEnv('GITHUB_REF_NAME', undefined)
+      vi.stubEnv('CI_COMMIT_REF_NAME', undefined)
+      vi.stubEnv('CIRCLE_BRANCH', undefined)
+      vi.stubEnv('TRAVIS_BRANCH', undefined)
+      vi.stubEnv('BUILDKITE_BRANCH', undefined)
+      vi.stubEnv('GIT_BRANCH', undefined)
       const result = detectEnvironment()
       expect(result.metadata.branchName).toBeUndefined()
     })
@@ -289,8 +310,16 @@ describe('environment configuration', () => {
 
   describe('integration scenarios', () => {
     it('handles complete development workflow', () => {
+      vi.unstubAllEnvs()
       vi.stubEnv('NODE_ENV', 'development')
       vi.stubEnv('CI', 'false')
+      vi.stubEnv('GITHUB_ACTIONS', undefined)
+      vi.stubEnv('GITLAB_CI', undefined)
+      vi.stubEnv('CIRCLECI', undefined)
+      vi.stubEnv('TRAVIS', undefined)
+      vi.stubEnv('BUILDKITE', undefined)
+      vi.stubEnv('JENKINS_URL', undefined)
+      vi.stubEnv('CONTINUOUS_INTEGRATION', undefined)
 
       const context = detectEnvironment()
       const config = {plugins: ['@semantic-release/commit-analyzer']}
