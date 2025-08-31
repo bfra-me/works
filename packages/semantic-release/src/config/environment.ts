@@ -100,9 +100,9 @@ export function detectEnvironment(explicitEnv?: Environment): EnvironmentContext
     }
   }
 
-  // Check NODE_ENV first
+  // Check NODE_ENV first (for explicit environment settings)
   const nodeEnv = process.env.NODE_ENV?.toLowerCase()
-  if (nodeEnv != null && ['development', 'staging', 'production', 'test'].includes(nodeEnv)) {
+  if (nodeEnv != null && ['development', 'staging', 'production'].includes(nodeEnv)) {
     return {
       environment: nodeEnv as Environment,
       autoDetected: true,
@@ -116,7 +116,7 @@ export function detectEnvironment(explicitEnv?: Environment): EnvironmentContext
     }
   }
 
-  // Check if we're in a test environment
+  // Check for CI branch-based detection (for staging detection in CI)
   const ciVendor = detectCIVendor()
   if (process.env.CI === 'true' && ciVendor != null) {
     const branchName = detectBranchName()
@@ -135,17 +135,19 @@ export function detectEnvironment(explicitEnv?: Environment): EnvironmentContext
     }
   }
 
-  // Check for common test indicators
-  if (
+  // Check for test indicators
+  const hasExplicitTestIndicators =
     process.argv.includes('--test') ||
     process.env.npm_lifecycle_event === 'test' ||
-    process.env.VITEST === 'true' ||
-    process.env.JEST_WORKER_ID !== undefined
-  ) {
+    (process.env.JEST_WORKER_ID !== undefined && process.env.JEST_WORKER_ID !== '')
+
+  const hasVitestIndicator = process.env.VITEST === 'true'
+
+  if (nodeEnv === 'test' || hasExplicitTestIndicators || hasVitestIndicator) {
     return {
       environment: 'test',
       autoDetected: true,
-      source: 'TEST_INDICATORS',
+      source: hasExplicitTestIndicators || hasVitestIndicator ? 'TEST_INDICATORS' : 'NODE_ENV',
       isCI: detectCI(),
       metadata: {
         nodeEnv: process.env.NODE_ENV,

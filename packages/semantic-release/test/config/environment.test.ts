@@ -54,10 +54,16 @@ describe('environment configuration', () => {
 
     it('defaults to production when no indicators found', () => {
       vi.unstubAllEnvs()
+      // Explicitly clear all test indicators to simulate non-test environment
+      vi.stubEnv('VITEST', '')
+      vi.stubEnv('NODE_ENV', '')
+      vi.stubEnv('npm_lifecycle_event', '')
+      vi.stubEnv('JEST_WORKER_ID', undefined)
       const result = detectEnvironment()
       expect(result.environment).toBe('production')
       expect(result.autoDetected).toBe(true)
       expect(result.source).toBe('DEFAULT')
+      vi.unstubAllEnvs()
     })
 
     it('includes CI detection metadata', () => {
