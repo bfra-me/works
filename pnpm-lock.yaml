@@ -29,8 +29,8 @@ importers:
         specifier: 1.2.0
         version: 1.2.0(eslint@9.34.0(jiti@2.1.2))
       '@manypkg/cli':
-        specifier: 0.25.0
-        version: 0.25.0
+        specifier: 0.25.1
+        version: 0.25.1
       '@microsoft/api-extractor':
         specifier: 7.52.11
         version: 7.52.11(@types/node@22.17.1)
@@ -1127,8 +1127,8 @@ packages:
     peerDependencies:
       tslib: '2'
 
-  '@manypkg/cli@0.25.0':
-    resolution: {integrity: sha512-qohYlbfx4RdQX6OqRR0yW7duYzSxgzB/gfHuJA+RDOrbNXhLh/3KQxcH9FxyRqr69OP+CjuEeWZVRfLhfJjqfw==}
+  '@manypkg/cli@0.25.1':
+    resolution: {integrity: sha512-lag906FyiNxzZjsRErkUD5/to174I2JzPk5bZubuJp6loMKKJn73zrtqeU7nHlVkHBg3tgXDTJj22HxUDxLRXw==}
     engines: {node: '>=20.0.0'}
     hasBin: true
 
@@ -6385,7 +6385,7 @@ snapshots:
       '@jsonjoy.com/codegen': 1.0.0(tslib@2.8.1)
       tslib: 2.8.1
 
-  '@manypkg/cli@0.25.0':
+  '@manypkg/cli@0.25.1':
     dependencies:
       '@manypkg/get-packages': 3.1.0
       detect-indent: 7.0.1
