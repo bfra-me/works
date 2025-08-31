@@ -1,11 +1,11 @@
 /**
  * Plugin template generator for scaffolding new plugins.
  *
- * This module will provide template generation utilities for creating
- * new semantic-release plugins with proper TypeScript support.
- *
- * @todo Implement plugin template generator for TASK-023
+ * This module provides comprehensive template generation utilities for creating
+ * new semantic-release plugins with proper TypeScript support, testing setup,
+ * and documentation generation.
  */
 
-// Placeholder for template utilities to be implemented in TASK-023
-export const placeholderTemplate = 'Plugin template generator coming soon'
+export * from './generator.js'
+export * from './templates/index.js'
+export * from './types.js'

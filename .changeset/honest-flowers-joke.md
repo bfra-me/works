@@ -15,3 +15,5 @@ Enhance TypeScript support and configuration utilities.
 - Added comprehensive testing utilities for semantic-release plugins, including a PluginTester class for testing lifecycle hooks.
 - Created mock context objects to simulate the runtime environment for plugins.
 - Introduced builders for creating test commits, releases, and scenarios to streamline testing.
+- Implement plugin template generator for scaffolding new plugins
+- Create templates for various plugin types including analyze, generate, prepare, publish, success, fail, and verify
