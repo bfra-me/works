@@ -26,6 +26,18 @@
         "default": "./lib/index.js"
       }
     },
+    "./factories": {
+      "import": {
+        "types": "./lib/config/factories.d.ts",
+        "default": "./lib/config/factories.js"
+      }
+    },
+    "./builder": {
+      "import": {
+        "types": "./lib/config/builder.d.ts",
+        "default": "./lib/config/builder.js"
+      }
+    },
     "./package.json": "./package.json"
   },
   "main": "lib/index.js",

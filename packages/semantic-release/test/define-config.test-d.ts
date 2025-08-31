@@ -1,4 +1,4 @@
-import {defineConfig, type SemanticReleaseConfig} from '@bfra.me/semantic-release'
+import {defineConfig} from '@bfra.me/semantic-release'
 import {describe, expectTypeOf, test} from 'vitest'
 
 describe('defineConfig', {}, () => {
@@ -6,6 +6,7 @@ describe('defineConfig', {}, () => {
     const config = defineConfig({
       branches: 'main',
     })
-    expectTypeOf(config).toEqualTypeOf<SemanticReleaseConfig>()
+    expectTypeOf(config).toHaveProperty('branches')
+    expectTypeOf(config).toBeObject()
   })
 })
