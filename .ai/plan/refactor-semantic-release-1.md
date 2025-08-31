@@ -78,7 +78,7 @@ Complete rewrite of the `@bfra.me/semantic-release` package to provide comprehen
 | TASK-019 | Create TypeScript interfaces for semantic-release plugin lifecycle hooks | ✅ | 2025-08-31 |
 | TASK-020 | Implement typed context objects for each plugin lifecycle stage | ✅ | 2025-08-31 |
 | TASK-021 | Create plugin development utilities and helpers for common operations | ✅ | 2025-08-31 |
-| TASK-022 | Implement plugin testing utilities with mock semantic-release context | | |
+| TASK-022 | Implement plugin testing utilities with mock semantic-release context | ✅ | 2025-08-31 |
 | TASK-023 | Create plugin template generator for scaffolding new plugins | | |
 | TASK-024 | Implement plugin validation and compatibility checking utilities | | |
 | TASK-025 | Create plugin registry system for discovering and managing custom plugins | | |
