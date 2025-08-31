@@ -1,4 +1,6 @@
 export * from './composition/index.js'
 export * from './config.js'
+export * from './config/environment.js'
+export * from './config/helpers.js'
 export type * from './types.js'
 export * from './validation/index.js'
