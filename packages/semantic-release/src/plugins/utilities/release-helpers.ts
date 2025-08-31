@@ -281,11 +281,11 @@ export function createReleaseUrl(baseUrl: string, version: string): string {
   const cleanUrl = baseUrl.replace(/\/$/, '')
   const taggedVersion = getTaggedVersion(version)
 
-  let hostname = '';
+  let hostname = ''
   try {
-    hostname = new URL(cleanUrl).hostname.replace(/^www\./, '');
+    hostname = new URL(cleanUrl).hostname.replace(/^www\./, '')
   } catch {
-    hostname = '';
+    hostname = ''
   }
 
   if (hostname === 'github.com') {
