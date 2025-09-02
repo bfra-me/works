@@ -2,6 +2,11 @@
  * TypeScript types for plugin template generation.
  */
 
+import type {PluginLifecycleHook} from '../validation/types.js'
+
+// Re-export the shared type
+export type {PluginLifecycleHook}
+
 /**
  * Plugin type determining which lifecycle hooks to implement.
  */
@@ -50,19 +55,6 @@ export interface PluginTemplateConfig {
   /** Development dependencies to include */
   devDependencies?: string[]
 }
-
-/**
- * Semantic-release plugin lifecycle hooks.
- */
-export type PluginLifecycleHook =
-  | 'verifyConditions'
-  | 'analyzeCommits'
-  | 'verifyRelease'
-  | 'generateNotes'
-  | 'prepare'
-  | 'publish'
-  | 'success'
-  | 'fail'
 
 /**
  * Template file metadata.
