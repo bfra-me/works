@@ -1,11 +1,12 @@
 /**
  * Plugin validation and compatibility checking utilities.
  *
- * This module will provide validation utilities for plugin development,
- * including configuration validation and compatibility checking.
- *
- * @todo Implement plugin validation utilities for TASK-024
+ * This module provides comprehensive validation utilities for plugin development,
+ * including configuration validation, compatibility checking, and runtime validation
+ * of plugin implementations.
  */
 
-// Placeholder for validation utilities to be implemented in TASK-024
-export const placeholderValidation = 'Plugin validation utilities coming soon'
+export * from './compatibility-checker.js'
+export * from './config-validator.js'
+export * from './plugin-validator.js'
+export * from './types.js'
