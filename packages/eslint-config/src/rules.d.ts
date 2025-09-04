@@ -5175,6 +5175,11 @@ export interface Rules {
    */
   'vitest/prefer-expect-resolves'?: Linter.RuleEntry<[]>
   /**
+   * enforce using `expectTypeOf` instead of `expect(typeof ...)`
+   * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-expect-type-of.md
+   */
+  'vitest/prefer-expect-type-of'?: Linter.RuleEntry<[]>
+  /**
    * enforce having hooks in consistent order
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-hooks-in-order.md
    */
