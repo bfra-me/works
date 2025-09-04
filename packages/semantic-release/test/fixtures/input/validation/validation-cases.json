@@ -1,0 +1,139 @@
+{
+  "valid-configs": [
+    {
+      "name": "basic-config",
+      "config": {
+        "branches": ["main"],
+        "repositoryUrl": "https://github.com/user/repo",
+        "plugins": [
+          "@semantic-release/commit-analyzer",
+          "@semantic-release/release-notes-generator",
+          "@semantic-release/npm"
+        ]
+      },
+      "expected": true
+    },
+    {
+      "name": "minimal-config",
+      "config": {
+        "branches": ["main"]
+      },
+      "expected": true
+    },
+    {
+      "name": "preset-config",
+      "config": {
+        "extends": "@bfra.me/semantic-release",
+        "branches": ["main", "next"]
+      },
+      "expected": true
+    }
+  ],
+  "invalid-configs": [
+    {
+      "name": "empty-config",
+      "config": {},
+      "expected": false,
+      "error": "Configuration must specify branches"
+    },
+    {
+      "name": "invalid-branches",
+      "config": {
+        "branches": "main"
+      },
+      "expected": false,
+      "error": "Branches must be an array"
+    },
+    {
+      "name": "invalid-repository-url",
+      "config": {
+        "branches": ["main"],
+        "repositoryUrl": "not-a-url"
+      },
+      "expected": false,
+      "error": "Repository URL must be a valid URL"
+    },
+    {
+      "name": "invalid-tag-format",
+      "config": {
+        "branches": ["main"],
+        "tagFormat": 123
+      },
+      "expected": false,
+      "error": "Tag format must be a string"
+    },
+    {
+      "name": "invalid-plugins",
+      "config": {
+        "branches": ["main"],
+        "plugins": "not-an-array"
+      },
+      "expected": false,
+      "error": "Plugins must be an array"
+    }
+  ],
+  "edge-cases": [
+    {
+      "name": "null-config",
+      "config": null,
+      "expected": false,
+      "error": "Configuration cannot be null"
+    },
+    {
+      "name": "undefined-config",
+      "config": "UNDEFINED",
+      "expected": false,
+      "error": "Configuration cannot be undefined"
+    },
+    {
+      "name": "string-config",
+      "config": "invalid",
+      "expected": false,
+      "error": "Configuration must be an object"
+    },
+    {
+      "name": "array-config",
+      "config": [],
+      "expected": false,
+      "error": "Configuration must be an object"
+    }
+  ],
+  "plugin-validation": [
+    {
+      "name": "valid-plugin-string",
+      "config": {
+        "branches": ["main"],
+        "plugins": ["@semantic-release/npm"]
+      },
+      "expected": true
+    },
+    {
+      "name": "valid-plugin-array",
+      "config": {
+        "branches": ["main"],
+        "plugins": [
+          [
+            "@semantic-release/npm",
+            {
+              "npmPublish": true
+            }
+          ]
+        ]
+      },
+      "expected": true
+    },
+    {
+      "name": "invalid-plugin-format",
+      "config": {
+        "branches": ["main"],
+        "plugins": [
+          {
+            "invalidFormat": true
+          }
+        ]
+      },
+      "expected": false,
+      "error": "Plugin must be a string or array"
+    }
+  ]
+}
