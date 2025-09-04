@@ -40,7 +40,7 @@
     "*.{js,json,jsx,md,toml,ts,tsx,yml,yaml}": [
       "eslint --flag v10_config_lookup_from_file --fix --ignore-pattern 'packages/create/templates/**' --no-warn-ignored"
     ],
-    "package.json": [
+    "**/package.json": [
       "sort-package-json"
     ]
   },
