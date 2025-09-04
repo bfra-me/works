@@ -125,7 +125,8 @@ export function githubPreset(options: BasePresetOptions = {}): GlobalConfig {
  * Create a monorepo package release preset.
  *
  * This preset is optimized for packages within a monorepo, supporting
- * workspace-specific tagging and conditional publishing.
+ * workspace-specific tagging, conditional publishing, and integration
+ * with changesets workflow for coordinated releases.
  *
  * @param options - Configuration options for the monorepo preset
  * @returns A complete semantic-release configuration for monorepo packages
@@ -134,7 +135,16 @@ export function githubPreset(options: BasePresetOptions = {}): GlobalConfig {
  * ```typescript
  * // Basic monorepo package
  * export default monorepoPreset({
- *   branches: ['main']
+ *   branches: ['main'],
+ *   packageName: '@org/package-name'
+ * })
+ *
+ * // With changesets integration
+ * export default monorepoPreset({
+ *   branches: ['main'],
+ *   packageName: '@org/package-name',
+ *   changesetsIntegration: true,
+ *   pkgRoot: 'packages/my-package'
  * })
  * ```
  */
@@ -149,6 +159,25 @@ export function monorepoPreset(
      * Package name for release tagging.
      */
     packageName?: string
+
+    /**
+     * Enable integration with changesets workflow.
+     * When enabled, optimizes for coordinated releases in monorepos.
+     * @default false
+     */
+    changesetsIntegration?: boolean
+
+    /**
+     * Whether to only publish if there are actual changes.
+     * Useful with changesets to avoid empty releases.
+     * @default true when changesetsIntegration is enabled
+     */
+    publishOnlyIfChanged?: boolean
+
+    /**
+     * Custom release notes template for monorepo context.
+     */
+    releaseNotesTemplate?: string
   } = {},
 ): GlobalConfig {
   const {
@@ -158,6 +187,9 @@ export function monorepoPreset(
     defineOptions = {},
     pkgRoot,
     packageName,
+    changesetsIntegration = false,
+    publishOnlyIfChanged = changesetsIntegration,
+    releaseNotesTemplate,
   } = options
 
   const builder = createConfigBuilder().branches(branches).dryRun(dryRun)
@@ -172,15 +204,115 @@ export function monorepoPreset(
   }
 
   // Configure plugins for monorepo workflow
-  const pluginBuilder = builder.plugins().commitAnalyzer().releaseNotesGenerator()
+  const pluginBuilder = builder.plugins()
 
+  // Use conventional commits with monorepo-specific rules
+  pluginBuilder.commitAnalyzer({
+    preset: 'conventionalcommits',
+    releaseRules: [
+      {type: 'docs', scope: 'README', release: 'patch'},
+      {type: 'refactor', release: 'patch'},
+      {scope: 'no-release', release: false},
+      // Changesets integration: respect changeset files
+      ...(changesetsIntegration
+        ? [
+            {type: 'chore', scope: 'changeset', release: false as const},
+            {type: 'docs', scope: 'changeset', release: false as const},
+          ]
+        : []),
+    ],
+  })
+
+  // Configure release notes with monorepo context
+  pluginBuilder.releaseNotesGenerator({
+    preset: 'conventionalcommits',
+    ...(releaseNotesTemplate != null && releaseNotesTemplate.length > 0
+      ? {
+          writerOpts: {
+            mainTemplate: releaseNotesTemplate,
+          },
+        }
+      : {}),
+    // Add package context to release notes
+    presetConfig: {
+      types: [
+        {type: 'feat', section: 'Features'},
+        {type: 'fix', section: 'Bug Fixes'},
+        {type: 'perf', section: 'Performance Improvements'},
+        {type: 'revert', section: 'Reverts'},
+        {type: 'docs', section: 'Documentation', hidden: true},
+        {type: 'style', section: 'Styles', hidden: true},
+        {type: 'chore', section: 'Miscellaneous Chores', hidden: true},
+        {type: 'refactor', section: 'Code Refactoring', hidden: true},
+        {type: 'test', section: 'Tests', hidden: true},
+        {type: 'build', section: 'Build System', hidden: true},
+        {type: 'ci', section: 'Continuous Integration', hidden: true},
+      ],
+    },
+  })
+
+  // Configure npm publishing with package root
   if (pkgRoot != null && pkgRoot.length > 0) {
-    pluginBuilder.npm({pkgRoot})
+    const npmConfig: {pkgRoot: string; publishOnly?: boolean; tarballDir?: string} = {pkgRoot}
+
+    // Optimize for changesets workflow
+    if (changesetsIntegration) {
+      // Only publish if package.json version has changed
+      npmConfig.publishOnly = publishOnlyIfChanged
+      // Use dist-tags for monorepo releases
+      npmConfig.tarballDir = `${pkgRoot}/dist`
+    }
+
+    pluginBuilder.npm(npmConfig)
   } else {
     pluginBuilder.npm()
   }
 
-  pluginBuilder.github()
+  // Configure GitHub releases with monorepo-specific settings
+  pluginBuilder.github({
+    // Use package-specific release titles
+    ...(packageName != null && packageName.length > 0
+      ? {
+          releaseNameTemplate: `${packageName}@\${nextRelease.version}`,
+          releaseBodyTemplate: `Release notes for ${packageName}@\${nextRelease.version}
+
+\${nextRelease.notes}`,
+        }
+      : {}),
+    // Optimize for monorepo workflow
+    successComment: changesetsIntegration
+      ? // Changesets-aware success comment
+        // eslint-disable-next-line no-template-curly-in-string
+        'This ${issue.pull_request ? "PR is included" : "issue has been resolved"} in ${packageName ?? "package"}@${nextRelease.version} :tada:'
+      : // Standard success comment
+        // eslint-disable-next-line no-template-curly-in-string
+        'This ${issue.pull_request ? "PR is included" : "issue has been resolved"} in version ${nextRelease.version} :tada:',
+  })
+
+  // Configure git commits with monorepo-aware settings
+  const gitAssets = ['package.json']
+
+  // Include changelog for non-changesets workflows
+  if (!changesetsIntegration) {
+    gitAssets.push('CHANGELOG.md')
+  }
+
+  // Add package-specific assets if in package root
+  if (pkgRoot != null && pkgRoot.length > 0) {
+    gitAssets.forEach((asset, index) => {
+      gitAssets[index] = `${pkgRoot}/${asset}`
+    })
+  }
+
+  pluginBuilder.git({
+    assets: gitAssets,
+    // Use package-aware commit message
+    message:
+      packageName != null && packageName.length > 0
+        ? `chore(release): ${packageName}@\${nextRelease.version} [skip ci]\n\n\${nextRelease.notes}`
+        : // eslint-disable-next-line no-template-curly-in-string
+          'chore(release): \${nextRelease.version} [skip ci]\n\n\${nextRelease.notes}',
+  })
 
   return builder.build(defineOptions)
 }
