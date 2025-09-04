@@ -1,0 +1,78 @@
+{
+  "typescript-compilation": {
+    "basic-usage": {
+      "compiles": true,
+      "errors": [],
+      "exportedType": "GlobalConfig"
+    },
+    "preset-usage": {
+      "compiles": true,
+      "errors": [],
+      "exportedType": "GlobalConfig",
+      "presetsUsed": ["npmPreset"]
+    },
+    "composition-usage": {
+      "compiles": true,
+      "errors": [],
+      "exportedType": "GlobalConfig",
+      "presetsUsed": ["npmPreset", "githubPreset"],
+      "compositionMethods": ["mergeConfigs"]
+    },
+    "builder-usage": {
+      "compiles": true,
+      "errors": [],
+      "exportedType": "GlobalConfig",
+      "builderUsed": true
+    },
+    "factory-usage": {
+      "compiles": true,
+      "errors": [],
+      "exportedType": "GlobalConfig",
+      "factoryUsed": true
+    },
+    "complex-types": {
+      "compiles": true,
+      "errors": [],
+      "exportedType": "GlobalConfig",
+      "typesUsed": ["GlobalConfig", "PluginConfig", "NpmPluginConfig"]
+    }
+  },
+  "type-checking": {
+    "valid-types": [
+      {
+        "name": "string-plugin",
+        "code": "const plugin: PluginConfig = '@semantic-release/npm'",
+        "valid": true
+      },
+      {
+        "name": "array-plugin",
+        "code": "const plugin: PluginConfig = ['@semantic-release/npm', { npmPublish: true }]",
+        "valid": true
+      },
+      {
+        "name": "branches-string-array",
+        "code": "const branches: BranchConfig[] = ['main', 'next']",
+        "valid": true
+      },
+      {
+        "name": "branches-object-array",
+        "code": "const branches: BranchConfig[] = [{ name: 'main' }, { name: 'beta', prerelease: true }]",
+        "valid": true
+      }
+    ],
+    "invalid-types": [
+      {
+        "name": "invalid-plugin-type",
+        "code": "const plugin: PluginConfig = 123",
+        "valid": false,
+        "error": "Type 'number' is not assignable to type 'PluginConfig'"
+      },
+      {
+        "name": "invalid-branch-type",
+        "code": "const branches: BranchConfig[] = [123]",
+        "valid": false,
+        "error": "Type 'number' is not assignable to type 'BranchConfig'"
+      }
+    ]
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "validation-results": {
+    "valid-configs": [
+      {
+        "name": "basic-config",
+        "valid": true,
+        "errors": []
+      },
+      {
+        "name": "minimal-config",
+        "valid": true,
+        "errors": []
+      },
+      {
+        "name": "preset-config",
+        "valid": true,
+        "errors": []
+      }
+    ],
+    "invalid-configs": [
+      {
+        "name": "empty-config",
+        "valid": false,
+        "errors": [
+          {
+            "path": "branches",
+            "message": "Configuration must specify branches",
+            "code": "MISSING_REQUIRED_FIELD"
+          }
+        ]
+      },
+      {
+        "name": "invalid-branches",
+        "valid": false,
+        "errors": [
+          {
+            "path": "branches",
+            "message": "Branches must be an array",
+            "code": "INVALID_TYPE"
+          }
+        ]
+      },
+      {
+        "name": "invalid-repository-url",
+        "valid": false,
+        "errors": [
+          {
+            "path": "repositoryUrl",
+            "message": "Repository URL must be a valid URL",
+            "code": "INVALID_FORMAT"
+          }
+        ]
+      },
+      {
+        "name": "invalid-tag-format",
+        "valid": false,
+        "errors": [
+          {
+            "path": "tagFormat",
+            "message": "Tag format must be a string",
+            "code": "INVALID_TYPE"
+          }
+        ]
+      },
+      {
+        "name": "invalid-plugins",
+        "valid": false,
+        "errors": [
+          {
+            "path": "plugins",
+            "message": "Plugins must be an array",
+            "code": "INVALID_TYPE"
+          }
+        ]
+      }
+    ],
+    "edge-cases": [
+      {
+        "name": "null-config",
+        "valid": false,
+        "errors": [
+          {
+            "path": "root",
+            "message": "Configuration cannot be null",
+            "code": "NULL_VALUE"
+          }
+        ]
+      },
+      {
+        "name": "string-config",
+        "valid": false,
+        "errors": [
+          {
+            "path": "root",
+            "message": "Configuration must be an object",
+            "code": "INVALID_TYPE"
+          }
+        ]
+      },
+      {
+        "name": "array-config",
+        "valid": false,
+        "errors": [
+          {
+            "path": "root",
+            "message": "Configuration must be an object",
+            "code": "INVALID_TYPE"
+          }
+        ]
+      }
+    ],
+    "plugin-validation": [
+      {
+        "name": "valid-plugin-string",
+        "valid": true,
+        "errors": []
+      },
+      {
+        "name": "valid-plugin-array",
+        "valid": true,
+        "errors": []
+      },
+      {
+        "name": "invalid-plugin-format",
+        "valid": false,
+        "errors": [
+          {
+            "path": "plugins[0]",
+            "message": "Plugin must be a string or array",
+            "code": "INVALID_PLUGIN_FORMAT"
+          }
+        ]
+      }
+    ]
+  }
+}
