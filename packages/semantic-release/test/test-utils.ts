@@ -293,7 +293,52 @@ export const testUtils = {
     ]
 
     // Check that all keys are valid
-    return Object.keys(configObj).every(key => validOptionalKeys.includes(key))
+    const allKeysValid = Object.keys(configObj).every(key => validOptionalKeys.includes(key))
+    if (!allKeysValid) return false
+
+    // For a configuration to be meaningful, it should have at least one meaningful property
+    // semantic-release requires at least some configuration to work
+    const hasMinimalConfig =
+      Object.keys(configObj).length > 0 &&
+      ((configObj.branches !== undefined && configObj.branches !== null) ||
+        (configObj.plugins !== undefined && configObj.plugins !== null) ||
+        (configObj.extends !== undefined && configObj.extends !== null) ||
+        (configObj.preset !== undefined && configObj.preset !== null))
+
+    // Additional validation for specific properties - don't return early, validate all
+    let branchesValid = true
+    let pluginsValid = true
+    let repositoryUrlValid = true
+
+    if (configObj.branches !== undefined) {
+      if (configObj.branches === null)
+        branchesValid = false // null is not valid
+      else if (typeof configObj.branches === 'string')
+        branchesValid = true // Single branch
+      else if (Array.isArray(configObj.branches))
+        branchesValid = configObj.branches.length > 0 // Array must not be empty
+      else if (typeof configObj.branches === 'object')
+        branchesValid = true // Branch spec object
+      else branchesValid = false // Invalid branches type
+    }
+
+    if (configObj.plugins !== undefined) {
+      if (configObj.plugins === null)
+        pluginsValid = false // null is not valid
+      else if (!Array.isArray(configObj.plugins)) {
+        // String plugins are invalid for semantic-release
+        pluginsValid = false
+      }
+    }
+
+    if (configObj.repositoryUrl !== undefined) {
+      if (configObj.repositoryUrl === null)
+        repositoryUrlValid = false // null is not valid
+      else repositoryUrlValid = typeof configObj.repositoryUrl === 'string'
+    }
+
+    // All validations must pass and we must have minimal config
+    return hasMinimalConfig && branchesValid && pluginsValid && repositoryUrlValid
   },
 }
 
