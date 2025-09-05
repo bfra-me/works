@@ -14,7 +14,12 @@ export {
   npmConfigSchema,
   releaseNotesGeneratorConfigSchema,
 } from './schemas/plugins.js'
-export {validateConfig, ValidationError} from './validator.js'
+export {
+  validateCompleteConfig,
+  validateConfig,
+  validatePluginConfig,
+  ValidationError,
+} from './validator.js'
 
 // Re-export Zod types for convenience
 export type {z} from 'zod'
