@@ -21,4 +21,20 @@ export {
 } from './config/versioning.js'
 export * from './plugins/index.js'
 export type * from './types.js'
-export * from './validation/index.js'
+// Export validation functions with explicit names to avoid conflicts
+export {
+  branchSpecSchema,
+  changelogConfigSchema,
+  commitAnalyzerConfigSchema,
+  gitConfigSchema,
+  githubConfigSchema,
+  globalConfigSchema,
+  npmConfigSchema,
+  pluginSpecSchema,
+  releaseNotesGeneratorConfigSchema,
+  validateCompleteConfig,
+  validateConfig,
+  validatePluginConfig as validatePluginConfigRuntime,
+  ValidationError,
+  type z,
+} from './validation/index.js'

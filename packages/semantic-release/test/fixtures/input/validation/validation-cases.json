@@ -31,10 +31,10 @@
   ],
   "invalid-configs": [
     {
-      "name": "empty-config",
+      "name": "empty-config-is-valid",
       "config": {},
-      "expected": false,
-      "error": "Configuration must specify branches"
+      "expected": true,
+      "note": "Empty config is valid as semantic-release provides defaults"
     },
     {
       "name": "invalid-branches",
