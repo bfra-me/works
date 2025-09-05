@@ -7631,6 +7631,7 @@ type JsdocRequireReturnsType = []|[{
 }]
 // ----- jsdoc/require-template -----
 type JsdocRequireTemplate = []|[{
+  exemptedBy?: string[]
   requireSeparateTemplates?: boolean
 }]
 // ----- jsdoc/require-throws -----
