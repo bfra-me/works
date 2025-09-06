@@ -152,21 +152,58 @@ export class MockRepository {
 
       // Initialize git repository
       // Use git -C flag instead of process.chdir() to avoid race conditions
+      // Set up environment variables to control Git's temporary file location
+      const gitEnv = {
+        ...process.env,
+        GIT_OBJECT_DIRECTORY: path.join(this.repoPath, '.git', 'objects'),
+        TMPDIR: path.join(this.repoPath, '.git', 'tmp'),
+      }
+
       // Initialize git with main as the default branch
       try {
-        execSync(`git -C "${this.repoPath}" init --initial-branch=main`, {stdio: 'pipe'})
+        execSync(`git -C "${this.repoPath}" init --initial-branch=main`, {
+          stdio: 'pipe',
+          env: gitEnv,
+        })
       } catch {
         // Fallback for older git versions that don't support --initial-branch
-        execSync(`git -C "${this.repoPath}" init`, {stdio: 'pipe'})
+        execSync(`git -C "${this.repoPath}" init`, {stdio: 'pipe', env: gitEnv})
+      }
+
+      // Ensure critical Git directories exist
+      const gitObjectsPath = path.join(this.repoPath, '.git', 'objects')
+      const gitRefsPath = path.join(this.repoPath, '.git', 'refs')
+      if (!existsSync(gitObjectsPath)) {
+        mkdirSync(gitObjectsPath, {recursive: true})
+      }
+      if (!existsSync(gitRefsPath)) {
+        mkdirSync(gitRefsPath, {recursive: true})
       }
 
       // Configure git user
       const gitUser = this.config.gitUser ?? {name: 'Test User', email: 'test@example.com'}
-      execSync(`git -C "${this.repoPath}" config user.name "${gitUser.name}"`, {stdio: 'pipe'})
-      execSync(`git -C "${this.repoPath}" config user.email "${gitUser.email}"`, {stdio: 'pipe'})
+      execSync(`git -C "${this.repoPath}" config user.name "${gitUser.name}"`, {
+        stdio: 'pipe',
+        env: gitEnv,
+      })
+      execSync(`git -C "${this.repoPath}" config user.email "${gitUser.email}"`, {
+        stdio: 'pipe',
+        env: gitEnv,
+      })
 
       // Ensure we're using 'main' as the default branch name
-      execSync(`git -C "${this.repoPath}" config init.defaultBranch main`, {stdio: 'pipe'})
+      execSync(`git -C "${this.repoPath}" config init.defaultBranch main`, {
+        stdio: 'pipe',
+        env: gitEnv,
+      })
+
+      // Set Git temporary directory to be within the repository to avoid conflicts
+      const gitTmpDir = path.join(this.repoPath, '.git', 'tmp')
+      mkdirSync(gitTmpDir, {recursive: true})
+      execSync(`git -C "${this.repoPath}" config core.worktree "${this.repoPath}"`, {
+        stdio: 'pipe',
+        env: gitEnv,
+      })
 
       // Create initial package.json
       const packageConfig = {
@@ -208,23 +245,26 @@ export class MockRepository {
       }
 
       // Create initial commit
-      execSync(`git -C "${this.repoPath}" add .`, {stdio: 'pipe'})
-      execSync(`git -C "${this.repoPath}" commit -m "Initial commit"`, {stdio: 'pipe'})
+      execSync(`git -C "${this.repoPath}" add .`, {stdio: 'pipe', env: gitEnv})
+      execSync(`git -C "${this.repoPath}" commit -m "Initial commit"`, {stdio: 'pipe', env: gitEnv})
 
       // Ensure we're on main branch after first commit
       try {
         const currentBranch = execSync(`git -C "${this.repoPath}" branch --show-current`, {
           stdio: 'pipe',
-        })
-          .toString()
-          .trim()
+          env: gitEnv,
+          encoding: 'utf8',
+        }).trim()
         if (currentBranch !== 'main') {
-          execSync(`git -C "${this.repoPath}" branch -m ${currentBranch} main`, {stdio: 'pipe'})
+          execSync(`git -C "${this.repoPath}" branch -m ${currentBranch} main`, {
+            stdio: 'pipe',
+            env: gitEnv,
+          })
         }
       } catch {
         // If that fails, try to checkout main branch
         try {
-          execSync(`git -C "${this.repoPath}" checkout -b main`, {stdio: 'pipe'})
+          execSync(`git -C "${this.repoPath}" checkout -b main`, {stdio: 'pipe', env: gitEnv})
         } catch {
           // If all else fails, continue with whatever branch we have
         }
@@ -232,7 +272,10 @@ export class MockRepository {
 
       // Create initial tag if requested
       if (this.config.createInitialTags && this.config.initialVersion !== '0.0.0') {
-        execSync(`git -C "${this.repoPath}" tag v${this.config.initialVersion}`, {stdio: 'pipe'})
+        execSync(`git -C "${this.repoPath}" tag v${this.config.initialVersion}`, {
+          stdio: 'pipe',
+          env: gitEnv,
+        })
       }
 
       this.initialized = true
@@ -270,6 +313,13 @@ export class MockRepository {
     }
 
     try {
+      // Set up environment variables to control Git's temporary file location
+      const gitEnv = {
+        ...process.env,
+        GIT_OBJECT_DIRECTORY: path.join(this.repoPath, '.git', 'objects'),
+        TMPDIR: path.join(this.repoPath, '.git', 'tmp'),
+      }
+
       for (const commit of commits) {
         // Add/modify files for this commit
         if (commit.files) {
@@ -286,7 +336,7 @@ export class MockRepository {
         }
 
         // Stage all changes
-        execSync(`git -C "${this.repoPath}" add .`, {stdio: 'pipe'})
+        execSync(`git -C "${this.repoPath}" add .`, {stdio: 'pipe', env: gitEnv})
 
         // Create commit with author if specified
         let commitCommand = `git -C "${this.repoPath}" commit -m "${commit.message}"`
@@ -294,7 +344,7 @@ export class MockRepository {
           commitCommand += ` --author="${commit.author.name} <${commit.author.email}>"`
         }
 
-        execSync(commitCommand, {stdio: 'pipe'})
+        execSync(commitCommand, {stdio: 'pipe', env: gitEnv})
       }
 
       return {
@@ -322,6 +372,13 @@ export class MockRepository {
     }
 
     try {
+      // Set up environment variables to control Git's temporary file location
+      const gitEnv = {
+        ...process.env,
+        GIT_OBJECT_DIRECTORY: path.join(this.repoPath, '.git', 'objects'),
+        TMPDIR: path.join(this.repoPath, '.git', 'tmp'),
+      }
+
       for (const tag of tags) {
         let tagCommand = `git -C "${this.repoPath}" tag`
 
@@ -335,7 +392,7 @@ export class MockRepository {
           tagCommand += ` ${tag.commit}`
         }
 
-        execSync(tagCommand, {stdio: 'pipe'})
+        execSync(tagCommand, {stdio: 'pipe', env: gitEnv})
       }
 
       return {success: true}
@@ -360,12 +417,23 @@ export class MockRepository {
     }
 
     try {
+      // Set up environment variables to control Git's temporary file location
+      const gitEnv = {
+        ...process.env,
+        GIT_OBJECT_DIRECTORY: path.join(this.repoPath, '.git', 'objects'),
+        TMPDIR: path.join(this.repoPath, '.git', 'tmp'),
+      }
+
       if (fromBranch !== undefined && fromBranch.trim() !== '') {
         execSync(`git -C "${this.repoPath}" checkout -b ${branchName} ${fromBranch}`, {
           stdio: 'pipe',
+          env: gitEnv,
         })
       } else {
-        execSync(`git -C "${this.repoPath}" checkout -b ${branchName}`, {stdio: 'pipe'})
+        execSync(`git -C "${this.repoPath}" checkout -b ${branchName}`, {
+          stdio: 'pipe',
+          env: gitEnv,
+        })
       }
 
       return {success: true}
@@ -390,7 +458,14 @@ export class MockRepository {
     }
 
     try {
-      execSync(`git -C "${this.repoPath}" checkout ${branchName}`, {stdio: 'pipe'})
+      // Set up environment variables to control Git's temporary file location
+      const gitEnv = {
+        ...process.env,
+        GIT_OBJECT_DIRECTORY: path.join(this.repoPath, '.git', 'objects'),
+        TMPDIR: path.join(this.repoPath, '.git', 'tmp'),
+      }
+
+      execSync(`git -C "${this.repoPath}" checkout ${branchName}`, {stdio: 'pipe', env: gitEnv})
       return {success: true}
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error)
@@ -415,19 +490,29 @@ export class MockRepository {
     }
 
     try {
+      // Set up environment variables to control Git's temporary file location
+      const gitEnv = {
+        ...process.env,
+        GIT_OBJECT_DIRECTORY: path.join(this.repoPath, '.git', 'objects'),
+        TMPDIR: path.join(this.repoPath, '.git', 'tmp'),
+      }
+
       const currentBranch = execSync(`git -C "${this.repoPath}" branch --show-current`, {
         encoding: 'utf8',
         stdio: 'pipe',
+        env: gitEnv,
       }).trim()
 
       const latestCommit = execSync(`git -C "${this.repoPath}" rev-parse HEAD`, {
         encoding: 'utf8',
         stdio: 'pipe',
+        env: gitEnv,
       }).trim()
 
       const tagsOutput = execSync(`git -C "${this.repoPath}" tag`, {
         encoding: 'utf8',
         stdio: 'pipe',
+        env: gitEnv,
       }).trim()
       const tags = tagsOutput ? tagsOutput.split('\n') : []
 
@@ -436,6 +521,7 @@ export class MockRepository {
         {
           encoding: 'utf8',
           stdio: 'pipe',
+          env: gitEnv,
         },
       ).trim()
       const commits = commitsOutput
@@ -488,11 +574,8 @@ export class MockRepository {
       throw new Error('Repository not initialized')
     }
 
-    const originalCwd = process.cwd()
-    process.chdir(this.repoPath)
-
     try {
-      const stdout = execSync(`git ${command}`, {
+      const stdout = execSync(`git -C "${this.repoPath}" ${command}`, {
         encoding: 'utf8',
         stdio: 'pipe',
       })
@@ -503,8 +586,6 @@ export class MockRepository {
         stdout: execError.stdout ?? '',
         stderr: execError.stderr ?? execError.message,
       }
-    } finally {
-      process.chdir(originalCwd)
     }
   }
 }
