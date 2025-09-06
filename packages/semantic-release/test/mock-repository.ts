@@ -135,12 +135,21 @@ export class MockRepository {
       process.chdir(this.repoPath)
 
       try {
-        // Initialize git
-        execSync('git init', {stdio: 'pipe'})
+        // Initialize git with main as the default branch
+        try {
+          execSync('git init --initial-branch=main', {stdio: 'pipe'})
+        } catch {
+          // Fallback for older git versions that don't support --initial-branch
+          execSync('git init', {stdio: 'pipe'})
+        }
 
         // Configure git user
-        execSync(`git config user.name "${this.config.gitUser!.name}"`, {stdio: 'pipe'})
-        execSync(`git config user.email "${this.config.gitUser!.email}"`, {stdio: 'pipe'})
+        const gitUser = this.config.gitUser ?? {name: 'Test User', email: 'test@example.com'}
+        execSync(`git config user.name "${gitUser.name}"`, {stdio: 'pipe'})
+        execSync(`git config user.email "${gitUser.email}"`, {stdio: 'pipe'})
+
+        // Ensure we're using 'main' as the default branch name
+        execSync('git config init.defaultBranch main', {stdio: 'pipe'})
 
         // Create initial package.json
         const packageConfig = {
@@ -184,6 +193,23 @@ export class MockRepository {
         // Create initial commit
         execSync('git add .', {stdio: 'pipe'})
         execSync('git commit -m "Initial commit"', {stdio: 'pipe'})
+
+        // Ensure we're on main branch after first commit
+        try {
+          const currentBranch = execSync('git branch --show-current', {stdio: 'pipe'})
+            .toString()
+            .trim()
+          if (currentBranch !== 'main') {
+            execSync(`git branch -m ${currentBranch} main`, {stdio: 'pipe'})
+          }
+        } catch {
+          // If that fails, try to checkout main branch
+          try {
+            execSync('git checkout -b main', {stdio: 'pipe'})
+          } catch {
+            // If all else fails, continue with whatever branch we have
+          }
+        }
 
         // Create initial tag if requested
         if (this.config.createInitialTags && this.config.initialVersion !== '0.0.0') {
