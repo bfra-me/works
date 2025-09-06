@@ -1,5 +1,26 @@
 # @bfra.me/create
 
+## 0.5.3
+### Patch Changes
+
+
+- Updated dependency `@types/node` to `22.18.0`. ([#1773](https://github.com/bfra-me/works/pull/1773))
+
+
+- Updated dependency `msw` to `2.11.0`. ([#1778](https://github.com/bfra-me/works/pull/1778))
+
+
+- Updated dependency `msw` to `2.11.1`. ([#1780](https://github.com/bfra-me/works/pull/1780))
+
+
+- Updated dependency `openai` to `5.19.1`. ([#1795](https://github.com/bfra-me/works/pull/1795))
+
+
+- Updated dependency `dotenv` to `17.2.2`. ([#1796](https://github.com/bfra-me/works/pull/1796))
+
+
+- Updated dependency `openai` to `5.17.0`. ([#1793](https://github.com/bfra-me/works/pull/1793))
+
 ## 0.5.2
 ### Patch Changes
 
