@@ -1,13 +1,7 @@
 /**
  * Mock repository utilities for testing real-world semantic-release workflows.
  *
- * This module provides utilities for creating         // Configure git user
-        if (this.config.gitUser?.name) {
-          execSync(`git config user.name "${this.config.gitUser.name}"`, {stdio: 'pipe'})
-        }
-        if (this.config.gitUser?.email) {
-          execSync(`git config user.email "${this.config.gitUser.email}"`, {stdio: 'pipe'})
-        } managing mock git repositories
+ * This module provides utilities for creating and managing mock git repositories
  * with realistic commit histories, branches, and tags to test complete semantic-release
  * workflows end-to-end.
  */
@@ -128,105 +122,135 @@ export class MockRepository {
         rmSync(this.repoPath, {recursive: true, force: true})
       }
 
-      mkdirSync(this.repoPath, {recursive: true})
+      // Create repository directory
+      try {
+        mkdirSync(this.repoPath, {recursive: true})
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : String(error)
+        console.error('Failed to create repository directory:', {
+          repoPath: this.repoPath,
+          error: errorMessage,
+        })
+        return {
+          success: false,
+          error: errorMessage,
+        }
+      }
+
+      // Verify directory was created
+      if (!existsSync(this.repoPath)) {
+        const errorMessage = `Repository directory was not created: ${this.repoPath}`
+        console.error('Directory verification failed:', {
+          repoPath: this.repoPath,
+          error: errorMessage,
+        })
+        return {
+          success: false,
+          error: errorMessage,
+        }
+      }
 
       // Initialize git repository
-      const originalCwd = process.cwd()
-      process.chdir(this.repoPath)
-
+      // Use git -C flag instead of process.chdir() to avoid race conditions
+      // Initialize git with main as the default branch
       try {
-        // Initialize git with main as the default branch
+        execSync(`git -C "${this.repoPath}" init --initial-branch=main`, {stdio: 'pipe'})
+      } catch {
+        // Fallback for older git versions that don't support --initial-branch
+        execSync(`git -C "${this.repoPath}" init`, {stdio: 'pipe'})
+      }
+
+      // Configure git user
+      const gitUser = this.config.gitUser ?? {name: 'Test User', email: 'test@example.com'}
+      execSync(`git -C "${this.repoPath}" config user.name "${gitUser.name}"`, {stdio: 'pipe'})
+      execSync(`git -C "${this.repoPath}" config user.email "${gitUser.email}"`, {stdio: 'pipe'})
+
+      // Ensure we're using 'main' as the default branch name
+      execSync(`git -C "${this.repoPath}" config init.defaultBranch main`, {stdio: 'pipe'})
+
+      // Create initial package.json
+      const packageConfig = {
+        name: this.config.packageConfig?.name ?? `test-${this.config.name}`,
+        version: this.config.initialVersion,
+        description:
+          this.config.packageConfig?.description ?? 'Test package for semantic-release workflow',
+        private: this.config.packageConfig?.private ?? false,
+        scripts: {
+          build: 'echo "Building..."',
+          test: 'echo "Testing..."',
+        },
+        ...this.config.packageConfig,
+      }
+
+      writeFileSync(
+        path.join(this.repoPath, 'package.json'),
+        JSON.stringify(packageConfig, null, 2),
+      )
+
+      // Create README.md
+      writeFileSync(
+        path.join(this.repoPath, 'README.md'),
+        `# ${packageConfig.name}\n\n${packageConfig.description}\n`,
+      )
+
+      // Create additional files if specified
+      if (this.config.files) {
+        for (const file of this.config.files) {
+          const filePath = path.join(this.repoPath, file.path)
+          const fileDir = path.dirname(filePath)
+
+          if (!existsSync(fileDir)) {
+            mkdirSync(fileDir, {recursive: true})
+          }
+
+          writeFileSync(filePath, file.content)
+        }
+      }
+
+      // Create initial commit
+      execSync(`git -C "${this.repoPath}" add .`, {stdio: 'pipe'})
+      execSync(`git -C "${this.repoPath}" commit -m "Initial commit"`, {stdio: 'pipe'})
+
+      // Ensure we're on main branch after first commit
+      try {
+        const currentBranch = execSync(`git -C "${this.repoPath}" branch --show-current`, {
+          stdio: 'pipe',
+        })
+          .toString()
+          .trim()
+        if (currentBranch !== 'main') {
+          execSync(`git -C "${this.repoPath}" branch -m ${currentBranch} main`, {stdio: 'pipe'})
+        }
+      } catch {
+        // If that fails, try to checkout main branch
         try {
-          execSync('git init --initial-branch=main', {stdio: 'pipe'})
+          execSync(`git -C "${this.repoPath}" checkout -b main`, {stdio: 'pipe'})
         } catch {
-          // Fallback for older git versions that don't support --initial-branch
-          execSync('git init', {stdio: 'pipe'})
+          // If all else fails, continue with whatever branch we have
         }
+      }
 
-        // Configure git user
-        const gitUser = this.config.gitUser ?? {name: 'Test User', email: 'test@example.com'}
-        execSync(`git config user.name "${gitUser.name}"`, {stdio: 'pipe'})
-        execSync(`git config user.email "${gitUser.email}"`, {stdio: 'pipe'})
+      // Create initial tag if requested
+      if (this.config.createInitialTags && this.config.initialVersion !== '0.0.0') {
+        execSync(`git -C "${this.repoPath}" tag v${this.config.initialVersion}`, {stdio: 'pipe'})
+      }
 
-        // Ensure we're using 'main' as the default branch name
-        execSync('git config init.defaultBranch main', {stdio: 'pipe'})
+      this.initialized = true
 
-        // Create initial package.json
-        const packageConfig = {
-          name: this.config.packageConfig?.name ?? `test-${this.config.name}`,
-          version: this.config.initialVersion,
-          description:
-            this.config.packageConfig?.description ?? 'Test package for semantic-release workflow',
-          private: this.config.packageConfig?.private ?? false,
-          scripts: {
-            build: 'echo "Building..."',
-            test: 'echo "Testing..."',
-          },
-          ...this.config.packageConfig,
-        }
-
-        writeFileSync(
-          path.join(this.repoPath, 'package.json'),
-          JSON.stringify(packageConfig, null, 2),
-        )
-
-        // Create README.md
-        writeFileSync(
-          path.join(this.repoPath, 'README.md'),
-          `# ${packageConfig.name}\n\n${packageConfig.description}\n`,
-        )
-
-        // Create additional files if specified
-        if (this.config.files) {
-          for (const file of this.config.files) {
-            const filePath = path.join(this.repoPath, file.path)
-            const fileDir = path.dirname(filePath)
-
-            if (!existsSync(fileDir)) {
-              mkdirSync(fileDir, {recursive: true})
-            }
-
-            writeFileSync(filePath, file.content)
-          }
-        }
-
-        // Create initial commit
-        execSync('git add .', {stdio: 'pipe'})
-        execSync('git commit -m "Initial commit"', {stdio: 'pipe'})
-
-        // Ensure we're on main branch after first commit
-        try {
-          const currentBranch = execSync('git branch --show-current', {stdio: 'pipe'})
-            .toString()
-            .trim()
-          if (currentBranch !== 'main') {
-            execSync(`git branch -m ${currentBranch} main`, {stdio: 'pipe'})
-          }
-        } catch {
-          // If that fails, try to checkout main branch
-          try {
-            execSync('git checkout -b main', {stdio: 'pipe'})
-          } catch {
-            // If all else fails, continue with whatever branch we have
-          }
-        }
-
-        // Create initial tag if requested
-        if (this.config.createInitialTags && this.config.initialVersion !== '0.0.0') {
-          execSync(`git tag v${this.config.initialVersion}`, {stdio: 'pipe'})
-        }
-
-        this.initialized = true
-
-        return {
-          success: true,
-          repoPath: this.repoPath,
-        }
-      } finally {
-        process.chdir(originalCwd)
+      return {
+        success: true,
+        repoPath: this.repoPath,
       }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error)
+      // Log error for debugging intermittent failures in CI
+      console.error('MockRepository initialization failed:', {
+        repoName: this.config.name,
+        basePath: this.basePath,
+        repoPath: this.repoPath,
+        error: errorMessage,
+        stack: error instanceof Error ? error.stack : undefined,
+      })
       return {
         success: false,
         error: errorMessage,
@@ -246,55 +270,36 @@ export class MockRepository {
     }
 
     try {
-      const originalCwd = process.cwd()
-      process.chdir(this.repoPath)
+      for (const commit of commits) {
+        // Add/modify files for this commit
+        if (commit.files) {
+          for (const file of commit.files) {
+            const filePath = path.join(this.repoPath, file.path)
+            const fileDir = path.dirname(filePath)
 
-      try {
-        for (const commit of commits) {
-          // Add/modify files for this commit
-          if (commit.files) {
-            for (const file of commit.files) {
-              const filePath = path.join(this.repoPath, file.path)
-              const fileDir = path.dirname(filePath)
-
-              if (!existsSync(fileDir)) {
-                mkdirSync(fileDir, {recursive: true})
-              }
-
-              writeFileSync(filePath, file.content)
+            if (!existsSync(fileDir)) {
+              mkdirSync(fileDir, {recursive: true})
             }
 
-            execSync('git add .', {stdio: 'pipe'})
+            writeFileSync(filePath, file.content)
           }
-
-          // Set author if specified
-          let authorEnv = {}
-          if (commit.author) {
-            authorEnv = {
-              GIT_AUTHOR_NAME: commit.author.name,
-              GIT_AUTHOR_EMAIL: commit.author.email,
-            }
-          }
-
-          // Set timestamp if specified
-          if (commit.timestamp) {
-            authorEnv = {
-              ...authorEnv,
-              GIT_AUTHOR_DATE: commit.timestamp.toISOString(),
-              GIT_COMMITTER_DATE: commit.timestamp.toISOString(),
-            }
-          }
-
-          // Create commit
-          execSync(`git commit -m "${commit.message}"`, {
-            stdio: 'pipe',
-            env: {...process.env, ...authorEnv},
-          })
         }
 
-        return {success: true}
-      } finally {
-        process.chdir(originalCwd)
+        // Stage all changes
+        execSync(`git -C "${this.repoPath}" add .`, {stdio: 'pipe'})
+
+        // Create commit with author if specified
+        let commitCommand = `git -C "${this.repoPath}" commit -m "${commit.message}"`
+        if (commit.author) {
+          commitCommand += ` --author="${commit.author.name} <${commit.author.email}>"`
+        }
+
+        execSync(commitCommand, {stdio: 'pipe'})
+      }
+
+      return {
+        success: true,
+        repoPath: this.repoPath,
       }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error)
@@ -317,30 +322,23 @@ export class MockRepository {
     }
 
     try {
-      const originalCwd = process.cwd()
-      process.chdir(this.repoPath)
+      for (const tag of tags) {
+        let tagCommand = `git -C "${this.repoPath}" tag`
 
-      try {
-        for (const tag of tags) {
-          let tagCommand = 'git tag'
-
-          if (tag.annotated === true && tag.message !== undefined && tag.message.trim() !== '') {
-            tagCommand += ` -a ${tag.name} -m "${tag.message}"`
-          } else {
-            tagCommand += ` ${tag.name}`
-          }
-
-          if (tag.commit !== undefined && tag.commit.trim() !== '') {
-            tagCommand += ` ${tag.commit}`
-          }
-
-          execSync(tagCommand, {stdio: 'pipe'})
+        if (tag.annotated === true && tag.message !== undefined && tag.message.trim() !== '') {
+          tagCommand += ` -a ${tag.name} -m "${tag.message}"`
+        } else {
+          tagCommand += ` ${tag.name}`
         }
 
-        return {success: true}
-      } finally {
-        process.chdir(originalCwd)
+        if (tag.commit !== undefined && tag.commit.trim() !== '') {
+          tagCommand += ` ${tag.commit}`
+        }
+
+        execSync(tagCommand, {stdio: 'pipe'})
       }
+
+      return {success: true}
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error)
       return {
@@ -362,20 +360,15 @@ export class MockRepository {
     }
 
     try {
-      const originalCwd = process.cwd()
-      process.chdir(this.repoPath)
-
-      try {
-        if (fromBranch !== undefined && fromBranch.trim() !== '') {
-          execSync(`git checkout -b ${branchName} ${fromBranch}`, {stdio: 'pipe'})
-        } else {
-          execSync(`git checkout -b ${branchName}`, {stdio: 'pipe'})
-        }
-
-        return {success: true}
-      } finally {
-        process.chdir(originalCwd)
+      if (fromBranch !== undefined && fromBranch.trim() !== '') {
+        execSync(`git -C "${this.repoPath}" checkout -b ${branchName} ${fromBranch}`, {
+          stdio: 'pipe',
+        })
+      } else {
+        execSync(`git -C "${this.repoPath}" checkout -b ${branchName}`, {stdio: 'pipe'})
       }
+
+      return {success: true}
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error)
       return {
@@ -397,15 +390,8 @@ export class MockRepository {
     }
 
     try {
-      const originalCwd = process.cwd()
-      process.chdir(this.repoPath)
-
-      try {
-        execSync(`git checkout ${branchName}`, {stdio: 'pipe'})
-        return {success: true}
-      } finally {
-        process.chdir(originalCwd)
-      }
+      execSync(`git -C "${this.repoPath}" checkout ${branchName}`, {stdio: 'pipe'})
+      return {success: true}
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error)
       return {
@@ -428,30 +414,30 @@ export class MockRepository {
       throw new Error('Repository not initialized')
     }
 
-    const originalCwd = process.cwd()
-    process.chdir(this.repoPath)
-
     try {
-      const currentBranch = execSync('git branch --show-current', {
+      const currentBranch = execSync(`git -C "${this.repoPath}" branch --show-current`, {
         encoding: 'utf8',
         stdio: 'pipe',
       }).trim()
 
-      const latestCommit = execSync('git rev-parse HEAD', {
+      const latestCommit = execSync(`git -C "${this.repoPath}" rev-parse HEAD`, {
         encoding: 'utf8',
         stdio: 'pipe',
       }).trim()
 
-      const tagsOutput = execSync('git tag', {
+      const tagsOutput = execSync(`git -C "${this.repoPath}" tag`, {
         encoding: 'utf8',
         stdio: 'pipe',
       }).trim()
       const tags = tagsOutput ? tagsOutput.split('\n') : []
 
-      const commitsOutput = execSync('git log --oneline --format="%H|%s|%an"', {
-        encoding: 'utf8',
-        stdio: 'pipe',
-      }).trim()
+      const commitsOutput = execSync(
+        `git -C "${this.repoPath}" log --oneline --format="%H|%s|%an"`,
+        {
+          encoding: 'utf8',
+          stdio: 'pipe',
+        },
+      ).trim()
       const commits = commitsOutput
         ? commitsOutput.split('\n').map(line => {
             const parts = line.split('|')
@@ -469,8 +455,10 @@ export class MockRepository {
         tags,
         commits,
       }
-    } finally {
-      process.chdir(originalCwd)
+    } catch (error) {
+      throw new Error(
+        `Failed to get repository info: ${error instanceof Error ? error.message : String(error)}`,
+      )
     }
   }
 
@@ -529,7 +517,7 @@ export const RepositoryScenarios = {
    * Fresh repository with no releases
    */
   fresh: (): MockRepoConfig => ({
-    name: 'fresh-repo',
+    name: `fresh-repo-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
     initialVersion: '0.0.0',
     createInitialTags: false,
     packageConfig: {
@@ -542,7 +530,7 @@ export const RepositoryScenarios = {
    * Repository with existing releases
    */
   withReleases: (): MockRepoConfig => ({
-    name: 'released-repo',
+    name: `released-repo-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
     initialVersion: '1.2.3',
     createInitialTags: true,
     packageConfig: {
@@ -555,7 +543,7 @@ export const RepositoryScenarios = {
    * Monorepo package configuration
    */
   monorepo: (packageName: string): MockRepoConfig => ({
-    name: `monorepo-${packageName}`,
+    name: `monorepo-${packageName}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
     initialVersion: '1.0.0',
     createInitialTags: true,
     packageConfig: {
@@ -586,7 +574,7 @@ export const RepositoryScenarios = {
    * Private package (no npm publishing)
    */
   private: (): MockRepoConfig => ({
-    name: 'private-repo',
+    name: `private-repo-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
     initialVersion: '1.0.0',
     createInitialTags: true,
     packageConfig: {

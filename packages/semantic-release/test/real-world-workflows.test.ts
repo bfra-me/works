@@ -4,11 +4,7 @@
  * This test suite simulates complete semantic-release workflows using mock git repositories
  * to test end-to-end functionality including commits, releases, and plugin interactions.
  *
- * Implementation of TASK-037: Implement real-world release workflow tests with       const config = monorepoPreset({
-        repositoryUrl: 'https://github.com/test/monorepo',
-        packageName: '@test/core',
-        pkgRoot: './packages/core',
-      })repositories
+ * Implementation of TASK-037: Implement real-world release workflow tests with mock repositories
  */
 
 import {afterEach, beforeEach, describe, expect, it} from 'vitest'
