@@ -4974,6 +4974,11 @@ export interface Rules {
    */
   'vitest/expect-expect'?: Linter.RuleEntry<VitestExpectExpect>
   /**
+   * enforce hoisted APIs to be on top of the file
+   * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/hoisted-apis-on-top.md
+   */
+  'vitest/hoisted-apis-on-top'?: Linter.RuleEntry<[]>
+  /**
    * enforce a maximum number of expect per test
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/max-expects.md
    */
