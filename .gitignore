@@ -30,3 +30,4 @@ coverage/
 .astro/
 .type-coverage/
 packages/semantic-release/semantic-release-presets/Custom Local Preset.preset.json
+semantic-release-presets/Custom Local Preset.preset.json
