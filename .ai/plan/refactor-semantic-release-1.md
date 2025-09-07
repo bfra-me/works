@@ -119,7 +119,7 @@ Complete rewrite of the `@bfra.me/semantic-release` package to provide comprehen
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
 | TASK-041 | Create comprehensive API documentation with TSDoc comments | ✅ | 2025-09-07 |
-| TASK-042 | Write getting started guide for TypeScript semantic-release configuration | | |
+| TASK-042 | Write getting started guide for TypeScript semantic-release configuration | ✅ | 2025-09-07 |
 | TASK-043 | Create plugin development tutorial with step-by-step examples | | |
 | TASK-044 | Document all available presets with usage examples and customization options | | |
 | TASK-045 | Create advanced configuration guide covering composition and complex scenarios | | |
