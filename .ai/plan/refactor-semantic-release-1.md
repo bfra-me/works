@@ -110,7 +110,7 @@ Complete rewrite of the `@bfra.me/semantic-release` package to provide comprehen
 | TASK-037 | Implement real-world release workflow tests with mock repositories | ✅ | 2025-01-02 |
 | TASK-038 | Create plugin development toolkit tests with sample custom plugins | ✅ | 2025-09-06 |
 | TASK-039 | Implement preset system tests covering composition and customization | ✅ | 2025-09-06 |
-| TASK-040 | Create performance tests for large monorepo configurations | | |
+| TASK-040 | Create performance tests for large monorepo configurations | ✅ | 2025-09-06 |
 
 ### Implementation Phase 6: Documentation & Examples
 
