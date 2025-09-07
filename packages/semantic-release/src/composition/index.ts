@@ -3,23 +3,55 @@
  *
  * This module provides utilities for merging, extending, and overriding
  * semantic-release configurations, enabling complex configuration scenarios
- * where presets need to be combined with custom settings.
+ * where presets need to be combined with custom settings. These utilities
+ * are essential for creating reusable configuration patterns and combining
+ * multiple configuration sources.
+ *
+ * **Key Features:**
+ * - Intelligent plugin merging with conflict resolution strategies
+ * - Branch configuration composition with inheritance support
+ * - Deep configuration merging with type safety
+ * - Validation integration with comprehensive error reporting
+ * - Support for preset composition and customization
+ *
+ * **Common Use Cases:**
+ * - Combining preset configurations with project-specific overrides
+ * - Creating organization-wide configuration templates
+ * - Building complex monorepo configurations from smaller pieces
+ * - Environment-specific configuration variations
  *
  * @example
  * ```typescript
- * import {mergeConfigs, extendConfig} from '@bfra.me/semantic-release/composition'
- * import {npmPreset, githubPreset} from '@bfra.me/semantic-release/presets'
+ * import { mergeConfigs, extendConfig } from '@bfra.me/semantic-release/composition'
+ * import { npmPreset, githubPreset } from '@bfra.me/semantic-release/presets'
  *
- * // Merge multiple configurations
+ * // Merge multiple presets
  * const merged = mergeConfigs(
  *   npmPreset(),
  *   githubPreset(),
- *   { dryRun: true }
+ *   { dryRun: true } // Add custom overrides
  * )
+ * ```
  *
+ * @example
+ * ```typescript
  * // Extend a base configuration
  * const extended = extendConfig(npmPreset(), {
  *   plugins: [['@semantic-release/npm', { npmPublish: false }]]
+ * })
+ * ```
+ *
+ * @example
+ * ```typescript
+ * // Advanced composition with strategies
+ * const composed = mergeConfigsWithOptions([
+ *   baseConfig,
+ *   productionConfig,
+ *   environmentConfig
+ * ], {
+ *   pluginStrategy: 'append', // Add plugins rather than replacing
+ *   branchStrategy: 'merge',   // Merge branch configurations
+ *   validate: true            // Validate the result
  * })
  * ```
  */
@@ -28,48 +60,135 @@ import type {BranchSpec, GlobalConfig, PluginSpec} from '../types/core.js'
 
 /**
  * Options for configuration composition operations.
+ *
+ * These options control how configurations are merged when conflicts arise,
+ * allowing fine-grained control over the composition process.
  */
 export interface CompositionOptions {
   /**
    * How to handle plugin conflicts when merging configurations.
-   * - 'replace': Replace existing plugins entirely
-   * - 'merge': Merge plugin configurations (default)
-   * - 'append': Append new plugins to existing ones
-   * - 'prepend': Prepend new plugins before existing ones
+   *
+   * Determines the strategy used when multiple configurations define plugins:
+   * - `replace`: Replace existing plugins entirely with new ones
+   * - `merge`: Intelligently merge plugin configurations (default)
+   * - `append`: Add new plugins after existing ones
+   * - `prepend`: Add new plugins before existing ones
+   *
+   * @default 'merge'
+   *
+   * @example
+   * ```typescript
+   * // Replace all existing plugins
+   * mergeConfigsWithOptions([base, override], {
+   *   pluginStrategy: 'replace'
+   * })
+   *
+   * // Append additional plugins
+   * mergeConfigsWithOptions([base, additional], {
+   *   pluginStrategy: 'append'
+   * })
+   * ```
    */
   pluginStrategy?: 'replace' | 'merge' | 'append' | 'prepend'
 
   /**
    * How to handle branch configuration conflicts.
-   * - 'replace': Replace with the new branch configuration
-   * - 'merge': Merge branch configurations (default)
+   *
+   * Determines the strategy for combining branch configurations:
+   * - `replace`: Use the new branch configuration entirely
+   * - `merge`: Merge branch configurations intelligently (default)
+   *
+   * @default 'merge'
+   *
+   * @example
+   * ```typescript
+   * // Replace branch configuration completely
+   * mergeConfigsWithOptions([base, override], {
+   *   branchStrategy: 'replace'
+   * })
+   * ```
    */
   branchStrategy?: 'replace' | 'merge'
 
   /**
    * Whether to perform deep validation on the result.
+   *
+   * When enabled, the composed configuration will be validated against
+   * semantic-release schemas to ensure correctness.
+   *
    * @default true
+   *
+   * @example
+   * ```typescript
+   * // Skip validation for performance or dynamic configs
+   * mergeConfigsWithOptions([config1, config2], {
+   *   validate: false
+   * })
+   * ```
    */
   validate?: boolean
 }
 
 /**
- * Merge multiple semantic-release configurations.
+ * Merge multiple semantic-release configurations intelligently.
  *
  * This function takes multiple configuration objects and merges them together,
  * applying intelligent strategies for handling conflicts in plugins, branches,
- * and other configuration options.
+ * and other configuration options. The merge process follows semantic-release
+ * best practices and maintains type safety throughout.
  *
- * @param config1 - First configuration object
- * @param config2 - Second configuration object
- * @param restConfigs - Additional configuration objects
- * @returns A merged configuration object
+ * **Merge Behavior:**
+ * - Simple properties: Later configurations override earlier ones
+ * - Plugins: Intelligently merged based on plugin names and configurations
+ * - Branches: Combined with deduplication and smart conflict resolution
+ * - Arrays: Merged with deduplication where appropriate
+ *
+ * @param config1 - First configuration object (base configuration)
+ * @param config2 - Second configuration object (override configuration)
+ * @param restConfigs - Additional configuration objects to merge
+ * @returns A merged configuration object with combined settings
  *
  * @example
  * ```typescript
- * const base = npmPreset()
- * const custom = { dryRun: true, repositoryUrl: 'https://github.com/user/repo' }
+ * // Basic preset merging
+ * const base = npmPreset({ branches: ['main'] })
+ * const custom = {
+ *   dryRun: true,
+ *   repositoryUrl: 'https://github.com/user/repo.git'
+ * }
  * const merged = mergeConfigs(base, custom)
+ * // Result: npmPreset configuration + dryRun + repositoryUrl
+ * ```
+ *
+ * @example
+ * ```typescript
+ * // Multi-preset composition
+ * const merged = mergeConfigs(
+ *   npmPreset(),
+ *   githubPreset(),
+ *   {
+ *     tagFormat: '${name}@${version}', // Custom tag format
+ *     plugins: [
+ *       ['@semantic-release/changelog', { changelogTitle: '# My Changelog' }]
+ *     ]
+ *   }
+ * )
+ * ```
+ *
+ * @example
+ * ```typescript
+ * // Environment-specific configuration
+ * const production = mergeConfigs(
+ *   baseConfig,
+ *   { ci: true, dryRun: false },
+ *   productionOnlyPlugins
+ * )
+ *
+ * const development = mergeConfigs(
+ *   baseConfig,
+ *   { ci: false, dryRun: true },
+ *   developmentPlugins
+ * )
  * ```
  */
 export function mergeConfigs(
@@ -81,11 +200,45 @@ export function mergeConfigs(
 }
 
 /**
- * Merge multiple semantic-release configurations with options.
+ * Merge multiple semantic-release configurations with advanced options.
  *
- * @param configs - Array of configuration objects to merge
- * @param options - Options controlling merge behavior
- * @returns A merged configuration object
+ * Provides fine-grained control over the merging process through composition options,
+ * allowing customization of how conflicts are resolved and how different configuration
+ * aspects are combined.
+ *
+ * @param configs - Array of configuration objects to merge (must have at least one)
+ * @param options - Options controlling merge behavior and validation
+ * @returns A merged configuration object with settings from all inputs
+ *
+ * @example
+ * ```typescript
+ * // Plugin strategy examples
+ * const replaced = mergeConfigsWithOptions([base, override], {
+ *   pluginStrategy: 'replace' // Use only override plugins
+ * })
+ *
+ * const appended = mergeConfigsWithOptions([base, additional], {
+ *   pluginStrategy: 'append' // Add additional plugins to base
+ * })
+ *
+ * const prepended = mergeConfigsWithOptions([priority, base], {
+ *   pluginStrategy: 'prepend' // Priority plugins run first
+ * })
+ * ```
+ *
+ * @example
+ * ```typescript
+ * // Complex monorepo configuration
+ * const monorepoConfig = mergeConfigsWithOptions([
+ *   monorepoPreset(),
+ *   packageSpecificConfig,
+ *   environmentConfig
+ * ], {
+ *   pluginStrategy: 'merge',   // Intelligently combine plugins
+ *   branchStrategy: 'merge',   // Merge branch configurations
+ *   validate: true            // Ensure result is valid
+ * })
+ * ```
  */
 export function mergeConfigsWithOptions(
   configs: readonly [GlobalConfig, ...GlobalConfig[]],

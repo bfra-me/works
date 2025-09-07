@@ -3,12 +3,41 @@
  *
  * This module provides pre-configured semantic-release setups for common
  * scenarios like npm packages, GitHub releases, and monorepo workflows.
+ * Each preset encapsulates best practices and proven configurations for
+ * specific use cases, enabling quick setup with minimal configuration.
+ *
+ * **Available Presets:**
+ * - `npmPreset()` - Full npm package workflow with changelog and GitHub releases
+ * - `githubPreset()` - GitHub releases only, no npm publishing
+ * - `monorepoPreset()` - Monorepo-aware configuration with package-specific tagging
  *
  * @example
  * ```typescript
- * import {npmPreset} from '@bfra.me/semantic-release/presets'
+ * // NPM package with standard workflow
+ * import { npmPreset } from '@bfra.me/semantic-release/presets'
  *
  * export default npmPreset({
+ *   branches: ['main', { name: 'beta', prerelease: true }]
+ * })
+ * ```
+ *
+ * @example
+ * ```typescript
+ * // GitHub releases only
+ * import { githubPreset } from '@bfra.me/semantic-release/presets'
+ *
+ * export default githubPreset({
+ *   branches: ['main']
+ * })
+ * ```
+ *
+ * @example
+ * ```typescript
+ * // Monorepo package
+ * import { monorepoPreset } from '@bfra.me/semantic-release/presets'
+ *
+ * export default monorepoPreset({
+ *   packageName: 'my-package',
  *   branches: ['main']
  * })
  * ```
@@ -20,45 +49,133 @@ import {createConfigBuilder} from './builder.js'
 
 /**
  * Base preset options that can be applied to any preset.
+ *
+ * These options provide common configuration patterns that work across
+ * all preset types, allowing for consistent customization.
  */
 export interface BasePresetOptions {
   /**
-   * Branches configuration.
+   * Branches configuration for release workflow.
+   *
+   * Defines which branches can trigger releases and how they're handled.
+   * Supports both production and prerelease branch configurations.
+   *
    * @default ['main']
+   *
+   * @example
+   * ```typescript
+   * // Simple main branch only
+   * branches: ['main']
+   *
+   * // Production + prerelease branches
+   * branches: [
+   *   'main',
+   *   { name: 'beta', prerelease: true },
+   *   { name: 'alpha', prerelease: 'alpha' }
+   * ]
+   * ```
    */
   branches?: GlobalConfig['branches']
 
   /**
-   * Repository URL if not auto-detected.
+   * Repository URL if not auto-detected from Git remotes.
+   *
+   * Useful when running in environments where Git remotes aren't properly
+   * configured or when you need to override the detected repository URL.
+   *
+   * @example 'https://github.com/owner/repo.git'
+   * @example 'git@github.com:owner/repo.git'
    */
   repositoryUrl?: string
 
   /**
-   * Enable dry-run mode.
+   * Enable dry-run mode for testing configurations.
+   *
+   * When enabled, semantic-release will analyze commits and generate
+   * release notes but won't actually publish anything. Useful for
+   * testing and CI pipeline validation.
+   *
    * @default false
+   *
+   * @example
+   * ```typescript
+   * // Test mode
+   * dryRun: true
+   *
+   * // Environment-based
+   * dryRun: process.env.NODE_ENV !== 'production'
+   * ```
    */
   dryRun?: boolean
 
   /**
-   * Additional configuration options.
+   * Additional configuration options for the defineConfig function.
+   *
+   * Allows passing validation options, environment settings, and other
+   * advanced configuration options to the underlying defineConfig call.
+   *
+   * @example
+   * ```typescript
+   * defineOptions: {
+   *   validate: true,
+   *   environment: 'production'
+   * }
+   * ```
    */
   defineOptions?: DefineConfigOptions
 }
 
 /**
- * Create an npm package release preset.
+ * Create an npm package release preset with comprehensive workflow.
  *
- * This preset is optimized for standard npm package releases with changelog
- * generation, npm publishing, GitHub releases, and git commits.
+ * This preset is optimized for standard npm package releases and includes:
+ * - Conventional commit analysis
+ * - Automated release notes generation
+ * - CHANGELOG.md file maintenance
+ * - npm package publishing
+ * - GitHub release creation
+ * - Git commits for changelog updates
+ *
+ * **Included Plugins:**
+ * - `@semantic-release/commit-analyzer` - Analyzes commits for release type
+ * - `@semantic-release/release-notes-generator` - Generates release notes
+ * - `@semantic-release/changelog` - Maintains CHANGELOG.md file
+ * - `@semantic-release/npm` - Publishes to npm registry
+ * - `@semantic-release/github` - Creates GitHub releases
+ * - `@semantic-release/git` - Commits changelog changes back to repository
  *
  * @param options - Configuration options for the npm preset
- * @returns A complete semantic-release configuration for npm packages
+ * @returns A complete semantic-release configuration optimized for npm packages
  *
  * @example
  * ```typescript
- * // Basic npm package
+ * // Basic npm package configuration
  * export default npmPreset({
  *   branches: ['main']
+ * })
+ * ```
+ *
+ * @example
+ * ```typescript
+ * // npm package with prerelease support
+ * export default npmPreset({
+ *   branches: [
+ *     'main',
+ *     { name: 'beta', prerelease: true },
+ *     { name: 'alpha', prerelease: true }
+ *   ]
+ * })
+ * ```
+ *
+ * @example
+ * ```typescript
+ * // Testing configuration
+ * export default npmPreset({
+ *   branches: ['main'],
+ *   dryRun: true, // Test without publishing
+ *   defineOptions: {
+ *     validate: true // Enable strict validation
+ *   }
  * })
  * ```
  */
@@ -90,14 +207,22 @@ export function npmPreset(options: BasePresetOptions = {}): GlobalConfig {
 }
 
 /**
- * Create a GitHub-only release preset.
+ * Create a GitHub-only release preset without npm publishing.
  *
  * This preset is optimized for projects that only need GitHub releases
- * without npm publishing or changelog files.
+ * without npm publishing or local file modifications. Perfect for:
+ * - Applications that don't publish to package registries
+ * - Docker-based projects
+ * - Binary releases
+ * - Documentation sites
+ *
+ * **Included Plugins:**
+ * - `@semantic-release/commit-analyzer` - Analyzes commits for release type
+ * - `@semantic-release/release-notes-generator` - Generates release notes
+ * - `@semantic-release/github` - Creates GitHub releases with assets
  *
  * @param options - Configuration options for the GitHub preset
- * @returns A complete semantic-release configuration for GitHub releases
- *
+ * @returns A complete semantic-release configuration for GitHub-only releases
  * @example
  * ```typescript
  * // Basic GitHub releases
