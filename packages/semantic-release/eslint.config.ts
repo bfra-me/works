@@ -6,7 +6,7 @@ import type {Linter} from 'eslint'
 const config: Linter.Config[] = [
   {
     name: 'semantic-release/ignores',
-    ignores: ['node_modules', 'lib', 'docs/getting-started.md'],
+    ignores: ['node_modules', 'lib', 'docs/getting-started.md', 'docs/plugin-development.md'],
   },
   {
     name: 'semantic-release/docs',
