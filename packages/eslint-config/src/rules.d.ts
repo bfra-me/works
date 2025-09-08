@@ -3571,6 +3571,11 @@ export interface Rules {
    */
   'prefer-template'?: Linter.RuleEntry<[]>
   /**
+   * Disallow losing originally caught error when re-throwing custom errors
+   * @see https://eslint.org/docs/latest/rules/preserve-caught-error
+   */
+  'preserve-caught-error'?: Linter.RuleEntry<PreserveCaughtError>
+  /**
    * @see https://github.com/prettier/eslint-plugin-prettier#options
    */
   'prettier/prettier'?: Linter.RuleEntry<PrettierPrettier>
@@ -12329,6 +12334,11 @@ type PreferReflect = []|[{
 // ----- prefer-regex-literals -----
 type PreferRegexLiterals = []|[{
   disallowRedundantWrapping?: boolean
+}]
+// ----- preserve-caught-error -----
+type PreserveCaughtError = []|[{
+  
+  requireCatchParameter?: boolean
 }]
 // ----- prettier/prettier -----
 type PrettierPrettier = []|[{
