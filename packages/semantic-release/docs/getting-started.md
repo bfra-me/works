@@ -673,11 +673,11 @@ export default defineConfig({
 
 ## Next Steps
 
-- **Plugin Development**: Learn how to create custom plugins (guide coming in TASK-043)
-- **Advanced Configuration**: Explore advanced configuration patterns (guide coming in TASK-045)
-- **CI/CD Integration**: Set up CI/CD workflows (guide coming in TASK-047)
+- **Plugin Development**: Learn how to create custom plugins - see [Plugin Development Guide](./plugin-development.md)
+- **Advanced Configuration**: Explore advanced configuration patterns - see [Advanced Configuration Guide](./advanced-configuration.md)
+- **CI/CD Integration**: Set up CI/CD workflows - see [CI/CD Integration Guide](./ci-cd-integration.md)
 - **Monorepo Setup**: Configure monorepo releases (guide coming in TASK-048)
-- **Migration Guide**: Migrate from existing configurations (guide coming in TASK-046)
+- **Migration Guide**: Migrate from existing configurations - see [Migration Guide](./migration-guide.md)
 
 ## Troubleshooting
 
