@@ -123,7 +123,7 @@ Complete rewrite of the `@bfra.me/semantic-release` package to provide comprehen
 | TASK-043 | Create plugin development tutorial with step-by-step examples | ✅ | 2025-09-07 |
 | TASK-044 | Document all available presets with usage examples and customization options | ✅ | 2025-09-07 |
 | TASK-045 | Create advanced configuration guide covering composition and complex scenarios | ✅ | 2025-09-07 |
-| TASK-046 | Write migration guide from current @bfra.me/semantic-release version | | |
+| TASK-046 | Write migration guide from current @bfra.me/semantic-release version | ✅ | 2025-09-07 |
 | TASK-047 | Create integration examples with popular CI/CD platforms | | |
 | TASK-048 | Document integration with changesets workflow in monorepo context | | |
 
