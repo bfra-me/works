@@ -1515,7 +1515,7 @@ export interface Rules {
    * Reports invalid alignment of JSDoc block asterisks.
    * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/check-alignment.md#repos-sticky-header
    */
-  'jsdoc/check-alignment'?: Linter.RuleEntry<[]>
+  'jsdoc/check-alignment'?: Linter.RuleEntry<JsdocCheckAlignment>
   /**
    * Ensures that (JavaScript) examples within JSDoc adhere to ESLint rules.
    * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/check-examples.md#repos-sticky-header
@@ -7246,6 +7246,10 @@ type IndentLegacy = []|[("tab" | number)]|[("tab" | number), {
 type InitDeclarations = ([]|["always"] | []|["never"]|["never", {
   ignoreForLoopInit?: boolean
 }])
+// ----- jsdoc/check-alignment -----
+type JsdocCheckAlignment = []|[{
+  innerIndent?: number
+}]
 // ----- jsdoc/check-examples -----
 type JsdocCheckExamples = []|[{
   allowInlineConfig?: boolean
