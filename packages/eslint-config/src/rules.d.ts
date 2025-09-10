@@ -7539,6 +7539,7 @@ type JsdocRequireJsdoc = []|[{
   enableFixer?: boolean
   exemptEmptyConstructors?: boolean
   exemptEmptyFunctions?: boolean
+  exemptOverloadedImplementations?: boolean
   fixerMessage?: string
   minLineCount?: number
   publicOnly?: (boolean | {
@@ -7555,6 +7556,7 @@ type JsdocRequireJsdoc = []|[{
     FunctionExpression?: boolean
     MethodDefinition?: boolean
   }
+  skipInterveningOverloadedDeclarations?: boolean
 }]
 // ----- jsdoc/require-param -----
 type JsdocRequireParam = []|[{
