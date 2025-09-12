@@ -27,6 +27,10 @@ const TypeAwareRules: Config['rules'] = {
       selector: 'typeLike',
     },
     {
+      filter: {
+        match: false,
+        regex: '(Component|Icon)$',
+      },
       format: ['camelCase'],
       leadingUnderscore: 'allow',
       selector: 'parameter',
