@@ -215,5 +215,3 @@ pnpm test
 - Reduced maintenance overhead for tooling
 - Built-in best practices for scalability and performance
 - Battle-tested configurations used in production
-
-Built with ❤️ by [Marcus R. Brown](https://github.com/marcusrbrown)
