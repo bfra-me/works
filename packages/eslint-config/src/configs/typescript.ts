@@ -16,6 +16,34 @@ import {fallback} from './fallback'
 const TypeAwareRules: Config['rules'] = {
   '@typescript-eslint/await-thenable': 'error',
   '@typescript-eslint/dot-notation': ['error', {allowKeywords: true}],
+  '@typescript-eslint/naming-convention': [
+    'error',
+    {
+      format: ['camelCase', 'PascalCase', 'UPPER_CASE'],
+      selector: 'variableLike',
+    },
+    {
+      format: ['PascalCase'],
+      selector: 'typeLike',
+    },
+    {
+      format: ['camelCase'],
+      leadingUnderscore: 'allow',
+      selector: 'parameter',
+    },
+    {
+      format: ['PascalCase'],
+      selector: 'class',
+    },
+    {
+      custom: {
+        match: false,
+        regex: '^I[A-Z]',
+      },
+      format: ['PascalCase'],
+      selector: 'interface',
+    },
+  ],
   '@typescript-eslint/no-floating-promises': 'error',
   '@typescript-eslint/no-for-in-array': 'error',
   '@typescript-eslint/no-implied-eval': 'error',
@@ -74,8 +102,11 @@ export async function typescript(options: TypeScriptOptions = {}): Promise<Confi
   const files = options.files ?? [GLOB_TS, GLOB_TSX]
   const typeAwareFiles = typeAware.files ?? [GLOB_TS, GLOB_TSX]
   const typeAwareIgnores = typeAware.ignores ?? [`${GLOB_MARKDOWN}/**`, GLOB_ASTRO_TS]
-  const tsconfigPath = options.tsconfigPath ?? undefined
-  const isTypeAware = Boolean(tsconfigPath)
+  const tsconfigPath =
+    typeof options.tsconfigPath === 'string' && options.tsconfigPath.trim().length > 0
+      ? options.tsconfigPath
+      : undefined
+  const isTypeAware = typeof tsconfigPath === 'string'
 
   return requireOf(
     ['typescript-eslint'],
@@ -118,8 +149,8 @@ export async function typescript(options: TypeScriptOptions = {}): Promise<Confi
 
         ...(isTypeAware
           ? [
-              generateTsConfig('default', files, typeAwareFiles),
               generateTsConfig('type-aware', typeAwareFiles, typeAwareIgnores),
+              generateTsConfig('default', files, typeAwareFiles),
             ]
           : [generateTsConfig('default', files)]),
 
@@ -160,34 +191,6 @@ export async function typescript(options: TypeScriptOptions = {}): Promise<Confi
               },
             ],
             '@typescript-eslint/method-signature-style': ['error', 'property'],
-            '@typescript-eslint/naming-convention': [
-              'error',
-              {
-                format: ['camelCase', 'PascalCase', 'UPPER_CASE'],
-                selector: 'variableLike',
-              },
-              {
-                format: ['PascalCase'],
-                selector: 'typeLike',
-              },
-              {
-                format: ['camelCase'],
-                leadingUnderscore: 'allow',
-                selector: 'parameter',
-              },
-              {
-                format: ['PascalCase'],
-                selector: 'class',
-              },
-              {
-                custom: {
-                  match: false,
-                  regex: '^I[A-Z]',
-                },
-                format: ['PascalCase'],
-                selector: 'interface',
-              },
-            ],
             '@typescript-eslint/no-array-constructor': 'error',
             '@typescript-eslint/no-dupe-class-members': 'error',
             '@typescript-eslint/no-dynamic-delete': 'off',

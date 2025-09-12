@@ -2,7 +2,7 @@ import {defineConfig} from './packages/eslint-config/src'
 
 export const config = defineConfig({
   name: '@bfra.me/works',
-  ignores: ['.ai/', '.github/**/*instructions.md', '**/test/fixtures', 'readme.md/**/*.ts'],
+  ignores: ['.ai/', '.github/**/*instructions.md', '**/test/fixtures'],
   packageJson: true,
   typescript: {
     tsconfigPath: './tsconfig.json',
