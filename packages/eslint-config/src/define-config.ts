@@ -20,6 +20,7 @@ import {
   pnpm,
   prettier,
   regexp,
+  sortPackageJson,
   toml,
   typescript,
   unicorn,
@@ -155,7 +156,7 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
   }
 
   if (options.jsonc ?? true) {
-    configs.push(jsonc({overrides: getOverrides(options, 'jsonc')}))
+    configs.push(jsonc({overrides: getOverrides(options, 'jsonc')}), sortPackageJson())
   }
 
   if (enableCatalogs) {
