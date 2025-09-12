@@ -39,9 +39,6 @@
   "lint-staged": {
     "*.{js,json,jsx,md,toml,ts,tsx,yml,yaml}": [
       "eslint --flag v10_config_lookup_from_file --fix --ignore-pattern 'packages/create/templates/**' --no-warn-ignored"
-    ],
-    "**/package.json": [
-      "sort-package-json"
     ]
   },
   "prettier": "@bfra.me/prettier-config/prettier.config",
@@ -67,7 +64,6 @@
     "prettier": "3.6.2",
     "publint": "0.3.12",
     "rimraf": "6.0.1",
-    "sort-package-json": "3.4.0",
     "ts-essentials": "10.1.1",
     "tsx": "4.20.5",
     "type-coverage": "2.29.7",

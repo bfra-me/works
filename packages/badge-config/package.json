@@ -32,9 +32,9 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
-    "src",
+    "!**/*.map",
     "lib",
-    "!**/*.map"
+    "src"
   ],
   "scripts": {
     "build": "tsup",
