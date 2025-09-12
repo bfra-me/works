@@ -39,11 +39,11 @@
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
-    "lib",
-    "src",
+    "!**/*.map",
     "index.json",
+    "lib",
     "prettier.config.cjs",
-    "!**/*.map"
+    "src"
   ],
   "scripts": {
     "build": "tsup",
