@@ -177,8 +177,8 @@ importers:
         specifier: 18.0.1
         version: 18.0.1
       memfs:
-        specifier: 4.38.2
-        version: 4.38.2
+        specifier: 4.38.3
+        version: 4.38.3
       msw:
         specifier: 2.11.1
         version: 2.11.1(@types/node@22.18.0)(typescript@5.9.2)
@@ -3634,8 +3634,8 @@ packages:
   mdn-data@2.12.2:
     resolution: {integrity: sha512-IEn+pegP1aManZuckezWCO+XZQDplx1366JoVhTpMpBB1sPey/SbveZQUosKiKiGYjg1wH4pMlNgXbCiYgihQA==}
 
-  memfs@4.38.2:
-    resolution: {integrity: sha512-FpWsVHpAkoSh/LfY1BgAl72BVd374ooMRtDi2VqzBycX4XEfvC0XKACCe0C9VRZoYq5viuoyTv6lYXZ/Q7TrLQ==}
+  memfs@4.38.3:
+    resolution: {integrity: sha512-2s0E1tj016MQL6Eo6en0rNJnEWppbTAytbK7P0VPLtB9zA0xU7B522A1A0Tyz9usEkkWrSEDxIa/N7SdJWWAYg==}
     engines: {node: '>= 4.0.0'}
 
   meow@13.2.0:
@@ -9420,7 +9420,7 @@ snapshots:
 
   mdn-data@2.12.2: {}
 
-  memfs@4.38.2:
+  memfs@4.38.3:
     dependencies:
       '@jsonjoy.com/json-pack': 1.11.0(tslib@2.8.1)
       '@jsonjoy.com/util': 1.9.0(tslib@2.8.1)
