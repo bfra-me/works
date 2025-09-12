@@ -1,5 +1,38 @@
 # @bfra.me/eslint-config
 
+## 0.28.3
+### Patch Changes
+
+
+- Ignore 'Component' and 'Icon' parameter names when enforcing conventions. ([#1831](https://github.com/bfra-me/works/pull/1831))
+
+
+- Updated dependency `eslint` to `9.35.0`. ([#1817](https://github.com/bfra-me/works/pull/1817))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.3.9`. ([#1818](https://github.com/bfra-me/works/pull/1818))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `54.5.0`. ([#1822](https://github.com/bfra-me/works/pull/1822))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `54.4.0`. ([#1819](https://github.com/bfra-me/works/pull/1819))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.43.0`. ([#1826](https://github.com/bfra-me/works/pull/1826))
+  Updated dependency `typescript-eslint` to `8.43.0`.
+
+- Updated dependency `@eslint/js` to `9.35.0`. ([#1815](https://github.com/bfra-me/works/pull/1815))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `54.7.0`. ([#1825](https://github.com/bfra-me/works/pull/1825))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `54.4.1`. ([#1821](https://github.com/bfra-me/works/pull/1821))
+
+
+- Move type-aware rule to correct rules config. ([#1830](https://github.com/bfra-me/works/pull/1830))
+
 ## 0.28.2
 ### Patch Changes
 
