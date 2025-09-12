@@ -131,4 +131,4 @@ URL generation is synchronous and very fast. For applications requiring thousand
 
 ---
 
-*This README was generated with the help of GitHub Copilot.*
+_This README was generated with the help of GitHub Copilot._
