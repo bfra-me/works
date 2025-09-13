@@ -21,6 +21,7 @@
       matchPackageNames: ['@anthropic-ai/sdk'],
       matchUpdateTypes: ['minor'],
       automerge: true,
+      dependencyDashboardApproval: false,
     },
     {
       description: 'Enable SemVer digest pinning of bfra.me Renovate config presets.',

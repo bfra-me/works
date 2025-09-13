@@ -100,9 +100,9 @@ export async function sortRenovateConfig(): Promise<Config[]> {
         'jsonc/sort-array-values': [
           'error',
           {
-            // Don't sort 'extends' arrays, as order matters
+            // Don't sort 'extends' or 'postUpgradeTasks.commands' arrays, as order matters
             order: {type: 'asc'},
-            pathPattern: '^(?!extends$).*',
+            pathPattern: '^(?!extends$|postUpgradeTasks\.commands$).*',
           },
         ],
         'jsonc/sort-keys': [
