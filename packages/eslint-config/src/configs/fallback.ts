@@ -8,7 +8,7 @@ export interface FallbackOptions {
 }
 
 export async function fallback(
-  missingList: string[],
+  missingList: string[] = [],
   options?: FallbackOptions,
 ): Promise<Config[]> {
   const rules = await interopDefault(import('../rules/missing-module-for-config'))

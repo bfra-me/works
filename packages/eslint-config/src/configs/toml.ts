@@ -1,5 +1,6 @@
 import type {Config} from '../config'
 import type {Flatten, OptionsFiles, OptionsOverrides} from '../options'
+import {GLOB_TOML_FILES} from '../globs'
 import {anyParser} from '../parsers/any-parser'
 import {requireOf} from '../require-of'
 import {interopDefault} from '../utils'
@@ -11,15 +12,13 @@ import {jsonSchema} from './json-schema'
  */
 export type TomlOptions = Flatten<OptionsFiles & OptionsOverrides>
 
-export const tomlFiles = ['*.toml'].flatMap(p => [p, `**/${p}`])
-
 /**
  * Configures the ESLint rules for TOML files.
  * @param options - The configuration options for TOML files.
  * @see https://ota-meshi.github.io/eslint-plugin-toml/
  */
 export async function toml(options: TomlOptions = {}): Promise<Config[]> {
-  const {files = tomlFiles, overrides = {}} = options
+  const {files = GLOB_TOML_FILES, overrides = {}} = options
   return requireOf(
     ['eslint-plugin-toml'],
     async () => {

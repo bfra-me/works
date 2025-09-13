@@ -1,5 +1,6 @@
 import type {Config} from '../config'
 import type {Flatten, OptionsFiles, OptionsOverrides} from '../options'
+import {GLOB_YAML_FILES} from '../globs'
 import {anyParser} from '../parsers/any-parser'
 import {requireOf} from '../require-of'
 import {interopDefault} from '../utils'
@@ -11,15 +12,13 @@ import {jsonSchema} from './json-schema'
  */
 export type YamlOptions = Flatten<OptionsFiles & OptionsOverrides>
 
-export const yamlFiles = ['*.yaml', '*.yml'].flatMap(p => [p, `**/${p}`])
-
 /**
  * Configures the ESLint rules for YAML files.
  * @param options - The configuration options for YAML files.
  * @see https://ota-meshi.github.io/eslint-plugin-yml/
  */
 export async function yaml(options: YamlOptions = {}): Promise<Config[]> {
-  const {files = yamlFiles, overrides = {}} = options
+  const {files = GLOB_YAML_FILES, overrides = {}} = options
   return requireOf(
     ['eslint-plugin-yml'],
     async () => {

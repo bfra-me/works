@@ -1,5 +1,6 @@
 import type {Config} from '../config'
 import type {Flatten, OptionsFiles, OptionsOverrides} from '../options'
+import {GLOB_JSON_FILES} from '../globs'
 import {anyParser} from '../parsers/any-parser'
 import {requireOf} from '../require-of'
 import {interopDefault} from '../utils'
@@ -10,15 +11,13 @@ import {jsonSchema} from './json-schema'
  */
 export type JsoncOptions = Flatten<OptionsFiles & OptionsOverrides>
 
-export const jsoncFiles = ['*.json', '*.json5', '*.jsonc'].flatMap(p => [p, `**/${p}`])
-
 /**
  * Configures the ESLint rules for JSONC files.
  * @param options - The configuration options for JSONC files.
  * @see https://ota-meshi.github.io/eslint-plugin-jsonc/
  */
 export async function jsonc(options: JsoncOptions = {}): Promise<Config[]> {
-  const {files = jsoncFiles, overrides = {}} = options
+  const {files = GLOB_JSON_FILES, overrides = {}} = options
 
   return requireOf(
     ['eslint-plugin-jsonc'],

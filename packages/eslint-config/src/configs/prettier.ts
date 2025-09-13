@@ -2,11 +2,10 @@ import type {Config} from '../config'
 import type {Flatten, OptionsIsInEditor, OptionsOverrides} from '../options'
 import process from 'node:process'
 import {isPackageExists} from 'local-pkg'
+import {GLOB_EXT_IN_MARKDOWN_FILES, GLOB_MARKDOWN_FILES, GLOB_TOML_FILES} from '../globs'
 import {requireOf} from '../require-of'
 import {interopDefault} from '../utils'
 import {fallback} from './fallback'
-import {extInMdFiles, mdFiles} from './markdown'
-import {tomlFiles} from './toml'
 
 /**
  * Represents the options for the ESLint Prettier configuration.
@@ -64,7 +63,7 @@ export async function prettier(options: PrettierOptions = {}): Promise<Config[]>
         },
         {
           name: '@bfra.me/prettier/markdown',
-          files: mdFiles,
+          files: GLOB_MARKDOWN_FILES,
           rules: {
             'prettier/prettier': [
               'error',
@@ -77,7 +76,7 @@ export async function prettier(options: PrettierOptions = {}): Promise<Config[]>
         },
         {
           name: '@bfra.me/prettier/toml',
-          files: tomlFiles,
+          files: GLOB_TOML_FILES,
           rules: {
             // TODO: Detect if the TOML plugin for Prettier is installed
             // and if so, use the Prettier rules
@@ -86,7 +85,7 @@ export async function prettier(options: PrettierOptions = {}): Promise<Config[]>
         },
         {
           name: '@bfra.me/prettier/overrides',
-          files: extInMdFiles,
+          files: GLOB_EXT_IN_MARKDOWN_FILES,
           rules: {
             'prettier/prettier': 'off',
           },

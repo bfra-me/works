@@ -1,5 +1,6 @@
 import type {Config} from '../config'
 import type {Flatten, OptionsFiles} from '../options'
+import {GLOB_PACKAGE_JSON_FILES} from '../globs'
 import {anyParser} from '../parsers/any-parser'
 import {requireOf} from '../require-of'
 import {interopDefault} from '../utils'
@@ -8,13 +9,8 @@ import {jsonSchema} from './json-schema'
 
 export type PackageJsonOptions = Flatten<OptionsFiles>
 
-export const packageJsonFiles = ['package.json', 'package.json5', 'package.jsonc'].flatMap(file => [
-  file,
-  `**/${file}`,
-])
-
 export async function packageJson(options: PackageJsonOptions = {}): Promise<Config[]> {
-  const {files = packageJsonFiles} = options
+  const {files = GLOB_PACKAGE_JSON_FILES} = options
   return requireOf(
     ['eslint-plugin-node-dependencies'],
     async () => {
