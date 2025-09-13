@@ -1,5 +1,7 @@
 import type {Config} from '../config'
 import {sortOrder} from 'sort-package-json'
+import {GLOB_RENOVATE_CONFIG} from '../globs'
+import {jsonSchema} from './json-schema'
 
 /**
  * Creates an ESLint configuration for sorting package.json files.
@@ -73,5 +75,55 @@ export function sortPackageJson(): Config[] {
         ],
       },
     },
+  ]
+}
+
+/**
+ * Creates ESLint configuration for sorting Renovate configuration files.
+ *
+ * This function returns an array of ESLint configurations that enforce sorting rules
+ * for Renovate config files, including:
+ * - Sorting array values in ascending order (except for 'extends' arrays where order matters)
+ * - Sorting object keys according to Renovate's recommended structure
+ *
+ * The key sorting order follows the pattern defined in the Sanity.io renovate-config
+ * repository for consistent configuration structure.
+ *
+ * @returns A promise that resolves to an array of ESLint configurations for Renovate files
+ */
+export async function sortRenovateConfig(): Promise<Config[]> {
+  return [
+    {
+      name: '@bfra.me/sort/renovate-config',
+      files: GLOB_RENOVATE_CONFIG,
+      rules: {
+        'jsonc/sort-array-values': [
+          'error',
+          {
+            // Don't sort 'extends' arrays, as order matters
+            order: {type: 'asc'},
+            pathPattern: '^(?!extends$).*',
+          },
+        ],
+        'jsonc/sort-keys': [
+          'error',
+          {
+            // Based on the order defined here:
+            // https://github.com/sanity-io/renovate-config/blob/8c1fdebe125f16087924216f97838e93824109d1/scripts/update-sorting.js#L30
+            order: [
+              '$schema',
+              'description',
+              'extends',
+              'onboardingConfigFileName',
+              'lockFileMaintenance',
+              'packageRules',
+            ],
+            pathPattern: '^$',
+          },
+        ],
+      },
+    },
+
+    ...(await jsonSchema('renovate', GLOB_RENOVATE_CONFIG)),
   ]
 }
