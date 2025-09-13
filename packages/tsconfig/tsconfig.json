@@ -2,17 +2,22 @@
   "$schema": "http://json.schemastore.org/tsconfig",
   "display": "@bfra.me/tsconfig",
   "compilerOptions": {
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "allowUnreachableCode": false,
-    "allowUnusedLabels": false,
-    "declaration": true,
-    "declarationMap": true,
-    "esModuleInterop": true,
-    "isolatedModules": true,
+    // Language and Environment
+    "target": "ES2022",
     "lib": ["ES2023"],
+
+    // Modules
     "module": "Preserve",
     "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+
+    // JavaScript Support
+    "allowJs": true,
+
+    // Type Checking
+    "strict": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitOverride": true,
@@ -20,12 +25,20 @@
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+
+    // Emit
+    "declaration": true,
+    "declarationMap": true,
     "preserveConstEnums": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
     "sourceMap": true,
-    "strict": true,
-    "target": "ES2022",
-    "verbatimModuleSyntax": true
+
+    // Interop Constraints
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+
+    // Completeness
+    "skipLibCheck": true
   }
 }
