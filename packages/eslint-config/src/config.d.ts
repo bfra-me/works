@@ -48,6 +48,8 @@ export type ConfigNames =
   | '@bfra.me/markdown/code-blocks'
   | '@bfra.me/markdown/disabled'
   | '@bfra.me/markdown/overrides'
+  | '@bfra.me/nextjs/setup'
+  | '@bfra.me/nextjs/rules'
   | '@bfra.me/node'
   | '@bfra.me/package-json/plugins'
   | '@bfra.me/package-json/unnamed1'
