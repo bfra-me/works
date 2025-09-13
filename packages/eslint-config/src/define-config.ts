@@ -1,4 +1,3 @@
-import type {FlatGitignoreOptions} from 'eslint-config-flat-gitignore'
 import type {Config, ConfigNames, FlatConfigComposer, ResolvableFlatConfig} from './config'
 import type {Options} from './options'
 import {isPackageExists} from 'local-pkg'
@@ -8,6 +7,7 @@ import {
   command,
   epilogue,
   eslintComments,
+  gitignore,
   ignores,
   imports,
   javascript,
@@ -30,7 +30,6 @@ import {
   yaml,
 } from './configs'
 import * as Env from './env'
-import {interopDefault} from './utils'
 
 // These are merged into the Options interface
 type AllowedConfigForOptions = Omit<Config, 'files'>
@@ -83,17 +82,7 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
   const configs: (Config[] | Promise<Config[]>)[] = []
 
   if (enableGitignore) {
-    const gitignoreOptions: FlatGitignoreOptions =
-      enableGitignore === true ? {strict: false} : enableGitignore
-
-    configs.push(
-      interopDefault(import('eslint-config-flat-gitignore')).then(ignore => [
-        ignore({
-          name: '@bfra.me/gitignore',
-          ...gitignoreOptions,
-        }),
-      ]),
-    )
+    configs.push(gitignore(enableGitignore === true ? {strict: false} : enableGitignore))
   }
 
   configs.push(

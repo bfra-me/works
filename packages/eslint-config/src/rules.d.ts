@@ -1787,11 +1787,6 @@ export interface Rules {
    */
   'jsdoc/text-escaping'?: Linter.RuleEntry<JsdocTextEscaping>
   /**
-   * Formats JSDoc type values.
-   * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/type-formatting.md#repos-sticky-header
-   */
-  'jsdoc/type-formatting'?: Linter.RuleEntry<JsdocTypeFormatting>
-  /**
    * Requires all types to be valid JSDoc or Closure compiler types without syntax errors.
    * @see https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/valid-types.md#repos-sticky-header
    */
@@ -7733,21 +7728,6 @@ type JsdocTagLines = []|[("always" | "any" | "never")]|[("always" | "any" | "nev
 type JsdocTextEscaping = []|[{
   escapeHTML?: boolean
   escapeMarkdown?: boolean
-}]
-// ----- jsdoc/type-formatting -----
-type JsdocTypeFormatting = []|[{
-  arrayBrackets?: ("angle" | "square")
-  enableFixer?: boolean
-  genericDot?: boolean
-  objectFieldIndent?: string
-  objectFieldQuote?: ("double" | "single" | null)
-  objectFieldSeparator?: ("comma" | "comma-and-linebreak" | "linebreak" | "semicolon" | "semicolon-and-linebreak")
-  objectFieldSeparatorTrailingPunctuation?: boolean
-  propertyQuotes?: ("double" | "single" | null)
-  separatorForSingleObjectField?: boolean
-  stringQuotes?: ("double" | "single")
-  typeBracketSpacing?: string
-  unionSpacing?: string
 }]
 // ----- jsdoc/valid-types -----
 type JsdocValidTypes = []|[{
