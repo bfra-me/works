@@ -1,5 +1,14 @@
 # @bfra.me/create
 
+## 0.5.5
+### Patch Changes
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.61.0`. ([#1833](https://github.com/bfra-me/works/pull/1833))
+
+
+- Updated dependency `memfs` to `4.38.3`. ([#1838](https://github.com/bfra-me/works/pull/1838))
+
 ## 0.5.4
 ### Patch Changes
 
