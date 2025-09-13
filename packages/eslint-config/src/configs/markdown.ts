@@ -90,17 +90,17 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
               ecmaFeatures: {
                 impliedStrict: true,
               },
-              // Explicitly disable project for these files to prevent type-aware linting
-              project: false,
             },
           },
           rules: {
             // Only disable non-type-aware rules we want to skip for markdown code blocks
 
+            '@typescript-eslint/no-namespace': 'off',
             '@typescript-eslint/consistent-type-imports': 'off',
             '@typescript-eslint/explicit-function-return-type': 'off',
             '@typescript-eslint/no-redeclare': 'off',
             '@typescript-eslint/no-require-imports': 'off',
+            '@typescript-eslint/no-unused-expressions': 'off',
             '@typescript-eslint/no-unused-vars': 'off',
             '@typescript-eslint/no-use-before-define': 'off',
             '@typescript-eslint/no-var-requires': 'off',
