@@ -1,0 +1,13 @@
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'github>bfra-me/renovate-config#v4',
+    'github>sanity-io/renovate-config:semantic-commit-type',
+    'security:openssf-scorecard',
+    'npm:unpublishSafe',
+  ],
+  postUpgradeTasks: {
+    commands: ['pnpm test', 'pnpm lint:fix'],
+    fileFilters: ['packages/create/**', 'packages/eslint-config/**'],
+  },
+}
