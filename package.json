@@ -38,7 +38,7 @@
   },
   "lint-staged": {
     "*.{js,json,jsx,md,toml,ts,tsx,yml,yaml}": [
-      "eslint --flag v10_config_lookup_from_file --fix --ignore-pattern 'packages/create/templates/**' --no-warn-ignored"
+      "eslint --flag v10_config_lookup_from_file --fix --ignore-pattern 'packages/create/templates/**' --ignore-pattern '**/fixtures/input/**' --no-warn-ignored"
     ]
   },
   "prettier": "@bfra.me/prettier-config/prettier.config",
