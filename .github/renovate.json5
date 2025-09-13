@@ -8,9 +8,9 @@
   ],
   addLabels: ['{{{parentDir}}}'],
   ignorePaths: [
+    '**/dist/**',
     '**/node_modules/**',
     '**/test/**',
-    '**/dist/**',
     'packages/create/**/templates/**',
   ],
   ignorePresets: ['mergeConfidence:age-confidence-badges', 'mergeConfidence:all-badges'],

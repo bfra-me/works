@@ -19,6 +19,14 @@ export const GLOB_MARKDOWN_IN_MARKDOWN = '**/*.md/*.md'
 export const GLOB_ASTRO = '**/*.astro'
 export const GLOB_ASTRO_TS = `${GLOB_ASTRO}/*.ts`
 
+export const GLOB_RENOVATE_CONFIG = [
+  '**/renovate.json',
+  '**/renovate.json5',
+  '**/.renovaterc',
+  '**/.renovaterc.json',
+  '**/.renovaterc.json5',
+]
+
 export const GLOB_TESTS = [
   `**/__tests__/**/*.${GLOB_SRC_EXT}`,
   `**/*.spec.${GLOB_SRC_EXT}`,
