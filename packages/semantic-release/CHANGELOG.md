@@ -1,5 +1,14 @@
 # @bfra.me/semantic-release
 
+## 0.3.1
+### Patch Changes
+
+
+- Updated dependency `zod` to `4.1.5`. ([#1834](https://github.com/bfra-me/works/pull/1834))
+
+
+- Updated dependency `semantic-release` to `24.2.8`. ([#1860](https://github.com/bfra-me/works/pull/1860))
+
 ## 0.3.0
 ### Minor Changes
 
