@@ -194,6 +194,16 @@ export type Options = Flatten<
     markdown?: boolean | OptionsOverrides
 
     /**
+     * Enable Next.js support.
+     *
+     * Requires installing:
+     * - `@next/eslint-plugin-next`
+     *
+     * @default false
+     */
+    nextjs?: boolean | OptionsOverrides
+
+    /**
      * Enable support for package.json files.
      *
      * @default false

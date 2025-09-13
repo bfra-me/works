@@ -14,6 +14,7 @@ import {
   jsdoc,
   jsonc,
   markdown,
+  nextjs,
   node,
   packageJson,
   perfectionist,
@@ -63,6 +64,7 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
     astro: enableAstro = false,
     gitignore: enableGitignore = true,
     jsx: enableJsx = true,
+    nextjs: enableNextjs = false,
     packageJson: enablePackageJson = false,
     perfectionist: enablePerfectionist = true,
     pnpm: enableCatalogs = false,
@@ -133,6 +135,14 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
     configs.push(
       vitest({
         overrides: getOverrides(options, 'vitest'),
+      }),
+    )
+  }
+
+  if (enableNextjs) {
+    configs.push(
+      nextjs({
+        overrides: getOverrides(options, 'nextjs'),
       }),
     )
   }
