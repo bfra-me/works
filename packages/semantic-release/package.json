@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/semantic-release",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Semantic Release shareable configuration and plugins for bfra.me.",
   "keywords": [
     "bfra.me",

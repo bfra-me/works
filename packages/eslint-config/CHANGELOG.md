@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.29.2
+### Patch Changes
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `55.2.0`. ([#1852](https://github.com/bfra-me/works/pull/1852))
+
 ## 0.29.1
 ### Patch Changes
 
