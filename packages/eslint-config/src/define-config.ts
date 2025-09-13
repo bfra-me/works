@@ -20,6 +20,7 @@ import {
   perfectionist,
   pnpm,
   prettier,
+  react,
   regexp,
   sortPackageJson,
   sortRenovateConfig,
@@ -69,6 +70,7 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
     perfectionist: enablePerfectionist = true,
     pnpm: enableCatalogs = false,
     prettier: enablePrettier = isPackageExists('prettier'),
+    react: enableReact = false,
     regexp: enableRegexp = true,
     typescript: enableTypeScript = isPackageExists('typescript'),
     unicorn: enableUnicorn = true,
@@ -116,7 +118,8 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
   }
 
   const typescriptOptions = resolveSubOptions(options, 'typescript')
-  // const tsconfigPath ='tsconfigPath' in typescriptOptions ? typescriptOptions.tsconfigPath : undefined
+  const tsconfigPath =
+    'tsconfigPath' in typescriptOptions ? typescriptOptions.tsconfigPath : undefined
 
   if (enableTypeScript) {
     configs.push(
@@ -135,6 +138,16 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
     configs.push(
       vitest({
         overrides: getOverrides(options, 'vitest'),
+      }),
+    )
+  }
+
+  if (enableReact) {
+    configs.push(
+      react({
+        ...typescriptOptions,
+        overrides: getOverrides(options, 'react'),
+        tsconfigPath,
       }),
     )
   }

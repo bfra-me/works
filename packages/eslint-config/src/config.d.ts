@@ -63,6 +63,8 @@ export type ConfigNames =
   | '@bfra.me/prettier/markdown'
   | '@bfra.me/prettier/toml'
   | '@bfra.me/prettier/overrides'
+  | '@bfra.me/react/setup'
+  | '@bfra.me/react/rules'
   | '@bfra.me/regexp'
   | '@bfra.me/sort/package-json'
   | '@bfra.me/sort/renovate-config'

@@ -233,6 +233,18 @@ export type Options = Flatten<
     prettier?: boolean | OptionsOverrides
 
     /**
+     * Enable react rules.
+     *
+     * Requires installing:
+     * - `@eslint-react/eslint-plugin`
+     * - `eslint-plugin-react-hooks`
+     * - `eslint-plugin-react-refresh`
+     *
+     * @default false
+     */
+    react?: boolean | OptionsOverrides
+
+    /**
      * Options to override the behavior of RegExp linting rules.
      */
     regexp?: boolean | OptionsOverrides

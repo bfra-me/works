@@ -111,3 +111,18 @@ testPreset(
     },
   },
 )
+
+testPreset(
+  'ts-strict-with-react',
+  {
+    react: true,
+    typescript: {
+      tsconfigPath: './tsconfig.json',
+    },
+  },
+  {
+    rules: {
+      '@typescript-eslint/no-unsafe-return': ['off'],
+    },
+  },
+)
