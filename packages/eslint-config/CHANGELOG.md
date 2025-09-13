@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.29.1
+### Patch Changes
+
+
+- Disable TypeScript rules for Markdown linting. ([#1849](https://github.com/bfra-me/works/pull/1849))
+
 ## 0.29.0
 ### Minor Changes
 
