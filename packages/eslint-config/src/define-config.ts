@@ -22,6 +22,7 @@ import {
   regexp,
   sortPackageJson,
   sortRenovateConfig,
+  sortTsconfig,
   toml,
   typescript,
   unicorn,
@@ -161,6 +162,7 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
       jsonc({overrides: getOverrides(options, 'jsonc')}),
       sortPackageJson(),
       sortRenovateConfig(),
+      sortTsconfig(),
     )
   }
 
