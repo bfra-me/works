@@ -1,5 +1,32 @@
 # @bfra.me/eslint-config
 
+## 0.29.0
+### Minor Changes
+
+
+- Add config to sort `package.json` using the sort order from [sort-package-json](https://github.com/keithamus/sort-package-json#readme). ([#1843](https://github.com/bfra-me/works/pull/1843))
+
+
+- Add support for sorting [TypeScript configuration files](https://www.typescriptlang.org/tsconfig/). ([#1847](https://github.com/bfra-me/works/pull/1847))
+
+
+- Add a configuration for sorting [Renovate config files](https://docs.renovatebot.com/configuration-options/#configuration-options). ([#1846](https://github.com/bfra-me/works/pull/1846))
+
+
+### Patch Changes
+
+
+- Updated dependency `globals` to `16.4.0`. ([#1842](https://github.com/bfra-me/works/pull/1842))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `55.1.1`. ([#1835](https://github.com/bfra-me/works/pull/1835))
+
+
+- Updated dependency `eslint-plugin-unicorn` to `61.0.2`. ([#1836](https://github.com/bfra-me/works/pull/1836))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `55.1.2`. ([#1844](https://github.com/bfra-me/works/pull/1844))
+
 ## 0.28.3
 ### Patch Changes
 
