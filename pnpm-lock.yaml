@@ -128,8 +128,8 @@ importers:
   packages/create:
     dependencies:
       '@anthropic-ai/sdk':
-        specifier: 0.61.0
-        version: 0.61.0
+        specifier: 0.62.0
+        version: 0.62.0
       '@clack/prompts':
         specifier: 0.11.0
         version: 0.11.0
@@ -385,8 +385,8 @@ packages:
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
 
-  '@anthropic-ai/sdk@0.61.0':
-    resolution: {integrity: sha512-GnlOXrPxow0uoaVB3DGNh9EJBU1MyagCBCLpU+bwDVlj/oOPYIwoiasMWlykkfYcQOrDP2x/zHnRD0xN7PeZPw==}
+  '@anthropic-ai/sdk@0.62.0':
+    resolution: {integrity: sha512-gT2VFKX0gSp7KJNlav/vzRFjJOPYDZxCJRx7MYUc+fqURc5aS6OI/UJeD2KytJkjsIWv0OOwH1ePc1S5QE2GZw==}
     hasBin: true
 
   '@apidevtools/json-schema-ref-parser@14.2.0':
@@ -5605,7 +5605,7 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.13
       '@jridgewell/trace-mapping': 0.3.30
 
-  '@anthropic-ai/sdk@0.61.0': {}
+  '@anthropic-ai/sdk@0.62.0': {}
 
   '@apidevtools/json-schema-ref-parser@14.2.0(@types/json-schema@7.0.15)':
     dependencies:
