@@ -1,6 +1,6 @@
 import type {Config} from '../config'
 import {sortOrder} from 'sort-package-json'
-import {GLOB_RENOVATE_CONFIG} from '../globs'
+import {GLOB_RENOVATE_CONFIG, GLOB_TS_CONFIG} from '../globs'
 import {jsonSchema} from './json-schema'
 
 /**
@@ -124,6 +124,148 @@ export async function sortRenovateConfig(): Promise<Config[]> {
       },
     },
 
-    ...(await jsonSchema('renovate', GLOB_RENOVATE_CONFIG)),
+    ...(await jsonSchema('renovate-config', GLOB_RENOVATE_CONFIG)),
+  ]
+}
+
+/**
+ * Creates ESLint configuration for sorting TypeScript configuration files.
+ *
+ * This function generates rules to enforce a specific order of properties in tsconfig.json files:
+ * - Root level properties are ordered: extends, compilerOptions, references, files, include, exclude
+ * - CompilerOptions properties are grouped and ordered by TypeScript compiler categories:
+ *   Projects, Language and Environment, Modules, JavaScript Support, Type Checking,
+ *   Emit, Interop Constraints, and Completeness
+ *
+ * @returns A promise that resolves to an array of ESLint configurations for tsconfig files
+ */
+export async function sortTsconfig(): Promise<Config[]> {
+  return [
+    {
+      name: '@bfra.me/sort/tsconfig',
+      files: GLOB_TS_CONFIG,
+      rules: {
+        'jsonc/sort-keys': [
+          'error',
+          {
+            order: ['extends', 'compilerOptions', 'references', 'files', 'include', 'exclude'],
+            pathPattern: '^$',
+          },
+          {
+            order: [
+              /* Projects */
+              'incremental',
+              'composite',
+              'tsBuildInfoFile',
+              'disableSourceOfProjectReferenceRedirect',
+              'disableSolutionSearching',
+              'disableReferencedProjectLoad',
+
+              /* Language and Environment */
+              'target',
+              'jsx',
+              'jsxFactory',
+              'jsxFragmentFactory',
+              'jsxImportSource',
+              'lib',
+              'moduleDetection',
+              'noLib',
+              'reactNamespace',
+              'useDefineForClassFields',
+              'emitDecoratorMetadata',
+              'experimentalDecorators',
+              'libReplacement',
+
+              /* Modules */
+              'baseUrl',
+              'rootDir',
+              'rootDirs',
+              'customConditions',
+              'module',
+              'moduleResolution',
+              'moduleSuffixes',
+              'noResolve',
+              'paths',
+              'resolveJsonModule',
+              'resolvePackageJsonExports',
+              'resolvePackageJsonImports',
+              'typeRoots',
+              'types',
+              'allowArbitraryExtensions',
+              'allowImportingTsExtensions',
+              'allowUmdGlobalAccess',
+
+              /* JavaScript Support */
+              'allowJs',
+              'checkJs',
+              'maxNodeModuleJsDepth',
+
+              /* Type Checking */
+              'strict',
+              'strictBindCallApply',
+              'strictFunctionTypes',
+              'strictNullChecks',
+              'strictPropertyInitialization',
+              'allowUnreachableCode',
+              'allowUnusedLabels',
+              'alwaysStrict',
+              'exactOptionalPropertyTypes',
+              'noFallthroughCasesInSwitch',
+              'noImplicitAny',
+              'noImplicitOverride',
+              'noImplicitReturns',
+              'noImplicitThis',
+              'noPropertyAccessFromIndexSignature',
+              'noUncheckedIndexedAccess',
+              'noUnusedLocals',
+              'noUnusedParameters',
+              'useUnknownInCatchVariables',
+
+              /* Emit */
+              'declaration',
+              'declarationDir',
+              'declarationMap',
+              'downlevelIteration',
+              'emitBOM',
+              'emitDeclarationOnly',
+              'importHelpers',
+              'importsNotUsedAsValues',
+              'inlineSourceMap',
+              'inlineSources',
+              'mapRoot',
+              'newLine',
+              'noEmit',
+              'noEmitHelpers',
+              'noEmitOnError',
+              'outDir',
+              'outFile',
+              'preserveConstEnums',
+              'preserveValueImports',
+              'removeComments',
+              'sourceMap',
+              'sourceRoot',
+              'stripInternal',
+
+              /* Interop Constraints */
+              'allowSyntheticDefaultImports',
+              'esModuleInterop',
+              'forceConsistentCasingInFileNames',
+              'isolatedDeclarations',
+              'isolatedModules',
+              'preserveSymlinks',
+              'verbatimModuleSyntax',
+              'erasableSyntaxOnly',
+
+              /* Completeness */
+              'skipDefaultLibCheck',
+              'skipLibCheck',
+            ],
+            pathPattern: '^compilerOptions$',
+          },
+        ],
+      },
+    },
+
+    ...(await jsonSchema('tsconfig', GLOB_TS_CONFIG)),
   ]
 }

@@ -27,6 +27,8 @@ export const GLOB_RENOVATE_CONFIG = [
   '**/.renovaterc.json5',
 ]
 
+export const GLOB_TS_CONFIG = ['**/[t]sconfig.json', '**/[jt]sconfig.*.json']
+
 export const GLOB_TESTS = [
   `**/__tests__/**/*.${GLOB_SRC_EXT}`,
   `**/*.spec.${GLOB_SRC_EXT}`,

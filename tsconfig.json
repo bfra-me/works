@@ -1,7 +1,6 @@
 {
   "extends": "./packages/tsconfig/tsconfig.json",
   "compilerOptions": {
-    "noEmit": true,
     "baseUrl": ".",
     "paths": {
       "@bfra.me/badge-config": ["packages/badge-config/src"],
@@ -16,9 +15,9 @@
       "@bfra.me/semantic-release/*": ["packages/semantic-release/src/*"],
       "@bfra.me/tsconfig": ["packages/tsconfig"],
       "@bfra.me/tsconfig/*": ["packages/tsconfig/*"]
-    }
+    },
+    "noEmit": true
   },
-  "files": [],
   "references": [
     {"path": "./docs"},
     {"path": "./packages/tsconfig"},
@@ -28,5 +27,6 @@
     {"path": "./packages/semantic-release"},
     {"path": "./packages/create"},
     {"path": "./tsconfig.eslint.json"}
-  ]
+  ],
+  "files": []
 }

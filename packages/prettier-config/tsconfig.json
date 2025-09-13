@@ -2,9 +2,9 @@
   "$schema": "http://json.schemastore.org/tsconfig",
   "extends": "../tsconfig/tsconfig.json",
   "compilerOptions": {
+    "rootDir": ".",
     "noEmit": false,
-    "outDir": "./lib",
-    "rootDir": "."
+    "outDir": "./lib"
   },
   "include": ["**/*.ts", "**/*.cts"],
   "exclude": ["node_modules", "lib", "test/fixtures"]
