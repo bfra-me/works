@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.30.1
+### Patch Changes
+
+
+- Ignore `postUpgradeTasks.commands` arrays when sorting Renovate configs. ([#1862](https://github.com/bfra-me/works/pull/1862))
+
 ## 0.30.0
 ### Minor Changes
 
