@@ -1,5 +1,20 @@
 # @bfra.me/create
 
+## 0.5.6
+### Patch Changes
+
+
+- Updated dependency `msw` to `2.11.2`. ([#1855](https://github.com/bfra-me/works/pull/1855))
+
+
+- Updated dependency `memfs` to `4.39.0`. ([#1853](https://github.com/bfra-me/works/pull/1853))
+
+
+- Updated dependency `zod` to `4.1.5`. ([#1834](https://github.com/bfra-me/works/pull/1834))
+
+
+- Updated dependency `openai` to `5.20.1`. ([#1854](https://github.com/bfra-me/works/pull/1854))
+
 ## 0.5.5
 ### Patch Changes
 

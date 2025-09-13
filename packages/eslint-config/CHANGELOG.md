@@ -1,5 +1,29 @@
 # @bfra.me/eslint-config
 
+## 0.30.0
+### Minor Changes
+
+
+- Refactor config type generation and exports. ([#1858](https://github.com/bfra-me/works/pull/1858))
+
+
+- Add ESLint configuration preset for React. ([#1861](https://github.com/bfra-me/works/pull/1861))
+
+
+- Add ESLint configuration for Next.js. ([#1859](https://github.com/bfra-me/works/pull/1859))
+
+
+### Patch Changes
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `55.4.0`. ([#1857](https://github.com/bfra-me/works/pull/1857))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `55.2.0`. ([#1852](https://github.com/bfra-me/works/pull/1852))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `55.3.0`. ([#1856](https://github.com/bfra-me/works/pull/1856))
+
 ## 0.29.1
 ### Patch Changes
 
