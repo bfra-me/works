@@ -40,7 +40,7 @@ export async function nextjs(options: NextjsOptions = {}): Promise<Config[]> {
       return [
         {
           name: '@bfra.me/nextjs/setup',
-          plugins: {next: pluginNextJs},
+          plugins: {'@next/next': pluginNextJs},
         },
         {
           name: '@bfra.me/nextjs/rules',
