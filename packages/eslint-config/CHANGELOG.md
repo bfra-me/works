@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.30.3
+### Patch Changes
+
+
+- Enable Vitest typechecking if type-aware linting is enabled. ([#1868](https://github.com/bfra-me/works/pull/1868))
+
 ## 0.30.2
 ### Patch Changes
 
