@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.30.2
+### Patch Changes
+
+
+- Rename the Next.js plugin to `@next/next` for compatibility with existing setups. ([#1866](https://github.com/bfra-me/works/pull/1866))
+
 ## 0.30.1
 ### Patch Changes
 
