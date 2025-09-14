@@ -1,5 +1,11 @@
 import type {Config} from '../config'
-import type {Flatten, OptionsFiles, OptionsIsInEditor, OptionsOverrides} from '../options'
+import type {
+  Flatten,
+  OptionsFiles,
+  OptionsIsInEditor,
+  OptionsOverrides,
+  OptionsTypeScriptWithTypes,
+} from '../options'
 import {GLOB_TESTS} from '../globs'
 import {anyParser} from '../parsers/any-parser'
 import {requireOf} from '../require-of'
@@ -8,9 +14,11 @@ import {fallback} from './fallback'
 
 /**
  * Represents the options for the Vitest ESLint configuration.
- * This type is a flattened union of the {@link OptionsFiles}, {@link OptionsIsInEditor}, and {@link OptionsOverrides} types.
+ * This type is a flattened union of the {@link OptionsFiles}, {@link OptionsIsInEditor}, {@link OptionsOverrides}, and {@link OptionsTypeScriptWithTypes} types.
  */
-export type VitestOptions = Flatten<OptionsFiles & OptionsIsInEditor & OptionsOverrides>
+export type VitestOptions = Flatten<
+  OptionsFiles & OptionsIsInEditor & OptionsOverrides & OptionsTypeScriptWithTypes
+>
 
 /**
  * Generates an ESLint configuration for the Vitest testing framework.
@@ -22,7 +30,8 @@ export type VitestOptions = Flatten<OptionsFiles & OptionsIsInEditor & OptionsOv
  * @returns An array of ESLint configurations for the Vitest testing framework.
  */
 export async function vitest(options: VitestOptions = {}): Promise<Config[]> {
-  const {files = GLOB_TESTS, isInEditor = false, overrides = {}} = options
+  const {files = GLOB_TESTS, isInEditor = false, overrides = {}, tsconfigPath} = options
+  const isTypeAware = typeof tsconfigPath === 'string' && tsconfigPath.trim().length > 0
 
   return requireOf(
     ['@vitest/eslint-plugin'],
@@ -36,11 +45,15 @@ export async function vitest(options: VitestOptions = {}): Promise<Config[]> {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             vitest: vitest as any,
           },
-          settings: {
-            vitest: {
-              typecheck: true,
-            },
-          },
+          ...(isTypeAware
+            ? {
+                settings: {
+                  vitest: {
+                    typecheck: true,
+                  },
+                },
+              }
+            : {}),
         },
         {
           ...(vitest.configs?.env ?? {}),
