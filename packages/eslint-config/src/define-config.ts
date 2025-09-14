@@ -137,7 +137,9 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
   if (options.vitest) {
     configs.push(
       vitest({
+        isInEditor,
         overrides: getOverrides(options, 'vitest'),
+        tsconfigPath,
       }),
     )
   }
