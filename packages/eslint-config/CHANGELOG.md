@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.31.0
+### Minor Changes
+
+
+- Add ESLint config for `@stylistic/eslint-plugin`. ([#1878](https://github.com/bfra-me/works/pull/1878))
+
 ## 0.30.3
 ### Patch Changes
 
