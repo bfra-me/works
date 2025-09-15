@@ -1,3 +1,4 @@
+import type {StylisticCustomizeOptions} from '@stylistic/eslint-plugin'
 import type {ParserOptions} from '@typescript-eslint/types'
 import type {FlatGitignoreOptions} from 'eslint-config-flat-gitignore'
 import type {Config} from './config'
@@ -131,6 +132,13 @@ export type OptionsTypeScript =
   | (OptionsTypeScriptParserOptions & OptionsOverrides)
   | (OptionsTypeScriptWithTypes & OptionsOverrides)
 
+export interface OptionsStylistic {
+  stylistic?: boolean | StylisticConfig
+}
+
+export interface StylisticConfig
+  extends Pick<StylisticCustomizeOptions, 'indent' | 'quotes' | 'jsx' | 'semi'> {}
+
 /**
  * Configuration options for the ESLint setup.
  *
@@ -165,6 +173,13 @@ export type Options = Flatten<
      * @default true
      */
     gitignore?: boolean | FlatGitignoreOptions
+
+    /**
+     * Options to override the behavior of import-related rules.
+     *
+     * @default true
+     */
+    imports?: boolean | OptionsOverrides
 
     /**
      * Indicates whether the code is being executed in an editor environment.
@@ -248,6 +263,17 @@ export type Options = Flatten<
      * Options to override the behavior of RegExp linting rules.
      */
     regexp?: boolean | OptionsOverrides
+
+    /**
+     * Enable stylistic rules.
+     *
+     * Requires installing:
+     * - `@stylistic/eslint-plugin`
+     *
+     * @see https://eslint.style/
+     * @default true
+     */
+    stylistic?: boolean | (StylisticConfig & OptionsOverrides)
 
     /**
      * Options to override the behavior of the TOML parser and linting rules.
