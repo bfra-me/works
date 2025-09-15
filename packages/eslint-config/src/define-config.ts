@@ -25,6 +25,7 @@ import {
   sortPackageJson,
   sortRenovateConfig,
   sortTsconfig,
+  stylistic,
   toml,
   typescript,
   unicorn,
@@ -64,6 +65,7 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
   const {
     astro: enableAstro = false,
     gitignore: enableGitignore = true,
+    imports: enableImports = true,
     jsx: enableJsx = true,
     nextjs: enableNextjs = false,
     packageJson: enablePackageJson = false,
@@ -83,6 +85,17 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
       '[@bfra.me/eslint-config] Editor specific config is enabled. Some rules may be disabled.',
     )
 
+  const stylisticOptions =
+    options.stylistic === false
+      ? false
+      : typeof options.stylistic === 'object'
+        ? options.stylistic
+        : {}
+
+  if (stylisticOptions && !('jsx' in stylisticOptions)) {
+    stylisticOptions.jsx = typeof enableJsx === 'object' ? true : enableJsx
+  }
+
   const configs: (Config[] | Promise<Config[]>)[] = []
 
   if (enableGitignore) {
@@ -94,7 +107,7 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
     javascript({isInEditor, jsx: enableJsx, overrides: getOverrides(options, 'javascript')}),
     eslintComments(),
     node(),
-    jsdoc(),
+    jsdoc({stylistic: stylisticOptions}),
     imports(),
     command(),
   )
@@ -113,6 +126,15 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
     )
   }
 
+  if (enableImports) {
+    configs.push(
+      imports({
+        stylistic: stylisticOptions,
+        ...(enableImports === true ? {} : enableImports),
+      }),
+    )
+  }
+
   if (enableUnicorn) {
     configs.push(unicorn({overrides: getOverrides(options, 'unicorn')}))
   }
@@ -126,6 +148,15 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
       typescript({
         ...typescriptOptions,
         overrides: getOverrides(options, 'typescript'),
+      }),
+    )
+  }
+
+  if (stylisticOptions) {
+    configs.push(
+      stylistic({
+        ...stylisticOptions,
+        overrides: getOverrides(options, 'stylistic'),
       }),
     )
   }
@@ -167,13 +198,14 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
       astro({
         ...resolveSubOptions(options, 'astro'),
         overrides: getOverrides(options, 'astro'),
+        stylistic: stylisticOptions,
       }),
     )
   }
 
   if (options.jsonc ?? true) {
     configs.push(
-      jsonc({overrides: getOverrides(options, 'jsonc')}),
+      jsonc({overrides: getOverrides(options, 'jsonc'), stylistic: stylisticOptions}),
       sortPackageJson(),
       sortRenovateConfig(),
       sortTsconfig(),
@@ -188,6 +220,7 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
     configs.push(
       toml({
         overrides: getOverrides(options, 'toml'),
+        stylistic: stylisticOptions,
       }),
     )
   }
@@ -196,6 +229,7 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
     configs.push(
       yaml({
         overrides: getOverrides(options, 'yaml'),
+        stylistic: stylisticOptions,
       }),
     )
   }

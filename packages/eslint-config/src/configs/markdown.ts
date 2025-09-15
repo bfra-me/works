@@ -68,6 +68,11 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
             // Only disable non-type-aware rules we want to skip for markdown code blocks
 
             '@typescript-eslint/no-namespace': 'off',
+
+            '@stylistic/comma-dangle': 'off',
+            '@stylistic/eol-last': 'off',
+            '@stylistic/padding-line-between-statements': 'off',
+
             '@typescript-eslint/consistent-type-imports': 'off',
             '@typescript-eslint/explicit-function-return-type': 'off',
             '@typescript-eslint/no-redeclare': 'off',

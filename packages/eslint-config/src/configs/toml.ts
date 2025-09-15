@@ -1,5 +1,5 @@
 import type {Config} from '../config'
-import type {Flatten, OptionsFiles, OptionsOverrides} from '../options'
+import type {Flatten, OptionsFiles, OptionsOverrides, OptionsStylistic} from '../options'
 import {GLOB_TOML_FILES} from '../globs'
 import {anyParser} from '../parsers/any-parser'
 import {requireOf} from '../require-of'
@@ -10,7 +10,7 @@ import {jsonSchema} from './json-schema'
 /**
  * Represents the options for configuring TOML files in the ESLint configuration.
  */
-export type TomlOptions = Flatten<OptionsFiles & OptionsOverrides>
+export type TomlOptions = Flatten<OptionsFiles & OptionsOverrides & OptionsStylistic>
 
 /**
  * Configures the ESLint rules for TOML files.
@@ -18,7 +18,10 @@ export type TomlOptions = Flatten<OptionsFiles & OptionsOverrides>
  * @see https://ota-meshi.github.io/eslint-plugin-toml/
  */
 export async function toml(options: TomlOptions = {}): Promise<Config[]> {
-  const {files = GLOB_TOML_FILES, overrides = {}} = options
+  const {files = GLOB_TOML_FILES, overrides = {}, stylistic = true} = options
+  const {indent = 2} = typeof stylistic === 'boolean' ? {} : stylistic
+  const includeStylistic = typeof stylistic === 'boolean' ? stylistic : true
+
   return requireOf(
     ['eslint-plugin-toml'],
     async () => {
@@ -36,6 +39,34 @@ export async function toml(options: TomlOptions = {}): Promise<Config[]> {
           name: '@bfra.me/toml',
           files,
           rules: {
+            '@stylistic/spaced-comment': 'off',
+
+            'toml/comma-style': 'error',
+            'toml/keys-order': 'error',
+            'toml/no-space-dots': 'error',
+            'toml/no-unreadable-number-separator': 'error',
+            'toml/precision-of-fractional-seconds': 'error',
+            'toml/precision-of-integer': 'error',
+            'toml/tables-order': 'error',
+
+            'toml/vue-custom-block/no-parsing-error': 'error',
+
+            ...(includeStylistic
+              ? {
+                  'toml/array-bracket-newline': 'error',
+                  'toml/array-bracket-spacing': 'error',
+                  'toml/array-element-newline': 'error',
+                  'toml/indent': ['error', indent === 'tab' ? 2 : indent],
+                  'toml/inline-table-curly-spacing': 'error',
+                  'toml/key-spacing': 'error',
+                  'toml/padding-line-between-pairs': 'error',
+                  'toml/padding-line-between-tables': 'error',
+                  'toml/quoted-keys': 'error',
+                  'toml/spaced-comment': 'error',
+                  'toml/table-bracket-spacing': 'error',
+                }
+              : {}),
+
             ...overrides,
           },
         },

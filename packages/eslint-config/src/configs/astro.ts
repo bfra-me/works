@@ -1,5 +1,5 @@
 import type {Config} from '../config'
-import type {Flatten, OptionsFiles, OptionsOverrides} from '../options'
+import type {Flatten, OptionsFiles, OptionsOverrides, OptionsStylistic} from '../options'
 import {GLOB_ASTRO} from '../globs'
 import {anyParser} from '../parsers/any-parser'
 import {requireOf} from '../require-of'
@@ -10,7 +10,7 @@ import {fallback} from './fallback'
  * Represents the options for configuring the Astro ESLint configuration.
  * This type is a flattened union of the {@link OptionsFiles} and {@link OptionsOverrides} types.
  */
-export interface AstroOptions extends Flatten<OptionsFiles & OptionsOverrides> {}
+export interface AstroOptions extends Flatten<OptionsFiles & OptionsOverrides & OptionsStylistic> {}
 
 /**
  * Configures the Astro ESLint plugin.
@@ -18,7 +18,8 @@ export interface AstroOptions extends Flatten<OptionsFiles & OptionsOverrides> {
  * @returns A promise that resolves to an array of ESLint configurations.
  */
 export async function astro(options: AstroOptions = {}): Promise<Config[]> {
-  const {files = [GLOB_ASTRO], overrides = {}} = options
+  const {files = [GLOB_ASTRO], overrides = {}, stylistic = true} = options
+  const includeStylistic = typeof stylistic === 'boolean' ? stylistic : true
 
   return requireOf(
     ['eslint-plugin-astro', 'astro-eslint-parser'],
@@ -58,6 +59,15 @@ export async function astro(options: AstroOptions = {}): Promise<Config[]> {
             'astro/no-unused-define-vars-in-style': 'error',
             'astro/semi': 'off',
             'astro/valid-compile': 'error',
+
+            ...(includeStylistic
+              ? {
+                  '@stylistic/indent': 'off',
+                  '@stylistic/jsx-closing-tag-location': 'off',
+                  '@stylistic/jsx-one-expression-per-line': 'off',
+                  '@stylistic/no-multiple-empty-lines': 'off',
+                }
+              : {}),
 
             ...overrides,
           },

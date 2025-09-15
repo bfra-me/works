@@ -75,6 +75,7 @@ export type ConfigNames =
   | '@bfra.me/tsconfig/json-schema/plugins'
   | '@bfra.me/tsconfig/json-schema/unnamed1'
   | '@bfra.me/tsconfig/json-schema'
+  | '@bfra.me/stylistic'
   | '@bfra.me/toml/plugins'
   | '@bfra.me/toml/unnamed1'
   | '@bfra.me/toml/unnamed2'
