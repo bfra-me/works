@@ -32,8 +32,8 @@ importers:
         specifier: 0.25.1
         version: 0.25.1
       '@microsoft/api-extractor':
-        specifier: 7.52.12
-        version: 7.52.12(@types/node@22.18.1)
+        specifier: 7.52.13
+        version: 7.52.13(@types/node@22.18.1)
       '@svitejs/changesets-changelog-github-compact':
         specifier: 1.2.0
         version: 1.2.0
@@ -120,7 +120,7 @@ importers:
         version: link:../tsconfig
       tsup:
         specifier: 8.5.0
-        version: 8.5.0(@microsoft/api-extractor@7.52.12(@types/node@22.18.1))(jiti@2.1.2)(postcss@8.5.6)(tsx@4.20.5)(typescript@5.9.2)(yaml@2.8.1)
+        version: 8.5.0(@microsoft/api-extractor@7.52.13(@types/node@22.18.1))(jiti@2.1.2)(postcss@8.5.6)(tsx@4.20.5)(typescript@5.9.2)(yaml@2.8.1)
       vitest:
         specifier: 3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@22.18.1)(@vitest/ui@3.2.4)(happy-dom@18.0.1)(jiti@2.1.2)(msw@2.11.2(@types/node@22.18.1)(typescript@5.9.2))(tsx@4.20.5)(yaml@2.8.1)
@@ -181,7 +181,7 @@ importers:
         version: 2.11.2(@types/node@22.18.1)(typescript@5.9.2)
       tsup:
         specifier: 8.5.0
-        version: 8.5.0(@microsoft/api-extractor@7.52.12(@types/node@22.18.1))(jiti@2.1.2)(postcss@8.5.6)(tsx@4.20.5)(typescript@5.9.2)(yaml@2.8.1)
+        version: 8.5.0(@microsoft/api-extractor@7.52.13(@types/node@22.18.1))(jiti@2.1.2)(postcss@8.5.6)(tsx@4.20.5)(typescript@5.9.2)(yaml@2.8.1)
       typescript:
         specifier: 5.9.2
         version: 5.9.2
@@ -326,7 +326,7 @@ importers:
         version: 2.3.0(eslint@9.35.0(jiti@2.1.2))
       tsup:
         specifier: 8.5.0
-        version: 8.5.0(@microsoft/api-extractor@7.52.12(@types/node@22.18.1))(jiti@2.1.2)(postcss@8.5.6)(tsx@4.20.5)(typescript@5.9.2)(yaml@2.8.1)
+        version: 8.5.0(@microsoft/api-extractor@7.52.13(@types/node@22.18.1))(jiti@2.1.2)(postcss@8.5.6)(tsx@4.20.5)(typescript@5.9.2)(yaml@2.8.1)
       tsx:
         specifier: 4.20.5
         version: 4.20.5
@@ -344,7 +344,7 @@ importers:
         version: 3.6.2
       tsup:
         specifier: 8.5.0
-        version: 8.5.0(@microsoft/api-extractor@7.52.12(@types/node@22.18.1))(jiti@2.1.2)(postcss@8.5.6)(tsx@4.20.5)(typescript@5.9.2)(yaml@2.8.1)
+        version: 8.5.0(@microsoft/api-extractor@7.52.13(@types/node@22.18.1))(jiti@2.1.2)(postcss@8.5.6)(tsx@4.20.5)(typescript@5.9.2)(yaml@2.8.1)
 
   packages/semantic-release:
     devDependencies:
@@ -359,7 +359,7 @@ importers:
         version: 24.2.8(typescript@5.9.2)
       tsup:
         specifier: 8.5.0
-        version: 8.5.0(@microsoft/api-extractor@7.52.12(@types/node@22.18.1))(jiti@2.1.2)(postcss@8.5.6)(tsx@4.20.5)(typescript@5.9.2)(yaml@2.8.1)
+        version: 8.5.0(@microsoft/api-extractor@7.52.13(@types/node@22.18.1))(jiti@2.1.2)(postcss@8.5.6)(tsx@4.20.5)(typescript@5.9.2)(yaml@2.8.1)
       type-fest:
         specifier: 4.41.0
         version: 4.41.0
@@ -1094,8 +1094,8 @@ packages:
   '@microsoft/api-extractor-model@7.30.7':
     resolution: {integrity: sha512-TBbmSI2/BHpfR9YhQA7nH0nqVmGgJ0xH0Ex4D99/qBDAUpnhA2oikGmdXanbw9AWWY/ExBYIpkmY8dBHdla3YQ==}
 
-  '@microsoft/api-extractor@7.52.12':
-    resolution: {integrity: sha512-f1UNgOLCMydwCJ+eZvH0dMxMq3lEEvXsLqlvDOdx136cRITK6xPES2xxgN/0NPCFpQad2HtMHxtPM9oGuqQx6g==}
+  '@microsoft/api-extractor@7.52.13':
+    resolution: {integrity: sha512-K6/bBt8zZfn9yc06gNvA+/NlBGJC/iJlObpdufXHEJtqcD4Dln4ITCLZpwP3DNZ5NyBFeTkKdv596go3V72qlA==}
     hasBin: true
 
   '@microsoft/tsdoc-config@0.17.1':
@@ -6497,7 +6497,7 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@microsoft/api-extractor@7.52.12(@types/node@22.18.1)':
+  '@microsoft/api-extractor@7.52.13(@types/node@22.18.1)':
     dependencies:
       '@microsoft/api-extractor-model': 7.30.7(@types/node@22.18.1)
       '@microsoft/tsdoc': 0.15.1
@@ -11157,7 +11157,7 @@ snapshots:
 
   tslib@2.8.1: {}
 
-  tsup@8.5.0(@microsoft/api-extractor@7.52.12(@types/node@22.18.1))(jiti@2.1.2)(postcss@8.5.6)(tsx@4.20.5)(typescript@5.9.2)(yaml@2.8.1):
+  tsup@8.5.0(@microsoft/api-extractor@7.52.13(@types/node@22.18.1))(jiti@2.1.2)(postcss@8.5.6)(tsx@4.20.5)(typescript@5.9.2)(yaml@2.8.1):
     dependencies:
       bundle-require: 5.1.0(esbuild@0.25.9)
       cac: 6.7.14
@@ -11177,7 +11177,7 @@ snapshots:
       tinyglobby: 0.2.15
       tree-kill: 1.2.2
     optionalDependencies:
-      '@microsoft/api-extractor': 7.52.12(@types/node@22.18.1)
+      '@microsoft/api-extractor': 7.52.13(@types/node@22.18.1)
       postcss: 8.5.6
       typescript: 5.9.2
     transitivePeerDependencies:
