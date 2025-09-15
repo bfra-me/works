@@ -84,7 +84,7 @@ testPreset('default', {})
 
 testPreset('js', {typescript: false})
 
-testPreset('no-prettier', {prettier: false})
+testPreset('no-prettier', {prettier: false, stylistic: false})
 
 testPreset(
   'ts-override',
