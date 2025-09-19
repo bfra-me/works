@@ -43,7 +43,7 @@ export interface CoverageOptions {
 }
 
 /**
-
+ 
  * The default thresholds for coverage percentage colors.
  * @internal
  */
