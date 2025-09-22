@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.31.1
+### Patch Changes
+
+
+- Change `json-schema-validator/no-invalid` from an error to a warning. ([#1886](https://github.com/bfra-me/works/pull/1886))
+
 ## 0.31.0
 ### Minor Changes
 
