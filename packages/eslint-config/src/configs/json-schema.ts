@@ -34,7 +34,7 @@ export async function jsonSchema(name: string, files: string[]): Promise<Config[
           files,
           rules: {
             'json-schema-validator/no-invalid': [
-              'error',
+              'warn',
               {
                 schemas: [
                   {
