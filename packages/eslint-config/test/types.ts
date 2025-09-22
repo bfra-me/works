@@ -1,7 +1,6 @@
 import type {Linter} from 'eslint'
+import type {Config} from '../src'
 
 // Make sure they are compatible
-
-import type {Config} from '../src'
 ;((): Linter.Config => ({}) as Config)()
 ;((): Config => ({}) as Linter.Config)()

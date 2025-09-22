@@ -1,4 +1,5 @@
 import {defaultConfig} from './default.js'
+
 export default defaultConfig
 
 export * from './80-proof.js'
