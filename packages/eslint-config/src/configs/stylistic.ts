@@ -49,7 +49,28 @@ export async function stylistic(options: StylisticOptions = {}): Promise<Config[
       rules: {
         ...config.rules,
 
+        '@stylistic/arrow-parens': ['error', 'as-needed'],
+        '@stylistic/brace-style': ['error', '1tbs', {allowSingleLine: true}],
         '@stylistic/generator-star-spacing': ['error', {after: true, before: false}],
+        '@stylistic/member-delimiter-style': [
+          'error',
+          {
+            multiline: {delimiter: 'none', requireLast: false},
+            singleline: {delimiter: 'semi', requireLast: false},
+          },
+        ],
+        '@stylistic/object-curly-spacing': ['error', 'never'],
+        '@stylistic/operator-linebreak': [
+          'error',
+          'after',
+          {overrides: {':': 'before', '?': 'before', '|': 'before'}},
+        ],
+        '@stylistic/quote-props': ['error', 'as-needed'],
+        '@stylistic/quotes': [
+          'error',
+          quotes,
+          {allowTemplateLiterals: 'always', avoidEscape: true},
+        ],
         '@stylistic/yield-star-spacing': ['error', {after: true, before: false}],
 
         ...overrides,

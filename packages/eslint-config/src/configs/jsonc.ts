@@ -77,7 +77,7 @@ export async function jsonc(options: JsoncOptions = {}): Promise<Config[]> {
                   'jsonc/indent': ['error', indent],
                   'jsonc/key-spacing': ['error', {afterColon: true, beforeColon: false}],
                   'jsonc/object-curly-newline': ['error', {consistent: true, multiline: true}],
-                  'jsonc/object-curly-spacing': ['error', 'always'],
+                  'jsonc/object-curly-spacing': ['error', 'never'],
                   'jsonc/object-property-newline': ['error', {allowAllPropertiesOnSameLine: true}],
                   'jsonc/quote-props': 'error',
                   'jsonc/quotes': 'error',

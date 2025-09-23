@@ -55,7 +55,6 @@ class Animal {
   constructor(name: string) {
     this.name = name
   }
-
   protected makeSound(sound: string) {
     log(`${this.name} says ${sound}`)
   }
@@ -66,7 +65,6 @@ class Dog extends Animal {
   constructor(private alias: string) {
     super(alias)
   }
-
   bark() {
     this.makeSound('Woof!')
   }
