@@ -204,8 +204,8 @@ importers:
         specifier: 2.1.0
         version: 2.1.0(eslint@9.35.0(jiti@2.1.2))
       eslint-flat-config-utils:
-        specifier: 2.1.1
-        version: 2.1.1
+        specifier: 2.1.4
+        version: 2.1.4
       eslint-merge-processors:
         specifier: 2.0.0
         version: 2.0.0(eslint@9.35.0(jiti@2.1.2))
@@ -2481,8 +2481,8 @@ packages:
     peerDependencies:
       eslint: '>=7.0.0'
 
-  eslint-flat-config-utils@2.1.1:
-    resolution: {integrity: sha512-K8eaPkBemHkfbYsZH7z4lZ/tt6gNSsVh535Wh9W9gQBS2WjvfUbbVr2NZR3L1yiRCLuOEimYfPxCxODczD4Opg==}
+  eslint-flat-config-utils@2.1.4:
+    resolution: {integrity: sha512-bEnmU5gqzS+4O+id9vrbP43vByjF+8KOs+QuuV4OlqAuXmnRW2zfI/Rza1fQvdihQ5h4DUo0NqFAiViD4mSrzQ==}
 
   eslint-import-context@0.1.9:
     resolution: {integrity: sha512-K9Hb+yRaGAGUbwjhFNHvSmmkZs9+zbuoe3kFQ4V1wYjrepUFYM2dZAfNtjbbj3qsPfUfsA68Bx/ICWQMi+C8Eg==}
@@ -8039,7 +8039,7 @@ snapshots:
     dependencies:
       eslint: 9.35.0(jiti@2.1.2)
 
-  eslint-flat-config-utils@2.1.1:
+  eslint-flat-config-utils@2.1.4:
     dependencies:
       pathe: 2.0.3
 
