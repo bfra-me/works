@@ -29,10 +29,10 @@ export async function prettier(options: PrettierOptions = {}): Promise<Config[]>
         interopDefault(import('eslint-plugin-prettier')),
         isPackageExists('eslint-plugin-jsonc')
           ? interopDefault(import('eslint-plugin-jsonc'))
-          : undefined,
+          : Promise.resolve(undefined),
         isPackageExists('eslint-plugin-yml')
           ? interopDefault(import('eslint-plugin-yml'))
-          : undefined,
+          : Promise.resolve(undefined),
       ])
 
       return [
