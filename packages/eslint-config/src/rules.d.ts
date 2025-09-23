@@ -6822,6 +6822,10 @@ type StylisticGeneratorStarSpacing = []|[(("before" | "after" | "both" | "neithe
     before?: boolean
     after?: boolean
   })
+  shorthand?: (("before" | "after" | "both" | "neither") | {
+    before?: boolean
+    after?: boolean
+  })
 })]
 // ----- @stylistic/implicit-arrow-linebreak -----
 type StylisticImplicitArrowLinebreak = []|[("beside" | "below")]
@@ -7067,22 +7071,6 @@ type StylisticKeywordSpacing = []|[{
       before?: boolean
       after?: boolean
     }
-    arguments?: {
-      before?: boolean
-      after?: boolean
-    }
-    as?: {
-      before?: boolean
-      after?: boolean
-    }
-    async?: {
-      before?: boolean
-      after?: boolean
-    }
-    await?: {
-      before?: boolean
-      after?: boolean
-    }
     boolean?: {
       before?: boolean
       after?: boolean
@@ -7147,10 +7135,6 @@ type StylisticKeywordSpacing = []|[{
       before?: boolean
       after?: boolean
     }
-    eval?: {
-      before?: boolean
-      after?: boolean
-    }
     export?: {
       before?: boolean
       after?: boolean
@@ -7179,15 +7163,7 @@ type StylisticKeywordSpacing = []|[{
       before?: boolean
       after?: boolean
     }
-    from?: {
-      before?: boolean
-      after?: boolean
-    }
     function?: {
-      before?: boolean
-      after?: boolean
-    }
-    get?: {
       before?: boolean
       after?: boolean
     }
@@ -7223,10 +7199,6 @@ type StylisticKeywordSpacing = []|[{
       before?: boolean
       after?: boolean
     }
-    let?: {
-      before?: boolean
-      after?: boolean
-    }
     long?: {
       before?: boolean
       after?: boolean
@@ -7240,10 +7212,6 @@ type StylisticKeywordSpacing = []|[{
       after?: boolean
     }
     null?: {
-      before?: boolean
-      after?: boolean
-    }
-    of?: {
       before?: boolean
       after?: boolean
     }
@@ -7264,10 +7232,6 @@ type StylisticKeywordSpacing = []|[{
       after?: boolean
     }
     return?: {
-      before?: boolean
-      after?: boolean
-    }
-    set?: {
       before?: boolean
       after?: boolean
     }
@@ -7315,15 +7279,7 @@ type StylisticKeywordSpacing = []|[{
       before?: boolean
       after?: boolean
     }
-    type?: {
-      before?: boolean
-      after?: boolean
-    }
     typeof?: {
-      before?: boolean
-      after?: boolean
-    }
-    using?: {
       before?: boolean
       after?: boolean
     }
@@ -7344,6 +7300,54 @@ type StylisticKeywordSpacing = []|[{
       after?: boolean
     }
     with?: {
+      before?: boolean
+      after?: boolean
+    }
+    arguments?: {
+      before?: boolean
+      after?: boolean
+    }
+    as?: {
+      before?: boolean
+      after?: boolean
+    }
+    async?: {
+      before?: boolean
+      after?: boolean
+    }
+    await?: {
+      before?: boolean
+      after?: boolean
+    }
+    eval?: {
+      before?: boolean
+      after?: boolean
+    }
+    from?: {
+      before?: boolean
+      after?: boolean
+    }
+    get?: {
+      before?: boolean
+      after?: boolean
+    }
+    let?: {
+      before?: boolean
+      after?: boolean
+    }
+    of?: {
+      before?: boolean
+      after?: boolean
+    }
+    set?: {
+      before?: boolean
+      after?: boolean
+    }
+    type?: {
+      before?: boolean
+      after?: boolean
+    }
+    using?: {
       before?: boolean
       after?: boolean
     }
@@ -7648,6 +7652,18 @@ type StylisticObjectCurlyNewline = []|[((("always" | "never") | {
 type StylisticObjectCurlySpacing = []|[("always" | "never")]|[("always" | "never"), {
   arraysInObjects?: boolean
   objectsInObjects?: boolean
+  overrides?: {
+    ObjectPattern?: ("always" | "never")
+    ObjectExpression?: ("always" | "never")
+    ImportDeclaration?: ("always" | "never")
+    ImportAttributes?: ("always" | "never")
+    ExportNamedDeclaration?: ("always" | "never")
+    ExportAllDeclaration?: ("always" | "never")
+    TSMappedType?: ("always" | "never")
+    TSTypeLiteral?: ("always" | "never")
+    TSInterfaceBody?: ("always" | "never")
+    TSEnumBody?: ("always" | "never")
+  }
 }]
 // ----- @stylistic/object-property-newline -----
 type StylisticObjectPropertyNewline = []|[{
