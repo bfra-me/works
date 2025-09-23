@@ -225,8 +225,8 @@ importers:
         specifier: 2.20.1
         version: 2.20.1(eslint@9.35.0(jiti@2.1.2))
       eslint-plugin-n:
-        specifier: 17.21.3
-        version: 17.21.3(eslint@9.35.0(jiti@2.1.2))(typescript@5.9.2)
+        specifier: 17.23.1
+        version: 17.23.1(eslint@9.35.0(jiti@2.1.2))(typescript@5.9.2)
       eslint-plugin-perfectionist:
         specifier: 4.15.0
         version: 4.15.0(eslint@9.35.0(jiti@2.1.2))(typescript@5.9.2)
@@ -2546,8 +2546,8 @@ packages:
     peerDependencies:
       eslint: '>=6.0.0'
 
-  eslint-plugin-n@17.21.3:
-    resolution: {integrity: sha512-MtxYjDZhMQgsWRm/4xYLL0i2EhusWT7itDxlJ80l1NND2AL2Vi5Mvneqv/ikG9+zpran0VsVRXTEHrpLmUZRNw==}
+  eslint-plugin-n@17.23.1:
+    resolution: {integrity: sha512-68PealUpYoHOBh332JLLD9Sj7OQUDkFpmcfqt8R9sySfFSeuGJjMTJQvCRRB96zO3A/PELRLkPrzsHmzEFQQ5A==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: '>=8.23.0'
@@ -8110,7 +8110,7 @@ snapshots:
     transitivePeerDependencies:
       - '@eslint/json'
 
-  eslint-plugin-n@17.21.3(eslint@9.35.0(jiti@2.1.2))(typescript@5.9.2):
+  eslint-plugin-n@17.23.1(eslint@9.35.0(jiti@2.1.2))(typescript@5.9.2):
     dependencies:
       '@eslint-community/eslint-utils': 4.9.0(eslint@9.35.0(jiti@2.1.2))
       enhanced-resolve: 5.18.3
