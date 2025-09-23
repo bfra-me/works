@@ -47,7 +47,7 @@
     "@bfra.me/prettier-config": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
     "@changesets/cli": "2.29.7",
-    "@eslint/config-inspector": "1.2.0",
+    "@eslint/config-inspector": "1.3.0",
     "@manypkg/cli": "0.25.1",
     "@microsoft/api-extractor": "7.52.13",
     "@svitejs/changesets-changelog-github-compact": "1.2.0",
