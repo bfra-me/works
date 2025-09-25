@@ -195,8 +195,8 @@ importers:
         specifier: 4.5.0
         version: 4.5.0(eslint@9.36.0(jiti@2.1.2))
       '@eslint/markdown':
-        specifier: 7.2.0
-        version: 7.2.0
+        specifier: 7.3.0
+        version: 7.3.0
       '@stylistic/eslint-plugin':
         specifier: 5.4.0
         version: 5.4.0(eslint@9.36.0(jiti@2.1.2))
@@ -808,8 +808,8 @@ packages:
     resolution: {integrity: sha512-uhCbYtYynH30iZErszX78U+nR3pJU3RHGQ57NXy5QupD4SBVwDeU8TNBy+MjMngc1UyIW9noKqsRqfjQTBU2dw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@eslint/markdown@7.2.0':
-    resolution: {integrity: sha512-cmDloByulvKzofM0tIkSGWwxMcrKOLsXZC+EM0FLkRIrxKzW+2RkZAt9TAh37EtQRmx1M4vjBEmlC6R0wiGkog==}
+  '@eslint/markdown@7.3.0':
+    resolution: {integrity: sha512-v9Cpl9IvzGmWMUwDAwSbf1b2GMwjQJiD0TSHegFrIu23mjqGQOvaCwnetzbG3/fjk8x7baKaIbSTBlpCktZRRg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@eslint/object-schema@2.1.6':
@@ -6229,7 +6229,7 @@ snapshots:
 
   '@eslint/js@9.36.0': {}
 
-  '@eslint/markdown@7.2.0':
+  '@eslint/markdown@7.3.0':
     dependencies:
       '@eslint/core': 0.15.2
       '@eslint/plugin-kit': 0.3.5
