@@ -2714,7 +2714,7 @@ export interface Rules {
    * Disallow missing label references
    * @see https://github.com/eslint/markdown/blob/main/docs/rules/no-missing-label-refs.md
    */
-  'markdown/no-missing-label-refs'?: Linter.RuleEntry<[]>
+  'markdown/no-missing-label-refs'?: Linter.RuleEntry<MarkdownNoMissingLabelRefs>
   /**
    * Disallow link fragments that do not reference valid headings
    * @see https://github.com/eslint/markdown/blob/main/docs/rules/no-missing-link-fragments.md
@@ -2725,6 +2725,11 @@ export interface Rules {
    * @see https://github.com/eslint/markdown/blob/main/docs/rules/no-multiple-h1.md
    */
   'markdown/no-multiple-h1'?: Linter.RuleEntry<MarkdownNoMultipleH1>
+  /**
+   * Disallow URLs that match defined reference identifiers
+   * @see https://github.com/eslint/markdown/blob/main/docs/rules/no-reference-like-urls.md
+   */
+  'markdown/no-reference-like-urls'?: Linter.RuleEntry<[]>
   /**
    * Disallow reversed link and image syntax
    * @see https://github.com/eslint/markdown/blob/main/docs/rules/no-reversed-media-syntax.md
@@ -10742,6 +10747,10 @@ type MarkdownNoHtml = []|[{
 // ----- markdown/no-missing-atx-heading-space -----
 type MarkdownNoMissingAtxHeadingSpace = []|[{
   checkClosedHeadings?: boolean
+}]
+// ----- markdown/no-missing-label-refs -----
+type MarkdownNoMissingLabelRefs = []|[{
+  allowLabels?: string[]
 }]
 // ----- markdown/no-missing-link-fragments -----
 type MarkdownNoMissingLinkFragments = []|[{
