@@ -14606,6 +14606,8 @@ type PnpmJsonEnforceCatalog = []|[{
   conflicts?: ("new-catalog" | "overrides" | "error")
   
   fields?: string[]
+  
+  ignores?: string[]
 }]
 // ----- pnpm/json-prefer-workspace-settings -----
 type PnpmJsonPreferWorkspaceSettings = []|[{
