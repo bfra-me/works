@@ -1,5 +1,56 @@
 # @bfra.me/eslint-config
 
+## 0.32.0
+### Minor Changes
+
+
+- Disable Stylistic options if Prettier is enabled and get Stylistic options closely matching Prettier config. ([#1891](https://github.com/bfra-me/works/pull/1891))
+
+
+### Patch Changes
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.1.24`. ([#1883](https://github.com/bfra-me/works/pull/1883))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.44.0`. ([#1884](https://github.com/bfra-me/works/pull/1884))
+  Updated dependency `typescript-eslint` to `8.44.0`.
+
+- Updated dependency `@eslint/markdown` to `7.3.0`. ([#1914](https://github.com/bfra-me/works/pull/1914))
+
+
+- Updated dependency `@stylistic/eslint-plugin` to `5.4.0`. ([#1904](https://github.com/bfra-me/works/pull/1904))
+
+
+- Updated dependency `eslint-plugin-n` to `17.23.1`. ([#1880](https://github.com/bfra-me/works/pull/1880))
+
+
+- Updated dependency `eslint-flat-config-utils` to `2.1.4`. ([#1897](https://github.com/bfra-me/works/pull/1897))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.44.1`. ([#1913](https://github.com/bfra-me/works/pull/1913))
+  Updated dependency `typescript-eslint` to `8.44.1`.
+
+- Updated dependency `@eslint/js` to `9.36.0`. ([#1902](https://github.com/bfra-me/works/pull/1902))
+  Updated dependency `eslint` to `9.36.0`.
+
+- Updated dependency `eslint-plugin-react-refresh` to `0.4.21`. ([#1915](https://github.com/bfra-me/works/pull/1915))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.3.12`. ([#1883](https://github.com/bfra-me/works/pull/1883))
+
+
+- Updated dependency `eslint-plugin-pnpm` to `1.1.2`. ([#1921](https://github.com/bfra-me/works/pull/1921))
+
+
+- Updated dependency `@next/eslint-plugin-next` to `15.5.4`. ([#1917](https://github.com/bfra-me/works/pull/1917))
+
+
+- Updated dependency `@eslint/config-inspector` to `1.3.0`. ([#1899](https://github.com/bfra-me/works/pull/1899))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.3.4`. ([#1883](https://github.com/bfra-me/works/pull/1883))
+
 ## 0.31.1
 ### Patch Changes
 
