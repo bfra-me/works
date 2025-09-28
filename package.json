@@ -60,7 +60,7 @@
     "fs-extra": "11.3.2",
     "husky": "9.1.7",
     "jiti": "2.1.2",
-    "lint-staged": "16.2.0",
+    "lint-staged": "16.2.1",
     "prettier": "3.6.2",
     "publint": "0.3.13",
     "rimraf": "6.0.1",
