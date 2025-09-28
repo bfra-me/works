@@ -1,5 +1,47 @@
 # @bfra.me/create
 
+## 0.5.9
+### Patch Changes
+
+
+- Updated dependency `memfs` to `4.42.0`. ([#1901](https://github.com/bfra-me/works/pull/1901))
+
+
+- Updated dependency `msw` to `2.11.3`. ([#1906](https://github.com/bfra-me/works/pull/1906))
+
+
+- Updated dependency `openai` to `5.22.1`. ([#1898](https://github.com/bfra-me/works/pull/1898))
+
+
+- Updated dependency `memfs` to `4.45.0`. ([#1923](https://github.com/bfra-me/works/pull/1923))
+
+
+- Updated dependency `openai` to `5.23.0`. ([#1918](https://github.com/bfra-me/works/pull/1918))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.63.1`. ([#1920](https://github.com/bfra-me/works/pull/1920))
+
+
+- Updated dependency `memfs` to `4.43.0`. ([#1903](https://github.com/bfra-me/works/pull/1903))
+
+
+- Updated dependency `memfs` to `4.46.1`. ([#1926](https://github.com/bfra-me/works/pull/1926))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.63.0`. ([#1905](https://github.com/bfra-me/works/pull/1905))
+
+
+- Updated dependency `openai` to `5.22.1`. ([#1895](https://github.com/bfra-me/works/pull/1895))
+
+
+- Updated dependency `memfs` to `4.44.0`. ([#1922](https://github.com/bfra-me/works/pull/1922))
+
+
+- Updated dependency `openai` to `5.22.0`. ([#1879](https://github.com/bfra-me/works/pull/1879))
+
+
+- Updated dependency `memfs` to `4.46.0`. ([#1924](https://github.com/bfra-me/works/pull/1924))
+
 ## 0.5.8
 ### Patch Changes
 
