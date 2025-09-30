@@ -63,7 +63,7 @@
     "@types/node": "22.18.1",
     "@vitest/ui": "3.2.4",
     "happy-dom": "18.0.1",
-    "memfs": "4.46.1",
+    "memfs": "4.47.0",
     "msw": "2.11.3",
     "tsup": "8.5.0",
     "typescript": "5.9.2",
