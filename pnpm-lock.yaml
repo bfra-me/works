@@ -128,8 +128,8 @@ importers:
   packages/create:
     dependencies:
       '@anthropic-ai/sdk':
-        specifier: 0.64.0
-        version: 0.64.0(zod@3.25.76)
+        specifier: 0.65.0
+        version: 0.65.0(zod@3.25.76)
       '@clack/prompts':
         specifier: 0.11.0
         version: 0.11.0
@@ -388,8 +388,8 @@ packages:
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
 
-  '@anthropic-ai/sdk@0.64.0':
-    resolution: {integrity: sha512-K2JaWzPiIA4/ghD7bMlyM/4JvM3k7sKdHFmXWAKqqpVL9ee1H7pguRqygxTgK+SrzK86ZMf1x3L+RK4IrDtxjA==}
+  '@anthropic-ai/sdk@0.65.0':
+    resolution: {integrity: sha512-zIdPOcrCVEI8t3Di40nH4z9EoeyGZfXbYSvWdDLsB/KkaSYMnEgC7gmcgWu83g2NTn1ZTpbMvpdttWDGGIk6zw==}
     hasBin: true
     peerDependencies:
       zod: <4.0.0
@@ -5611,7 +5611,7 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.13
       '@jridgewell/trace-mapping': 0.3.31
 
-  '@anthropic-ai/sdk@0.64.0(zod@3.25.76)':
+  '@anthropic-ai/sdk@0.65.0(zod@3.25.76)':
     dependencies:
       json-schema-to-ts: 3.1.1
     optionalDependencies:
