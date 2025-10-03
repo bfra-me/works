@@ -68,7 +68,7 @@
     "tsx": "4.20.6",
     "type-coverage": "2.29.7",
     "type-fest": "4.41.0",
-    "typescript": "5.9.2",
+    "typescript": "5.9.3",
     "vitest": "3.2.4"
   },
   "packageManager": "pnpm@10.17.1"
