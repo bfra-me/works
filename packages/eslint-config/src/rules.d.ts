@@ -11144,12 +11144,16 @@ type NoRestrictedImports = ((string | {
   message?: string
   importNames?: string[]
   allowImportNames?: string[]
+  
+  allowTypeImports?: boolean
 })[] | []|[{
   paths?: (string | {
     name: string
     message?: string
     importNames?: string[]
     allowImportNames?: string[]
+    
+    allowTypeImports?: boolean
   })[]
   patterns?: (string[] | ({
     [k: string]: unknown | undefined
