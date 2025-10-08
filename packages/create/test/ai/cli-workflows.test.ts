@@ -150,7 +150,7 @@ describe('AI CLI Workflow Integration', () => {
       expect(result.success).toBe(true)
 
       // The AI analysis should have been called
-      expect(mockAnalyzeProject).toHaveBeenCalledWith({
+      expect(mockAnalyzeProject).toHaveBeenCalledExactlyOnceWith({
         description: 'A TypeScript utility library for data processing',
         name: 'ai-test-library',
         preferences: {
@@ -342,7 +342,7 @@ describe('AI CLI Workflow Integration', () => {
       const result = await createPackage(options)
 
       expect(result.success).toBe(true)
-      expect(mockAnalyzeProject).toHaveBeenCalledWith({
+      expect(mockAnalyzeProject).toHaveBeenCalledExactlyOnceWith({
         description: 'React dashboard with charts and navigation',
         name: 'dashboard-app',
         preferences: {
