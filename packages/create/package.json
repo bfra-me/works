@@ -56,7 +56,7 @@
     "glob": "11.0.3",
     "openai": "5.23.2",
     "package-manager-detector": "1.4.0",
-    "semver": "7.7.2",
+    "semver": "7.7.3",
     "zod": "4.1.5"
   },
   "devDependencies": {
