@@ -1,5 +1,32 @@
 # @bfra.me/eslint-config
 
+## 0.32.2
+### Patch Changes
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.3.16`. ([#1956](https://github.com/bfra-me/works/pull/1956))
+
+
+- Updated dependency `package-manager-detector` to `1.4.0`. ([#1971](https://github.com/bfra-me/works/pull/1971))
+
+
+- Updated dependency `eslint-plugin-yml` to `1.19.0`. ([#1959](https://github.com/bfra-me/works/pull/1959))
+
+
+- Updated dependency `eslint-plugin-perfectionist` to `4.15.1`. ([#1966](https://github.com/bfra-me/works/pull/1966))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.46.0`. ([#1975](https://github.com/bfra-me/works/pull/1975))
+  Updated dependency `typescript-eslint` to `8.46.0`.
+
+- Updated dependency `@eslint/markdown` to `7.4.0`. ([#1974](https://github.com/bfra-me/works/pull/1974))
+
+
+- Updated dependency `eslint` to `9.37.0`. ([#1964](https://github.com/bfra-me/works/pull/1964))
+
+
+- Updated dependency `@eslint/js` to `9.37.0`. ([#1962](https://github.com/bfra-me/works/pull/1962))
+
 ## 0.32.1
 ### Patch Changes
 
