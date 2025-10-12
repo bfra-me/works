@@ -1,5 +1,23 @@
 # @bfra.me/create
 
+## 0.5.11
+### Patch Changes
+
+
+- Updated dependency `package-manager-detector` to `1.4.0`. ([#1971](https://github.com/bfra-me/works/pull/1971))
+
+
+- Updated dependency `msw` to `2.11.4`. ([#1983](https://github.com/bfra-me/works/pull/1983))
+
+
+- Updated dependency `msw` to `2.11.5`. ([#1985](https://github.com/bfra-me/works/pull/1985))
+
+
+- Updated dependency `semver` to `7.7.3`. ([#1978](https://github.com/bfra-me/works/pull/1978))
+
+
+- Updated dependency `memfs` to `4.49.0`. ([#1976](https://github.com/bfra-me/works/pull/1976))
+
 ## 0.5.10
 ### Patch Changes
 
