@@ -6086,7 +6086,7 @@ export interface Rules {
    */
   'vars-on-top'?: Linter.RuleEntry<[]>
   /**
-   * require .spec test file pattern
+   * require test file pattern
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/consistent-test-filename.md
    */
   'vitest/consistent-test-filename'?: Linter.RuleEntry<VitestConsistentTestFilename>
