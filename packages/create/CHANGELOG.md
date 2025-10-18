@@ -1,5 +1,17 @@
 # @bfra.me/create
 
+## 0.5.12
+### Patch Changes
+
+
+- Updated dependency `package-manager-detector` to `1.4.1`. ([#2002](https://github.com/bfra-me/works/pull/2002))
+
+
+- Updated dependency `@types/node` to `22.18.10`. ([#1990](https://github.com/bfra-me/works/pull/1990))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.66.0`. ([#2004](https://github.com/bfra-me/works/pull/2004))
+
 ## 0.5.11
 ### Patch Changes
 
