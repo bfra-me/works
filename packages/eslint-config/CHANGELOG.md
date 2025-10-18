@@ -1,5 +1,32 @@
 # @bfra.me/eslint-config
 
+## 0.32.3
+### Patch Changes
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.3.18`. ([#1996](https://github.com/bfra-me/works/pull/1996))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.3.20`. ([#2001](https://github.com/bfra-me/works/pull/2001))
+
+
+- Updated dependency `package-manager-detector` to `1.4.1`. ([#2002](https://github.com/bfra-me/works/pull/2002))
+
+
+- Updated dependency `@next/eslint-plugin-next` to `15.5.5`. ([#1994](https://github.com/bfra-me/works/pull/1994))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.46.1`. ([#1995](https://github.com/bfra-me/works/pull/1995))
+  Updated dependency `typescript-eslint` to `8.46.1`.
+
+- Updated dependency `@vitest/eslint-plugin` to `1.3.17`. ([#1992](https://github.com/bfra-me/works/pull/1992))
+
+
+- Updated dependency `eslint-plugin-react-refresh` to `0.4.24`. ([#2003](https://github.com/bfra-me/works/pull/2003))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.3.19`. ([#1998](https://github.com/bfra-me/works/pull/1998))
+
 ## 0.32.2
 ### Patch Changes
 
