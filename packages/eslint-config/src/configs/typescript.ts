@@ -126,7 +126,6 @@ export async function typescript(options: TypeScriptOptions = {}): Promise<Confi
         files,
         ...(ignores ? {ignores} : {}),
         languageOptions: {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           parser: tselint.parser as any,
           parserOptions: {
             sourceType: 'module',
