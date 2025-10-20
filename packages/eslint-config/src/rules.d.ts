@@ -14670,6 +14670,8 @@ type PnpmJsonValidCatalog = []|[{
 // ----- pnpm/yaml-no-duplicate-catalog-item -----
 type PnpmYamlNoDuplicateCatalogItem = []|[{
   allow?: string[]
+  
+  checkDuplicates?: ("name-only" | "exact-version")
 }]
 // ----- prefer-arrow-callback -----
 type PreferArrowCallback = []|[{
