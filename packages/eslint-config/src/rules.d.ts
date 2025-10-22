@@ -3690,6 +3690,11 @@ export interface Rules {
    */
   'node-dependencies/prefer-tilde-range-version'?: Linter.RuleEntry<[]>
   /**
+   * Require provenance information for dependencies
+   * @see https://ota-meshi.github.io/eslint-plugin-node-dependencies/rules/require-provenance-deps.html
+   */
+  'node-dependencies/require-provenance-deps'?: Linter.RuleEntry<NodeDependenciesRequireProvenanceDeps>
+  /**
    * enforce the versions of the engines of the dependencies to be compatible.
    * @see https://ota-meshi.github.io/eslint-plugin-node-dependencies/rules/valid-engines.html
    * @deprecated
@@ -11425,6 +11430,11 @@ type NodeDependenciesNoRestrictedDeps = (string | {
   message?: string
   deep?: ("local" | "server")
 })[]
+// ----- node-dependencies/require-provenance-deps -----
+type NodeDependenciesRequireProvenanceDeps = []|[{
+  devDependencies?: boolean
+  allows?: string[]
+}]
 // ----- node-dependencies/valid-engines -----
 type NodeDependenciesValidEngines = []|[{
   deep?: boolean
