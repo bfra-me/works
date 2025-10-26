@@ -4,12 +4,13 @@ name: Create Renovate Changeset
 on:
   merge_group:
   pull_request_target:
+  workflow_dispatch:
 
 jobs:
   create-changeset:
     name: Create Renovate Changeset
     runs-on: ubuntu-latest
-    if: github.repository == 'bfra-me/works' && ( github.actor == 'bfra-me[bot]' || github.actor == 'renovate[bot]' )
+    if: github.repository == 'bfra-me/works' && ( github.actor == 'bfra-me[bot]' || github.actor == 'renovate[bot]' || github.event_name == 'workflow_dispatch' )
     steps:
       - id: get-workflow-access-token
         name: Get Workflow Access Token
