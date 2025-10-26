@@ -138,8 +138,7 @@ export async function react(options: ReactOptions = {}): Promise<Config[]> {
             'react-hooks-extra/no-direct-set-state-in-use-effect': 'warn',
 
             // recommended rules eslint-plugin-react-hooks https://github.com/facebook/react/tree/main/packages/eslint-plugin-react-hooks/src/rules
-            'react-hooks/exhaustive-deps': 'warn',
-            'react-hooks/rules-of-hooks': 'error',
+            ...pluginReactHooks.configs.recommended.rules,
 
             // preconfigured rules from eslint-plugin-react-refresh https://github.com/ArnaudBarre/eslint-plugin-react-refresh/tree/main/src
             'react-refresh/only-export-components': [
