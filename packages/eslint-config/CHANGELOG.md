@@ -1,5 +1,59 @@
 # @bfra.me/eslint-config
 
+## 0.32.3
+### Patch Changes
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.3.18`. ([#1996](https://github.com/bfra-me/works/pull/1996))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.3.20`. ([#2001](https://github.com/bfra-me/works/pull/2001))
+
+
+- Updated dependency `package-manager-detector` to `1.4.1`. ([#2002](https://github.com/bfra-me/works/pull/2002))
+
+
+- Updated dependency `@next/eslint-plugin-next` to `15.5.5`. ([#1994](https://github.com/bfra-me/works/pull/1994))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.46.1`. ([#1995](https://github.com/bfra-me/works/pull/1995))
+  Updated dependency `typescript-eslint` to `8.46.1`.
+
+- Updated dependency `@vitest/eslint-plugin` to `1.3.17`. ([#1992](https://github.com/bfra-me/works/pull/1992))
+
+
+- Updated dependency `eslint-plugin-react-refresh` to `0.4.24`. ([#2003](https://github.com/bfra-me/works/pull/2003))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.3.19`. ([#1998](https://github.com/bfra-me/works/pull/1998))
+
+## 0.32.2
+### Patch Changes
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.3.16`. ([#1956](https://github.com/bfra-me/works/pull/1956))
+
+
+- Updated dependency `package-manager-detector` to `1.4.0`. ([#1971](https://github.com/bfra-me/works/pull/1971))
+
+
+- Updated dependency `eslint-plugin-yml` to `1.19.0`. ([#1959](https://github.com/bfra-me/works/pull/1959))
+
+
+- Updated dependency `eslint-plugin-perfectionist` to `4.15.1`. ([#1966](https://github.com/bfra-me/works/pull/1966))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.46.0`. ([#1975](https://github.com/bfra-me/works/pull/1975))
+  Updated dependency `typescript-eslint` to `8.46.0`.
+
+- Updated dependency `@eslint/markdown` to `7.4.0`. ([#1974](https://github.com/bfra-me/works/pull/1974))
+
+
+- Updated dependency `eslint` to `9.37.0`. ([#1964](https://github.com/bfra-me/works/pull/1964))
+
+
+- Updated dependency `@eslint/js` to `9.37.0`. ([#1962](https://github.com/bfra-me/works/pull/1962))
+
 ## 0.32.1
 ### Patch Changes
 

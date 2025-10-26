@@ -282,7 +282,7 @@ describe('cLI interaction prompts', () => {
 
       // Verify all workflow steps were called
       expect(intro).toHaveBeenCalled()
-      expect(templateSelection).toHaveBeenCalledWith(undefined)
+      expect(templateSelection).toHaveBeenCalledExactlyOnceWith(undefined)
       expect(projectCustomization).toHaveBeenCalled()
       expect(confirmationStep).toHaveBeenCalled()
       expect(outro).toHaveBeenCalled()
