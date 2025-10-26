@@ -1,5 +1,5 @@
 ---
-'@bfra.me/eslint-config': patch
+'@bfra.me/eslint-config': minor
 ---
 
-Updated dependency `@eslint-react/eslint-plugin` to `^1.53.1 || ^2.0.0`.
+Updated dependency `@eslint-react/eslint-plugin` to `^2.0.0`.
