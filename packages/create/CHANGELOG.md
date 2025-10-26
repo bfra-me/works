@@ -1,5 +1,23 @@
 # @bfra.me/create
 
+## 0.5.13
+### Patch Changes
+
+
+- Updated dependency `happy-dom` to `20.0.8`. ([#2034](https://github.com/bfra-me/works/pull/2034))
+
+
+- Updated dependency `package-manager-detector` to `1.5.0`. ([#2016](https://github.com/bfra-me/works/pull/2016))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.67.0`. ([#2005](https://github.com/bfra-me/works/pull/2005))
+
+
+- Updated dependency `msw` to `2.11.6`. ([#2021](https://github.com/bfra-me/works/pull/2021))
+
+
+- Updated dependency `happy-dom` to `20.0.2`. ([#1981](https://github.com/bfra-me/works/pull/1981))
+
 ## 0.5.12
 ### Patch Changes
 

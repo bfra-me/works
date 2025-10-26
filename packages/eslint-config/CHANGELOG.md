@@ -1,5 +1,56 @@
 # @bfra.me/eslint-config
 
+## 0.33.0
+### Minor Changes
+
+
+- Updated dependency `eslint-plugin-react-hooks` to `^7.0.0`. ([#2039](https://github.com/bfra-me/works/pull/2039))
+
+
+- Updated dependency `@eslint-react/eslint-plugin` to `^2.0.0`. ([#2035](https://github.com/bfra-me/works/pull/2035))
+
+
+### Patch Changes
+
+
+- Updated dependency `@eslint/markdown` to `7.4.1`. ([#2024](https://github.com/bfra-me/works/pull/2024))
+
+
+- Updated dependency `eslint-plugin-jsonc` to `2.21.0`. ([#1965](https://github.com/bfra-me/works/pull/1965))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.3.23`. ([#2011](https://github.com/bfra-me/works/pull/2011))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.46.2`. ([#2026](https://github.com/bfra-me/works/pull/2026))
+  Updated dependency `typescript-eslint` to `8.46.2`.
+
+- Updated dependency `eslint-plugin-node-dependencies` to `1.2.0`. ([#2017](https://github.com/bfra-me/works/pull/2017))
+
+
+- Updated dependency `package-manager-detector` to `1.5.0`. ([#2016](https://github.com/bfra-me/works/pull/2016))
+
+
+- Updated dependency `@eslint/js` to `9.38.0`. ([#2012](https://github.com/bfra-me/works/pull/2012))
+
+
+- Updated dependency `@stylistic/eslint-plugin` to `5.5.0`. ([#2015](https://github.com/bfra-me/works/pull/2015))
+
+
+- Updated dependency `@eslint/markdown` to `7.5.0`. ([#2032](https://github.com/bfra-me/works/pull/2032))
+
+
+- Updated dependency `eslint-plugin-unused-imports` to `4.3.0`. ([#2020](https://github.com/bfra-me/works/pull/2020))
+
+
+- Updated dependency `eslint-plugin-pnpm` to `1.3.0`. ([#2010](https://github.com/bfra-me/works/pull/2010))
+
+
+- Updated dependency `eslint` to `9.38.0`. ([#2013](https://github.com/bfra-me/works/pull/2013))
+
+
+- Updated dependency `@next/eslint-plugin-next` to `15.5.6`. ([#2008](https://github.com/bfra-me/works/pull/2008))
+
 ## 0.32.3
 ### Patch Changes
 
