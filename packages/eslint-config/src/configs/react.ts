@@ -1,3 +1,4 @@
+import type {Plugin} from '@eslint/core'
 import type {Config} from '../config'
 import type {
   Flatten,
@@ -84,7 +85,7 @@ export async function react(options: ReactOptions = {}): Promise<Config[]> {
         interopDefault(import('eslint-plugin-react-refresh')),
       ] as const)
 
-      const plugins = pluginReact.configs.all.plugins
+      const plugins = (pluginReact.configs.all as {plugins: Record<string, Plugin>}).plugins
       const isAllowConstantExport = ReactRefreshAllowConstantExportPackages.some(i =>
         isPackageExists(i),
       )
@@ -103,7 +104,7 @@ export async function react(options: ReactOptions = {}): Promise<Config[]> {
             'react-naming-convention': plugins['@eslint-react/naming-convention'],
             'react-refresh': pluginReactRefresh,
             'react-web-api': plugins['@eslint-react/web-api'],
-          },
+          } as Config['plugins'],
         },
         {
           name: '@bfra.me/react/rules',
