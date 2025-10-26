@@ -93,7 +93,7 @@ importers:
         version: 5.9.3
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@22.18.10)(@vitest/ui@3.2.4)(happy-dom@20.0.2)(jiti@2.1.2)(msw@2.11.6(@types/node@22.18.10)(typescript@5.9.3))(tsx@4.20.6)(yaml@2.8.1)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@22.18.10)(@vitest/ui@3.2.4)(happy-dom@20.0.8)(jiti@2.1.2)(msw@2.11.6(@types/node@22.18.10)(typescript@5.9.3))(tsx@4.20.6)(yaml@2.8.1)
 
   docs:
     dependencies:
@@ -123,7 +123,7 @@ importers:
         version: 8.5.0(@microsoft/api-extractor@7.53.2(@types/node@22.18.10))(jiti@2.1.2)(postcss@8.5.6)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1)
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@22.18.10)(@vitest/ui@3.2.4)(happy-dom@20.0.2)(jiti@2.1.2)(msw@2.11.6(@types/node@22.18.10)(typescript@5.9.3))(tsx@4.20.6)(yaml@2.8.1)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@22.18.10)(@vitest/ui@3.2.4)(happy-dom@20.0.8)(jiti@2.1.2)(msw@2.11.6(@types/node@22.18.10)(typescript@5.9.3))(tsx@4.20.6)(yaml@2.8.1)
 
   packages/create:
     dependencies:
@@ -171,8 +171,8 @@ importers:
         specifier: 3.2.4
         version: 3.2.4(vitest@3.2.4)
       happy-dom:
-        specifier: 20.0.2
-        version: 20.0.2
+        specifier: 20.0.8
+        version: 20.0.8
       memfs:
         specifier: 4.49.0
         version: 4.49.0
@@ -187,7 +187,7 @@ importers:
         version: 5.9.3
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@22.18.10)(@vitest/ui@3.2.4)(happy-dom@20.0.2)(jiti@2.1.2)(msw@2.11.6(@types/node@22.18.10)(typescript@5.9.3))(tsx@4.20.6)(yaml@2.8.1)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@22.18.10)(@vitest/ui@3.2.4)(happy-dom@20.0.8)(jiti@2.1.2)(msw@2.11.6(@types/node@22.18.10)(typescript@5.9.3))(tsx@4.20.6)(yaml@2.8.1)
 
   packages/eslint-config:
     dependencies:
@@ -3056,8 +3056,8 @@ packages:
     engines: {node: '>=0.4.7'}
     hasBin: true
 
-  happy-dom@20.0.2:
-    resolution: {integrity: sha512-pYOyu624+6HDbY+qkjILpQGnpvZOusItCk+rvF5/V+6NkcgTKnbOldpIy22tBnxoaLtlM9nXgoqAcW29/B7CIw==}
+  happy-dom@20.0.8:
+    resolution: {integrity: sha512-TlYaNQNtzsZ97rNMBAm8U+e2cUQXNithgfCizkDgc11lgmN4j9CKMhO3FPGKWQYPwwkFcPpoXYF/CqEPLgzfOg==}
     engines: {node: '>=20.0.0'}
 
   has-flag@3.0.0:
@@ -7207,7 +7207,7 @@ snapshots:
       std-env: 3.10.0
       test-exclude: 7.0.1
       tinyrainbow: 2.0.0
-      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@22.18.10)(@vitest/ui@3.2.4)(happy-dom@20.0.2)(jiti@2.1.2)(msw@2.11.6(@types/node@22.18.10)(typescript@5.9.3))(tsx@4.20.6)(yaml@2.8.1)
+      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@22.18.10)(@vitest/ui@3.2.4)(happy-dom@20.0.8)(jiti@2.1.2)(msw@2.11.6(@types/node@22.18.10)(typescript@5.9.3))(tsx@4.20.6)(yaml@2.8.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -7218,7 +7218,7 @@ snapshots:
       eslint: 9.38.0(jiti@2.1.2)
     optionalDependencies:
       typescript: 5.9.3
-      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@22.18.10)(@vitest/ui@3.2.4)(happy-dom@20.0.2)(jiti@2.1.2)(msw@2.11.6(@types/node@22.18.10)(typescript@5.9.3))(tsx@4.20.6)(yaml@2.8.1)
+      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@22.18.10)(@vitest/ui@3.2.4)(happy-dom@20.0.8)(jiti@2.1.2)(msw@2.11.6(@types/node@22.18.10)(typescript@5.9.3))(tsx@4.20.6)(yaml@2.8.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -7268,7 +7268,7 @@ snapshots:
       sirv: 3.0.2
       tinyglobby: 0.2.15
       tinyrainbow: 2.0.0
-      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@22.18.10)(@vitest/ui@3.2.4)(happy-dom@20.0.2)(jiti@2.1.2)(msw@2.11.6(@types/node@22.18.10)(typescript@5.9.3))(tsx@4.20.6)(yaml@2.8.1)
+      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@22.18.10)(@vitest/ui@3.2.4)(happy-dom@20.0.8)(jiti@2.1.2)(msw@2.11.6(@types/node@22.18.10)(typescript@5.9.3))(tsx@4.20.6)(yaml@2.8.1)
 
   '@vitest/utils@3.2.4':
     dependencies:
@@ -8800,7 +8800,7 @@ snapshots:
     optionalDependencies:
       uglify-js: 3.19.3
 
-  happy-dom@20.0.2:
+  happy-dom@20.0.8:
     dependencies:
       '@types/node': 20.19.22
       '@types/whatwg-mimetype': 3.0.2
@@ -11499,7 +11499,7 @@ snapshots:
     optionalDependencies:
       vite: 6.4.1(@types/node@22.18.10)(jiti@2.1.2)(tsx@4.20.6)(yaml@2.8.1)
 
-  vitest@3.2.4(@types/debug@4.1.12)(@types/node@22.18.10)(@vitest/ui@3.2.4)(happy-dom@20.0.2)(jiti@2.1.2)(msw@2.11.6(@types/node@22.18.10)(typescript@5.9.3))(tsx@4.20.6)(yaml@2.8.1):
+  vitest@3.2.4(@types/debug@4.1.12)(@types/node@22.18.10)(@vitest/ui@3.2.4)(happy-dom@20.0.8)(jiti@2.1.2)(msw@2.11.6(@types/node@22.18.10)(typescript@5.9.3))(tsx@4.20.6)(yaml@2.8.1):
     dependencies:
       '@types/chai': 5.2.2
       '@vitest/expect': 3.2.4
@@ -11528,7 +11528,7 @@ snapshots:
       '@types/debug': 4.1.12
       '@types/node': 22.18.10
       '@vitest/ui': 3.2.4(vitest@3.2.4)
-      happy-dom: 20.0.2
+      happy-dom: 20.0.8
     transitivePeerDependencies:
       - jiti
       - less
