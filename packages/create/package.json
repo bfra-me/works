@@ -62,7 +62,7 @@
   "devDependencies": {
     "@types/node": "22.18.10",
     "@vitest/ui": "3.2.4",
-    "happy-dom": "20.0.2",
+    "happy-dom": "20.0.8",
     "memfs": "4.49.0",
     "msw": "2.11.6",
     "tsup": "8.5.0",
