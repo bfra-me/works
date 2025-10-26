@@ -4233,7 +4233,7 @@ export interface Rules {
    */
   'react-dom/no-missing-button-type'?: Linter.RuleEntry<[]>
   /**
-   * Enforces explicit `sandbox` prop for `iframe` elements.
+   * Enforces explicit `sandbox` attribute for `iframe` elements.
    * @see https://eslint-react.xyz/docs/rules/dom-no-missing-iframe-sandbox
    */
   'react-dom/no-missing-iframe-sandbox'?: Linter.RuleEntry<[]>
@@ -4287,11 +4287,6 @@ export interface Rules {
    * @see https://eslint-react.xyz/docs/rules/dom-no-void-elements-with-children
    */
   'react-dom/no-void-elements-with-children'?: Linter.RuleEntry<[]>
-  /**
-   * Enforces React Dom is imported via a namespace import.
-   * @see https://eslint-react.xyz/docs/rules/dom-prefer-namespace-import
-   */
-  'react-dom/prefer-namespace-import'?: Linter.RuleEntry<[]>
   /**
    * Disallow direct calls to the `set` function of `useState` in `useEffect`.
    * @see https://eslint-react.xyz/docs/rules/hooks-extra-no-direct-set-state-in-use-effect
@@ -4354,7 +4349,7 @@ export interface Rules {
    */
   'react-web-api/no-leaked-timeout'?: Linter.RuleEntry<[]>
   /**
-   * Enforces that the 'key' prop is placed before the spread prop in JSX elements.
+   * Enforces that the 'key' attribute is placed before the spread attribute in JSX elements.
    * @see https://eslint-react.xyz/docs/rules/jsx-key-before-spread
    */
   'react/jsx-key-before-spread'?: Linter.RuleEntry<[]>
@@ -4559,7 +4554,7 @@ export interface Rules {
    */
   'react/no-set-state-in-component-did-update'?: Linter.RuleEntry<[]>
   /**
-   * Disallow calling `this.setState` in `componentWillUpdate` outside of functions, such as callbacks.
+   * Disallows calling `this.setState` in `componentWillUpdate` outside of functions, such as callbacks.
    * @see https://eslint-react.xyz/docs/rules/no-set-state-in-component-will-update
    */
   'react/no-set-state-in-component-will-update'?: Linter.RuleEntry<[]>
@@ -4619,7 +4614,7 @@ export interface Rules {
    */
   'react/no-unused-class-component-members'?: Linter.RuleEntry<[]>
   /**
-   * Warns component props that are defined but never used.
+   * Warns about unused component prop declarations.
    * @see https://eslint-react.xyz/docs/rules/no-unused-props
    */
   'react/no-unused-props'?: Linter.RuleEntry<[]>
@@ -14814,6 +14809,7 @@ type ReactNoForbiddenProps = []|[{
     includedNodes?: string[]
     prop: string
   })[]
+  [k: string]: unknown | undefined
 }]
 // ----- react/no-useless-fragment -----
 type ReactNoUselessFragment = []|[{
