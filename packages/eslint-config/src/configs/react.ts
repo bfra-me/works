@@ -83,7 +83,8 @@ export async function react(options: ReactOptions = {}): Promise<Config[]> {
         interopDefault(import('eslint-plugin-react-hooks')),
         interopDefault(import('eslint-plugin-react-refresh')),
       ] as const)
-      const plugins = pluginReact.configs.all.plugins
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const plugins = (pluginReact.configs.all as any).plugins
       const isAllowConstantExport = ReactRefreshAllowConstantExportPackages.some(i =>
         isPackageExists(i),
       )
