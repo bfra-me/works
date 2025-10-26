@@ -1,13 +1,13 @@
+import React from 'react';
 export function HelloWorld({
   greeting = "hello", greeted = '"World"', silent = false, onMouseOver,}) {
 
+  const [num] = React.useState(()=>    Math
+      .floor (Math.random() * 1E+7).toString()
+        .replace(/\.\d+/ig, ""))
+
   if(!greeting){
     return null};
-
-      // TODO: Don't use random in render
-  let num = Math
-  .floor (Math.random() * 1E+7).toString()
-    .replace(/\.\d+/ig, "")
 
   return <div className='HelloWorld' title={`You are visitor number ${ num }`} onMouseOver={onMouseOver}>
     <strong>{ greeting.slice( 0, 1 ).toUpperCase() + greeting.slice(1).toLowerCase() }</strong>
