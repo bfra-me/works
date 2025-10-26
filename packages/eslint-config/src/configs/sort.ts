@@ -117,6 +117,7 @@ export async function sortRenovateConfig(): Promise<Config[]> {
               'onboardingConfigFileName',
               'lockFileMaintenance',
               'packageRules',
+              'postUpgradeTasks',
             ],
             pathPattern: '^$',
           },
