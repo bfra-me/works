@@ -1,5 +1,20 @@
 # @bfra.me/eslint-config
 
+## 0.34.0
+### Minor Changes
+
+
+- Migrate types to `@eslint/core`. ([#2051](https://github.com/bfra-me/works/pull/2051))
+
+
+### Patch Changes
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.3.25`. ([#2049](https://github.com/bfra-me/works/pull/2049))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.3.24`. ([#2045](https://github.com/bfra-me/works/pull/2045))
+
 ## 0.33.0
 ### Minor Changes
 
