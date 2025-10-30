@@ -28,7 +28,8 @@ const rulesDts = await flatConfigsToRulesDTS(configs, {
 })
 
 const configNames = configs.map(config => config.name).filter(Boolean) as string[]
-const configDts = `import type {Linter} from 'eslint'
+const configDts = `import type {RulesConfig} from '@eslint/core'
+import type {Linter} from 'eslint'
 import type {FlatConfigComposer, ResolvableFlatConfig} from 'eslint-flat-config-utils'
 import type {${rulesTypeName}} from './rules'
 
@@ -40,7 +41,7 @@ export type {FlatConfigComposer, ResolvableFlatConfig}
  *
  * @see https://eslint.org/docs/latest/use/configure/configuration-files#configuration-objects
  */
-export type Config<R extends Linter.RulesRecord | ${rulesTypeName} = Linter.RulesRecord & ${rulesTypeName}> = Linter.Config<R>
+export type Config<R extends RulesConfig = ${rulesTypeName}> = Linter.Config<R>
 
 /**
  * Defines the names of the available ESLint configurations.

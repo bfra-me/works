@@ -1,3 +1,4 @@
+import type {Plugin} from '@eslint/core'
 import type {Config} from '../config'
 import type {Flatten, OptionsFiles, OptionsOverrides} from '../options'
 import {GLOB_SRC} from '../globs'
@@ -37,10 +38,16 @@ export async function nextjs(options: NextjsOptions = {}): Promise<Config[]> {
     ['@next/eslint-plugin-next'],
     async (): Promise<Config[]> => {
       const pluginNextJs = await interopDefault(import('@next/eslint-plugin-next'))
+
+      function getRules(name: keyof typeof pluginNextJs.configs) {
+        const rules = pluginNextJs.configs?.[name]?.rules
+        return normalizeRules(rules)
+      }
+
       return [
         {
           name: '@bfra.me/nextjs/setup',
-          plugins: {'@next/next': pluginNextJs},
+          plugins: {'@next/next': pluginNextJs as Record<string, Plugin>},
         },
         {
           name: '@bfra.me/nextjs/rules',
@@ -52,8 +59,8 @@ export async function nextjs(options: NextjsOptions = {}): Promise<Config[]> {
             sourceType: 'module',
           },
           rules: {
-            ...normalizeRules(pluginNextJs.configs.recommended.rules),
-            ...normalizeRules(pluginNextJs.configs['core-web-vitals'].rules),
+            ...getRules('recommended'),
+            ...getRules('core-web-vitals'),
 
             ...overrides,
           },
