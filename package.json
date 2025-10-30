@@ -59,7 +59,7 @@
     "fast-glob": "3.3.3",
     "fs-extra": "11.3.2",
     "husky": "9.1.7",
-    "jiti": "2.1.2",
+    "jiti": "2.6.1",
     "lint-staged": "16.2.6",
     "prettier": "3.6.2",
     "publint": "0.3.15",
