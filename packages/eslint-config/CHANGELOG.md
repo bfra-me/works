@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.35.0
+### Minor Changes
+
+
+- Remove `require()` shim and `external` config. ([#2052](https://github.com/bfra-me/works/pull/2052))
+
 ## 0.34.0
 ### Minor Changes
 
