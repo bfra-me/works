@@ -1528,6 +1528,11 @@ export interface Rules {
    */
   'astro/no-set-text-directive'?: Linter.RuleEntry<[]>
   /**
+   * disallow inline `<script>` without `src` to encourage CSP-safe patterns
+   * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/no-unsafe-inline-scripts/
+   */
+  'astro/no-unsafe-inline-scripts'?: Linter.RuleEntry<AstroNoUnsafeInlineScripts>
+  /**
    * disallow selectors defined in `style` tag that don't use in HTML
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/no-unused-css-selector/
    */
@@ -9183,6 +9188,13 @@ type ArrowParens = []|[("always" | "as-needed")]|[("always" | "as-needed"), {
 type ArrowSpacing = []|[{
   before?: boolean
   after?: boolean
+}]
+// ----- astro/no-unsafe-inline-scripts -----
+type AstroNoUnsafeInlineScripts = []|[{
+  allowDefineVars?: boolean
+  allowModuleScripts?: boolean
+  allowNonExecutingTypes?: string[]
+  allowNonce?: boolean
 }]
 // ----- astro/prefer-split-class-list -----
 type AstroPreferSplitClassList = []|[{
