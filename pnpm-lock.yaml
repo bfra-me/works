@@ -335,6 +335,9 @@ importers:
       '@bfra.me/prettier-config':
         specifier: workspace:*
         version: link:../prettier-config
+      '@bfra.me/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       '@bfra.me/works':
         specifier: workspace:*
         version: link:../..

@@ -78,6 +78,7 @@
     "@eslint/config-inspector": "1.4.2",
     "@eslint/core": "1.1.0",
     "@next/eslint-plugin-next": "16.1.6",
+    "@bfra.me/tsconfig": "workspace:*",
     "@types/eslint-config-prettier": "6.11.3",
     "@types/eslint-plugin-jsx-a11y": "6.10.1",
     "@typescript-eslint/types": "8.55.0",
