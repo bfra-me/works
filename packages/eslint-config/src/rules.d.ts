@@ -4412,7 +4412,7 @@ export interface Rules {
    */
   'react-hooks/use-memo'?: Linter.RuleEntry<ReactHooksUseMemo>
   /**
-   * Validates that useMemos always return a value. See [`useMemo()` docs](https://react.dev/reference/react/useMemo) for more information.
+   * Validates that useMemos always return a value and that the result of the useMemo is used by the component/hook. See [`useMemo()` docs](https://react.dev/reference/react/useMemo) for more information.
    */
   'react-hooks/void-use-memo'?: Linter.RuleEntry<ReactHooksVoidUseMemo>
   /**
