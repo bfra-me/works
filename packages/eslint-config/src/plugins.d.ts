@@ -1,27 +1,10 @@
 declare module '@eslint-community/eslint-plugin-eslint-comments' {
-  import type {ESLint, Linter} from 'eslint'
+  import type {ConfigObject, Plugin, RulesConfig} from '@eslint/core'
 
-  const plugin: ESLint.Plugin & {
+  const plugin: Plugin & {
     configs: {
-      recommended: ESLint.ConfigData & {
-        rules: Linter.RulesRecord
-      }
-    }
-  }
-
-  export default plugin
-}
-
-declare module '@next/eslint-plugin-next' {
-  import type {ESLint, Linter} from 'eslint'
-
-  const plugin: ESLint.Plugin & {
-    configs: {
-      recommended: ESLint.ConfigData & {
-        rules: Linter.RulesRecord
-      }
-      'core-web-vitals': ESLint.ConfigData & {
-        rules: Linter.RulesRecord
+      recommended: ConfigObject & {
+        rules: RulesConfig
       }
     }
   }
@@ -30,17 +13,17 @@ declare module '@next/eslint-plugin-next' {
 }
 
 declare module 'eslint-plugin-import-x' {
-  import type {ESLint} from 'eslint'
+  import type {Plugin} from '@eslint/core'
 
-  const plugin: ESLint.Plugin
+  const plugin: Plugin
 
   export default plugin
 }
 
 declare module 'eslint-plugin-perfectionist' {
-  import type {ESLint} from 'eslint'
+  import type {Plugin} from '@eslint/core'
 
-  const plugin: ESLint.Plugin
+  const plugin: Plugin
 
   export default plugin
 }

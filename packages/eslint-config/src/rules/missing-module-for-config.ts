@@ -1,4 +1,5 @@
-import {Linter, type Rule} from 'eslint'
+import type {RuleContext, RulesMeta} from '@eslint/core'
+import {Linter} from 'eslint'
 import {getPackageInstallCommand, tryInstall} from '../package-utils'
 
 // Whether to install the missing module(s) for the config
@@ -19,7 +20,7 @@ let shouldFix = false
   })
 })()
 
-export const meta: Rule.RuleMetaData = {
+export const meta: RulesMeta = {
   docs: {
     description: 'Missing module for config',
     url: 'https://github.com/bfra-me/works',
@@ -34,7 +35,7 @@ export const meta: Rule.RuleMetaData = {
   type: 'problem',
 }
 
-export function create(context: Rule.RuleContext) {
+export function create(context: RuleContext) {
   const [modules] = context.options as [string[]]
   for (const module of modules) {
     let output = ''
