@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.35.1
+### Patch Changes
+
+
+- Set minimum peer version of ESLint to v9.38.0. ([#2055](https://github.com/bfra-me/works/pull/2055))
+
 ## 0.35.0
 ### Minor Changes
 
