@@ -1,5 +1,23 @@
 # @bfra.me/eslint-config
 
+## 0.35.2
+### Patch Changes
+
+
+- Updated dependency `@eslint-react/eslint-plugin` to `2.2.4`. ([#2036](https://github.com/bfra-me/works/pull/2036))
+
+
+- Updated dependency `eslint-plugin-astro` to `1.4.0`. ([#2059](https://github.com/bfra-me/works/pull/2059))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.3.26`. ([#2061](https://github.com/bfra-me/works/pull/2061))
+
+
+- Updated dependency `eslint-plugin-react-hooks` to `7.0.1`. ([#2047](https://github.com/bfra-me/works/pull/2047))
+
+
+- Updated dependency `@eslint-react/eslint-plugin` to `^1.53.1 || ^2.0.0`. ([#2036](https://github.com/bfra-me/works/pull/2036))
+
 ## 0.35.1
 ### Patch Changes
 
