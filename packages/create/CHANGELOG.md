@@ -1,5 +1,26 @@
 # @bfra.me/create
 
+## 0.5.14
+### Patch Changes
+
+
+- Updated dependency `happy-dom` to `20.0.10`. ([#2069](https://github.com/bfra-me/works/pull/2069))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.68.0`. ([#2066](https://github.com/bfra-me/works/pull/2066))
+
+
+- Updated dependency `@types/node` to `22.18.13`. ([#2074](https://github.com/bfra-me/works/pull/2074))
+
+
+- Updated dependency `@types/node` to `24.9.2`. ([#2071](https://github.com/bfra-me/works/pull/2071))
+
+
+- Updated dependency `happy-dom` to `20.0.9`. ([#2068](https://github.com/bfra-me/works/pull/2068))
+
+
+- Updated dependency `memfs` to `4.50.0`. ([#2062](https://github.com/bfra-me/works/pull/2062))
+
 ## 0.5.13
 ### Patch Changes
 
