@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.35.3
+### Patch Changes
+
+
+- Updated dependency `eslint-plugin-unicorn` to `62.0.0`. ([#2073](https://github.com/bfra-me/works/pull/2073))
+
 ## 0.35.2
 ### Patch Changes
 
