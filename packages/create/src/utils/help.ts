@@ -78,36 +78,36 @@ export class HelpSystem {
    * Show command examples
    */
   showExamples(): void {
-    consola.box(`
+    consola.box(String.raw`
 📝 Usage Examples
 
 Basic Project Creation:
 npx @bfra.me/create my-project
 
 Library with Custom Settings:
-npx @bfra.me/create my-lib \\
-  --template=library \\
-  --author="John Doe <john@example.com>" \\
+npx @bfra.me/create my-lib \
+  --template=library \
+  --author="John Doe <john@example.com>" \
   --description="My awesome library"
 
 React App with Specific Package Manager:
-npx @bfra.me/create my-react-app \\
-  --template=react \\
+npx @bfra.me/create my-react-app \
+  --template=react \
   --package-manager=pnpm
 
 Custom GitHub Template:
-npx @bfra.me/create my-custom-project \\
+npx @bfra.me/create my-custom-project \
   --template=github:user/repo
 
 Non-Interactive Mode:
-npx @bfra.me/create my-project \\
-  --template=default \\
-  --no-interactive \\
+npx @bfra.me/create my-project \
+  --template=default \
+  --no-interactive \
   --force
 
 CLI Tool Project:
-npx @bfra.me/create my-cli \\
-  --template=cli \\
+npx @bfra.me/create my-cli \
+  --template=cli \
   --output-dir=./tools/my-cli
     `)
   }
