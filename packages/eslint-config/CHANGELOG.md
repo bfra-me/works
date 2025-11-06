@@ -1,5 +1,17 @@
 # @bfra.me/eslint-config
 
+## 0.36.0
+### Minor Changes
+
+
+- Remove custom JSON schema resolution and Schema Store catalog usage. ([#2080](https://github.com/bfra-me/works/pull/2080))
+
+
+### Patch Changes
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `61.1.11`. ([#2072](https://github.com/bfra-me/works/pull/2072))
+
 ## 0.35.3
 ### Patch Changes
 
