@@ -29,6 +29,12 @@ jobs:
       - name: Prepare job
         uses: ./.github/actions/pnpm-install
 
+      - name: Build to prepare development caches
+        run: pnpm run build
+
+      - name: Run `@bfra.me/tsconfig` schema tests to populate cache
+        run: pnpm run test --project @bfra.me/tsconfig
+
   lint:
     name: Lint
     runs-on: ubuntu-latest
@@ -48,7 +54,6 @@ jobs:
           key: lint-cache-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', 'packages/eslint-config/package.json', '**/*.{js,json,jsx,md,toml,ts,tsx,yml,yaml}' ) }}
           path: |
             .cache
-            '**/.tsup'
             docs/.astro
           restore-keys: lint-cache-${{ runner.os }}-
 
@@ -75,7 +80,6 @@ jobs:
         with:
           key: test-cache-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', 'package.json', '**/*.{ts,tsx}', '**/tsconfig*.json') }}
           path: |
-            '**/.tsup'
             '**/.vite'
             .type-coverage
           restore-keys: test-cache-${{ runner.os }}-

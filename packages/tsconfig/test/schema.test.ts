@@ -7,7 +7,7 @@ import Ajv, {type JSONSchemaType} from 'ajv-draft-04'
 import {describe, it} from 'vitest'
 
 const SCHEMA_URL = 'https://json.schemastore.org/tsconfig'
-const CACHE_DIR = path.join(__dirname, '..', '.cache')
+const CACHE_DIR = path.join(__dirname, '..', '..', '.cache')
 
 /**
  * Generate a cache filename based on the schema URL
