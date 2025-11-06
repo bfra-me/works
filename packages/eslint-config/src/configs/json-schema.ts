@@ -33,7 +33,7 @@ export async function jsonSchema(name: string, files: string[]): Promise<Config[
           name: `@bfra.me/${name}/json-schema`,
           files,
           rules: {
-            'json-schema-validator/no-invalid': 'warn',
+            'json-schema-validator/no-invalid': ['warn', {useSchemastoreCatalog: false}],
           },
         },
       ]
