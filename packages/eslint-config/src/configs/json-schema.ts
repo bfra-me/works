@@ -33,32 +33,7 @@ export async function jsonSchema(name: string, files: string[]): Promise<Config[
           name: `@bfra.me/${name}/json-schema`,
           files,
           rules: {
-            'json-schema-validator/no-invalid': [
-              'warn',
-              {
-                schemas: [
-                  {
-                    fileMatch: ['.eslintrc.js'],
-                    schema: 'https://json.schemastore.org/eslintrc',
-                  },
-                  {
-                    fileMatch: ['.prettierrc.toml'],
-                    schema: 'https://json.schemastore.org/prettierrc',
-                  },
-                  {
-                    fileMatch: [
-                      'stylelint.config.js',
-                      'stylelint.config.cjs',
-                      '.stylelintrc.js',
-                      '.stylelintrc.yaml',
-                      '.stylelintrc.yml',
-                    ],
-                    schema: 'https://json.schemastore.org/stylelintrc',
-                  },
-                ],
-                useSchemastoreCatalog: true,
-              },
-            ],
+            'json-schema-validator/no-invalid': ['warn', {useSchemastoreCatalog: false}],
           },
         },
       ]
