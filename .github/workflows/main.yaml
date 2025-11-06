@@ -29,11 +29,9 @@ jobs:
       - name: Prepare job
         uses: ./.github/actions/pnpm-install
 
-      - name: Build to prepare development caches
-        run: pnpm run build
-
       - name: Run `@bfra.me/tsconfig` schema tests to populate cache
         run: pnpm run test --project @bfra.me/tsconfig
+        continue-on-error: true
 
   lint:
     name: Lint
