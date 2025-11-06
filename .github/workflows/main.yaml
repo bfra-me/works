@@ -47,16 +47,6 @@ jobs:
       - name: Prepare job
         uses: ./.github/actions/pnpm-install
 
-      - id: cache-lint
-        name: Cache lint results
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
-        with:
-          key: lint-cache-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', 'packages/eslint-config/package.json', '**/*.{js,json,jsx,md,toml,ts,tsx,yml,yaml}' ) }}
-          path: |
-            .cache
-            docs/.astro
-          restore-keys: lint-cache-${{ runner.os }}-
-
       - env:
           TIMING: 1
         name: Lint
