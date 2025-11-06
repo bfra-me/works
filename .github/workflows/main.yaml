@@ -46,7 +46,10 @@ jobs:
         uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
           key: lint-cache-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', 'packages/eslint-config/package.json', '**/*.{js,json,jsx,md,toml,ts,tsx,yml,yaml}' ) }}
-          path: .cache
+          path: |
+            .cache
+            '**/.tsup'
+            docs/.astro
           restore-keys: lint-cache-${{ runner.os }}-
 
       - env:
@@ -72,6 +75,7 @@ jobs:
         with:
           key: test-cache-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', 'package.json', '**/*.{ts,tsx}', '**/tsconfig*.json') }}
           path: |
+            '**/.tsup'
             '**/.vite'
             .type-coverage
           restore-keys: test-cache-${{ runner.os }}-
