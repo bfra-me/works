@@ -7,6 +7,7 @@ on:
   push:
     branches: [main]
   pull_request:
+    branches: [main]
   workflow_dispatch:
 
 concurrency:
@@ -17,9 +18,74 @@ permissions:
   contents: read
 
 jobs:
-  ci:
-    name: CI
+  prepare:
+    name: Prepare
     runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Prepare job
+        uses: ./.github/actions/pnpm-install
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    needs: prepare
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Prepare job
+        uses: ./.github/actions/pnpm-install
+
+      - id: cache-lint
+        name: Cache lint results
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          key: lint-cache-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', 'packages/eslint-config/package.json', '**/*.{js,json,jsx,md,toml,ts,tsx,yml,yaml}' ) }}
+          path: .cache
+          restore-keys: lint-cache-${{ runner.os }}-
+
+      - env:
+          TIMING: 1
+        name: Lint
+        run: pnpm run lint
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    needs: prepare
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Prepare job
+        uses: ./.github/actions/pnpm-install
+
+      - id: cache-test
+        name: Cache test artifacts
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          key: test-cache-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', 'package.json', '**/*.{ts,tsx}', '**/tsconfig*.json') }}
+          path: |
+            '**/.vite'
+            .type-coverage
+          restore-keys: test-cache-${{ runner.os }}-
+
+      - name: Run tests
+        run: pnpm run test
+
+      - name: Type coverage check
+        run: pnpm run type-coverage
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: prepare
 
     steps:
       - name: Checkout repository
@@ -31,13 +97,11 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      - env:
-          TIMING: 1
-        name: Lint
-        run: pnpm run lint
+  ci:
+    name: CI
+    needs: [lint, test, build]
+    runs-on: ubuntu-latest
 
-      - name: Run tests
-        run: pnpm run test
-
-      - name: Type coverage check
-        run: pnpm run type-coverage
+    steps:
+      - name: Verify
+        run: echo "All checks passed!"

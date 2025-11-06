@@ -33,30 +33,16 @@ runs:
         echo "restore-keys=${base_key}-" >> $GITHUB_OUTPUT
       shell: 'bash -Eeuo pipefail {0}'
 
-    - name: Setup pnpm cache
+    - id: cache-pnpm
+      name: Setup pnpm cache
       uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
       with:
         key: ${{ steps.cache-config.outputs.key }}
         path: ${{ steps.cache-config.outputs.path }}
         restore-keys: ${{ steps.cache-config.outputs.restore-keys }}
 
-    - id: cache-development
-      name: Restore development related caches
-      uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
-      with:
-        key: ${{ runner.os }}-development-cache-${{ hashFiles('**/pnpm-lock.yaml', '**/*.ts') }}
-        path: |
-          **/.cache
-          **/.tsup
-          **/.turbo
-          **/coverage
-          **/tsconfig.tsbuildinfo
-        restore-keys: ${{ runner.os }}-development-cache-
-
-    - name: Bootstrap monorepo
+    - name: Install dependencies
       env:
         HUSKY: '0'
-      run: |
-        # Use the bootstrap script to install dependencies and build packages
-        pnpm bootstrap
+      run: pnpm install ${{ steps.cache-pnpm.outputs.cache-hit == 'true' && '--prefer-offline' || '' }}
       shell: 'bash -Eeuo pipefail {0}'
