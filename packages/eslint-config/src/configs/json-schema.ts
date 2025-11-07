@@ -12,7 +12,7 @@ export async function jsonSchema(name: string, files: string[]): Promise<Config[
         import('eslint-plugin-json-schema-validator'),
       )
       return [
-        ...pluginJsonSchemaValidator.configs['flat/recommended']
+        ...pluginJsonSchemaValidator.configs['flat/base']
           .map((config: Config) => {
             if (config.files == null) {
               return {...config, files}
@@ -33,7 +33,7 @@ export async function jsonSchema(name: string, files: string[]): Promise<Config[
           name: `@bfra.me/${name}/json-schema`,
           files,
           rules: {
-            'json-schema-validator/no-invalid': ['warn', {useSchemastoreCatalog: false}],
+            'json-schema-validator/no-invalid': 'off',
           },
         },
       ]
