@@ -29,6 +29,9 @@ jobs:
       - name: Prepare job
         uses: ./.github/actions/pnpm-install
 
+      - name: Validate
+        run: pnpm run validate
+
   lint:
     name: Lint
     runs-on: ubuntu-latest

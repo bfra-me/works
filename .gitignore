@@ -15,6 +15,7 @@ _fixtures
 .tsup
 bfra.me-*.tgz
 .cache
+.eslintcache
 coverage/
 .cursor/mcp.json
 # SpecStory explanation file

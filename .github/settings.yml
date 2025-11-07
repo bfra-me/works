@@ -16,8 +16,11 @@ branches:
           - CI
           - CodeQL
           - Create Renovate Changeset
+          - Lint
+          - Prepare
           - Renovate / Renovate
           - Review Dependencies
+          - Test
 
       enforce_admins: true
       required_pull_request_reviews: null
