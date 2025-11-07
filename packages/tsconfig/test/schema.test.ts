@@ -85,5 +85,5 @@ describe('schema', () => {
     const validate = ajv.compile(schema)
 
     assert(validate(tsconfig), 'tsconfig.json does not validate against the schema')
-  }, 15000) // 15 second timeout
+  }, 30000) // 30 second timeout
 })

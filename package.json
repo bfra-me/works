@@ -24,7 +24,7 @@
     "lint-packages": "pnpm -r --include-workspace-root --parallel exec publint",
     "lint-source": "eslint --flag v10_config_lookup_from_file",
     "precommit": "lint-staged",
-    "prepare": "husky && pnpm --filter docs astro sync",
+    "prepare": "pnpm --filter docs astro sync && husky",
     "publish-changesets": "changeset publish",
     "pretest": "pnpm -r --filter @bfra.me/prettier-config --filter @bfra.me/eslint-config --filter @bfra.me/semantic-release build",
     "test": "vitest run",
