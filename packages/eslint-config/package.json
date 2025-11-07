@@ -83,7 +83,7 @@
     "@typescript-eslint/types": "8.46.3",
     "@vitest/eslint-plugin": "1.4.0",
     "astro-eslint-parser": "1.2.2",
-    "eslint": "9.38.0",
+    "eslint": "9.39.1",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-astro": "1.4.0",
     "eslint-plugin-node-dependencies": "1.2.0",
