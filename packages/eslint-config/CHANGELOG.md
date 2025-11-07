@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.37.0
+### Minor Changes
+
+
+- Disable `json-schema-validator/no-invalid` rule. ([#2084](https://github.com/bfra-me/works/pull/2084))
+
 ## 0.36.0
 ### Minor Changes
 
