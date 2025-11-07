@@ -29,6 +29,10 @@ jobs:
       - name: Prepare job
         uses: ./.github/actions/pnpm-install
 
+      # TODO: We currently have to build before linting or testing
+      - name: Build
+        run: pnpm run build
+
       - name: Run `@bfra.me/tsconfig` schema tests to populate cache
         run: pnpm run test --project @bfra.me/tsconfig
         continue-on-error: true
@@ -65,16 +69,6 @@ jobs:
 
       - name: Prepare job
         uses: ./.github/actions/pnpm-install
-
-      - id: cache-test
-        name: Cache test artifacts
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
-        with:
-          key: test-cache-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml', 'package.json', '**/*.{ts,tsx}', '**/tsconfig*.json') }}
-          path: |
-            '**/.vite'
-            .type-coverage
-          restore-keys: test-cache-${{ runner.os }}-
 
       - name: Run tests
         run: pnpm run test
