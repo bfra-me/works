@@ -47,7 +47,7 @@
     "@bfra.me/prettier-config": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
     "tsup": "8.5.0",
-    "vitest": "3.2.4"
+    "vitest": "4.0.6"
   },
   "publishConfig": {
     "access": "public",
