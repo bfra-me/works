@@ -90,7 +90,7 @@ describe('performance tests', () => {
   })
 
   afterEach(() => {
-    if (existsSync(tempOutputDir)) {
+    if (tempOutputDir && existsSync(tempOutputDir)) {
       rmSync(tempOutputDir, {recursive: true, force: true})
     }
   })

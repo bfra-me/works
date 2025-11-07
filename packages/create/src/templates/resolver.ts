@@ -17,6 +17,9 @@ export class TemplateResolver {
     if (currentDir.includes('/src/templates')) {
       // Development context: src/templates/ -> go up to package root then to templates/
       this.builtinTemplatesDir = path.join(currentDir, '..', '..', 'templates')
+    } else if (currentDir.includes('/dist/templates')) {
+      // Production/test context: dist/templates/ -> templates are co-located
+      this.builtinTemplatesDir = currentDir
     } else if (
       import.meta.url.includes('/dist/index.js') ||
       import.meta.url.includes('/dist/cli.js')
@@ -24,7 +27,7 @@ export class TemplateResolver {
       // Bundled context: dist/index.js or dist/cli.js -> templates are in dist/templates/
       this.builtinTemplatesDir = path.join(currentDir, 'templates')
     } else {
-      // Standalone module context: dist/templates/ -> templates are co-located
+      // Fallback: assume templates are co-located
       this.builtinTemplatesDir = currentDir
     }
   }

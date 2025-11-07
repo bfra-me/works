@@ -184,11 +184,10 @@ export const testUtils = {
    * Setup function to run before each test
    */
   setup(): void {
-    // Ensure temp directory exists and is clean
-    if (existsSync(testUtils.TEMP_DIR)) {
-      rmSync(testUtils.TEMP_DIR, {recursive: true, force: true})
+    // Ensure temp directory exists (don't delete to avoid race conditions in parallel tests)
+    if (!existsSync(testUtils.TEMP_DIR)) {
+      mkdirSync(testUtils.TEMP_DIR, {recursive: true})
     }
-    mkdirSync(testUtils.TEMP_DIR, {recursive: true})
   },
 
   /**
