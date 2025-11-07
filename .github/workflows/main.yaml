@@ -45,6 +45,10 @@ jobs:
       - name: Prepare job
         uses: ./.github/actions/pnpm-install
 
+      # TODO: We currently have to build before linting
+      - name: Build before linting
+        run: pnpm run build
+
       - env:
           TIMING: 1
         name: Lint
