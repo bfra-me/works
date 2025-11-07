@@ -16,27 +16,47 @@ const mockRecommendDependencies = vi.fn()
 
 // Mock AI modules before importing
 vi.mock('../../src/ai/project-analyzer', () => ({
-  ProjectAnalyzer: vi.fn().mockImplementation(() => ({
-    analyzeProject: mockAnalyzeProject,
-  })),
+  ProjectAnalyzer: class MockProjectAnalyzer {
+    analyzeProject = mockAnalyzeProject
+  },
 }))
 
 vi.mock('../../src/ai/dependency-recommender', () => ({
-  DependencyRecommender: vi.fn().mockImplementation(() => ({
-    recommendDependencies: mockRecommendDependencies,
-  })),
+  DependencyRecommender: class MockDependencyRecommender {
+    recommendDependencies = mockRecommendDependencies
+  },
 }))
 
 // Also mock the UI utils that are dynamically imported
 vi.mock('../../src/utils/ui', () => ({
-  AIProgressIndicator: vi.fn().mockImplementation(() => ({
-    startAnalysis: vi.fn(),
-    updateMessage: vi.fn(),
-    stop: vi.fn(),
-  })),
+  AIProgressIndicator: class MockAIProgressIndicator {
+    startAnalysis = vi.fn()
+    updateMessage = vi.fn()
+    stop = vi.fn()
+    fallback = vi.fn()
+  },
   displayAIAnalysisSummary: vi.fn(),
   displayDependencyRecommendations: vi.fn(),
   displayTemplateRecommendations: vi.fn(),
+  logger: {
+    info: vi.fn(),
+    warn: vi.fn(),
+    error: vi.fn(),
+    success: vi.fn(),
+    debug: vi.fn(),
+    aiFallback: vi.fn(),
+  },
+  emoji: {
+    sparkles: '✨',
+    robot: '🤖',
+    lightbulb: '💡',
+  },
+  ProgressIndicator: class MockProgressIndicator {
+    start = vi.fn()
+    stop = vi.fn()
+  },
+  formatDuration: vi.fn((ms: number) => `${ms}ms`),
+  displayProjectSummary: vi.fn(),
 }))
 
 vi.mock('@clack/prompts', () => ({
