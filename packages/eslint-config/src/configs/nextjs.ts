@@ -41,6 +41,11 @@ export async function nextjs(options: NextjsOptions = {}): Promise<Config[]> {
 
       function getRules(name: keyof typeof pluginNextJs.configs) {
         const rules = pluginNextJs.configs?.[name]?.rules
+        if (!rules) {
+          throw new Error(
+            `[@bfra.me/eslint-config] No rules found for @next/eslint-plugin-next config: ${name}`,
+          )
+        }
         return normalizeRules(rules)
       }
 
