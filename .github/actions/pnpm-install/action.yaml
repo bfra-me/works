@@ -50,9 +50,7 @@ runs:
           **/.cache
           **/.tsup
           **/coverage
-          **/dist
           ./docs/.astro
-          ./packages/*/lib
           **/tsconfig.tsbuildinfo
         restore-keys: ${{ runner.os }}-development-cache-
 
@@ -60,9 +58,4 @@ runs:
       env:
         HUSKY: '0'
       run: pnpm install ${{ steps.cache-pnpm.outputs.cache-hit == 'true' && '--prefer-offline' || '' }}
-      shell: 'bash -Eeuo pipefail {0}'
-
-    - name: Build
-      run: pnpm run build
-      if: steps.cache-development.outputs.cache-hit != 'true'
       shell: 'bash -Eeuo pipefail {0}'
