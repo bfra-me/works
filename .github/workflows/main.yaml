@@ -29,8 +29,8 @@ jobs:
       - name: Prepare job
         uses: ./.github/actions/pnpm-install
 
-      - name: Validate
-        run: pnpm run validate
+      - name: Pretest
+        run: pnpm run pretest
 
   lint:
     name: Lint
