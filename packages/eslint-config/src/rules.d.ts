@@ -4547,6 +4547,11 @@ export interface Rules {
    */
   'react-web-api/no-leaked-timeout'?: Linter.RuleEntry<[]>
   /**
+   * Prevents dollar signs from being inserted as text nodes before expressions.
+   * @see https://eslint-react.xyz/docs/rules/jsx-dollar
+   */
+  'react/jsx-dollar'?: Linter.RuleEntry<[]>
+  /**
    * Enforces that the 'key' prop is placed before the spread prop in JSX elements.
    * @see https://eslint-react.xyz/docs/rules/jsx-key-before-spread
    */
