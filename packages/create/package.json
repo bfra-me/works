@@ -61,13 +61,11 @@
   },
   "devDependencies": {
     "@types/node": "24.9.2",
-    "@vitest/ui": "4.0.7",
     "happy-dom": "20.0.10",
     "memfs": "4.50.0",
     "msw": "2.11.6",
     "tsup": "8.5.0",
-    "typescript": "5.9.3",
-    "vitest": "4.0.7"
+    "typescript": "5.9.3"
   },
   "publishConfig": {
     "access": "public",
