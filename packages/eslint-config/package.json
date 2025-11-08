@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "4.5.0",
-    "@eslint/markdown": "7.5.0",
+    "@eslint/markdown": "7.5.1",
     "@stylistic/eslint-plugin": "5.5.0",
     "eslint-config-flat-gitignore": "2.1.0",
     "eslint-flat-config-utils": "2.1.4",
