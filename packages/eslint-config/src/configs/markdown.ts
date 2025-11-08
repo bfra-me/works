@@ -1,3 +1,4 @@
+import type {Plugin} from '@eslint/core'
 import type {Config} from '../config'
 import type {Flatten, OptionsFiles, OptionsOverrides} from '../options'
 import {mergeProcessors, processorPassThrough} from 'eslint-merge-processors'
@@ -28,7 +29,7 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
         {
           name: '@bfra.me/markdown/plugin',
           plugins: {
-            markdown,
+            markdown: markdown as unknown as Plugin,
           },
         },
         {
