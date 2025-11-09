@@ -1,5 +1,17 @@
 # @bfra.me/semantic-release
 
+## 0.3.3
+### Patch Changes
+
+
+- Updated dependency `type-fest` to `5.2.0`. ([#2087](https://github.com/bfra-me/works/pull/2087))
+
+
+- Updated dependency `zod` to `4.1.12`. ([#2103](https://github.com/bfra-me/works/pull/2103))
+
+
+- Updated dependency `semantic-release` to `25.0.1`. ([#2086](https://github.com/bfra-me/works/pull/2086))
+
 ## 0.3.2
 ### Patch Changes
 
