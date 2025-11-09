@@ -1,5 +1,29 @@
 # @bfra.me/create
 
+## 0.5.15
+### Patch Changes
+
+
+- Updated dependency `zod` to `4.1.12`. ([#2103](https://github.com/bfra-me/works/pull/2103))
+
+
+- Updated dependency `@vitest/coverage-v8` to `4.0.7`. ([#2107](https://github.com/bfra-me/works/pull/2107))
+  Updated dependency `@vitest/ui` to `4.0.7`.
+  Updated dependency `vitest` to `4.0.7`.
+
+- Updated dependency `msw` to `2.12.0`. ([#2113](https://github.com/bfra-me/works/pull/2113))
+
+
+- Updated dependency `openai` to `6.8.1`. ([#2105](https://github.com/bfra-me/works/pull/2105))
+
+
+- Updated dependency `eta` to `4.0.1`. ([#2104](https://github.com/bfra-me/works/pull/2104))
+
+
+- Updated dependency `@vitest/coverage-v8` to `4.0.6`. ([#2091](https://github.com/bfra-me/works/pull/2091))
+  Updated dependency `@vitest/ui` to `4.0.6`.
+  Updated dependency `vitest` to `4.0.6`.
+
 ## 0.5.14
 ### Patch Changes
 

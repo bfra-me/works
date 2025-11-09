@@ -1,5 +1,47 @@
 # @bfra.me/eslint-config
 
+## 0.38.0
+### Minor Changes
+
+
+- Update major ESLint plugin (configurations). ([#2115](https://github.com/bfra-me/works/pull/2115))
+
+
+### Patch Changes
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.4.0`. ([#2098](https://github.com/bfra-me/works/pull/2098))
+
+
+- Updated dependency `@next/eslint-plugin-next` to `^15.5.3 || ^16.0.0`. ([#2070](https://github.com/bfra-me/works/pull/2070))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.46.3`. ([#2093](https://github.com/bfra-me/works/pull/2093))
+  Updated dependency `typescript-eslint` to `8.46.3`.
+
+- Updated dependency `eslint` to `9.18.0`. ([#2099](https://github.com/bfra-me/works/pull/2099))
+
+
+- Updated dependency `globals` to `16.5.0`. ([#2102](https://github.com/bfra-me/works/pull/2102))
+
+
+- Updated dependency `eslint-plugin-astro` to `1.5.0`. ([#2112](https://github.com/bfra-me/works/pull/2112))
+
+
+- Updated dependency `@eslint/markdown` to `7.5.1`. ([#2108](https://github.com/bfra-me/works/pull/2108))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `61.1.12`. ([#2096](https://github.com/bfra-me/works/pull/2096))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.4.1`. ([#2110](https://github.com/bfra-me/works/pull/2110))
+
+
+- Updated dependency `@eslint-react/eslint-plugin` to `2.3.1`. ([#2097](https://github.com/bfra-me/works/pull/2097))
+
+
+- Updated dependency `eslint` to `9.39.1`. ([#2099](https://github.com/bfra-me/works/pull/2099))
+
 ## 0.37.0
 ### Minor Changes
 
