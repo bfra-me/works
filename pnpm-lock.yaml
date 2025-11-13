@@ -209,8 +209,8 @@ importers:
         specifier: 61.1.12
         version: 61.1.12(eslint@9.39.1(jiti@2.6.1))
       eslint-plugin-json-schema-validator:
-        specifier: 5.4.1
-        version: 5.4.1(eslint@9.39.1(jiti@2.6.1))
+        specifier: 5.5.0
+        version: 5.5.0(eslint@9.39.1(jiti@2.6.1))
       eslint-plugin-jsonc:
         specifier: 2.21.0
         version: 2.21.0(eslint@9.39.1(jiti@2.6.1))
@@ -2603,8 +2603,8 @@ packages:
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
 
-  eslint-plugin-json-schema-validator@5.4.1:
-    resolution: {integrity: sha512-DT71Y3RqziqM4h6RqI6zJ5iX+q9HGodOSDWoj1U4hfm/Squxye/vzcIs/PNPxQQRdDw3T9clRV4MdlGqjG28+g==}
+  eslint-plugin-json-schema-validator@5.5.0:
+    resolution: {integrity: sha512-UfJSPoIwo09BrXzMHorl5LIe+Zu6MnPDzAqSitXre4mEN/4tvadA87MkUtrV4B7LTbipTu9wEIl36BssjEIdMg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       eslint: '>=6.0.0'
@@ -8240,7 +8240,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-json-schema-validator@5.4.1(eslint@9.39.1(jiti@2.6.1)):
+  eslint-plugin-json-schema-validator@5.5.0(eslint@9.39.1(jiti@2.6.1)):
     dependencies:
       '@eslint-community/eslint-utils': 4.9.0(eslint@9.39.1(jiti@2.6.1))
       ajv: 8.17.1
