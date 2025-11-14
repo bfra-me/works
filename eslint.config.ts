@@ -5,6 +5,7 @@ export const config = defineConfig({
   ignores: ['.ai/', '.github/**/*instructions.md', '**/test/fixtures'],
   packageJson: true,
   typescript: {
+    erasableSyntaxOnly: true,
     tsconfigPath: './tsconfig.json',
   },
   vitest: true,
