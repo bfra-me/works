@@ -85,6 +85,7 @@ export type ConfigNames =
   | '@bfra.me/typescript/parser'
   | '@bfra.me/typescript/rules'
   | '@bfra.me/typescript/type-aware-rules'
+  | '@bfra.me/typescript/erasable-syntax-only'
   | '@bfra.me/unicorn'
   | '@bfra.me/vitest/plugins'
   | '@bfra.me/vitest'

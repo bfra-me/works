@@ -1702,6 +1702,26 @@ export interface Rules {
    */
   'eqeqeq'?: Linter.RuleEntry<Eqeqeq>
   /**
+   * Avoid using TypeScript's enums.
+   * @see https://github.com/JoshuaKGoldberg/eslint-plugin-erasable-syntax-only/blob/main/docs/rules/enums.md
+   */
+  'erasable-syntax-only/enums'?: Linter.RuleEntry<[]>
+  /**
+   * Avoid using TypeScript's import aliases.
+   * @see https://github.com/JoshuaKGoldberg/eslint-plugin-erasable-syntax-only/blob/main/docs/rules/import-aliases.md
+   */
+  'erasable-syntax-only/import-aliases'?: Linter.RuleEntry<[]>
+  /**
+   * Avoid using TypeScript's namespaces.
+   * @see https://github.com/JoshuaKGoldberg/eslint-plugin-erasable-syntax-only/blob/main/docs/rules/namespaces.md
+   */
+  'erasable-syntax-only/namespaces'?: Linter.RuleEntry<[]>
+  /**
+   * Avoid using TypeScript's class parameter properties.
+   * @see https://github.com/JoshuaKGoldberg/eslint-plugin-erasable-syntax-only/blob/main/docs/rules/parameter-properties.md
+   */
+  'erasable-syntax-only/parameter-properties'?: Linter.RuleEntry<[]>
+  /**
    * require a `eslint-enable` comment for every `eslint-disable` comment
    * @see https://eslint-community.github.io/eslint-plugin-eslint-comments/rules/disable-enable-pair.html
    */

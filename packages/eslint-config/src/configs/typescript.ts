@@ -1,8 +1,10 @@
+import type {Plugin} from '@eslint/core'
 import type {Config} from '../config'
 import type {
   Flatten,
   OptionsFiles,
   OptionsOverrides,
+  OptionsTypeScriptErasableSyntaxOnly,
   OptionsTypeScriptParserOptions,
   OptionsTypeScriptWithTypes,
 } from '../options'
@@ -87,7 +89,11 @@ const TypeAwareRules: Config['rules'] = {
  * - {@link OptionsTypeScriptWithTypes}: Options related to type-aware linting
  */
 export type TypeScriptOptions = Flatten<
-  OptionsFiles & OptionsOverrides & OptionsTypeScriptParserOptions & OptionsTypeScriptWithTypes
+  OptionsFiles &
+    OptionsOverrides &
+    OptionsTypeScriptParserOptions &
+    OptionsTypeScriptWithTypes &
+    OptionsTypeScriptErasableSyntaxOnly
 >
 
 /**
@@ -102,7 +108,12 @@ export type TypeScriptOptions = Flatten<
  * @returns An array of ESLint configurations.
  */
 export async function typescript(options: TypeScriptOptions = {}): Promise<Config[]> {
-  const {overrides = {}, parserOptions = {}, typeAware = {overrides: {}}} = options
+  const {
+    erasableSyntaxOnly = false,
+    overrides = {},
+    parserOptions = {},
+    typeAware = {overrides: {}},
+  } = options
   const files = options.files ?? [GLOB_TS, GLOB_TSX]
   const typeAwareFiles = typeAware.files ?? [GLOB_TS, GLOB_TSX]
   const typeAwareIgnores = typeAware.ignores ?? [`${GLOB_MARKDOWN}/**`, GLOB_ASTRO_TS]
@@ -249,7 +260,26 @@ export async function typescript(options: TypeScriptOptions = {}): Promise<Confi
               },
             ]
           : []),
-      ]
+
+        ...(erasableSyntaxOnly
+          ? [
+              {
+                name: '@bfra.me/typescript/erasable-syntax-only',
+                plugins: {
+                  'erasable-syntax-only': (await interopDefault(
+                    import('eslint-plugin-erasable-syntax-only'),
+                  )) as unknown as Plugin,
+                },
+                rules: {
+                  'erasable-syntax-only/namespaces': 'error',
+                  'erasable-syntax-only/enums': 'error',
+                  'erasable-syntax-only/import-aliases': 'error',
+                  'erasable-syntax-only/parameter-properties': 'error',
+                },
+              },
+            ]
+          : []),
+      ] as Config[]
     },
     async missingList =>
       fallback(missingList, {

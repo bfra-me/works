@@ -14,7 +14,10 @@ const configs = await composeConfig(
   },
   ...Object.values(allConfigs).map(async f => {
     if (f === allConfigs.typescript) {
-      return (f as typeof allConfigs.typescript)({tsconfigPath: './tsconfig.json'})
+      return (f as typeof allConfigs.typescript)({
+        erasableSyntaxOnly: true,
+        tsconfigPath: './tsconfig.json',
+      })
     }
     return f()
   }),
