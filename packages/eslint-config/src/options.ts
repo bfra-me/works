@@ -73,6 +73,22 @@ export interface OptionsPerfectionist {
 }
 
 /**
+ * Provides an option to enable erasable syntax only rules in the ESLint configuration.
+ * When `erasableSyntaxOnly` is set to `true`, the ESLint configuration will include
+ * rules from the `eslint-plugin-erasable-syntax-only` plugin, which focuses on enforcing
+ * syntax that can be safely removed without affecting the program's behavior.
+ */
+export interface OptionsTypeScriptErasableSyntaxOnly {
+  /**
+   * Enable erasable syntax only rules.
+   *
+   * @see https://github.com/JoshuaKGoldberg/eslint-plugin-erasable-syntax-only
+   * @default false
+   */
+  erasableSyntaxOnly?: boolean
+}
+
+/**
  * Provides options to configure the TypeScript parser and type-aware linting rules.
  *
  * The `parserOptions` property allows specifying additional options to be passed to the TypeScript parser.
@@ -129,8 +145,8 @@ export interface OptionsTypeScriptWithTypes {
  * Represents the options for configuring TypeScript support in the ESLint configuration.
  */
 export type OptionsTypeScript =
-  | (OptionsTypeScriptParserOptions & OptionsOverrides)
-  | (OptionsTypeScriptWithTypes & OptionsOverrides)
+  | (OptionsTypeScriptParserOptions & OptionsOverrides & OptionsTypeScriptErasableSyntaxOnly)
+  | (OptionsTypeScriptWithTypes & OptionsOverrides & OptionsTypeScriptErasableSyntaxOnly)
 
 export interface OptionsStylistic {
   stylistic?: boolean | StylisticConfig
