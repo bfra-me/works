@@ -1,5 +1,26 @@
 # @bfra.me/eslint-config
 
+## 0.39.0
+### Minor Changes
+
+
+- Integrate the `eslint-plugin-erasable-syntax-only` plugin. ([#2135](https://github.com/bfra-me/works/pull/2135))
+
+
+### Patch Changes
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.4.2`. ([#2125](https://github.com/bfra-me/works/pull/2125))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.46.4`. ([#2130](https://github.com/bfra-me/works/pull/2130))
+  Updated dependency `typescript-eslint` to `8.46.4`.
+
+- Updated dependency `eslint-plugin-json-schema-validator` to `5.5.0`. ([#2128](https://github.com/bfra-me/works/pull/2128))
+
+
+- Updated dependency `@eslint-react/eslint-plugin` to `2.3.4`. ([#2129](https://github.com/bfra-me/works/pull/2129))
+
 ## 0.38.0
 ### Minor Changes
 
