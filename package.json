@@ -26,7 +26,6 @@
     "precommit": "lint-staged",
     "prepare": "pnpm --filter docs astro sync && husky",
     "publish-changesets": "changeset publish",
-    "pretest": "pnpm -r --filter @bfra.me/prettier-config --filter @bfra.me/eslint-config --filter @bfra.me/semantic-release --filter @bfra.me/create build",
     "test": "vitest run",
     "type-check": "tsc --noEmit",
     "type-coverage": "type-coverage --project .",
