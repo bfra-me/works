@@ -1,5 +1,17 @@
 # @bfra.me/eslint-config
 
+## 0.39.1
+### Patch Changes
+
+
+- Updated dependency `@next/eslint-plugin-next` to `16.0.2`. ([#2148](https://github.com/bfra-me/works/pull/2148))
+
+
+- Updated dependency `@eslint-react/eslint-plugin` to `2.3.5`. ([#2147](https://github.com/bfra-me/works/pull/2147))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `61.2.0`. ([#2143](https://github.com/bfra-me/works/pull/2143))
+
 ## 0.39.0
 ### Minor Changes
 
