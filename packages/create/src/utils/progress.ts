@@ -25,7 +25,11 @@ export class ProgressTracker {
   private currentStep = 0
   private readonly startTime = Date.now()
 
-  constructor(private readonly totalSteps: number) {}
+  private readonly totalSteps: number
+
+  constructor(totalSteps: number) {
+    this.totalSteps = totalSteps
+  }
 
   /**
    * Add a step to the progress tracker
@@ -222,8 +226,10 @@ export class TemplateProgress {
  */
 export class FeatureProgress {
   private readonly tracker: ProgressTracker
+  private readonly featureName: string
 
-  constructor(private readonly featureName: string) {
+  constructor(featureName: string) {
+    this.featureName = featureName
     this.tracker = new ProgressTracker(4)
   }
 

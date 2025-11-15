@@ -284,7 +284,11 @@ const STATIC_ANALYSIS_RULES = {
  * for improving code quality, performance, and maintainability
  */
 export class CodeAnalyzer {
-  constructor(private readonly llmClient?: LLMClient) {}
+  private readonly llmClient?: LLMClient
+
+  constructor(llmClient?: LLMClient) {
+    this.llmClient = llmClient
+  }
 
   /**
    * Analyze code quality for a single file
