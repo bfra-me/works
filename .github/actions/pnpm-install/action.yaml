@@ -45,7 +45,7 @@ runs:
       name: Restore development related caches
       uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
       with:
-        key: ${{ runner.os }}-development-cache-${{ hashFiles('**/pnpm-lock.yaml', '**/*.ts', '.github/actions/pnpm-install/action.yaml') }}
+        key: ${{ runner.os }}-development-cache-${{ hashFiles('**/pnpm-lock.yaml', 'package.json', '**/*.ts', '.github/actions/pnpm-install/action.yaml') }}
         path: |
           .eslintcache
           **/.tsup
