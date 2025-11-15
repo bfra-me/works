@@ -93,7 +93,7 @@
     "eslint-plugin-react-hooks": "7.0.1",
     "eslint-plugin-react-refresh": "0.4.24",
     "eslint-typegen": "2.3.0",
-    "tsup": "8.5.0",
+    "tsup": "8.5.1",
     "tsx": "4.20.6"
   },
   "peerDependencies": {

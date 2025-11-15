@@ -46,7 +46,7 @@
     "@bfra.me/eslint-config": "workspace:*",
     "@bfra.me/prettier-config": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
-    "tsup": "8.5.0"
+    "tsup": "8.5.1"
   },
   "publishConfig": {
     "access": "public",
