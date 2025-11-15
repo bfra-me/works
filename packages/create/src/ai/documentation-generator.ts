@@ -182,7 +182,11 @@ const DOCUMENTATION_TEMPLATES = {
  * project documentation including README, API docs, and guides
  */
 export class DocumentationGenerator {
-  constructor(private readonly llmClient?: LLMClient) {}
+  private readonly llmClient?: LLMClient
+
+  constructor(llmClient?: LLMClient) {
+    this.llmClient = llmClient
+  }
 
   /**
    * Generate comprehensive documentation for a project

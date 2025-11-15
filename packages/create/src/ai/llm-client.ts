@@ -13,16 +13,16 @@ export type LLMProviderName = 'openai' | 'anthropic'
  * Error class for AI-related operations
  */
 export class AIError extends Error {
+  code: 'PROVIDER_UNAVAILABLE' | 'GENERATION_FAILED' | 'INVALID_RESPONSE' | 'CONFIG_ERROR' =
+    'GENERATION_FAILED'
+
   constructor(
     message: string,
-    public code:
-      | 'PROVIDER_UNAVAILABLE'
-      | 'GENERATION_FAILED'
-      | 'INVALID_RESPONSE'
-      | 'CONFIG_ERROR' = 'GENERATION_FAILED',
+    code?: 'PROVIDER_UNAVAILABLE' | 'GENERATION_FAILED' | 'INVALID_RESPONSE' | 'CONFIG_ERROR',
   ) {
     super(message)
     this.name = 'AIError'
+    this.code = code ?? 'GENERATION_FAILED'
   }
 }
 
