@@ -1,5 +1,11 @@
 # @bfra.me/create
 
+## 0.5.17
+### Patch Changes
+
+
+- Updated dependency `@types/node` to `24.10.1`. ([#2138](https://github.com/bfra-me/works/pull/2138))
+
 ## 0.5.16
 ### Patch Changes
 
