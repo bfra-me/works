@@ -10515,6 +10515,10 @@ type JsdocSortTags = []|[{
   
   reportTagGroupSpacing?: boolean
   
+  tagExceptions?: {
+    [k: string]: number
+  }
+  
   tagSequence?: {
     
     tags?: string[]
