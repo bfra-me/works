@@ -57,7 +57,7 @@
     "@bfra.me/semantic-release": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
     "semantic-release": "25.0.2",
-    "tsup": "8.5.0",
+    "tsup": "8.5.1",
     "type-fest": "5.2.0",
     "zod": "4.1.12"
   },
