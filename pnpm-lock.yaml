@@ -145,8 +145,8 @@ importers:
         specifier: 2.0.0
         version: 2.0.0
       glob:
-        specifier: 11.0.3
-        version: 11.0.3
+        specifier: 11.1.0
+        version: 11.1.0
       openai:
         specifier: 6.9.0
         version: 6.9.0(ws@8.18.3)(zod@3.25.76)
@@ -3213,8 +3213,8 @@ packages:
     resolution: {integrity: sha512-7Bv8RF0k6xjo7d4A/PxYLbUCfb6c+Vpd2/mB2yRDlew7Jb5hEXiCD9ibfO7wpk8i4sevK6DFny9h7EYbM3/sHg==}
     hasBin: true
 
-  glob@11.0.3:
-    resolution: {integrity: sha512-2Nim7dha1KVkaiF4q6Dj+ngPPMdfvLJEOpZk/jKiUAkqKebpGAWQXAq9z1xu9HKu5lWfqw/FASuccEjyznjPaA==}
+  glob@11.1.0:
+    resolution: {integrity: sha512-vuNwKSaKiqm7g0THUBu2x7ckSs3XJLXE+2ssL7/MfTGPLLcrJQ/4Uq1CjPTtO5cCIiRxqvN6Twy1qOwhL0Xjcw==}
     engines: {node: 20 || >=22}
     hasBin: true
 
@@ -4032,6 +4032,10 @@ packages:
 
   minimatch@10.0.3:
     resolution: {integrity: sha512-IPZ167aShDZZUMdRk66cyQAW3qr0WzbHkPdMYa8bzZhlHhO3jALbKdxcaak7W9FfT2rZNpQuUu4Od7ILEpXSaw==}
+    engines: {node: 20 || >=22}
+
+  minimatch@10.1.1:
+    resolution: {integrity: sha512-enIvLvRAFZYXJzkCYG5RKmPfrFArdLv+R+lbQ53BmIMLIry74bjKzX6iHAm8WYamJkhSSEabrWN5D97XnKObjQ==}
     engines: {node: 20 || >=22}
 
   minimatch@3.1.2:
@@ -8485,7 +8489,7 @@ snapshots:
       eslint: 9.39.1(jiti@2.6.1)
       eslint-import-context: 0.1.9(unrs-resolver@1.11.1)
       is-glob: 4.0.3
-      minimatch: 10.0.3
+      minimatch: 10.1.1
       semver: 7.7.3
       stable-hash-x: 0.2.0
       unrs-resolver: 1.11.1
@@ -8524,7 +8528,7 @@ snapshots:
       eslint-json-compat-utils: 0.2.1(eslint@9.39.1(jiti@2.6.1))(jsonc-eslint-parser@2.4.1)
       json-schema-migrate-x: 2.1.0
       jsonc-eslint-parser: 2.4.1
-      minimatch: 10.0.3
+      minimatch: 10.1.1
       synckit: 0.11.11
       toml-eslint-parser: 0.10.0
       tunnel-agent: 0.6.0
@@ -9151,11 +9155,11 @@ snapshots:
       package-json-from-dist: 1.0.1
       path-scurry: 1.11.1
 
-  glob@11.0.3:
+  glob@11.1.0:
     dependencies:
       foreground-child: 3.3.1
       jackspeak: 4.1.1
-      minimatch: 10.0.3
+      minimatch: 10.1.1
       minipass: 7.1.2
       package-json-from-dist: 1.0.1
       path-scurry: 2.0.0
@@ -10356,6 +10360,10 @@ snapshots:
     dependencies:
       '@isaacs/brace-expansion': 5.0.0
 
+  minimatch@10.1.1:
+    dependencies:
+      '@isaacs/brace-expansion': 5.0.0
+
   minimatch@3.1.2:
     dependencies:
       brace-expansion: 1.1.12
@@ -11122,7 +11130,7 @@ snapshots:
 
   rimraf@6.1.0:
     dependencies:
-      glob: 11.0.3
+      glob: 11.1.0
       package-json-from-dist: 1.0.1
 
   rollup@4.53.2:
@@ -11650,7 +11658,7 @@ snapshots:
   type-coverage-core@2.29.7(typescript@5.9.3):
     dependencies:
       fast-glob: 3.3.3
-      minimatch: 10.0.3
+      minimatch: 10.1.1
       normalize-path: 3.0.0
       tslib: 2.8.1
       tsutils: 3.21.0(typescript@5.9.3)
