@@ -62,7 +62,7 @@
   "devDependencies": {
     "happy-dom": "20.0.10",
     "memfs": "4.51.0",
-    "msw": "2.12.1",
+    "msw": "2.12.2",
     "tsup": "8.5.1"
   },
   "publishConfig": {
