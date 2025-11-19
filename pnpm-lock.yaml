@@ -111,15 +111,6 @@ importers:
 
   packages/badge-config:
     devDependencies:
-      '@bfra.me/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@bfra.me/prettier-config':
-        specifier: workspace:*
-        version: link:../prettier-config
-      '@bfra.me/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@bfra.me/works':
         specifier: workspace:*
         version: link:../..
@@ -254,15 +245,9 @@ importers:
         specifier: 8.46.4
         version: 8.46.4(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
     devDependencies:
-      '@bfra.me/eslint-config':
-        specifier: workspace:*
-        version: 'link:'
       '@bfra.me/prettier-config':
         specifier: workspace:*
         version: link:../prettier-config
-      '@bfra.me/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@bfra.me/works':
         specifier: workspace:*
         version: link:../..
@@ -326,12 +311,6 @@ importers:
 
   packages/prettier-config:
     devDependencies:
-      '@bfra.me/prettier-config':
-        specifier: workspace:*
-        version: 'link:'
-      '@bfra.me/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@bfra.me/works':
         specifier: workspace:*
         version: link:../..
@@ -341,12 +320,6 @@ importers:
 
   packages/semantic-release:
     devDependencies:
-      '@bfra.me/semantic-release':
-        specifier: workspace:*
-        version: 'link:'
-      '@bfra.me/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@bfra.me/works':
         specifier: workspace:*
         version: link:../..
@@ -362,9 +335,6 @@ importers:
 
   packages/tsconfig:
     devDependencies:
-      '@bfra.me/tsconfig':
-        specifier: workspace:*
-        version: 'link:'
       ajv:
         specifier: 8.17.1
         version: 8.17.1

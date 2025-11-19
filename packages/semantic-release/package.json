@@ -55,8 +55,6 @@
     "test": "pnpm build && vitest run --typecheck || true"
   },
   "devDependencies": {
-    "@bfra.me/semantic-release": "workspace:*",
-    "@bfra.me/tsconfig": "workspace:*",
     "@bfra.me/works": "workspace:*",
     "semantic-release": "25.0.2",
     "type-fest": "5.2.0",

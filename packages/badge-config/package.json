@@ -43,9 +43,6 @@
     "test:watch": "vitest"
   },
   "devDependencies": {
-    "@bfra.me/eslint-config": "workspace:*",
-    "@bfra.me/prettier-config": "workspace:*",
-    "@bfra.me/tsconfig": "workspace:*",
     "@bfra.me/works": "workspace:*"
   },
   "publishConfig": {
