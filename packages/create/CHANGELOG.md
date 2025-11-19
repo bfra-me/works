@@ -1,5 +1,11 @@
 # @bfra.me/create
 
+## 0.5.19
+### Patch Changes
+
+
+- Remove unnecessary workspace dependencies. ([#2179](https://github.com/bfra-me/works/pull/2179))
+
 ## 0.5.18
 ### Patch Changes
 

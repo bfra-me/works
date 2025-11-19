@@ -1,5 +1,11 @@
 # @bfra.me/semantic-release
 
+## 0.3.6
+### Patch Changes
+
+
+- Remove unnecessary workspace dependencies. ([#2179](https://github.com/bfra-me/works/pull/2179))
+
 ## 0.3.5
 ### Patch Changes
 

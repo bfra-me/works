@@ -1,5 +1,11 @@
 # @bfra.me/tsconfig
 
+## 0.12.1
+### Patch Changes
+
+
+- Remove unnecessary workspace dependencies. ([#2179](https://github.com/bfra-me/works/pull/2179))
+
 ## 0.12.0
 ### Minor Changes
 

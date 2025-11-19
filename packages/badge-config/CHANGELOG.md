@@ -1,5 +1,11 @@
 # @bfra.me/badge-config
 
+## 0.1.4
+### Patch Changes
+
+
+- Remove unnecessary workspace dependencies. ([#2179](https://github.com/bfra-me/works/pull/2179))
+
 ## 0.1.3
 ### Patch Changes
 
