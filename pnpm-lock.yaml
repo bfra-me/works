@@ -96,6 +96,9 @@ importers:
       vitest:
         specifier: 4.0.9
         version: 4.0.9(@types/debug@4.1.12)(@types/node@24.10.1)(happy-dom@20.0.10)(jiti@2.6.1)(msw@2.12.2(@types/node@24.10.1)(typescript@5.9.3))(tsx@4.20.6)(yaml@2.8.1)
+      zod:
+        specifier: <4.0.0
+        version: 3.25.76
 
   docs:
     dependencies:
@@ -150,9 +153,6 @@ importers:
       semver:
         specifier: 7.7.3
         version: 7.7.3
-      zod:
-        specifier: <4.0.0
-        version: 3.25.76
     devDependencies:
       '@bfra.me/works':
         specifier: workspace:*
@@ -305,9 +305,6 @@ importers:
       eslint-typegen:
         specifier: 2.3.0
         version: 2.3.0(eslint@9.39.1(jiti@2.6.1))
-      tsx:
-        specifier: 4.20.6
-        version: 4.20.6
 
   packages/prettier-config:
     devDependencies:
@@ -326,12 +323,6 @@ importers:
       semantic-release:
         specifier: 25.0.2
         version: 25.0.2(typescript@5.9.3)
-      type-fest:
-        specifier: 5.2.0
-        version: 5.2.0
-      zod:
-        specifier: <4.0.0
-        version: 3.25.76
 
   packages/tsconfig:
     devDependencies:

@@ -69,7 +69,8 @@
     "type-coverage": "2.29.7",
     "type-fest": "5.2.0",
     "typescript": "5.9.3",
-    "vitest": "4.0.9"
+    "vitest": "4.0.9",
+    "zod": "4.1.12"
   },
   "packageManager": "pnpm@10.22.0"
 }
