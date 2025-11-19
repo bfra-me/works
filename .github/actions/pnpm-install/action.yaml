@@ -52,6 +52,7 @@ runs:
           **/coverage
           ./docs/.astro
           **/tsconfig.tsbuildinfo
+          .type-coverage
         restore-keys: ${{ runner.os }}-development-cache-
 
     - name: Install dependencies
