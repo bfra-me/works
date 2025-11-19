@@ -1,5 +1,11 @@
 # @bfra.me/semantic-release
 
+## 0.3.5
+### Patch Changes
+
+
+- Updated dependency `tsup` to `8.5.1`. ([#2149](https://github.com/bfra-me/works/pull/2149))
+
 ## 0.3.4
 ### Patch Changes
 

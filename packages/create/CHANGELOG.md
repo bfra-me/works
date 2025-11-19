@@ -1,5 +1,38 @@
 # @bfra.me/create
 
+## 0.5.18
+### Patch Changes
+
+
+- Updated dependency `eta` to `4.4.0`. ([#2152](https://github.com/bfra-me/works/pull/2152))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.69.0`. ([#2163](https://github.com/bfra-me/works/pull/2163))
+
+
+- Updated dependency `glob` to `11.1.0`. ([#2164](https://github.com/bfra-me/works/pull/2164))
+
+
+- Updated dependency `openai` to `6.9.0`. ([#2157](https://github.com/bfra-me/works/pull/2157))
+
+
+- Updated dependency `eta` to `4.1.0`. ([#2150](https://github.com/bfra-me/works/pull/2150))
+
+
+- Updated dependency `eta` to `4.4.1`. ([#2153](https://github.com/bfra-me/works/pull/2153))
+
+
+- Updated dependency `tsup` to `8.5.1`. ([#2149](https://github.com/bfra-me/works/pull/2149))
+
+
+- Updated dependency `memfs` to `4.51.0`. ([#2145](https://github.com/bfra-me/works/pull/2145))
+
+
+- Updated dependency `eta` to `4.2.0`. ([#2151](https://github.com/bfra-me/works/pull/2151))
+
+
+- Updated dependency `msw` to `2.12.2`. ([#2162](https://github.com/bfra-me/works/pull/2162))
+
 ## 0.5.17
 ### Patch Changes
 
