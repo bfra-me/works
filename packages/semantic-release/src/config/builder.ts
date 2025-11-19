@@ -172,10 +172,13 @@ export class ConfigBuilder {
  * Provides a chainable interface for adding and configuring semantic-release plugins.
  */
 export class PluginBuilder {
-  constructor(
-    private readonly configBuilder: ConfigBuilder,
-    private readonly pluginsList: PluginSpec[],
-  ) {}
+  private readonly configBuilder: ConfigBuilder
+  private readonly pluginsList: PluginSpec[]
+
+  constructor(configBuilder: ConfigBuilder, pluginsList: PluginSpec[]) {
+    this.configBuilder = configBuilder
+    this.pluginsList = pluginsList
+  }
 
   /**
    * Add @semantic-release/commit-analyzer plugin.

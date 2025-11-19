@@ -1,10 +1,11 @@
 {
+  "$schema": "http://json.schemastore.org/tsconfig",
   "extends": "../tsconfig/tsconfig.json",
   "compilerOptions": {
-    "outDir": "./lib",
-    "rootDir": "."
+    "rootDir": ".",
+    "outDir": "./lib"
   },
-  "include": ["src/**/*.ts", "test/**/*.ts", "eslint.config.ts"],
+  "include": ["src/**/*.ts", "test/**/*.ts", "*.config.ts"],
   "exclude": ["node_modules", "lib"],
   "typeRoots": ["./src/types"]
 }
