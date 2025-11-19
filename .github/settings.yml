@@ -18,6 +18,7 @@ branches:
           - CodeQL
           - Create Renovate Changeset
           - Lint
+          - Prepare
           - Renovate / Renovate
           - Review Dependencies
           - Test
