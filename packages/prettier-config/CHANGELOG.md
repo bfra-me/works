@@ -1,5 +1,11 @@
 # @bfra.me/prettier-config
 
+## 0.16.3
+### Patch Changes
+
+
+- Remove unnecessary workspace dependencies. ([#2179](https://github.com/bfra-me/works/pull/2179))
+
 ## 0.16.2
 ### Patch Changes
 

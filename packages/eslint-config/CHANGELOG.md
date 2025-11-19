@@ -1,5 +1,17 @@
 # @bfra.me/eslint-config
 
+## 0.40.0
+### Minor Changes
+
+
+- Updated dependency `@eslint/core` to `1.0.0`. ([#2175](https://github.com/bfra-me/works/pull/2175))
+
+
+### Patch Changes
+
+
+- Remove unnecessary workspace dependencies. ([#2179](https://github.com/bfra-me/works/pull/2179))
+
 ## 0.39.1
 ### Patch Changes
 
