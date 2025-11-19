@@ -1,7 +1,8 @@
+import type {Plugin} from '@eslint/core'
 import type {Config} from '../config'
 import type {Flatten, OptionsOverrides, OptionsStylistic} from '../options'
+import {pluginImportX} from '../plugins'
 import {requireOf} from '../require-of'
-import {interopDefault} from '../utils'
 import {fallback} from './fallback'
 
 /**
@@ -41,12 +42,11 @@ export async function imports(options: ImportsOptions = {}): Promise<Config[]> {
   return requireOf(
     ['eslint-plugin-import-x'],
     async () => {
-      const pluginImportX = await interopDefault(import('eslint-plugin-import-x'))
       return [
         {
           name: '@bfra.me/imports',
           plugins: {
-            'import-x': pluginImportX,
+            'import-x': pluginImportX as unknown as Plugin,
           },
           rules: {
             'import-x/no-named-default': 'error',
