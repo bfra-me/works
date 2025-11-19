@@ -71,7 +71,5 @@
     "typescript.format.enable": false,
     "typescript.preferences.importModuleSpecifier": "non-relative",
     "typescript.tsdk": "node_modules/typescript/lib",
-    "typescript.updateImportsOnFileMove.enabled": "always",
-
-    "vscode-pets.theme": "winter"
+    "typescript.updateImportsOnFileMove.enabled": "always"
 }
