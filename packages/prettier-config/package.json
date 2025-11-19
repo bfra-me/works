@@ -55,8 +55,7 @@
     "@bfra.me/prettier-config": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
     "@bfra.me/works": "workspace:*",
-    "prettier": "3.6.2",
-    "tsup": "8.5.1"
+    "prettier": "3.6.2"
   },
   "peerDependencies": {
     "prettier": "^3.0.0"
