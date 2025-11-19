@@ -78,6 +78,9 @@ importers:
       ts-essentials:
         specifier: 10.1.1
         version: 10.1.1(typescript@5.9.3)
+      tsup:
+        specifier: 8.5.1
+        version: 8.5.1(@microsoft/api-extractor@7.55.0(@types/node@24.10.1))(jiti@2.6.1)(postcss@8.5.6)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1)
       tsx:
         specifier: 4.20.6
         version: 4.20.6
@@ -120,9 +123,6 @@ importers:
       '@bfra.me/works':
         specifier: workspace:*
         version: link:../..
-      tsup:
-        specifier: 8.5.1
-        version: 8.5.1(@microsoft/api-extractor@7.55.0(@types/node@24.10.1))(jiti@2.6.1)(postcss@8.5.6)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1)
 
   packages/create:
     dependencies:
@@ -175,9 +175,6 @@ importers:
       msw:
         specifier: 2.12.2
         version: 2.12.2(@types/node@24.10.1)(typescript@5.9.3)
-      tsup:
-        specifier: 8.5.1
-        version: 8.5.1(@microsoft/api-extractor@7.55.0(@types/node@24.10.1))(jiti@2.6.1)(postcss@8.5.6)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1)
 
   packages/eslint-config:
     dependencies:
@@ -323,9 +320,6 @@ importers:
       eslint-typegen:
         specifier: 2.3.0
         version: 2.3.0(eslint@9.39.1(jiti@2.6.1))
-      tsup:
-        specifier: 8.5.1
-        version: 8.5.1(@microsoft/api-extractor@7.55.0(@types/node@24.10.1))(jiti@2.6.1)(postcss@8.5.6)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1)
       tsx:
         specifier: 4.20.6
         version: 4.20.6
@@ -344,9 +338,6 @@ importers:
       prettier:
         specifier: 3.6.2
         version: 3.6.2
-      tsup:
-        specifier: 8.5.1
-        version: 8.5.1(@microsoft/api-extractor@7.55.0(@types/node@24.10.1))(jiti@2.6.1)(postcss@8.5.6)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1)
 
   packages/semantic-release:
     devDependencies:
@@ -362,9 +353,6 @@ importers:
       semantic-release:
         specifier: 25.0.2
         version: 25.0.2(typescript@5.9.3)
-      tsup:
-        specifier: 8.5.1
-        version: 8.5.1(@microsoft/api-extractor@7.55.0(@types/node@24.10.1))(jiti@2.6.1)(postcss@8.5.6)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1)
       type-fest:
         specifier: 5.2.0
         version: 5.2.0

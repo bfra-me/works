@@ -37,7 +37,7 @@
   },
   "lint-staged": {
     "*.{js,json,jsx,md,toml,ts,tsx,yml,yaml}": [
-      "eslint --flag v10_config_lookup_from_file --fix --ignore-pattern 'packages/create/templates/**' --ignore-pattern '**/fixtures/input/**' --no-warn-ignored"
+      "eslint --flag v10_config_lookup_from_file --cache --fix --ignore-pattern 'packages/create/templates/**' --ignore-pattern '**/fixtures/input/**' --no-warn-ignored"
     ]
   },
   "prettier": "@bfra.me/prettier-config/prettier.config",
@@ -64,6 +64,7 @@
     "publint": "0.3.15",
     "rimraf": "6.1.0",
     "ts-essentials": "10.1.1",
+    "tsup": "8.5.1",
     "tsx": "4.20.6",
     "type-coverage": "2.29.7",
     "type-fest": "5.2.0",
