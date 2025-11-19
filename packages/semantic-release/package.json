@@ -23,6 +23,7 @@
     ".": {
       "import": {
         "types": "./lib/index.d.ts",
+        "source": "./src/index.ts",
         "default": "./lib/index.js"
       }
     },
@@ -43,9 +44,9 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
+    "!**/*.map",
     "lib",
-    "tsconfig.json",
-    "!**/*.map"
+    "tsconfig.json"
   ],
   "scripts": {
     "build": "tsup-node",

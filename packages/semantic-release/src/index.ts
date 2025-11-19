@@ -1,6 +1,5 @@
 export * from './composition/index.js'
 export * from './config.js'
-export * from './config/discovery.js'
 export * from './config/environment.js'
 export * from './config/helpers.js'
 export * from './config/presets.js'
