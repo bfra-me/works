@@ -1,5 +1,29 @@
 # @bfra.me/eslint-config
 
+## 0.39.1
+### Patch Changes
+
+
+- Restructure plugins that are missing or the using the wrong ESLint Plugin type. ([#2169](https://github.com/bfra-me/works/pull/2169))
+
+
+- Updated dependency `@next/eslint-plugin-next` to `16.0.3`. ([#2154](https://github.com/bfra-me/works/pull/2154))
+
+
+- Updated dependency `@next/eslint-plugin-next` to `16.0.2`. ([#2148](https://github.com/bfra-me/works/pull/2148))
+
+
+- Updated dependency `@eslint-react/eslint-plugin` to `2.3.5`. ([#2147](https://github.com/bfra-me/works/pull/2147))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `61.2.0`. ([#2143](https://github.com/bfra-me/works/pull/2143))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `61.2.1`. ([#2155](https://github.com/bfra-me/works/pull/2155))
+
+
+- Updated dependency `tsup` to `8.5.1`. ([#2149](https://github.com/bfra-me/works/pull/2149))
+
 ## 0.39.0
 ### Minor Changes
 
