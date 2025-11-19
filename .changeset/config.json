@@ -6,7 +6,8 @@
   "changelog": ["@svitejs/changesets-changelog-github-compact", {"repo": "bfra-me/works"}],
   "commit": false,
   "fixed": [],
-  "ignore": ["@bfra.me/works", "docs"],
+  "ignore": ["docs"],
   "linked": [],
+  "privatePackages": false,
   "updateInternalDependencies": "patch"
 }
