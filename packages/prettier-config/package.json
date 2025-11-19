@@ -54,6 +54,7 @@
   "devDependencies": {
     "@bfra.me/prettier-config": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
+    "@bfra.me/works": "workspace:*",
     "prettier": "3.6.2",
     "tsup": "8.5.1"
   },

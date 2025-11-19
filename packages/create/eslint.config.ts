@@ -1,5 +1,4 @@
-import {config as rootConfig} from '../../eslint.config'
-import {composeConfig} from '../eslint-config/src'
+import {composeConfig, config as rootConfig} from '@bfra.me/works/eslint.config'
 
 export default composeConfig(rootConfig)
   .insertAfter('@bfra.me/ignores', {

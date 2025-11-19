@@ -1,20 +1,16 @@
-// Simple ESLint config that doesn't cause TypeScript rootDir issues
-// This avoids importing from @bfra.me/eslint-config to prevent cross-package compilation errors
+import {composeConfig, config as rootConfig} from '@bfra.me/works/eslint.config'
 
-import type {Linter} from 'eslint'
-
-const config: Linter.Config[] = [
-  {
+const config = composeConfig(rootConfig)
+  .insertAfter('@bfra.me/ignores', {
     name: 'semantic-release/ignores',
     ignores: ['node_modules', 'lib', 'docs/**/*.md'],
-  },
-  {
+  })
+  .append({
     name: 'semantic-release/docs',
     files: ['docs/**/*.md'],
     rules: {
       'prettier/prettier': 'off',
     },
-  },
-]
+  })
 
 export default config

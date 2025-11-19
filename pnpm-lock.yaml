@@ -117,6 +117,9 @@ importers:
       '@bfra.me/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
+      '@bfra.me/works':
+        specifier: workspace:*
+        version: link:../..
       tsup:
         specifier: 8.5.1
         version: 8.5.1(@microsoft/api-extractor@7.55.0(@types/node@24.10.1))(jiti@2.6.1)(postcss@8.5.6)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1)
@@ -160,6 +163,9 @@ importers:
         specifier: <4.0.0
         version: 3.25.76
     devDependencies:
+      '@bfra.me/works':
+        specifier: workspace:*
+        version: link:../..
       happy-dom:
         specifier: 20.0.10
         version: 20.0.10
@@ -260,6 +266,9 @@ importers:
       '@bfra.me/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
+      '@bfra.me/works':
+        specifier: workspace:*
+        version: link:../..
       '@eslint-react/eslint-plugin':
         specifier: 2.3.5
         version: 2.3.5(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
@@ -329,6 +338,9 @@ importers:
       '@bfra.me/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
+      '@bfra.me/works':
+        specifier: workspace:*
+        version: link:../..
       prettier:
         specifier: 3.6.2
         version: 3.6.2
@@ -344,6 +356,9 @@ importers:
       '@bfra.me/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
+      '@bfra.me/works':
+        specifier: workspace:*
+        version: link:../..
       semantic-release:
         specifier: 25.0.2
         version: 25.0.2(typescript@5.9.3)

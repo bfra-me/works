@@ -57,6 +57,7 @@
   "devDependencies": {
     "@bfra.me/semantic-release": "workspace:*",
     "@bfra.me/tsconfig": "workspace:*",
+    "@bfra.me/works": "workspace:*",
     "semantic-release": "25.0.2",
     "tsup": "8.5.1",
     "type-fest": "5.2.0",

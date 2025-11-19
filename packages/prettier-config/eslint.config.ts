@@ -1,5 +1,4 @@
-import config from '../../eslint.config'
-import {composeConfig} from '../eslint-config/src'
+import {composeConfig, config} from '@bfra.me/works/eslint.config'
 
 export default composeConfig(config).insertAfter('@bfra.me/ignores', {
   name: '@bfra.me/prettier-config/ignores',
