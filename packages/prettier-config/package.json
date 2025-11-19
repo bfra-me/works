@@ -52,8 +52,6 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "@bfra.me/prettier-config": "workspace:*",
-    "@bfra.me/tsconfig": "workspace:*",
     "@bfra.me/works": "workspace:*",
     "prettier": "3.6.2"
   },

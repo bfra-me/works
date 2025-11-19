@@ -1037,7 +1037,7 @@ Configure your `package.json` for optimal distribution:
   },
   "dependencies": {
     "@bfra.me/semantic-release": "^2.0.0",
-    "zod": "^3.22.0"
+    "zod": "^4.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
