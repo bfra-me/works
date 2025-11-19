@@ -28,7 +28,7 @@ testPreset('120-proof', '120-proof')
 
 testPreset('semi', 'semi')
 
-function testPreset(name: string, preset?: string, ...configs: Prettier.Config[]) {
+function testPreset(name: string, preset?: string) {
   it.concurrent(
     name,
     async ({expect}) => {
@@ -38,18 +38,14 @@ function testPreset(name: string, preset?: string, ...configs: Prettier.Config[]
 
       await fs.copy(input, target, {filter: src => !src.includes('node_modules')})
 
+      const prettierConfig = (
+        (await import(`../src/${(preset ?? '') ? `/${preset}` : ''}`)) as {default: Prettier.Config}
+      ).default
       const config = join(target, 'prettier.config.js')
       await fs.writeFile(
         config,
         `
-// @eslint-disable
-import prettierConfig from '@bfra.me/prettier-config${(preset ?? '') ? `/${preset}` : ''}'
-
-const config = {
-  ...prettierConfig,
-  ...${JSON.stringify(configs) ?? {}},
-}
-
+const config = ${JSON.stringify(prettierConfig) ?? {}}
 export default config
     `,
       )

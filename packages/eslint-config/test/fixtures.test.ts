@@ -31,12 +31,12 @@ function testPreset(name: string, options: Options, ...configs: Config[]) {
 
       await fs.copy(input, target, {filter: src => !src.includes('node_modules')})
 
-      const config = join(target, 'eslint.config.js')
+      const config = join(target, 'eslint.config.ts')
       await fs.writeFile(
         config,
         `
 // @eslint-disable
-import {defineConfig} from '@bfra.me/eslint-config'
+import {defineConfig} from '../../../src'
 
 export default defineConfig(
   ${JSON.stringify(options)},
@@ -52,7 +52,7 @@ export default defineConfig(
 
       const files = await fg('**/*', {
         cwd: target,
-        ignore: ['eslint.config.js', 'node_modules'],
+        ignore: ['eslint.config.ts', 'node_modules'],
       })
       await Promise.all(
         files.map(async file => {

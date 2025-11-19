@@ -1,5 +1,5 @@
-import {defineConfig} from '@bfra.me/semantic-release'
 import {describe, expectTypeOf, test} from 'vitest'
+import {defineConfig} from '../src'
 
 describe('defineConfig', {}, () => {
   test('minimal config', () => {

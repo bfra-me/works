@@ -13,12 +13,14 @@ branches:
         strict: false
         contexts:
           - Analyze
+          - Build
           - CI
           - CodeQL
           - Create Renovate Changeset
+          - Lint
           - Renovate / Renovate
           - Review Dependencies
-          - Validate
+          - Test
 
       enforce_admins: true
       required_pull_request_reviews: null
