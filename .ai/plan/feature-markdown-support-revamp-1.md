@@ -94,14 +94,14 @@ This implementation plan outlines a comprehensive revamp of Markdown linting int
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-014 | Create `src/configs/markdown-code-blocks.ts` module for code block-specific configuration | |  |
-| TASK-015 | Implement TypeScript parser configuration for `.ts`, `.tsx` code blocks in Markdown | |  |
-| TASK-016 | Implement JavaScript parser configuration for `.js`, `.jsx` code blocks in Markdown | |  |
-| TASK-017 | Configure `parserOptions.ecmaFeatures.impliedStrict` for all code blocks | |  |
-| TASK-018 | Add support for filename meta extraction and virtual file naming (e.g., `filename="src/index.ts"`) | |  |
-| TASK-019 | Implement rule overrides for code blocks (disable `no-undef`, `no-unused-vars`, strict imports, etc.) | |  |
-| TASK-020 | Integrate with existing TypeScript-ESLint type-aware rules configuration | |  |
-| TASK-021 | Add configuration for JSON, YAML, and other supported language blocks | |  |
+| TASK-014 | Create `src/configs/markdown-code-blocks.ts` module for code block-specific configuration | ✅ | 2025-11-20 |
+| TASK-015 | Implement TypeScript parser configuration for `.ts`, `.tsx` code blocks in Markdown | ✅ | 2025-11-20 |
+| TASK-016 | Implement JavaScript parser configuration for `.js`, `.jsx` code blocks in Markdown | ✅ | 2025-11-20 |
+| TASK-017 | Configure `parserOptions.ecmaFeatures.impliedStrict` for all code blocks | ✅ | 2025-11-20 |
+| TASK-018 | Add support for filename meta extraction and virtual file naming (e.g., ````js filename="src/index.js"````) | ✅ | 2025-11-20 |
+| TASK-019 | Implement rule overrides for code blocks (disable `no-undef`, `no-unused-vars`, strict imports, etc.) | ✅ | 2025-11-20 |
+| TASK-020 | Integrate with existing TypeScript-ESLint type-aware rules configuration | ✅ | 2025-11-20 |
+| TASK-021 | Add configuration for JSON, YAML, and other supported language blocks | ✅ | 2025-11-20 |
 
 ### Implementation Phase 4: Glob Pattern Enhancement
 
