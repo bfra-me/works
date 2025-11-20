@@ -142,26 +142,26 @@ This implementation plan outlines a comprehensive revamp of Markdown linting int
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-041 | Create `test/markdown.test.ts` with describe block for Markdown configuration tests | |  |
-| TASK-042 | Test: Verify CommonMark mode is used when `language: 'commonmark'` is configured | |  |
-| TASK-043 | Test: Verify GFM mode is used when `language: 'gfm'` is configured | |  |
-| TASK-044 | Test: Verify YAML frontmatter is parsed when `frontmatter: 'yaml'` is configured | |  |
-| TASK-045 | Test: Verify TOML frontmatter is parsed when `frontmatter: 'toml'` is configured | |  |
-| TASK-046 | Test: Verify JSON frontmatter is parsed when `frontmatter: 'json'` is configured | |  |
-| TASK-047 | Test: Verify frontmatter is disabled when `frontmatter: false` is configured | |  |
-| TASK-048 | Test: Verify processor extracts TypeScript code blocks correctly | |  |
-| TASK-049 | Test: Verify processor extracts JavaScript code blocks correctly | |  |
-| TASK-050 | Test: Verify processor extracts JSX/TSX code blocks correctly | |  |
-| TASK-051 | Test: Verify processor handles multiple code blocks in single file | |  |
-| TASK-052 | Test: Verify processor handles nested code blocks without errors | |  |
-| TASK-053 | Test: Verify filename meta is extracted and used for virtual file naming | |  |
-| TASK-054 | Test: Verify TypeScript-ESLint rules apply to TypeScript code blocks | |  |
-| TASK-055 | Test: Verify eslint-disable directives work in Markdown HTML comments | |  |
-| TASK-056 | Test: Verify recommended Markdown rules detect common issues (no-html, heading-increment, etc.) | |  |
-| TASK-057 | Test: Verify rule overrides apply correctly to Markdown files | |  |
-| TASK-058 | Test: Verify GFM-specific features (tables, task lists) are recognized | |  |
-| TASK-059 | Test: Verify edge cases - empty files, malformed frontmatter, invalid code blocks | |  |
-| TASK-060 | Test: Verify backward compatibility with existing Markdown files in monorepo | |  |
+| TASK-041 | Create `test/markdown.test.ts` with describe block for Markdown configuration tests | ✅ | 2025-11-20 |
+| TASK-042 | Test: Verify CommonMark mode is used when `language: 'commonmark'` is configured | ✅ | 2025-11-20 |
+| TASK-043 | Test: Verify GFM mode is used when `language: 'gfm'` is configured | ✅ | 2025-11-20 |
+| TASK-044 | Test: Verify YAML frontmatter is parsed when `frontmatter: 'yaml'` is configured | ✅ | 2025-11-20 |
+| TASK-045 | Test: Verify TOML frontmatter is parsed when `frontmatter: 'toml'` is configured | ✅ | 2025-11-20 |
+| TASK-046 | Test: Verify JSON frontmatter is parsed when `frontmatter: 'json'` is configured | ✅ | 2025-11-20 |
+| TASK-047 | Test: Verify frontmatter is disabled when `frontmatter: false` is configured | ✅ | 2025-11-20 |
+| TASK-048 | Test: Verify processor extracts TypeScript code blocks correctly | ✅ | 2025-11-20 |
+| TASK-049 | Test: Verify processor extracts JavaScript code blocks correctly | ✅ | 2025-11-20 |
+| TASK-050 | Test: Verify processor extracts JSX/TSX code blocks correctly | ✅ | 2025-11-20 |
+| TASK-051 | Test: Verify processor handles multiple code blocks in single file | ✅ | 2025-11-20 |
+| TASK-052 | Test: Verify processor handles nested code blocks without errors | ✅ | 2025-11-20 |
+| TASK-053 | Test: Verify filename meta is extracted and used for virtual file naming | ✅ | 2025-11-20 |
+| TASK-054 | Test: Verify TypeScript-ESLint rules apply to TypeScript code blocks | ✅ | 2025-11-20 |
+| TASK-055 | Test: Verify eslint-disable directives work in Markdown HTML comments | ✅ | 2025-11-20 |
+| TASK-056 | Test: Verify recommended Markdown rules detect common issues (no-html, heading-increment, etc.) | ✅ | 2025-11-20 |
+| TASK-057 | Test: Verify rule overrides apply correctly to Markdown files | ✅ | 2025-11-20 |
+| TASK-058 | Test: Verify GFM-specific features (tables, task lists) are recognized | ✅ | 2025-11-20 |
+| TASK-059 | Test: Verify edge cases - empty files, malformed frontmatter, invalid code blocks | ✅ | 2025-11-20 |
+| TASK-060 | Test: Verify backward compatibility with existing Markdown files in monorepo | ✅ | 2025-11-20 |
 
 ### Implementation Phase 7: Documentation and Examples
 
