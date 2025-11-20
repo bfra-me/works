@@ -2,11 +2,11 @@ import type {Plugin} from '@eslint/core'
 import type {Config} from '../config'
 import type {Flatten, OptionsFiles, OptionsOverrides} from '../options'
 import {mergeProcessors, processorPassThrough} from 'eslint-merge-processors'
-import {GLOB_MARKDOWN, GLOB_MARKDOWN_CODE, GLOB_MARKDOWN_IN_MARKDOWN} from '../globs'
-import {plainParser} from '../parsers/plain-parser'
+import {GLOB_MARKDOWN, GLOB_MARKDOWN_IN_MARKDOWN} from '../globs'
 import {requireOf} from '../require-of'
 import {interopDefault} from '../utils'
 import {fallback} from './fallback'
+import {markdownCodeBlocks} from './markdown-code-blocks'
 
 /**
  * Markdown language mode for parsing.
@@ -236,10 +236,10 @@ export interface MarkdownOptions extends Flatten<OptionsFiles & OptionsOverrides
  */
 export async function markdown(options: MarkdownOptions = {}): Promise<Config[]> {
   const {
+    codeBlocks = {javascript: true, jsx: true, typescript: true},
     files = [GLOB_MARKDOWN],
     frontmatter = 'yaml',
     language = 'gfm',
-    overrides = {},
     processor = {enabled: false, extractCodeBlocks: false},
     rules = {},
   } = options
@@ -251,15 +251,12 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
 
       const configs: Config[] = []
 
-      // Plugin registration
       configs.push({
         name: '@bfra.me/markdown/plugin',
         plugins: {
           markdown: markdown as unknown as Plugin,
         },
       })
-
-      // Language and processor configuration
       const languageConfig: Config = {
         name: '@bfra.me/markdown/language',
         files,
@@ -278,7 +275,6 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
 
       configs.push(languageConfig)
 
-      // Recommended Markdown rules
       configs.push({
         name: '@bfra.me/markdown/rules',
         files,
@@ -345,60 +341,9 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
         },
       })
 
-      // Code blocks configuration
+      // Delegate to specialized module for language-specific code block handling
       if (processor.extractCodeBlocks !== false) {
-        configs.push({
-          name: '@bfra.me/markdown/code-blocks',
-          files: [GLOB_MARKDOWN_CODE],
-          languageOptions: {
-            parser: plainParser,
-            parserOptions: {
-              ecmaFeatures: {
-                impliedStrict: true,
-              },
-            },
-          },
-          rules: {
-            '@typescript-eslint/no-namespace': 'off',
-
-            '@stylistic/comma-dangle': 'off',
-            '@stylistic/eol-last': 'off',
-            '@stylistic/padding-line-between-statements': 'off',
-
-            '@typescript-eslint/consistent-type-imports': 'off',
-            '@typescript-eslint/explicit-function-return-type': 'off',
-            '@typescript-eslint/no-redeclare': 'off',
-            '@typescript-eslint/no-require-imports': 'off',
-            '@typescript-eslint/no-unused-expressions': 'off',
-            '@typescript-eslint/no-unused-vars': 'off',
-            '@typescript-eslint/no-use-before-define': 'off',
-            '@typescript-eslint/no-var-requires': 'off',
-
-            'import-x/newline-after-import': 'off',
-
-            'jsdoc/require-returns-check': 'off',
-
-            'no-alert': 'off',
-            'no-console': 'off',
-            'no-labels': 'off',
-            'no-lone-blocks': 'off',
-            'no-restricted-imports': 'off',
-            'no-restricted-syntax': 'off',
-            'no-undef': 'off',
-            'no-unused-expressions': 'off',
-            'no-unused-labels': 'off',
-            'no-unused-vars': 'off',
-
-            'node/prefer-global/process': 'off',
-
-            'unicode-bom': 'off',
-
-            'unused-imports/no-unused-imports': 'off',
-            'unused-imports/no-unused-vars': 'off',
-
-            ...overrides,
-          },
-        })
+        configs.push(...(await markdownCodeBlocks(codeBlocks)))
       }
 
       return configs
