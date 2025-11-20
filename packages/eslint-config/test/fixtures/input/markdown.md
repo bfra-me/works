@@ -25,7 +25,7 @@ Jane Roe|JFK|314
 - - - - - - - - - - - - - - -
 
 + List
- + with a [link] (/to/somewhere)
+ + with a [link](/to/somewhere)
 + and [another one]
 
 

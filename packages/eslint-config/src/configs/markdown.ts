@@ -85,6 +85,9 @@ export type MarkdownFrontmatterOptions = false | 'yaml' | 'toml' | 'json'
  * virtual files. This enables TypeScript-ESLint and other language-specific rules to apply
  * to code examples in documentation.
  *
+ * **Note**: The processor is disabled by default due to compatibility issues with some ESLint
+ * plugins that expect full SourceCode API support. Enable with caution and test thoroughly.
+ *
  * @example
  * ```typescript
  * // Enable processor with code block extraction
@@ -111,7 +114,7 @@ export interface MarkdownProcessorOptions {
   /**
    * Enable the Markdown processor.
    *
-   * @default true
+   * @default false
    */
   enabled?: boolean
 
@@ -122,7 +125,7 @@ export interface MarkdownProcessorOptions {
    * When enabled, fenced code blocks with language identifiers (```ts, ```js, etc.)
    * will be extracted and linted as separate virtual files.
    *
-   * @default true
+   * @default false
    */
   extractCodeBlocks?: boolean
 }
@@ -273,7 +276,10 @@ export interface MarkdownOptions extends Flatten<OptionsFiles & OptionsOverrides
    * The processor extracts fenced code blocks and lints them as separate virtual files,
    * enabling language-specific rules to apply to code examples in documentation.
    *
-   * @default { enabled: true, extractCodeBlocks: true }
+   * **Note**: The processor is disabled by default due to compatibility issues with some
+   * ESLint plugins. Enable with caution and test thoroughly.
+   *
+   * @default { enabled: false, extractCodeBlocks: false }
    */
   processor?: MarkdownProcessorOptions
 
@@ -310,49 +316,141 @@ export interface MarkdownOptions extends Flatten<OptionsFiles & OptionsOverrides
 /**
  * Configures the ESLint rules for Markdown files.
  * @param options - The configuration options for Markdown files.
- * @see https://eslint.github.io/eslint-plugin-markdown/
+ * @see https://github.com/eslint/markdown
  */
 export async function markdown(options: MarkdownOptions = {}): Promise<Config[]> {
-  const {files = [GLOB_MARKDOWN], overrides = {}} = options
+  const {
+    files = [GLOB_MARKDOWN],
+    frontmatter = 'yaml',
+    language = 'gfm',
+    overrides = {},
+    processor = {enabled: false, extractCodeBlocks: false},
+    rules = {},
+  } = options
+
   return requireOf(
     ['@eslint/markdown'],
     async (): Promise<Config[]> => {
       const markdown = await interopDefault(import('@eslint/markdown'))
 
-      return [
-        {
-          name: '@bfra.me/markdown/plugin',
-          plugins: {
-            markdown: markdown as unknown as Plugin,
-          },
+      const configs: Config[] = []
+
+      // Plugin registration
+      configs.push({
+        name: '@bfra.me/markdown/plugin',
+        plugins: {
+          markdown: markdown as unknown as Plugin,
         },
-        {
-          name: '@bfra.me/markdown/processor',
-          files,
-          ignores: [GLOB_MARKDOWN_IN_MARKDOWN],
-          // `eslint-plugin-markdown` only creates virtual files for code blocks,
-          // but not the markdown file itself. We use `eslint-merge-processors` to
-          // add a pass-through processor for the markdown file itself.
-          processor: mergeProcessors([markdown.processors.markdown, processorPassThrough]),
+      })
+
+      // Language and processor configuration
+      const languageConfig: Config = {
+        name: '@bfra.me/markdown/language',
+        files,
+        ignores: [GLOB_MARKDOWN_IN_MARKDOWN],
+        language: `markdown/${language}` as const,
+      }
+
+      // Configure frontmatter if enabled
+      if (frontmatter !== false) {
+        languageConfig.languageOptions = {
+          frontmatter,
+        }
+      }
+
+      // Configure processor if enabled
+      if (processor.enabled !== false) {
+        if (processor.extractCodeBlocks === false) {
+          // Only use pass-through processor if code block extraction is disabled
+          languageConfig.processor = processorPassThrough
+        } else {
+          // Use eslint-merge-processors to combine markdown processor with pass-through
+          languageConfig.processor = mergeProcessors([
+            markdown.processors.markdown,
+            processorPassThrough,
+          ])
+        }
+      }
+
+      configs.push(languageConfig)
+
+      // Recommended Markdown rules
+      configs.push({
+        name: '@bfra.me/markdown/rules',
+        files,
+        rules: {
+          'markdown/fenced-code-language': 'warn',
+          'markdown/heading-increment': 'error',
+          'markdown/no-duplicate-definitions': 'error',
+          'markdown/no-empty-definitions': 'error',
+          'markdown/no-empty-images': 'error',
+          'markdown/no-empty-links': 'error',
+          'markdown/no-invalid-label-refs': 'error',
+          'markdown/no-missing-atx-heading-space': 'error',
+          'markdown/no-missing-label-refs': 'error',
+          'markdown/no-missing-link-fragments': 'error',
+          'markdown/no-multiple-h1': 'error',
+          'markdown/no-reference-like-urls': 'error',
+          'markdown/no-reversed-media-syntax': 'error',
+          'markdown/no-space-in-emphasis': 'error',
+          'markdown/no-unused-definitions': 'error',
+          'markdown/require-alt-text': 'error',
+          'markdown/table-column-count': 'error',
+          ...rules,
         },
-        {
+      })
+
+      // Disable conflicting rules for Markdown files
+      // Many rules that depend on ESLint's SourceCode methods (like getAllComments, getTokenBefore)
+      // or TypeScript parser services don't work with the markdown processor's virtual files.
+      // This is a known limitation of the @eslint/markdown processor when combined with
+      // other eslint plugins. For comprehensive code block linting, users may need to extract
+      // code examples into separate files or accept these limitations.
+      // TODO: Phase 3 will investigate alternative approaches for code block linting
+      configs.push({
+        name: '@bfra.me/markdown/disabled',
+        files,
+        rules: {
+          'jsdoc/check-param-names': 'off',
+          'jsdoc/check-property-names': 'off',
+          'jsdoc/require-property-name': 'off',
+          'perfectionist/sort-named-exports': 'off',
+          'perfectionist/sort-named-imports': 'off',
+          'unicorn/filename-case': 'off',
+          'command/command': 'off',
+          'jsdoc/check-access': 'off',
+          'jsdoc/check-alignment': 'off',
+          'jsdoc/check-types': 'off',
+          'jsdoc/empty-tags': 'off',
+          'jsdoc/implements-on-classes': 'off',
+          'jsdoc/multiline-blocks': 'off',
+          'jsdoc/no-defaults': 'off',
+          'jsdoc/no-multi-asterisks': 'off',
+          'jsdoc/require-property': 'off',
+          'jsdoc/require-property-description': 'off',
+          'jsdoc/require-returns-check': 'off',
+          'jsdoc/require-returns-description': 'off',
+          'jsdoc/require-yields-check': 'off',
+          'no-irregular-whitespace': 'off',
+          'perfectionist/sort-exports': 'off',
+          'perfectionist/sort-imports': 'off',
+          'regexp/no-legacy-features': 'off',
+          'regexp/no-missing-g-flag': 'off',
+          'regexp/no-super-linear-backtracking': 'off',
+          'regexp/no-useless-dollar-replacements': 'off',
+          'regexp/no-useless-flag': 'off',
+          'regexp/optimal-quantifier-concatenation': 'off',
+          'regexp/require-unicode-sets-regexp': 'off',
+        },
+      })
+
+      // Code blocks configuration
+      if (processor.extractCodeBlocks !== false) {
+        configs.push({
           name: '@bfra.me/markdown/code-blocks',
-          files,
-          languageOptions: {
-            parser: plainParser,
-          },
-        },
-        {
-          name: '@bfra.me/markdown/disabled',
-          files,
-          rules: {
-            'unicorn/filename-case': 'off',
-          },
-        },
-        {
-          name: '@bfra.me/markdown/overrides',
           files: [GLOB_MARKDOWN_CODE],
           languageOptions: {
+            parser: plainParser,
             parserOptions: {
               ecmaFeatures: {
                 impliedStrict: true,
@@ -360,8 +458,6 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
             },
           },
           rules: {
-            // Only disable non-type-aware rules we want to skip for markdown code blocks
-
             '@typescript-eslint/no-namespace': 'off',
 
             '@stylistic/comma-dangle': 'off',
@@ -401,8 +497,10 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
 
             ...overrides,
           },
-        },
-      ]
+        })
+      }
+
+      return configs
     },
     fallback,
   )

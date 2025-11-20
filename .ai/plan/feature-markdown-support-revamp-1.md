@@ -80,13 +80,13 @@ This implementation plan outlines a comprehensive revamp of Markdown linting int
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-007 | Refactor `src/configs/markdown.ts` to accept enhanced `MarkdownOptions` parameter | |  |
-| TASK-008 | Implement language selection logic: default to `'gfm'` when `options.language === 'gfm'`, otherwise use `'commonmark'` | |  |
-| TASK-009 | Implement frontmatter configuration in `languageOptions.frontmatter` based on `options.frontmatter` value | |  |
-| TASK-010 | Configure processor based on `options.processor.enabled` with conditional code block extraction | |  |
-| TASK-011 | Add configuration object for recommended Markdown rules from `@eslint/markdown` package | |  |
-| TASK-012 | Implement rule overrides mechanism allowing users to customize Markdown-specific rules via `options.rules` | |  |
-| TASK-013 | Add configuration object for disabling conflicting rules in Markdown files (e.g., `unicorn/filename-case`) | |  |
+| TASK-007 | Refactor `src/configs/markdown.ts` to accept enhanced `MarkdownOptions` parameter | ✅ | 2025-11-20 |
+| TASK-008 | Implement language selection logic: default to `'gfm'` when `options.language === 'gfm'`, otherwise use `'commonmark'` | ✅ | 2025-11-20 |
+| TASK-009 | Implement frontmatter configuration in `languageOptions.frontmatter` based on `options.frontmatter` value | ✅ | 2025-11-20 |
+| TASK-010 | Configure processor based on `options.processor.enabled` with conditional code block extraction | ✅ | 2025-11-20 |
+| TASK-011 | Add configuration object for recommended Markdown rules from `@eslint/markdown` package | ✅ | 2025-11-20 |
+| TASK-012 | Implement rule overrides mechanism allowing users to customize Markdown-specific rules via `options.rules` | ✅ | 2025-11-20 |
+| TASK-013 | Add configuration object for disabling conflicting rules in Markdown files (e.g., `unicorn/filename-case`) | ✅ | 2025-11-20 |
 
 ### Implementation Phase 3: Code Block Processing Enhancement
 
