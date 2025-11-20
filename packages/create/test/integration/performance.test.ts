@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import type {CreateCommandOptions} from '../../src/types.js'
 import {existsSync, rmSync} from 'node:fs'
 import {readdir, stat} from 'node:fs/promises'

@@ -137,9 +137,13 @@ const versionBadge = version('1.2.3')
 
 ## Development
 
+<!-- eslint-disable markdown/no-missing-label-refs -->
+
 > [!NOTE]
 >
 > This project requires Node.js 20+ and pnpm for optimal performance.
+
+<!-- eslint-enable markdown/no-missing-label-refs -->
 
 ### Setup
 
