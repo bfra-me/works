@@ -121,20 +121,20 @@ This implementation plan outlines a comprehensive revamp of Markdown linting int
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-027 | Create `test/fixtures/markdown/` directory with subdirectories: `commonmark/`, `gfm/`, `frontmatter/`, `code-blocks/`, `directives/` | |  |
-| TASK-028 | Create test fixture: CommonMark file with basic formatting, headings, and links | |  |
-| TASK-029 | Create test fixture: GFM file with tables, task lists, strikethrough, and autolinks | |  |
-| TASK-030 | Create test fixture: YAML frontmatter file with metadata and content | |  |
-| TASK-031 | Create test fixture: TOML frontmatter file with configuration data | |  |
-| TASK-032 | Create test fixture: JSON frontmatter file with structured data | |  |
-| TASK-033 | Create test fixture: TypeScript code block with type annotations and interfaces | |  |
-| TASK-034 | Create test fixture: JavaScript code block with ES modules and async/await | |  |
-| TASK-035 | Create test fixture: JSX code block with React components | |  |
-| TASK-036 | Create test fixture: Multiple language code blocks in single file (TS, JS, JSON, YAML) | |  |
-| TASK-037 | Create test fixture: Nested code blocks (code block inside blockquote) | |  |
-| TASK-038 | Create test fixture: Code block with filename meta (````ts filename="src/utils.ts"````) | |  |
-| TASK-039 | Create test fixture: Markdown with eslint-disable comments (`<!-- eslint-disable markdown/no-html -->`) | |  |
-| TASK-040 | Create test fixture: Edge case - empty code blocks, malformed frontmatter | |  |
+| TASK-027 | Create `test/fixtures/markdown/` directory with subdirectories: `commonmark/`, `gfm/`, `frontmatter/`, `code-blocks/`, `directives/` | ✅ | 2025-11-20 |
+| TASK-028 | Create test fixture: CommonMark file with basic formatting, headings, and links | ✅ | 2025-11-20 |
+| TASK-029 | Create test fixture: GFM file with tables, task lists, strikethrough, and autolinks | ✅ | 2025-11-20 |
+| TASK-030 | Create test fixture: YAML frontmatter file with metadata and content | ✅ | 2025-11-20 |
+| TASK-031 | Create test fixture: TOML frontmatter file with configuration data | ✅ | 2025-11-20 |
+| TASK-032 | Create test fixture: JSON frontmatter file with structured data | ✅ | 2025-11-20 |
+| TASK-033 | Create test fixture: TypeScript code block with type annotations and interfaces | ✅ | 2025-11-20 |
+| TASK-034 | Create test fixture: JavaScript code block with ES modules and async/await | ✅ | 2025-11-20 |
+| TASK-035 | Create test fixture: JSX code block with React components | ✅ | 2025-11-20 |
+| TASK-036 | Create test fixture: Multiple language code blocks in single file (TS, JS, JSON, YAML) | ✅ | 2025-11-20 |
+| TASK-037 | Create test fixture: Nested code blocks (code block inside blockquote) | ✅ | 2025-11-20 |
+| TASK-038 | Create test fixture: Code block with filename meta (````ts filename="src/utils.ts"````) | ✅ | 2025-11-20 |
+| TASK-039 | Create test fixture: Markdown with eslint-disable comments (`<!-- eslint-disable markdown/no-html -->`) | ✅ | 2025-11-20 |
+| TASK-040 | Create test fixture: Edge case - empty code blocks, malformed frontmatter | ✅ | 2025-11-20 |
 
 ### Implementation Phase 6: Unit and Integration Tests
 
