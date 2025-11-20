@@ -1039,6 +1039,11 @@ export interface Rules {
    */
   '@typescript-eslint/no-unused-expressions'?: Linter.RuleEntry<TypescriptEslintNoUnusedExpressions>
   /**
+   * Disallow unused private class members
+   * @see https://typescript-eslint.io/rules/no-unused-private-class-members
+   */
+  '@typescript-eslint/no-unused-private-class-members'?: Linter.RuleEntry<[]>
+  /**
    * Disallow unused variables
    * @see https://typescript-eslint.io/rules/no-unused-vars
    */
