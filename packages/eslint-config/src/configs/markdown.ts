@@ -11,25 +11,16 @@ import {fallback} from './fallback'
 /**
  * Markdown language mode for parsing.
  *
- * @remarks
- * - `'commonmark'`: Standard CommonMark specification - strict, portable, widely compatible
- * - `'gfm'`: GitHub Flavored Markdown - adds tables, task lists, strikethrough, and autolinks
+ * - `commonmark`: Standard CommonMark - strict, portable, widely compatible
+ * - `gfm`: GitHub Flavored Markdown - adds tables, task lists, strikethrough, autolinks
  *
  * @example
  * ```typescript
  * // Use CommonMark for maximum portability
- * const config = defineConfig({
- *   markdown: {
- *     language: 'commonmark'
- *   }
- * });
+ * defineConfig({ markdown: { language: 'commonmark' } })
  *
  * // Use GFM for documentation sites
- * const config = defineConfig({
- *   markdown: {
- *     language: 'gfm'
- *   }
- * });
+ * defineConfig({ markdown: { language: 'gfm' } })
  * ```
  *
  * @see {@link https://commonmark.org/ | CommonMark Specification}
@@ -40,39 +31,19 @@ export type MarkdownLanguage = 'commonmark' | 'gfm'
 /**
  * Frontmatter format options for Markdown files.
  *
- * @remarks
- * Frontmatter is metadata at the beginning of a Markdown file, commonly used in static site generators
- * and documentation systems. When enabled, the parser will extract and validate the frontmatter block.
+ * Frontmatter is metadata at the beginning of a file, commonly used in static site generators.
+ * When enabled, the parser extracts and validates the frontmatter block.
  *
  * @example
  * ```typescript
  * // YAML frontmatter (most common)
- * const config = defineConfig({
- *   markdown: {
- *     frontmatter: 'yaml'
- *   }
- * });
- *
- * // Example Markdown file with YAML frontmatter:
- * // ---
- * // title: My Document
- * // date: 2025-01-20
- * // ---
- * // Content here...
+ * defineConfig({ markdown: { frontmatter: 'yaml' } })
  *
  * // TOML frontmatter
- * const config = defineConfig({
- *   markdown: {
- *     frontmatter: 'toml'
- *   }
- * });
+ * defineConfig({ markdown: { frontmatter: 'toml' } })
  *
  * // Disable frontmatter parsing
- * const config = defineConfig({
- *   markdown: {
- *     frontmatter: false
- *   }
- * });
+ * defineConfig({ markdown: { frontmatter: false } })
  * ```
  */
 export type MarkdownFrontmatterOptions = false | 'yaml' | 'toml' | 'json'
@@ -80,34 +51,23 @@ export type MarkdownFrontmatterOptions = false | 'yaml' | 'toml' | 'json'
 /**
  * Processor configuration for Markdown code block extraction and linting.
  *
- * @remarks
- * The processor extracts fenced code blocks from Markdown files and lints them as separate
- * virtual files. This enables TypeScript-ESLint and other language-specific rules to apply
- * to code examples in documentation.
+ * The processor extracts fenced code blocks and lints them as separate virtual files,
+ * enabling language-specific rules to apply to code examples.
  *
- * **Note**: The processor is disabled by default due to compatibility issues with some ESLint
- * plugins that expect full SourceCode API support. Enable with caution and test thoroughly.
+ * **⚠️ Warning**: Disabled by default due to compatibility issues with ESLint plugins
+ * that require full SourceCode API support. Enable with caution and test thoroughly.
  *
  * @example
  * ```typescript
  * // Enable processor with code block extraction
- * const config = defineConfig({
+ * defineConfig({
  *   markdown: {
- *     processor: {
- *       enabled: true,
- *       extractCodeBlocks: true
- *     }
+ *     processor: { enabled: true, extractCodeBlocks: true }
  *   }
- * });
+ * })
  *
  * // Disable code block processing
- * const config = defineConfig({
- *   markdown: {
- *     processor: {
- *       enabled: false
- *     }
- *   }
- * });
+ * defineConfig({ markdown: { processor: { enabled: false } } })
  * ```
  */
 export interface MarkdownProcessorOptions {
@@ -121,9 +81,8 @@ export interface MarkdownProcessorOptions {
   /**
    * Extract and lint code blocks from Markdown files.
    *
-   * @remarks
-   * When enabled, fenced code blocks with language identifiers (```ts, ```js, etc.)
-   * will be extracted and linted as separate virtual files.
+   * When enabled, fenced code blocks (```ts, ```js, etc.) are extracted
+   * and linted as separate virtual files.
    *
    * @default false
    */
@@ -133,21 +92,16 @@ export interface MarkdownProcessorOptions {
 /**
  * Code block processing configuration for Markdown files.
  *
- * @remarks
- * Configure how code blocks within Markdown files are processed and linted.
- * This includes TypeScript, JavaScript, JSX, TSX, JSON, YAML, and other supported languages.
+ * Configure which languages are extracted and linted from code blocks,
+ * including TypeScript, JavaScript, JSX, TSX, JSON, and YAML.
  *
  * @example
  * ```typescript
- * // Basic code block configuration
- * const config = defineConfig({
+ * defineConfig({
  *   markdown: {
- *     codeBlocks: {
- *       typescript: true,
- *       javascript: true
- *     }
+ *     codeBlocks: { typescript: true, javascript: true }
  *   }
- * });
+ * })
  * ```
  */
 export interface MarkdownCodeBlockOptions {
@@ -188,71 +142,42 @@ export interface MarkdownCodeBlockOptions {
 }
 
 /**
- * Comprehensive configuration options for Markdown linting.
+ * Configuration options for Markdown linting.
  *
- * @remarks
- * Provides fine-grained control over Markdown parsing, frontmatter handling, code block extraction,
- * and rule configuration. Supports both CommonMark and GitHub Flavored Markdown with optional
+ * Provides control over Markdown parsing, frontmatter handling, code block extraction,
+ * and rule configuration. Supports CommonMark and GitHub Flavored Markdown with optional
  * TypeScript-ESLint integration for code blocks.
  *
  * @example
  * ```typescript
  * // Documentation site with GFM and YAML frontmatter
- * const config = defineConfig({
+ * defineConfig({
  *   markdown: {
  *     language: 'gfm',
  *     frontmatter: 'yaml',
- *     processor: {
- *       enabled: true,
- *       extractCodeBlocks: true
- *     },
- *     codeBlocks: {
- *       typescript: true,
- *       javascript: true
- *     }
+ *     processor: { enabled: true, extractCodeBlocks: true },
+ *     codeBlocks: { typescript: true, javascript: true }
  *   }
- * });
+ * })
  *
- * // Simple README files with CommonMark
- * const config = defineConfig({
+ * // Simple README files
+ * defineConfig({
  *   markdown: {
  *     language: 'commonmark',
  *     frontmatter: false,
  *     files: ['README.md']
  *   }
- * });
- *
- * // Blog posts with code examples
- * const config = defineConfig({
- *   markdown: {
- *     language: 'gfm',
- *     frontmatter: 'yaml',
- *     processor: {
- *       enabled: true,
- *       extractCodeBlocks: true
- *     },
- *     codeBlocks: {
- *       typescript: true,
- *       javascript: true,
- *       jsx: true,
- *       json: true
- *     },
- *     overrides: {
- *       'markdown/no-html': 'off'
- *     }
- *   }
- * });
+ * })
  * ```
  *
  * @see {@link https://github.com/eslint/markdown | @eslint/markdown}
  */
 export interface MarkdownOptions extends Flatten<OptionsFiles & OptionsOverrides> {
   /**
-   * Markdown language mode for parsing.
+   * Markdown language mode.
    *
-   * @remarks
    * Choose between CommonMark (standard) and GitHub Flavored Markdown (GFM).
-   * GFM adds support for tables, task lists, strikethrough, and autolinks.
+   * GFM adds tables, task lists, strikethrough, and autolinks.
    *
    * @default 'gfm'
    */
@@ -261,7 +186,6 @@ export interface MarkdownOptions extends Flatten<OptionsFiles & OptionsOverrides
   /**
    * Frontmatter format to parse from Markdown files.
    *
-   * @remarks
    * Frontmatter is metadata at the beginning of a file, commonly used in static site generators.
    * Set to `false` to disable frontmatter parsing.
    *
@@ -272,12 +196,10 @@ export interface MarkdownOptions extends Flatten<OptionsFiles & OptionsOverrides
   /**
    * Processor configuration for code block extraction and linting.
    *
-   * @remarks
-   * The processor extracts fenced code blocks and lints them as separate virtual files,
-   * enabling language-specific rules to apply to code examples in documentation.
+   * Extracts fenced code blocks and lints them as separate virtual files.
    *
-   * **Note**: The processor is disabled by default due to compatibility issues with some
-   * ESLint plugins. Enable with caution and test thoroughly.
+   * **⚠️ Warning**: Disabled by default due to compatibility issues with ESLint plugins
+   * requiring full SourceCode API support.
    *
    * @default { enabled: false, extractCodeBlocks: false }
    */
@@ -286,8 +208,7 @@ export interface MarkdownOptions extends Flatten<OptionsFiles & OptionsOverrides
   /**
    * Code block processing configuration.
    *
-   * @remarks
-   * Configure which languages should be extracted and linted from code blocks.
+   * Configure which languages are extracted and linted from code blocks.
    *
    * @default { typescript: true, javascript: true, jsx: true }
    */
@@ -296,27 +217,22 @@ export interface MarkdownOptions extends Flatten<OptionsFiles & OptionsOverrides
   /**
    * Markdown-specific rule overrides.
    *
-   * @remarks
-   * Override default Markdown linting rules. Common overrides include disabling HTML
-   * in Markdown or adjusting heading structure rules.
-   *
    * @example
    * ```typescript
-   * {
-   *   rules: {
-   *     'markdown/no-html': 'off',
-   *     'markdown/heading-increment': 'warn'
-   *   }
-   * }
+   * { rules: { 'markdown/no-html': 'off' } }
    * ```
    */
   rules?: Config['rules']
 }
 
 /**
- * Configures the ESLint rules for Markdown files.
- * @param options - The configuration options for Markdown files.
- * @see https://github.com/eslint/markdown
+ * Configures ESLint rules for Markdown files with support for CommonMark/GFM,
+ * frontmatter parsing, and optional code block extraction.
+ *
+ * @param options - Configuration options for Markdown linting
+ * @returns ESLint configuration array
+ *
+ * @see {@link https://github.com/eslint/markdown | @eslint/markdown}
  */
 export async function markdown(options: MarkdownOptions = {}): Promise<Config[]> {
   const {
@@ -348,28 +264,16 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
         name: '@bfra.me/markdown/language',
         files,
         ignores: [GLOB_MARKDOWN_IN_MARKDOWN],
-        language: `markdown/${language}` as const,
-      }
-
-      // Configure frontmatter if enabled
-      if (frontmatter !== false) {
-        languageConfig.languageOptions = {
-          frontmatter,
-        }
-      }
-
-      // Configure processor if enabled
-      if (processor.enabled !== false) {
-        if (processor.extractCodeBlocks === false) {
-          // Only use pass-through processor if code block extraction is disabled
-          languageConfig.processor = processorPassThrough
-        } else {
-          // Use eslint-merge-processors to combine markdown processor with pass-through
-          languageConfig.processor = mergeProcessors([
-            markdown.processors.markdown,
-            processorPassThrough,
-          ])
-        }
+        language: `markdown/${language}`,
+        ...(frontmatter !== false && {
+          languageOptions: {frontmatter},
+        }),
+        ...(processor.enabled !== false && {
+          processor:
+            processor.extractCodeBlocks === false
+              ? processorPassThrough
+              : mergeProcessors([markdown.processors.markdown, processorPassThrough]),
+        }),
       }
 
       configs.push(languageConfig)
@@ -400,13 +304,10 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
         },
       })
 
-      // Disable conflicting rules for Markdown files
-      // Many rules that depend on ESLint's SourceCode methods (like getAllComments, getTokenBefore)
-      // or TypeScript parser services don't work with the markdown processor's virtual files.
-      // This is a known limitation of the @eslint/markdown processor when combined with
-      // other eslint plugins. For comprehensive code block linting, users may need to extract
-      // code examples into separate files or accept these limitations.
-      // TODO: Phase 3 will investigate alternative approaches for code block linting
+      // Disable rules incompatible with Markdown processor's virtual files
+      // The @eslint/markdown processor creates virtual files that lack complete ESLint SourceCode API
+      // (getAllComments, getTokenBefore, etc.) and TypeScript parser services (esTreeNodeToTSNodeMap).
+      // This causes failures in plugins that depend on these features.
       configs.push({
         name: '@bfra.me/markdown/disabled',
         files,
