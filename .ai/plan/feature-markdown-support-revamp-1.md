@@ -109,11 +109,11 @@ This implementation plan outlines a comprehensive revamp of Markdown linting int
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-022 | Review and update `GLOB_MARKDOWN_*` constants in `src/globs.ts` for GFM support | |  |
-| TASK-023 | Add `GLOB_GFM_MARKDOWN` pattern for explicit GFM file matching if needed | |  |
-| TASK-024 | Update `GLOB_CODE_IN_MARKDOWN_FILES` to include additional language extensions (`.json`, `.yaml`, `.toml`) | |  |
-| TASK-025 | Verify glob patterns work correctly with frontmatter-enabled files | |  |
-| TASK-026 | Add glob patterns for virtual files created by the Markdown processor | |  |
+| TASK-022 | Review and update `GLOB_MARKDOWN_*` constants in `src/globs.ts` for GFM support | ✅ | 2025-11-20 |
+| TASK-023 | Add `GLOB_GFM_MARKDOWN` pattern for explicit GFM file matching if needed | ✅ | 2025-11-20 |
+| TASK-024 | Update `GLOB_CODE_IN_MARKDOWN_FILES` to include additional language extensions (`.json`, `.yaml`, `.toml`) | ✅ | 2025-11-20 |
+| TASK-025 | Verify glob patterns work correctly with frontmatter-enabled files | ✅ | 2025-11-20 |
+| TASK-026 | Add glob patterns for virtual files created by the Markdown processor | ✅ | 2025-11-20 |
 
 ### Implementation Phase 5: Testing Infrastructure
 
