@@ -237,6 +237,7 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
   if (options.markdown ?? true) {
     configs.push(
       markdown({
+        ...resolveSubOptions(options, 'markdown'),
         overrides: getOverrides(options, 'markdown'),
       }),
     )
