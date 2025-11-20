@@ -1,17 +1,35 @@
 import {join} from 'node:path'
 import {ESLint} from 'eslint'
-import {describe, expect, it} from 'vitest'
+import {beforeAll, describe, expect, it, vi} from 'vitest'
 import {defineConfig} from '../src'
+
+// Increase timeout for these tests as they load multiple heavy ESLint plugins
+vi.setConfig({testTimeout: 15000})
 
 const fixturesPath = new URL('./fixtures/markdown', import.meta.url).pathname
 
+// Cache ESLint instances to avoid expensive re-initialization
+const eslintCache = new Map<string, Promise<ESLint>>()
+
 async function createESLint(options: Parameters<typeof defineConfig>[0]): Promise<ESLint> {
-  const configs = await defineConfig(options)
-  return new ESLint({
-    overrideConfigFile: true,
-    overrideConfig: configs,
-    ignore: false,
-  })
+  const cacheKey = JSON.stringify(options)
+
+  const cached = eslintCache.get(cacheKey)
+  if (cached) {
+    return cached
+  }
+
+  const promise = (async () => {
+    const configs = await defineConfig(options)
+    return new ESLint({
+      overrideConfigFile: true,
+      overrideConfig: configs,
+      ignore: false,
+    })
+  })()
+
+  eslintCache.set(cacheKey, promise)
+  return promise
 }
 
 async function lintFile(eslint: ESLint, filePath: string) {
@@ -24,6 +42,15 @@ async function lintFile(eslint: ESLint, filePath: string) {
 }
 
 describe('markdown configuration', () => {
+  // Pre-warm the most commonly used ESLint instances to reduce test time
+  beforeAll(async () => {
+    await Promise.all([
+      createESLint({markdown: {language: 'commonmark'}}),
+      createESLint({markdown: {language: 'gfm'}}),
+      createESLint({markdown: {frontmatter: 'yaml'}}),
+    ])
+  }, 30000)
+
   describe('language mode selection', () => {
     it('should use CommonMark mode when language: "commonmark" is configured', async () => {
       const eslint = await createESLint({
