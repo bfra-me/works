@@ -27,6 +27,12 @@ export const GLOB_CODE_IN_MARKDOWN_FILES = GLOB_MARKDOWN_FILES.flatMap(p => [
   `${p}/*.tsx`,
   `${p}/*.cts`,
   `${p}/*.mts`,
+  `${p}/*.json`,
+  `${p}/*.json5`,
+  `${p}/*.jsonc`,
+  `${p}/*.yaml`,
+  `${p}/*.yml`,
+  `${p}/*.toml`,
 ])
 export const GLOB_EXT_IN_MARKDOWN_FILES = [
   ...GLOB_CODE_IN_MARKDOWN_FILES,
