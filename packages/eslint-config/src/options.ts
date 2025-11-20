@@ -2,7 +2,7 @@ import type {StylisticCustomizeOptions} from '@stylistic/eslint-plugin'
 import type {ParserOptions} from '@typescript-eslint/types'
 import type {FlatGitignoreOptions} from 'eslint-config-flat-gitignore'
 import type {Config} from './config'
-import type {AstroOptions} from './configs'
+import type {AstroOptions, MarkdownOptions} from './configs'
 
 /**
   Flattens an object type to a mapped type with the same keys and values.
@@ -221,8 +221,29 @@ export type Options = Flatten<
 
     /**
      * Options to override the behavior of linting Markdown files.
+     *
+     * @remarks
+     * Enable comprehensive Markdown linting with support for CommonMark and GitHub Flavored Markdown,
+     * frontmatter parsing, and code block extraction.
+     *
+     * @example
+     * ```typescript
+     * // Enable with defaults
+     * const config = defineConfig({ markdown: true });
+     *
+     * // Documentation site configuration
+     * const config = defineConfig({
+     *   markdown: {
+     *     language: 'gfm',
+     *     frontmatter: 'yaml',
+     *     processor: { enabled: true, extractCodeBlocks: true }
+     *   }
+     * });
+     * ```
+     *
+     * @default true
      */
-    markdown?: boolean | OptionsOverrides
+    markdown?: boolean | MarkdownOptions
 
     /**
      * Enable Next.js support.
