@@ -26,6 +26,7 @@
     {"path": "./packages/eslint-config"},
     {"path": "./packages/semantic-release"},
     {"path": "./packages/create"},
+    {"path": "./scripts"},
     {"path": "./tsconfig.eslint.json"}
   ],
   "files": []

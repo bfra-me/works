@@ -12,15 +12,6 @@ importers:
 
   .:
     devDependencies:
-      '@bfra.me/eslint-config':
-        specifier: workspace:*
-        version: link:packages/eslint-config
-      '@bfra.me/prettier-config':
-        specifier: workspace:*
-        version: link:packages/prettier-config
-      '@bfra.me/tsconfig':
-        specifier: workspace:*
-        version: link:packages/tsconfig
       '@changesets/cli':
         specifier: 2.29.7
         version: 2.29.7(@types/node@24.10.1)
@@ -332,6 +323,12 @@ importers:
       ajv-draft-04:
         specifier: 1.0.0
         version: 1.0.0(ajv@8.17.1)
+
+  scripts:
+    dependencies:
+      consola:
+        specifier: 3.4.2
+        version: 3.4.2
 
 packages:
 

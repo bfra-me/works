@@ -1,0 +1,23 @@
+{
+  "name": "scripts",
+  "version": "0.0.0-development",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./clean-changesets": "./src/clean-changesets.ts"
+  },
+  "files": [
+    "!**/*.test.ts",
+    "package.json",
+    "readme.md",
+    "src"
+  ],
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "consola": "3.4.2"
+  }
+}
