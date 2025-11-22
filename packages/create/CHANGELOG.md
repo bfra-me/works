@@ -1,5 +1,14 @@
 # @bfra.me/create
 
+## 0.5.20
+### Patch Changes
+
+
+- Updated dependency `openai` to `6.9.1`. ([#2205](https://github.com/bfra-me/works/pull/2205))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.70.0`. ([#2208](https://github.com/bfra-me/works/pull/2208))
+
 ## 0.5.19
 ### Patch Changes
 
