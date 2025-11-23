@@ -1,4 +1,4 @@
-import {mkdtemp, rm} from 'node:fs/promises'
+import {access, constants, mkdtemp, rm} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
 import fs from 'fs-extra'
@@ -11,6 +11,7 @@ vi.mock('consola', () => ({
     info: vi.fn(),
     success: vi.fn(),
     error: vi.fn(),
+    warn: vi.fn(),
   },
 }))
 
@@ -104,5 +105,101 @@ Updated dependency \`@readme/oas-to-har\` to \`25.0.4\`.
 
     const result = await fs.readFile(join(changesetDir, 'test.md'), 'utf8')
     expect(result).toBe(mockChangesetContent)
+  })
+
+  describe('empty frontmatter detection and deletion', () => {
+    it('should delete changesets with empty frontmatter', async () => {
+      const emptyChangesetContent = `---
+---
+
+Updated dependency \`some-dep\` to \`1.0.0\`.
+`
+      await fs.writeFile(join(changesetDir, 'empty.md'), emptyChangesetContent)
+
+      await cleanChangesets({
+        changesetDir,
+        privatePackages: ['@bfra.me/works'],
+      })
+
+      // File should be deleted
+      await expect(access(join(changesetDir, 'empty.md'), constants.F_OK)).rejects.toThrow()
+    })
+
+    it('should delete changesets that become empty after cleaning', async () => {
+      const willBeEmptyContent = `---
+'@bfra.me/works': patch
+---
+
+Updated dependency \`some-dep\` to \`1.0.0\`.
+`
+      await fs.writeFile(join(changesetDir, 'will-be-empty.md'), willBeEmptyContent)
+
+      await cleanChangesets({
+        changesetDir,
+        privatePackages: ['@bfra.me/works'],
+      })
+
+      // File should be deleted
+      await expect(access(join(changesetDir, 'will-be-empty.md'), constants.F_OK)).rejects.toThrow()
+    })
+
+    it('should not delete files with valid packages after cleaning', async () => {
+      const validContent = `---
+'@bfra.me/works': patch
+'@bfra.me/other-package': minor
+---
+
+Updated dependencies.
+`
+      await fs.writeFile(join(changesetDir, 'valid.md'), validContent)
+
+      await cleanChangesets({
+        changesetDir,
+        privatePackages: ['@bfra.me/works'],
+      })
+
+      // File should still exist with only @bfra.me/other-package
+      const result = await fs.readFile(join(changesetDir, 'valid.md'), 'utf8')
+      expect(result).toContain('@bfra.me/other-package')
+      expect(result).not.toContain('@bfra.me/works')
+    })
+
+    it('should not delete malformed changeset files', async () => {
+      const malformedContent = `---
+this is not valid yaml: {]
+---
+
+Some description.
+`
+      await fs.writeFile(join(changesetDir, 'malformed.md'), malformedContent)
+
+      await cleanChangesets({
+        changesetDir,
+        privatePackages: ['@bfra.me/works'],
+      })
+
+      // File should still exist (we don't delete unparseable files)
+      const result = await fs.readFile(join(changesetDir, 'malformed.md'), 'utf8')
+      expect(result).toBe(malformedContent)
+    })
+
+    it('should not delete files in dry-run mode', async () => {
+      const emptyChangesetContent = `---
+---
+
+Updated dependency.
+`
+      await fs.writeFile(join(changesetDir, 'empty-dry-run.md'), emptyChangesetContent)
+
+      await cleanChangesets({
+        changesetDir,
+        privatePackages: ['@bfra.me/works'],
+        dryRun: true,
+      })
+
+      // File should still exist in dry-run mode
+      const result = await fs.readFile(join(changesetDir, 'empty-dry-run.md'), 'utf8')
+      expect(result).toBe(emptyChangesetContent)
+    })
   })
 })

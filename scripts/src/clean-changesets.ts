@@ -1,8 +1,9 @@
 #!/usr/bin/env tsx
 
-import {readdir, readFile, writeFile} from 'node:fs/promises'
+import {readdir, readFile, unlink, writeFile} from 'node:fs/promises'
 import {join} from 'node:path'
 import process from 'node:process'
+import parseChangesetFile from '@changesets/parse'
 import {consola} from 'consola'
 
 const DEFAULT_CHANGESET_DIR = '.changeset'
@@ -15,7 +16,9 @@ interface ChangesetFile {
 async function getChangesetFiles(changesetDir: string): Promise<ChangesetFile[]> {
   try {
     const files = await readdir(changesetDir)
-    const changesetFiles = files.filter(file => file.endsWith('.md'))
+    const changesetFiles = files.filter(
+      file => file.endsWith('.md') && !/^(?:README|CHANGELOG)/i.test(file),
+    )
 
     const fileContents = await Promise.all(
       changesetFiles.map(async file => ({
@@ -31,6 +34,19 @@ async function getChangesetFiles(changesetDir: string): Promise<ChangesetFile[]>
   }
 }
 
+function hasEmptyFrontmatter(content: string): boolean {
+  try {
+    const parsed = parseChangesetFile(content)
+    return parsed.releases.length === 0
+  } catch (error) {
+    // If parsing fails, file is malformed - don't delete it
+    consola.warn(
+      `Failed to parse changeset content, skipping deletion check: ${error instanceof Error ? error.message : String(error)}`,
+    )
+    return false
+  }
+}
+
 function cleanChangesetContent(content: string, privatePackages: string[]): string {
   const lines = content.split('\n')
   const newLines = lines.filter(line => {
@@ -39,6 +55,21 @@ function cleanChangesetContent(content: string, privatePackages: string[]): stri
   })
 
   return newLines.join('\n')
+}
+
+async function deleteChangesetFile(file: ChangesetFile, dryRun: boolean): Promise<void> {
+  try {
+    if (dryRun) {
+      consola.info(`[DRY RUN] Would delete empty changeset: ${file.path}`)
+      return
+    }
+
+    await unlink(file.path)
+    consola.success(`Deleted empty changeset: ${file.path}`)
+  } catch (error) {
+    consola.error(`Failed to delete ${file.path}:`, error)
+    throw error
+  }
 }
 
 async function writeChangesetFile(
@@ -81,15 +112,60 @@ export async function cleanChangesets(options: CleanChangesetsOptions = {}): Pro
 
   const changesetFiles = await getChangesetFiles(changesetDir)
 
+  // Phase 1: Delete existing empty changesets
+  consola.info('Phase 1: Checking for existing empty changesets...')
+  let deletedCount = 0
+  const filesToProcess: ChangesetFile[] = []
+
   for (const file of changesetFiles) {
+    if (hasEmptyFrontmatter(file.content)) {
+      await deleteChangesetFile(file, dryRun)
+      deletedCount++
+    } else {
+      filesToProcess.push(file)
+    }
+  }
+
+  if (deletedCount > 0) {
+    consola.success(`Phase 1 complete: Deleted ${deletedCount} empty changeset(s)`)
+  } else {
+    consola.info('Phase 1 complete: No empty changesets found')
+  }
+
+  // Phase 2: Clean remaining files and delete if emptied
+  consola.info('Phase 2: Cleaning private packages from remaining changesets...')
+  let cleanedCount = 0
+  let emptyAfterCleaningCount = 0
+
+  for (const file of filesToProcess) {
     const cleanedContent = cleanChangesetContent(file.content, privatePackages)
 
-    // Only write if content was actually changed
+    // No changes needed
     if (cleanedContent === file.content) {
       consola.info(`No changes needed for ${file.path}`)
+      continue
+    }
+
+    // Check if cleaning resulted in empty frontmatter
+    if (hasEmptyFrontmatter(cleanedContent)) {
+      await deleteChangesetFile(file, dryRun)
+      emptyAfterCleaningCount++
     } else {
       await writeChangesetFile(file, cleanedContent, dryRun)
+      cleanedCount++
     }
+  }
+
+  if (cleanedCount > 0) {
+    consola.success(`Phase 2 complete: Cleaned ${cleanedCount} changeset(s)`)
+  }
+  if (emptyAfterCleaningCount > 0) {
+    consola.success(
+      `Phase 2 complete: Deleted ${emptyAfterCleaningCount} changeset(s) that became empty after cleaning`,
+    )
+  }
+  if (cleanedCount === 0 && emptyAfterCleaningCount === 0) {
+    consola.info('Phase 2 complete: No changesets needed cleaning')
   }
 
   consola.success('Changeset cleaning completed successfully')
