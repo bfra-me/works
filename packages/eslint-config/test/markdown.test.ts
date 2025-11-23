@@ -125,7 +125,6 @@ describe('markdown configuration', () => {
     it('should extract TypeScript code blocks correctly when processor is enabled', async () => {
       const eslint = await createESLint({
         markdown: {
-          processor: {enabled: true, extractCodeBlocks: true},
           codeBlocks: {typescript: true},
         },
         typescript: true,
@@ -140,7 +139,6 @@ describe('markdown configuration', () => {
     it('should extract JavaScript code blocks correctly when processor is enabled', async () => {
       const eslint = await createESLint({
         markdown: {
-          processor: {enabled: true, extractCodeBlocks: true},
           codeBlocks: {javascript: true},
         },
       })
@@ -154,7 +152,6 @@ describe('markdown configuration', () => {
     it('should extract JSX/TSX code blocks correctly when processor is enabled', async () => {
       const eslint = await createESLint({
         markdown: {
-          processor: {enabled: true, extractCodeBlocks: true},
           codeBlocks: {jsx: true},
         },
         jsx: true,
@@ -169,7 +166,6 @@ describe('markdown configuration', () => {
     it('should handle multiple code blocks in a single file', async () => {
       const eslint = await createESLint({
         markdown: {
-          processor: {enabled: true, extractCodeBlocks: true},
           codeBlocks: {typescript: true, javascript: true, json: true},
         },
         typescript: true,
@@ -183,9 +179,7 @@ describe('markdown configuration', () => {
 
     it('should handle nested code blocks without errors', async () => {
       const eslint = await createESLint({
-        markdown: {
-          processor: {enabled: true, extractCodeBlocks: true},
-        },
+        markdown: {},
       })
 
       const result = await lintFile(eslint, join(fixturesPath, 'edge-cases/nested.md'))
@@ -197,7 +191,6 @@ describe('markdown configuration', () => {
     it('should extract filename meta from code blocks', async () => {
       const eslint = await createESLint({
         markdown: {
-          processor: {enabled: true, extractCodeBlocks: true},
           codeBlocks: {typescript: true},
         },
         typescript: true,
@@ -212,7 +205,6 @@ describe('markdown configuration', () => {
     it('should apply TypeScript-ESLint rules to TypeScript code blocks', async () => {
       const eslint = await createESLint({
         markdown: {
-          processor: {enabled: true, extractCodeBlocks: true},
           codeBlocks: {typescript: true},
         },
         typescript: true,
@@ -228,7 +220,7 @@ describe('markdown configuration', () => {
     it('should respect eslint-disable directives in Markdown HTML comments', async () => {
       const eslint = await createESLint({
         markdown: {
-          rules: {'markdown/no-html': 'error'},
+          overrides: {'markdown/no-html': 'error'},
         },
       })
 
@@ -253,7 +245,7 @@ describe('markdown configuration', () => {
     it('should apply rule overrides correctly to Markdown files', async () => {
       const eslint = await createESLint({
         markdown: {
-          rules: {
+          overrides: {
             'markdown/no-html': 'off',
             'markdown/heading-increment': 'warn',
           },
@@ -301,9 +293,7 @@ describe('markdown configuration', () => {
 
     it('should handle code blocks without language identifiers', async () => {
       const eslint = await createESLint({
-        markdown: {
-          processor: {enabled: true, extractCodeBlocks: true},
-        },
+        markdown: {},
       })
 
       const result = await lintFile(eslint, join(fixturesPath, 'edge-cases/no-lang.md'))
@@ -343,7 +333,6 @@ describe('markdown configuration', () => {
         markdown: {
           language: 'gfm',
           frontmatter: 'yaml',
-          processor: {enabled: true, extractCodeBlocks: true},
         },
         typescript: true,
       })
@@ -367,10 +356,9 @@ describe('markdown configuration', () => {
         markdown: {
           language: 'gfm',
           frontmatter: 'yaml',
-          processor: {enabled: true, extractCodeBlocks: true},
           codeBlocks: {typescript: true, javascript: true},
           files: ['**/*.md'],
-          rules: {'markdown/no-html': 'off'},
+          overrides: {'markdown/no-html': 'off'},
         },
       })
 
