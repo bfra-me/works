@@ -1,5 +1,69 @@
 # @bfra.me/eslint-config
 
+## 0.41.0
+### Minor Changes
+
+
+- Add full Markdown configuration API with enhanced type definitions. ([#2196](https://github.com/bfra-me/works/pull/2196))
+  
+  This release introduces a new configuration API for Markdown linting with support for:
+  
+  - **Language modes**: Choose between CommonMark and GitHub Flavored Markdown (GFM)
+  - **Frontmatter parsing**: Support for YAML, TOML, and JSON frontmatter formats
+  - **Code block extraction**: Enable linting of code blocks embedded in Markdown files
+  - **Language-specific processing**: Granular control over which languages to lint in code blocks (TypeScript, JavaScript, JSX, JSON, YAML)
+  - **Flexible configuration**: Extends `OptionsFiles` and `OptionsOverrides` for maximum customization
+  
+  New types and interfaces:
+  - `MarkdownLanguage`: Discriminated union for 'commonmark' | 'gfm'
+  - `MarkdownFrontmatterOptions`: Support for false | 'yaml' | 'toml' | 'json'
+  - `MarkdownCodeBlockOptions`: Language-specific code block processing
+  - `MarkdownOptions`: Comprehensive configuration interface
+  
+  Example usage:
+  ```typescript
+  // Documentation site with GFM and YAML frontmatter
+  const config = defineConfig({
+    markdown: {
+      language: 'gfm',
+      frontmatter: 'yaml',
+      codeBlocks: {
+        typescript: true,
+        javascript: true
+      }
+    }
+  });
+  ```
+  
+  All types include comprehensive JSDoc documentation with examples and references to relevant specifications.
+
+### Patch Changes
+
+
+- Updated dependency `eslint-plugin-node-dependencies` to `1.3.0`. ([#2219](https://github.com/bfra-me/works/pull/2219))
+
+
+- Updated dependency `@stylistic/eslint-plugin` to `5.6.1`. ([#2211](https://github.com/bfra-me/works/pull/2211))
+
+
+- Updated dependency `@eslint/config-inspector` to `1.4.1`. ([#2210](https://github.com/bfra-me/works/pull/2210))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.4.3`. ([#2182](https://github.com/bfra-me/works/pull/2182))
+
+
+- Updated dependency `@stylistic/eslint-plugin` to `5.6.0`. ([#2207](https://github.com/bfra-me/works/pull/2207))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `61.3.0`. ([#2216](https://github.com/bfra-me/works/pull/2216))
+
+
+- Updated dependency `@eslint/config-inspector` to `1.4.2`. ([#2220](https://github.com/bfra-me/works/pull/2220))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.47.0`. ([#2199](https://github.com/bfra-me/works/pull/2199))
+  Updated dependency `typescript-eslint` to `8.47.0`.
+
 ## 0.40.0
 ### Minor Changes
 
