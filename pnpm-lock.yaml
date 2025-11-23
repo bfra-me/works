@@ -279,8 +279,8 @@ importers:
         specifier: 0.4.0
         version: 0.4.0(@typescript-eslint/parser@8.47.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)
       eslint-plugin-node-dependencies:
-        specifier: 1.2.0
-        version: 1.2.0(eslint@9.39.1(jiti@2.6.1))
+        specifier: 1.3.0
+        version: 1.3.0(eslint@9.39.1(jiti@2.6.1))
       eslint-plugin-pnpm:
         specifier: 1.3.0
         version: 1.3.0(eslint@9.39.1(jiti@2.6.1))
@@ -2734,8 +2734,8 @@ packages:
     peerDependencies:
       eslint: '>=8.23.0'
 
-  eslint-plugin-node-dependencies@1.2.0:
-    resolution: {integrity: sha512-KOyKv53AGihp2R8fN9tCtihYCDXL7cK5cdCuumjal+1V1Zxh9zW4H5tLNN+CHyOfT8z/3QI0WovOcpskAkB8KA==}
+  eslint-plugin-node-dependencies@1.3.0:
+    resolution: {integrity: sha512-DeB67/C1Cz8OIJPWj4O4Np1c/Xy/Igv9Cqd9UKwWcSZ+azseiNNBJb8lQtVLm7C6fuic/ePWm/ttb0iADtEKww==}
     engines: {node: ^18.17.0 || >=20.5.0}
     peerDependencies:
       eslint: '>=6.0.0'
@@ -8473,9 +8473,10 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  eslint-plugin-node-dependencies@1.2.0(eslint@9.39.1(jiti@2.6.1)):
+  eslint-plugin-node-dependencies@1.3.0(eslint@9.39.1(jiti@2.6.1)):
     dependencies:
       eslint: 9.39.1(jiti@2.6.1)
+      eslint-compat-utils: 0.6.5(eslint@9.39.1(jiti@2.6.1))
       jsonc-eslint-parser: 2.4.1
       npm-package-arg: 12.0.2
       package-json: 10.0.1
