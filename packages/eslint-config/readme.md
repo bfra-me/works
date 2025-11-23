@@ -203,17 +203,11 @@ export default defineConfig({
 
 ### Code Block Processing
 
-**⚠️ Important**: Code block processing is **disabled by default** due to compatibility issues with ESLint plugins that require full SourceCode API support. Enable with caution and test thoroughly.
-
 #### Enable Code Block Linting
 
 ```js
 export default defineConfig({
   markdown: {
-    processor: {
-      enabled: true,
-      extractCodeBlocks: true
-    },
     codeBlocks: {
       typescript: true,
       javascript: true,
@@ -225,7 +219,7 @@ export default defineConfig({
 })
 ```
 
-With code block processing enabled, fenced code blocks are extracted and linted as separate virtual files:
+With code block processing enabled (the default), fenced code blocks are extracted and linted as separate virtual files:
 
 ````markdown
 # Example
@@ -261,7 +255,7 @@ The linter will treat this code block as if it were in `src/user.ts` for error m
 
 #### Supported Languages in Code Blocks
 
-When code block processing is enabled, the following languages are supported:
+The following languages are supported:
 
 - **TypeScript** (`.ts`, `.tsx`) - Full TypeScript-ESLint support
 - **JavaScript** (`.js`, `.jsx`) - ES modules, async/await, modern syntax
@@ -292,10 +286,6 @@ export default defineConfig({
   markdown: {
     language: 'gfm',
     frontmatter: 'yaml',
-    processor: {
-      enabled: true,
-      extractCodeBlocks: true
-    },
     codeBlocks: {
       typescript: true,
       javascript: true
@@ -327,10 +317,6 @@ export default defineConfig({
   markdown: {
     language: 'gfm',
     frontmatter: 'yaml',
-    processor: {
-      enabled: true,
-      extractCodeBlocks: true
-    },
     codeBlocks: {
       typescript: true,
       javascript: true,
@@ -398,9 +384,12 @@ export default defineConfig({
   markdown: {
     language: 'gfm',
     frontmatter: 'yaml',
-    processor: {
-      enabled: false,
-      extractCodeBlocks: false
+    codeBlocks: {
+      javascript: true,
+      json: true,
+      jsx: true,
+      typescript: true,
+      yaml: true
     }
   }
 })
@@ -414,29 +403,23 @@ You only need the expanded form if you want to customize these defaults.
 
 Running into issues with code block extraction? Try these fixes:
 
-1. **Disable code block extraction** and lint Markdown prose only:
+1. **Selectively enable languages** that work in your environment:
 
    ```js
-   markdown: {
-     processor: { enabled: false }
-   }
+   export default defineConfig({
+    markdown: {
+      codeBlocks: {
+        typescript: true,
+        javascript: true,
+        jsx: false,  // Disable if causing issues
+        json: false,
+        yaml: false
+      }
+    }
+   })
    ```
 
-2. **Selectively enable languages** that work in your environment:
-
-   ```js
-   markdown: {
-     codeBlocks: {
-       typescript: true,
-       javascript: true,
-       jsx: false,  // Disable if causing issues
-       json: false,
-       yaml: false
-     }
-   }
-   ```
-
-3. **Check for plugin conflicts** - some ESLint plugins require full SourceCode API that isn't available in virtual code block files
+2. **Check for plugin conflicts** - some ESLint plugins require full SourceCode API that isn't available in virtual code block files
 
 #### Frontmatter Parsing Errors
 
@@ -450,7 +433,6 @@ Frontmatter not parsing correctly? Check these common issues:
 
 Linting taking too long? Here's how to speed things up:
 
-- Disable code block processing: `processor: { enabled: false }`
 - Target specific directories: `files: ['docs/**/*.md']`
 - Exclude generated docs using the `ignores` option:
 

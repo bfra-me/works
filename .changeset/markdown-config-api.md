@@ -15,7 +15,6 @@ This release introduces a new configuration API for Markdown linting with suppor
 New types and interfaces:
 - `MarkdownLanguage`: Discriminated union for 'commonmark' | 'gfm'
 - `MarkdownFrontmatterOptions`: Support for false | 'yaml' | 'toml' | 'json'
-- `MarkdownProcessorOptions`: Configure processor behavior
 - `MarkdownCodeBlockOptions`: Language-specific code block processing
 - `MarkdownOptions`: Comprehensive configuration interface
 
@@ -26,10 +25,6 @@ const config = defineConfig({
   markdown: {
     language: 'gfm',
     frontmatter: 'yaml',
-    processor: {
-      enabled: true,
-      extractCodeBlocks: true
-    },
     codeBlocks: {
       typescript: true,
       javascript: true
