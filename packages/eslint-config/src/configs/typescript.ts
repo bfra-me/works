@@ -163,8 +163,8 @@ export async function typescript(options: TypeScriptOptions = {}): Promise<Confi
 
         ...(isTypeAware
           ? [
+              generateTsConfig('default', files),
               generateTsConfig('type-aware', typeAwareFiles, typeAwareIgnores),
-              generateTsConfig('default', files, typeAwareFiles),
             ]
           : [generateTsConfig('default', files)]),
 
