@@ -1,5 +1,11 @@
 # @bfra.me/create
 
+## 0.5.21
+### Patch Changes
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.70.1`. ([#2229](https://github.com/bfra-me/works/pull/2229))
+
 ## 0.5.20
 ### Patch Changes
 

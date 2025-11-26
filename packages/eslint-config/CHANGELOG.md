@@ -1,5 +1,23 @@
 # @bfra.me/eslint-config
 
+## 0.42.0
+### Minor Changes
+
+
+- Reorder TypeScript parser configs and remove ignored files for default parser. ([#2237](https://github.com/bfra-me/works/pull/2237))
+
+
+### Patch Changes
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `61.4.1`. ([#2238](https://github.com/bfra-me/works/pull/2238))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `61.4.0`. ([#2232](https://github.com/bfra-me/works/pull/2232))
+
+
+- Updated dependency `@eslint-react/eslint-plugin` to `2.3.7`. ([#2233](https://github.com/bfra-me/works/pull/2233))
+
 ## 0.41.0
 ### Minor Changes
 
