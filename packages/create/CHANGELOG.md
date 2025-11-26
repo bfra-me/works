@@ -1,5 +1,11 @@
 # @bfra.me/create
 
+## 0.5.22
+### Patch Changes
+
+
+- Updated dependency `glob` to `13.0.0`. ([#2228](https://github.com/bfra-me/works/pull/2228))
+
 ## 0.5.21
 ### Patch Changes
 
