@@ -6290,6 +6290,11 @@ export interface Rules {
    */
   'vars-on-top'?: Linter.RuleEntry<[]>
   /**
+   * enforce using `.each` or `.for` consistently
+   * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/consistent-each-for.md
+   */
+  'vitest/consistent-each-for'?: Linter.RuleEntry<VitestConsistentEachFor>
+  /**
    * require test file pattern
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/consistent-test-filename.md
    */
@@ -6506,7 +6511,7 @@ export interface Rules {
    */
   'vitest/prefer-each'?: Linter.RuleEntry<[]>
   /**
-   * enforce using the built-in quality matchers
+   * enforce using the built-in equality matchers
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-equality-matcher.md
    */
   'vitest/prefer-equality-matcher'?: Linter.RuleEntry<[]>
@@ -6625,6 +6630,11 @@ export interface Rules {
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/require-hook.md
    */
   'vitest/require-hook'?: Linter.RuleEntry<VitestRequireHook>
+  /**
+   * require usage of import in vi.mock()
+   * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/require-import-vi-mock.md
+   */
+  'vitest/require-import-vi-mock'?: Linter.RuleEntry<[]>
   /**
    * require local Test Context for concurrent snapshot tests
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/require-local-test-context-for-concurrent-snapshots.md
@@ -16125,6 +16135,13 @@ type UseIsnan = []|[{
 // ----- valid-typeof -----
 type ValidTypeof = []|[{
   requireStringLiterals?: boolean
+}]
+// ----- vitest/consistent-each-for -----
+type VitestConsistentEachFor = []|[{
+  test?: ("each" | "for")
+  it?: ("each" | "for")
+  describe?: ("each" | "for")
+  suite?: ("each" | "for")
 }]
 // ----- vitest/consistent-test-filename -----
 type VitestConsistentTestFilename = []|[{
