@@ -80,7 +80,7 @@
     "@next/eslint-plugin-next": "16.0.3",
     "@types/eslint-config-prettier": "6.11.3",
     "@typescript-eslint/types": "8.47.0",
-    "@vitest/eslint-plugin": "1.4.3",
+    "@vitest/eslint-plugin": "1.4.4",
     "astro-eslint-parser": "1.2.2",
     "eslint": "9.39.1",
     "eslint-config-prettier": "10.1.8",
