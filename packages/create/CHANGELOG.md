@@ -1,5 +1,14 @@
 # @bfra.me/create
 
+## 0.5.23
+### Patch Changes
+
+
+- Updated dependency `msw` to `2.12.3`. ([#2240](https://github.com/bfra-me/works/pull/2240))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.71.0`. ([#2247](https://github.com/bfra-me/works/pull/2247))
+
 ## 0.5.22
 ### Patch Changes
 
