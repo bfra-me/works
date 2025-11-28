@@ -120,9 +120,7 @@ describe('performance tests', () => {
 
       // Verify the operation succeeded
       expect(result.success).toBe(true)
-      if (result.success) {
-        expect(existsSync(result.data.projectPath)).toBe(true)
-      }
+      expect(existsSync((result as {data: {projectPath: string}}).data.projectPath)).toBe(true)
 
       // Performance assertions for small templates
       expect(metrics.duration).toBeLessThan(5000) // Less than 5 seconds
@@ -153,9 +151,7 @@ describe('performance tests', () => {
 
       // Verify the operation succeeded
       expect(result.success).toBe(true)
-      if (result.success) {
-        expect(existsSync(result.data.projectPath)).toBe(true)
-      }
+      expect(existsSync((result as {data: {projectPath: string}}).data.projectPath)).toBe(true)
 
       // Performance assertions for library templates
       expect(metrics.duration).toBeLessThan(10000) // Less than 10 seconds

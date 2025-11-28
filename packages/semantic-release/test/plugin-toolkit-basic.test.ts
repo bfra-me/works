@@ -74,10 +74,8 @@ describe('plugin development toolkit - basic functionality', () => {
 
       expect(Array.isArray(analyzeContext.commits)).toBe(true)
       expect(analyzeContext.commits.length).toBe(1)
-      if (analyzeContext.commits[0]) {
-        expect(analyzeContext.commits[0].hash).toBe('abc123def456')
-        expect(analyzeContext.commits[0].message).toContain('feat:')
-      }
+      expect(analyzeContext.commits[0]?.hash).toBe('abc123def456')
+      expect(analyzeContext.commits[0]?.message).toContain('feat:')
       expect(analyzeContext.lastRelease.version).toBe('1.0.0')
       expect(analyzeContext.nextRelease.version).toBe('1.1.0')
     })
@@ -136,9 +134,7 @@ describe('plugin development toolkit - basic functionality', () => {
       }
 
       expect(Array.isArray(notesContext.commits)).toBe(true)
-      if (notesContext.commits[0]) {
-        expect(notesContext.commits[0].message).toContain('feat:')
-      }
+      expect(notesContext.commits[0]?.message).toContain('feat:')
       expect(notesContext.lastRelease.version).toBe('1.0.0')
       expect(notesContext.nextRelease.version).toBe('1.1.0')
     })

@@ -117,17 +117,19 @@ describe('cLI interaction prompts', () => {
       const invalidNames = ['', '   ', 'Invalid Name', 'invalid_name', 'INVALID']
 
       vi.mocked(text).mockImplementation(async ({validate}) => {
-        if (validate) {
-          // Test all invalid names
-          for (const invalidName of invalidNames) {
-            const validationResult = validate(invalidName)
-            expect(validationResult).toBeTruthy() // Should return error message
-          }
-
-          // Test valid name
-          const validResult = validate('valid-project-name')
-          expect(validResult).toBeUndefined() // Should return undefined for valid input
+        if (!validate) {
+          return 'valid-project-name'
         }
+
+        // Test all invalid names
+        for (const invalidName of invalidNames) {
+          const validationResult = validate(invalidName)
+          expect(validationResult).toBeTruthy() // Should return error message
+        }
+
+        // Test valid name
+        const validResult = validate('valid-project-name')
+        expect(validResult).toBeUndefined() // Should return undefined for valid input
 
         return 'valid-project-name'
       })
