@@ -1,8 +1,6 @@
 import type {Config} from '../config'
 import type {OptionsStylistic} from '../options'
-import {requireOf} from '../require-of'
 import {interopDefault} from '../utils'
-import {fallback} from './fallback'
 
 /**
  * Configuration options for the JSDoc-related ESLint rules.
@@ -45,38 +43,34 @@ export async function jsdoc(options: JSDocOptions = {}): Promise<Config[]> {
   const {stylistic = true} = options
   const includeStylistic = typeof stylistic === 'boolean' ? stylistic : true
 
-  return requireOf(
-    ['eslint-plugin-jsdoc'],
-    async () => [
-      {
-        name: '@bfra.me/jsdoc',
-        plugins: {jsdoc: await interopDefault(import('eslint-plugin-jsdoc'))},
-        rules: {
-          'jsdoc/check-param-names': 'warn',
-          'jsdoc/check-property-names': 'warn',
-          'jsdoc/require-param-name': 'warn',
-          'jsdoc/require-property-name': 'warn',
-          'jsdoc/check-access': 'warn',
-          'jsdoc/check-types': 'warn',
-          'jsdoc/empty-tags': 'warn',
-          'jsdoc/implements-on-classes': 'warn',
-          'jsdoc/no-defaults': 'warn',
-          'jsdoc/no-multi-asterisks': 'warn',
-          'jsdoc/require-property': 'warn',
-          'jsdoc/require-property-description': 'warn',
-          'jsdoc/require-returns-check': 'warn',
-          'jsdoc/require-returns-description': 'warn',
-          'jsdoc/require-yields-check': 'warn',
+  return [
+    {
+      name: '@bfra.me/jsdoc',
+      plugins: {jsdoc: await interopDefault(import('eslint-plugin-jsdoc'))},
+      rules: {
+        'jsdoc/check-param-names': 'warn',
+        'jsdoc/check-property-names': 'warn',
+        'jsdoc/require-param-name': 'warn',
+        'jsdoc/require-property-name': 'warn',
+        'jsdoc/check-access': 'warn',
+        'jsdoc/check-types': 'warn',
+        'jsdoc/empty-tags': 'warn',
+        'jsdoc/implements-on-classes': 'warn',
+        'jsdoc/no-defaults': 'warn',
+        'jsdoc/no-multi-asterisks': 'warn',
+        'jsdoc/require-property': 'warn',
+        'jsdoc/require-property-description': 'warn',
+        'jsdoc/require-returns-check': 'warn',
+        'jsdoc/require-returns-description': 'warn',
+        'jsdoc/require-yields-check': 'warn',
 
-          ...(includeStylistic
-            ? {
-                'jsdoc/check-alignment': 'warn',
-                'jsdoc/multiline-blocks': 'warn',
-              }
-            : {}),
-        },
+        ...(includeStylistic
+          ? {
+              'jsdoc/check-alignment': 'warn',
+              'jsdoc/multiline-blocks': 'warn',
+            }
+          : {}),
       },
-    ],
-    fallback,
-  )
+    },
+  ]
 }
