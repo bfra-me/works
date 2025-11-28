@@ -1,5 +1,43 @@
 # @bfra.me/eslint-config
 
+## 0.43.0
+### Minor Changes
+
+
+- Refactor package utilities with improved type safety and remove `package-directory` dependency ([#2249](https://github.com/bfra-me/works/pull/2249))
+  
+  - Replace `package-directory` with native package manager detection using `package-manager-detector`'s `LOCKS` and `AGENTS` utilities
+  - Improve package manager detection with proper traversal up the directory tree
+
+- Remove `requireOf` blocks for direct dependencies. ([#2250](https://github.com/bfra-me/works/pull/2250))
+
+
+### Patch Changes
+
+
+- Update `Config` type to use a type that extends `RulesConfig`. ([#2251](https://github.com/bfra-me/works/pull/2251))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.1.24`. ([#2248](https://github.com/bfra-me/works/pull/2248))
+
+
+- Updated dependency `@next/eslint-plugin-next` to `16.0.4`. ([#2244](https://github.com/bfra-me/works/pull/2244))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.4.4`. ([#2243](https://github.com/bfra-me/works/pull/2243))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.3.12`. ([#2248](https://github.com/bfra-me/works/pull/2248))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.48.0`. ([#2245](https://github.com/bfra-me/works/pull/2245))
+  Updated dependency `typescript-eslint` to `8.48.0`.
+
+- Updated dependency `@vitest/eslint-plugin` to `1.5.0`. ([#2248](https://github.com/bfra-me/works/pull/2248))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.3.4`. ([#2248](https://github.com/bfra-me/works/pull/2248))
+
 ## 0.42.0
 ### Minor Changes
 
