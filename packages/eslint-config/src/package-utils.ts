@@ -1,45 +1,51 @@
 import {spawnSync} from 'node:child_process'
-import {existsSync} from 'node:fs'
-import {resolve} from 'node:path'
-import process from 'node:process'
-import {packageDirectorySync} from 'package-directory'
-import {resolveCommand, type AgentName} from 'package-manager-detector'
+import fs from 'node:fs'
+import path from 'node:path'
+import {AGENTS, LOCKS, resolveCommand, type AgentName} from 'package-manager-detector'
+
+interface PackageJson {
+  packageManager?: string
+  devEngines?: {
+    packageManager?: {
+      name?: string
+    }
+  }
+  [key: string]: unknown
+}
 
 const installedModules = new Set<string>()
 
-export function tryInstall(module: string, targetFile: string = process.cwd()) {
+export function tryInstall(module: string, targetFile: string): string | null {
   if (installedModules.has(module)) {
     return null
   }
-  const cwd = packageDirectorySync({cwd: targetFile}) ?? ''
-  if (cwd) {
-    installedModules.add(module)
-    const {moduleName, version = ''} = parseModule(module)
-    const result = installPackageSync(moduleName + (version ? `@^${version}` : ''), {
-      cwd,
+  const {moduleName, version} = parseModule(module)
+  const packageId = version === undefined ? moduleName : `${moduleName}@^${version}`
+  let result
+  try {
+    result = installPackageSync(packageId, {
+      cwd: path.dirname(targetFile),
       dev: true,
     })
-    return result
+  } finally {
+    installedModules.add(module)
   }
-  return null
+  return result
 }
 
-export function getPackageInstallCommand(module: string, targetFile: string = process.cwd()) {
-  const cwd = packageDirectorySync({cwd: targetFile}) ?? ''
-  if (!cwd) {
+export function getPackageInstallCommand(module: string, targetFile: string): string | null {
+  try {
+    const {args, command} = resolvePackageInstallCommand(module, path.dirname(targetFile))
+    return `${command} ${args.join(' ')}`
+  } catch {
     return null
   }
-  const agent = detectPackageManagerSync(cwd)
-  if (!agent) {
-    return null
-  }
-  const command = resolveCommand(agent, 'install', ['-D', module])
-  return command ? `${command.command} ${command.args.join(' ')}` : null
 }
 
 function parseModule(name: string) {
   const parts = name.split(/@/u)
-  if (parts.length > 1 && parts.slice(0, -1).join('@')) {
+  const hasVersion = parts.length > 1 && parts.slice(0, -1).join('@').length > 0
+  if (hasVersion) {
     return {
       moduleName: parts.slice(0, -1).join('@'),
       version: parts.at(-1),
@@ -48,19 +54,15 @@ function parseModule(name: string) {
   return {moduleName: name}
 }
 
-function installPackageSync(packages: string | string[], options: {cwd: string; dev: boolean}) {
-  const manager = (detectPackageManagerSync(options.cwd)?.split('@')[0] ?? '') || 'npm'
-
-  if (!Array.isArray(packages)) {
-    packages = [packages]
+function resolvePackageInstallCommand(module: string, cwd: string) {
+  const agent = detectPackageManagerSync(cwd)
+  if (agent == null) {
+    throw new Error(`Unable to detect package manager for cwd: ${cwd}`)
   }
 
-  const args = []
+  const args: string[] = []
 
-  if (
-    manager === 'pnpm' &&
-    existsSync(resolve(options.cwd ?? process.cwd(), 'pnpm-workspace.yaml'))
-  ) {
+  if (agent === 'pnpm' && fs.existsSync(path.resolve(cwd, 'pnpm-workspace.yaml'))) {
     args.unshift(
       '-w',
       /**
@@ -70,40 +72,89 @@ function installPackageSync(packages: string | string[], options: {cwd: string; 
       '--prod=false',
     )
   }
-  const result = spawnSync(
-    manager,
-    [manager === 'yarn' ? 'add' : 'install', options.dev ? '-D' : '', ...args, ...packages].filter(
-      Boolean,
-    ),
-    {cwd: options.cwd, maxBuffer: Infinity, stdio: 'inherit', windowsHide: true},
-  )
 
-  if (result.error || result.status !== 0) {
+  const command = resolveCommand(agent, 'add', [...args, '-D', module])
+  if (command == null) {
+    throw new Error(`Unable to resolve command for package manager: ${agent}`)
+  }
+  return command
+}
+
+function installPackageSync(packageId: string, options: {cwd: string; dev: boolean}) {
+  const {args, command} = resolvePackageInstallCommand(packageId, options.cwd)
+  const result = spawnSync(command, args.filter(Boolean), {
+    cwd: options.cwd,
+    maxBuffer: Infinity,
+    stdio: 'inherit',
+    windowsHide: true,
+  })
+
+  if (result.error != null || result.status !== 0) {
     const errorMessage =
-      (result.error?.message ?? '') || `Package installation failed with status ${result.status}`
+      result.error?.message ?? `Package installation failed with status ${result.status}`
     throw new Error(errorMessage)
   }
 
-  return `${result.output?.toString() ?? ''}`
+  return result.output?.toString() ?? ''
 }
 
-function detectPackageManagerSync(cwd = process.cwd()): AgentName | null {
-  // We cannot reliably convert an async detect() to sync detectSync()
-  // without potentially blocking. The proper fix would be to make this
-  // function async, but that would break API compatibility.
-  // For now, we'll use a simple fallback approach:
+function isAgentName(name: string): name is AgentName {
+  return AGENTS.includes(name as AgentName)
+}
 
+function getPackageManagerFromPackageJson(cwd: string): AgentName | null {
   try {
-    // Look for lockfiles directly
-    if (existsSync(resolve(cwd, 'package-lock.json'))) {
-      return 'npm'
+    const packageJsonPath = path.join(cwd, 'package.json')
+    if (!fs.existsSync(packageJsonPath)) {
+      return null
     }
-    if (existsSync(resolve(cwd, 'yarn.lock'))) {
-      return 'yarn'
+
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8')) as PackageJson
+
+    if (typeof packageJson.packageManager === 'string') {
+      const [name] = packageJson.packageManager.split('@')
+      return name != null && isAgentName(name) ? name : null
     }
-    if (existsSync(resolve(cwd, 'pnpm-lock.yaml'))) {
-      return 'pnpm'
+
+    const devEngines = packageJson.devEngines
+    if (devEngines != null && typeof devEngines === 'object' && 'packageManager' in devEngines) {
+      const pkgManager = devEngines.packageManager
+      if (
+        pkgManager != null &&
+        typeof pkgManager === 'object' &&
+        'name' in pkgManager &&
+        typeof pkgManager.name === 'string'
+      ) {
+        return isAgentName(pkgManager.name) ? pkgManager.name : null
+      }
     }
+
+    return null
+  } catch {
+    return null
+  }
+}
+
+function detectPackageManagerSync(cwd: string): AgentName | null {
+  try {
+    let directory = path.resolve(cwd)
+    const {root} = path.parse(directory)
+
+    while (directory && directory !== root) {
+      for (const [lockfile, agent] of Object.entries(LOCKS)) {
+        if (fs.existsSync(path.resolve(directory, lockfile))) {
+          return getPackageManagerFromPackageJson(directory) ?? agent
+        }
+      }
+
+      const pkgManager = getPackageManagerFromPackageJson(directory)
+      if (pkgManager != null) {
+        return pkgManager
+      }
+
+      directory = path.dirname(directory)
+    }
+
     return null
   } catch {
     return null
