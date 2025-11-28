@@ -10,7 +10,7 @@ import {fallback} from './fallback'
  */
 export async function pnpm(): Promise<Config[]> {
   return requireOf(
-    ['eslint-plugin-jsonc', 'eslint-plugin-pnpm', 'eslint-plugin-yml'],
+    ['eslint-plugin-pnpm'],
     async () => {
       const [pluginJsonc, pluginPnpm, pluginYaml] = await Promise.all([
         interopDefault(import('eslint-plugin-jsonc')),

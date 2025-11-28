@@ -2,8 +2,6 @@ import type {Plugin} from '@eslint/core'
 import type {Config} from '../config'
 import type {Flatten, OptionsOverrides, OptionsStylistic} from '../options'
 import {pluginImportX} from '../plugins'
-import {requireOf} from '../require-of'
-import {fallback} from './fallback'
 
 /**
  * Configuration options for import-related ESLint rules.
@@ -35,39 +33,33 @@ export interface ImportsOptions extends Flatten<OptionsOverrides & OptionsStylis
  * });
  * ```
  */
-export async function imports(options: ImportsOptions = {}): Promise<Config[]> {
+export function imports(options: ImportsOptions = {}): Config[] {
   const {overrides = {}, stylistic = true} = options
   const includeStylistic = typeof stylistic === 'boolean' ? stylistic : true
 
-  return requireOf(
-    ['eslint-plugin-import-x'],
-    async () => {
-      return [
-        {
-          name: '@bfra.me/imports',
-          plugins: {
-            'import-x': pluginImportX as unknown as Plugin,
-          },
-          rules: {
-            'import-x/no-named-default': 'error',
-            'import-x/first': 'error',
-            'import-x/no-duplicates': 'error',
-            'import-x/no-mutable-exports': 'error',
-            'import-x/no-self-import': 'error',
-            'import-x/no-useless-path-segments': 'error',
-            'import-x/no-webpack-loader-syntax': 'error',
+  return [
+    {
+      name: '@bfra.me/imports',
+      plugins: {
+        'import-x': pluginImportX as unknown as Plugin,
+      },
+      rules: {
+        'import-x/no-named-default': 'error',
+        'import-x/first': 'error',
+        'import-x/no-duplicates': 'error',
+        'import-x/no-mutable-exports': 'error',
+        'import-x/no-self-import': 'error',
+        'import-x/no-useless-path-segments': 'error',
+        'import-x/no-webpack-loader-syntax': 'error',
 
-            ...(includeStylistic
-              ? {
-                  'import-x/newline-after-import': ['warn', {count: 1}],
-                }
-              : {}),
+        ...(includeStylistic
+          ? {
+              'import-x/newline-after-import': ['warn', {count: 1}],
+            }
+          : {}),
 
-            ...overrides,
-          },
-        },
-      ]
+        ...overrides,
+      },
     },
-    fallback,
-  )
+  ]
 }
