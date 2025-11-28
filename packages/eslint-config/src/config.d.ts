@@ -14,7 +14,7 @@ export type {FlatConfigComposer, ResolvableFlatConfig}
  *
  * @see https://eslint.org/docs/latest/use/configure/configuration-files#configuration-objects
  */
-export type Config<R extends RulesConfig = Rules> = Linter.Config<R>
+export type Config<R extends RulesConfig = Rules & RulesConfig> = Linter.Config<R>
 
 /**
  * Defines the names of the available ESLint configurations.
