@@ -549,9 +549,7 @@ describe('typescript compilation tests', () => {
       expect(builderConfig.plugins).toBeDefined()
       expect(Array.isArray(builderConfig.plugins)).toBe(true)
       const plugins = builderConfig.plugins
-      if (plugins) {
-        expect(plugins.length).toBe(4)
-      }
+      expect(plugins?.length).toBe(4)
     })
 
     it('should verify TypeScript inference for all export patterns', () => {

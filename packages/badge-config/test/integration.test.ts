@@ -32,15 +32,16 @@ describe('cI/CD integration scenarios', () => {
         const result = await createBadge(badgeOptions)
 
         expect(result.url).toContain(`${percentage}%25`)
-        if (percentage >= 90) {
-          expect(result.url).toContain('brightgreen')
-        } else if (percentage >= 80) {
-          expect(result.url).toContain('green')
-        } else if (percentage >= 60) {
-          expect(result.url).toContain('yellow')
-        } else {
-          expect(result.url).toContain('orange')
-        }
+        const expectedColor =
+          percentage >= 90
+            ? 'brightgreen'
+            : percentage >= 80
+              ? 'green'
+              : percentage >= 60
+                ? 'yellow'
+                : 'orange'
+
+        expect(result.url).toContain(expectedColor)
       }
     })
   })

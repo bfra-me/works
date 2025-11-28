@@ -570,9 +570,7 @@ describe('real-world release workflow tests', () => {
 
       const validationResult = validateConfig(invalidConfig)
       expect(validationResult.success).toBe(false)
-      if (!validationResult.success) {
-        expect(validationResult.error).toBeDefined()
-      }
+      expect((validationResult as {success: false; error: unknown}).error).toBeDefined()
     })
   })
 })

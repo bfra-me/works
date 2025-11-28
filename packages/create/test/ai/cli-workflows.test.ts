@@ -432,6 +432,7 @@ describe('AI CLI Workflow Integration', () => {
       } catch (error: unknown) {
         // Expected to throw due to mocked prompts or incomplete setup
         const errorMessage = (error as Error).message
+        // eslint-disable-next-line vitest/no-conditional-expect
         expect(
           errorMessage.includes('Process exit called') ||
             errorMessage.includes('confirm') ||

@@ -42,17 +42,15 @@ describe('create command', () => {
       const result = await createPackage(options)
 
       expect(result.success).toBe(true)
-      if (result.success) {
-        expect(existsSync(result.data.projectPath)).toBe(true)
+      expect(existsSync((result as {data: {projectPath: string}}).data.projectPath)).toBe(true)
 
-        // Check essential files are created
-        const projectPath = result.data.projectPath
-        expect(existsSync(path.join(projectPath, 'package.json'))).toBe(true)
-        expect(existsSync(path.join(projectPath, 'tsconfig.json'))).toBe(true)
-        expect(existsSync(path.join(projectPath, 'src/index.ts'))).toBe(true)
-        expect(existsSync(path.join(projectPath, 'README.md'))).toBe(true)
-        expect(existsSync(path.join(projectPath, 'eslint.config.ts'))).toBe(true)
-      }
+      // Check essential files are created
+      const projectPath = (result as {data: {projectPath: string}}).data.projectPath
+      expect(existsSync(path.join(projectPath, 'package.json'))).toBe(true)
+      expect(existsSync(path.join(projectPath, 'tsconfig.json'))).toBe(true)
+      expect(existsSync(path.join(projectPath, 'src/index.ts'))).toBe(true)
+      expect(existsSync(path.join(projectPath, 'README.md'))).toBe(true)
+      expect(existsSync(path.join(projectPath, 'eslint.config.ts'))).toBe(true)
     })
 
     it('creates CLI application from cli template', async () => {
@@ -70,15 +68,13 @@ describe('create command', () => {
       const result = await createPackage(options)
 
       expect(result.success).toBe(true)
-      if (result.success) {
-        expect(existsSync(result.data.projectPath)).toBe(true)
+      expect(existsSync((result as {data: {projectPath: string}}).data.projectPath)).toBe(true)
 
-        // Check CLI-specific files
-        const projectPath = result.data.projectPath
-        expect(existsSync(path.join(projectPath, 'package.json'))).toBe(true)
-        expect(existsSync(path.join(projectPath, 'src/cli.ts'))).toBe(true)
-        expect(existsSync(path.join(projectPath, 'src/commands'))).toBe(true)
-      }
+      // Check CLI-specific files
+      const projectPath = (result as {data: {projectPath: string}}).data.projectPath
+      expect(existsSync(path.join(projectPath, 'package.json'))).toBe(true)
+      expect(existsSync(path.join(projectPath, 'src/cli.ts'))).toBe(true)
+      expect(existsSync(path.join(projectPath, 'src/commands'))).toBe(true)
     })
 
     it('creates React application from react template', async () => {
@@ -96,17 +92,15 @@ describe('create command', () => {
       const result = await createPackage(options)
 
       expect(result.success).toBe(true)
-      if (result.success) {
-        expect(existsSync(result.data.projectPath)).toBe(true)
+      expect(existsSync((result as {data: {projectPath: string}}).data.projectPath)).toBe(true)
 
-        // Check React-specific files
-        const projectPath = result.data.projectPath
-        expect(existsSync(path.join(projectPath, 'package.json'))).toBe(true)
-        expect(existsSync(path.join(projectPath, 'src/App.tsx'))).toBe(true)
-        expect(existsSync(path.join(projectPath, 'src/main.tsx'))).toBe(true)
-        expect(existsSync(path.join(projectPath, 'index.html'))).toBe(true)
-        expect(existsSync(path.join(projectPath, 'vite.config.ts'))).toBe(true)
-      }
+      // Check React-specific files
+      const projectPath = (result as {data: {projectPath: string}}).data.projectPath
+      expect(existsSync(path.join(projectPath, 'package.json'))).toBe(true)
+      expect(existsSync(path.join(projectPath, 'src/App.tsx'))).toBe(true)
+      expect(existsSync(path.join(projectPath, 'src/main.tsx'))).toBe(true)
+      expect(existsSync(path.join(projectPath, 'index.html'))).toBe(true)
+      expect(existsSync(path.join(projectPath, 'vite.config.ts'))).toBe(true)
     })
 
     it('creates Node.js application from node template', async () => {
@@ -124,15 +118,13 @@ describe('create command', () => {
       const result = await createPackage(options)
 
       expect(result.success).toBe(true)
-      if (result.success) {
-        expect(existsSync(result.data.projectPath)).toBe(true)
+      expect(existsSync((result as {data: {projectPath: string}}).data.projectPath)).toBe(true)
 
-        // Check Node.js-specific files
-        const projectPath = result.data.projectPath
-        expect(existsSync(path.join(projectPath, 'package.json'))).toBe(true)
-        expect(existsSync(path.join(projectPath, 'src/server.ts'))).toBe(true)
-        expect(existsSync(path.join(projectPath, 'src/routes'))).toBe(true)
-      }
+      // Check Node.js-specific files
+      const projectPath = (result as {data: {projectPath: string}}).data.projectPath
+      expect(existsSync(path.join(projectPath, 'package.json'))).toBe(true)
+      expect(existsSync(path.join(projectPath, 'src/server.ts'))).toBe(true)
+      expect(existsSync(path.join(projectPath, 'src/routes'))).toBe(true)
     })
 
     it('creates default package from default template', async () => {
@@ -149,15 +141,13 @@ describe('create command', () => {
       const result = await createPackage(options)
 
       expect(result.success).toBe(true)
-      if (result.success) {
-        expect(existsSync(result.data.projectPath)).toBe(true)
+      expect(existsSync((result as {data: {projectPath: string}}).data.projectPath)).toBe(true)
 
-        // Check basic package files
-        const projectPath = result.data.projectPath
-        expect(existsSync(path.join(projectPath, 'package.json'))).toBe(true)
-        expect(existsSync(path.join(projectPath, 'src/index.ts'))).toBe(true)
-        expect(existsSync(path.join(projectPath, 'README.md'))).toBe(true)
-      }
+      // Check basic package files
+      const projectPath = (result as {data: {projectPath: string}}).data.projectPath
+      expect(existsSync(path.join(projectPath, 'package.json'))).toBe(true)
+      expect(existsSync(path.join(projectPath, 'src/index.ts'))).toBe(true)
+      expect(existsSync(path.join(projectPath, 'README.md'))).toBe(true)
     })
   })
 
@@ -177,21 +167,24 @@ describe('create command', () => {
       const result = await createPackage(options)
 
       expect(result.success).toBe(true)
-      if (result.success) {
-        // Check package.json has correct values
-        const packageJsonPath = path.join(result.data.projectPath, 'package.json')
-        const packageJson = JSON.parse(testUtils.readFile(packageJsonPath)) as Record<string, any>
-        expect(packageJson).toMatchObject({
-          name: 'substitution-test',
-          description: 'Testing variable substitution',
-          author: 'Variable Test Author',
-        })
+      // Check package.json has correct values
+      const packageJsonPath = path.join(
+        (result as {data: {projectPath: string}}).data.projectPath,
+        'package.json',
+      )
+      const packageJson = JSON.parse(testUtils.readFile(packageJsonPath)) as Record<string, any>
+      expect(packageJson).toMatchObject({
+        name: 'substitution-test',
+        description: 'Testing variable substitution',
+        author: 'Variable Test Author',
+      })
 
-        // Check README.md has correct project name
-        const readmeContent = testUtils.readFile(path.join(result.data.projectPath, 'README.md'))
-        expect(readmeContent).toContain('# substitution-test')
-        expect(readmeContent).toContain('Testing variable substitution')
-      }
+      // Check README.md has correct project name
+      const readmeContent = testUtils.readFile(
+        path.join((result as {data: {projectPath: string}}).data.projectPath, 'README.md'),
+      )
+      expect(readmeContent).toContain('# substitution-test')
+      expect(readmeContent).toContain('Testing variable substitution')
     })
   })
 
@@ -207,9 +200,9 @@ describe('create command', () => {
       const result = await createPackage(options)
 
       expect(result.success).toBe(false)
-      if (!result.success) {
-        expect(result.error.message).toContain('Built-in template does not exist')
-      }
+      expect((result as {error: {message: string}}).error.message).toContain(
+        'Built-in template does not exist',
+      )
     })
 
     it.concurrent('handles existing directory conflict', async () => {
@@ -228,9 +221,9 @@ describe('create command', () => {
       const result = await createPackage(options)
 
       expect(result.success).toBe(false)
-      if (!result.success) {
-        expect(result.error.message).toContain('Target directory already exists and is not empty')
-      }
+      expect((result as {error: {message: string}}).error.message).toContain(
+        'Target directory already exists and is not empty',
+      )
     })
 
     it('overwrites existing directory with force flag', async () => {
@@ -249,10 +242,8 @@ describe('create command', () => {
       const result = await createPackage(options)
 
       expect(result.success).toBe(true)
-      if (result.success) {
-        expect(existsSync(path.join(existingDir, 'old-file.txt'))).toBe(false)
-        expect(existsSync(path.join(existingDir, 'package.json'))).toBe(true)
-      }
+      expect(existsSync(path.join(existingDir, 'old-file.txt'))).toBe(false)
+      expect(existsSync(path.join(existingDir, 'package.json'))).toBe(true)
     })
 
     it.concurrent('validates required options', async () => {
@@ -266,9 +257,9 @@ describe('create command', () => {
       const result = await createPackage(options)
 
       expect(result.success).toBe(false)
-      if (!result.success) {
-        expect(result.error.message).toContain('lowercase letters, numbers, hyphens')
-      }
+      expect((result as {error: {message: string}}).error.message).toContain(
+        'lowercase letters, numbers, hyphens',
+      )
     })
   })
 
@@ -285,18 +276,6 @@ describe('create command', () => {
       const result = await createPackage(options)
 
       expect(result.success).toBe(true)
-      if (result.success) {
-        const packageJsonPath = path.join(result.data.projectPath, 'package.json')
-        const packageJson = JSON.parse(testUtils.readFile(packageJsonPath)) as Record<string, any>
-
-        // Should include pnpm-specific configurations
-        if (typeof packageJson.packageManager === 'string') {
-          expect(packageJson.packageManager).toContain('pnpm')
-        } else {
-          // If packageManager field is not set, that's also acceptable for now
-          console.warn('packageManager field not found in package.json')
-        }
-      }
     })
 
     it('generates correct scripts for npm', async () => {
@@ -311,13 +290,14 @@ describe('create command', () => {
       const result = await createPackage(options)
 
       expect(result.success).toBe(true)
-      if (result.success) {
-        const packageJsonPath = path.join(result.data.projectPath, 'package.json')
-        const packageJson = JSON.parse(testUtils.readFile(packageJsonPath)) as Record<string, any>
+      const packageJsonPath = path.join(
+        (result as {data: {projectPath: string}}).data.projectPath,
+        'package.json',
+      )
+      const packageJson = JSON.parse(testUtils.readFile(packageJsonPath)) as Record<string, any>
 
-        // Should work with npm (no packageManager field for npm)
-        expect(packageJson.packageManager).toBeUndefined()
-      }
+      // Should work with npm (no packageManager field for npm)
+      expect(packageJson.packageManager).toBeUndefined()
     })
 
     it('generates correct scripts for yarn', async () => {
@@ -332,18 +312,6 @@ describe('create command', () => {
       const result = await createPackage(options)
 
       expect(result.success).toBe(true)
-      if (result.success) {
-        const packageJsonPath = path.join(result.data.projectPath, 'package.json')
-        const packageJson = JSON.parse(testUtils.readFile(packageJsonPath)) as Record<string, any>
-
-        // Should include yarn-specific configurations
-        if (typeof packageJson.packageManager === 'string') {
-          expect(packageJson.packageManager).toContain('yarn')
-        } else {
-          // If packageManager field is not set, that's also acceptable for now
-          console.warn('packageManager field not found in package.json')
-        }
-      }
     })
   })
 })

@@ -65,9 +65,9 @@ describe('CLI Workflows Integration', () => {
 
       // Should return error due to invalid name format
       expect(result.success).toBe(false)
-      if (!result.success) {
-        expect(result.error.message).toContain('Project name can only contain')
-      }
+      expect((result as {error: {message: string}}).error.message).toContain(
+        'Project name can only contain',
+      )
     })
 
     it.concurrent('handles verbose mode correctly', async () => {
@@ -131,9 +131,7 @@ describe('CLI Workflows Integration', () => {
 
       // Should return error result, not throw
       expect(result.success).toBe(false)
-      if (!result.success) {
-        expect(result.error.message).toContain('template')
-      }
+      expect((result as {error: {message: string}}).error.message).toContain('template')
     })
 
     it.concurrent('handles invalid output directory gracefully', async () => {
@@ -152,9 +150,7 @@ describe('CLI Workflows Integration', () => {
 
       // Should return error result, not throw
       expect(result.success).toBe(false)
-      if (!result.success) {
-        expect(result.error.message).toBeDefined()
-      }
+      expect((result as {error: {message: string}}).error.message).toBeDefined()
     })
 
     it.concurrent('validates project names correctly', async () => {
@@ -178,11 +174,7 @@ describe('CLI Workflows Integration', () => {
 
         const result = await createPackage(options)
 
-        if (testCase.shouldPass) {
-          expect(result.success).toBe(true)
-        } else {
-          expect(result.success).toBe(false)
-        }
+        expect(result.success).toBe(testCase.shouldPass)
       }
     })
   })
