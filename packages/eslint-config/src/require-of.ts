@@ -1,10 +1,17 @@
 import type {Config} from './config'
+import {fileURLToPath} from 'node:url'
 import {isPackageExists} from 'local-pkg'
 
+const scopeUrl = fileURLToPath(new URL('.', import.meta.url))
 const packageExistsCache = new Map<string, boolean>()
+
+function isPackageInScope(name: string): boolean {
+  return isPackageExists(name, {paths: [scopeUrl]})
+}
+
 const has = (name: string) => {
   if (!packageExistsCache.has(name)) {
-    packageExistsCache.set(name, isPackageExists(name))
+    packageExistsCache.set(name, isPackageInScope(name))
   }
   return packageExistsCache.get(name)
 }
