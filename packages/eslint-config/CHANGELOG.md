@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.44.2
+### Patch Changes
+
+
+- Revert `prettier` and `typescript` package detection. ([#2260](https://github.com/bfra-me/works/pull/2260))
+
 ## 0.44.1
 ### Patch Changes
 
