@@ -1,5 +1,6 @@
 import type {Config, ConfigNames, FlatConfigComposer, ResolvableFlatConfig} from './config'
 import type {Options} from './options'
+import {isPackageExists} from 'local-pkg'
 import {composeConfig} from './compose-config'
 import {
   astro,
@@ -31,8 +32,7 @@ import {
   vitest,
   yaml,
 } from './configs'
-import * as Env from './env'
-import {isPackageInScope} from './utils'
+import {isInEditorEnv} from './utils'
 
 // These are merged into the Options interface
 type AllowedConfigForOptions = Omit<Config, 'files'>
@@ -71,19 +71,23 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
     packageJson: enablePackageJson = false,
     perfectionist: enablePerfectionist = true,
     pnpm: enableCatalogs = false,
-    prettier: enablePrettier = isPackageInScope('prettier'),
+    prettier: enablePrettier = isPackageExists('prettier'),
     react: enableReact = false,
     regexp: enableRegexp = true,
-    typescript: enableTypeScript = isPackageInScope('typescript'),
+    typescript: enableTypeScript = isPackageExists('typescript'),
     unicorn: enableUnicorn = true,
   } = options
 
-  const isInEditor = options.isInEditor ?? Env.isInEditor
-  if (isInEditor)
-    // eslint-disable-next-line no-console
-    console.log(
-      '[@bfra.me/eslint-config] Editor specific config is enabled. Some rules may be disabled.',
-    )
+  let isInEditor = options.isInEditor
+  if (isInEditor == null) {
+    isInEditor = isInEditorEnv()
+    if (isInEditor) {
+      // eslint-disable-next-line no-console
+      console.log(
+        '[@bfra.me/eslint-config] Editor specific config is enabled. Some rules may be disabled.',
+      )
+    }
+  }
 
   const stylisticOptions =
     options.stylistic === false || enablePrettier
