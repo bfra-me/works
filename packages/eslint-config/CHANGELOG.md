@@ -1,5 +1,19 @@
 # @bfra.me/eslint-config
 
+## 0.45.1
+### Patch Changes
+
+
+- > [!TIP] ([#2270](https://github.com/bfra-me/works/pull/2270))
+  > Fix GFM admonition false positives in markdown linting
+  
+  Configure `markdown/no-missing-label-refs` rule to allow GitHub Flavored Markdown admonitions (`!NOTE`, `!TIP`, `!WARNING`, `!IMPORTANT`, `!CAUTION`) when using GFM language mode. This prevents false positive warnings for valid GFM alert syntax that uses bracket notation for callouts.
+
+- Updated dependency `sort-package-json` to `3.5.0`. ([#2269](https://github.com/bfra-me/works/pull/2269))
+
+
+- Updated dependency `@eslint-react/eslint-plugin` to `2.3.9`. ([#2267](https://github.com/bfra-me/works/pull/2267))
+
 ## 0.45.0
 ### Minor Changes
 
