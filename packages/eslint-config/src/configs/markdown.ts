@@ -263,7 +263,17 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
         'markdown/no-empty-links': 'error',
         'markdown/no-invalid-label-refs': 'error',
         'markdown/no-missing-atx-heading-space': 'error',
-        'markdown/no-missing-label-refs': 'error',
+        'markdown/no-missing-label-refs':
+          // Disable label warnings for admonitions if using GFM
+          language === 'gfm'
+            ? [
+                'error',
+                {
+                  // @keep-sorted
+                  allowLabels: ['!CAUTION', '!IMPORTANT', '!NOTE', '!TIP', '!WARNING'],
+                },
+              ]
+            : 'error',
         'markdown/no-missing-link-fragments': 'error',
         'markdown/no-multiple-h1': 'error',
         'markdown/no-reference-like-urls': 'error',
