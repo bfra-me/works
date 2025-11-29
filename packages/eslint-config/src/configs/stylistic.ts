@@ -2,12 +2,12 @@ import type {Config} from '../config'
 import type {Flatten, OptionsOverrides, StylisticConfig} from '../options'
 import {interopDefault} from '../utils'
 
-const StylisticConfigDefaults: StylisticConfig = {
+export const StylisticConfigDefaults = {
   indent: 2,
   jsx: true,
   quotes: 'single',
   semi: false,
-}
+} as const
 
 /**
  * Configuration options for stylistic ESLint rules.
