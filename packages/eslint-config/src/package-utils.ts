@@ -3,6 +3,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 import {AGENTS, LOCKS, resolveCommand, type AgentName} from 'package-manager-detector'
 
+export type InstallResult = {success: true} | {success: false; output: string} | null
+
 interface PackageJson {
   packageManager?: string
   devEngines?: {
@@ -13,24 +15,36 @@ interface PackageJson {
   [key: string]: unknown
 }
 
+interface ParsedModule {
+  moduleName: string
+  version?: string
+}
+
+interface InstallOptions {
+  cwd: string
+  dev: boolean
+}
+
 const installedModules = new Set<string>()
 
-export function tryInstall(module: string, targetFile: string): string | null {
+export function tryInstall(module: string, targetFile: string): InstallResult {
   if (installedModules.has(module)) {
     return null
   }
   const {moduleName, version} = parseModule(module)
   const packageId = version === undefined ? moduleName : `${moduleName}@^${version}`
-  let result
   try {
-    result = installPackageSync(packageId, {
+    installPackageSync(packageId, {
       cwd: path.dirname(targetFile),
       dev: true,
     })
-  } finally {
     installedModules.add(module)
+    return {success: true}
+  } catch (error) {
+    installedModules.add(module)
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    return {output: errorMessage, success: false}
   }
-  return result
 }
 
 export function getPackageInstallCommand(module: string, targetFile: string): string | null {
@@ -42,7 +56,7 @@ export function getPackageInstallCommand(module: string, targetFile: string): st
   }
 }
 
-function parseModule(name: string) {
+function parseModule(name: string): ParsedModule {
   const parts = name.split(/@/u)
   const hasVersion = parts.length > 1 && parts.slice(0, -1).join('@').length > 0
   if (hasVersion) {
@@ -54,7 +68,10 @@ function parseModule(name: string) {
   return {moduleName: name}
 }
 
-function resolvePackageInstallCommand(module: string, cwd: string) {
+function resolvePackageInstallCommand(
+  module: string,
+  cwd: string,
+): {command: string; args: string[]} {
   const agent = detectPackageManagerSync(cwd)
   if (agent == null) {
     throw new Error(`Unable to detect package manager for cwd: ${cwd}`)
@@ -65,10 +82,7 @@ function resolvePackageInstallCommand(module: string, cwd: string) {
   if (agent === 'pnpm' && fs.existsSync(path.resolve(cwd, 'pnpm-workspace.yaml'))) {
     args.unshift(
       '-w',
-      /**
-       * Prevent pnpm from removing installed development deps when `NODE_ENV` is `production`
-       * @see https://pnpm.io/cli/install#--prod--p
-       */
+      // Prevent pnpm from removing installed development deps when NODE_ENV is production
       '--prod=false',
     )
   }
@@ -80,7 +94,7 @@ function resolvePackageInstallCommand(module: string, cwd: string) {
   return command
 }
 
-function installPackageSync(packageId: string, options: {cwd: string; dev: boolean}) {
+function installPackageSync(packageId: string, options: InstallOptions): string {
   const {args, command} = resolvePackageInstallCommand(packageId, options.cwd)
   const result = spawnSync(command, args.filter(Boolean), {
     cwd: options.cwd,
