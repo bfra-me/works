@@ -232,8 +232,10 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
         'command/command': 'off',
 
         'jsdoc/check-access': 'off',
+        'jsdoc/check-alignment': 'off',
         'jsdoc/check-types': 'off',
         'jsdoc/empty-tags': 'off',
+        'jsdoc/multiline-blocks': 'off',
         'jsdoc/no-multi-asterisks': 'off',
         'jsdoc/require-property': 'off',
         'jsdoc/require-property-description': 'off',
