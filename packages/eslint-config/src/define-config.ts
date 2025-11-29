@@ -90,7 +90,7 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
   }
 
   const stylisticOptions =
-    options.stylistic === false || enablePrettier
+    options.stylistic === false
       ? false
       : typeof options.stylistic === 'object'
         ? options.stylistic
