@@ -1,5 +1,13 @@
 # @bfra.me/eslint-config
 
+## 0.44.1
+### Patch Changes
+
+
+- Refine `defineConfig` behavior and types for eslint-config: ([#2257](https://github.com/bfra-me/works/pull/2257))
+  
+  - Replace `isPackageExists` with `isPackageInScope` for prettier and typescript options.
+
 ## 0.44.0
 ### Minor Changes
 
