@@ -1,13 +1,12 @@
 import type {Config} from '../config'
 import type {Flatten, OptionsIsInEditor, OptionsOverrides} from '../options'
 import globals from 'globals'
-import {GLOB_JSX, GLOB_TSX} from '../globs'
 import {interopDefault} from '../utils'
 
 /**
  * Represents the options for configuring the JavaScript ESLint configuration.
  */
-export type JavaScriptOptions = Flatten<OptionsIsInEditor & OptionsOverrides & {jsx?: boolean}>
+export type JavaScriptOptions = Flatten<OptionsIsInEditor & OptionsOverrides>
 
 /**
  * Configures the JavaScript ESLint configuration with the specified options.
@@ -18,25 +17,27 @@ export type JavaScriptOptions = Flatten<OptionsIsInEditor & OptionsOverrides & {
  * @returns An array of ESLint configurations.
  */
 export async function javascript(options: JavaScriptOptions = {}): Promise<Config[]> {
-  const {isInEditor = false, jsx = true, overrides = {}} = options
+  const {isInEditor = false, overrides = {}} = options
   const pluginUnusedImports = await interopDefault(import('eslint-plugin-unused-imports'))
 
   return [
     {
       name: '@bfra.me/javascript/options',
       languageOptions: {
-        ecmaVersion: 2022,
+        ecmaVersion: 'latest',
         globals: {
           ...globals.browser,
           ...globals.es2021,
           ...globals.node,
+          document: 'readonly',
+          navigator: 'readonly',
+          window: 'readonly',
         },
-
         parserOptions: {
           ecmaFeatures: {
             jsx: true,
           },
-          ecmaVersion: 2022,
+          ecmaVersion: 'latest',
           sourceType: 'module',
         },
         sourceType: 'module',
@@ -231,21 +232,5 @@ export async function javascript(options: JavaScriptOptions = {}): Promise<Confi
         ...overrides,
       },
     },
-
-    ...(jsx
-      ? [
-          {
-            name: '@bfra.me/jsx',
-            files: [GLOB_JSX, GLOB_TSX],
-            languageOptions: {
-              parserOptions: {
-                ecmaFeatures: {
-                  jsx: true,
-                },
-              },
-            },
-          },
-        ]
-      : []),
   ]
 }

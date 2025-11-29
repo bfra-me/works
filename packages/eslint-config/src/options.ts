@@ -10,6 +10,23 @@ import type {AstroOptions, MarkdownOptions} from './configs'
 // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export type Flatten<T> = T extends Function ? T : {[K in keyof T]: T[K]} & {}
 
+export interface JsxA11yOptions extends OptionsOverrides {
+  // Add future a11y-specific options here
+}
+
+export interface JsxOptions {
+  /**
+   * Enable JSX accessibility rules.
+   *
+   * Requires installing:
+   * - `eslint-plugin-jsx-a11y`
+   *
+   * Can be a boolean or an object for custom options and overrides.
+   * @default false
+   */
+  a11y?: boolean | JsxA11yOptions
+}
+
 /**
  * Provides an option to override the `files` option in the ESLint configuration.
  * This allows customizing the glob patterns used to include files in the linting process.
@@ -217,7 +234,7 @@ export type Options = Flatten<
      *
      * @default true
      */
-    jsx?: boolean
+    jsx?: boolean | JsxOptions
 
     /**
      * Options to override the behavior of linting Markdown files.
