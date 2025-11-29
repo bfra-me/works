@@ -13,6 +13,9 @@ const configs = await composeConfig(
     },
   },
   ...Object.values(allConfigs).map(async f => {
+    if (typeof f !== 'function') {
+      return []
+    }
     if (f === allConfigs.typescript) {
       return (f as typeof allConfigs.typescript)({
         erasableSyntaxOnly: true,
