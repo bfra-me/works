@@ -1311,182 +1311,182 @@ export interface Rules {
    * apply `jsx-a11y/alt-text` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/alt-text/
    */
-  'astro/jsx-a11y/alt-text'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/alt-text'?: Linter.RuleEntry<AstroJsxA11YAltText>
   /**
    * apply `jsx-a11y/anchor-ambiguous-text` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/anchor-ambiguous-text/
    */
-  'astro/jsx-a11y/anchor-ambiguous-text'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/anchor-ambiguous-text'?: Linter.RuleEntry<AstroJsxA11YAnchorAmbiguousText>
   /**
    * apply `jsx-a11y/anchor-has-content` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/anchor-has-content/
    */
-  'astro/jsx-a11y/anchor-has-content'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/anchor-has-content'?: Linter.RuleEntry<AstroJsxA11YAnchorHasContent>
   /**
    * apply `jsx-a11y/anchor-is-valid` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/anchor-is-valid/
    */
-  'astro/jsx-a11y/anchor-is-valid'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/anchor-is-valid'?: Linter.RuleEntry<AstroJsxA11YAnchorIsValid>
   /**
    * apply `jsx-a11y/aria-activedescendant-has-tabindex` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/aria-activedescendant-has-tabindex/
    */
-  'astro/jsx-a11y/aria-activedescendant-has-tabindex'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/aria-activedescendant-has-tabindex'?: Linter.RuleEntry<AstroJsxA11YAriaActivedescendantHasTabindex>
   /**
    * apply `jsx-a11y/aria-props` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/aria-props/
    */
-  'astro/jsx-a11y/aria-props'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/aria-props'?: Linter.RuleEntry<AstroJsxA11YAriaProps>
   /**
    * apply `jsx-a11y/aria-proptypes` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/aria-proptypes/
    */
-  'astro/jsx-a11y/aria-proptypes'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/aria-proptypes'?: Linter.RuleEntry<AstroJsxA11YAriaProptypes>
   /**
    * apply `jsx-a11y/aria-role` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/aria-role/
    */
-  'astro/jsx-a11y/aria-role'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/aria-role'?: Linter.RuleEntry<AstroJsxA11YAriaRole>
   /**
    * apply `jsx-a11y/aria-unsupported-elements` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/aria-unsupported-elements/
    */
-  'astro/jsx-a11y/aria-unsupported-elements'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/aria-unsupported-elements'?: Linter.RuleEntry<AstroJsxA11YAriaUnsupportedElements>
   /**
    * apply `jsx-a11y/autocomplete-valid` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/autocomplete-valid/
    */
-  'astro/jsx-a11y/autocomplete-valid'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/autocomplete-valid'?: Linter.RuleEntry<AstroJsxA11YAutocompleteValid>
   /**
    * apply `jsx-a11y/click-events-have-key-events` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/click-events-have-key-events/
    */
-  'astro/jsx-a11y/click-events-have-key-events'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/click-events-have-key-events'?: Linter.RuleEntry<AstroJsxA11YClickEventsHaveKeyEvents>
   /**
    * apply `jsx-a11y/control-has-associated-label` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/control-has-associated-label/
    */
-  'astro/jsx-a11y/control-has-associated-label'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/control-has-associated-label'?: Linter.RuleEntry<AstroJsxA11YControlHasAssociatedLabel>
   /**
    * apply `jsx-a11y/heading-has-content` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/heading-has-content/
    */
-  'astro/jsx-a11y/heading-has-content'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/heading-has-content'?: Linter.RuleEntry<AstroJsxA11YHeadingHasContent>
   /**
    * apply `jsx-a11y/html-has-lang` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/html-has-lang/
    */
-  'astro/jsx-a11y/html-has-lang'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/html-has-lang'?: Linter.RuleEntry<AstroJsxA11YHtmlHasLang>
   /**
    * apply `jsx-a11y/iframe-has-title` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/iframe-has-title/
    */
-  'astro/jsx-a11y/iframe-has-title'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/iframe-has-title'?: Linter.RuleEntry<AstroJsxA11YIframeHasTitle>
   /**
    * apply `jsx-a11y/img-redundant-alt` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/img-redundant-alt/
    */
-  'astro/jsx-a11y/img-redundant-alt'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/img-redundant-alt'?: Linter.RuleEntry<AstroJsxA11YImgRedundantAlt>
   /**
    * apply `jsx-a11y/interactive-supports-focus` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/interactive-supports-focus/
    */
-  'astro/jsx-a11y/interactive-supports-focus'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/interactive-supports-focus'?: Linter.RuleEntry<AstroJsxA11YInteractiveSupportsFocus>
   /**
    * apply `jsx-a11y/label-has-associated-control` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/label-has-associated-control/
    */
-  'astro/jsx-a11y/label-has-associated-control'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/label-has-associated-control'?: Linter.RuleEntry<AstroJsxA11YLabelHasAssociatedControl>
   /**
    * apply `jsx-a11y/lang` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/lang/
    */
-  'astro/jsx-a11y/lang'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/lang'?: Linter.RuleEntry<AstroJsxA11YLang>
   /**
    * apply `jsx-a11y/media-has-caption` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/media-has-caption/
    */
-  'astro/jsx-a11y/media-has-caption'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/media-has-caption'?: Linter.RuleEntry<AstroJsxA11YMediaHasCaption>
   /**
    * apply `jsx-a11y/mouse-events-have-key-events` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/mouse-events-have-key-events/
    */
-  'astro/jsx-a11y/mouse-events-have-key-events'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/mouse-events-have-key-events'?: Linter.RuleEntry<AstroJsxA11YMouseEventsHaveKeyEvents>
   /**
    * apply `jsx-a11y/no-access-key` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/no-access-key/
    */
-  'astro/jsx-a11y/no-access-key'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/no-access-key'?: Linter.RuleEntry<AstroJsxA11YNoAccessKey>
   /**
    * apply `jsx-a11y/no-aria-hidden-on-focusable` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/no-aria-hidden-on-focusable/
    */
-  'astro/jsx-a11y/no-aria-hidden-on-focusable'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/no-aria-hidden-on-focusable'?: Linter.RuleEntry<AstroJsxA11YNoAriaHiddenOnFocusable>
   /**
    * apply `jsx-a11y/no-autofocus` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/no-autofocus/
    */
-  'astro/jsx-a11y/no-autofocus'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/no-autofocus'?: Linter.RuleEntry<AstroJsxA11YNoAutofocus>
   /**
    * apply `jsx-a11y/no-distracting-elements` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/no-distracting-elements/
    */
-  'astro/jsx-a11y/no-distracting-elements'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/no-distracting-elements'?: Linter.RuleEntry<AstroJsxA11YNoDistractingElements>
   /**
    * apply `jsx-a11y/no-interactive-element-to-noninteractive-role` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/no-interactive-element-to-noninteractive-role/
    */
-  'astro/jsx-a11y/no-interactive-element-to-noninteractive-role'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/no-interactive-element-to-noninteractive-role'?: Linter.RuleEntry<AstroJsxA11YNoInteractiveElementToNoninteractiveRole>
   /**
    * apply `jsx-a11y/no-noninteractive-element-interactions` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/no-noninteractive-element-interactions/
    */
-  'astro/jsx-a11y/no-noninteractive-element-interactions'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/no-noninteractive-element-interactions'?: Linter.RuleEntry<AstroJsxA11YNoNoninteractiveElementInteractions>
   /**
    * apply `jsx-a11y/no-noninteractive-element-to-interactive-role` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/no-noninteractive-element-to-interactive-role/
    */
-  'astro/jsx-a11y/no-noninteractive-element-to-interactive-role'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/no-noninteractive-element-to-interactive-role'?: Linter.RuleEntry<AstroJsxA11YNoNoninteractiveElementToInteractiveRole>
   /**
    * apply `jsx-a11y/no-noninteractive-tabindex` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/no-noninteractive-tabindex/
    */
-  'astro/jsx-a11y/no-noninteractive-tabindex'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/no-noninteractive-tabindex'?: Linter.RuleEntry<AstroJsxA11YNoNoninteractiveTabindex>
   /**
    * apply `jsx-a11y/no-redundant-roles` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/no-redundant-roles/
    */
-  'astro/jsx-a11y/no-redundant-roles'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/no-redundant-roles'?: Linter.RuleEntry<AstroJsxA11YNoRedundantRoles>
   /**
    * apply `jsx-a11y/no-static-element-interactions` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/no-static-element-interactions/
    */
-  'astro/jsx-a11y/no-static-element-interactions'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/no-static-element-interactions'?: Linter.RuleEntry<AstroJsxA11YNoStaticElementInteractions>
   /**
    * apply `jsx-a11y/prefer-tag-over-role` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/prefer-tag-over-role/
    */
-  'astro/jsx-a11y/prefer-tag-over-role'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/prefer-tag-over-role'?: Linter.RuleEntry<AstroJsxA11YPreferTagOverRole>
   /**
    * apply `jsx-a11y/role-has-required-aria-props` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/role-has-required-aria-props/
    */
-  'astro/jsx-a11y/role-has-required-aria-props'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/role-has-required-aria-props'?: Linter.RuleEntry<AstroJsxA11YRoleHasRequiredAriaProps>
   /**
    * apply `jsx-a11y/role-supports-aria-props` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/role-supports-aria-props/
    */
-  'astro/jsx-a11y/role-supports-aria-props'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/role-supports-aria-props'?: Linter.RuleEntry<AstroJsxA11YRoleSupportsAriaProps>
   /**
    * apply `jsx-a11y/scope` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/scope/
    */
-  'astro/jsx-a11y/scope'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/scope'?: Linter.RuleEntry<AstroJsxA11YScope>
   /**
    * apply `jsx-a11y/tabindex-no-positive` rule to Astro components
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/tabindex-no-positive/
    */
-  'astro/jsx-a11y/tabindex-no-positive'?: Linter.RuleEntry<[]>
+  'astro/jsx-a11y/tabindex-no-positive'?: Linter.RuleEntry<AstroJsxA11YTabindexNoPositive>
   /**
    * the client:only directive is missing the correct component's framework value
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/missing-client-only-directive-value/
@@ -9334,6 +9334,198 @@ type ArrowParens = []|[("always" | "as-needed")]|[("always" | "as-needed"), {
 type ArrowSpacing = []|[{
   before?: boolean
   after?: boolean
+}]
+// ----- astro/jsx-a11y/alt-text -----
+type AstroJsxA11YAltText = []|[{
+  elements?: string[]
+  img?: string[]
+  object?: string[]
+  area?: string[]
+  "input[type=\"image\"]"?: string[]
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/anchor-ambiguous-text -----
+type AstroJsxA11YAnchorAmbiguousText = []|[{
+  words?: string[]
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/anchor-has-content -----
+type AstroJsxA11YAnchorHasContent = []|[{
+  components?: string[]
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/anchor-is-valid -----
+type AstroJsxA11YAnchorIsValid = []|[{
+  components?: string[]
+  specialLink?: string[]
+  
+  aspects?: [("noHref" | "invalidHref" | "preferButton"), ...(("noHref" | "invalidHref" | "preferButton"))[]]
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/aria-activedescendant-has-tabindex -----
+type AstroJsxA11YAriaActivedescendantHasTabindex = []|[{
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/aria-props -----
+type AstroJsxA11YAriaProps = []|[{
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/aria-proptypes -----
+type AstroJsxA11YAriaProptypes = []|[{
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/aria-role -----
+type AstroJsxA11YAriaRole = []|[{
+  allowedInvalidRoles?: string[]
+  ignoreNonDOM?: boolean
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/aria-unsupported-elements -----
+type AstroJsxA11YAriaUnsupportedElements = []|[{
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/autocomplete-valid -----
+type AstroJsxA11YAutocompleteValid = []|[{
+  inputComponents?: string[]
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/click-events-have-key-events -----
+type AstroJsxA11YClickEventsHaveKeyEvents = []|[{
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/control-has-associated-label -----
+type AstroJsxA11YControlHasAssociatedLabel = []|[{
+  labelAttributes?: string[]
+  controlComponents?: string[]
+  ignoreElements?: string[]
+  ignoreRoles?: string[]
+  
+  depth?: number
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/heading-has-content -----
+type AstroJsxA11YHeadingHasContent = []|[{
+  components?: string[]
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/html-has-lang -----
+type AstroJsxA11YHtmlHasLang = []|[{
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/iframe-has-title -----
+type AstroJsxA11YIframeHasTitle = []|[{
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/img-redundant-alt -----
+type AstroJsxA11YImgRedundantAlt = []|[{
+  components?: string[]
+  words?: string[]
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/interactive-supports-focus -----
+type AstroJsxA11YInteractiveSupportsFocus = []|[{
+  
+  tabbable?: ("button" | "checkbox" | "columnheader" | "combobox" | "grid" | "gridcell" | "link" | "listbox" | "menu" | "menubar" | "menuitem" | "menuitemcheckbox" | "menuitemradio" | "option" | "progressbar" | "radio" | "radiogroup" | "row" | "rowheader" | "scrollbar" | "searchbox" | "slider" | "spinbutton" | "switch" | "tab" | "tablist" | "textbox" | "tree" | "treegrid" | "treeitem" | "doc-backlink" | "doc-biblioref" | "doc-glossref" | "doc-noteref")[]
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/label-has-associated-control -----
+type AstroJsxA11YLabelHasAssociatedControl = []|[{
+  labelComponents?: string[]
+  labelAttributes?: string[]
+  controlComponents?: string[]
+  
+  assert?: ("htmlFor" | "nesting" | "both" | "either")
+  
+  depth?: number
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/lang -----
+type AstroJsxA11YLang = []|[{
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/media-has-caption -----
+type AstroJsxA11YMediaHasCaption = []|[{
+  audio?: string[]
+  video?: string[]
+  track?: string[]
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/mouse-events-have-key-events -----
+type AstroJsxA11YMouseEventsHaveKeyEvents = []|[{
+  
+  hoverInHandlers?: string[]
+  
+  hoverOutHandlers?: string[]
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/no-access-key -----
+type AstroJsxA11YNoAccessKey = []|[{
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/no-aria-hidden-on-focusable -----
+type AstroJsxA11YNoAriaHiddenOnFocusable = []|[{
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/no-autofocus -----
+type AstroJsxA11YNoAutofocus = []|[{
+  ignoreNonDOM?: boolean
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/no-distracting-elements -----
+type AstroJsxA11YNoDistractingElements = []|[{
+  
+  elements?: ("marquee" | "blink")[]
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/no-interactive-element-to-noninteractive-role -----
+type AstroJsxA11YNoInteractiveElementToNoninteractiveRole = []|[{
+  [k: string]: string[] | undefined
+}]
+// ----- astro/jsx-a11y/no-noninteractive-element-interactions -----
+type AstroJsxA11YNoNoninteractiveElementInteractions = []|[{
+  handlers?: string[]
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/no-noninteractive-element-to-interactive-role -----
+type AstroJsxA11YNoNoninteractiveElementToInteractiveRole = []|[{
+  [k: string]: string[] | undefined
+}]
+// ----- astro/jsx-a11y/no-noninteractive-tabindex -----
+type AstroJsxA11YNoNoninteractiveTabindex = []|[{
+  
+  roles?: string[]
+  
+  tags?: string[]
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/no-redundant-roles -----
+type AstroJsxA11YNoRedundantRoles = []|[{
+  [k: string]: string[] | undefined
+}]
+// ----- astro/jsx-a11y/no-static-element-interactions -----
+type AstroJsxA11YNoStaticElementInteractions = []|[{
+  handlers?: string[]
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/prefer-tag-over-role -----
+type AstroJsxA11YPreferTagOverRole = []|[{
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/role-has-required-aria-props -----
+type AstroJsxA11YRoleHasRequiredAriaProps = []|[{
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/role-supports-aria-props -----
+type AstroJsxA11YRoleSupportsAriaProps = []|[{
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/scope -----
+type AstroJsxA11YScope = []|[{
+  [k: string]: unknown | undefined
+}]
+// ----- astro/jsx-a11y/tabindex-no-positive -----
+type AstroJsxA11YTabindexNoPositive = []|[{
+  [k: string]: unknown | undefined
 }]
 // ----- astro/no-unsafe-inline-scripts -----
 type AstroNoUnsafeInlineScripts = []|[{

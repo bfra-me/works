@@ -32,6 +32,7 @@ import {
   vitest,
   yaml,
 } from './configs'
+import {jsx} from './configs/jsx'
 import {isInEditorEnv} from './utils'
 
 // These are merged into the Options interface
@@ -108,7 +109,7 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
 
   configs.push(
     ignores(options.ignores),
-    javascript({isInEditor, jsx: enableJsx, overrides: getOverrides(options, 'javascript')}),
+    javascript({isInEditor, overrides: getOverrides(options, 'javascript')}),
     eslintComments(),
     node(),
     jsdoc({stylistic: stylisticOptions}),
@@ -141,6 +142,10 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
 
   if (enableUnicorn) {
     configs.push(unicorn({overrides: getOverrides(options, 'unicorn')}))
+  }
+
+  if (enableJsx) {
+    configs.push(jsx(enableJsx === true ? {} : enableJsx))
   }
 
   const typescriptOptions = resolveSubOptions(options, 'typescript')

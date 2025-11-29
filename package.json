@@ -37,9 +37,7 @@
     "watch": "pnpm run build --watch"
   },
   "lint-staged": {
-    "*.{js,json,jsx,md,toml,ts,tsx,yml,yaml}": [
-      "eslint --flag v10_config_lookup_from_file --cache --fix --ignore-pattern 'packages/create/templates/**' --ignore-pattern '**/fixtures/input/**' --no-warn-ignored"
-    ]
+    "*": "eslint --flag v10_config_lookup_from_file --cache --fix --ignore-pattern 'packages/create/templates/**' --ignore-pattern '**/fixtures/input/**' --no-warn-ignored"
   },
   "prettier": "./packages/prettier-config/prettier.config.cjs",
   "devDependencies": {
