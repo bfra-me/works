@@ -16,7 +16,8 @@ import isInCI from 'is-in-ci'
 export const isInGitLifecycle = !!(
   (typeof env.GIT_PARAMS === 'string' && env.GIT_PARAMS.length > 0) ||
   (typeof env.VSCODE_GIT_COMMAND === 'string' && env.VSCODE_GIT_COMMAND.length > 0) ||
-  env.npm_lifecycle_script?.startsWith('lint-staged')
+  env.npm_lifecycle_script?.startsWith('lint-staged') ||
+  env.npm_lifecycle_script?.startsWith('nano-staged')
 )
 
 /**
