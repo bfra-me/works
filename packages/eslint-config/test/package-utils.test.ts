@@ -172,7 +172,7 @@ describe('package-utils', () => {
 
       const firstResult = tryInstall(moduleName, targetFile)
       expect(mockSpawnSync).toHaveBeenCalledTimes(1)
-      expect(firstResult).toBe('')
+      expect(firstResult).toEqual({success: true})
 
       mockSpawnSync.mockClear()
       const secondResult = tryInstall(moduleName, targetFile)
@@ -198,8 +198,12 @@ describe('package-utils', () => {
         signal: null,
       })
 
-      // First call should throw due to failed installation
-      expect(() => tryInstall(moduleName, targetFile)).toThrow()
+      // First call should return failure result
+      const firstResult = tryInstall(moduleName, targetFile)
+      expect(firstResult).toEqual({
+        success: false,
+        output: 'Package installation failed with status 1',
+      })
 
       // Clear the mock and call again; module should be cached and no new spawn occurs
       mockSpawnSync.mockClear()
@@ -215,7 +219,7 @@ describe('package-utils', () => {
       const targetFile = path.join(testProjectDir, 'eslint.config.ts')
       const result = tryInstall('eslint-plugin-test', targetFile)
 
-      expect(result).toBe('')
+      expect(result).toEqual({success: true})
       expect(mockSpawnSync).toHaveBeenCalledTimes(1)
       expect(mockSpawnSync).toHaveBeenCalledWith(
         'npm',
@@ -236,7 +240,7 @@ describe('package-utils', () => {
       const targetFile = path.join(testProjectDir, 'eslint.config.ts')
       const result = tryInstall('eslint-plugin-test@1.2.3', targetFile)
 
-      expect(result).toBe('')
+      expect(result).toEqual({success: true})
       expect(mockSpawnSync).toHaveBeenCalledTimes(1)
       expect(mockSpawnSync).toHaveBeenCalledWith(
         'npm',
@@ -256,7 +260,7 @@ describe('package-utils', () => {
       const targetFile = path.join(testProjectDir, 'eslint.config.ts')
       const result = tryInstall('@typescript-eslint/parser', targetFile)
 
-      expect(result).toBe('')
+      expect(result).toEqual({success: true})
       expect(mockSpawnSync).toHaveBeenCalledTimes(1)
       expect(mockSpawnSync).toHaveBeenCalledWith(
         'pnpm',
@@ -274,7 +278,7 @@ describe('package-utils', () => {
       const targetFile = path.join(testProjectDir, 'eslint.config.ts')
       const result = tryInstall('@typescript-eslint/parser@5.0.0', targetFile)
 
-      expect(result).toBe('')
+      expect(result).toEqual({success: true})
       expect(mockSpawnSync).toHaveBeenCalledTimes(1)
       expect(mockSpawnSync).toHaveBeenCalledWith(
         'yarn',
@@ -338,10 +342,10 @@ describe('package-utils', () => {
       const targetFile = path.join(testProjectDir, 'eslint.config.ts')
       const result = tryInstall('test-success', targetFile)
 
-      expect(result).toBe('')
+      expect(result).toEqual({success: true})
     })
 
-    it('throws error when installation fails with non-zero exit code', () => {
+    it('returns failure result when installation fails with non-zero exit code', () => {
       writeFileSync(path.join(testProjectDir, 'package.json'), JSON.stringify({name: 'test'}))
       writeFileSync(path.join(testProjectDir, 'package-lock.json'), '')
 
@@ -357,12 +361,14 @@ describe('package-utils', () => {
 
       const targetFile = path.join(testProjectDir, 'eslint.config.ts')
 
-      expect(() => tryInstall('test-fail', targetFile)).toThrow(
-        /Package installation failed with status 1/,
-      )
+      const result = tryInstall('test-fail', targetFile)
+      expect(result).toEqual({
+        success: false,
+        output: 'Package installation failed with status 1',
+      })
     })
 
-    it('throws error when spawn fails with error', () => {
+    it('returns failure result when spawn fails with error', () => {
       writeFileSync(path.join(testProjectDir, 'package.json'), JSON.stringify({name: 'test'}))
       writeFileSync(path.join(testProjectDir, 'package-lock.json'), '')
 
@@ -379,7 +385,11 @@ describe('package-utils', () => {
 
       const targetFile = path.join(testProjectDir, 'eslint.config.ts')
 
-      expect(() => tryInstall('test-error', targetFile)).toThrow(/ENOENT: command not found/)
+      const result = tryInstall('test-error', targetFile)
+      expect(result).toEqual({
+        success: false,
+        output: 'ENOENT: command not found',
+      })
     })
 
     it('respects packageManager field when installing', () => {
