@@ -1,6 +1,5 @@
 import type {Config, ConfigNames, FlatConfigComposer, ResolvableFlatConfig} from './config'
 import type {Options} from './options'
-import {isPackageExists} from 'local-pkg'
 import {composeConfig} from './compose-config'
 import {
   astro,
@@ -33,6 +32,7 @@ import {
   yaml,
 } from './configs'
 import * as Env from './env'
+import {isPackageInScope} from './utils'
 
 // These are merged into the Options interface
 type AllowedConfigForOptions = Omit<Config, 'files'>
@@ -71,10 +71,10 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
     packageJson: enablePackageJson = false,
     perfectionist: enablePerfectionist = true,
     pnpm: enableCatalogs = false,
-    prettier: enablePrettier = isPackageExists('prettier'),
+    prettier: enablePrettier = isPackageInScope('prettier'),
     react: enableReact = false,
     regexp: enableRegexp = true,
-    typescript: enableTypeScript = isPackageExists('typescript'),
+    typescript: enableTypeScript = isPackageInScope('typescript'),
     unicorn: enableUnicorn = true,
   } = options
 
