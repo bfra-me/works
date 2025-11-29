@@ -1,5 +1,16 @@
 # @bfra.me/eslint-config
 
+## 0.45.0
+### Minor Changes
+
+
+- Add JSX support and accessibility rules: ([#2264](https://github.com/bfra-me/works/pull/2264))
+  - Introduce new JSX configuration for ESLint.
+  - Add support for accessibility rules via `eslint-plugin-jsx-a11y`.
+  - Update JavaScript options to remove JSX flag and handle overrides.
+  - Modify package.json to include new dependencies for JSX.
+  - Enhance defineConfig to conditionally include JSX configuration.
+
 ## 0.44.3
 ### Patch Changes
 
