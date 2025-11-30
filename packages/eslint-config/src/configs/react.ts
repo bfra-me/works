@@ -35,10 +35,9 @@ const ReactTypeAwareRules: Config['rules'] = {
  * options including file patterns, rule overrides, TypeScript parser options, and
  * TypeScript type checking options.
  */
-export interface ReactOptions
-  extends Flatten<
-    OptionsFiles & OptionsOverrides & OptionsTypeScriptParserOptions & OptionsTypeScriptWithTypes
-  > {}
+export interface ReactOptions extends Flatten<
+  OptionsFiles & OptionsOverrides & OptionsTypeScriptParserOptions & OptionsTypeScriptWithTypes
+> {}
 
 /**
  * Creates ESLint configuration for React applications with comprehensive rule sets.
