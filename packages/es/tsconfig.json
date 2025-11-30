@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json.schemastore.org/tsconfig",
+  "extends": "../tsconfig/tsconfig.json",
+  "compilerOptions": {
+    "exactOptionalPropertyTypes": true,
+    "outDir": "./lib"
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "lib"]
+}
