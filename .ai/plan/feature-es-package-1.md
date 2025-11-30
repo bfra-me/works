@@ -216,13 +216,13 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-071 | Create `src/watcher/types.ts` with `WatcherOptions`, `FileChange`, `WatcherEvent` types | | |
-| TASK-072 | Implement `createFileWatcher(paths: string[], options?: WatcherOptions): FileWatcher` factory in `src/watcher/file-watcher.ts` | | |
-| TASK-073 | Implement `createDebouncer<T>(fn: (items: T[]) => void, ms: number): Debouncer<T>` for batching events in `src/watcher/debouncer.ts` | | |
-| TASK-074 | Implement `createFileHasher(algorithm?: 'sha256' | 'md5'): FileHasher` for change detection in `src/watcher/hasher.ts` | | |
-| TASK-075 | Implement `createChangeDetector(options?: ChangeDetectorOptions): ChangeDetector` in `src/watcher/change-detector.ts` | | |
-| TASK-076 | Add optional peer dependency on `chokidar` with graceful degradation | | |
-| TASK-077 | Create barrel export in `src/watcher/index.ts` with all watcher utilities | | |
+| TASK-071 | Create `src/watcher/types.ts` with `WatcherOptions`, `FileChange`, `WatcherEvent` types | ✅ | 2025-11-30 |
+| TASK-072 | Implement `createFileWatcher(paths: string[], options?: WatcherOptions): FileWatcher` factory in `src/watcher/file-watcher.ts` | ✅ | 2025-11-30 |
+| TASK-073 | Implement `createDebouncer<T>(fn: (items: T[]) => void, ms: number): Debouncer<T>` for batching events in `src/watcher/debouncer.ts` | ✅ | 2025-11-30 |
+| TASK-074 | Implement `createFileHasher(algorithm?: 'sha256' | 'md5'): FileHasher` for change detection in `src/watcher/hasher.ts` | ✅ | 2025-11-30 |
+| TASK-075 | Implement `createChangeDetector(options?: ChangeDetectorOptions): ChangeDetector` in `src/watcher/change-detector.ts` | ✅ | 2025-11-30 |
+| TASK-076 | Add optional peer dependency on `chokidar` with graceful degradation | ✅ | 2025-11-30 |
+| TASK-077 | Create barrel export in `src/watcher/index.ts` with all watcher utilities | ✅ | 2025-11-30 |
 
 ### Implementation Phase 11: Memoization Utilities
 
