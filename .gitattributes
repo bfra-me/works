@@ -1,5 +1,3 @@
 * text=auto eol=lf
 
 packages/prettier-config/prettier.config.cjs -diff linguist-generated=true
-
-.cursorrules text linguist-language=Markdown

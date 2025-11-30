@@ -9,7 +9,5 @@ globs:
   - '**/*.md'
   - '!.changeset/**'
   - '!**/node_modules'
-  - '!.cursor/rules/**'
-  - '!docs/(memory|plans|tasks)/**'
   - '!.specstory/**'
   - '!.ai/**'
