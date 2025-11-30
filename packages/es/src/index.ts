@@ -46,6 +46,8 @@ export {
 export {compose} from './functional/compose'
 export {constant} from './functional/constant'
 export {curry} from './functional/curry'
+export type {Curried} from './functional/curry'
+export {flip} from './functional/flip'
 export {identity} from './functional/identity'
 export {noop, noopAsync} from './functional/noop'
 export {partial} from './functional/partial'
@@ -53,8 +55,14 @@ export {pipe} from './functional/pipe'
 export {tap} from './functional/tap'
 
 // Module utilities
-export {dynamicImport, interopDefault, isESModule, resolveModule} from './module/interop'
-export type {Awaitable} from './module/interop'
+export {
+  dynamicImport,
+  interopDefault,
+  isESModule,
+  isPackageInScope,
+  resolveModule,
+} from './module/interop'
+export type {Awaitable, IsPackageInScopeOptions} from './module/interop'
 
 // Result types and utilities
 export {err, ok} from './result/factories'
