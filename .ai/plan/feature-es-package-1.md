@@ -175,14 +175,14 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-051 | Implement `retry<T>(fn: () => Promise<T>, options: RetryOptions): Promise<Result<T, Error>>` in `src/async/retry.ts` | | |
-| TASK-052 | Implement `timeout<T>(promise: Promise<T>, ms: number): Promise<Result<T, TimeoutError>>` in `src/async/timeout.ts` | | |
-| TASK-053 | Implement `debounce<T extends (...args: any[]) => any>(fn: T, ms: number): DebouncedFunction<T>` in `src/async/debounce.ts` | | |
-| TASK-054 | Implement `throttle<T extends (...args: any[]) => any>(fn: T, ms: number): ThrottledFunction<T>` in `src/async/throttle.ts` | | |
-| TASK-055 | Implement `sleep(ms: number): Promise<void>` delay utility in `src/async/sleep.ts` | | |
-| TASK-056 | Implement `pLimit(concurrency: number): <T>(fn: () => Promise<T>) => Promise<T>` concurrency limiter | | |
-| TASK-057 | Implement `pAll<T>(promises: (() => Promise<T>)[], options?: { concurrency?: number }): Promise<Result<T[], Error>>` | | |
-| TASK-058 | Create barrel export in `src/async/index.ts` with all async utilities | | |
+| TASK-051 | Implement `retry<T>(fn: () => Promise<T>, options: RetryOptions): Promise<Result<T, Error>>` in `src/async/retry.ts` | ✅ | 2025-11-30 |
+| TASK-052 | Implement `timeout<T>(promise: Promise<T>, ms: number): Promise<Result<T, TimeoutError>>` in `src/async/timeout.ts` | ✅ | 2025-11-30 |
+| TASK-053 | Implement `debounce<T extends (...args: any[]) => any>(fn: T, ms: number): DebouncedFunction<T>` in `src/async/debounce.ts` | ✅ | 2025-11-30 |
+| TASK-054 | Implement `throttle<T extends (...args: any[]) => any>(fn: T, ms: number): ThrottledFunction<T>` in `src/async/throttle.ts` | ✅ | 2025-11-30 |
+| TASK-055 | Implement `sleep(ms: number): Promise<void>` delay utility in `src/async/sleep.ts` | ✅ | 2025-11-30 |
+| TASK-056 | Implement `pLimit(concurrency: number): <T>(fn: () => Promise<T>) => Promise<T>` concurrency limiter | ✅ | 2025-11-30 |
+| TASK-057 | Implement `pAll<T>(promises: (() => Promise<T>)[], options?: { concurrency?: number }): Promise<Result<T[], Error>>` | ✅ | 2025-11-30 |
+| TASK-058 | Create barrel export in `src/async/index.ts` with all async utilities | ✅ | 2025-11-30 |
 
 ### Implementation Phase 8: Validation Utilities
 
