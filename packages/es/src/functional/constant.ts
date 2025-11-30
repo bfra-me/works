@@ -11,5 +11,7 @@
  * ```
  */
 export function constant<T>(value: T): () => T {
-  return (): T => value
+  return function getValue(): T {
+    return value
+  }
 }

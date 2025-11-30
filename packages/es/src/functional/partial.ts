@@ -16,5 +16,7 @@ export function partial<T extends unknown[], R, A extends unknown[]>(
   fn: (...args: [...A, ...T]) => R,
   ...args: A
 ): (...rest: T) => R {
-  return (...rest: T): R => fn(...args, ...rest)
+  return function partiallyApplied(...rest: T): R {
+    return fn(...args, ...rest)
+  }
 }

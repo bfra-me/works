@@ -4,7 +4,8 @@
 
 export {compose} from './compose'
 export {constant} from './constant'
-export {curry} from './curry'
+export {curry, type Curried} from './curry'
+export {flip} from './flip'
 export {identity} from './identity'
 export {noop, noopAsync} from './noop'
 export {partial} from './partial'

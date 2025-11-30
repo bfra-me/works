@@ -77,5 +77,7 @@ export function pipe<A, B, C, D, E, F, G, H, I, J, K>(
   fn10: (j: J) => K,
 ): (a: A) => K
 export function pipe(...fns: ((arg: unknown) => unknown)[]): (arg: unknown) => unknown {
-  return (arg: unknown): unknown => fns.reduce((acc, fn) => fn(acc), arg)
+  return function piped(arg: unknown): unknown {
+    return fns.reduce((acc, fn) => fn(acc), arg)
+  }
 }
