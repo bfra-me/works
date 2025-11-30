@@ -1,15 +1,8 @@
 import type {Result} from '../result/types'
+import {TimeoutError} from '../error/specialized'
 import {err, ok} from '../result/factories'
 
-/**
- * Error thrown when a timeout is exceeded.
- */
-export class TimeoutError extends Error {
-  constructor(ms: number) {
-    super(`Operation timed out after ${ms}ms`)
-    this.name = 'TimeoutError'
-  }
-}
+export {TimeoutError}
 
 /**
  * Wraps a promise with a timeout, returning a Result.

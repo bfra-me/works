@@ -203,12 +203,12 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-065 | Create `BaseError` class with code, cause, and context support in `src/error/base.ts` | | |
-| TASK-066 | Implement `createError(message: string, options?: ErrorOptions): Error` factory in `src/error/factory.ts` | | |
-| TASK-067 | Implement specialized error types: `ValidationError`, `TimeoutError`, `NotFoundError`, `PermissionError` | | |
-| TASK-068 | Implement `withErrorContext<T>(fn: () => T, context: ErrorContext): T` wrapper | | |
-| TASK-069 | Implement `formatError(error: unknown): string` for consistent error display | | |
-| TASK-070 | Create barrel export in `src/error/index.ts` with all error utilities | | |
+| TASK-065 | Create `BaseError` class with code, cause, and context support in `src/error/base.ts` | ✅ | 2025-11-30 |
+| TASK-066 | Implement `createError(message: string, options?: ErrorOptions): Error` factory in `src/error/factory.ts` | ✅ | 2025-11-30 |
+| TASK-067 | Implement specialized error types: `ValidationError`, `TimeoutError`, `NotFoundError`, `PermissionError` | ✅ | 2025-11-30 |
+| TASK-068 | Implement `withErrorContext<T>(fn: () => T, context: ErrorContext): T` wrapper | ✅ | 2025-11-30 |
+| TASK-069 | Implement `formatError(error: unknown): string` for consistent error display | ✅ | 2025-11-30 |
+| TASK-070 | Create barrel export in `src/error/index.ts` with all error utilities | ✅ | 2025-11-30 |
 
 ### Implementation Phase 10: File Watcher Abstraction
 

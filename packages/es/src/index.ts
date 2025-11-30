@@ -23,7 +23,7 @@ export {retry} from './async/retry'
 export type {RetryOptions} from './async/retry'
 export {sleep} from './async/sleep'
 export {throttle} from './async/throttle'
-export {timeout, TimeoutError} from './async/timeout'
+export {timeout} from './async/timeout'
 
 // Environment detection
 export {isInCI} from './env/ci'
@@ -39,6 +39,7 @@ export {createError, formatError, withErrorContext} from './error/factory'
 export {
   NotFoundError,
   PermissionError,
+  TimeoutError,
   ValidationError as ValidationErrorClass,
 } from './error/specialized'
 
