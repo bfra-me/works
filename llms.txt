@@ -20,6 +20,7 @@ Built with a focus on consistency, quality, and developer experience, it enables
 
 - [@bfra.me/badge-config README](packages/badge-config/README.md): Badge URL generation API and usage
 - [@bfra.me/create README](packages/create/README.md): CLI for project generation and templates
+- [@bfra.me/es README](packages/es/README.md): ES utilities with Result type, async helpers, functional utilities, and type guards
 - [@bfra.me/eslint-config README](packages/eslint-config/readme.md): Shared ESLint config with TypeScript/Prettier/Vitest support
 - [@bfra.me/prettier-config README](packages/prettier-config/readme.md): Prettier config variants and usage
 - [@bfra.me/tsconfig README](packages/tsconfig/readme.md): Strict TypeScript configs for libraries/apps
@@ -37,6 +38,9 @@ Built with a focus on consistency, quality, and developer experience, it enables
 
 - [Badge Generators](packages/badge-config/src/generators/): Generator pattern for Shields.io URLs
 - [Create Templates](packages/create/templates/): Built-in templates for project scaffolding
+- [ES Result Type](packages/es/src/result/): Discriminated union Result type with ok/err factories and operators
+- [ES Async Utilities](packages/es/src/async/): retry, timeout, debounce, throttle, sleep, concurrency control
+- [ES Functional](packages/es/src/functional/): pipe, compose, curry, tap, identity utilities
 - [Script – Clean Changesets](scripts/src/clean-changesets.ts): Utility script used by `version-changesets`
 
 ## Development

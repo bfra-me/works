@@ -1,13 +1,14 @@
 # bfra.me/works – Copilot Instructions
 
 ## 1. Overview
-Monorepo providing reusable TypeScript-centric tooling: shared ESLint/Prettier/TS configs, AI‑assisted project generator (`@bfra.me/create`), badge URL generation (`@bfra.me/badge-config`), semantic-release presets, and strict tsconfig packages. All packages target ES2022+/Node.js 20+. See `llms.txt` for full doc index.
+Monorepo providing reusable TypeScript-centric tooling: shared ESLint/Prettier/TS configs, AI‑assisted project generator (`@bfra.me/create`), ES utilities (`@bfra.me/es`), badge URL generation (`@bfra.me/badge-config`), semantic-release presets, and strict tsconfig packages. All packages target ES2022+/Node.js 20+. See `llms.txt` for full doc index.
 
 ## 2. Architecture & Key Relationships
 - Packages live under `packages/*`; each is an independent publishable unit with explicit barrel `src/index.ts` (prefer explicit named exports, avoid `export *` in application code—config packages may use re-exports).
-- Build toolchain: `tsup` per package (`tsup.config.ts`); outputs to `lib/` (or `dist/` for CLI). Shared types & lint rules consumed via workspace `@bfra.me/tsconfig` and `@bfra.me/eslint-config`.
+- Build toolchain: `tsup` per package (`tsup.config.ts`); outputs to `lib/`. Shared types & lint rules consumed via workspace `@bfra.me/tsconfig` and `@bfra.me/eslint-config`.
 - Ordering: Config packages (`eslint-config`, `prettier-config`, `tsconfig`) must build before dependents; orchestrated by root scripts: `pnpm validate` runs type-check → build → lint → test → type-coverage.
 - CLI (`packages/create/src/`) layers: input parsing → template resolution (GitHub/local/builtin via giget) → Eta rendering → filesystem write → optional AI analysis (OpenAI/Anthropic) → post‑creation helpers.
+- ES utilities (`packages/es/src/`) organized by subpath exports (`result`, `async`, `functional`, `types`, `error`, `env`, `module`, `validation`, `watcher`) for tree-shaking; each subpath has its own barrel.
 - Badge system (`packages/badge-config/src/generators/`) composes small pure functions returning Shields.io URL strings; pattern: generator + options type + test fixture (JSON input/output).
 - Release flow: Changesets in `.changeset/` → version PR via `pnpm version-changesets` → publish via `pnpm publish-changesets`.
 
@@ -30,7 +31,7 @@ Testing: `vitest` per package (`vitest.config.ts` or shared). Use `it.concurrent
 
 ## 4. Conventions & Patterns
 - Exports: Explicit named exports only; keep public API surface minimal.
-- Result Handling: Use discriminated union `Result<T>`; do not throw for expected errors—return `{success:false}`.
+- Result Handling: Use `Result<T, E>` from `@bfra.me/es/result`; use `unwrap()` / `unwrapOr()` for value extraction; use `isOk()` / `isErr()` type guards for conditional logic; never throw for expected errors—return `err({...})`.
 - Naming: Functions verb-noun (`createTemplateContext`), types PascalCase (`TemplateSource`), constants UPPER_SNAKE (`DEFAULT_TEMPLATE_NAME`).
 - Config Files: `eslint.config.ts` uses `defineConfig({...})`; `tsconfig.json` extends `@bfra.me/tsconfig`.
 - Comments: Explain WHY (business/algorithm) not WHAT; avoid redundant inline comments; follow self‑explanatory code guideline.
@@ -38,13 +39,15 @@ Testing: `vitest` per package (`vitest.config.ts` or shared). Use `it.concurrent
 - No `export *`; avoid leaking internal utilities (keep helpers non-exported unless tested externally).
 
 ## 5. Integration & Dependencies
-- External libs: `Eta` (templating), `giget` (remote template retrieval), `@clack/prompts` (CLI UX), `changesets`, `semantic-release`, `vitest`, `tsup`.
+- External libs: `Eta` (templating), `giget` (remote template retrieval), `@clack/prompts` (CLI UX), `changesets`, `semantic-release`, `vitest`, `tsup`, `chokidar` (file watching).
+- ES utilities (`@bfra.me/es`): Result type, async (retry/timeout/debounce/throttle), functional (pipe/compose/curry), type guards, branded types, error factories.
 - AI usage (optional): Requires `<OPENAI_API_KEY>` or `<ANTHROPIC_API_KEY>` in environment; fallback path must remain deterministic when absent/failing.
 - Side Effects: Generators and CLI operations should minimize mutation; prefer pure helpers + orchestrator pattern.
 
 ## 6. Testing Strategy
 - Location: `packages/*/test/**/*.test.ts`; avoid placing tests in `src/`.
-- Patterns: Group with `describe`; multiple assertions use `expect.soft` when available; snapshot externalized via file snapshots (`toMatchFileSnapshot`).
+- Patterns: Group with `describe`; use `it.concurrent` for independent async tests; multiple assertions use `expect.soft` when available; snapshot externalized via file snapshots (`toMatchFileSnapshot`).
+- Result assertions: Use short-circuit patterns `expect(isErr(result) && result.error.message).toBe(...)` to satisfy ESLint `vitest/no-conditional-expect` rule.
 - For new feature: add unit test + (if templating) fixture comparison; ensure build passes before snapshot creation.
 
 ## 7. Release & Versioning
@@ -61,10 +64,11 @@ Testing: `vitest` per package (`vitest.config.ts` or shared). Use `it.concurrent
 
 ## 9. High-Impact Anti-Patterns (Avoid)
 - Adding wildcard exports (`export *`) in barrels.
-- Throwing generic `Error` for controllable states (use union result pattern instead).
+- Throwing generic `Error` for controllable states (use `Result` union pattern instead).
 - Coupling tests to implementation details (test public behavior / outputs only).
-- Silent catch blocks—return structured failure with context.
+- Silent catch blocks—return structured failure with context using `err()`.
 - Mixing ESM/CommonJS (all packages declare `"type": "module"`).
+- Using `if` blocks for expects in tests (triggers `vitest/no-conditional-expect`).
 
 ## 10. When Modifying
 - Preserve existing public API signatures unless change justified + changeset updated.
@@ -73,9 +77,10 @@ Testing: `vitest` per package (`vitest.config.ts` or shared). Use `it.concurrent
 - Re-run `pnpm validate` locally before proposing changes.
 
 ## 11. Quick Template for New Package
-Minimal files: `package.json`, `src/index.ts`, `tsconfig.json`, `eslint.config.ts`, `tsup.config.ts`, `test/<name>.test.ts`, `README.md`. Exports field must map types + import to `lib/` after build.
+Minimal files: `package.json`, `src/index.ts`, `tsconfig.json`, `eslint.config.ts`, `tsup.config.ts`, `test/<name>.test.ts`, `README.md`. Exports field must map types + import to `lib/` after build. For subpath exports, add entries to both `exports` in `package.json` and `entry` in `tsup.config.ts`.
 
 ## 12. AI Agent Guidance
 - Prefer reading `package.json` scripts + existing patterns over inventing new flows.
 - If uncertain about dependency order: build configs first (`eslint-config`, `prettier-config`, `tsconfig`).
+- Use `@bfra.me/es/result` for operation outcomes; leverage `unwrap()` for success values, `isErr()` for error checks.
 - Fall back gracefully: if AI template selection fails, pick deterministic built-in template based on flags.
