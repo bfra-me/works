@@ -160,6 +160,10 @@ importers:
         version: 2.12.3(@types/node@24.10.1)(typescript@5.9.3)
 
   packages/es:
+    dependencies:
+      is-in-ci:
+        specifier: 2.0.0
+        version: 2.0.0
     devDependencies:
       '@bfra.me/tsconfig':
         specifier: workspace:*

@@ -1,17 +1,9 @@
-import process from 'node:process'
+import isCI from 'is-in-ci'
 
 /**
  * Check if the process is running in a CI environment.
- * This is a placeholder that will be enhanced to use is-in-ci package.
+ * Uses the is-in-ci package for comprehensive CI detection.
  */
 export function isInCI(): boolean {
-  const env = process.env
-  return (
-    env.CI !== undefined ||
-    env.CONTINUOUS_INTEGRATION !== undefined ||
-    env.GITHUB_ACTIONS !== undefined ||
-    env.GITLAB_CI !== undefined ||
-    env.CIRCLECI !== undefined ||
-    env.TRAVIS !== undefined
-  )
+  return isCI
 }

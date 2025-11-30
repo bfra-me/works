@@ -146,12 +146,12 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-036 | Extract `isInGitLifecycle(): boolean` from `@bfra.me/eslint-config/src/utils.ts` to `src/env/git.ts` | | |
-| TASK-037 | Extract `isInEditorEnv(): boolean` from `@bfra.me/eslint-config/src/utils.ts` to `src/env/editor.ts` | | |
-| TASK-038 | Implement `isInCI(): boolean` wrapper using `is-in-ci` package in `src/env/ci.ts` | | |
-| TASK-039 | Implement `getEnvironment(): EnvironmentInfo` returning comprehensive environment details | | |
-| TASK-040 | Implement `isNode(): boolean`, `isBrowser(): boolean`, `isDeno(): boolean` runtime detection | | |
-| TASK-041 | Create barrel export in `src/env/index.ts` with all environment utilities | | |
+| TASK-036 | Extract `isInGitLifecycle(): boolean` from `@bfra.me/eslint-config/src/utils.ts` to `src/env/git.ts` | ✅ | 2025-11-30 |
+| TASK-037 | Extract `isInEditorEnv(): boolean` from `@bfra.me/eslint-config/src/utils.ts` to `src/env/editor.ts` | ✅ | 2025-11-30 |
+| TASK-038 | Implement `isInCI(): boolean` wrapper using `is-in-ci` package in `src/env/ci.ts` | ✅ | 2025-11-30 |
+| TASK-039 | Implement `getEnvironment(): EnvironmentInfo` returning comprehensive environment details | ✅ | 2025-11-30 |
+| TASK-040 | Implement `isNode(): boolean`, `isBrowser(): boolean`, `isDeno(): boolean` runtime detection | ✅ | 2025-11-30 |
+| TASK-041 | Create barrel export in `src/env/index.ts` with all environment utilities | ✅ | 2025-11-30 |
 
 ### Implementation Phase 6: Branded Types and Type Guards
 
