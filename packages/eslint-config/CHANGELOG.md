@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.46.1
+### Patch Changes
+
+
+- Updated dependency `package-manager-detector` to `1.6.0`. ([#2277](https://github.com/bfra-me/works/pull/2277))
+
 ## 0.46.0
 ### Minor Changes
 
