@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/badge-config",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "TypeScript API for generating shields.io badge URLs with preset generators",
   "keywords": [
     "badges",
