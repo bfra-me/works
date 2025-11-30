@@ -208,6 +208,16 @@ export type Options = Flatten<
     gitignore?: boolean | FlatGitignoreOptions
 
     /**
+     * Extend the global ignores.
+     *
+     * Passing an array to extends the ignores.
+     * Passing a function to modify the default ignores.
+     *
+     * @default []
+     */
+    ignores?: string[] | ((originals: string[]) => string[])
+
+    /**
      * Options to override the behavior of import-related rules.
      *
      * @default true

@@ -66,6 +66,7 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
   const {
     astro: enableAstro = false,
     gitignore: enableGitignore = true,
+    ignores: userIgnores = [],
     imports: enableImports = true,
     jsx: enableJsx = true,
     nextjs: enableNextjs = false,
@@ -108,7 +109,7 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
   }
 
   configs.push(
-    ignores(options.ignores),
+    ignores(userIgnores),
     javascript({isInEditor, overrides: getOverrides(options, 'javascript')}),
     eslintComments(),
     node(),
