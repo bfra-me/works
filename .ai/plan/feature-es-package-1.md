@@ -159,15 +159,15 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-042 | Implement `Brand<T, B extends string>` and `Opaque<T, B extends string>` types in `src/types/brand.ts` | | |
-| TASK-043 | Implement `brand<T, B extends string>(value: T): Brand<T, B>` factory function | | |
-| TASK-044 | Implement `unbrand<T>(value: Brand<T, any>): T` extraction function | | |
-| TASK-045 | Create common branded types: `NonEmptyString`, `PositiveInteger`, `ValidPath`, `AbsolutePath` | | |
-| TASK-046 | Implement common type guards in `src/types/guards.ts`: `isString()`, `isNumber()`, `isObject()`, `isArray()`, `isFunction()` | | |
-| TASK-047 | Implement `hasProperty<K extends PropertyKey>(obj: unknown, key: K): obj is Record<K, unknown>` | | |
-| TASK-048 | Implement `isNonNullable<T>(value: T): value is NonNullable<T>` guard | | |
-| TASK-049 | Implement `assertType<T>(value: unknown, guard: (v: unknown) => v is T): asserts value is T` | | |
-| TASK-050 | Create barrel export in `src/types/index.ts` with all type utilities | | |
+| TASK-042 | Implement `Brand<T, B extends string>` and `Opaque<T, B extends string>` types in `src/types/brand.ts` | ✅ | 2025-11-30 |
+| TASK-043 | Implement `brand<T, B extends string>(value: T): Brand<T, B>` factory function | ✅ | 2025-11-30 |
+| TASK-044 | Implement `unbrand<T>(value: Brand<T, any>): T` extraction function | ✅ | 2025-11-30 |
+| TASK-045 | Create common branded types: `NonEmptyString`, `PositiveInteger`, `ValidPath`, `AbsolutePath` | ✅ | 2025-11-30 |
+| TASK-046 | Implement common type guards in `src/types/guards.ts`: `isString()`, `isNumber()`, `isObject()`, `isArray()`, `isFunction()` | ✅ | 2025-11-30 |
+| TASK-047 | Implement `hasProperty<K extends PropertyKey>(obj: unknown, key: K): obj is Record<K, unknown>` | ✅ | 2025-11-30 |
+| TASK-048 | Implement `isNonNullable<T>(value: T): value is NonNullable<T>` guard | ✅ | 2025-11-30 |
+| TASK-049 | Implement `assertType<T>(value: unknown, guard: (v: unknown) => v is T): asserts value is T` | ✅ | 2025-11-30 |
+| TASK-050 | Create barrel export in `src/types/index.ts` with all type utilities | ✅ | 2025-11-30 |
 
 ### Implementation Phase 7: Async Utilities
 
