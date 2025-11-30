@@ -1,15 +1,15 @@
-# bfra.me/works – Copilot Instructions (Condensed)
+# bfra.me/works – Copilot Instructions
 
 ## 1. Overview
-Monorepo providing reusable TypeScript-centric tooling: shared ESLint/Prettier/TS configs, AI‑assisted project generator (`@bfra.me/create`), badge URL generation (`@bfra.me/badge-config`), semantic-release presets, and strict tsconfig packages. See `llms.txt` for full doc index.
+Monorepo providing reusable TypeScript-centric tooling: shared ESLint/Prettier/TS configs, AI‑assisted project generator (`@bfra.me/create`), badge URL generation (`@bfra.me/badge-config`), semantic-release presets, and strict tsconfig packages. All packages target ES2022+/Node.js 20+. See `llms.txt` for full doc index.
 
 ## 2. Architecture & Key Relationships
-- Packages live under `packages/*`; each is an independent publishable unit with explicit barrel `src/index.ts` (no `export *`).
-- Build toolchain: `tsup` per package (`tsup.config.ts`). Shared types & lint rules consumed via workspace `@bfra.me/tsconfig` and `@bfra.me/eslint-config`.
+- Packages live under `packages/*`; each is an independent publishable unit with explicit barrel `src/index.ts` (prefer explicit named exports, avoid `export *` in application code—config packages may use re-exports).
+- Build toolchain: `tsup` per package (`tsup.config.ts`); outputs to `lib/` (or `dist/` for CLI). Shared types & lint rules consumed via workspace `@bfra.me/tsconfig` and `@bfra.me/eslint-config`.
 - Ordering: Config packages (`eslint-config`, `prettier-config`, `tsconfig`) must build before dependents; orchestrated by root scripts: `pnpm validate` runs type-check → build → lint → test → type-coverage.
 - CLI (`packages/create/src/`) layers: input parsing → template resolution (GitHub/local/builtin via giget) → Eta rendering → filesystem write → optional AI analysis (OpenAI/Anthropic) → post‑creation helpers.
-- Badge system (`packages/badge-config/src/generators/`) composes small pure functions returning Shields.io URL strings; pattern: generator + options type + test fixture.
-- Release flow: Changesets in `.changeset/` → weekly version PR → semantic-release presets from `packages/semantic-release`.
+- Badge system (`packages/badge-config/src/generators/`) composes small pure functions returning Shields.io URL strings; pattern: generator + options type + test fixture (JSON input/output).
+- Release flow: Changesets in `.changeset/` → version PR via `pnpm version-changesets` → publish via `pnpm publish-changesets`.
 
 ## 3. Core Workflows (Commands)
 ```bash
