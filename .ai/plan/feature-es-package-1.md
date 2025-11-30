@@ -116,16 +116,16 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-020 | Implement `pipe<T>(...fns: Function[]): (value: T) => unknown` with up to 10 overloads for type safety in `src/functional/pipe.ts` | | |
-| TASK-021 | Implement `compose<T>(...fns: Function[]): (value: T) => unknown` (right-to-left pipe) in `src/functional/compose.ts` | | |
-| TASK-022 | Implement `curry<T extends (...args: any[]) => any>(fn: T): Curried<T>` with full type inference in `src/functional/curry.ts` | | |
-| TASK-023 | Implement `identity<T>(value: T): T` utility in `src/functional/identity.ts` | | |
-| TASK-024 | Implement `tap<T>(fn: (value: T) => void): (value: T) => T` for side effects in pipelines in `src/functional/tap.ts` | | |
-| TASK-025 | Implement `partial<T extends (...args: any[]) => any>(fn: T, ...args: Partial<Parameters<T>>): PartiallyApplied<T>` | | |
-| TASK-026 | Implement `flip<A, B, R>(fn: (a: A, b: B) => R): (b: B, a: A) => R` argument order reversal | | |
-| TASK-027 | Implement `constant<T>(value: T): () => T` for creating constant functions | | |
-| TASK-028 | Implement `noop(): void` and `noopAsync(): Promise<void>` utility functions | | |
-| TASK-029 | Create barrel export in `src/functional/index.ts` with all functional utilities | | |
+| TASK-020 | Implement `pipe<T>(...fns: Function[]): (value: T) => unknown` with up to 10 overloads for type safety in `src/functional/pipe.ts` | ✅ | 2025-11-30 |
+| TASK-021 | Implement `compose<T>(...fns: Function[]): (value: T) => unknown` (right-to-left pipe) in `src/functional/compose.ts` | ✅ | 2025-11-30 |
+| TASK-022 | Implement `curry<T extends (...args: any[]) => any>(fn: T): Curried<T>` with full type inference in `src/functional/curry.ts` | ✅ | 2025-11-30 |
+| TASK-023 | Implement `identity<T>(value: T): T` utility in `src/functional/identity.ts` | ✅ | 2025-11-30 |
+| TASK-024 | Implement `tap<T>(fn: (value: T) => void): (value: T) => T` for side effects in pipelines in `src/functional/tap.ts` | ✅ | 2025-11-30 |
+| TASK-025 | Implement `partial<T extends (...args: any[]) => any>(fn: T, ...args: Partial<Parameters<T>>): PartiallyApplied<T>` | ✅ | 2025-11-30 |
+| TASK-026 | Implement `flip<A, B, R>(fn: (a: A, b: B) => R): (b: B, a: A) => R` argument order reversal | ✅ | 2025-11-30 |
+| TASK-027 | Implement `constant<T>(value: T): () => T` for creating constant functions | ✅ | 2025-11-30 |
+| TASK-028 | Implement `noop(): void` and `noopAsync(): Promise<void>` utility functions | ✅ | 2025-11-30 |
+| TASK-029 | Create barrel export in `src/functional/index.ts` with all functional utilities | ✅ | 2025-11-30 |
 
 ### Implementation Phase 4: Module Interop Utilities
 
