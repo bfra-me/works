@@ -1,10 +1,59 @@
 import type {Result} from '../result/types'
+import {fileURLToPath} from 'node:url'
 import {err, ok} from '../result/factories'
 
 /**
  * Represents an awaitable value - either a value or a Promise of that value.
  */
 export type Awaitable<T> = T | Promise<T>
+
+/**
+ * Options for package scope checking.
+ */
+export interface IsPackageInScopeOptions {
+  /**
+   * The scope URL to check from. If not provided, uses the caller's module URL.
+   * Can be a file URL string or a URL object.
+   */
+  scopeUrl?: string | URL
+}
+
+/**
+ * Checks if a package exists within a specific scope (directory context).
+ *
+ * This is a generalized version that allows specifying the scope URL.
+ * Useful for checking if a package is available from a specific location
+ * in the file system, particularly in monorepo scenarios.
+ *
+ * @param name - The package name to check
+ * @param options - Configuration options including the scope URL
+ * @returns True if the package exists within the given scope
+ */
+export function isPackageInScope(name: string, options: IsPackageInScopeOptions = {}): boolean {
+  const {scopeUrl} = options
+
+  if (typeof name !== 'string' || name.trim().length === 0) {
+    return false
+  }
+
+  let resolveFromPath: string | undefined
+
+  if (scopeUrl != null) {
+    if (typeof scopeUrl === 'string') {
+      resolveFromPath = scopeUrl.startsWith('file://') ? fileURLToPath(scopeUrl) : scopeUrl
+    } else if (scopeUrl instanceof URL) {
+      resolveFromPath = fileURLToPath(scopeUrl)
+    }
+  }
+
+  try {
+    const resolvePaths = resolveFromPath == null ? undefined : {paths: [resolveFromPath]}
+    require.resolve(name, resolvePaths)
+    return true
+  } catch {
+    return false
+  }
+}
 
 /**
  * Unwraps the default export from a module.

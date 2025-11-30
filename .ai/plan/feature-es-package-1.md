@@ -133,12 +133,12 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-030 | Extract `interopDefault<T>(m: Awaitable<T>): Promise<T>` from `@bfra.me/eslint-config/src/utils.ts` to `src/module/interop.ts` | | |
-| TASK-031 | Implement `isPackageInScope(name: string, scopeUrl?: string): boolean` generalized from eslint-config | | |
-| TASK-032 | Implement `resolveModule<T>(specifier: string): Promise<Result<T, Error>>` with Result return type | | |
-| TASK-033 | Implement `dynamicImport<T>(path: string): Promise<Result<T, Error>>` with error handling | | |
-| TASK-034 | Implement `isESModule(module: unknown): boolean` type guard for module detection | | |
-| TASK-035 | Create barrel export in `src/module/index.ts` with all module utilities | | |
+| TASK-030 | Extract `interopDefault<T>(m: Awaitable<T>): Promise<T>` from `@bfra.me/eslint-config/src/utils.ts` to `src/module/interop.ts` | ✅ | 2025-11-30 |
+| TASK-031 | Implement `isPackageInScope(name: string, scopeUrl?: string): boolean` generalized from eslint-config | ✅ | 2025-11-30 |
+| TASK-032 | Implement `resolveModule<T>(specifier: string): Promise<Result<T, Error>>` with Result return type | ✅ | 2025-11-30 |
+| TASK-033 | Implement `dynamicImport<T>(path: string): Promise<Result<T, Error>>` with error handling | ✅ | 2025-11-30 |
+| TASK-034 | Implement `isESModule(module: unknown): boolean` type guard for module detection | ✅ | 2025-11-30 |
+| TASK-035 | Create barrel export in `src/module/index.ts` with all module utilities | ✅ | 2025-11-30 |
 
 ### Implementation Phase 5: Environment Detection
 
