@@ -1,5 +1,11 @@
 # @bfra.me/create
 
+## 0.5.24
+### Patch Changes
+
+
+- Updated dependency `package-manager-detector` to `1.6.0`. ([#2277](https://github.com/bfra-me/works/pull/2277))
+
 ## 0.5.23
 ### Patch Changes
 
