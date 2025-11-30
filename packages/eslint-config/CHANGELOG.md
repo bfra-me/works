@@ -1,5 +1,41 @@
 # @bfra.me/eslint-config
 
+## 0.46.0
+### Minor Changes
+
+
+- Add support for custom global ignore patterns with function transforms ([#2273](https://github.com/bfra-me/works/pull/2273))
+  
+  Introduces new `ignores` option to `defineConfig()` that allows users to extend or transform global ESLint ignore patterns. The option accepts either:
+  - An array of glob patterns to append to the default exclusions
+  - A function that receives the original exclusions and returns a transformed array
+  
+  This provides flexibility to customize which files are ignored by ESLint while maintaining the default exclusions.
+  
+  Example usage:
+  ```typescript
+  // Append additional patterns
+  defineConfig({
+    ignores: ['dist/**', 'coverage/**']
+  })
+  
+  // Transform the defaults
+  defineConfig({
+    ignores: (originals) => originals.filter((p) => !p.includes('node_modules'))
+  })
+
+### Patch Changes
+
+
+- Refine type generation script for accurate DTS output ([#2274](https://github.com/bfra-me/works/pull/2274))
+  
+  - Update `scripts/generate-types.ts` to correctly compose all configs and include ESLint builtin rules via `Object.fromEntries(builtinRules)`.
+  - Ensure JSX (`jsx({ a11y: true })`) and TypeScript (`typescript({ erasableSyntaxOnly: true, tsconfigPath: 'tsconfig.json' })`) configurations are represented during generation.
+  
+  Tooling-only change; no runtime behavior affected.
+
+- Updated dependency `@next/eslint-plugin-next` to `16.0.5`. ([#2271](https://github.com/bfra-me/works/pull/2271))
+
 ## 0.45.1
 ### Patch Changes
 
