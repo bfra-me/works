@@ -21,7 +21,7 @@ export function createDebouncer<T>(fn: (items: T[]) => void, ms: number): Deboun
   let items: T[] = []
   let timeoutId: ReturnType<typeof setTimeout> | undefined
 
-  const flush = (): void => {
+  function flush(): void {
     if (timeoutId !== undefined) {
       clearTimeout(timeoutId)
       timeoutId = undefined
@@ -33,7 +33,7 @@ export function createDebouncer<T>(fn: (items: T[]) => void, ms: number): Deboun
     }
   }
 
-  const cancel = (): void => {
+  function cancel(): void {
     if (timeoutId !== undefined) {
       clearTimeout(timeoutId)
       timeoutId = undefined
@@ -41,7 +41,7 @@ export function createDebouncer<T>(fn: (items: T[]) => void, ms: number): Deboun
     items = []
   }
 
-  const add = (item: T): void => {
+  function add(item: T): void {
     items.push(item)
     if (timeoutId !== undefined) {
       clearTimeout(timeoutId)

@@ -1,5 +1,10 @@
 import type {FileChange, FileWatcher, WatcherEvent, WatcherOptions} from './types'
 
+interface ChokidarWatcher {
+  on: (event: 'add' | 'change' | 'unlink', handler: (path: string) => void) => void
+  close: () => Promise<void>
+}
+
 /**
  * Creates a file watcher that monitors file system changes.
  * Requires chokidar as an optional peer dependency.
@@ -13,12 +18,12 @@ export function createFileWatcher(
   options: WatcherOptions = {},
 ): FileWatcher {
   const {debounceMs = 100, ignored, usePolling = false, pollingInterval = 100} = options
-  const handlers: Set<(event: WatcherEvent) => void> = new Set()
+  const handlers = new Set<(event: WatcherEvent) => void>()
   let pendingChanges: FileChange[] = []
   let debounceTimeout: ReturnType<typeof setTimeout> | undefined
-  let watcher: unknown
+  let watcher: ChokidarWatcher | undefined
 
-  const emitChanges = (): void => {
+  function emitChanges(): void {
     if (pendingChanges.length > 0) {
       const event: WatcherEvent = {
         changes: [...pendingChanges],
@@ -31,7 +36,7 @@ export function createFileWatcher(
     }
   }
 
-  const queueChange = (change: FileChange): void => {
+  function queueChange(change: FileChange): void {
     pendingChanges.push(change)
     if (debounceTimeout !== undefined) {
       clearTimeout(debounceTimeout)
@@ -41,7 +46,6 @@ export function createFileWatcher(
 
   return {
     async start(): Promise<void> {
-      // Dynamic import to handle optional peer dependency
       const chokidar = await import('chokidar').catch(() => undefined)
       if (chokidar === undefined) {
         throw new Error(
@@ -66,19 +70,17 @@ export function createFileWatcher(
         chokidarOptions.ignored = typeof ignored === 'string' ? ignored : [...ignored]
       }
 
-      watcher = chokidar.watch(pathsArray, chokidarOptions)
+      watcher = chokidar.watch(pathsArray, chokidarOptions) as ChokidarWatcher
 
-      const w = watcher as {on: (event: string, handler: (path: string) => void) => void}
-
-      w.on('add', (path: string) => {
+      watcher.on('add', (path: string) => {
         queueChange({path, type: 'add', timestamp: Date.now()})
       })
 
-      w.on('change', (path: string) => {
+      watcher.on('change', (path: string) => {
         queueChange({path, type: 'change', timestamp: Date.now()})
       })
 
-      w.on('unlink', (path: string) => {
+      watcher.on('unlink', (path: string) => {
         queueChange({path, type: 'unlink', timestamp: Date.now()})
       })
     },
@@ -89,8 +91,7 @@ export function createFileWatcher(
         debounceTimeout = undefined
       }
       if (watcher !== undefined) {
-        const w = watcher as {close: () => Promise<void>}
-        await w.close()
+        await watcher.close()
         watcher = undefined
       }
     },
