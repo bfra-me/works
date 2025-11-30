@@ -5,4 +5,4 @@
 export {BaseError} from './base'
 export type {ErrorContext} from './base'
 export {createError, formatError, withErrorContext} from './factory'
-export {NotFoundError, PermissionError, ValidationError} from './specialized'
+export {NotFoundError, PermissionError, TimeoutError, ValidationError} from './specialized'
