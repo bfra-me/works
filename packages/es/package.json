@@ -1,0 +1,107 @@
+{
+  "name": "@bfra.me/es",
+  "version": "0.0.1",
+  "description": "High-quality reusable types and utilities for ES development",
+  "keywords": [
+    "bfra.me",
+    "es-modules",
+    "functional",
+    "result",
+    "typescript",
+    "utilities",
+    "works"
+  ],
+  "homepage": "https://github.com/bfra-me/works/tree/main/packages/es#readme",
+  "bugs": "https://github.com/bfra-me/works/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bfra-me/works.git",
+    "directory": "packages/es"
+  },
+  "license": "MIT",
+  "author": "Marcus R. Brown <contact@bfra.me>",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "source": "./src/index.ts",
+      "import": "./lib/index.js"
+    },
+    "./result": {
+      "types": "./lib/result/index.d.ts",
+      "source": "./src/result/index.ts",
+      "import": "./lib/result/index.js"
+    },
+    "./functional": {
+      "types": "./lib/functional/index.d.ts",
+      "source": "./src/functional/index.ts",
+      "import": "./lib/functional/index.js"
+    },
+    "./module": {
+      "types": "./lib/module/index.d.ts",
+      "source": "./src/module/index.ts",
+      "import": "./lib/module/index.js"
+    },
+    "./types": {
+      "types": "./lib/types/index.d.ts",
+      "source": "./src/types/index.ts",
+      "import": "./lib/types/index.js"
+    },
+    "./watcher": {
+      "types": "./lib/watcher/index.d.ts",
+      "source": "./src/watcher/index.ts",
+      "import": "./lib/watcher/index.js"
+    },
+    "./async": {
+      "types": "./lib/async/index.d.ts",
+      "source": "./src/async/index.ts",
+      "import": "./lib/async/index.js"
+    },
+    "./validation": {
+      "types": "./lib/validation/index.d.ts",
+      "source": "./src/validation/index.ts",
+      "import": "./lib/validation/index.js"
+    },
+    "./error": {
+      "types": "./lib/error/index.d.ts",
+      "source": "./src/error/index.ts",
+      "import": "./lib/error/index.js"
+    },
+    "./env": {
+      "types": "./lib/env/index.d.ts",
+      "source": "./src/env/index.ts",
+      "import": "./lib/env/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "!**/*.map",
+    "lib",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "prepack": "pnpm --filter-prod=\"{.}...\" run build",
+    "test": "pnpm --filter-prod=\"{.}...\" run build && vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@bfra.me/tsconfig": "workspace:*",
+    "@bfra.me/works": "workspace:*",
+    "chokidar": "^5.0.0"
+  },
+  "peerDependencies": {
+    "chokidar": "^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "chokidar": {
+      "optional": true
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}
