@@ -1,9 +1,7 @@
 /**
- * Asserts that a value matches a type guard, throwing if it doesn't.
+ * Runtime assertion that throws for invalid types, enabling fail-fast error detection.
+ * Use at API boundaries where invalid input should halt execution immediately.
  *
- * @param value - The value to check
- * @param guard - The type guard function
- * @param message - Optional error message
  * @throws Error if the guard returns false
  */
 export function assertType<T>(

@@ -1,43 +1,52 @@
 declare const BrandSymbol: unique symbol
 
 /**
- * A branded type that adds a compile-time tag to a base type.
- * Values of Brand<T, B> are assignable to T but not vice versa.
+ * Creates nominal typing in TypeScript's structural type system,
+ * preventing accidental assignment of structurally-compatible values.
  */
 export type Brand<T, B extends string> = T & {readonly [BrandSymbol]: B}
 
 /**
- * An opaque type that completely hides the underlying type.
- * More restrictive than Brand - the base type is not accessible.
+ * Like Brand but semantically indicates the underlying type should be treated as hidden.
+ * Use for values where the internal representation is an implementation detail.
  */
 export type Opaque<T, B extends string> = T & {readonly [BrandSymbol]: B}
 
 /**
- * A string that is guaranteed to be non-empty.
+ * Compile-time marker for strings validated as non-empty.
+ * Validation must be performed separately before branding.
  */
 export type NonEmptyString = Brand<string, 'NonEmptyString'>
 
 /**
- * A number that is guaranteed to be a positive integer.
+ * Compile-time marker for numbers validated as positive integers.
+ * Validation must be performed separately before branding.
  */
 export type PositiveInteger = Brand<number, 'PositiveInteger'>
 
 /**
- * Brands a value with the specified brand type.
- * This is a compile-time operation and does no runtime validation.
- *
- * @param value - The value to brand
- * @returns The branded value
+ * Compile-time marker for paths validated against null bytes and invalid characters.
+ * Validation must be performed separately before branding.
+ */
+export type ValidPath = Brand<string, 'ValidPath'>
+
+/**
+ * Compile-time marker for paths validated as absolute (Unix / or Windows drive letter).
+ * Validation must be performed separately before branding.
+ */
+export type AbsolutePath = Brand<string, 'AbsolutePath'>
+
+/**
+ * Zero-cost type cast that brands a value after external validation.
+ * This is purely a compile-time operation with no runtime overhead.
  */
 export function brand<T, B extends string>(value: T): Brand<T, B> {
   return value as Brand<T, B>
 }
 
 /**
- * Removes the brand from a branded value, returning the base type.
- *
- * @param value - The branded value
- * @returns The unbranded value
+ * Zero-cost type cast that removes branding when the raw value is needed.
+ * Useful for serialization or passing to external APIs that don't understand branded types.
  */
 export function unbrand<T>(value: Brand<T, string>): T {
   return value as T

@@ -5,7 +5,7 @@
 // Assertion utilities
 export {assertType} from './assertions'
 // Branded types
-export type {Brand, NonEmptyString, Opaque, PositiveInteger} from './brand'
+export type {AbsolutePath, Brand, NonEmptyString, Opaque, PositiveInteger, ValidPath} from './brand'
 
 export {brand, unbrand} from './brand'
 
