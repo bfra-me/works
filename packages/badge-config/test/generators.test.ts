@@ -1,6 +1,7 @@
 import type {
   BuildStatusOptions,
   CoverageOptions,
+  GitHubActionsOptions,
   LicenseOptions,
   SocialBadgeOptions,
   VersionOptions,
@@ -10,7 +11,7 @@ import {readFileSync} from 'node:fs'
 import {join} from 'node:path'
 
 import {describe, expect, it} from 'vitest'
-import {buildStatus, coverage, createBadge, license, social, version} from '../src'
+import {buildStatus, coverage, createBadge, githubActions, license, social, version} from '../src'
 
 // Helper to load preset fixture data with proper typing
 const loadPresetFixtures = (): {
@@ -19,6 +20,7 @@ const loadPresetFixtures = (): {
   license: Record<string, LicenseOptions>
   version: Record<string, VersionOptions>
   social: Record<string, SocialBadgeOptions>
+  githubActions: Record<string, GitHubActionsOptions>
 } => {
   const filePath = join(__dirname, 'fixtures', 'input', 'preset-configs.json')
   return JSON.parse(readFileSync(filePath, 'utf-8'))
@@ -363,6 +365,103 @@ describe('social generator', () => {
     })
     const result = await createBadge(badgeOptions)
     expect(result.url).toContain('GitHub%20Stars')
+  })
+})
+
+describe('githubActions generator', () => {
+  const fixtures = loadPresetFixtures()
+  const expectedOutputs = loadPresetOutputs()
+
+  it.concurrent('generates simple workflow badge', () => {
+    const config = fixtures.githubActions.simple
+    expect(config).toBeDefined()
+    if (!config) throw new Error('Config not found')
+    const result = githubActions(config)
+    expect(result.url).toBe(expectedOutputs.githubActions?.simple)
+  })
+
+  it.concurrent('generates badge with branch parameter', () => {
+    const config = fixtures.githubActions.withBranch
+    expect(config).toBeDefined()
+    if (!config) throw new Error('Config not found')
+    const result = githubActions(config)
+    expect(result.url).toBe(expectedOutputs.githubActions?.withBranch)
+  })
+
+  it.concurrent('encodes workflow names with spaces', () => {
+    const config = fixtures.githubActions.withWorkflowName
+    expect(config).toBeDefined()
+    if (!config) throw new Error('Config not found')
+    const result = githubActions(config)
+    expect(result.url).toBe(expectedOutputs.githubActions?.withWorkflowName)
+    expect(result.url).toContain('Build%20and%20Test')
+  })
+
+  it.concurrent('supports custom label override', () => {
+    const config = fixtures.githubActions.withCustomLabel
+    expect(config).toBeDefined()
+    if (!config) throw new Error('Config not found')
+    const result = githubActions(config)
+    expect(result.url).toBe(expectedOutputs.githubActions?.withCustomLabel)
+    expect(result.url).toContain('label=build')
+  })
+
+  it.concurrent('supports event parameter', () => {
+    const config = fixtures.githubActions.withEvent
+    expect(config).toBeDefined()
+    if (!config) throw new Error('Config not found')
+    const result = githubActions(config)
+    expect(result.url).toBe(expectedOutputs.githubActions?.withEvent)
+    expect(result.url).toContain('event=push')
+  })
+
+  it.concurrent('supports style parameter', () => {
+    const config = fixtures.githubActions.withStyle
+    expect(config).toBeDefined()
+    if (!config) throw new Error('Config not found')
+    const result = githubActions(config)
+    expect(result.url).toBe(expectedOutputs.githubActions?.withStyle)
+    expect(result.url).toContain('style=flat-square')
+  })
+
+  it.concurrent('supports no logo when empty string provided', () => {
+    const config = fixtures.githubActions.withNoLogo
+    expect(config).toBeDefined()
+    if (!config) throw new Error('Config not found')
+    const result = githubActions(config)
+    expect(result.url).toBe(expectedOutputs.githubActions?.withNoLogo)
+    expect(result.url).not.toContain('logo=')
+  })
+
+  it.concurrent('supports full configuration', () => {
+    const config = fixtures.githubActions.fullConfig
+    expect(config).toBeDefined()
+    if (!config) throw new Error('Config not found')
+    const result = githubActions(config)
+    expect(result.url).toBe(expectedOutputs.githubActions?.fullConfig)
+    expect(result.url).toContain('branch=main')
+    expect(result.url).toContain('label=release')
+    expect(result.url).toContain('style=for-the-badge')
+    expect(result.url).toContain('logoColor=white')
+    expect(result.url).toContain('cacheSeconds=300')
+  })
+
+  it.concurrent('defaults to githubactions logo', () => {
+    const result = githubActions({
+      repository: 'owner/repo',
+      workflow: 'test.yaml',
+    })
+    expect(result.url).toContain('logo=githubactions')
+  })
+
+  it.concurrent('constructs correct shields.io endpoint URL', () => {
+    const result = githubActions({
+      repository: 'bfra-me/works',
+      workflow: 'ci.yaml',
+    })
+    expect(result.url).toMatch(
+      /^https:\/\/img\.shields\.io\/github\/actions\/workflow\/status\/bfra-me\/works\/ci\.yaml/,
+    )
   })
 })
 

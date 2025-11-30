@@ -6,12 +6,14 @@
 export {createBadge, createBadgeUrl} from './create-badge'
 
 // Preset generators
-export {buildStatus, coverage, license, social, version} from './generators'
+export {buildStatus, coverage, githubActions, license, social, version} from './generators'
 export type {
   BuildStatus,
   BuildStatusOptions,
   CoverageOptions,
   CoverageThresholds,
+  GitHubActionsOptions,
+  GitHubActionsResult,
   LicenseCategory,
   LicenseOptions,
   SocialBadgeOptions,

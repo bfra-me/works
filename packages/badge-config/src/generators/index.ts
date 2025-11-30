@@ -26,6 +26,10 @@ export type {BuildStatus, BuildStatusOptions} from './build-status'
 export {coverage} from './coverage'
 export type {CoverageOptions, CoverageThresholds} from './coverage'
 
+// GitHub Actions generator
+export {githubActions} from './github-actions'
+export type {GitHubActionsOptions, GitHubActionsResult} from './github-actions'
+
 // License generator
 export {license} from './license'
 export type {LicenseCategory, LicenseOptions} from './license'

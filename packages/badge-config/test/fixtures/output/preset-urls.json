@@ -23,5 +23,15 @@
     "githubStars": "https://img.shields.io/badge/stars-0-yellow?logo=github",
     "githubForks": "https://img.shields.io/badge/forks-0-blue?logo=github",
     "npmDownloads": "https://img.shields.io/badge/downloads-0-green"
+  },
+  "githubActions": {
+    "simple": "https://img.shields.io/github/actions/workflow/status/bfra-me/works/ci.yaml?logo=githubactions",
+    "withBranch": "https://img.shields.io/github/actions/workflow/status/bfra-me/works/ci.yaml?branch=main&logo=githubactions",
+    "withWorkflowName": "https://img.shields.io/github/actions/workflow/status/bfra-me/works/Build%20and%20Test?logo=githubactions",
+    "withCustomLabel": "https://img.shields.io/github/actions/workflow/status/bfra-me/works/ci.yaml?label=build&logo=githubactions",
+    "withEvent": "https://img.shields.io/github/actions/workflow/status/bfra-me/works/ci.yaml?branch=main&event=push&logo=githubactions",
+    "withStyle": "https://img.shields.io/github/actions/workflow/status/bfra-me/works/ci.yaml?style=flat-square&logo=githubactions",
+    "withNoLogo": "https://img.shields.io/github/actions/workflow/status/bfra-me/works/ci.yaml",
+    "fullConfig": "https://img.shields.io/github/actions/workflow/status/bfra-me/works/release.yaml?branch=main&label=release&style=for-the-badge&logo=githubactions&logoColor=white&cacheSeconds=300"
   }
 }

@@ -99,5 +99,50 @@
       "type": "followers",
       "user": "marcusrbrown"
     }
+  },
+  "githubActions": {
+    "simple": {
+      "repository": "bfra-me/works",
+      "workflow": "ci.yaml"
+    },
+    "withBranch": {
+      "repository": "bfra-me/works",
+      "workflow": "ci.yaml",
+      "branch": "main"
+    },
+    "withWorkflowName": {
+      "repository": "bfra-me/works",
+      "workflow": "Build and Test"
+    },
+    "withCustomLabel": {
+      "repository": "bfra-me/works",
+      "workflow": "ci.yaml",
+      "label": "build"
+    },
+    "withEvent": {
+      "repository": "bfra-me/works",
+      "workflow": "ci.yaml",
+      "branch": "main",
+      "event": "push"
+    },
+    "withStyle": {
+      "repository": "bfra-me/works",
+      "workflow": "ci.yaml",
+      "style": "flat-square"
+    },
+    "withNoLogo": {
+      "repository": "bfra-me/works",
+      "workflow": "ci.yaml",
+      "logo": ""
+    },
+    "fullConfig": {
+      "repository": "bfra-me/works",
+      "workflow": "release.yaml",
+      "branch": "main",
+      "label": "release",
+      "style": "for-the-badge",
+      "logoColor": "white",
+      "cacheSeconds": 300
+    }
   }
 }
