@@ -97,6 +97,13 @@ export {isWithinBoundary, validatePath} from './validation/path'
 export type {PathValidationOptions, ValidationError, ValidPath} from './validation/path'
 export {sanitizeInput} from './validation/sanitize'
 export type {SanitizeOptions} from './validation/sanitize'
+export {combineValidators, createValidator, fromGuard} from './validation/validator'
+export type {
+  ValidationRule,
+  ValidationSchema,
+  Validator,
+  ValidatorOptions,
+} from './validation/validator'
 export {isEmail, isSemver, isUrl, isUuid} from './validation/validators'
 
 // Watcher utilities (requires chokidar peer dependency)
