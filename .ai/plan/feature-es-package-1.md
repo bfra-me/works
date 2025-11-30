@@ -98,17 +98,17 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-009 | Create `src/result/types.ts` with `Result<T, E>`, `Ok<T>`, `Err<E>` type definitions | | |
-| TASK-010 | Implement `ok<T>(value: T): Ok<T>` and `err<E>(error: E): Err<E>` factory functions in `src/result/factories.ts` | | |
-| TASK-011 | Implement type guards `isOk<T, E>(result: Result<T, E>): result is Ok<T>` and `isErr()` in `src/result/guards.ts` | | |
-| TASK-012 | Implement `unwrap<T, E>(result: Result<T, E>): T` throwing on Err, with custom error message support | | |
-| TASK-013 | Implement `unwrapOr<T, E>(result: Result<T, E>, defaultValue: T): T` for safe extraction | | |
-| TASK-014 | Implement `map<T, U, E>(result: Result<T, E>, fn: (value: T) => U): Result<U, E>` for transformation | | |
-| TASK-015 | Implement `flatMap<T, U, E>(result: Result<T, E>, fn: (value: T) => Result<U, E>): Result<U, E>` for chaining | | |
-| TASK-016 | Implement `mapErr<T, E, F>(result: Result<T, E>, fn: (error: E) => F): Result<T, F>` for error transformation | | |
-| TASK-017 | Implement `fromThrowable<T>(fn: () => T): Result<T, Error>` to wrap throwing functions | | |
-| TASK-018 | Implement `fromPromise<T>(promise: Promise<T>): Promise<Result<T, Error>>` for async operations | | |
-| TASK-019 | Create barrel export in `src/result/index.ts` with all Result utilities | | |
+| TASK-009 | Create `src/result/types.ts` with `Result<T, E>`, `Ok<T>`, `Err<E>` type definitions | ✅ | 2025-11-30 |
+| TASK-010 | Implement `ok<T>(value: T): Ok<T>` and `err<E>(error: E): Err<E>` factory functions in `src/result/factories.ts` | ✅ | 2025-11-30 |
+| TASK-011 | Implement type guards `isOk<T, E>(result: Result<T, E>): result is Ok<T>` and `isErr()` in `src/result/guards.ts` | ✅ | 2025-11-30 |
+| TASK-012 | Implement `unwrap<T, E>(result: Result<T, E>): T` throwing on Err, with custom error message support | ✅ | 2025-11-30 |
+| TASK-013 | Implement `unwrapOr<T, E>(result: Result<T, E>, defaultValue: T): T` for safe extraction | ✅ | 2025-11-30 |
+| TASK-014 | Implement `map<T, U, E>(result: Result<T, E>, fn: (value: T) => U): Result<U, E>` for transformation | ✅ | 2025-11-30 |
+| TASK-015 | Implement `flatMap<T, U, E>(result: Result<T, E>, fn: (value: T) => Result<U, E>): Result<U, E>` for chaining | ✅ | 2025-11-30 |
+| TASK-016 | Implement `mapErr<T, E, F>(result: Result<T, E>, fn: (error: E) => F): Result<T, F>` for error transformation | ✅ | 2025-11-30 |
+| TASK-017 | Implement `fromThrowable<T>(fn: () => T): Result<T, Error>` to wrap throwing functions | ✅ | 2025-11-30 |
+| TASK-018 | Implement `fromPromise<T>(promise: Promise<T>): Promise<Result<T, Error>>` for async operations | ✅ | 2025-11-30 |
+| TASK-019 | Create barrel export in `src/result/index.ts` with all Result utilities | ✅ | 2025-11-30 |
 
 ### Implementation Phase 3: Functional Utilities
 
