@@ -1,4 +1,5 @@
 import process from 'node:process'
+
 import {isInCI} from './ci'
 import {isInEditorEnv} from './editor'
 import {isInGitLifecycle} from './git'
@@ -15,10 +16,6 @@ export interface EnvironmentInfo {
   readonly isGitLifecycle: boolean
 }
 
-declare const window: unknown
-declare const document: unknown
-declare const Deno: unknown
-
 /**
  * Check if running in Node.js environment.
  */
@@ -32,14 +29,16 @@ export function isNode(): boolean {
  * Check if running in a browser environment.
  */
 export function isBrowser(): boolean {
-  return window !== undefined && document !== undefined
+  const global = globalThis as unknown as Record<string, unknown>
+  return global.window !== undefined && global.document !== undefined
 }
 
 /**
  * Check if running in Deno environment.
  */
 export function isDeno(): boolean {
-  return Deno !== undefined
+  const global = globalThis as unknown as Record<string, unknown>
+  return global.Deno !== undefined
 }
 
 /**

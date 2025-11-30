@@ -87,6 +87,9 @@
     "test": "pnpm --filter-prod=\"{.}...\" run build && vitest run",
     "test:watch": "vitest"
   },
+  "dependencies": {
+    "is-in-ci": "2.0.0"
+  },
   "devDependencies": {
     "@bfra.me/tsconfig": "workspace:*",
     "@bfra.me/works": "workspace:*",
