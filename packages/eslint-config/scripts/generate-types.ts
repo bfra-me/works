@@ -2,9 +2,9 @@ import fs from 'node:fs/promises'
 import {flatConfigsToRulesDTS} from 'eslint-typegen/core'
 import {builtinRules} from 'eslint/use-at-your-own-risk'
 import {composeConfig} from '../src/compose-config'
-import * as allConfigs from '../src/configs'
+import * as configs from '../src/configs'
 
-const configs = await composeConfig(
+const allConfigs = await composeConfig(
   {
     plugins: {
       '': {
@@ -12,28 +12,29 @@ const configs = await composeConfig(
       },
     },
   },
-  ...Object.values(allConfigs).map(async f => {
-    if (typeof f !== 'function') {
-      return []
-    }
-    if (f === allConfigs.typescript) {
-      return (f as typeof allConfigs.typescript)({
+  ...Object.values(configs).map(async f => {
+    if (typeof f !== 'function') return []
+
+    if (f === configs.jsx) return configs.jsx({a11y: true})
+    if (f === configs.typescript) {
+      return configs.typescript({
         erasableSyntaxOnly: true,
-        tsconfigPath: './tsconfig.json',
+        tsconfigPath: 'tsconfig.json',
       })
     }
+
     return f()
   }),
 )
 
 const rulesTypeName = 'Rules'
-const rulesDts = await flatConfigsToRulesDTS(configs, {
+const rulesDts = await flatConfigsToRulesDTS(allConfigs, {
   exportTypeName: rulesTypeName,
   includeAugmentation: false,
   includeIgnoreComments: false,
 })
 
-const configNames = configs.map(config => config.name).filter(Boolean) as string[]
+const configNames = allConfigs.map(config => config.name).filter(Boolean) as string[]
 const configDts = `import type {RulesConfig} from '@eslint/core'
 import type {Linter} from 'eslint'
 import type {FlatConfigComposer, ResolvableFlatConfig} from 'eslint-flat-config-utils'
