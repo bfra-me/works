@@ -8,35 +8,46 @@ Built with a focus on consistency, quality, and developer experience, it enables
 
 ## Documentation
 
-- [Project Overview](docs/src/content/docs/index.mdx): Main documentation homepage with features and philosophy
-- [Introduction](docs/src/content/docs/getting-started/introduction.mdx): Comprehensive introduction to bfra.me Works and its design principles
-- [Installation](docs/src/content/docs/getting-started/installation.mdx): How to install and set up bfra.me Works packages
-- [Quick Start Guide](docs/src/content/docs/getting-started/quick-start.mdx): Get started with bfra.me Works in minutes
-- [Configuration Guide](docs/src/content/docs/guides/configuration.mdx): Best practices for configuring bfra.me Works packages
-- [New Project Setup](docs/src/content/docs/guides/new-project.mdx): Complete guide to setting up new projects
+- [Docs README](docs/readme.md): Overview of the documentation site and structure
+- [Docs Astro Config](docs/astro.config.mjs): Site configuration for docs (Astro + Starlight)
+- [Content Config](docs/src/content.config.ts): Content collections and markdown settings for docs
+- [Project Overview](docs/src/content/docs/index.mdx): Documentation homepage with features and philosophy
+- [Introduction](docs/src/content/docs/getting-started/introduction.mdx): Introduction to the monorepo and design principles
+- [Installation](docs/src/content/docs/getting-started/installation.mdx): How to install and set up packages
+- [Quick Start Guide](docs/src/content/docs/getting-started/quick-start.mdx): Quick start for using the tooling
 
 ## Packages
 
-- [@bfra.me/badge-config](packages/badge-config/README.md): TypeScript API for generating shields.io badge URLs with presets for common use cases
-- [@bfra.me/create](packages/create/README.md): Command-line utility for creating new packages from customizable templates
-- [@bfra.me/eslint-config](packages/eslint-config/readme.md): Shared ESLint configuration with TypeScript, Prettier, and Vitest support
-- [@bfra.me/prettier-config](packages/prettier-config/readme.md): Prettier configuration with multiple line-length variants
-- [@bfra.me/tsconfig](packages/tsconfig/readme.md): Strict TypeScript configurations for libraries and applications
-- [@bfra.me/semantic-release](packages/semantic-release/readme.md): Automated versioning and release configuration
+- [@bfra.me/badge-config README](packages/badge-config/README.md): Badge URL generation API and usage
+- [@bfra.me/create README](packages/create/README.md): CLI for project generation and templates
+- [@bfra.me/eslint-config README](packages/eslint-config/readme.md): Shared ESLint config with TypeScript/Prettier/Vitest support
+- [@bfra.me/prettier-config README](packages/prettier-config/readme.md): Prettier config variants and usage
+- [@bfra.me/tsconfig README](packages/tsconfig/readme.md): Strict TypeScript configs for libraries/apps
+- [@bfra.me/semantic-release README](packages/semantic-release/readme.md): Semantic-release presets and guidance
+
+## Specifications
+
+- [Root ESLint Config](eslint.config.ts): Workspace ESLint configuration (inspector uses this file)
+- [Root TS Config](tsconfig.json): Base TypeScript configuration for the workspace
+- [Root Vitest Config](vitest.config.ts): Testing configuration and coverage setup
+- [Workspace](pnpm-workspace.yaml): pnpm workspace packages and inclusion rules
+- [Type Coverage Config](type-coverage.json): Type coverage thresholds and reporting
+
+## Examples
+
+- [Badge Generators](packages/badge-config/src/generators/): Generator pattern for Shields.io URLs
+- [Create Templates](packages/create/templates/): Built-in templates for project scaffolding
+- [Script – Clean Changesets](scripts/src/clean-changesets.ts): Utility script used by `version-changesets`
 
 ## Development
 
-- [Contributing Guide](docs/src/content/docs/guides/contributing.mdx): Guidelines for contributing to bfra.me Works
-- [Copilot Instructions](.github/copilot-instructions.md): Comprehensive development guide and project patterns
-- [Package Configuration](package.json): Root package.json with workspace scripts and dependencies
-- [Workspace Configuration](pnpm-workspace.yaml): pnpm workspace setup for monorepo management
+- [Contributing Guide](docs/src/content/docs/guides/contributing.mdx): Contribution guidelines
+- [Copilot Instructions](.github/copilot-instructions.md): AI assistant guidance, architecture, workflows, safeguards
+- [Root Package.json](package.json): Workspace scripts, devDependencies, and release workflow
+- [Scripts Package README](scripts/readme.md): Documentation for utility scripts
+- [Scripts Package Config](scripts/tsconfig.json): TypeScript config for scripts
 
-## Optional
+## Configuration
 
-- [API Reference](docs/src/content/docs/reference/index.mdx): Complete API documentation for all packages
-- [License](license.md): MIT license for the project and all packages
-- [TypeScript Patterns](.github/instructions/typescript-patterns.instructions.md): TypeScript coding standards and patterns
-- [ESLint Config Usage](.github/instructions/eslint-config-usage.instructions.md): Guidelines for ESLint configuration
-- [Testing Practices](.github/instructions/testing-practices.instructions.md): Testing standards and best practices
-- [Changeset Workflow](.github/instructions/changeset-workflow.instructions.md): Release and versioning workflow
-- [API Design Standards](.github/instructions/api-design-standards.instructions.md): API design consistency guidelines
+- [License](license.md): Project license (MIT)
+- [Prettier Config](packages/prettier-config/prettier.config.cjs): Shared formatting configuration referenced by root
