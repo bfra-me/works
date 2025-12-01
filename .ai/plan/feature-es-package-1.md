@@ -288,13 +288,13 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-108 | Create fixture testing proper Result usage patterns | | |
-| TASK-109 | Create fixture testing improper Result usage (throwing from Result code paths) | | |
-| TASK-110 | Create fixture testing proper functional composition patterns | | |
-| TASK-111 | Create fixture testing pipe/compose misuse (side effects, mutation) | | |
-| TASK-112 | Create fixture testing proper type guard usage vs. type assertion | | |
-| TASK-113 | Write anti-pattern detection tests in `test/patterns/anti-pattern-detection.test.ts` | | |
-| TASK-114 | Write best practice validation tests in `test/patterns/best-practices.test.ts` | | |
+| TASK-108 | Create fixture testing proper Result usage patterns | ✅ | 2025-12-01 |
+| TASK-109 | Create fixture testing improper Result usage (throwing from Result code paths) | ✅ | 2025-12-01 |
+| TASK-110 | Create fixture testing proper functional composition patterns | ✅ | 2025-12-01 |
+| TASK-111 | Create fixture testing pipe/compose misuse (side effects, mutation) | ✅ | 2025-12-01 |
+| TASK-112 | Create fixture testing proper type guard usage vs. type assertion | ✅ | 2025-12-01 |
+| TASK-113 | Write anti-pattern detection tests in `test/patterns/anti-pattern-detection.test.ts` | ✅ | 2025-12-01 |
+| TASK-114 | Write best practice validation tests in `test/patterns/best-practices.test.ts` | ✅ | 2025-12-01 |
 
 ### Implementation Phase 16: Documentation
 
