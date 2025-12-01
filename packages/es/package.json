@@ -82,6 +82,7 @@
     "src"
   ],
   "scripts": {
+    "bench": "vitest bench",
     "build": "tsup",
     "prepack": "pnpm --filter-prod=\"{.}...\" run build",
     "test": "pnpm --filter-prod=\"{.}...\" run build && vitest run",

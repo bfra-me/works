@@ -274,8 +274,8 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-101 | Create benchmark harness in `test/benchmarks/benchmark-harness.ts` | | |
-| TASK-102 | Implement pipe/compose performance benchmarks comparing to hand-written code | | |
+| TASK-101 | Create benchmark harness in `test/benchmarks/benchmark-harness.ts` | ✅ | 2025-12-01 |
+| TASK-102 | Implement pipe/compose performance benchmarks comparing to hand-written code | ✅ | 2025-12-01 |
 | TASK-103 | Implement Result creation and transformation benchmarks (100K iterations) | | |
 | TASK-104 | Implement memoization cache performance benchmarks with various cache sizes | | |
 | TASK-105 | Implement file watcher debouncing benchmarks with rapid event simulation | | |
