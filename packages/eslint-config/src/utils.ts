@@ -1,21 +1,37 @@
 import type {Awaitable} from 'eslint-flat-config-utils'
-import process from 'node:process'
 import {fileURLToPath} from 'node:url'
-import isInCI from 'is-in-ci'
+import {
+  interopDefault as esInteropDefault,
+  isInEditorEnv as esIsInEditorEnv,
+  isInGitLifecycle as esIsInGitLifecycle,
+} from '@bfra.me/es'
 import {isPackageExists} from 'local-pkg'
 
 const scopeUrl = fileURLToPath(new URL('.', import.meta.url))
 
+/**
+ * Unwraps the default export from a module.
+ * Handles both ES modules with default exports and CommonJS modules.
+ *
+ * @deprecated Use `interopDefault` from `@bfra.me/es/module` instead.
+ * This function is re-exported for backward compatibility and will be removed in a future major version.
+ *
+ * @param m - The module or promise of a module to unwrap
+ * @returns The unwrapped default export
+ */
 /* #__NO_SIDE_EFFECTS__ */
 export async function interopDefault<T>(
   m: Awaitable<T>,
 ): Promise<T extends {default: infer U} ? U : T> {
-  const resolved = await m
-  return typeof resolved === 'object' && resolved !== null && 'default' in resolved
-    ? interopDefault(resolved.default as Awaitable<T>)
-    : (resolved as T extends {default: infer U} ? U : T)
+  return esInteropDefault(m)
 }
 
+/**
+ * Check if a package exists within the eslint-config package scope.
+ *
+ * @param name - The package name to check
+ * @returns True if the package exists within this package's scope
+ */
 export function isPackageInScope(name: string): boolean {
   return isPackageExists(name, {paths: [scopeUrl]})
 }
@@ -23,47 +39,24 @@ export function isPackageInScope(name: string): boolean {
 /**
  * Check if the process is running in a Git hook or under lint-staged.
  *
- * @example
- * ```ts
- * import {isInGitLifecycle} from '@bfra.me/eslint-config'
+ * @deprecated Use `isInGitLifecycle` from `@bfra.me/es/env` instead.
+ * This function is re-exported for backward compatibility and will be removed in a future major version.
  *
- * if (isInGitLifecycle) {
- *   console.log('Running in a Git hook or under lint-staged')
- * }
- * ```
+ * @returns True if running in a git lifecycle context
  */
 export function isInGitLifecycle(): boolean {
-  return !!(
-    false ||
-    (typeof process.env.GIT_PARAMS === 'string' && process.env.GIT_PARAMS.length > 0) ||
-    (typeof process.env.VSCODE_GIT_COMMAND === 'string' &&
-      process.env.VSCODE_GIT_COMMAND.length > 0) ||
-    process.env.npm_lifecycle_script?.startsWith('lint-staged') ||
-    process.env.npm_lifecycle_script?.startsWith('nano-staged')
-  )
+  return esIsInGitLifecycle()
 }
 
 /**
- * Check if the process is running in an editor.
+ * Check if the process is running in an editor environment.
+ * Detects VS Code, JetBrains IDEs, Vim, and Neovim.
  *
- * @example
- * ```ts
- * import {isInEditor} from '@bfra.me/eslint-config'
+ * @deprecated Use `isInEditorEnv` from `@bfra.me/es/env` instead.
+ * This function is re-exported for backward compatibility and will be removed in a future major version.
  *
- * if (isInEditor) {
- *   console.log('Running in an editor')
- * }
+ * @returns True if running in an editor environment
  */
 export function isInEditorEnv(): boolean {
-  if (isInCI) return false
-  if (isInGitLifecycle()) return false
-
-  return !!(
-    false ||
-    (typeof process.env.VSCODE_PID === 'string' && process.env.VSCODE_PID.length > 0) ||
-    (typeof process.env.VSCODE_CWD === 'string' && process.env.VSCODE_CWD.length > 0) ||
-    (typeof process.env.JETBRAINS_IDE === 'string' && process.env.JETBRAINS_IDE.length > 0) ||
-    (typeof process.env.VIM === 'string' && process.env.VIM.length > 0) ||
-    (typeof process.env.NVIM === 'string' && process.env.NVIM.length > 0)
-  )
+  return esIsInEditorEnv()
 }
