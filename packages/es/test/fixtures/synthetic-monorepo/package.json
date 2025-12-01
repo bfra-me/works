@@ -1,0 +1,14 @@
+{
+  "name": "synthetic-monorepo-root",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Synthetic monorepo for testing @bfra.me/es utilities",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "devDependencies": {
+    "typescript": "^5.7.0"
+  }
+}

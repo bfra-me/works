@@ -1,0 +1,14 @@
+{
+  "name": "@synthetic/web-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Web application - consumes packages",
+  "type": "module",
+  "dependencies": {
+    "@synthetic/core": "workspace:*",
+    "@synthetic/config": "workspace:*",
+    "@synthetic/api-client": "workspace:*",
+    "@synthetic/web-components": "workspace:*",
+    "@synthetic/logger": "workspace:*"
+  }
+}
