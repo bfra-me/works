@@ -315,13 +315,13 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-121 | Update `refactor-create-package-1.md` TASK-002 to import `Result<T, E>` from `@bfra.me/es/result` | | |
-| TASK-122 | Update `refactor-create-package-1.md` TASK-005 to import `pipe()`, `compose()`, `curry()` from `@bfra.me/es/functional` | | |
-| TASK-123 | Update `feature-workspace-analyzer-1.md` TASK-008 to import `Result<T>` from `@bfra.me/es/result` | | |
-| TASK-124 | Update `feature-doc-sync-engine-1.md` TASK-007 types to extend/import from `@bfra.me/es/result` | | |
-| TASK-125 | Update `feature-doc-sync-engine-1.md` TASK-022-024 to use `createFileWatcher()` from `@bfra.me/es/watcher` | | |
-| TASK-126 | Update `feature-workspace-analyzer-1.md` TASK-057-058 to use file hasher from `@bfra.me/es/watcher` | | |
-| TASK-127 | Add `@bfra.me/es` as DEP-001 in all three dependent implementation plans | | |
+| TASK-121 | Update `refactor-create-package-1.md` TASK-002 to import `Result<T, E>` from `@bfra.me/es/result` | ✅ | 2025-12-01 |
+| TASK-122 | Update `refactor-create-package-1.md` TASK-005 to import `pipe()`, `compose()`, `curry()` from `@bfra.me/es/functional` | ✅ | 2025-12-01 |
+| TASK-123 | Update `feature-workspace-analyzer-1.md` TASK-008 to import `Result<T>` from `@bfra.me/es/result` | ✅ | 2025-12-01 |
+| TASK-124 | Update `feature-doc-sync-engine-1.md` TASK-007 types to extend/import from `@bfra.me/es/result` | ✅ | 2025-12-01 |
+| TASK-125 | Update `feature-doc-sync-engine-1.md` TASK-022-024 to use `createFileWatcher()` from `@bfra.me/es/watcher` | ✅ | 2025-12-01 |
+| TASK-126 | Update `feature-workspace-analyzer-1.md` TASK-057-058 to use file hasher from `@bfra.me/es/watcher` | ✅ | 2025-12-01 |
+| TASK-127 | Add `@bfra.me/es` as DEP-001 in all three dependent implementation plans | ✅ | 2025-12-01 |
 
 ### Implementation Phase 18: ESLint-Config Migration
 

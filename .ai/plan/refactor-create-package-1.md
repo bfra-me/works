@@ -40,10 +40,10 @@ This implementation plan addresses critical architectural issues in the `@bfra.m
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
 | TASK-001 | Create branded types for `TemplateSource`, `ProjectPath`, and `PackageName` with compile-time validation | |  |
-| TASK-002 | Implement strict `Result<T, E>` discriminated union type replacing mixed return patterns | |  |
+| TASK-002 | Import strict `Result<T, E>` discriminated union type from `@bfra.me/es/result` replacing mixed return patterns | |  |
 | TASK-003 | Create comprehensive type guards for runtime validation of all input types | |  |
 | TASK-004 | Establish unified error handling system with `createError()` factory and error codes | |  |
-| TASK-005 | Implement functional utilities module with `pipe()`, `compose()`, and `curry()` helpers | |  |
+| TASK-005 | Import functional utilities (`pipe()`, `compose()`, `curry()`) from `@bfra.me/es/functional` | |  |
 | TASK-006 | Create validation factory functions replacing scattered validation logic | |  |
 | TASK-007 | Establish logging/telemetry factory with consistent progress indicators and error reporting | |  |
 
@@ -127,8 +127,9 @@ This implementation plan addresses critical architectural issues in the `@bfra.m
 
 ## 4. Dependencies
 
-- **DEP-001**: Enhanced TypeScript configuration supporting latest language features and strict type checking
-- **DEP-002**: Vitest testing framework with comprehensive mocking and snapshot capabilities
+- **DEP-001**: `@bfra.me/es` (workspace:*) — Provides `Result<T, E>` type from `/result`, functional utilities (`pipe()`, `compose()`, `curry()`) from `/functional`, and type guards from `/types`
+- **DEP-002**: Enhanced TypeScript configuration supporting latest language features and strict type checking
+- **DEP-003**: Vitest testing framework with comprehensive mocking and snapshot capabilities
 - **DEP-003**: Updated @clack/prompts for consistent CLI interactions
 - **DEP-004**: Maintained compatibility with existing AI provider SDKs (OpenAI, Anthropic)
 - **DEP-005**: Giget for template fetching with enhanced caching mechanisms
