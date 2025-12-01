@@ -21,6 +21,8 @@ Built with a focus on consistency, quality, and developer experience, it enables
 - [@bfra.me/badge-config README](packages/badge-config/README.md): Badge URL generation API and usage
 - [@bfra.me/create README](packages/create/README.md): CLI for project generation and templates
 - [@bfra.me/es README](packages/es/README.md): ES utilities with Result type, async helpers, functional utilities, and type guards
+- [@bfra.me/es API Reference](packages/es/docs/api.md): Complete API documentation for all @bfra.me/es subpath exports
+- [@bfra.me/es Migration Guide](packages/es/docs/migration.md): Migration guide for consumers of inline utilities
 - [@bfra.me/eslint-config README](packages/eslint-config/readme.md): Shared ESLint config with TypeScript/Prettier/Vitest support
 - [@bfra.me/prettier-config README](packages/prettier-config/readme.md): Prettier config variants and usage
 - [@bfra.me/tsconfig README](packages/tsconfig/readme.md): Strict TypeScript configs for libraries/apps
@@ -40,7 +42,13 @@ Built with a focus on consistency, quality, and developer experience, it enables
 - [Create Templates](packages/create/templates/): Built-in templates for project scaffolding
 - [ES Result Type](packages/es/src/result/): Discriminated union Result type with ok/err factories and operators
 - [ES Async Utilities](packages/es/src/async/): retry, timeout, debounce, throttle, sleep, concurrency control
-- [ES Functional](packages/es/src/functional/): pipe, compose, curry, tap, identity utilities
+- [ES Functional](packages/es/src/functional/): pipe, compose, curry, memoize, tap, identity utilities
+- [ES Memoize Cache Strategies](packages/es/src/functional/cache/): LRU, TTL, and weak reference cache implementations
+- [ES Branded Types](packages/es/src/types/): Brand<T, B>, Opaque<T, B>, and common type guards
+- [ES Validation](packages/es/src/validation/): Path validation, sanitization, and validators (email, url, uuid, semver)
+- [ES Error Utilities](packages/es/src/error/): BaseError class and specialized error factories
+- [ES Environment Detection](packages/es/src/env/): CI, editor, git lifecycle, and runtime detection
+- [ES File Watcher](packages/es/src/watcher/): File watcher abstraction with debouncing and change detection
 - [Script – Clean Changesets](scripts/src/clean-changesets.ts): Utility script used by `version-changesets`
 
 ## Development
