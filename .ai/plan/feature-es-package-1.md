@@ -302,12 +302,12 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-115 | Write comprehensive README.md with API documentation and usage examples | | |
-| TASK-116 | Add JSDoc comments to all public API functions with @example tags | | |
-| TASK-117 | Create API reference documentation in `docs/api.md` | | |
-| TASK-118 | Create migration guide for consumers of inline utilities in `docs/migration.md` | | |
-| TASK-119 | Add package to docs site navigation in `docs/astro.config.mjs` | | |
-| TASK-120 | Create CHANGELOG.md with initial version entry | | |
+| TASK-115 | Write comprehensive README.md with API documentation and usage examples | ✅ | 2025-12-01 |
+| TASK-116 | Add JSDoc comments to all public API functions with @example tags | ✅ | 2025-12-01 |
+| TASK-117 | Create API reference documentation in `docs/api.md` | ✅ | 2025-12-01 |
+| TASK-118 | Create migration guide for consumers of inline utilities in `docs/migration.md` | ✅ | 2025-12-01 |
+| TASK-119 | Add package to docs site navigation in `docs/astro.config.mjs` | ✅ | 2025-12-01 |
+| TASK-120 | Create CHANGELOG.md with initial version entry | ⏭️ | (skipped - changesets) |
 
 ### Implementation Phase 17: Dependent Plan Updates
 

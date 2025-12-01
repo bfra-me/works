@@ -16,6 +16,17 @@ export interface Debouncer<T> {
  * @param fn - The function to call with batched items
  * @param ms - The debounce delay in milliseconds
  * @returns A Debouncer instance
+ *
+ * @example
+ * ```ts
+ * const debouncer = createDebouncer((paths: string[]) => {
+ *   console.log('Processing batch:', paths)
+ * }, 100)
+ *
+ * debouncer.add('file1.ts')
+ * debouncer.add('file2.ts')
+ * // After 100ms: 'Processing batch: ["file1.ts", "file2.ts"]'
+ * ```
  */
 export function createDebouncer<T>(fn: (items: T[]) => void, ms: number): Debouncer<T> {
   let items: T[] = []

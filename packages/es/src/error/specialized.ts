@@ -22,6 +22,13 @@ function buildBaseOptions(
 
 /**
  * Error thrown when validation fails.
+ *
+ * @example
+ * ```ts
+ * throw new ValidationError('Invalid email format', {
+ *   field: 'email'
+ * })
+ * ```
  */
 export class ValidationError extends BaseError {
   readonly field: string | undefined
@@ -35,6 +42,14 @@ export class ValidationError extends BaseError {
 
 /**
  * Error thrown when a resource is not found.
+ *
+ * @example
+ * ```ts
+ * throw new NotFoundError('User not found', {
+ *   resource: 'User',
+ *   context: { userId: 123 }
+ * })
+ * ```
  */
 export class NotFoundError extends BaseError {
   readonly resource: string | undefined
@@ -48,6 +63,13 @@ export class NotFoundError extends BaseError {
 
 /**
  * Error thrown when permission is denied.
+ *
+ * @example
+ * ```ts
+ * throw new PermissionError('Access denied', {
+ *   requiredPermission: 'admin'
+ * })
+ * ```
  */
 export class PermissionError extends BaseError {
   readonly requiredPermission: string | undefined

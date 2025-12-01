@@ -12,6 +12,20 @@ interface ChokidarWatcher {
  * @param paths - Paths to watch
  * @param options - Watcher configuration options
  * @returns A FileWatcher instance
+ *
+ * @example
+ * ```ts
+ * const watcher = createFileWatcher(['src/*.ts'], {
+ *   debounceMs: 100,
+ *   ignored: 'node_modules'
+ * })
+ *
+ * watcher.on('change', event => {
+ *   console.log('Files changed:', event.changes)
+ * })
+ *
+ * await watcher.start()
+ * ```
  */
 export function createFileWatcher(
   paths: string | readonly string[],

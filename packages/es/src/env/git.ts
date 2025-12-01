@@ -4,6 +4,15 @@ import {hasNonEmptyEnv} from './helpers'
 
 /**
  * Check if the process is running in a Git hook or under lint-staged.
+ *
+ * @returns True if running in a git lifecycle context
+ *
+ * @example
+ * ```ts
+ * if (isInGitLifecycle()) {
+ *   // Running in git hook, skip expensive operations
+ * }
+ * ```
  */
 export function isInGitLifecycle(): boolean {
   const lifecycleScript = process.env.npm_lifecycle_script

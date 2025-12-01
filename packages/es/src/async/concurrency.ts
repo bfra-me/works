@@ -6,6 +6,15 @@ import {err, ok} from '../result/factories'
  *
  * @param concurrency - Maximum number of concurrent operations
  * @returns A function that queues operations to respect the concurrency limit
+ *
+ * @example
+ * ```ts
+ * const limit = pLimit(5)  // Max 5 concurrent
+ *
+ * const results = await Promise.all(
+ *   urls.map(url => limit(() => fetch(url)))
+ * )
+ * ```
  */
 export function pLimit(concurrency: number): <T>(fn: () => Promise<T>) => Promise<T> {
   if (concurrency < 1) {
@@ -55,6 +64,18 @@ export interface PAllOptions {
  * @param tasks - Array of functions that return promises
  * @param options - Options including concurrency limit
  * @returns A Result containing an array of results or the first error
+ *
+ * @example
+ * ```ts
+ * const fetchAll = await pAll(
+ *   urls.map(url => () => fetch(url)),
+ *   { concurrency: 5 }
+ * )
+ *
+ * if (isOk(fetchAll)) {
+ *   console.log('All fetched:', fetchAll.data)
+ * }
+ * ```
  */
 export async function pAll<T>(
   tasks: readonly (() => Promise<T>)[],
