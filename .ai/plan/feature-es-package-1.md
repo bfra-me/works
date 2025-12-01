@@ -274,13 +274,13 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-101 | Create benchmark harness in `test/benchmarks/benchmark-harness.ts` | | |
-| TASK-102 | Implement pipe/compose performance benchmarks comparing to hand-written code | | |
-| TASK-103 | Implement Result creation and transformation benchmarks (100K iterations) | | |
-| TASK-104 | Implement memoization cache performance benchmarks with various cache sizes | | |
-| TASK-105 | Implement file watcher debouncing benchmarks with rapid event simulation | | |
-| TASK-106 | Create benchmark comparison baseline in `test/benchmarks/baselines/` | | |
-| TASK-107 | Add CI benchmark regression detection with < 10% performance degradation threshold | | |
+| TASK-101 | Create benchmark harness in `test/benchmarks/benchmark-harness.ts` | ✅ | 2025-12-01 |
+| TASK-102 | Implement pipe/compose performance benchmarks comparing to hand-written code | ✅ | 2025-12-01 |
+| TASK-103 | Implement Result creation and transformation benchmarks (100K iterations) | ✅ | 2025-12-01 |
+| TASK-104 | Implement memoization cache performance benchmarks with various cache sizes | ✅ | 2025-12-01 |
+| TASK-105 | Implement file watcher debouncing benchmarks with rapid event simulation | ✅ | 2025-12-01 |
+| TASK-106 | Create benchmark comparison baseline in `test/benchmarks/baselines/` | ✅ | 2025-12-01 |
+| TASK-107 | Add CI benchmark regression detection with < 10% performance degradation threshold | ✅ | 2025-12-01 |
 
 ### Implementation Phase 15: Anti-Pattern Detection Tests
 
