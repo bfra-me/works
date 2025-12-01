@@ -262,11 +262,11 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 |------|-------------|-----------|------|
 | TASK-094 | Create test fixtures directory `test/fixtures/synthetic-monorepo/` with sample package structures | ✅ | 2025-12-01 |
 | TASK-095 | Create multi-package fixture simulating real workspace with 10+ packages | ✅ | 2025-12-01 |
-| TASK-096 | Write integration tests for Result type across async boundaries in `test/integration/result-async.test.ts` | | |
-| TASK-097 | Write integration tests for functional composition chains in `test/integration/functional-chains.test.ts` | | |
-| TASK-098 | Write integration tests for file watcher with real file system in `test/integration/watcher.test.ts` | | |
-| TASK-099 | Write integration tests for module interop with various export patterns | | |
-| TASK-100 | Validate utilities work correctly with various tsconfig `moduleResolution` settings | | |
+| TASK-096 | Write integration tests for Result type across async boundaries in `test/integration/result-async.test.ts` | ✅ | 2025-12-01 |
+| TASK-097 | Write integration tests for functional composition chains in `test/integration/functional-chains.test.ts` | ✅ | 2025-12-01 |
+| TASK-098 | Write integration tests for file watcher with real file system in `test/integration/watcher.test.ts` | ✅ | 2025-12-01 |
+| TASK-099 | Write integration tests for module interop with various export patterns | ✅ | 2025-12-01 |
+| TASK-100 | Validate utilities work correctly with various tsconfig `moduleResolution` settings | ✅ | 2025-12-01 |
 
 ### Implementation Phase 14: Performance Benchmarks
 
