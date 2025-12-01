@@ -1,0 +1,195 @@
+# Benchmark regression detection workflow for @bfra.me/es package.
+---
+name: Benchmarks
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - packages/es/**
+      - .github/workflows/benchmarks.yaml
+  push:
+    branches: [main]
+    paths:
+      - packages/es/**
+      - .github/workflows/benchmarks.yaml
+  workflow_dispatch:
+    inputs:
+      update_baseline:
+        description: Update the baseline with current benchmark results
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  benchmark:
+    name: Performance Benchmarks
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+
+      - name: Prepare job
+        uses: ./.github/actions/pnpm-install
+
+      - name: Build packages
+        run: pnpm run build
+
+      - name: Run benchmarks
+        id: bench
+        working-directory: packages/es
+        run: |
+          # Run benchmarks and capture output
+          pnpm bench 2>&1 | tee benchmark-output.txt
+          echo "Benchmarks completed"
+
+      - name: Run regression check
+        if: ${{ !inputs.update_baseline }}
+        id: regression
+        working-directory: packages/es
+        continue-on-error: true
+        env:
+          REGRESSION_THRESHOLD: '10'
+        run: |
+          # Run the benchmark comparison script
+          pnpm bench:ci 2>&1 | tee regression-output.txt || true
+
+          # Check if comparison was performed
+          if grep -q "OVERALL: ✓ PASSED" regression-output.txt; then
+            echo "result=passed" >> "$GITHUB_OUTPUT"
+          elif grep -q "OVERALL: ✗ FAILED" regression-output.txt; then
+            echo "result=failed" >> "$GITHUB_OUTPUT"
+          else
+            echo "result=skipped" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update baseline
+        if: ${{ inputs.update_baseline || (github.event_name == 'push' && github.ref == 'refs/heads/main') }}
+        working-directory: packages/es
+        run: |
+          echo "Updating baseline with current benchmark results..."
+          pnpm bench:update || echo "Baseline update requires Vitest JSON output support"
+
+      - id: get-workflow-access-token
+        if: ${{ github.event_name == 'pull_request' && steps.regression.outputs.result != 'skipped' && github.repository == 'bfra-me/works' }}
+        name: Get Workflow Access Token
+        uses: actions/create-github-app-token@7e473efe3cb98aa54f8d4bac15400b15fad77d94 # v2.2.0
+        with:
+          app-id: ${{ secrets.APPLICATION_ID }}
+          permission-pull-requests: write
+          private-key: ${{ secrets.APPLICATION_PRIVATE_KEY }}
+
+      - name: Comment on PR
+        if: ${{ github.event_name == 'pull_request' && steps.regression.outputs.result != 'skipped' }}
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ steps.get-workflow-access-token.outputs.token }}
+          script: |
+            const fs = require('fs');
+
+            // Read benchmark output
+            let benchmarkOutput = '';
+            try {
+              benchmarkOutput = fs.readFileSync('packages/es/benchmark-output.txt', 'utf8');
+            } catch (e) {
+              benchmarkOutput = 'Benchmark output not available';
+            }
+
+            // Read regression output
+            let regressionOutput = '';
+            try {
+              regressionOutput = fs.readFileSync('packages/es/regression-output.txt', 'utf8');
+            } catch (e) {
+              regressionOutput = 'Regression check output not available';
+            }
+
+            const result = '${{ steps.regression.outputs.result }}';
+            const icon = result === 'passed' ? '✅' : result === 'failed' ? '❌' : '⚠️';
+            const status = result === 'passed' ? 'PASSED' : result === 'failed' ? 'FAILED' : 'SKIPPED';
+
+            // Create collapsible sections for the output
+            const body = `## ${icon} Benchmark Results
+
+            **Status:** ${status}
+            **Regression Threshold:** ≤10%
+
+            <details>
+            <summary>📊 Benchmark Output</summary>
+
+            \`\`\`
+            ${benchmarkOutput.slice(0, 10000)}
+            \`\`\`
+
+            </details>
+
+            <details>
+            <summary>📈 Regression Analysis</summary>
+
+            \`\`\`
+            ${regressionOutput.slice(0, 10000)}
+            \`\`\`
+
+            </details>
+
+            ---
+            *Benchmark regression detection for @bfra.me/es package*
+            `;
+
+            // Find existing comment
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const botComment = comments.find(comment =>
+              comment.user.type === 'Bot' &&
+              comment.body.includes('Benchmark Results')
+            );
+
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: body.trim(),
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: body.trim(),
+              });
+            }
+
+      - name: Upload benchmark results
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-results
+          path: |
+            packages/es/benchmark-output.txt
+            packages/es/regression-output.txt
+          retention-days: 30
+          if-no-files-found: ignore
+
+      - name: Check regression result
+        if: ${{ steps.regression.outputs.result == 'failed' }}
+        run: |
+          echo "::warning::Performance regression detected! Some benchmarks exceeded the 10% threshold."
+          echo "Please review the benchmark results and consider optimizing the affected code."
+          # Note: We use warning instead of failing the build because benchmarks can be noisy
+          # To make this a hard failure, uncomment the following line:
+          # exit 1

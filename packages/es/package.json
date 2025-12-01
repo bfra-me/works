@@ -83,6 +83,8 @@
   ],
   "scripts": {
     "bench": "vitest bench",
+    "bench:ci": "npx tsx test/benchmarks/run-benchmarks.ts",
+    "bench:update": "npx tsx test/benchmarks/run-benchmarks.ts --update",
     "build": "tsup",
     "prepack": "pnpm --filter-prod=\"{.}...\" run build",
     "test": "pnpm --filter-prod=\"{.}...\" run build && vitest run",

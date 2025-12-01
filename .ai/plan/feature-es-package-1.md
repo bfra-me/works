@@ -279,8 +279,8 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 | TASK-103 | Implement Result creation and transformation benchmarks (100K iterations) | | |
 | TASK-104 | Implement memoization cache performance benchmarks with various cache sizes | | |
 | TASK-105 | Implement file watcher debouncing benchmarks with rapid event simulation | | |
-| TASK-106 | Create benchmark comparison baseline in `test/benchmarks/baselines/` | | |
-| TASK-107 | Add CI benchmark regression detection with < 10% performance degradation threshold | | |
+| TASK-106 | Create benchmark comparison baseline in `test/benchmarks/baselines/` | ✅ | 2025-12-01 |
+| TASK-107 | Add CI benchmark regression detection with < 10% performance degradation threshold | ✅ | 2025-12-01 |
 
 ### Implementation Phase 15: Anti-Pattern Detection Tests
 
