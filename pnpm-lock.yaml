@@ -177,6 +177,9 @@ importers:
 
   packages/eslint-config:
     dependencies:
+      '@bfra.me/es':
+        specifier: workspace:*
+        version: link:../es
       '@eslint-community/eslint-plugin-eslint-comments':
         specifier: 4.5.0
         version: 4.5.0(eslint@9.39.1(jiti@2.6.1))

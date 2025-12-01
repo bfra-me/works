@@ -329,11 +329,11 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-128 | Add `@bfra.me/es` as dependency in `packages/eslint-config/package.json` | | |
-| TASK-129 | Update `packages/eslint-config/src/utils.ts` to re-export `interopDefault` from `@bfra.me/es/module` | | |
-| TASK-130 | Update `packages/eslint-config/src/utils.ts` to re-export `isInGitLifecycle`, `isInEditorEnv` from `@bfra.me/es/env` | | |
-| TASK-131 | Add deprecation notices to original implementations pointing to `@bfra.me/es` | | |
-| TASK-132 | Update eslint-config tests to verify re-exports work correctly | | |
+| TASK-128 | Add `@bfra.me/es` as dependency in `packages/eslint-config/package.json` | ✅ | 2025-12-01 |
+| TASK-129 | Update `packages/eslint-config/src/utils.ts` to re-export `interopDefault` from `@bfra.me/es/module` | ✅ | 2025-12-01 |
+| TASK-130 | Update `packages/eslint-config/src/utils.ts` to re-export `isInGitLifecycle`, `isInEditorEnv` from `@bfra.me/es/env` | ✅ | 2025-12-01 |
+| TASK-131 | Add deprecation notices to original implementations pointing to `@bfra.me/es` | ✅ | 2025-12-01 |
+| TASK-132 | Update eslint-config tests to verify re-exports work correctly | ✅ | 2025-12-01 |
 
 ### Implementation Phase 19: Release Preparation
 
