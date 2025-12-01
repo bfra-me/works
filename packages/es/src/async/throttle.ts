@@ -4,7 +4,19 @@
  *
  * @param fn - The function to throttle
  * @param ms - The throttle interval in milliseconds
- * @returns A throttled version of the function
+ * @returns A throttled version of the function with a cancel method
+ *
+ * @example
+ * ```ts
+ * const handleScroll = throttle(() => {
+ *   updateScrollPosition()
+ * }, 100)
+ *
+ * window.addEventListener('scroll', handleScroll)
+ *
+ * // Later: cancel pending invocation
+ * handleScroll.cancel()
+ * ```
  */
 export function throttle<T extends (...args: unknown[]) => void>(
   fn: T,

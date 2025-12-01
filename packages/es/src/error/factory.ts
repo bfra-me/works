@@ -16,6 +16,14 @@ interface CreateErrorOptions {
  * @param message - The error message
  * @param options - Optional error configuration
  * @returns A new BaseError instance
+ *
+ * @example
+ * ```ts
+ * const error = createError('User not found', {
+ *   code: 'USER_NOT_FOUND',
+ *   context: { userId: 123 }
+ * })
+ * ```
  */
 export function createError(message: string, options?: CreateErrorOptions): BaseError {
   return new BaseError(message, options)
@@ -26,6 +34,16 @@ export function createError(message: string, options?: CreateErrorOptions): Base
  *
  * @param error - The error to format
  * @returns A formatted error string
+ *
+ * @example
+ * ```ts
+ * try {
+ *   riskyOperation()
+ * } catch (error) {
+ *   console.log(formatError(error))
+ *   // '[UNKNOWN_ERROR] Something went wrong'
+ * }
+ * ```
  */
 export function formatError(error: unknown): string {
   if (error instanceof BaseError) {
@@ -53,6 +71,14 @@ export function formatError(error: unknown): string {
  * @param context - The context to add to any errors
  * @returns The result of the function
  * @throws The original error wrapped with context
+ *
+ * @example
+ * ```ts
+ * const result = withErrorContext(
+ *   () => JSON.parse(input),
+ *   { operation: 'parseConfig', file: 'config.json' }
+ * )
+ * ```
  */
 export function withErrorContext<T>(fn: () => T, context: ErrorContext): T {
   try {

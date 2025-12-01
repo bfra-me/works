@@ -6,6 +6,19 @@ import {createFileHasher} from './hasher'
  *
  * @param options - Change detector configuration options
  * @returns A ChangeDetector instance
+ *
+ * @example
+ * ```ts
+ * const detector = createChangeDetector({ algorithm: 'sha256' })
+ *
+ * // Record initial state
+ * await detector.record('src/index.ts')
+ *
+ * // Later, check for changes
+ * if (await detector.hasChanged('src/index.ts')) {
+ *   console.log('File was modified')
+ * }
+ * ```
  */
 export function createChangeDetector(options: ChangeDetectorOptions = {}): ChangeDetector {
   const {algorithm = 'sha256'} = options

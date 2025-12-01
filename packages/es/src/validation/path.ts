@@ -36,6 +36,17 @@ const TRAVERSAL_PATTERNS = [/\.\.\//, /\.\.\\/, /^\.\.$/]
  * @param path - The path to validate
  * @param options - Validation options
  * @returns A Result containing a ValidPath or a ValidationError
+ *
+ * @example
+ * ```ts
+ * const result = validatePath('../etc/passwd')
+ * if (isErr(result)) {
+ *   console.log(result.error.code)  // 'PATH_TRAVERSAL'
+ * }
+ *
+ * const valid = validatePath('src/index.ts')
+ * // valid: Ok<ValidPath>
+ * ```
  */
 export function validatePath(
   path: string,
@@ -76,6 +87,12 @@ export function validatePath(
  * @param path - The path to check
  * @param boundary - The boundary directory
  * @returns True if the path is within the boundary
+ *
+ * @example
+ * ```ts
+ * isWithinBoundary('/app/uploads/file.txt', '/app/uploads')  // true
+ * isWithinBoundary('/etc/passwd', '/app/uploads')            // false
+ * ```
  */
 export function isWithinBoundary(path: string, boundary: string): boolean {
   const normalizedPath = path.replaceAll('\\', '/').replaceAll(/\/+/g, '/')

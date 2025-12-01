@@ -7,6 +7,13 @@ import {readFile} from 'node:fs/promises'
  *
  * @param algorithm - The hash algorithm to use (default: 'sha256')
  * @returns A FileHasher instance
+ *
+ * @example
+ * ```ts
+ * const hasher = createFileHasher('sha256')
+ * const hash = await hasher.hash('/path/to/file.ts')
+ * // 'a3f2b7c9d4e5f6...'
+ * ```
  */
 export function createFileHasher(algorithm: 'sha256' | 'md5' = 'sha256'): FileHasher {
   return {

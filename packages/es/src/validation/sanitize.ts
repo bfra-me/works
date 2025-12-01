@@ -25,6 +25,12 @@ const HTML_ENTITIES: Record<string, string> = {
  * @param input - The input to sanitize
  * @param options - Sanitization options
  * @returns The sanitized string
+ *
+ * @example
+ * ```ts
+ * const safe = sanitizeInput('<script>alert("xss")</script>')
+ * // '&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;'
+ * ```
  */
 export function sanitizeInput(input: string, options: SanitizeOptions = {}): string {
   const {escapeHtml = true, removeNullBytes = true, trim = true} = options

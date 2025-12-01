@@ -28,6 +28,13 @@ export interface IsPackageInScopeOptions {
  * @param name - The package name to check
  * @param options - Configuration options including the scope URL
  * @returns True if the package exists within the given scope
+ *
+ * @example
+ * ```ts
+ * if (isPackageInScope('typescript', { scopeUrl: import.meta.url })) {
+ *   // TypeScript is available from this location
+ * }
+ * ```
  */
 export function isPackageInScope(name: string, options: IsPackageInScopeOptions = {}): boolean {
   const {scopeUrl} = options
@@ -61,6 +68,12 @@ export function isPackageInScope(name: string, options: IsPackageInScopeOptions 
  *
  * @param m - The module or promise of a module to unwrap
  * @returns The unwrapped default export
+ *
+ * @example
+ * ```ts
+ * const lodash = await interopDefault(import('lodash'))
+ * // Works with both ESM and CJS
+ * ```
  */
 export async function interopDefault<T>(
   m: Awaitable<T>,
@@ -76,6 +89,14 @@ export async function interopDefault<T>(
  *
  * @param module - The value to check
  * @returns True if the value appears to be an ES module
+ *
+ * @example
+ * ```ts
+ * const mod = await import('./module.js')
+ * if (isESModule(mod)) {
+ *   // Handle ES module
+ * }
+ * ```
  */
 export function isESModule(module: unknown): boolean {
   if (typeof module !== 'object' || module === null) {
@@ -92,6 +113,14 @@ export function isESModule(module: unknown): boolean {
  *
  * @param specifier - The module specifier to resolve
  * @returns A Result containing the module exports or an error
+ *
+ * @example
+ * ```ts
+ * const result = await resolveModule<typeof import('lodash')>('lodash')
+ * if (isOk(result)) {
+ *   const _ = result.data
+ * }
+ * ```
  */
 export async function resolveModule<T>(specifier: string): Promise<Result<T, Error>> {
   try {
@@ -108,6 +137,14 @@ export async function resolveModule<T>(specifier: string): Promise<Result<T, Err
  *
  * @param path - The path to import
  * @returns A Result containing the module exports or an error
+ *
+ * @example
+ * ```ts
+ * const result = await dynamicImport<Config>('./config.js')
+ * if (isOk(result)) {
+ *   console.log(result.data)
+ * }
+ * ```
  */
 export async function dynamicImport<T>(path: string): Promise<Result<T, Error>> {
   return resolveModule<T>(path)

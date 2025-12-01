@@ -18,6 +18,15 @@ export interface EnvironmentInfo {
 
 /**
  * Check if running in Node.js environment.
+ *
+ * @returns True if running in Node.js
+ *
+ * @example
+ * ```ts
+ * if (isNode()) {
+ *   import('fs').then(fs => fs.readFileSync(...))
+ * }
+ * ```
  */
 export function isNode(): boolean {
   return (
@@ -27,6 +36,15 @@ export function isNode(): boolean {
 
 /**
  * Check if running in a browser environment.
+ *
+ * @returns True if running in a browser
+ *
+ * @example
+ * ```ts
+ * if (isBrowser()) {
+ *   document.addEventListener('click', handler)
+ * }
+ * ```
  */
 export function isBrowser(): boolean {
   const global = globalThis as unknown as Record<string, unknown>
@@ -35,6 +53,15 @@ export function isBrowser(): boolean {
 
 /**
  * Check if running in Deno environment.
+ *
+ * @returns True if running in Deno
+ *
+ * @example
+ * ```ts
+ * if (isDeno()) {
+ *   Deno.readTextFileSync('./file.txt')
+ * }
+ * ```
  */
 export function isDeno(): boolean {
   const global = globalThis as unknown as Record<string, unknown>
@@ -43,6 +70,14 @@ export function isDeno(): boolean {
 
 /**
  * Get comprehensive environment information.
+ *
+ * @returns An object with environment detection results
+ *
+ * @example
+ * ```ts
+ * const env = getEnvironment()
+ * // { isNode: true, isBrowser: false, isDeno: false, isCI: false, ... }
+ * ```
  */
 export function getEnvironment(): EnvironmentInfo {
   return {

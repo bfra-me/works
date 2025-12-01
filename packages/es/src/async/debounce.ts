@@ -4,7 +4,19 @@
  *
  * @param fn - The function to debounce
  * @param ms - The debounce delay in milliseconds
- * @returns A debounced version of the function
+ * @returns A debounced version of the function with a cancel method
+ *
+ * @example
+ * ```ts
+ * const saveInput = debounce((value: string) => {
+ *   localStorage.setItem('draft', value)
+ * }, 300)
+ *
+ * input.addEventListener('input', e => saveInput(e.target.value))
+ *
+ * // Cancel pending invocation
+ * saveInput.cancel()
+ * ```
  */
 export function debounce<T extends (...args: Parameters<T>) => void>(
   fn: T,

@@ -31,6 +31,22 @@ const DEFAULT_OPTIONS: Required<Omit<RetryOptions, 'shouldRetry'>> = {
  * @param fn - The async function to retry
  * @param options - Retry configuration options
  * @returns A Result containing the successful value or the last error
+ *
+ * @example
+ * ```ts
+ * const result = await retry(
+ *   () => fetch('/api/data'),
+ *   {
+ *     maxAttempts: 3,
+ *     initialDelay: 100,
+ *     shouldRetry: (error) => error.message !== 'Not Found'
+ *   }
+ * )
+ *
+ * if (isOk(result)) {
+ *   console.log(result.data)
+ * }
+ * ```
  */
 export async function retry<T>(
   fn: () => Promise<T>,
