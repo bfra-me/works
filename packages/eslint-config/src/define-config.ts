@@ -1,6 +1,7 @@
 import type {Config, ConfigNames, FlatConfigComposer, ResolvableFlatConfig} from './config'
 import type {Options} from './options'
 import {isPackageExists} from 'local-pkg'
+import {isInEditorEnv} from '../../es/src'
 import {composeConfig} from './compose-config'
 import {
   astro,
@@ -33,7 +34,6 @@ import {
   yaml,
 } from './configs'
 import {jsx} from './configs/jsx'
-import {isInEditorEnv} from './utils'
 
 // These are merged into the Options interface
 type AllowedConfigForOptions = Omit<Config, 'files'>
