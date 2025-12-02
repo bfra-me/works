@@ -172,7 +172,7 @@ importers:
         specifier: workspace:*
         version: link:../..
       chokidar:
-        specifier: ^5.0.0
+        specifier: 5.0.0
         version: 5.0.0
 
   packages/eslint-config:
