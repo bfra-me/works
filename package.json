@@ -27,6 +27,7 @@
     "lint-source": "eslint --flag v10_config_lookup_from_file --cache",
     "precommit": "lint-staged",
     "prepare": "pnpm --filter docs astro sync && husky",
+    "pretest": "pnpm run lint:build",
     "publish-changesets": "changeset publish",
     "test": "vitest run",
     "type-check": "tsc --noEmit",
