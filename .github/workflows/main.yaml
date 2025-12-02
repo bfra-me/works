@@ -41,13 +41,10 @@ jobs:
       - name: Prepare job
         uses: ./.github/actions/pnpm-install
 
-      - name: Build lint dependencies
-        run: pnpm run lint:build
-
       - env:
           TIMING: 1
         name: Lint
-        run: pnpm run lint-source
+        run: pnpm run lint
 
       - name: Type coverage check
         run: pnpm run type-coverage
@@ -63,9 +60,6 @@ jobs:
 
       - name: Prepare job
         uses: ./.github/actions/pnpm-install
-
-      - name: Build test dependencies
-        run: pnpm run lint:build
 
       - name: Run tests
         run: pnpm run test

@@ -1,11 +1,11 @@
 import type {Awaitable} from 'eslint-flat-config-utils'
 import {fileURLToPath} from 'node:url'
+import {isPackageExists} from 'local-pkg'
 import {
   interopDefault as esInteropDefault,
   isInEditorEnv as esIsInEditorEnv,
   isInGitLifecycle as esIsInGitLifecycle,
-} from '@bfra.me/es'
-import {isPackageExists} from 'local-pkg'
+} from '../../es/src'
 
 const scopeUrl = fileURLToPath(new URL('.', import.meta.url))
 
