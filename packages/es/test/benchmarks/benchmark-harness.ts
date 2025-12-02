@@ -5,6 +5,8 @@
  * @module benchmark-harness
  */
 
+import process from 'node:process'
+
 /**
  * Result of a single benchmark measurement
  */
@@ -61,12 +63,34 @@ export interface BenchmarkOptions {
   forceGC?: boolean
 }
 
-const DEFAULT_OPTIONS: Required<BenchmarkOptions> = {
-  warmupIterations: 100,
-  minIterations: 1000,
-  targetDurationMs: 500,
-  forceGC: false,
+/**
+ * Get default benchmark options based on BENCHMARK_MODE environment variable.
+ * - 'fast' mode: Reduced iterations for faster PR feedback
+ * - 'full' mode: Standard iterations for accurate measurements
+ */
+function getDefaultOptions(): Required<BenchmarkOptions> {
+  const mode = process.env.BENCHMARK_MODE ?? 'full'
+
+  if (mode === 'fast') {
+    // Fast mode: Reduced settings for PR checks
+    return {
+      warmupIterations: 50,
+      minIterations: 500,
+      targetDurationMs: 250,
+      forceGC: false,
+    }
+  }
+
+  // Full mode: Standard settings for comprehensive benchmarking
+  return {
+    warmupIterations: 100,
+    minIterations: 1000,
+    targetDurationMs: 500,
+    forceGC: false,
+  }
 }
+
+const DEFAULT_OPTIONS: Required<BenchmarkOptions> = getDefaultOptions()
 
 /**
  * High-resolution timer using performance.now()
