@@ -96,7 +96,7 @@
   "devDependencies": {
     "@bfra.me/tsconfig": "workspace:*",
     "@bfra.me/works": "workspace:*",
-    "chokidar": "^5.0.0"
+    "chokidar": "5.0.0"
   },
   "peerDependencies": {
     "chokidar": "^5.0.0"
