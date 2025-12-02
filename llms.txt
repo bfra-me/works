@@ -6,6 +6,11 @@ bfra.me Works is a monorepo containing multiple packages designed to streamline 
 
 Built with a focus on consistency, quality, and developer experience, it enables teams to maintain professional-grade projects with minimal configuration overhead. All packages work independently but are designed to complement each other for a cohesive development experience.
 
+## AI Agent Instructions
+
+- [AGENTS.md](AGENTS.md): Agent-focused context, commands, conventions, and workflows for working with this monorepo
+- [CLAUDE.md](CLAUDE.md): Claude Code instructions directing to AGENTS.md
+
 ## Documentation
 
 - [Docs README](docs/readme.md): Overview of the documentation site and structure
@@ -16,14 +21,32 @@ Built with a focus on consistency, quality, and developer experience, it enables
 - [Installation](docs/src/content/docs/getting-started/installation.mdx): How to install and set up packages
 - [Quick Start Guide](docs/src/content/docs/getting-started/quick-start.mdx): Quick start for using the tooling
 
+## Guides
+
+- [Configuration Guide](docs/src/content/docs/guides/configuration.mdx): Configuring packages and customization options
+- [Contributing Guide](docs/src/content/docs/guides/contributing.mdx): Contribution guidelines
+- [New Project Guide](docs/src/content/docs/guides/new-project.mdx): Creating new projects with @bfra.me/create
+
 ## Packages
 
 - [@bfra.me/badge-config README](packages/badge-config/README.md): Badge URL generation API and usage
 - [@bfra.me/create README](packages/create/README.md): CLI for project generation and templates
+- [@bfra.me/es README](packages/es/README.md): ES utilities with Result type, async helpers, functional utilities, and type guards
+- [@bfra.me/es API Reference](packages/es/docs/api.md): Complete API documentation for all @bfra.me/es subpath exports
+- [@bfra.me/es Migration Guide](packages/es/docs/migration.md): Migration guide for consumers of inline utilities
 - [@bfra.me/eslint-config README](packages/eslint-config/readme.md): Shared ESLint config with TypeScript/Prettier/Vitest support
 - [@bfra.me/prettier-config README](packages/prettier-config/readme.md): Prettier config variants and usage
 - [@bfra.me/tsconfig README](packages/tsconfig/readme.md): Strict TypeScript configs for libraries/apps
 - [@bfra.me/semantic-release README](packages/semantic-release/readme.md): Semantic-release presets and guidance
+
+## Package Documentation (Starlight)
+
+- [@bfra.me/create Docs](docs/src/content/docs/packages/create.mdx): Detailed create CLI documentation
+- [@bfra.me/es Docs](docs/src/content/docs/packages/es.mdx): ES utilities package documentation
+- [@bfra.me/eslint-config Docs](docs/src/content/docs/packages/eslint-config.mdx): ESLint config documentation
+- [@bfra.me/prettier-config Docs](docs/src/content/docs/packages/prettier-config.mdx): Prettier config documentation
+- [@bfra.me/semantic-release Docs](docs/src/content/docs/packages/semantic-release.mdx): Semantic-release presets documentation
+- [@bfra.me/tsconfig Docs](docs/src/content/docs/packages/tsconfig.mdx): TypeScript config documentation
 
 ## Specifications
 
@@ -37,12 +60,24 @@ Built with a focus on consistency, quality, and developer experience, it enables
 
 - [Badge Generators](packages/badge-config/src/generators/): Generator pattern for Shields.io URLs
 - [Create Templates](packages/create/templates/): Built-in templates for project scaffolding
+- [ES Result Type](packages/es/src/result/): Discriminated union Result type with ok/err factories and operators
+- [ES Async Utilities](packages/es/src/async/): retry, timeout, debounce, throttle, sleep, concurrency control
+- [ES Functional](packages/es/src/functional/): pipe, compose, curry, memoize, tap, identity utilities
+- [ES Memoize Cache Strategies](packages/es/src/functional/cache/): LRU, TTL, and weak reference cache implementations
+- [ES Branded Types](packages/es/src/types/): Brand<T, B>, Opaque<T, B>, and common type guards
+- [ES Validation](packages/es/src/validation/): Path validation, sanitization, and validators (email, url, uuid, semver)
+- [ES Error Utilities](packages/es/src/error/): BaseError class and specialized error factories
+- [ES Environment Detection](packages/es/src/env/): CI, editor, git lifecycle, and runtime detection
+- [ES File Watcher](packages/es/src/watcher/): File watcher abstraction with debouncing and change detection
 - [Script – Clean Changesets](scripts/src/clean-changesets.ts): Utility script used by `version-changesets`
+
+## Reference
+
+- [Reference Index](docs/src/content/docs/reference/index.mdx): API and configuration reference overview
+- [Reference Example](docs/src/content/docs/reference/example.md): Reference documentation example
 
 ## Development
 
-- [Contributing Guide](docs/src/content/docs/guides/contributing.mdx): Contribution guidelines
-- [Copilot Instructions](.github/copilot-instructions.md): AI assistant guidance, architecture, workflows, safeguards
 - [Root Package.json](package.json): Workspace scripts, devDependencies, and release workflow
 - [Scripts Package README](scripts/readme.md): Documentation for utility scripts
 - [Scripts Package Config](scripts/tsconfig.json): TypeScript config for scripts

@@ -2,15 +2,15 @@
 goal: Create @bfra.me/es Package Providing High-Quality Reusable Types and Utilities for ES Development
 version: 1.0
 date_created: 2025-11-29
-last_updated: 2025-11-29
+last_updated: 2025-12-01
 owner: marcusrbrown
-status: 'Planned'
+status: 'Completed'
 tags: ['feature', 'package', 'typescript', 'utilities', 'types', 'functional', 'monorepo', 'es-modules']
 ---
 
 # Introduction
 
-![Status: Planned](https://img.shields.io/badge/status-Planned-blue)
+![Status: Completed](https://img.shields.io/badge/status-Completed-green)
 
 Create a shared `@bfra.me/es` package that provides high-quality reusable types and utilities for ES development (JavaScript and TypeScript code following ES specifications and conventions). This package consolidates common patterns identified across the monorepo including the `Result<T, E>` discriminated union type, functional utilities (`pipe()`, `compose()`, `curry()`), module interop helpers (`interopDefault()`), file system abstractions, and file watching utilities. The package is organized into scoped subpath exports (e.g., `@bfra.me/es/result`, `@bfra.me/es/functional`, `@bfra.me/es/module`) enabling tree-shakeable imports. Comprehensive testing includes synthetic monorepo scenarios, performance benchmarks for large codebases, and validation against known architectural patterns and anti-patterns.
 
@@ -61,7 +61,7 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 ### Guidelines
 
-- **GUD-001**: Follow TypeScript patterns from `copilot-instructions.md` (explicit exports, no `export *` in app code)
+- **GUD-001**: Follow TypeScript patterns from `AGENTS.md` (explicit exports, no `export *` in app code)
 - **GUD-002**: Follow testing practices with `it.concurrent()` and `toMatchFileSnapshot()`
 - **GUD-003**: Use discriminated union result pattern instead of throwing for expected errors
 - **GUD-004**: Comment only WHY, not WHAT per self-explanatory code guidelines
@@ -83,14 +83,14 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-001 | Create package directory structure at `packages/es/` with `src/`, `test/`, `lib/` folders | | |
-| TASK-002 | Initialize `package.json` with subpath exports (`./result`, `./functional`, `./module`, `./types`, `./watcher`, `./async`, `./validation`, `./error`) | | |
-| TASK-003 | Configure `tsconfig.json` extending `@bfra.me/tsconfig` with strict mode and `exactOptionalPropertyTypes` | | |
-| TASK-004 | Set up `eslint.config.ts` using `defineConfig()` with TypeScript and Vitest support | | |
-| TASK-005 | Create `tsup.config.ts` for ES module build with multiple entry points matching subpath exports | | |
-| TASK-006 | Create `vitest.config.ts` with coverage thresholds (90% statements, 85% branches) | | |
-| TASK-007 | Create main export barrel in `src/index.ts` with explicit named exports from all submodules | | |
-| TASK-008 | Update root `tsconfig.json` to add path mapping for `@bfra.me/es` | | |
+| TASK-001 | Create package directory structure at `packages/es/` with `src/`, `test/`, `lib/` folders | ✅ | 2025-11-30 |
+| TASK-002 | Initialize `package.json` with subpath exports (`./result`, `./functional`, `./module`, `./types`, `./watcher`, `./async`, `./validation`, `./error`) | ✅ | 2025-11-30 |
+| TASK-003 | Configure `tsconfig.json` extending `@bfra.me/tsconfig` with strict mode and `exactOptionalPropertyTypes` | ✅ | 2025-11-30 |
+| TASK-004 | Set up `eslint.config.ts` using `defineConfig()` with TypeScript and Vitest support | ✅ | 2025-11-30 |
+| TASK-005 | Create `tsup.config.ts` for ES module build with multiple entry points matching subpath exports | ✅ | 2025-11-30 |
+| TASK-006 | Create `vitest.config.ts` with coverage thresholds (90% statements, 85% branches) | ✅ | 2025-11-30 |
+| TASK-007 | Create main export barrel in `src/index.ts` with explicit named exports from all submodules | ✅ | 2025-11-30 |
+| TASK-008 | Update root `tsconfig.json` to add path mapping for `@bfra.me/es` | ✅ | 2025-11-30 |
 
 ### Implementation Phase 2: Result Type System
 
@@ -98,17 +98,17 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-009 | Create `src/result/types.ts` with `Result<T, E>`, `Ok<T>`, `Err<E>` type definitions | | |
-| TASK-010 | Implement `ok<T>(value: T): Ok<T>` and `err<E>(error: E): Err<E>` factory functions in `src/result/factories.ts` | | |
-| TASK-011 | Implement type guards `isOk<T, E>(result: Result<T, E>): result is Ok<T>` and `isErr()` in `src/result/guards.ts` | | |
-| TASK-012 | Implement `unwrap<T, E>(result: Result<T, E>): T` throwing on Err, with custom error message support | | |
-| TASK-013 | Implement `unwrapOr<T, E>(result: Result<T, E>, defaultValue: T): T` for safe extraction | | |
-| TASK-014 | Implement `map<T, U, E>(result: Result<T, E>, fn: (value: T) => U): Result<U, E>` for transformation | | |
-| TASK-015 | Implement `flatMap<T, U, E>(result: Result<T, E>, fn: (value: T) => Result<U, E>): Result<U, E>` for chaining | | |
-| TASK-016 | Implement `mapErr<T, E, F>(result: Result<T, E>, fn: (error: E) => F): Result<T, F>` for error transformation | | |
-| TASK-017 | Implement `fromThrowable<T>(fn: () => T): Result<T, Error>` to wrap throwing functions | | |
-| TASK-018 | Implement `fromPromise<T>(promise: Promise<T>): Promise<Result<T, Error>>` for async operations | | |
-| TASK-019 | Create barrel export in `src/result/index.ts` with all Result utilities | | |
+| TASK-009 | Create `src/result/types.ts` with `Result<T, E>`, `Ok<T>`, `Err<E>` type definitions | ✅ | 2025-11-30 |
+| TASK-010 | Implement `ok<T>(value: T): Ok<T>` and `err<E>(error: E): Err<E>` factory functions in `src/result/factories.ts` | ✅ | 2025-11-30 |
+| TASK-011 | Implement type guards `isOk<T, E>(result: Result<T, E>): result is Ok<T>` and `isErr()` in `src/result/guards.ts` | ✅ | 2025-11-30 |
+| TASK-012 | Implement `unwrap<T, E>(result: Result<T, E>): T` throwing on Err, with custom error message support | ✅ | 2025-11-30 |
+| TASK-013 | Implement `unwrapOr<T, E>(result: Result<T, E>, defaultValue: T): T` for safe extraction | ✅ | 2025-11-30 |
+| TASK-014 | Implement `map<T, U, E>(result: Result<T, E>, fn: (value: T) => U): Result<U, E>` for transformation | ✅ | 2025-11-30 |
+| TASK-015 | Implement `flatMap<T, U, E>(result: Result<T, E>, fn: (value: T) => Result<U, E>): Result<U, E>` for chaining | ✅ | 2025-11-30 |
+| TASK-016 | Implement `mapErr<T, E, F>(result: Result<T, E>, fn: (error: E) => F): Result<T, F>` for error transformation | ✅ | 2025-11-30 |
+| TASK-017 | Implement `fromThrowable<T>(fn: () => T): Result<T, Error>` to wrap throwing functions | ✅ | 2025-11-30 |
+| TASK-018 | Implement `fromPromise<T>(promise: Promise<T>): Promise<Result<T, Error>>` for async operations | ✅ | 2025-11-30 |
+| TASK-019 | Create barrel export in `src/result/index.ts` with all Result utilities | ✅ | 2025-11-30 |
 
 ### Implementation Phase 3: Functional Utilities
 
@@ -116,16 +116,16 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-020 | Implement `pipe<T>(...fns: Function[]): (value: T) => unknown` with up to 10 overloads for type safety in `src/functional/pipe.ts` | | |
-| TASK-021 | Implement `compose<T>(...fns: Function[]): (value: T) => unknown` (right-to-left pipe) in `src/functional/compose.ts` | | |
-| TASK-022 | Implement `curry<T extends (...args: any[]) => any>(fn: T): Curried<T>` with full type inference in `src/functional/curry.ts` | | |
-| TASK-023 | Implement `identity<T>(value: T): T` utility in `src/functional/identity.ts` | | |
-| TASK-024 | Implement `tap<T>(fn: (value: T) => void): (value: T) => T` for side effects in pipelines in `src/functional/tap.ts` | | |
-| TASK-025 | Implement `partial<T extends (...args: any[]) => any>(fn: T, ...args: Partial<Parameters<T>>): PartiallyApplied<T>` | | |
-| TASK-026 | Implement `flip<A, B, R>(fn: (a: A, b: B) => R): (b: B, a: A) => R` argument order reversal | | |
-| TASK-027 | Implement `constant<T>(value: T): () => T` for creating constant functions | | |
-| TASK-028 | Implement `noop(): void` and `noopAsync(): Promise<void>` utility functions | | |
-| TASK-029 | Create barrel export in `src/functional/index.ts` with all functional utilities | | |
+| TASK-020 | Implement `pipe<T>(...fns: Function[]): (value: T) => unknown` with up to 10 overloads for type safety in `src/functional/pipe.ts` | ✅ | 2025-11-30 |
+| TASK-021 | Implement `compose<T>(...fns: Function[]): (value: T) => unknown` (right-to-left pipe) in `src/functional/compose.ts` | ✅ | 2025-11-30 |
+| TASK-022 | Implement `curry<T extends (...args: any[]) => any>(fn: T): Curried<T>` with full type inference in `src/functional/curry.ts` | ✅ | 2025-11-30 |
+| TASK-023 | Implement `identity<T>(value: T): T` utility in `src/functional/identity.ts` | ✅ | 2025-11-30 |
+| TASK-024 | Implement `tap<T>(fn: (value: T) => void): (value: T) => T` for side effects in pipelines in `src/functional/tap.ts` | ✅ | 2025-11-30 |
+| TASK-025 | Implement `partial<T extends (...args: any[]) => any>(fn: T, ...args: Partial<Parameters<T>>): PartiallyApplied<T>` | ✅ | 2025-11-30 |
+| TASK-026 | Implement `flip<A, B, R>(fn: (a: A, b: B) => R): (b: B, a: A) => R` argument order reversal | ✅ | 2025-11-30 |
+| TASK-027 | Implement `constant<T>(value: T): () => T` for creating constant functions | ✅ | 2025-11-30 |
+| TASK-028 | Implement `noop(): void` and `noopAsync(): Promise<void>` utility functions | ✅ | 2025-11-30 |
+| TASK-029 | Create barrel export in `src/functional/index.ts` with all functional utilities | ✅ | 2025-11-30 |
 
 ### Implementation Phase 4: Module Interop Utilities
 
@@ -133,12 +133,12 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-030 | Extract `interopDefault<T>(m: Awaitable<T>): Promise<T>` from `@bfra.me/eslint-config/src/utils.ts` to `src/module/interop.ts` | | |
-| TASK-031 | Implement `isPackageInScope(name: string, scopeUrl?: string): boolean` generalized from eslint-config | | |
-| TASK-032 | Implement `resolveModule<T>(specifier: string): Promise<Result<T, Error>>` with Result return type | | |
-| TASK-033 | Implement `dynamicImport<T>(path: string): Promise<Result<T, Error>>` with error handling | | |
-| TASK-034 | Implement `isESModule(module: unknown): boolean` type guard for module detection | | |
-| TASK-035 | Create barrel export in `src/module/index.ts` with all module utilities | | |
+| TASK-030 | Extract `interopDefault<T>(m: Awaitable<T>): Promise<T>` from `@bfra.me/eslint-config/src/utils.ts` to `src/module/interop.ts` | ✅ | 2025-11-30 |
+| TASK-031 | Implement `isPackageInScope(name: string, scopeUrl?: string): boolean` generalized from eslint-config | ✅ | 2025-11-30 |
+| TASK-032 | Implement `resolveModule<T>(specifier: string): Promise<Result<T, Error>>` with Result return type | ✅ | 2025-11-30 |
+| TASK-033 | Implement `dynamicImport<T>(path: string): Promise<Result<T, Error>>` with error handling | ✅ | 2025-11-30 |
+| TASK-034 | Implement `isESModule(module: unknown): boolean` type guard for module detection | ✅ | 2025-11-30 |
+| TASK-035 | Create barrel export in `src/module/index.ts` with all module utilities | ✅ | 2025-11-30 |
 
 ### Implementation Phase 5: Environment Detection
 
@@ -146,12 +146,12 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-036 | Extract `isInGitLifecycle(): boolean` from `@bfra.me/eslint-config/src/utils.ts` to `src/env/git.ts` | | |
-| TASK-037 | Extract `isInEditorEnv(): boolean` from `@bfra.me/eslint-config/src/utils.ts` to `src/env/editor.ts` | | |
-| TASK-038 | Implement `isInCI(): boolean` wrapper using `is-in-ci` package in `src/env/ci.ts` | | |
-| TASK-039 | Implement `getEnvironment(): EnvironmentInfo` returning comprehensive environment details | | |
-| TASK-040 | Implement `isNode(): boolean`, `isBrowser(): boolean`, `isDeno(): boolean` runtime detection | | |
-| TASK-041 | Create barrel export in `src/env/index.ts` with all environment utilities | | |
+| TASK-036 | Extract `isInGitLifecycle(): boolean` from `@bfra.me/eslint-config/src/utils.ts` to `src/env/git.ts` | ✅ | 2025-11-30 |
+| TASK-037 | Extract `isInEditorEnv(): boolean` from `@bfra.me/eslint-config/src/utils.ts` to `src/env/editor.ts` | ✅ | 2025-11-30 |
+| TASK-038 | Implement `isInCI(): boolean` wrapper using `is-in-ci` package in `src/env/ci.ts` | ✅ | 2025-11-30 |
+| TASK-039 | Implement `getEnvironment(): EnvironmentInfo` returning comprehensive environment details | ✅ | 2025-11-30 |
+| TASK-040 | Implement `isNode(): boolean`, `isBrowser(): boolean`, `isDeno(): boolean` runtime detection | ✅ | 2025-11-30 |
+| TASK-041 | Create barrel export in `src/env/index.ts` with all environment utilities | ✅ | 2025-11-30 |
 
 ### Implementation Phase 6: Branded Types and Type Guards
 
@@ -159,15 +159,15 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-042 | Implement `Brand<T, B extends string>` and `Opaque<T, B extends string>` types in `src/types/brand.ts` | | |
-| TASK-043 | Implement `brand<T, B extends string>(value: T): Brand<T, B>` factory function | | |
-| TASK-044 | Implement `unbrand<T>(value: Brand<T, any>): T` extraction function | | |
-| TASK-045 | Create common branded types: `NonEmptyString`, `PositiveInteger`, `ValidPath`, `AbsolutePath` | | |
-| TASK-046 | Implement common type guards in `src/types/guards.ts`: `isString()`, `isNumber()`, `isObject()`, `isArray()`, `isFunction()` | | |
-| TASK-047 | Implement `hasProperty<K extends PropertyKey>(obj: unknown, key: K): obj is Record<K, unknown>` | | |
-| TASK-048 | Implement `isNonNullable<T>(value: T): value is NonNullable<T>` guard | | |
-| TASK-049 | Implement `assertType<T>(value: unknown, guard: (v: unknown) => v is T): asserts value is T` | | |
-| TASK-050 | Create barrel export in `src/types/index.ts` with all type utilities | | |
+| TASK-042 | Implement `Brand<T, B extends string>` and `Opaque<T, B extends string>` types in `src/types/brand.ts` | ✅ | 2025-11-30 |
+| TASK-043 | Implement `brand<T, B extends string>(value: T): Brand<T, B>` factory function | ✅ | 2025-11-30 |
+| TASK-044 | Implement `unbrand<T>(value: Brand<T, any>): T` extraction function | ✅ | 2025-11-30 |
+| TASK-045 | Create common branded types: `NonEmptyString`, `PositiveInteger`, `ValidPath`, `AbsolutePath` | ✅ | 2025-11-30 |
+| TASK-046 | Implement common type guards in `src/types/guards.ts`: `isString()`, `isNumber()`, `isObject()`, `isArray()`, `isFunction()` | ✅ | 2025-11-30 |
+| TASK-047 | Implement `hasProperty<K extends PropertyKey>(obj: unknown, key: K): obj is Record<K, unknown>` | ✅ | 2025-11-30 |
+| TASK-048 | Implement `isNonNullable<T>(value: T): value is NonNullable<T>` guard | ✅ | 2025-11-30 |
+| TASK-049 | Implement `assertType<T>(value: unknown, guard: (v: unknown) => v is T): asserts value is T` | ✅ | 2025-11-30 |
+| TASK-050 | Create barrel export in `src/types/index.ts` with all type utilities | ✅ | 2025-11-30 |
 
 ### Implementation Phase 7: Async Utilities
 
@@ -175,14 +175,14 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-051 | Implement `retry<T>(fn: () => Promise<T>, options: RetryOptions): Promise<Result<T, Error>>` in `src/async/retry.ts` | | |
-| TASK-052 | Implement `timeout<T>(promise: Promise<T>, ms: number): Promise<Result<T, TimeoutError>>` in `src/async/timeout.ts` | | |
-| TASK-053 | Implement `debounce<T extends (...args: any[]) => any>(fn: T, ms: number): DebouncedFunction<T>` in `src/async/debounce.ts` | | |
-| TASK-054 | Implement `throttle<T extends (...args: any[]) => any>(fn: T, ms: number): ThrottledFunction<T>` in `src/async/throttle.ts` | | |
-| TASK-055 | Implement `sleep(ms: number): Promise<void>` delay utility in `src/async/sleep.ts` | | |
-| TASK-056 | Implement `pLimit(concurrency: number): <T>(fn: () => Promise<T>) => Promise<T>` concurrency limiter | | |
-| TASK-057 | Implement `pAll<T>(promises: (() => Promise<T>)[], options?: { concurrency?: number }): Promise<Result<T[], Error>>` | | |
-| TASK-058 | Create barrel export in `src/async/index.ts` with all async utilities | | |
+| TASK-051 | Implement `retry<T>(fn: () => Promise<T>, options: RetryOptions): Promise<Result<T, Error>>` in `src/async/retry.ts` | ✅ | 2025-11-30 |
+| TASK-052 | Implement `timeout<T>(promise: Promise<T>, ms: number): Promise<Result<T, TimeoutError>>` in `src/async/timeout.ts` | ✅ | 2025-11-30 |
+| TASK-053 | Implement `debounce<T extends (...args: any[]) => any>(fn: T, ms: number): DebouncedFunction<T>` in `src/async/debounce.ts` | ✅ | 2025-11-30 |
+| TASK-054 | Implement `throttle<T extends (...args: any[]) => any>(fn: T, ms: number): ThrottledFunction<T>` in `src/async/throttle.ts` | ✅ | 2025-11-30 |
+| TASK-055 | Implement `sleep(ms: number): Promise<void>` delay utility in `src/async/sleep.ts` | ✅ | 2025-11-30 |
+| TASK-056 | Implement `pLimit(concurrency: number): <T>(fn: () => Promise<T>) => Promise<T>` concurrency limiter | ✅ | 2025-11-30 |
+| TASK-057 | Implement `pAll<T>(promises: (() => Promise<T>)[], options?: { concurrency?: number }): Promise<Result<T[], Error>>` | ✅ | 2025-11-30 |
+| TASK-058 | Create barrel export in `src/async/index.ts` with all async utilities | ✅ | 2025-11-30 |
 
 ### Implementation Phase 8: Validation Utilities
 
@@ -190,12 +190,12 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-059 | Implement `validatePath(path: string, options?: PathValidationOptions): Result<ValidPath, ValidationError>` in `src/validation/path.ts` | | |
-| TASK-060 | Implement `isWithinBoundary(path: string, boundary: string): boolean` for directory traversal prevention | | |
-| TASK-061 | Implement `sanitizeInput(input: string, options?: SanitizeOptions): string` for XSS prevention in `src/validation/sanitize.ts` | | |
-| TASK-062 | Implement `createValidator<T>(schema: ValidationSchema): (value: unknown) => Result<T, ValidationError>` factory | | |
-| TASK-063 | Implement common validators: `isEmail()`, `isUrl()`, `isUuid()`, `isSemver()` in `src/validation/validators.ts` | | |
-| TASK-064 | Create barrel export in `src/validation/index.ts` with all validation utilities | | |
+| TASK-059 | Implement `validatePath(path: string, options?: PathValidationOptions): Result<ValidPath, ValidationError>` in `src/validation/path.ts` | ✅ | 2025-11-30 |
+| TASK-060 | Implement `isWithinBoundary(path: string, boundary: string): boolean` for directory traversal prevention | ✅ | 2025-11-30 |
+| TASK-061 | Implement `sanitizeInput(input: string, options?: SanitizeOptions): string` for XSS prevention in `src/validation/sanitize.ts` | ✅ | 2025-11-30 |
+| TASK-062 | Implement `createValidator<T>(schema: ValidationSchema): (value: unknown) => Result<T, ValidationError>` factory | ✅ | 2025-11-30 |
+| TASK-063 | Implement common validators: `isEmail()`, `isUrl()`, `isUuid()`, `isSemver()` in `src/validation/validators.ts` | ✅ | 2025-11-30 |
+| TASK-064 | Create barrel export in `src/validation/index.ts` with all validation utilities | ✅ | 2025-11-30 |
 
 ### Implementation Phase 9: Error Factory Utilities
 
@@ -203,12 +203,12 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-065 | Create `BaseError` class with code, cause, and context support in `src/error/base.ts` | | |
-| TASK-066 | Implement `createError(message: string, options?: ErrorOptions): Error` factory in `src/error/factory.ts` | | |
-| TASK-067 | Implement specialized error types: `ValidationError`, `TimeoutError`, `NotFoundError`, `PermissionError` | | |
-| TASK-068 | Implement `withErrorContext<T>(fn: () => T, context: ErrorContext): T` wrapper | | |
-| TASK-069 | Implement `formatError(error: unknown): string` for consistent error display | | |
-| TASK-070 | Create barrel export in `src/error/index.ts` with all error utilities | | |
+| TASK-065 | Create `BaseError` class with code, cause, and context support in `src/error/base.ts` | ✅ | 2025-11-30 |
+| TASK-066 | Implement `createError(message: string, options?: ErrorOptions): Error` factory in `src/error/factory.ts` | ✅ | 2025-11-30 |
+| TASK-067 | Implement specialized error types: `ValidationError`, `TimeoutError`, `NotFoundError`, `PermissionError` | ✅ | 2025-11-30 |
+| TASK-068 | Implement `withErrorContext<T>(fn: () => T, context: ErrorContext): T` wrapper | ✅ | 2025-11-30 |
+| TASK-069 | Implement `formatError(error: unknown): string` for consistent error display | ✅ | 2025-11-30 |
+| TASK-070 | Create barrel export in `src/error/index.ts` with all error utilities | ✅ | 2025-11-30 |
 
 ### Implementation Phase 10: File Watcher Abstraction
 
@@ -216,13 +216,13 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-071 | Create `src/watcher/types.ts` with `WatcherOptions`, `FileChange`, `WatcherEvent` types | | |
-| TASK-072 | Implement `createFileWatcher(paths: string[], options?: WatcherOptions): FileWatcher` factory in `src/watcher/file-watcher.ts` | | |
-| TASK-073 | Implement `createDebouncer<T>(fn: (items: T[]) => void, ms: number): Debouncer<T>` for batching events in `src/watcher/debouncer.ts` | | |
-| TASK-074 | Implement `createFileHasher(algorithm?: 'sha256' | 'md5'): FileHasher` for change detection in `src/watcher/hasher.ts` | | |
-| TASK-075 | Implement `createChangeDetector(options?: ChangeDetectorOptions): ChangeDetector` in `src/watcher/change-detector.ts` | | |
-| TASK-076 | Add optional peer dependency on `chokidar` with graceful degradation | | |
-| TASK-077 | Create barrel export in `src/watcher/index.ts` with all watcher utilities | | |
+| TASK-071 | Create `src/watcher/types.ts` with `WatcherOptions`, `FileChange`, `WatcherEvent` types | ✅ | 2025-11-30 |
+| TASK-072 | Implement `createFileWatcher(paths: string[], options?: WatcherOptions): FileWatcher` factory in `src/watcher/file-watcher.ts` | ✅ | 2025-11-30 |
+| TASK-073 | Implement `createDebouncer<T>(fn: (items: T[]) => void, ms: number): Debouncer<T>` for batching events in `src/watcher/debouncer.ts` | ✅ | 2025-11-30 |
+| TASK-074 | Implement `createFileHasher(algorithm?: 'sha256' | 'md5'): FileHasher` for change detection in `src/watcher/hasher.ts` | ✅ | 2025-11-30 |
+| TASK-075 | Implement `createChangeDetector(options?: ChangeDetectorOptions): ChangeDetector` in `src/watcher/change-detector.ts` | ✅ | 2025-11-30 |
+| TASK-076 | Add optional peer dependency on `chokidar` with graceful degradation | ✅ | 2025-11-30 |
+| TASK-077 | Create barrel export in `src/watcher/index.ts` with all watcher utilities | ✅ | 2025-11-30 |
 
 ### Implementation Phase 11: Memoization Utilities
 
@@ -230,12 +230,12 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-078 | Implement `memoize<T extends (...args: any[]) => any>(fn: T, options?: MemoizeOptions): T` in `src/functional/memoize.ts` | | |
-| TASK-079 | Implement LRU cache strategy in `src/functional/cache/lru.ts` | | |
-| TASK-080 | Implement TTL cache strategy in `src/functional/cache/ttl.ts` | | |
-| TASK-081 | Implement weak reference cache for object keys in `src/functional/cache/weak.ts` | | |
-| TASK-082 | Implement `createKeyResolver(...args: any[]): string` for custom cache key generation | | |
-| TASK-083 | Add cache statistics tracking (hits, misses, evictions) | | |
+| TASK-078 | Implement `memoize<T extends (...args: any[]) => any>(fn: T, options?: MemoizeOptions): T` in `src/functional/memoize.ts` | ✅ | 2025-11-30 |
+| TASK-079 | Implement LRU cache strategy in `src/functional/cache/lru.ts` | ✅ | 2025-11-30 |
+| TASK-080 | Implement TTL cache strategy in `src/functional/cache/ttl.ts` | ✅ | 2025-11-30 |
+| TASK-081 | Implement weak reference cache for object keys in `src/functional/cache/weak.ts` | ✅ | 2025-11-30 |
+| TASK-082 | Implement `createKeyResolver(...args: any[]): string` for custom cache key generation | ✅ | 2025-11-30 |
+| TASK-083 | Add cache statistics tracking (hits, misses, evictions) | ✅ | 2025-11-30 |
 
 ### Implementation Phase 12: Unit Testing
 
@@ -243,16 +243,16 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-084 | Write unit tests for Result type in `test/result/result.test.ts` with concurrent execution | | |
-| TASK-085 | Write unit tests for functional utilities in `test/functional/*.test.ts` | | |
-| TASK-086 | Write unit tests for module interop in `test/module/interop.test.ts` | | |
-| TASK-087 | Write unit tests for environment detection in `test/env/*.test.ts` | | |
-| TASK-088 | Write unit tests for branded types in `test/types/brand.test.ts` | | |
-| TASK-089 | Write unit tests for async utilities in `test/async/*.test.ts` | | |
-| TASK-090 | Write unit tests for validation utilities in `test/validation/*.test.ts` | | |
-| TASK-091 | Write unit tests for error utilities in `test/error/*.test.ts` | | |
-| TASK-092 | Write unit tests for file watcher in `test/watcher/*.test.ts` with mock file system | | |
-| TASK-093 | Write unit tests for memoization in `test/functional/memoize.test.ts` | | |
+| TASK-084 | Write unit tests for Result type in `test/result/result.test.ts` with concurrent execution | ✅ | 2025-11-30 |
+| TASK-085 | Write unit tests for functional utilities in `test/functional/*.test.ts` | ✅ | 2025-11-30 |
+| TASK-086 | Write unit tests for module interop in `test/module/interop.test.ts` | ✅ | 2025-11-30 |
+| TASK-087 | Write unit tests for environment detection in `test/env/*.test.ts` | ✅ | 2025-11-30 |
+| TASK-088 | Write unit tests for branded types in `test/types/brand.test.ts` | ✅ | 2025-11-30 |
+| TASK-089 | Write unit tests for async utilities in `test/async/*.test.ts` | ✅ | 2025-11-30 |
+| TASK-090 | Write unit tests for validation utilities in `test/validation/*.test.ts` | ✅ | 2025-11-30 |
+| TASK-091 | Write unit tests for error utilities in `test/error/*.test.ts` | ✅ | 2025-11-30 |
+| TASK-092 | Write unit tests for file watcher in `test/watcher/*.test.ts` with mock file system | ✅ | 2025-11-30 |
+| TASK-093 | Write unit tests for memoization in `test/functional/memoize.test.ts` | ✅ | 2025-11-30 |
 
 ### Implementation Phase 13: Integration and Synthetic Monorepo Testing
 
@@ -260,13 +260,13 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-094 | Create test fixtures directory `test/fixtures/synthetic-monorepo/` with sample package structures | | |
-| TASK-095 | Create multi-package fixture simulating real workspace with 10+ packages | | |
-| TASK-096 | Write integration tests for Result type across async boundaries in `test/integration/result-async.test.ts` | | |
-| TASK-097 | Write integration tests for functional composition chains in `test/integration/functional-chains.test.ts` | | |
-| TASK-098 | Write integration tests for file watcher with real file system in `test/integration/watcher.test.ts` | | |
-| TASK-099 | Write integration tests for module interop with various export patterns | | |
-| TASK-100 | Validate utilities work correctly with various tsconfig `moduleResolution` settings | | |
+| TASK-094 | Create test fixtures directory `test/fixtures/synthetic-monorepo/` with sample package structures | ✅ | 2025-12-01 |
+| TASK-095 | Create multi-package fixture simulating real workspace with 10+ packages | ✅ | 2025-12-01 |
+| TASK-096 | Write integration tests for Result type across async boundaries in `test/integration/result-async.test.ts` | ✅ | 2025-12-01 |
+| TASK-097 | Write integration tests for functional composition chains in `test/integration/functional-chains.test.ts` | ✅ | 2025-12-01 |
+| TASK-098 | Write integration tests for file watcher with real file system in `test/integration/watcher.test.ts` | ✅ | 2025-12-01 |
+| TASK-099 | Write integration tests for module interop with various export patterns | ✅ | 2025-12-01 |
+| TASK-100 | Validate utilities work correctly with various tsconfig `moduleResolution` settings | ✅ | 2025-12-01 |
 
 ### Implementation Phase 14: Performance Benchmarks
 
@@ -274,13 +274,13 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-101 | Create benchmark harness in `test/benchmarks/benchmark-harness.ts` | | |
-| TASK-102 | Implement pipe/compose performance benchmarks comparing to hand-written code | | |
-| TASK-103 | Implement Result creation and transformation benchmarks (100K iterations) | | |
-| TASK-104 | Implement memoization cache performance benchmarks with various cache sizes | | |
-| TASK-105 | Implement file watcher debouncing benchmarks with rapid event simulation | | |
-| TASK-106 | Create benchmark comparison baseline in `test/benchmarks/baselines/` | | |
-| TASK-107 | Add CI benchmark regression detection with < 10% performance degradation threshold | | |
+| TASK-101 | Create benchmark harness in `test/benchmarks/benchmark-harness.ts` | ✅ | 2025-12-01 |
+| TASK-102 | Implement pipe/compose performance benchmarks comparing to hand-written code | ✅ | 2025-12-01 |
+| TASK-103 | Implement Result creation and transformation benchmarks (100K iterations) | ✅ | 2025-12-01 |
+| TASK-104 | Implement memoization cache performance benchmarks with various cache sizes | ✅ | 2025-12-01 |
+| TASK-105 | Implement file watcher debouncing benchmarks with rapid event simulation | ✅ | 2025-12-01 |
+| TASK-106 | Create benchmark comparison baseline in `test/benchmarks/baselines/` | ✅ | 2025-12-01 |
+| TASK-107 | Add CI benchmark regression detection with < 10% performance degradation threshold | ✅ | 2025-12-01 |
 
 ### Implementation Phase 15: Anti-Pattern Detection Tests
 
@@ -288,13 +288,13 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-108 | Create fixture testing proper Result usage patterns | | |
-| TASK-109 | Create fixture testing improper Result usage (throwing from Result code paths) | | |
-| TASK-110 | Create fixture testing proper functional composition patterns | | |
-| TASK-111 | Create fixture testing pipe/compose misuse (side effects, mutation) | | |
-| TASK-112 | Create fixture testing proper type guard usage vs. type assertion | | |
-| TASK-113 | Write anti-pattern detection tests in `test/patterns/anti-pattern-detection.test.ts` | | |
-| TASK-114 | Write best practice validation tests in `test/patterns/best-practices.test.ts` | | |
+| TASK-108 | Create fixture testing proper Result usage patterns | ✅ | 2025-12-01 |
+| TASK-109 | Create fixture testing improper Result usage (throwing from Result code paths) | ✅ | 2025-12-01 |
+| TASK-110 | Create fixture testing proper functional composition patterns | ✅ | 2025-12-01 |
+| TASK-111 | Create fixture testing pipe/compose misuse (side effects, mutation) | ✅ | 2025-12-01 |
+| TASK-112 | Create fixture testing proper type guard usage vs. type assertion | ✅ | 2025-12-01 |
+| TASK-113 | Write anti-pattern detection tests in `test/patterns/anti-pattern-detection.test.ts` | ✅ | 2025-12-01 |
+| TASK-114 | Write best practice validation tests in `test/patterns/best-practices.test.ts` | ✅ | 2025-12-01 |
 
 ### Implementation Phase 16: Documentation
 
@@ -302,12 +302,12 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-115 | Write comprehensive README.md with API documentation and usage examples | | |
-| TASK-116 | Add JSDoc comments to all public API functions with @example tags | | |
-| TASK-117 | Create API reference documentation in `docs/api.md` | | |
-| TASK-118 | Create migration guide for consumers of inline utilities in `docs/migration.md` | | |
-| TASK-119 | Add package to docs site navigation in `docs/astro.config.mjs` | | |
-| TASK-120 | Create CHANGELOG.md with initial version entry | | |
+| TASK-115 | Write comprehensive README.md with API documentation and usage examples | ✅ | 2025-12-01 |
+| TASK-116 | Add JSDoc comments to all public API functions with @example tags | ✅ | 2025-12-01 |
+| TASK-117 | Create API reference documentation in `docs/api.md` | ✅ | 2025-12-01 |
+| TASK-118 | Create migration guide for consumers of inline utilities in `docs/migration.md` | ✅ | 2025-12-01 |
+| TASK-119 | Add package to docs site navigation in `docs/astro.config.mjs` | ✅ | 2025-12-01 |
+| TASK-120 | Create CHANGELOG.md with initial version entry | ⏭️ | (skipped - changesets) |
 
 ### Implementation Phase 17: Dependent Plan Updates
 
@@ -315,13 +315,13 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-121 | Update `refactor-create-package-1.md` TASK-002 to import `Result<T, E>` from `@bfra.me/es/result` | | |
-| TASK-122 | Update `refactor-create-package-1.md` TASK-005 to import `pipe()`, `compose()`, `curry()` from `@bfra.me/es/functional` | | |
-| TASK-123 | Update `feature-workspace-analyzer-1.md` TASK-008 to import `Result<T>` from `@bfra.me/es/result` | | |
-| TASK-124 | Update `feature-doc-sync-engine-1.md` TASK-007 types to extend/import from `@bfra.me/es/result` | | |
-| TASK-125 | Update `feature-doc-sync-engine-1.md` TASK-022-024 to use `createFileWatcher()` from `@bfra.me/es/watcher` | | |
-| TASK-126 | Update `feature-workspace-analyzer-1.md` TASK-057-058 to use file hasher from `@bfra.me/es/watcher` | | |
-| TASK-127 | Add `@bfra.me/es` as DEP-001 in all three dependent implementation plans | | |
+| TASK-121 | Update `refactor-create-package-1.md` TASK-002 to import `Result<T, E>` from `@bfra.me/es/result` | ✅ | 2025-12-01 |
+| TASK-122 | Update `refactor-create-package-1.md` TASK-005 to import `pipe()`, `compose()`, `curry()` from `@bfra.me/es/functional` | ✅ | 2025-12-01 |
+| TASK-123 | Update `feature-workspace-analyzer-1.md` TASK-008 to import `Result<T>` from `@bfra.me/es/result` | ✅ | 2025-12-01 |
+| TASK-124 | Update `feature-doc-sync-engine-1.md` TASK-007 types to extend/import from `@bfra.me/es/result` | ✅ | 2025-12-01 |
+| TASK-125 | Update `feature-doc-sync-engine-1.md` TASK-022-024 to use `createFileWatcher()` from `@bfra.me/es/watcher` | ✅ | 2025-12-01 |
+| TASK-126 | Update `feature-workspace-analyzer-1.md` TASK-057-058 to use file hasher from `@bfra.me/es/watcher` | ✅ | 2025-12-01 |
+| TASK-127 | Add `@bfra.me/es` as DEP-001 in all three dependent implementation plans | ✅ | 2025-12-01 |
 
 ### Implementation Phase 18: ESLint-Config Migration
 
@@ -329,11 +329,11 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-128 | Add `@bfra.me/es` as dependency in `packages/eslint-config/package.json` | | |
-| TASK-129 | Update `packages/eslint-config/src/utils.ts` to re-export `interopDefault` from `@bfra.me/es/module` | | |
-| TASK-130 | Update `packages/eslint-config/src/utils.ts` to re-export `isInGitLifecycle`, `isInEditorEnv` from `@bfra.me/es/env` | | |
-| TASK-131 | Add deprecation notices to original implementations pointing to `@bfra.me/es` | | |
-| TASK-132 | Update eslint-config tests to verify re-exports work correctly | | |
+| TASK-128 | Add `@bfra.me/es` as dependency in `packages/eslint-config/package.json` | ✅ | 2025-12-01 |
+| TASK-129 | Update `packages/eslint-config/src/utils.ts` to re-export `interopDefault` from `@bfra.me/es/module` | ✅ | 2025-12-01 |
+| TASK-130 | Update `packages/eslint-config/src/utils.ts` to re-export `isInGitLifecycle`, `isInEditorEnv` from `@bfra.me/es/env` | ✅ | 2025-12-01 |
+| TASK-131 | Add deprecation notices to original implementations pointing to `@bfra.me/es` | ✅ | 2025-12-01 |
+| TASK-132 | Update eslint-config tests to verify re-exports work correctly | ✅ | 2025-12-01 |
 
 ### Implementation Phase 19: Release Preparation
 
@@ -341,15 +341,15 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-133 | Run full validation suite (`pnpm validate`) and fix any issues | | |
-| TASK-134 | Verify type coverage meets threshold (95%+) | | |
-| TASK-135 | Run benchmarks and document baseline performance | | |
-| TASK-136 | Verify bundle size meets constraint (< 5KB core, < 10KB with watcher) | | |
-| TASK-137 | Create changeset for initial release | | |
-| TASK-138 | Update root workspace references in `tsconfig.json` | | |
-| TASK-139 | Update `llms.txt` with package documentation | | |
-| TASK-140 | Final review of public API surface for breaking change potential | | |
-| TASK-141 | Publish initial version via `pnpm publish-changesets` | | |
+| TASK-133 | Run full validation suite (`pnpm validate`) and fix any issues | ✅ | 2025-12-01 |
+| TASK-134 | Verify type coverage meets threshold (95%+) | ✅ | 2025-12-01 |
+| TASK-135 | Run benchmarks and document baseline performance | ✅ | 2025-12-01 |
+| TASK-136 | Verify bundle size meets constraint (< 5KB core, < 10KB with watcher) | ✅ | 2025-12-01 |
+| TASK-137 | Create changeset for initial release | ✅ | 2025-12-01 |
+| TASK-138 | Update root workspace references in `tsconfig.json` | ✅ | 2025-12-01 |
+| TASK-139 | Update `llms.txt` with package documentation | ✅ | 2025-12-01 |
+| TASK-140 | Final review of public API surface for breaking change potential | ✅ | 2025-12-01 |
+| TASK-141 | Publish initial version via `pnpm publish-changesets` | ⏭️ | (CI) |
 
 ## 3. Alternatives
 
@@ -526,7 +526,7 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 - [Chokidar Documentation](https://github.com/paulmillr/chokidar)
 - [fp-ts Result/Either Pattern](https://gcanti.github.io/fp-ts/modules/Either.ts.html)
 - [Neverthrow Library](https://github.com/supermacro/neverthrow) — Prior art for Result type
-- bfra.me/works Copilot Instructions: `/.github/copilot-instructions.md`
+- bfra.me/works AI Agent Instructions: `/AGENTS.md`
 - Existing Package Patterns: `packages/badge-config/`, `packages/eslint-config/`
 - Dependent Plans:
   - `/.ai/plan/refactor-create-package-1.md`

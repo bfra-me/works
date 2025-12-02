@@ -62,7 +62,7 @@ Build an intelligent documentation synchronization engine that continuously moni
 | TASK-004 | Set up `eslint.config.ts` using `defineConfig()` with TypeScript and Vitest support | | |
 | TASK-005 | Create `tsup.config.ts` for ES module build with proper entry points | | |
 | TASK-006 | Initialize `vitest.config.ts` with coverage and test configuration | | |
-| TASK-007 | Create core types in `src/types.ts` for PackageInfo, DocConfig, ParseResult, SyncResult | | |
+| TASK-007 | Create core types in `src/types.ts` for PackageInfo, DocConfig, ParseResult, SyncResult extending `Result<T, E>` from `@bfra.me/es/result` | | |
 
 ### Implementation Phase 2: Source Code Parsing Engine
 
@@ -98,9 +98,9 @@ Build an intelligent documentation synchronization engine that continuously moni
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-022 | Create `src/watcher/file-watcher.ts` using chokidar for file system monitoring | | |
-| TASK-023 | Implement `src/watcher/change-detector.ts` for incremental change detection with hash comparison | | |
-| TASK-024 | Create `src/watcher/debouncer.ts` for batching rapid file changes | | |
+| TASK-022 | Create `src/watcher/file-watcher.ts` using `createFileWatcher()` from `@bfra.me/es/watcher` for file system monitoring | | |
+| TASK-023 | Implement `src/watcher/change-detector.ts` using `createChangeDetector()` from `@bfra.me/es/watcher` with hash comparison | | |
+| TASK-024 | Create `src/watcher/debouncer.ts` using `createDebouncer()` from `@bfra.me/es/watcher` for batching file changes | | |
 | TASK-025 | Implement `src/orchestrator/sync-orchestrator.ts` for coordinating parse → generate → write flow | | |
 | TASK-026 | Create `src/orchestrator/package-scanner.ts` for discovering packages and their documentation needs | | |
 | TASK-027 | Build `src/orchestrator/validation-pipeline.ts` for pre-write MDX validation | | |
@@ -172,15 +172,16 @@ Build an intelligent documentation synchronization engine that continuously moni
 
 ## 4. Dependencies
 
-- **DEP-001**: `ts-morph` - TypeScript Compiler API wrapper for source code analysis and JSDoc extraction
-- **DEP-002**: `chokidar` - Cross-platform file system watcher for change detection
-- **DEP-003**: `fast-glob` - Fast file globbing for package discovery
-- **DEP-004**: `unified` + `remark-parse` + `remark-mdx` - Markdown/MDX parsing and generation
-- **DEP-005**: `@commander-js/extra-typings` - Type-safe CLI argument parsing
-- **DEP-006**: `consola` - Console logging with levels and formatting (already in workspace)
-- **DEP-007**: `memfs` - In-memory file system for testing (dev dependency)
-- **DEP-008**: `@astrojs/starlight` - Peer dependency for type references (already in docs/)
-- **DEP-009**: `zod` - Runtime validation for configuration schemas (already in workspace)
+- **DEP-001**: `@bfra.me/es` (workspace:*) — Provides `Result<T, E>` type from `/result` and file watcher utilities (`createFileWatcher()`, `createChangeDetector()`, `createDebouncer()`) from `/watcher`
+- **DEP-002**: `ts-morph` — TypeScript Compiler API wrapper for source code analysis and JSDoc extraction
+- **DEP-003**: `chokidar` — Cross-platform file system watcher for change detection (peer dependency of @bfra.me/es)
+- **DEP-004**: `fast-glob` — Fast file globbing for package discovery
+- **DEP-005**: `unified` + `remark-parse` + `remark-mdx` — Markdown/MDX parsing and generation
+- **DEP-006**: `@commander-js/extra-typings` — Type-safe CLI argument parsing
+- **DEP-007**: `consola` — Console logging with levels and formatting (already in workspace)
+- **DEP-008**: `memfs` — In-memory file system for testing (dev dependency)
+- **DEP-009**: `@astrojs/starlight` — Peer dependency for type references (already in docs/)
+- **DEP-010**: `zod` — Runtime validation for configuration schemas (already in workspace)
 
 ## 5. Files
 
@@ -239,5 +240,5 @@ Build an intelligent documentation synchronization engine that continuously moni
 - [ts-morph Documentation](https://ts-morph.com/)
 - [Unified/Remark Ecosystem](https://unifiedjs.com/)
 - [Chokidar File Watcher](https://github.com/paulmillr/chokidar)
-- bfra.me/works Monorepo Patterns: `/.github/copilot-instructions.md`
+- bfra.me/works Monorepo Patterns: `/AGENTS.md`
 - Existing Package Plans: `/.ai/plan/feature-badge-config-package-1.md`

@@ -51,7 +51,7 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 ### Guidelines
 
-- **GUD-001**: Follow TypeScript patterns from `copilot-instructions.md` (explicit exports, no `export *`)
+- **GUD-001**: Follow TypeScript patterns from `AGENTS.md` (explicit exports, no `export *`)
 - **GUD-002**: Follow testing practices with `it.concurrent()` and `toMatchFileSnapshot()`
 - **GUD-003**: Use discriminated union result pattern instead of throwing for expected errors
 - **GUD-004**: Comment only WHY, not WHAT per self-explanatory code guidelines
@@ -79,7 +79,7 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 | TASK-005 | Create `tsup.config.ts` for ES module build with entry points `['src/index.ts', 'src/cli.ts']` | | |
 | TASK-006 | Create `vitest.config.ts` with coverage thresholds (80% statements, 75% branches) | | |
 | TASK-007 | Implement core types in `src/types/index.ts` (AnalysisResult, AnalyzerConfig, Issue, Severity) | | |
-| TASK-008 | Implement Result<T> discriminated union type in `src/types/result.ts` | | |
+| TASK-008 | Import `Result<T, E>` discriminated union type from `@bfra.me/es/result` in `src/types/result.ts` | | |
 | TASK-009 | Create workspace scanner in `src/scanner/workspace-scanner.ts` for file discovery using fast-glob | | |
 | TASK-010 | Implement AST parser wrapper in `src/parser/typescript-parser.ts` using TypeScript Compiler API | | |
 | TASK-011 | Create main export barrel in `src/index.ts` with explicit named exports | | |
@@ -171,7 +171,7 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
 | TASK-057 | Design cache schema in `src/cache/cache-schema.ts` | | |
-| TASK-058 | Implement file hash calculator for change detection in `src/cache/file-hasher.ts` | | |
+| TASK-058 | Use `createFileHasher()` from `@bfra.me/es/watcher` for change detection in `src/cache/file-hasher.ts` | | |
 | TASK-059 | Create cache manager in `src/cache/cache-manager.ts` with file-based storage | | |
 | TASK-060 | Implement incremental analysis orchestrator in `src/core/incremental-analyzer.ts` | | |
 | TASK-061 | Add cache invalidation for configuration file changes | | |
@@ -298,22 +298,23 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 ### Runtime Dependencies
 
-- **DEP-001**: `typescript` (^5.4.0) — TypeScript Compiler API for AST parsing
-- **DEP-002**: `fast-glob` (^3.3.0) — Efficient file discovery with gitignore support
-- **DEP-003**: `picomatch` (^3.0.0) — Glob pattern matching for rule configuration
-- **DEP-004**: `picocolors` (^1.0.0) — Terminal color output for console reporter
-- **DEP-005**: `json5` (^2.2.0) — JSON5 parsing for tsconfig.json with comments
+- **DEP-001**: `@bfra.me/es` (workspace:*) — Provides `Result<T, E>` type from `/result` and `createFileHasher()` from `/watcher` for change detection
+- **DEP-002**: `typescript` (^5.4.0) — TypeScript Compiler API for AST parsing
+- **DEP-003**: `fast-glob` (^3.3.0) — Efficient file discovery with gitignore support
+- **DEP-004**: `picomatch` (^3.0.0) — Glob pattern matching for rule configuration
+- **DEP-005**: `picocolors` (^1.0.0) — Terminal color output for console reporter
+- **DEP-006**: `json5` (^2.2.0) — JSON5 parsing for tsconfig.json with comments
 
 ### Development Dependencies
 
-- **DEP-006**: `@bfra.me/works` (workspace:*) — Root workspace dev dependency aggregator
-- **DEP-007**: `@bfra.me/tsconfig` (workspace:*) — Shared TypeScript configuration
-- **DEP-008**: `vitest` — Testing framework (via workspace root)
-- **DEP-009**: `tsup` — Build tool (via workspace root)
+- **DEP-007**: `@bfra.me/works` (workspace:*) — Root workspace dev dependency aggregator
+- **DEP-008**: `@bfra.me/tsconfig` (workspace:*) — Shared TypeScript configuration
+- **DEP-009**: `vitest` — Testing framework (via workspace root)
+- **DEP-010**: `tsup` — Build tool (via workspace root)
 
 ### Peer Dependencies
 
-- **DEP-010**: `typescript` (>=5.0.0) — Consumer provides TypeScript version
+- **DEP-011**: `typescript` (>=5.0.0) — Consumer provides TypeScript version
 
 ## 5. Files
 
@@ -433,4 +434,4 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 - [Tree-Shaking Guide](https://webpack.js.org/guides/tree-shaking/)
 - [ESM vs CJS Module Differences](https://nodejs.org/api/esm.html)
 - Existing package patterns: `packages/badge-config/`, `packages/eslint-config/`
-- Monorepo conventions: `.github/copilot-instructions.md`
+- Monorepo conventions: `AGENTS.md`

@@ -1,0 +1,243 @@
+---
+title: '@bfra.me/es'
+description: High-quality reusable types and utilities for ES development
+---
+
+import { Badge, Card, CardGrid, Tabs, TabItem, LinkCard } from '@astrojs/starlight/components';
+
+# @bfra.me/es
+
+<Badge text="Library" variant="tip" />
+<Badge text="v0.0.1" variant="note" />
+
+High-quality reusable types and utilities for ES development. A comprehensive toolkit providing type-safe Result types, functional programming utilities, async helpers, and more.
+
+## Features
+
+<CardGrid>
+  <Card title="Result Type" icon="approve-check">
+    Type-safe error handling without exceptions using discriminated unions.
+  </Card>
+  <Card title="Functional Utilities" icon="puzzle">
+    Pipe, compose, curry, memoize, and more with full TypeScript inference.
+  </Card>
+  <Card title="Async Helpers" icon="rocket">
+    Retry, timeout, debounce, throttle, and concurrency control utilities.
+  </Card>
+  <Card title="Tree-Shakable" icon="seti:plan">
+    Import only what you need via subpath exports for optimal bundle size.
+  </Card>
+</CardGrid>
+
+## Installation
+
+<Tabs>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add @bfra.me/es
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```bash
+    npm install @bfra.me/es
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add @bfra.me/es
+    ```
+  </TabItem>
+</Tabs>
+
+### Optional: File Watcher
+
+If you need file watching capabilities:
+
+<Tabs>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add chokidar
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```bash
+    npm install chokidar
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add chokidar
+    ```
+  </TabItem>
+</Tabs>
+
+## Quick Start
+
+### Result Type for Error Handling
+
+```typescript
+import { err, isOk, ok } from '@bfra.me/es/result'
+
+function divide(a: number, b: number) {
+  if (b === 0) return err('Division by zero')
+  return ok(a / b)
+}
+
+const result = divide(10, 2)
+if (isOk(result)) {
+  console.log(`Result: ${result.data}`) // Result: 5
+} else {
+  console.error(`Error: ${result.error}`)
+}
+```
+
+### Functional Programming
+
+```typescript
+import { compose, memoize, pipe } from '@bfra.me/es/functional'
+
+// Pipe values through transformations
+const result = pipe(
+  5,
+  (x) => x * 2,
+  (x) => x + 1,
+  (x) => x.toString(),
+) // "11"
+
+// Memoize expensive computations
+const expensiveFn = memoize((n: number) => {
+  // Expensive calculation...
+  return n * n
+})
+```
+
+### Async Utilities
+
+```typescript
+import { debounce, retry, timeout } from '@bfra.me/es/async'
+
+// Retry failed operations
+const data = await retry(
+  () => fetch('/api/data'),
+  { maxAttempts: 3, initialDelay: 1000 },
+)
+
+// Add timeout to async operations
+const result = await timeout(
+  fetch('/api/slow'),
+  { ms: 5000, message: 'Request timed out' },
+)
+
+// Debounce rapid calls
+const debouncedSearch = debounce(searchAPI, 300)
+```
+
+## Available Subpath Exports
+
+| Subpath | Description |
+| ------- | ----------- |
+| `@bfra.me/es/result` | Result type for type-safe error handling |
+| `@bfra.me/es/functional` | Functional programming utilities |
+| `@bfra.me/es/async` | Async utilities (retry, timeout, debounce) |
+| `@bfra.me/es/types` | Type guards and branded types |
+| `@bfra.me/es/validation` | Input validation utilities |
+| `@bfra.me/es/error` | Structured error handling |
+| `@bfra.me/es/env` | Environment detection |
+| `@bfra.me/es/module` | ES module interoperability |
+| `@bfra.me/es/watcher` | File watcher (requires chokidar) |
+
+## Documentation
+
+<CardGrid>
+  <LinkCard
+    title="API Reference"
+    description="Complete API documentation for all exports"
+    href="https://github.com/bfra-me/works/blob/main/packages/es/docs/api.md"
+  />
+  <LinkCard
+    title="Migration Guide"
+    description="Migrate from inline utilities to @bfra.me/es"
+    href="https://github.com/bfra-me/works/blob/main/packages/es/docs/migration.md"
+  />
+</CardGrid>
+
+## Key Concepts
+
+### Result Type Pattern
+
+The Result type provides a type-safe alternative to exceptions:
+
+```typescript
+import { type Result, err, flatMap, isErr, isOk, map, ok } from '@bfra.me/es/result'
+
+// Functions return Result instead of throwing
+function parseJSON<T>(input: string): Result<T, Error> {
+  try {
+    return ok(JSON.parse(input))
+  } catch (error) {
+    return err(error instanceof Error ? error : new Error(String(error)))
+  }
+}
+
+// Chain operations with map and flatMap
+const result = pipe(
+  parseJSON<{ name: string }>('{"name": "test"}'),
+  (r) => map(r, (data) => data.name.toUpperCase()),
+)
+
+// Type guards narrow the type
+if (isOk(result)) {
+  console.log(result.data) // TypeScript knows this is string
+}
+```
+
+### Branded Types
+
+Create nominal types for improved type safety:
+
+```typescript
+import { type Brand, brand, unbrand } from '@bfra.me/es/types'
+
+type UserId = Brand<string, 'UserId'>
+type OrderId = Brand<string, 'OrderId'>
+
+function createUserId(id: string): UserId {
+  return brand<string, 'UserId'>(id)
+}
+
+function getOrder(orderId: OrderId): Order {
+  // ...
+}
+
+const userId = createUserId('user_123')
+// getOrder(userId) // Type error! UserId is not assignable to OrderId
+```
+
+### Environment Detection
+
+Detect runtime environment reliably:
+
+```typescript
+import { getEnvironment, isInCI, isNode } from '@bfra.me/es/env'
+
+if (isInCI()) {
+  // Running in CI environment
+}
+
+if (isNode()) {
+  // Running in Node.js
+}
+
+const env = getEnvironment()
+// { isNode: true, isBrowser: false, isDeno: false }
+```
+
+## Requirements
+
+- Node.js 20+
+- TypeScript 5.0+ (for type features)
+- ES2022+ target
+
+## License
+
+MIT

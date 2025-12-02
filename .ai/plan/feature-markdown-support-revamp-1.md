@@ -362,6 +362,3 @@ This implementation plan outlines a comprehensive revamp of Markdown linting int
 - [TypeScript-ESLint Documentation](https://typescript-eslint.io/) - TypeScript linting rules and parser
 - [micromark-extension-frontmatter](https://github.com/micromark/micromark-extension-frontmatter) - Frontmatter parsing library
 - [eslint-merge-processors](https://github.com/JoshuaKGoldberg/eslint-merge-processors) - Processor merging utility
-- [bfra.me/works TypeScript Patterns](../../.github/instructions/typescript-patterns.instructions.md) - Internal TypeScript patterns
-- [bfra.me/works API Design Standards](../../.github/instructions/api-design-standards.instructions.md) - Internal API design standards
-- [bfra.me/works Testing Practices](../../.github/instructions/testing-practices.instructions.md) - Internal testing practices

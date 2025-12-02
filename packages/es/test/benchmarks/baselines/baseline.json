@@ -1,0 +1,135 @@
+{
+  "version": 1,
+  "metadata": {
+    "generatedAt": "2025-12-01T00:00:00.000Z",
+    "commitSha": "initial",
+    "nodeVersion": "v20.0.0",
+    "platform": {
+      "os": "linux",
+      "arch": "x64"
+    },
+    "packageVersion": "0.0.1"
+  },
+  "benchmarks": [
+    {
+      "name": "pipe() vs hand-written - numeric operations > 2-function chain > hand-written (baseline)",
+      "metrics": {
+        "avgTimeNs": 5,
+        "opsPerSec": 200000000,
+        "stdDevNs": 1,
+        "iterations": 10000
+      },
+      "tags": ["pipe", "numeric", "baseline"]
+    },
+    {
+      "name": "pipe() vs hand-written - numeric operations > 2-function chain > pipe()",
+      "metrics": {
+        "avgTimeNs": 10,
+        "opsPerSec": 100000000,
+        "stdDevNs": 2,
+        "iterations": 10000
+      },
+      "tags": ["pipe", "numeric"]
+    },
+    {
+      "name": "pipe() vs hand-written - numeric operations > 3-function chain > hand-written (baseline)",
+      "metrics": {
+        "avgTimeNs": 7,
+        "opsPerSec": 142857142,
+        "stdDevNs": 1,
+        "iterations": 10000
+      },
+      "tags": ["pipe", "numeric", "baseline"]
+    },
+    {
+      "name": "pipe() vs hand-written - numeric operations > 3-function chain > pipe()",
+      "metrics": {
+        "avgTimeNs": 15,
+        "opsPerSec": 66666666,
+        "stdDevNs": 3,
+        "iterations": 10000
+      },
+      "tags": ["pipe", "numeric"]
+    },
+    {
+      "name": "pipe() vs hand-written - numeric operations > 5-function chain > hand-written (baseline)",
+      "metrics": {
+        "avgTimeNs": 10,
+        "opsPerSec": 100000000,
+        "stdDevNs": 2,
+        "iterations": 10000
+      },
+      "tags": ["pipe", "numeric", "baseline"]
+    },
+    {
+      "name": "pipe() vs hand-written - numeric operations > 5-function chain > pipe()",
+      "metrics": {
+        "avgTimeNs": 25,
+        "opsPerSec": 40000000,
+        "stdDevNs": 5,
+        "iterations": 10000
+      },
+      "tags": ["pipe", "numeric"]
+    },
+    {
+      "name": "compose() vs hand-written - numeric operations > 2-function chain > hand-written (baseline)",
+      "metrics": {
+        "avgTimeNs": 5,
+        "opsPerSec": 200000000,
+        "stdDevNs": 1,
+        "iterations": 10000
+      },
+      "tags": ["compose", "numeric", "baseline"]
+    },
+    {
+      "name": "compose() vs hand-written - numeric operations > 2-function chain > compose()",
+      "metrics": {
+        "avgTimeNs": 10,
+        "opsPerSec": 100000000,
+        "stdDevNs": 2,
+        "iterations": 10000
+      },
+      "tags": ["compose", "numeric"]
+    },
+    {
+      "name": "real-world transformation scenarios > object transformation pipeline > hand-written (baseline)",
+      "metrics": {
+        "avgTimeNs": 50,
+        "opsPerSec": 20000000,
+        "stdDevNs": 10,
+        "iterations": 10000
+      },
+      "tags": ["real-world", "object", "baseline"]
+    },
+    {
+      "name": "real-world transformation scenarios > object transformation pipeline > pipe()",
+      "metrics": {
+        "avgTimeNs": 55,
+        "opsPerSec": 18181818,
+        "stdDevNs": 11,
+        "iterations": 10000
+      },
+      "tags": ["real-world", "object"]
+    },
+    {
+      "name": "real-world transformation scenarios > array processing pipeline > hand-written (baseline)",
+      "metrics": {
+        "avgTimeNs": 5000,
+        "opsPerSec": 200000,
+        "stdDevNs": 500,
+        "iterations": 10000
+      },
+      "tags": ["real-world", "array", "baseline"]
+    },
+    {
+      "name": "real-world transformation scenarios > array processing pipeline > pipe()",
+      "metrics": {
+        "avgTimeNs": 5050,
+        "opsPerSec": 198019,
+        "stdDevNs": 505,
+        "iterations": 10000
+      },
+      "tags": ["real-world", "array"]
+    }
+  ]
+}
