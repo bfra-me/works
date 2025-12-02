@@ -35,33 +35,48 @@ function generateValidationSuggestions(errors: ValidationError[]): string {
   for (const error of errors) {
     for (const issue of error.zodError.issues) {
       const path = issue.path.join('.') || 'root'
+      const message = 'message' in issue ? String(issue.message) : ''
 
       // Provide specific suggestions based on common error patterns
       if (issue.code === 'invalid_type') {
-        if (path === 'branches' && issue.received === 'string') {
+        const expected = 'expected' in issue ? String(issue.expected) : 'unknown'
+        // Zod v4 includes "received <type>" in message, check for branches expecting array
+        if (path === 'branches' && expected === 'array') {
           suggestions.push('• `branches` should be an array. Try: branches: ["main"]')
         } else if (path.includes('plugins')) {
           suggestions.push(
             '• Plugin configurations should be either strings or [name, config] tuples',
           )
         } else {
-          suggestions.push(`• ${path}: Expected ${issue.expected}, got ${issue.received}`)
+          // Extract received type from message if available
+          const receivedMatch = message.match(/received (\w+)/)
+          const received = receivedMatch ? receivedMatch[1] : 'unknown'
+          suggestions.push(`• ${path}: Expected ${expected}, got ${received}`)
         }
-      } else if (
-        issue.code === 'invalid_string' &&
-        'validation' in issue &&
-        issue.validation === 'url'
-      ) {
-        suggestions.push(
-          '• `repositoryUrl` must be a valid URL. Example: "https://github.com/owner/repo.git"',
-        )
-      } else if (issue.code === 'too_small' && 'minimum' in issue) {
-        if (issue.type === 'string') {
-          suggestions.push(`• ${path}: Cannot be empty`)
-        } else if (issue.type === 'array') {
-          suggestions.push(`• ${path}: Must contain at least ${issue.minimum} item(s)`)
+      } else if (issue.code === 'invalid_format') {
+        // Zod v4 uses invalid_format for URL validation
+        const format = 'format' in issue ? String(issue.format) : undefined
+        if (format === 'url' && path === 'repositoryUrl') {
+          suggestions.push(
+            '• `repositoryUrl` must be a valid URL. Example: "https://github.com/owner/repo.git"',
+          )
         } else {
-          suggestions.push(`• ${path}: ${issue.message}`)
+          suggestions.push(`• ${path}: Invalid ${format ?? 'format'}`)
+        }
+      } else if (issue.code === 'too_small') {
+        if ('minimum' in issue) {
+          const minimum = String(issue.minimum)
+          // Zod v4 exposes `origin` for the kind (string/array)
+          const origin = 'origin' in issue ? String(issue.origin) : undefined
+          if (origin === 'string') {
+            suggestions.push(`• ${path}: Cannot be empty`)
+          } else if (origin === 'array') {
+            suggestions.push(`• ${path}: Must contain at least ${minimum} item(s)`)
+          } else {
+            suggestions.push(`• ${path}: Must be at least ${minimum}`)
+          }
+        } else {
+          suggestions.push(`• ${path}: Value is too small`)
         }
       } else if (issue.code === 'invalid_union') {
         if (path.includes('branches')) {
@@ -69,7 +84,7 @@ function generateValidationSuggestions(errors: ValidationError[]): string {
         } else if (path.includes('plugins')) {
           suggestions.push('• Plugins must be strings (plugin names) or [name, config] tuples')
         } else {
-          suggestions.push(`• ${path}: ${issue.message}`)
+          suggestions.push(`• ${path}: Invalid union value`)
         }
       } else if (issue.code === 'unrecognized_keys') {
         suggestions.push(
@@ -77,7 +92,7 @@ function generateValidationSuggestions(errors: ValidationError[]): string {
         )
       } else {
         // Generic fallback for all other error codes
-        suggestions.push(`• ${path}: ${issue.message}`)
+        suggestions.push(`• ${path}: Invalid configuration value`)
       }
     }
   }

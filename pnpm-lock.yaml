@@ -7,7 +7,6 @@ settings:
 overrides:
   eslint: ^9.38.0
   read-pkg-up@^11: npm:read-package-up
-  zod: <4.0.0
 
 importers:
 
@@ -89,8 +88,8 @@ importers:
         specifier: 4.0.14
         version: 4.0.14(@types/node@24.10.1)(happy-dom@20.0.11)(jiti@2.6.1)(msw@2.12.3(@types/node@24.10.1)(typescript@5.9.3))(tsx@4.20.6)(yaml@2.8.1)
       zod:
-        specifier: <4.0.0
-        version: 3.25.76
+        specifier: 4.1.12
+        version: 4.1.12
 
   docs:
     dependencies:
@@ -114,7 +113,7 @@ importers:
     dependencies:
       '@anthropic-ai/sdk':
         specifier: 0.71.0
-        version: 0.71.0(zod@3.25.76)
+        version: 0.71.0(zod@4.1.13)
       '@clack/prompts':
         specifier: 0.11.0
         version: 0.11.0
@@ -138,7 +137,7 @@ importers:
         version: 13.0.0
       openai:
         specifier: 6.9.1
-        version: 6.9.1(ws@8.18.3)(zod@3.25.76)
+        version: 6.9.1(ws@8.18.3)(zod@4.1.13)
       package-manager-detector:
         specifier: 1.6.0
         version: 1.6.0
@@ -374,7 +373,7 @@ packages:
     resolution: {integrity: sha512-go1XeWXmpxuiTkosSXpb8tokLk2ZLkIRcXpbWVwJM6gH5OBtHOVsfPfGuqI1oW7RRt4qc59EmYbrXRZ0Ng06Jw==}
     hasBin: true
     peerDependencies:
-      zod: <4.0.0
+      zod: ^3.25.0 || ^4.0.0
     peerDependenciesMeta:
       zod:
         optional: true
@@ -4574,7 +4573,7 @@ packages:
     hasBin: true
     peerDependencies:
       ws: ^8.18.0
-      zod: <4.0.0
+      zod: ^3.25 || ^4.0
     peerDependenciesMeta:
       ws:
         optional: true
@@ -6195,22 +6194,28 @@ packages:
   zod-to-json-schema@3.25.0:
     resolution: {integrity: sha512-HvWtU2UG41LALjajJrML6uQejQhNJx+JBO9IflpSja4R03iNWfKXrj6W2h7ljuLyc1nKS+9yDyL/9tD1U/yBnQ==}
     peerDependencies:
-      zod: <4.0.0
+      zod: ^3.25 || ^4
 
   zod-to-ts@1.2.0:
     resolution: {integrity: sha512-x30XE43V+InwGpvTySRNz9kB7qFU8DlyEy7BsSTCHPH1R0QasMmHWZDCzYm6bVXtj/9NNJAZF3jW8rzFvH5OFA==}
     peerDependencies:
       typescript: ^4.9.4 || ^5.0.2
-      zod: <4.0.0
+      zod: ^3
 
   zod-validation-error@4.0.2:
     resolution: {integrity: sha512-Q6/nZLe6jxuU80qb/4uJ4t5v2VEZ44lzQjPDhYJNztRQ4wyWc6VF3D3Kb/fAuPetZQnhS3hnajCf9CsWesghLQ==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      zod: <4.0.0
+      zod: ^3.25.0 || ^4.0.0
 
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
+
+  zod@4.1.12:
+    resolution: {integrity: sha512-JInaHOamG8pt5+Ey8kGmdcAcg3OL9reK8ltczgHTAwNhMys/6ThXHityHxVV2p3fkw/c+MAvBHFVYHFZDmjMCQ==}
+
+  zod@4.1.13:
+    resolution: {integrity: sha512-AvvthqfqrAhNH9dnfmrfKzX5upOdjUVJYFqNSlkmGf64gRaTzlPwz99IHYnVs28qYAybvAlBV+H7pn0saFY4Ig==}
 
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
@@ -6233,11 +6238,11 @@ snapshots:
 
   '@actions/io@1.1.3': {}
 
-  '@anthropic-ai/sdk@0.71.0(zod@3.25.76)':
+  '@anthropic-ai/sdk@0.71.0(zod@4.1.13)':
     dependencies:
       json-schema-to-ts: 3.1.1
     optionalDependencies:
-      zod: 3.25.76
+      zod: 4.1.13
 
   '@apidevtools/json-schema-ref-parser@14.2.1(@types/json-schema@7.0.15)':
     dependencies:
@@ -6883,7 +6888,7 @@ snapshots:
       eslint: 9.39.1(jiti@2.6.1)
       ts-pattern: 5.9.0
       typescript: 5.9.3
-      zod: 3.25.76
+      zod: 4.1.13
     transitivePeerDependencies:
       - supports-color
 
@@ -9266,8 +9271,8 @@ snapshots:
       '@babel/parser': 7.28.5
       eslint: 9.39.1(jiti@2.6.1)
       hermes-parser: 0.25.1
-      zod: 3.25.76
-      zod-validation-error: 4.0.2(zod@3.25.76)
+      zod: 4.1.12
+      zod-validation-error: 4.0.2(zod@4.1.12)
     transitivePeerDependencies:
       - supports-color
 
@@ -11346,10 +11351,10 @@ snapshots:
       regex: 6.0.1
       regex-recursion: 6.0.2
 
-  openai@6.9.1(ws@8.18.3)(zod@3.25.76):
+  openai@6.9.1(ws@8.18.3)(zod@4.1.13):
     optionalDependencies:
       ws: 8.18.3
-      zod: 3.25.76
+      zod: 4.1.13
 
   optionator@0.9.4:
     dependencies:
@@ -13094,10 +13099,14 @@ snapshots:
       typescript: 5.9.3
       zod: 3.25.76
 
-  zod-validation-error@4.0.2(zod@3.25.76):
+  zod-validation-error@4.0.2(zod@4.1.12):
     dependencies:
-      zod: 3.25.76
+      zod: 4.1.12
 
   zod@3.25.76: {}
+
+  zod@4.1.12: {}
+
+  zod@4.1.13: {}
 
   zwitch@2.0.4: {}

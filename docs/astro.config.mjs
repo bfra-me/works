@@ -46,4 +46,12 @@ export default defineConfig({
   ],
   base: 'works',
   trailingSlash: 'always',
+  // Workaround for Zod v4 compatibility: prevent Vite from externalizing zod
+  // so Astro uses its bundled Zod v3 instead of the project's Zod v4
+  // See: https://github.com/withastro/astro/issues/14117
+  vite: {
+    ssr: {
+      noExternal: ['zod'],
+    },
+  },
 })
