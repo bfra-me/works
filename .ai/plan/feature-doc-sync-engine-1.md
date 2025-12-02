@@ -240,5 +240,5 @@ Build an intelligent documentation synchronization engine that continuously moni
 - [ts-morph Documentation](https://ts-morph.com/)
 - [Unified/Remark Ecosystem](https://unifiedjs.com/)
 - [Chokidar File Watcher](https://github.com/paulmillr/chokidar)
-- bfra.me/works Monorepo Patterns: `/.github/copilot-instructions.md`
+- bfra.me/works Monorepo Patterns: `/AGENTS.md`
 - Existing Package Plans: `/.ai/plan/feature-badge-config-package-1.md`

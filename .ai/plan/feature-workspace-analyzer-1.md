@@ -51,7 +51,7 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 ### Guidelines
 
-- **GUD-001**: Follow TypeScript patterns from `copilot-instructions.md` (explicit exports, no `export *`)
+- **GUD-001**: Follow TypeScript patterns from `AGENTS.md` (explicit exports, no `export *`)
 - **GUD-002**: Follow testing practices with `it.concurrent()` and `toMatchFileSnapshot()`
 - **GUD-003**: Use discriminated union result pattern instead of throwing for expected errors
 - **GUD-004**: Comment only WHY, not WHAT per self-explanatory code guidelines
@@ -434,4 +434,4 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 - [Tree-Shaking Guide](https://webpack.js.org/guides/tree-shaking/)
 - [ESM vs CJS Module Differences](https://nodejs.org/api/esm.html)
 - Existing package patterns: `packages/badge-config/`, `packages/eslint-config/`
-- Monorepo conventions: `.github/copilot-instructions.md`
+- Monorepo conventions: `AGENTS.md`

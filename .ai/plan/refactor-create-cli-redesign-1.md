@@ -303,7 +303,4 @@ Completely redesign `@bfra.me/create` to transform it from a simple template-bas
 - [@clack/prompts Documentation](https://github.com/natemoo-re/clack/tree/main/packages/prompts)
 - [OpenAI API Documentation](https://platform.openai.com/docs)
 - [Eta Template Documentation](https://eta.js.org/)
-- [bfra.me Works Monorepo Copilot Instructions](../../.github/copilot-instructions.md)
-- [TypeScript Patterns Instructions](../../.github/instructions/typescript-patterns.instructions.md)
-- [Testing Practices Instructions](../../.github/instructions/testing-practices.instructions.md)
-- [ESLint Config Usage Instructions](../../.github/instructions/eslint-config-usage.instructions.md)
+- [bfra.me Works Monorepo AI Agent Instructions](../../AGENTS.md)

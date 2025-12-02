@@ -4,7 +4,7 @@ export {composeConfig} from './packages/eslint-config/src'
 
 export const config = defineConfig({
   name: '@bfra.me/works',
-  ignores: ['.ai/', '.github/**/*instructions.md', '**/test/fixtures'],
+  ignores: ['.ai/', 'AGENTS.md', '**/test/fixtures'],
   packageJson: true,
   typescript: {
     erasableSyntaxOnly: true,

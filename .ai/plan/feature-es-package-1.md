@@ -61,7 +61,7 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 
 ### Guidelines
 
-- **GUD-001**: Follow TypeScript patterns from `copilot-instructions.md` (explicit exports, no `export *` in app code)
+- **GUD-001**: Follow TypeScript patterns from `AGENTS.md` (explicit exports, no `export *` in app code)
 - **GUD-002**: Follow testing practices with `it.concurrent()` and `toMatchFileSnapshot()`
 - **GUD-003**: Use discriminated union result pattern instead of throwing for expected errors
 - **GUD-004**: Comment only WHY, not WHAT per self-explanatory code guidelines
@@ -526,7 +526,7 @@ Create a shared `@bfra.me/es` package that provides high-quality reusable types 
 - [Chokidar Documentation](https://github.com/paulmillr/chokidar)
 - [fp-ts Result/Either Pattern](https://gcanti.github.io/fp-ts/modules/Either.ts.html)
 - [Neverthrow Library](https://github.com/supermacro/neverthrow) — Prior art for Result type
-- bfra.me/works Copilot Instructions: `/.github/copilot-instructions.md`
+- bfra.me/works AI Agent Instructions: `/AGENTS.md`
 - Existing Package Patterns: `packages/badge-config/`, `packages/eslint-config/`
 - Dependent Plans:
   - `/.ai/plan/refactor-create-package-1.md`

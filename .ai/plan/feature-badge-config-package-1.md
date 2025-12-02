@@ -35,9 +35,9 @@ Create a new `@bfra.me/badge-config` package in the bfra.me/works monorepo that 
 - **CON-002**: Dependencies on internal packages must use `workspace:*` versioning
 - **CON-003**: Package size should remain minimal for CI/CD usage
 
-- **GUD-001**: Follow TypeScript patterns from `.github/instructions/typescript-patterns.instructions.md`
-- **GUD-002**: Follow testing practices from `.github/instructions/testing-practices.instructions.md`
-- **GUD-003**: Follow ESLint configuration from `.github/instructions/eslint-config-usage.instructions.md`
+- **GUD-001**: Follow TypeScript patterns from `AGENTS.md`
+- **GUD-002**: Follow testing practices from `AGENTS.md`
+- **GUD-003**: Follow ESLint configuration from `AGENTS.md`
 
 - **PAT-001**: Use `defineConfig()` pattern for ESLint configuration
 - **PAT-002**: Implement explicit barrel exports in `index.ts`
@@ -179,9 +179,4 @@ Create a new `@bfra.me/badge-config` package in the bfra.me/works monorepo that 
 ## 8. Related Specifications / Further Reading
 
 - [shields.io API Documentation](https://shields.io/badges)
-- [bfra.me Works Monorepo Copilot Instructions](../../.github/copilot-instructions.md)
-- [TypeScript Patterns Instructions](../../.github/instructions/typescript-patterns.instructions.md)
-- [Testing Practices Instructions](../../.github/instructions/testing-practices.instructions.md)
-- [ESLint Config Usage Instructions](../../.github/instructions/eslint-config-usage.instructions.md)
-- [API Design Standards Instructions](../../.github/instructions/api-design-standards.instructions.md)
-- [Changeset Workflow Instructions](../../.github/instructions/changeset-workflow.instructions.md)
+- [bfra.me Works Monorepo AI Agent Instructions](../../AGENTS.md)

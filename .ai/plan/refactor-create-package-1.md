@@ -171,9 +171,6 @@ This implementation plan addresses critical architectural issues in the `@bfra.m
 
 ## 8. Related Specifications / Further Reading
 
-- [TypeScript Patterns Instructions](../../.github/instructions/typescript-patterns.instructions.md)
-- [Testing Practices Instructions](../../.github/instructions/testing-practices.instructions.md)
-- [API Design Standards Instructions](../../.github/instructions/api-design-standards.instructions.md)
-- [bfra.me/works Copilot Instructions](../../.github/copilot-instructions.md)
+- [bfra.me/works AI Agent Instructions](../../AGENTS.md)
 - [Functional Programming in TypeScript Best Practices](https://basarat.gitbook.io/typescript/recap/functions)
 - [Template Literal Types Documentation](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html)
