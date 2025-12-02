@@ -54,3 +54,23 @@ Implementation plans to reference for shared code to implement in `@bfra.me/es`:
 - #file:refactor-create-package-1.md (e.g., `pipe()`, `Result<T, E>`)
 - #file:feature-workspace-analyzer-1.md (e.g., `Result<T>`, reusable TS API code)
 - #file:feature-doc-sync-engine-1.md (e.g., `Result<T>`, reusable file watcher code)
+
+## 2025-12-01 Implementation Plan Prompts
+
+---
+
+### 1. **Add New Subpath Export to @bfra.me/es**
+
+> Add a new subpath export to the `@bfra.me/es` package (e.g., `@bfra.me/es/http` for HTTP utilities or `@bfra.me/es/string` for string manipulation). Follow the existing pattern: create the module in `packages/es/src/<module>/`, add explicit barrel exports in `index.ts`, update package.json exports field, add entry to `tsup.config.ts`, write comprehensive tests in `packages/es/test/<module>.test.ts`, and update the API documentation in api.md.
+
+---
+
+### 2. **Create New Badge Generator for @bfra.me/badge-config**
+
+> Add a new badge generator to `@bfra.me/badge-config` for a specific service (e.g., Codecov, SonarCloud, or npm downloads). Follow the generator pattern in generators: create a pure function returning Shields.io URL strings, define an options type, add test fixtures (JSON input/output) in fixtures, and export from the package barrel. Ensure the generator handles edge cases gracefully using the Result type pattern.
+
+---
+
+### 3. **Add Built-in Template to @bfra.me/create**
+
+> Create a new built-in template for `@bfra.me/create` (e.g., a Vitest library template or an Astro component package). Add template files to `packages/create/templates/<template-name>/`, use Eta templating syntax for dynamic content, ensure the template includes proper package.json, tsconfig.json (extending `@bfra.me/tsconfig`), eslint.config.ts, and test setup. Add integration tests that verify template rendering produces valid project structure.
