@@ -88,8 +88,8 @@ importers:
         specifier: 4.0.14
         version: 4.0.14(@types/node@24.10.1)(happy-dom@20.0.11)(jiti@2.6.1)(msw@2.12.3(@types/node@24.10.1)(typescript@5.9.3))(tsx@4.20.6)(yaml@2.8.1)
       zod:
-        specifier: 4.1.12
-        version: 4.1.12
+        specifier: 4.1.13
+        version: 4.1.13
 
   docs:
     dependencies:
@@ -6211,9 +6211,6 @@ packages:
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
 
-  zod@4.1.12:
-    resolution: {integrity: sha512-JInaHOamG8pt5+Ey8kGmdcAcg3OL9reK8ltczgHTAwNhMys/6ThXHityHxVV2p3fkw/c+MAvBHFVYHFZDmjMCQ==}
-
   zod@4.1.13:
     resolution: {integrity: sha512-AvvthqfqrAhNH9dnfmrfKzX5upOdjUVJYFqNSlkmGf64gRaTzlPwz99IHYnVs28qYAybvAlBV+H7pn0saFY4Ig==}
 
@@ -9271,8 +9268,8 @@ snapshots:
       '@babel/parser': 7.28.5
       eslint: 9.39.1(jiti@2.6.1)
       hermes-parser: 0.25.1
-      zod: 4.1.12
-      zod-validation-error: 4.0.2(zod@4.1.12)
+      zod: 4.1.13
+      zod-validation-error: 4.0.2(zod@4.1.13)
     transitivePeerDependencies:
       - supports-color
 
@@ -13099,13 +13096,11 @@ snapshots:
       typescript: 5.9.3
       zod: 3.25.76
 
-  zod-validation-error@4.0.2(zod@4.1.12):
+  zod-validation-error@4.0.2(zod@4.1.13):
     dependencies:
-      zod: 4.1.12
+      zod: 4.1.13
 
   zod@3.25.76: {}
-
-  zod@4.1.12: {}
 
   zod@4.1.13: {}
 
