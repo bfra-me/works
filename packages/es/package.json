@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/es",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "High-quality reusable types and utilities for ES development",
   "keywords": [
     "bfra.me",
