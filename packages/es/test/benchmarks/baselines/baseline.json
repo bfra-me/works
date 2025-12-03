@@ -1,135 +1,1104 @@
 {
   "version": 1,
   "metadata": {
-    "generatedAt": "2025-12-01T00:00:00.000Z",
-    "commitSha": "initial",
-    "nodeVersion": "v20.0.0",
+    "generatedAt": "2025-12-03T06:27:58.937Z",
+    "commitSha": "cfe64380c1ab79e91648517cb0bcb7f41625c979",
+    "nodeVersion": "v24.11.1",
     "platform": {
-      "os": "linux",
-      "arch": "x64"
+      "os": "darwin",
+      "arch": "arm64"
     },
-    "packageVersion": "0.0.1"
+    "packageVersion": "0.1.0"
   },
   "benchmarks": [
     {
+      "name": "debouncer creation overhead > create debouncer instance",
+      "metrics": {
+        "avgTimeNs": 53730.221451220845,
+        "opsPerSec": 18611499.692177024,
+        "stdDevNs": 1080216.2591531982,
+        "iterations": 9305751
+      }
+    },
+    {
+      "name": "debouncer creation overhead > create debouncer with complex callback",
+      "metrics": {
+        "avgTimeNs": 51424.78040858148,
+        "opsPerSec": 19445877.883284565,
+        "stdDevNs": 772538.6494943183,
+        "iterations": 9722939
+      }
+    },
+    {
+      "name": "debouncer add() performance > single adds > add single string item",
+      "metrics": {
+        "avgTimeNs": 242914.80638487195,
+        "opsPerSec": 4116669.6047980264,
+        "stdDevNs": 3989226.4060749137,
+        "iterations": 2058335
+      }
+    },
+    {
+      "name": "debouncer add() performance > numeric events > add single numeric item",
+      "metrics": {
+        "avgTimeNs": 110810.64282794979,
+        "opsPerSec": 9024403.924383424,
+        "stdDevNs": 4583041.228578925,
+        "iterations": 4512203
+      }
+    },
+    {
+      "name": "debouncer add() performance > object events > add file change event object",
+      "metrics": {
+        "avgTimeNs": 120829.66329345,
+        "opsPerSec": 8276113.43723912,
+        "stdDevNs": 4933632.475305965,
+        "iterations": 4138057
+      }
+    },
+    {
+      "name": "debouncer rapid event simulation > 100 events/batch > 100 rapid adds then flush",
+      "metrics": {
+        "avgTimeNs": 22514927.008276872,
+        "opsPerSec": 44414.97854434007,
+        "stdDevNs": 8044388.2848099405,
+        "iterations": 22208
+      }
+    },
+    {
+      "name": "debouncer rapid event simulation > 1000 events/batch (target rate) > 1000 rapid adds then flush",
+      "metrics": {
+        "avgTimeNs": 219155237.9491703,
+        "opsPerSec": 4562.975584603342,
+        "stdDevNs": 25103694.035621658,
+        "iterations": 2282
+      }
+    },
+    {
+      "name": "debouncer rapid event simulation > 10000 events/batch (stress test) > 10000 rapid adds then flush",
+      "metrics": {
+        "avgTimeNs": 2163124801.724115,
+        "opsPerSec": 462.29417701787327,
+        "stdDevNs": 80848344.80715062,
+        "iterations": 232
+      }
+    },
+    {
+      "name": "debouncer flush() performance > flush with small batch > flush 10 items",
+      "metrics": {
+        "avgTimeNs": 2319508.259769591,
+        "opsPerSec": 431125.86290136137,
+        "stdDevNs": 11335621.321594577,
+        "iterations": 215563
+      }
+    },
+    {
+      "name": "debouncer flush() performance > flush with medium batch > flush 100 items",
+      "metrics": {
+        "avgTimeNs": 22451820.07184605,
+        "opsPerSec": 44539.81890109532,
+        "stdDevNs": 31929070.83951132,
+        "iterations": 22270
+      }
+    },
+    {
+      "name": "debouncer flush() performance > flush with large batch > flush 1000 items",
+      "metrics": {
+        "avgTimeNs": 227426197.81719312,
+        "opsPerSec": 4397.030815261694,
+        "stdDevNs": 120196292.17457363,
+        "iterations": 2199
+      }
+    },
+    {
+      "name": "debouncer cancel() performance > cancel with pending items",
+      "metrics": {
+        "avgTimeNs": 22359368.52696482,
+        "opsPerSec": 44723.98219985622,
+        "stdDevNs": 8189614.629505149,
+        "iterations": 22362
+      }
+    },
+    {
+      "name": "debouncer cancel() performance > cancel with no pending items",
+      "metrics": {
+        "avgTimeNs": 48392.634215344966,
+        "opsPerSec": 20664301.834656212,
+        "stdDevNs": 1000002.4983395416,
+        "iterations": 10332151
+      }
+    },
+    {
+      "name": "debouncer callback overhead > simple callback > add + flush with simple callback",
+      "metrics": {
+        "avgTimeNs": 21838672.82495578,
+        "opsPerSec": 45790.32837825505,
+        "stdDevNs": 7879768.401459665,
+        "iterations": 22896
+      }
+    },
+    {
+      "name": "debouncer callback overhead > complex callback (transformation) > add + flush with transformation callback",
+      "metrics": {
+        "avgTimeNs": 24922054.029820696,
+        "opsPerSec": 40125.103605161974,
+        "stdDevNs": 12474882.807375308,
+        "iterations": 20063
+      }
+    },
+    {
+      "name": "file watcher event patterns > realistic file change events > simulate rapid file saves (100 events)",
+      "metrics": {
+        "avgTimeNs": 22775425.29837737,
+        "opsPerSec": 43906.97371834566,
+        "stdDevNs": 12279127.26894658,
+        "iterations": 21954
+      }
+    },
+    {
+      "name": "file watcher event patterns > mixed event types > process mixed add/change/unlink events",
+      "metrics": {
+        "avgTimeNs": 73959009.9097517,
+        "opsPerSec": 13521.00306940625,
+        "stdDevNs": 20180257.95190785,
+        "iterations": 6761
+      }
+    },
+    {
+      "name": "100K iteration stress test > 100K adds with periodic flushes",
+      "metrics": {
+        "avgTimeNs": 21965204652.173588,
+        "opsPerSec": 45.526550552810086,
+        "stdDevNs": 201050643.6523808,
+        "iterations": 23
+      }
+    },
+    {
+      "name": "100K iteration stress test > 100K adds single flush",
+      "metrics": {
+        "avgTimeNs": 22369012695.652084,
+        "opsPerSec": 44.704699917058576,
+        "stdDevNs": 328524272.21285945,
+        "iterations": 23
+      }
+    },
+    {
+      "name": "memory pressure simulation > large objects in debounce queue",
+      "metrics": {
+        "avgTimeNs": 31937176.162494883,
+        "opsPerSec": 31311.47208857934,
+        "stdDevNs": 16797722.051118597,
+        "iterations": 15656
+      }
+    },
+    {
+      "name": "memoize cache hit performance > map strategy (default) > cache hit - single argument",
+      "metrics": {
+        "avgTimeNs": 64323.54912120764,
+        "opsPerSec": 15546405.8445478,
+        "stdDevNs": 688668.4213328286,
+        "iterations": 7773203
+      }
+    },
+    {
+      "name": "memoize cache hit performance > lru strategy > cache hit - single argument",
+      "metrics": {
+        "avgTimeNs": 58839.04990013369,
+        "opsPerSec": 16995515.762019943,
+        "stdDevNs": 367778.18271998793,
+        "iterations": 8497758
+      }
+    },
+    {
+      "name": "memoize cache hit performance > ttl strategy > cache hit - single argument",
+      "metrics": {
+        "avgTimeNs": 91295.09968147258,
+        "opsPerSec": 10953490.422695052,
+        "stdDevNs": 537624.2214831469,
+        "iterations": 5476746
+      }
+    },
+    {
+      "name": "memoize cache miss performance > map strategy > cache miss - unique arguments",
+      "metrics": {
+        "avgTimeNs": 133081.17098628194,
+        "opsPerSec": 7514211.008130372,
+        "stdDevNs": 30239833.19299733,
+        "iterations": 3757106
+      }
+    },
+    {
+      "name": "memoize cache miss performance > lru strategy > cache miss with eviction",
+      "metrics": {
+        "avgTimeNs": 148528.87679956507,
+        "opsPerSec": 6732697.516789733,
+        "stdDevNs": 2694365.4533351394,
+        "iterations": 3366353
+      }
+    },
+    {
+      "name": "memoize with multiple arguments > two arguments > cache hit - two numeric arguments",
+      "metrics": {
+        "avgTimeNs": 133095.2000552818,
+        "opsPerSec": 7513418.963153025,
+        "stdDevNs": 357668.96220280736,
+        "iterations": 3756710
+      }
+    },
+    {
+      "name": "memoize with multiple arguments > three arguments > cache hit - three numeric arguments",
+      "metrics": {
+        "avgTimeNs": 154735.23570988816,
+        "opsPerSec": 6462652.125821503,
+        "stdDevNs": 120751.23837862938,
+        "iterations": 3231327
+      }
+    },
+    {
+      "name": "memoize with multiple arguments > mixed argument types > cache hit - mixed types (string, number, boolean)",
+      "metrics": {
+        "avgTimeNs": 218165.8003301579,
+        "opsPerSec": 4583669.844158274,
+        "stdDevNs": 497915.18753430375,
+        "iterations": 2291835
+      }
+    },
+    {
+      "name": "memoize key resolution overhead > primitive keys > number key",
+      "metrics": {
+        "avgTimeNs": 67324.57593278227,
+        "opsPerSec": 14853416.989932666,
+        "stdDevNs": 874444.850982288,
+        "iterations": 7426709
+      }
+    },
+    {
+      "name": "memoize key resolution overhead > primitive keys > string key",
+      "metrics": {
+        "avgTimeNs": 148155.41411647105,
+        "opsPerSec": 6749668.960554213,
+        "stdDevNs": 48948865.70039795,
+        "iterations": 3374835
+      }
+    },
+    {
+      "name": "memoize key resolution overhead > complex keys > array key (same reference)",
+      "metrics": {
+        "avgTimeNs": 193971.78913691107,
+        "opsPerSec": 5155388.855511202,
+        "stdDevNs": 142581.32629138103,
+        "iterations": 2577695
+      }
+    },
+    {
+      "name": "memoize key resolution overhead > complex keys > object key (same reference)",
+      "metrics": {
+        "avgTimeNs": 501700.8278062404,
+        "opsPerSec": 1993219.7528408412,
+        "stdDevNs": 1613034.1637258548,
+        "iterations": 996610
+      }
+    },
+    {
+      "name": "memoize key resolution overhead > custom key resolver > default key resolver (full serialization)",
+      "metrics": {
+        "avgTimeNs": 716828.2911698399,
+        "opsPerSec": 1395034.2255158948,
+        "stdDevNs": 1463487.381866352,
+        "iterations": 697518
+      }
+    },
+    {
+      "name": "memoize key resolution overhead > custom key resolver > custom key resolver (id only)",
+      "metrics": {
+        "avgTimeNs": 44373.889321686074,
+        "opsPerSec": 22535775.323874697,
+        "stdDevNs": 51506.575023440186,
+        "iterations": 11267888
+      }
+    },
+    {
+      "name": "lru cache eviction performance > small cache size (10) > access causing eviction",
+      "metrics": {
+        "avgTimeNs": 93399.88093397033,
+        "opsPerSec": 10706651.76443808,
+        "stdDevNs": 132614.2001763557,
+        "iterations": 5353326
+      }
+    },
+    {
+      "name": "lru cache eviction performance > medium cache size (100) > access causing eviction",
+      "metrics": {
+        "avgTimeNs": 139574.14149360152,
+        "opsPerSec": 7164650.910970087,
+        "stdDevNs": 4642734.058737222,
+        "iterations": 3582326
+      }
+    },
+    {
+      "name": "lru cache eviction performance > large cache size (1000) > access causing eviction",
+      "metrics": {
+        "avgTimeNs": 152931.46553720123,
+        "opsPerSec": 6538876.72159099,
+        "stdDevNs": 43599900.504857644,
+        "iterations": 3269450
+      }
+    },
+    {
+      "name": "memoize vs no memoization > cheap function > direct call (baseline)",
+      "metrics": {
+        "avgTimeNs": 28360.20114388795,
+        "opsPerSec": 35260680.80146586,
+        "stdDevNs": 66486.05123268304,
+        "iterations": 17630341
+      }
+    },
+    {
+      "name": "memoize vs no memoization > cheap function > memoized call (cache hit)",
+      "metrics": {
+        "avgTimeNs": 65486.36973277283,
+        "opsPerSec": 15270353.267109679,
+        "stdDevNs": 112736.42534744779,
+        "iterations": 7635177
+      }
+    },
+    {
+      "name": "memoize vs no memoization > moderately expensive function > direct call (baseline)",
+      "metrics": {
+        "avgTimeNs": 79097.36393827508,
+        "opsPerSec": 12642646.356462223,
+        "stdDevNs": 135684.36212110205,
+        "iterations": 6321324
+      }
+    },
+    {
+      "name": "memoize vs no memoization > moderately expensive function > memoized call (cache hit)",
+      "metrics": {
+        "avgTimeNs": 66114.28090981345,
+        "opsPerSec": 15125325.213233445,
+        "stdDevNs": 241009.81876877838,
+        "iterations": 7562663
+      }
+    },
+    {
+      "name": "memoize vs no memoization > expensive function > direct call (baseline)",
+      "metrics": {
+        "avgTimeNs": 771696.3764283253,
+        "opsPerSec": 1295846.4372067442,
+        "stdDevNs": 393914.8159912529,
+        "iterations": 647924
+      }
+    },
+    {
+      "name": "memoize vs no memoization > expensive function > memoized call (cache hit)",
+      "metrics": {
+        "avgTimeNs": 66518.23570753026,
+        "opsPerSec": 15033471.488883674,
+        "stdDevNs": 109317.87858398104,
+        "iterations": 7516736
+      }
+    },
+    {
+      "name": "cache statistics overhead > memoized call without stats access",
+      "metrics": {
+        "avgTimeNs": 65920.58613955624,
+        "opsPerSec": 15169768.027895933,
+        "stdDevNs": 361621.9862403843,
+        "iterations": 7584885
+      }
+    },
+    {
+      "name": "cache statistics overhead > memoized call + getStats()",
+      "metrics": {
+        "avgTimeNs": 66252.32128219848,
+        "opsPerSec": 15093810.762351247,
+        "stdDevNs": 104729.63510904848,
+        "iterations": 7546906
+      }
+    },
+    {
+      "name": "100K iteration stress test > 100K cache hits (map strategy)",
+      "metrics": {
+        "avgTimeNs": 4379934817.391673,
+        "opsPerSec": 228.3139000218084,
+        "stdDevNs": 254386904.76081803,
+        "iterations": 115
+      }
+    },
+    {
+      "name": "100K iteration stress test > 100K cache hits (lru strategy)",
+      "metrics": {
+        "avgTimeNs": 4245175550.8471684,
+        "opsPerSec": 235.56151872222097,
+        "stdDevNs": 238712470.99251825,
+        "iterations": 118
+      }
+    },
+    {
+      "name": "100K iteration stress test > 100K alternating hits/misses",
+      "metrics": {
+        "avgTimeNs": 4897236640.776877,
+        "opsPerSec": 204.19678960855038,
+        "stdDevNs": 262318111.00537023,
+        "iterations": 103
+      }
+    },
+    {
       "name": "pipe() vs hand-written - numeric operations > 2-function chain > hand-written (baseline)",
       "metrics": {
-        "avgTimeNs": 5,
-        "opsPerSec": 200000000,
-        "stdDevNs": 1,
-        "iterations": 10000
-      },
-      "tags": ["pipe", "numeric", "baseline"]
+        "avgTimeNs": 27870.175324569016,
+        "opsPerSec": 35880649.77540517,
+        "stdDevNs": 77088.94644956359,
+        "iterations": 17940326
+      }
     },
     {
       "name": "pipe() vs hand-written - numeric operations > 2-function chain > pipe()",
       "metrics": {
-        "avgTimeNs": 10,
-        "opsPerSec": 100000000,
-        "stdDevNs": 2,
-        "iterations": 10000
-      },
-      "tags": ["pipe", "numeric"]
+        "avgTimeNs": 52336.4704159955,
+        "opsPerSec": 19107134.891816698,
+        "stdDevNs": 2676259.651190214,
+        "iterations": 9553568
+      }
     },
     {
       "name": "pipe() vs hand-written - numeric operations > 3-function chain > hand-written (baseline)",
       "metrics": {
-        "avgTimeNs": 7,
-        "opsPerSec": 142857142,
-        "stdDevNs": 1,
-        "iterations": 10000
-      },
-      "tags": ["pipe", "numeric", "baseline"]
+        "avgTimeNs": 27569.386491198988,
+        "opsPerSec": 36272116.5492468,
+        "stdDevNs": 75672.46307544857,
+        "iterations": 18136059
+      }
     },
     {
       "name": "pipe() vs hand-written - numeric operations > 3-function chain > pipe()",
       "metrics": {
-        "avgTimeNs": 15,
-        "opsPerSec": 66666666,
-        "stdDevNs": 3,
-        "iterations": 10000
-      },
-      "tags": ["pipe", "numeric"]
+        "avgTimeNs": 60163.56068208384,
+        "opsPerSec": 16621356.659460332,
+        "stdDevNs": 922373.5223487355,
+        "iterations": 8311857
+      }
     },
     {
       "name": "pipe() vs hand-written - numeric operations > 5-function chain > hand-written (baseline)",
       "metrics": {
-        "avgTimeNs": 10,
-        "opsPerSec": 100000000,
-        "stdDevNs": 2,
-        "iterations": 10000
-      },
-      "tags": ["pipe", "numeric", "baseline"]
+        "avgTimeNs": 28038.604390426124,
+        "opsPerSec": 35665113.215886496,
+        "stdDevNs": 85980.66180037812,
+        "iterations": 17832557
+      }
     },
     {
       "name": "pipe() vs hand-written - numeric operations > 5-function chain > pipe()",
       "metrics": {
-        "avgTimeNs": 25,
-        "opsPerSec": 40000000,
-        "stdDevNs": 5,
-        "iterations": 10000
-      },
-      "tags": ["pipe", "numeric"]
+        "avgTimeNs": 73215.29719432784,
+        "opsPerSec": 13658347.890684685,
+        "stdDevNs": 16914503.719821054,
+        "iterations": 6829174
+      }
+    },
+    {
+      "name": "pipe() vs hand-written - numeric operations > 10-function chain > hand-written (baseline)",
+      "metrics": {
+        "avgTimeNs": 28519.69162012868,
+        "opsPerSec": 35063492.73756587,
+        "stdDevNs": 58034.548014965665,
+        "iterations": 17531747
+      }
+    },
+    {
+      "name": "pipe() vs hand-written - numeric operations > 10-function chain > pipe()",
+      "metrics": {
+        "avgTimeNs": 99447.14892063272,
+        "opsPerSec": 10055592.451404363,
+        "stdDevNs": 53707.94676304947,
+        "iterations": 5027797
+      }
     },
     {
       "name": "compose() vs hand-written - numeric operations > 2-function chain > hand-written (baseline)",
       "metrics": {
-        "avgTimeNs": 5,
-        "opsPerSec": 200000000,
-        "stdDevNs": 1,
-        "iterations": 10000
-      },
-      "tags": ["compose", "numeric", "baseline"]
+        "avgTimeNs": 29032.311510449163,
+        "opsPerSec": 34444381.0352505,
+        "stdDevNs": 83518.38257750231,
+        "iterations": 17222191
+      }
     },
     {
       "name": "compose() vs hand-written - numeric operations > 2-function chain > compose()",
       "metrics": {
-        "avgTimeNs": 10,
-        "opsPerSec": 100000000,
-        "stdDevNs": 2,
-        "iterations": 10000
-      },
-      "tags": ["compose", "numeric"]
+        "avgTimeNs": 56473.07414717414,
+        "opsPerSec": 17707553.82279891,
+        "stdDevNs": 1567370.603094406,
+        "iterations": 8853777
+      }
+    },
+    {
+      "name": "compose() vs hand-written - numeric operations > 3-function chain > hand-written (baseline)",
+      "metrics": {
+        "avgTimeNs": 29282.56880296952,
+        "opsPerSec": 34150009.404181466,
+        "stdDevNs": 65557.264153533,
+        "iterations": 17075006
+      }
+    },
+    {
+      "name": "compose() vs hand-written - numeric operations > 3-function chain > compose()",
+      "metrics": {
+        "avgTimeNs": 64028.620661391236,
+        "opsPerSec": 15618015.657222994,
+        "stdDevNs": 692042.770202012,
+        "iterations": 7809009
+      }
+    },
+    {
+      "name": "compose() vs hand-written - numeric operations > 5-function chain > hand-written (baseline)",
+      "metrics": {
+        "avgTimeNs": 28167.67449698987,
+        "opsPerSec": 35501688.295456015,
+        "stdDevNs": 79921.37227685371,
+        "iterations": 17750845
+      }
+    },
+    {
+      "name": "compose() vs hand-written - numeric operations > 5-function chain > compose()",
+      "metrics": {
+        "avgTimeNs": 80936.40503116537,
+        "opsPerSec": 12355379.505859446,
+        "stdDevNs": 200900.4039423947,
+        "iterations": 6177690
+      }
+    },
+    {
+      "name": "pipe() vs hand-written - string operations > 3-function chain > hand-written (baseline)",
+      "metrics": {
+        "avgTimeNs": 73150.20896814502,
+        "opsPerSec": 13670500.933708524,
+        "stdDevNs": 174248.73410249944,
+        "iterations": 6835251
+      }
+    },
+    {
+      "name": "pipe() vs hand-written - string operations > 3-function chain > pipe()",
+      "metrics": {
+        "avgTimeNs": 104807.89740065356,
+        "opsPerSec": 9541265.732841276,
+        "stdDevNs": 1018143.1645157886,
+        "iterations": 4770633
+      }
+    },
+    {
+      "name": "pipe() vs hand-written - string operations > 5-function chain > hand-written (baseline)",
+      "metrics": {
+        "avgTimeNs": 431022.72609876795,
+        "opsPerSec": 2320063.280772003,
+        "stdDevNs": 1427992.9974679241,
+        "iterations": 1160032
+      }
+    },
+    {
+      "name": "pipe() vs hand-written - string operations > 5-function chain > pipe()",
+      "metrics": {
+        "avgTimeNs": 477177.26556520356,
+        "opsPerSec": 2095657.2581376587,
+        "stdDevNs": 980259.6296745606,
+        "iterations": 1047829
+      }
+    },
+    {
+      "name": "pipe() - pre-composed vs inline composition > 5-function chain > pre-composed pipe (reused function)",
+      "metrics": {
+        "avgTimeNs": 68233.34096585847,
+        "opsPerSec": 14655591.912176251,
+        "stdDevNs": 131719.28568252912,
+        "iterations": 7327796
+      }
+    },
+    {
+      "name": "pipe() - pre-composed vs inline composition > 5-function chain > inline composition (recreated each call)",
+      "metrics": {
+        "avgTimeNs": 81381.03932723033,
+        "opsPerSec": 12287874.525404312,
+        "stdDevNs": 118127.21476237747,
+        "iterations": 6143938
+      }
+    },
+    {
+      "name": "composition overhead analysis > single function baseline > direct call",
+      "metrics": {
+        "avgTimeNs": 28527.98886447795,
+        "opsPerSec": 35053294.66968367,
+        "stdDevNs": 77486.55831805574,
+        "iterations": 17526648
+      }
+    },
+    {
+      "name": "composition overhead analysis > single function baseline > pipe (1 function)",
+      "metrics": {
+        "avgTimeNs": 46727.29224305262,
+        "opsPerSec": 21400769.27202387,
+        "stdDevNs": 162981.67486991172,
+        "iterations": 10700385
+      }
+    },
+    {
+      "name": "composition overhead analysis > measuring reduce() overhead > hand-written nested calls",
+      "metrics": {
+        "avgTimeNs": 28686.925487274715,
+        "opsPerSec": 34859085.90809398,
+        "stdDevNs": 76210.06365178428,
+        "iterations": 17429544
+      }
+    },
+    {
+      "name": "composition overhead analysis > measuring reduce() overhead > array.reduce() simulation",
+      "metrics": {
+        "avgTimeNs": 49313.90388760228,
+        "opsPerSec": 20278256.66122945,
+        "stdDevNs": 152317.45501657805,
+        "iterations": 10139129
+      }
+    },
+    {
+      "name": "composition overhead analysis > measuring reduce() overhead > pipe() implementation",
+      "metrics": {
+        "avgTimeNs": 59889.99657544272,
+        "opsPerSec": 16697279.298393546,
+        "stdDevNs": 1180273.0071437687,
+        "iterations": 8348640
+      }
     },
     {
       "name": "real-world transformation scenarios > object transformation pipeline > hand-written (baseline)",
       "metrics": {
-        "avgTimeNs": 50,
-        "opsPerSec": 20000000,
-        "stdDevNs": 10,
-        "iterations": 10000
-      },
-      "tags": ["real-world", "object", "baseline"]
+        "avgTimeNs": 130375.0833384397,
+        "opsPerSec": 7670177.2638879735,
+        "stdDevNs": 918885.8060979691,
+        "iterations": 3835089
+      }
     },
     {
       "name": "real-world transformation scenarios > object transformation pipeline > pipe()",
       "metrics": {
-        "avgTimeNs": 55,
-        "opsPerSec": 18181818,
-        "stdDevNs": 11,
-        "iterations": 10000
-      },
-      "tags": ["real-world", "object"]
+        "avgTimeNs": 157686.33288532658,
+        "opsPerSec": 6341703.695571542,
+        "stdDevNs": 326178.8178088252,
+        "iterations": 3170852
+      }
     },
     {
-      "name": "real-world transformation scenarios > array processing pipeline > hand-written (baseline)",
+      "name": "array transformation scenarios > array processing pipeline > hand-written (baseline)",
       "metrics": {
-        "avgTimeNs": 5000,
-        "opsPerSec": 200000,
-        "stdDevNs": 500,
-        "iterations": 10000
-      },
-      "tags": ["real-world", "array", "baseline"]
+        "avgTimeNs": 261411.97580800712,
+        "opsPerSec": 3825379.449082492,
+        "stdDevNs": 697711.7939626537,
+        "iterations": 1912690
+      }
     },
     {
-      "name": "real-world transformation scenarios > array processing pipeline > pipe()",
+      "name": "array transformation scenarios > array processing pipeline > pipe()",
       "metrics": {
-        "avgTimeNs": 5050,
-        "opsPerSec": 198019,
-        "stdDevNs": 505,
-        "iterations": 10000
-      },
-      "tags": ["real-world", "array"]
+        "avgTimeNs": 271861.78984725924,
+        "opsPerSec": 3678339.6466338,
+        "stdDevNs": 307276.89813782665,
+        "iterations": 1839170
+      }
+    },
+    {
+      "name": "result creation - ok() and err() > ok() creation > ok() with number",
+      "metrics": {
+        "avgTimeNs": 51289.84061169922,
+        "opsPerSec": 19497038.557220627,
+        "stdDevNs": 114825.31633799139,
+        "iterations": 9748520
+      }
+    },
+    {
+      "name": "result creation - ok() and err() > ok() creation > ok() with string",
+      "metrics": {
+        "avgTimeNs": 51461.64229525222,
+        "opsPerSec": 19431948.834098104,
+        "stdDevNs": 93642.14239825329,
+        "iterations": 9715975
+      }
+    },
+    {
+      "name": "result creation - ok() and err() > ok() creation > ok() with object",
+      "metrics": {
+        "avgTimeNs": 51780.76820897143,
+        "opsPerSec": 19312189.343431603,
+        "stdDevNs": 152008.20658506462,
+        "iterations": 9656095
+      }
+    },
+    {
+      "name": "result creation - ok() and err() > ok() creation > ok() with array",
+      "metrics": {
+        "avgTimeNs": 51992.914821798455,
+        "opsPerSec": 19233389.846047673,
+        "stdDevNs": 113143.19572270797,
+        "iterations": 9616695
+      }
+    },
+    {
+      "name": "result creation - ok() and err() > ok() creation > ok() with nested object",
+      "metrics": {
+        "avgTimeNs": 85100.31420726045,
+        "opsPerSec": 11750837.929511236,
+        "stdDevNs": 760031.9596286704,
+        "iterations": 5875419
+      }
+    },
+    {
+      "name": "result creation - ok() and err() > err() creation > err() with string",
+      "metrics": {
+        "avgTimeNs": 51531.5156932464,
+        "opsPerSec": 19405600.36993163,
+        "stdDevNs": 109769.89959731884,
+        "iterations": 9702801
+      }
+    },
+    {
+      "name": "result creation - ok() and err() > err() creation > err() with Error object",
+      "metrics": {
+        "avgTimeNs": 2166592.591147041,
+        "opsPerSec": 461554.24147858756,
+        "stdDevNs": 844255.3820929861,
+        "iterations": 230778
+      }
+    },
+    {
+      "name": "result creation - ok() and err() > err() creation > err() with structured error",
+      "metrics": {
+        "avgTimeNs": 51961.372125174275,
+        "opsPerSec": 19245065.307186518,
+        "stdDevNs": 44311.0798124612,
+        "iterations": 9622533
+      }
+    },
+    {
+      "name": "result creation - ok() and err() > creation comparison - ok() vs raw object literal > raw object literal (baseline)",
+      "metrics": {
+        "avgTimeNs": 36180.640811123514,
+        "opsPerSec": 27639090.341720983,
+        "stdDevNs": 3285556.0311818263,
+        "iterations": 13819546
+      }
+    },
+    {
+      "name": "result creation - ok() and err() > creation comparison - ok() vs raw object literal > ok() factory function",
+      "metrics": {
+        "avgTimeNs": 52832.48225466648,
+        "opsPerSec": 18927749.69723619,
+        "stdDevNs": 251878.8697584448,
+        "iterations": 9463875
+      }
+    },
+    {
+      "name": "result type guards - isOk() and isErr() > isOk() guard > isOk() on Ok result",
+      "metrics": {
+        "avgTimeNs": 48201.238328528234,
+        "opsPerSec": 20746354.962589066,
+        "stdDevNs": 139662.73730873142,
+        "iterations": 10373178
+      }
+    },
+    {
+      "name": "result type guards - isOk() and isErr() > isOk() guard > isOk() on Err result",
+      "metrics": {
+        "avgTimeNs": 47822.8619283188,
+        "opsPerSec": 20910500.95452024,
+        "stdDevNs": 342173.24426594615,
+        "iterations": 10455251
+      }
+    },
+    {
+      "name": "result type guards - isOk() and isErr() > isErr() guard > isErr() on Ok result",
+      "metrics": {
+        "avgTimeNs": 48235.42805285219,
+        "opsPerSec": 20731649.751387857,
+        "stdDevNs": 70710.24744348785,
+        "iterations": 10365825
+      }
+    },
+    {
+      "name": "result type guards - isOk() and isErr() > isErr() guard > isErr() on Err result",
+      "metrics": {
+        "avgTimeNs": 48406.01150319474,
+        "opsPerSec": 20658591.13250843,
+        "stdDevNs": 62572.470471794586,
+        "iterations": 10329296
+      }
+    },
+    {
+      "name": "result type guards - isOk() and isErr() > type guard comparison - isOk() vs property access > direct property check (baseline)",
+      "metrics": {
+        "avgTimeNs": 28685.513660721495,
+        "opsPerSec": 34860801.581854895,
+        "stdDevNs": 44174.83535353959,
+        "iterations": 17430401
+      }
+    },
+    {
+      "name": "result type guards - isOk() and isErr() > type guard comparison - isOk() vs property access > isOk() type guard",
+      "metrics": {
+        "avgTimeNs": 47317.221631106186,
+        "opsPerSec": 21133954.30940948,
+        "stdDevNs": 35953.952416593296,
+        "iterations": 10566978
+      }
+    },
+    {
+      "name": "result extraction - unwrap() and unwrapOr() > unwrap() on Ok result > unwrap() success path",
+      "metrics": {
+        "avgTimeNs": 56374.529315074935,
+        "opsPerSec": 17738507.303733587,
+        "stdDevNs": 72637.34657209819,
+        "iterations": 8869255
+      }
+    },
+    {
+      "name": "result extraction - unwrap() and unwrapOr() > unwrapOr() extraction > unwrapOr() on Ok result",
+      "metrics": {
+        "avgTimeNs": 57234.778984414894,
+        "opsPerSec": 17471894.148002237,
+        "stdDevNs": 109497.98533797373,
+        "iterations": 8735948
+      }
+    },
+    {
+      "name": "result extraction - unwrap() and unwrapOr() > unwrapOr() extraction > unwrapOr() on Err result (uses default)",
+      "metrics": {
+        "avgTimeNs": 56978.020158493106,
+        "opsPerSec": 17550627.36855978,
+        "stdDevNs": 51611.63038029718,
+        "iterations": 8775314
+      }
+    },
+    {
+      "name": "result extraction - unwrap() and unwrapOr() > extraction comparison - unwrapOr() vs ternary > ternary expression (baseline)",
+      "metrics": {
+        "avgTimeNs": 28564.027493133657,
+        "opsPerSec": 35009068.670039065,
+        "stdDevNs": 75695.14045107548,
+        "iterations": 17504535
+      }
+    },
+    {
+      "name": "result extraction - unwrap() and unwrapOr() > extraction comparison - unwrapOr() vs ternary > unwrapOr() function",
+      "metrics": {
+        "avgTimeNs": 56498.194148013565,
+        "opsPerSec": 17699680.761126757,
+        "stdDevNs": 61395.5908308149,
+        "iterations": 8849841
+      }
+    },
+    {
+      "name": "result transformation - map() and flatMap() > map() transformation > map() on Ok result - numeric transform",
+      "metrics": {
+        "avgTimeNs": 69555.83802849447,
+        "opsPerSec": 14376938.418746915,
+        "stdDevNs": 102744.09890237346,
+        "iterations": 7188470
+      }
+    },
+    {
+      "name": "result transformation - map() and flatMap() > map() transformation > map() on Ok result - type-changing transform",
+      "metrics": {
+        "avgTimeNs": 76330.42890889198,
+        "opsPerSec": 13100935.1616981,
+        "stdDevNs": 113921.56600630985,
+        "iterations": 6550468
+      }
+    },
+    {
+      "name": "result transformation - map() and flatMap() > map() transformation > map() on Err result (passthrough)",
+      "metrics": {
+        "avgTimeNs": 56817.853670352226,
+        "opsPerSec": 17600101.64765875,
+        "stdDevNs": 40498.360331577605,
+        "iterations": 8800051
+      }
+    },
+    {
+      "name": "result transformation - map() and flatMap() > map() chain > single map()",
+      "metrics": {
+        "avgTimeNs": 68787.88199886924,
+        "opsPerSec": 14537444.255318668,
+        "stdDevNs": 79279.81979825279,
+        "iterations": 7268723
+      }
+    },
+    {
+      "name": "result transformation - map() and flatMap() > map() chain > two chained map() calls",
+      "metrics": {
+        "avgTimeNs": 104167.5601815507,
+        "opsPerSec": 9599917.654374627,
+        "stdDevNs": 48256.144799374415,
+        "iterations": 4799959
+      }
+    },
+    {
+      "name": "result transformation - map() and flatMap() > map() chain > three chained map() calls",
+      "metrics": {
+        "avgTimeNs": 137942.80974156604,
+        "opsPerSec": 7249381.1157934675,
+        "stdDevNs": 246423.96849526223,
+        "iterations": 3624691
+      }
+    },
+    {
+      "name": "result transformation - map() and flatMap() > flatMap() chaining > flatMap() on Ok result",
+      "metrics": {
+        "avgTimeNs": 78434.80600921056,
+        "opsPerSec": 12749441.872560639,
+        "stdDevNs": 80613.2715332743,
+        "iterations": 6374721
+      }
+    },
+    {
+      "name": "result transformation - map() and flatMap() > flatMap() chaining > flatMap() on Err result (passthrough)",
+      "metrics": {
+        "avgTimeNs": 58231.41582272793,
+        "opsPerSec": 17172860.832445987,
+        "stdDevNs": 108576.47207936231,
+        "iterations": 8586431
+      }
+    },
+    {
+      "name": "result transformation - map() and flatMap() > mapErr() error transformation > mapErr() on Err result",
+      "metrics": {
+        "avgTimeNs": 74082.40674743366,
+        "opsPerSec": 13498481.541093312,
+        "stdDevNs": 100327.457020425,
+        "iterations": 6749241
+      }
+    },
+    {
+      "name": "result transformation - map() and flatMap() > mapErr() error transformation > mapErr() on Ok result (passthrough)",
+      "metrics": {
+        "avgTimeNs": 58911.58808635149,
+        "opsPerSec": 16974589.083122645,
+        "stdDevNs": 35695.32524051666,
+        "iterations": 8487295
+      }
+    },
+    {
+      "name": "result from throwing functions - fromThrowable() > fromThrowable() wrapping > fromThrowable() - success path",
+      "metrics": {
+        "avgTimeNs": 60101.224394179175,
+        "opsPerSec": 16638596.136434957,
+        "stdDevNs": 45412.00973623188,
+        "iterations": 8319299
+      }
+    },
+    {
+      "name": "result from throwing functions - fromThrowable() > fromThrowable() wrapping > fromThrowable() - error path",
+      "metrics": {
+        "avgTimeNs": 2856976.6586024207,
+        "opsPerSec": 350020.3605055637,
+        "stdDevNs": 453552.092709776,
+        "iterations": 175011
+      }
+    },
+    {
+      "name": "result from throwing functions - fromThrowable() > fromThrowable() vs try-catch > manual try-catch (baseline)",
+      "metrics": {
+        "avgTimeNs": 32691.265273420602,
+        "opsPerSec": 30589210.654169533,
+        "stdDevNs": 42194.28640867398,
+        "iterations": 15294606
+      }
+    },
+    {
+      "name": "result from throwing functions - fromThrowable() > fromThrowable() vs try-catch > fromThrowable() wrapper",
+      "metrics": {
+        "avgTimeNs": 60276.3901478345,
+        "opsPerSec": 16590243.668331657,
+        "stdDevNs": 82083.37037725007,
+        "iterations": 8295122
+      }
+    },
+    {
+      "name": "result from promises - fromPromise() > fromPromise() wrapping > fromPromise() - resolving promise",
+      "metrics": {
+        "avgTimeNs": 202017.3749605014,
+        "opsPerSec": 4950069.27099969,
+        "stdDevNs": 1928216.704692756,
+        "iterations": 2475056
+      }
+    },
+    {
+      "name": "result from promises - fromPromise() > fromPromise() wrapping > fromPromise() - rejecting promise",
+      "metrics": {
+        "avgTimeNs": 2944296.1783175194,
+        "opsPerSec": 339639.74391035526,
+        "stdDevNs": 2404895.3995839125,
+        "iterations": 169820
+      }
+    },
+    {
+      "name": "real-world result patterns > typical validation pipeline > fetch -> validate -> format pipeline",
+      "metrics": {
+        "avgTimeNs": 166703.95088228732,
+        "opsPerSec": 5998658.068434852,
+        "stdDevNs": 829209.0670433585,
+        "iterations": 2999330
+      }
+    },
+    {
+      "name": "real-world result patterns > result array processing > filter successful results",
+      "metrics": {
+        "avgTimeNs": 787607.2223455656,
+        "opsPerSec": 1269668.397684203,
+        "stdDevNs": 2782030.7544587296,
+        "iterations": 634835
+      }
+    },
+    {
+      "name": "real-world result patterns > result array processing > extract values from successful results",
+      "metrics": {
+        "avgTimeNs": 988808.7782520894,
+        "opsPerSec": 1011317.8826827299,
+        "stdDevNs": 3040675.0800043344,
+        "iterations": 505659
+      }
+    },
+    {
+      "name": "100K iteration stress test > 100K ok() creations",
+      "metrics": {
+        "avgTimeNs": 2033168353.6588993,
+        "opsPerSec": 491.84318563703556,
+        "stdDevNs": 110170443.26088986,
+        "iterations": 246
+      }
+    },
+    {
+      "name": "100K iteration stress test > 100K isOk() checks",
+      "metrics": {
+        "avgTimeNs": 1721890587.6288023,
+        "opsPerSec": 580.756993031183,
+        "stdDevNs": 34828224.8556304,
+        "iterations": 291
+      }
+    },
+    {
+      "name": "100K iteration stress test > 100K map() transformations",
+      "metrics": {
+        "avgTimeNs": 4596503385.320763,
+        "opsPerSec": 217.55667649317218,
+        "stdDevNs": 131235599.26090309,
+        "iterations": 109
+      }
+    },
+    {
+      "name": "100K iteration stress test > 100K unwrapOr() extractions",
+      "metrics": {
+        "avgTimeNs": 2613150614.5833707,
+        "opsPerSec": 382.67981738949084,
+        "stdDevNs": 45108770.553149596,
+        "iterations": 192
+      }
     }
   ]
 }

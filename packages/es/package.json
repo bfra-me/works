@@ -83,18 +83,17 @@
   ],
   "scripts": {
     "bench": "vitest bench",
-    "bench:ci": "npx tsx test/benchmarks/run-benchmarks.ts",
-    "bench:update": "npx tsx test/benchmarks/run-benchmarks.ts --update",
+    "bench:ci": "tsx test/benchmarks/run-benchmarks.ts",
+    "bench:update": "tsx test/benchmarks/run-benchmarks.ts --update",
     "build": "tsup",
     "prepack": "pnpm --filter-prod=\"{.}...\" run build",
-    "test": "pnpm --filter-prod=\"{.}...\" run build && vitest run",
+    "test": "vitest run",
     "test:watch": "vitest"
   },
   "dependencies": {
     "is-in-ci": "2.0.0"
   },
   "devDependencies": {
-    "@bfra.me/tsconfig": "workspace:*",
     "@bfra.me/works": "workspace:*",
     "chokidar": "5.0.0"
   },
