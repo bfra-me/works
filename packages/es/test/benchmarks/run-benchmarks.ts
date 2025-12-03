@@ -14,14 +14,14 @@
  *   1 - One or more benchmarks exceeded regression threshold
  */
 
-import type {Buffer} from 'node:buffer'
-
-import {execSync, spawn} from 'node:child_process'
-
+import type {Task} from '@vitest/runner'
+import {execSync} from 'node:child_process'
 import {readFile} from 'node:fs/promises'
 import {dirname, join} from 'node:path'
+
 import process from 'node:process'
 import {fileURLToPath} from 'node:url'
+import {startVitest} from 'vitest/node'
 import {
   compareBaseline,
   createBaseline,
@@ -44,37 +44,6 @@ const NS_PER_SECOND = 1_000_000_000
  */
 const REGRESSION_THRESHOLD = 10
 
-/** Vitest JSON output types (simplified) */
-interface VitestJsonOutput {
-  testResults?: VitestTestFile[]
-}
-
-interface VitestTestFile {
-  assertionResults?: VitestAssertion[]
-}
-
-interface VitestAssertion {
-  title: string
-  fullName?: string
-  meta?: {
-    benchmark?: {
-      hz: number
-      mean: number
-      variance: number
-      samples: number
-    }
-  }
-}
-
-interface VitestBenchmarkResult {
-  name: string
-  hz: number
-  mean: number
-  variance: number
-  samples: number
-}
-
-/** Parse command-line arguments */
 function parseArgs(): {update: boolean; help: boolean} {
   const args = process.argv.slice(2)
   return {
@@ -83,9 +52,8 @@ function parseArgs(): {update: boolean; help: boolean} {
   }
 }
 
-/** Display usage information */
 function showHelp(): void {
-  const helpText = `
+  log(`
 Benchmark Regression Detection Script
 
 Usage:
@@ -103,12 +71,9 @@ Exit Codes:
 
 Environment:
   REGRESSION_THRESHOLD  Override the default threshold (default: ${REGRESSION_THRESHOLD}%)
-`
-  // eslint-disable-next-line no-console
-  console.log(helpText)
+`)
 }
 
-/** Get the current git commit SHA */
 function getGitSha(): string {
   try {
     return execSync('git rev-parse HEAD', {encoding: 'utf-8'}).trim()
@@ -117,7 +82,6 @@ function getGitSha(): string {
   }
 }
 
-/** Get the package version from package.json */
 async function getPackageVersion(): Promise<string> {
   try {
     const pkgPath = join(currentDir, '..', '..', 'package.json')
@@ -129,58 +93,61 @@ async function getPackageVersion(): Promise<string> {
   }
 }
 
-/** Run Vitest benchmarks and capture JSON output */
-async function runBenchmarks(): Promise<VitestBenchmarkResult[]> {
-  return new Promise((resolve, reject) => {
-    let jsonOutput = ''
+// Helper to build full task name from task hierarchy
+function buildTaskName(task: Task): string {
+  const parts: string[] = []
+  let current: Task | undefined = task
 
-    const child = spawn('npx', ['vitest', 'bench', '--reporter=json'], {
-      cwd: join(currentDir, '..', '..'),
-      stdio: ['inherit', 'pipe', 'inherit'],
-      shell: true,
-    })
+  while (current != null) {
+    if (current.name !== '') {
+      parts.unshift(current.name)
+    }
+    current = current.suite
+  }
 
-    child.stdout.on('data', (data: Buffer) => {
-      jsonOutput += data.toString()
-    })
-
-    child.on('close', () => {
-      const benchmarkResults = parseVitestOutput(jsonOutput)
-      resolve(benchmarkResults)
-    })
-
-    child.on('error', reject)
-  })
+  return parts.join(' > ')
 }
 
-/** Parse Vitest JSON output into benchmark results */
-function parseVitestOutput(jsonOutput: string): VitestBenchmarkResult[] {
+async function runBenchmarks(): Promise<BaselineBenchmark[]> {
   try {
-    const parsed = JSON.parse(jsonOutput) as VitestJsonOutput
-    const results: VitestBenchmarkResult[] = []
+    const vitest = await startVitest('benchmark', [], {
+      run: true,
+      watch: false,
+    })
 
-    if (parsed.testResults != null) {
-      for (const testFile of parsed.testResults) {
-        if (testFile.assertionResults != null) {
-          for (const result of testFile.assertionResults) {
-            if (result.meta?.benchmark != null) {
-              results.push({
-                name: result.fullName ?? result.title,
-                ...result.meta.benchmark,
-              })
-            }
-          }
-        }
+    if (vitest == null) {
+      throw new Error('Failed to initialize Vitest')
+    }
+
+    // Run the benchmarks and wait for completion
+    await vitest.start()
+
+    const benchmarks: BaselineBenchmark[] = []
+
+    // Extract benchmark results from state idMap
+    for (const task of vitest.state.idMap.values()) {
+      if (task.type === 'test' && task.result?.benchmark != null) {
+        const {benchmark: result} = task.result
+        benchmarks.push({
+          name: buildTaskName(task),
+          metrics: {
+            avgTimeNs: result.mean * NS_PER_SECOND,
+            opsPerSec: result.hz,
+            stdDevNs: Math.sqrt(result.variance) * NS_PER_SECOND,
+            iterations: result.sampleCount,
+          },
+        })
       }
     }
-    return results
-  } catch {
-    console.warn('Could not parse Vitest JSON output, using simplified benchmark run')
-    return []
+
+    await vitest.close()
+    return benchmarks
+  } catch (error) {
+    console.error('Error running benchmarks:', error)
+    throw error
   }
 }
 
-/** Log a message to console (centralized for consistency) */
 function log(message: string): void {
   // eslint-disable-next-line no-console
   console.log(message)
@@ -200,34 +167,32 @@ async function main(): Promise<void> {
 
   log('Running benchmarks...\n')
 
-  const results = await runBenchmarks()
+  const benchmarks = await runBenchmarks()
 
-  if (results.length === 0) {
-    log('No benchmark results found. Running benchmarks in simple mode...')
+  if (benchmarks.length === 0) {
+    log('ERROR: No benchmark results found.')
+    log('This indicates either:')
+    log('  1. No benchmark files match pattern: test/benchmarks/**/*.bench.ts')
+    log('  2. Benchmarks failed to execute')
+    log('  3. Vitest initialization failed')
 
-    try {
-      execSync('npx vitest bench', {
-        cwd: join(currentDir, '..', '..'),
-        stdio: 'inherit',
-      })
-    } catch {
-      // Benchmarks ran, but we can't capture results for comparison
+    if (process.env.DEBUG_BENCHMARKS === 'true') {
+      log('\nRunning benchmarks in simple mode (DEBUG_BENCHMARKS=true)...')
+      try {
+        execSync('vitest bench', {
+          cwd: join(currentDir, '..', '..'),
+          stdio: 'inherit',
+        })
+      } catch (error) {
+        log(`Simple mode also failed: ${String(error)}`)
+      }
+    } else {
+      log('\nSet DEBUG_BENCHMARKS=true to see raw benchmark output.')
     }
 
-    log('\nNote: Baseline comparison requires Vitest JSON reporter support.')
-    log('Skipping regression detection for this run.')
-    process.exit(0)
+    log('\nCannot proceed with regression detection without results.')
+    process.exit(1)
   }
-
-  const benchmarks: BaselineBenchmark[] = results.map(r => ({
-    name: r.name,
-    metrics: {
-      avgTimeNs: r.mean * NS_PER_SECOND,
-      opsPerSec: r.hz,
-      stdDevNs: Math.sqrt(r.variance) * NS_PER_SECOND,
-      iterations: r.samples,
-    },
-  }))
 
   if (args.update) {
     const commitSha = getGitSha()
