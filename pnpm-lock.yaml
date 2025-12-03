@@ -164,9 +164,6 @@ importers:
         specifier: 2.0.0
         version: 2.0.0
     devDependencies:
-      '@bfra.me/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@bfra.me/works':
         specifier: workspace:*
         version: link:../..
