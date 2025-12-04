@@ -1,0 +1,87 @@
+{
+  "name": "@bfra.me/doc-sync",
+  "version": "0.0.1",
+  "description": "Intelligent documentation synchronization engine for automatic Astro Starlight site updates",
+  "keywords": [
+    "astro",
+    "bfra.me",
+    "documentation",
+    "generator",
+    "jsdoc",
+    "mdx",
+    "starlight",
+    "sync",
+    "typescript",
+    "works"
+  ],
+  "homepage": "https://github.com/bfra-me/works/tree/main/packages/doc-sync#readme",
+  "bugs": "https://github.com/bfra-me/works/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bfra-me/works.git",
+    "directory": "packages/doc-sync"
+  },
+  "license": "MIT",
+  "author": "Marcus R. Brown <contact@bfra.me>",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "source": "./src/index.ts",
+      "import": "./lib/index.js"
+    },
+    "./types": {
+      "types": "./lib/types.d.ts",
+      "source": "./src/types.ts",
+      "import": "./lib/types.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "bin": {
+    "doc-sync": "./lib/cli/index.js"
+  },
+  "files": [
+    "!**/*.map",
+    "lib",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsx src/cli/index.ts",
+    "prepack": "pnpm --filter-prod=\"{.}...\" run build",
+    "start": "node lib/cli/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@bfra.me/es": "workspace:*",
+    "@clack/prompts": "0.11.0",
+    "cac": "6.7.14",
+    "consola": "3.4.2",
+    "fast-glob": "3.3.3",
+    "remark-mdx": "3.1.0",
+    "remark-parse": "11.0.0",
+    "ts-morph": "26.0.0",
+    "unified": "11.0.5",
+    "zod": "4.1.13"
+  },
+  "devDependencies": {
+    "@bfra.me/works": "workspace:*",
+    "chokidar": "5.0.0",
+    "memfs": "4.51.1"
+  },
+  "peerDependencies": {
+    "chokidar": "^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "chokidar": {
+      "optional": true
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}
