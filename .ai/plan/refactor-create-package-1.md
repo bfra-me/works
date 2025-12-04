@@ -1,8 +1,8 @@
 ---
 goal: Comprehensive refactoring of @bfra.me/create package from class-based to functional architecture with enhanced TypeScript typing, consolidated command patterns, and 80%+ test coverage
-version: 1.0
+version: 1.1
 date_created: 2025-08-24
-last_updated: 2025-08-24
+last_updated: 2025-12-03
 owner: Marcus R. Brown
 status: 'Planned'
 tags: ['refactor', 'architecture', 'typescript', 'testing', 'ux', 'dx']
@@ -21,13 +21,14 @@ This implementation plan addresses critical architectural issues in the `@bfra.m
 - **REQ-003**: Consolidate `create` command as primary interface while preserving `add` as distinct subcommand
 - **REQ-004**: Implement functional factory patterns replacing all class-based architecture
 - **REQ-005**: Establish sophisticated TypeScript typing with branded types and strict result patterns
+- **REQ-006**: Eliminate DRY violations through unified error handling, shared validation patterns, provider-agnostic AI factory, and single template processing pipeline
 - **SEC-001**: Ensure AI API keys remain secure and are never logged or exposed
 - **SEC-002**: Validate all user inputs to prevent path traversal and injection attacks
 - **PER-001**: Maintain or improve current performance benchmarks for template processing
 - **CON-001**: All changes must work within existing pnpm workspace constraints
 - **CON-002**: Must not break existing template compatibility or metadata formats
 - **GUD-001**: Follow established bfra.me/works TypeScript patterns and coding standards
-- **GUD-002**: Implement consistent error handling patterns across all modules
+- **GUD-002**: Implement consistent error handling patterns using `@bfra.me/es/error` and `Result<T, E>` across all modules
 - **PAT-001**: Use composition over inheritance throughout the refactored architecture
 - **PAT-002**: Implement pure functions where possible for improved testability
 
@@ -35,73 +36,78 @@ This implementation plan addresses critical architectural issues in the `@bfra.m
 
 ### Implementation Phase 1: Foundation & Type System Enhancement
 
-- GOAL-001: Establish robust foundation with enhanced TypeScript typing and core utilities
+- GOAL-001: Establish robust foundation with enhanced TypeScript typing, unified error/validation systems, and shared command infrastructure
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
 | TASK-001 | Create branded types for `TemplateSource`, `ProjectPath`, and `PackageName` with compile-time validation | |  |
 | TASK-002 | Import strict `Result<T, E>` discriminated union type from `@bfra.me/es/result` replacing mixed return patterns | |  |
 | TASK-003 | Create comprehensive type guards for runtime validation of all input types | |  |
-| TASK-004 | Establish unified error handling system with `createError()` factory and error codes | |  |
+| TASK-004 | Establish unified error handling system using `@bfra.me/es/error` factory utilities with consistent error codes across template, AI, and CLI domains | |  |
 | TASK-005 | Import functional utilities (`pipe()`, `compose()`, `curry()`) from `@bfra.me/es/functional` | |  |
-| TASK-006 | Create validation factory functions replacing scattered validation logic | |  |
+| TASK-006 | Create validation factory functions merging template schema, CLI option, and input sanitization logic into reusable utilities | |  |
 | TASK-007 | Establish logging/telemetry factory with consistent progress indicators and error reporting | |  |
+| TASK-008 | Build shared command option definitions and validators for use across `create` and `add` commands | |  |
 
 ### Implementation Phase 2: Template System Refactoring
 
-- GOAL-002: Convert template processing system from class-based to functional factory pattern
+- GOAL-002: Convert template processing system from class-based to functional factory pattern with unified pipeline
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-008 | Refactor `TemplateResolver` class to `createTemplateResolver()` factory function | |  |
-| TASK-009 | Convert `TemplateProcessor` to functional architecture with pure processing functions | |  |
-| TASK-010 | Implement `createTemplateFetcher()` factory replacing class-based fetcher | |  |
-| TASK-011 | Create unified template validation pipeline using functional composition | |  |
-| TASK-012 | Consolidate template metadata handling into single functional module | |  |
-| TASK-013 | Implement template caching system using functional memoization patterns | |  |
-| TASK-014 | Create template source normalization utilities with branded type enforcement | |  |
+| TASK-009 | Build canonical `createTemplateProcessingPipeline()` factory encapsulating fetch → validate → parse → render sequence as single reusable function | |  |
+| TASK-010 | Refactor `TemplateResolver` class to `createTemplateResolver()` factory function using Phase 1 validation utilities | |  |
+| TASK-011 | Convert `TemplateProcessor` to functional architecture with pure processing functions delegating to pipeline | |  |
+| TASK-012 | Implement `createTemplateFetcher()` factory replacing class-based fetcher with enhanced caching | |  |
+| TASK-013 | Unify template metadata handling into single functional module using Phase 1 validation | |  |
+| TASK-014 | Implement template caching system using functional memoization patterns | |  |
+| TASK-015 | Create template source normalization utilities with branded type enforcement and Phase 1 validation | |  |
+| TASK-016 | Establish integrated error handling throughout pipeline using Phase 1 error factory | |  |
 
 ### Implementation Phase 3: AI System Modernization
 
-- GOAL-003: Refactor AI integration system to functional architecture with enhanced error handling
+- GOAL-003: Refactor AI integration system to functional architecture with provider-agnostic factory and unified error handling
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-015 | Convert `LLMClient` class to `createLLMClient()` factory with provider abstraction | |  |
-| TASK-016 | Refactor `ProjectAnalyzer` to functional analysis pipeline with composition | |  |
-| TASK-017 | Implement AI availability detection as pure function with environment checking | |  |
-| TASK-018 | Create unified AI error handling with graceful fallbacks and user feedback | |  |
-| TASK-019 | Establish AI response parsing utilities with comprehensive validation | |  |
-| TASK-020 | Implement AI feature toggles and configuration management | |  |
-| TASK-021 | Create AI prompt template system for consistent LLM interactions | |  |
+| TASK-017 | Build `createLLMClient()` provider-agnostic factory supporting OpenAI and Anthropic via adapter pattern, eliminating parallel client implementations | |  |
+| TASK-018 | Implement provider-specific adapters consolidating request/response/error cycles for each AI provider | |  |
+| TASK-019 | Refactor `ProjectAnalyzer` to functional analysis pipeline with composition using factory | |  |
+| TASK-020 | Create unified AI error handling using Phase 1 error factory with graceful fallbacks and user feedback | |  |
+| TASK-021 | Establish AI response parsing utilities with comprehensive validation using Phase 1 validators | |  |
+| TASK-022 | Implement AI availability detection as pure function with environment checking | |  |
+| TASK-023 | Implement AI feature toggles and configuration management | |  |
+| TASK-024 | Create AI prompt template system for consistent LLM interactions | |  |
 
 ### Implementation Phase 4: Command Interface Consolidation
 
-- GOAL-004: Unify command patterns and establish consistent CLI interaction patterns
+- GOAL-004: Unify command patterns using `cac` framework best practices with shared infrastructure
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-022 | Implement unified command dispatcher with shared infrastructure | |  |
-| TASK-023 | Refactor `create` command to use functional command pattern | |  |
-| TASK-024 | Convert `add` subcommand to share infrastructure with main create command | |  |
-| TASK-025 | Establish consistent prompt patterns across all user interactions | |  |
-| TASK-026 | Implement unified validation pipeline for all command inputs | |  |
-| TASK-027 | Create consistent progress indicators and user feedback systems | |  |
-| TASK-028 | Implement standardized error messages with actionable suggestions | |  |
+| TASK-025 | Build shared `cac` command context leveraging composition patterns and Phase 1 option definitions | |  |
+| TASK-026 | Refactor `create` command using `cac` best practices with Phase 1 validators and composable options | |  |
+| TASK-027 | Convert `add` subcommand to share core infrastructure via Phase 1 option definitions, eliminating argument parsing duplication | |  |
+| TASK-028 | Unify argument parsing, project resolution, and template selection into shared command utilities | |  |
+| TASK-029 | Implement consistent prompt patterns across `create` and `add` using shared infrastructure | |  |
+| TASK-030 | Establish unified validation pipeline for all command inputs using Phase 1 validators | |  |
+| TASK-031 | Create consistent progress indicators and user feedback systems | |  |
+| TASK-032 | Implement standardized error messages using Phase 1 error factory with actionable suggestions | |  |
 
 ### Implementation Phase 5: Comprehensive Testing Implementation
 
-- GOAL-005: Achieve 80%+ test coverage with comprehensive unit and integration tests
+- GOAL-005: Achieve 80%+ test coverage with comprehensive unit and integration tests validating refactored patterns
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-029 | Create comprehensive unit tests for all template processing functions | |  |
-| TASK-030 | Implement integration tests for complete CLI workflows | |  |
-| TASK-031 | Establish AI feature testing with comprehensive mocking strategies | |  |
-| TASK-032 | Create error handling and edge case test coverage | |  |
-| TASK-033 | Implement performance regression tests for template processing | |  |
-| TASK-034 | Create fixture-based testing system for template validation | |  |
-| TASK-035 | Establish snapshot testing for generated project structures | |  |
+| TASK-033 | Create unit tests for Phase 1 error factory and validation utilities validating cross-domain error/validation patterns | |  |
+| TASK-034 | Implement comprehensive tests for canonical template processing pipeline covering fetch → validate → parse → render | |  |
+| TASK-035 | Create unit tests for all template processing functions using Phase 1 validators and error handling | |  |
+| TASK-036 | Establish AI feature testing with comprehensive mocking of provider-agnostic factory and provider adapters | |  |
+| TASK-037 | Implement integration tests for complete CLI workflows exercising shared Phase 4 command infrastructure | |  |
+| TASK-038 | Create error handling and edge case test coverage using Phase 1 error factory | |  |
+| TASK-039 | Implement performance regression tests for template processing pipeline | |  |
+| TASK-040 | Create fixture-based testing system for template validation using Phase 1 validators | |  |
 
 ### Implementation Phase 6: Documentation & Migration
 
@@ -109,13 +115,11 @@ This implementation plan addresses critical architectural issues in the `@bfra.m
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-036 | Update API documentation with new functional interfaces | |  |
-| TASK-037 | Create migration guide for consumers using internal APIs | |  |
-| TASK-038 | Implement deprecation warnings for removed class-based interfaces | |  |
-| TASK-039 | Update README with new architecture and usage examples | |  |
-| TASK-040 | Create architectural decision records (ADRs) documenting design choices | |  |
-| TASK-041 | Establish code examples and best practices documentation | |  |
-| TASK-042 | Validate all documentation through automated testing | |  |
+| TASK-041 | Update API documentation with new functional interfaces and factory patterns | |  |
+| TASK-042 | Create migration guide for consumers using internal APIs | |  |
+| TASK-043 | Implement deprecation warnings for removed class-based interfaces | |  |
+| TASK-044 | Update README with new architecture and usage examples | |  |
+| TASK-045 | Establish code examples and best practices documentation for functional factories and error handling | |  |
 
 ## 3. Alternatives
 
@@ -127,36 +131,39 @@ This implementation plan addresses critical architectural issues in the `@bfra.m
 
 ## 4. Dependencies
 
-- **DEP-001**: `@bfra.me/es` (workspace:*) — Provides `Result<T, E>` type from `/result`, functional utilities (`pipe()`, `compose()`, `curry()`) from `/functional`, and type guards from `/types`
+- **DEP-001**: `@bfra.me/es` (workspace:*) — Provides `Result<T, E>` type from `/result`, error utilities from `/error`, functional utilities (`pipe()`, `compose()`, `curry()`) from `/functional`, and type guards from `/types`
 - **DEP-002**: Enhanced TypeScript configuration supporting latest language features and strict type checking
 - **DEP-003**: Vitest testing framework with comprehensive mocking and snapshot capabilities
-- **DEP-003**: Updated @clack/prompts for consistent CLI interactions
-- **DEP-004**: Maintained compatibility with existing AI provider SDKs (OpenAI, Anthropic)
-- **DEP-005**: Giget for template fetching with enhanced caching mechanisms
-- **DEP-006**: Eta templating engine for variable substitution and processing
+- **DEP-004**: Updated @clack/prompts for consistent CLI interactions
+- **DEP-005**: `cac` CLI framework for composable command architecture
+- **DEP-006**: Maintained compatibility with existing AI provider SDKs (OpenAI, Anthropic)
+- **DEP-007**: Giget for template fetching with enhanced caching mechanisms
+- **DEP-008**: Eta templating engine for variable substitution and processing
 
 ## 5. Files
 
 - **FILE-001**: `src/types.ts` - Enhanced with branded types and strict result patterns
-- **FILE-002**: `src/utils/` - New functional utility modules and error handling
-- **FILE-003**: `src/templates/` - Complete refactoring of all template processing modules
-- **FILE-004**: `src/ai/` - Conversion from class-based to functional AI integration
-- **FILE-005**: `src/commands/` - Unified command interface implementation
-- **FILE-006**: `src/cli.ts` - Updated CLI entry point with new command dispatcher
+- **FILE-002**: `src/utils/` - New functional utility modules: unified error factory, merged validation utilities, and shared command option definitions
+- **FILE-003**: `src/templates/` - Complete refactoring of all template processing modules with unified validation
+- **FILE-004**: `src/ai/` - Conversion from class-based to functional AI integration with error utilities
+- **FILE-005**: `src/commands/` - Unified command infrastructure with shared option definitions, eliminating duplication between `create` and `add`
+- **FILE-006**: `src/cli.ts` - Updated CLI entry point with `cac`-based command dispatcher
 - **FILE-007**: `test/` - Comprehensive test suite covering all functional modules
 - **FILE-008**: `README.md` - Updated documentation reflecting new architecture
 - **FILE-009**: `MIGRATION.md` - New migration guide for API consumers
 
 ## 6. Testing
 
-- **TEST-001**: Unit tests for all branded type validation and type guard functions
-- **TEST-002**: Comprehensive template processing pipeline tests with fixture data
-- **TEST-003**: AI integration tests with mocked provider responses and error scenarios
-- **TEST-004**: CLI workflow integration tests covering all command combinations
-- **TEST-005**: Error handling tests ensuring consistent user experience across failure modes
-- **TEST-006**: Performance regression tests for template processing and AI operations
-- **TEST-007**: Snapshot tests for generated project structures and configurations
-- **TEST-008**: Cross-platform compatibility tests for path handling and file operations
+- **TEST-001**: Unit tests for Phase 1 error factory validating consistent error creation across template validation, AI responses, and CLI parsing
+- **TEST-002**: Unit tests for Phase 1 validation utilities covering branded type enforcement and reuse scenarios
+- **TEST-003**: Comprehensive tests for canonical template processing pipeline validating fetch → validate → parse → render sequence
+- **TEST-004**: Unit tests for all template processing functions using Phase 1 validators and error handling
+- **TEST-005**: AI integration tests with comprehensive mocking of provider-agnostic factory and provider adapters
+- **TEST-006**: CLI workflow integration tests covering `create` and `add` command consolidation and shared option patterns
+- **TEST-007**: Error handling tests using Phase 1 error factory ensuring consistent user experience across failure modes
+- **TEST-008**: Snapshot tests for generated project structures and configurations
+- **TEST-009**: Cross-platform compatibility tests for path handling and file operations
+- **TEST-010**: Performance regression tests validating template processing pipeline optimization
 
 ## 7. Risks & Assumptions
 
@@ -174,3 +181,4 @@ This implementation plan addresses critical architectural issues in the `@bfra.m
 - [bfra.me/works AI Agent Instructions](../../AGENTS.md)
 - [Functional Programming in TypeScript Best Practices](https://basarat.gitbook.io/typescript/recap/functions)
 - [Template Literal Types Documentation](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html)
+- [cac Documentation](https://github.com/cacjs/cac)
