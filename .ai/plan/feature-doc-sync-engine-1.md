@@ -1,8 +1,8 @@
 ---
 goal: Build Intelligent Documentation Synchronization Engine for Automatic Astro Site Updates
-version: 1.0
+version: 1.1
 date_created: 2025-11-29
-last_updated: 2025-11-29
+last_updated: 2025-12-03
 owner: marcusrbrown
 status: 'Planned'
 tags: ['feature', 'documentation', 'automation', 'astro', 'starlight', 'typescript', 'testing']
@@ -12,7 +12,7 @@ tags: ['feature', 'documentation', 'automation', 'astro', 'starlight', 'typescri
 
 ![Status: Planned](https://img.shields.io/badge/status-Planned-blue)
 
-Build an intelligent documentation synchronization engine that continuously monitors package source code, README files, and JSDoc comments to automatically update the Astro Starlight documentation site (`docs/`) with zero manual intervention. The system will parse TypeScript source files, extract JSDoc annotations, monitor README changes, and generate synchronized MDX documentation pages. Comprehensive testing includes mock file systems, document generation validation, and integration tests that verify the entire sync pipeline from source changes to deployed documentation updates.
+Build an intelligent documentation synchronization engine that continuously monitors package source code, README files, and JSDoc comments to automatically update the Astro Starlight documentation site (`docs/`) with zero manual intervention. The system will parse TypeScript source files, extract JSDoc annotations, monitor README changes, and generate synchronized MDX documentation pages. Comprehensive testing includes mock file systems, document generation validation, and integration tests that verify the entire sync pipeline from source changes to deployed documentation updates. The CLI provides modern interactive features using `@clack/prompts` for a user-friendly experience alongside programmatic API access.
 
 ## 1. Requirements & Constraints
 
@@ -21,7 +21,7 @@ Build an intelligent documentation synchronization engine that continuously moni
 - **REQ-003**: Generate MDX documentation files compatible with Astro Starlight in `docs/src/content/docs/packages/`
 - **REQ-004**: Preserve manual content sections in generated MDX files using sentinel markers (e.g., `{/* AUTO-GENERATED */}`)
 - **REQ-005**: Support incremental updates - only regenerate documentation for changed packages
-- **REQ-006**: Provide CLI interface for manual sync triggers and watch mode for development
+- **REQ-006**: Provide CLI interface with modern TUI using `@clack/prompts` for interactive sync triggers and watch mode for development
 - **REQ-007**: Generate API reference documentation from JSDoc annotations with type information
 - **REQ-008**: Validate generated MDX syntax before writing to prevent broken documentation
 - **REQ-009**: Support custom frontmatter configuration per package via `docs.config.json` or package.json field
@@ -105,19 +105,19 @@ Build an intelligent documentation synchronization engine that continuously moni
 | TASK-026 | Create `src/orchestrator/package-scanner.ts` for discovering packages and their documentation needs | | |
 | TASK-027 | Build `src/orchestrator/validation-pipeline.ts` for pre-write MDX validation | | |
 
-### Implementation Phase 5: CLI Interface
+### Implementation Phase 5: CLI Interface with Modern TUI
 
-- GOAL-005: Create command-line interface for manual triggers and watch mode
+- GOAL-005: Create command-line interface with modern interactive features using `@clack/prompts`
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-028 | Create `src/cli/index.ts` with command structure using @commander-js/extra-typings | | |
-| TASK-029 | Implement `sync` command for one-time full synchronization | | |
-| TASK-030 | Implement `watch` command for continuous monitoring mode | | |
-| TASK-031 | Implement `validate` command for checking existing documentation freshness | | |
-| TASK-032 | Add `--package` filter option for single-package sync | | |
-| TASK-033 | Add `--dry-run` option to preview changes without writing | | |
-| TASK-034 | Add `--verbose` and `--quiet` logging options with consola integration | | |
+| TASK-028 | Create `src/cli/index.ts` with command structure using `cac` for typed CLI argument parsing | | |
+| TASK-029 | Implement interactive intro/outro screens using `@clack/prompts` intro() and outro() for startup and completion messaging | | |
+| TASK-030 | Implement `sync` command with `@clack/prompts` spinner component for real-time progress feedback | | |
+| TASK-031 | Implement `watch` command with `@clack/prompts` for monitoring mode with file change notifications | | |
+| TASK-032 | Implement `validate` command to check documentation freshness with `@clack/prompts` log methods (info, warn, error, success) | | |
+| TASK-033 | Add `--package` filter option and analyzer selection using `@clack/prompts` multiselect for choosing sync scope | | |
+| TASK-034 | Add `--dry-run`, `--verbose`, `--quiet` logging options with consola integration and proper spinner state management | | |
 
 ### Implementation Phase 6: Mock File System and Unit Testing
 
@@ -146,7 +146,6 @@ Build an intelligent documentation synchronization engine that continuously moni
 | TASK-046 | Implement `test/integration/mdx-validation.test.ts` to verify generated MDX is valid | | |
 | TASK-047 | Create `test/integration/starlight-compatibility.test.ts` for Astro component usage | | |
 | TASK-048 | Add test coverage for error scenarios and recovery paths | | |
-| TASK-049 | Implement performance benchmarks for large package counts | | |
 
 ### Implementation Phase 8: Documentation and CI Integration
 
@@ -154,13 +153,13 @@ Build an intelligent documentation synchronization engine that continuously moni
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-050 | Create comprehensive README.md for `packages/doc-sync/` | | |
-| TASK-051 | Add package documentation to `docs/src/content/docs/packages/doc-sync.mdx` | | |
-| TASK-052 | Create `.github/workflows/docs-sync.yml` for automated documentation sync on push | | |
-| TASK-053 | Add pre-commit hook integration for documentation freshness check | | |
-| TASK-054 | Create changeset entry for initial release | | |
-| TASK-055 | Update root `llms.txt` with doc-sync package information | | |
-| TASK-056 | Add doc-sync to `docs/astro.config.mjs` sidebar configuration | | |
+| TASK-049 | Create comprehensive README.md for `packages/doc-sync/` | | |
+| TASK-050 | Add package documentation to `docs/src/content/docs/packages/doc-sync.mdx` | | |
+| TASK-051 | Create `.github/workflows/docs-sync.yml` for automated documentation sync on push | | |
+| TASK-052 | Add pre-commit hook integration for documentation freshness check | | |
+| TASK-053 | Create changeset entry for initial release | | |
+| TASK-054 | Update root `llms.txt` with doc-sync package information | | |
+| TASK-055 | Add doc-sync to `docs/astro.config.mjs` sidebar configuration | | |
 
 ## 3. Alternatives
 
@@ -169,6 +168,8 @@ Build an intelligent documentation synchronization engine that continuously moni
 - **ALT-003**: Store documentation config in separate YAML files - rejected for package.json field approach for colocation
 - **ALT-004**: Use Astro content collections API for dynamic documentation - rejected to maintain static site generation benefits
 - **ALT-005**: Poll-based file watching instead of chokidar - rejected due to CPU inefficiency and delayed detection
+- **ALT-006**: Use commander.js or yargs for CLI - rejected in favor of `cac` for lighter footprint and better TypeScript integration
+- **ALT-007**: Use basic console output instead of @clack/prompts - rejected in favor of modern, user-friendly TUI for better DX
 
 ## 4. Dependencies
 
@@ -177,11 +178,12 @@ Build an intelligent documentation synchronization engine that continuously moni
 - **DEP-003**: `chokidar` — Cross-platform file system watcher for change detection (peer dependency of @bfra.me/es)
 - **DEP-004**: `fast-glob` — Fast file globbing for package discovery
 - **DEP-005**: `unified` + `remark-parse` + `remark-mdx` — Markdown/MDX parsing and generation
-- **DEP-006**: `@commander-js/extra-typings` — Type-safe CLI argument parsing
+- **DEP-006**: `cac` — Lightweight, type-safe CLI argument parser
 - **DEP-007**: `consola` — Console logging with levels and formatting (already in workspace)
-- **DEP-008**: `memfs` — In-memory file system for testing (dev dependency)
-- **DEP-009**: `@astrojs/starlight` — Peer dependency for type references (already in docs/)
-- **DEP-010**: `zod` — Runtime validation for configuration schemas (already in workspace)
+- **DEP-008**: `@clack/prompts` — Modern interactive CLI prompts for TUI components (intro, outro, spinner, multiselect, log methods)
+- **DEP-009**: `memfs` — In-memory file system for testing (dev dependency)
+- **DEP-010**: `@astrojs/starlight` — Peer dependency for type references (already in docs/)
+- **DEP-011**: `zod` — Runtime validation for configuration schemas (already in workspace)
 
 ## 5. Files
 
@@ -198,7 +200,7 @@ Build an intelligent documentation synchronization engine that continuously moni
 - **FILE-011**: `packages/doc-sync/src/watcher/file-watcher.ts` - File system change watcher
 - **FILE-012**: `packages/doc-sync/src/watcher/change-detector.ts` - Incremental change detection
 - **FILE-013**: `packages/doc-sync/src/orchestrator/sync-orchestrator.ts` - Main sync coordination logic
-- **FILE-014**: `packages/doc-sync/src/cli/index.ts` - CLI entry point
+- **FILE-014**: `packages/doc-sync/src/cli/index.ts` - CLI entry point with cac and @clack/prompts
 - **FILE-015**: `packages/doc-sync/__mocks__/fs.ts` - Mock file system for testing
 - **FILE-016**: `packages/doc-sync/test/integration/sync-pipeline.test.ts` - End-to-end integration tests
 - **FILE-017**: `docs/src/content/docs/packages/doc-sync.mdx` - Package documentation page
@@ -217,14 +219,14 @@ Build an intelligent documentation synchronization engine that continuously moni
 - **TEST-009**: Validation tests confirming generated MDX parses correctly with Astro/Starlight
 - **TEST-010**: Error handling tests for malformed source files, missing exports, invalid JSDoc
 - **TEST-011**: Edge case tests for empty packages, packages without README, packages with only types
-- **TEST-012**: Performance tests measuring sync time for monorepo with 10+ packages
+- **TEST-012**: CLI tests for command parsing, interactive mode with @clack/prompts, and output formatting
 
 ## 7. Risks & Assumptions
 
 - **RISK-001**: TypeScript Compiler API changes between versions may require parser updates - mitigate with ts-morph abstraction
 - **RISK-002**: Complex JSDoc patterns may not parse correctly - mitigate with comprehensive test fixtures covering edge cases
 - **RISK-003**: Astro Starlight component API changes may break generated MDX - mitigate with peer dependency versioning
-- **RISK-004**: Large monorepos may have slow full sync times - mitigate with incremental sync and parallel processing
+- **RISK-004**: @clack/prompts may have breaking changes - mitigate with version pinning and abstraction layer for TUI components
 - **RISK-005**: Race conditions in watch mode with rapid file changes - mitigate with proper debouncing and atomic writes
 
 - **ASSUMPTION-001**: All packages follow the established `src/index.ts` barrel export pattern
@@ -232,6 +234,7 @@ Build an intelligent documentation synchronization engine that continuously moni
 - **ASSUMPTION-003**: Documentation site uses Astro Starlight with standard configuration
 - **ASSUMPTION-004**: Developers will use sentinel markers for content they want preserved
 - **ASSUMPTION-005**: Package.json files are valid JSON with standard fields (name, description, version)
+- **ASSUMPTION-006**: CLI users have terminal supporting ANSI colors and interactive prompts
 
 ## 8. Related Specifications / Further Reading
 
@@ -240,5 +243,8 @@ Build an intelligent documentation synchronization engine that continuously moni
 - [ts-morph Documentation](https://ts-morph.com/)
 - [Unified/Remark Ecosystem](https://unifiedjs.com/)
 - [Chokidar File Watcher](https://github.com/paulmillr/chokidar)
+- [cac CLI Parser Documentation](https://github.com/cacjs/cac)
+- [@clack/prompts Modern CLI Prompts](https://github.com/bombshell-dev/clack)
 - bfra.me/works Monorepo Patterns: `/AGENTS.md`
+- Related workspace-analyzer CLI patterns: `/.ai/plan/feature-workspace-analyzer-1.md`
 - Existing Package Plans: `/.ai/plan/feature-badge-config-package-1.md`
