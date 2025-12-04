@@ -71,6 +71,7 @@
     "@clack/prompts": "0.11.0",
     "cac": "6.7.14",
     "consola": "3.4.2",
+    "escape-html": "^1.0.3",
     "fast-glob": "3.3.3",
     "remark-mdx": "3.1.0",
     "remark-parse": "11.0.0",
@@ -80,6 +81,7 @@
   },
   "devDependencies": {
     "@bfra.me/works": "workspace:*",
+    "@types/escape-html": "^1.0.4",
     "chokidar": "5.0.0",
     "memfs": "4.51.1"
   },

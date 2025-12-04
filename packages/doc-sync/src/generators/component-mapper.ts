@@ -4,6 +4,8 @@
 
 import type {PackageInfo, ReadmeContent, ReadmeSection} from '../types'
 
+import {sanitizeAttribute} from '../utils/sanitization'
+
 /**
  * Configuration for Starlight component mapping
  */
@@ -121,7 +123,7 @@ function mapFeatureSection(section: ReadmeSection): string {
     lines.push('<CardGrid>')
     for (const feature of features) {
       const icon = inferFeatureIcon(feature.title)
-      lines.push(`  <Card title="${escapeAttribute(feature.title)}" icon="${icon}">`)
+      lines.push(`  <Card title="${sanitizeAttribute(feature.title)}" icon="${icon}">`)
       lines.push(`    ${feature.description}`)
       lines.push('  </Card>')
     }
@@ -285,24 +287,16 @@ function mapDefaultSection(
   return lines.join('\n')
 }
 
-function escapeAttribute(value: string): string {
-  return value
-    .replaceAll('&', '&amp;')
-    .replaceAll('"', '&quot;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-}
-
 export function createBadge(
   text: string,
   variant: 'note' | 'tip' | 'caution' | 'danger' | 'success' | 'default' = 'note',
 ): string {
-  return `<Badge text="${escapeAttribute(text)}" variant="${variant}" />`
+  return `<Badge text="${sanitizeAttribute(text)}" variant="${variant}" />`
 }
 
 export function createCard(title: string, content: string, icon?: string): string {
   const iconAttr = icon === undefined ? '' : ` icon="${icon}"`
-  return `<Card title="${escapeAttribute(title)}"${iconAttr}>
+  return `<Card title="${sanitizeAttribute(title)}"${iconAttr}>
   ${content}
 </Card>`
 }
@@ -316,7 +310,7 @@ ${cardElements.map(c => `  ${c}`).join('\n')}
 
 export function createTabs(items: {label: string; content: string}[]): string {
   const tabItems = items.map(
-    item => `  <TabItem label="${escapeAttribute(item.label)}">
+    item => `  <TabItem label="${sanitizeAttribute(item.label)}">
     ${item.content}
   </TabItem>`,
   )

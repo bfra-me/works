@@ -4,6 +4,7 @@ import type {MDXDocument, SyncError} from '../types'
 import {err, ok} from '@bfra.me/es/result'
 
 import {validateMDXSyntax} from '../generators'
+import {createHeadingPattern, extractCodeBlocks, hasComponent} from '../utils/safe-patterns'
 
 export interface ValidationResult {
   readonly valid: boolean
@@ -41,7 +42,9 @@ const DEFAULT_OPTIONS: Required<ValidationPipelineOptions> = {
 export function createValidationPipeline(options: ValidationPipelineOptions = {}): {
   readonly validate: (doc: MDXDocument) => ValidationResult
   readonly validateContent: (content: string) => ValidationResult
-  readonly validateMultiple: (docs: readonly MDXDocument[]) => Map<string, ValidationResult>
+  readonly validateMultiple: (
+    docs: readonly MDXDocument[],
+  ) => Result<Map<string, ValidationResult>, SyncError>
 } {
   const mergedOptions = {...DEFAULT_OPTIONS, ...options}
 
@@ -99,15 +102,28 @@ export function createValidationPipeline(options: ValidationPipelineOptions = {}
     return {valid, errors, warnings}
   }
 
-  function validateMultiple(docs: readonly MDXDocument[]): Map<string, ValidationResult> {
+  function validateMultiple(
+    docs: readonly MDXDocument[],
+  ): Result<Map<string, ValidationResult>, SyncError> {
     const results = new Map<string, ValidationResult>()
+    const seen = new Set<string>()
 
     for (const doc of docs) {
       const key = doc.frontmatter.title
+
+      // Fixed: Return error on duplicate titles instead of silent overwrite
+      if (seen.has(key)) {
+        return err({
+          code: 'VALIDATION_ERROR',
+          message: `Duplicate document title detected: "${key}". Each document must have a unique title.`,
+        })
+      }
+
+      seen.add(key)
       results.set(key, validate(doc))
     }
 
-    return results
+    return ok(results)
   }
 
   return {validate, validateContent, validateMultiple}
@@ -202,8 +218,9 @@ function validateStarlightComponents(content: string): {
   }
 
   // Check for Card outside CardGrid (warning only)
-  const hasCard = /<Card[^G]/.test(content)
-  const hasCardGrid = content.includes('<CardGrid')
+  // Fixed: Use safe component detection instead of fragile regex
+  const hasCard = hasComponent(content, 'Card')
+  const hasCardGrid = hasComponent(content, 'CardGrid')
   if (hasCard && !hasCardGrid) {
     warnings.push({
       type: 'recommendation',
@@ -241,7 +258,8 @@ function validateContentQuality(content: string): {
   }
 
   // Check for duplicate headings at the same level
-  const h2Pattern = /^## (.+)$/gm
+  // Fixed: Use safe pattern that prevents ReDoS
+  const h2Pattern = createHeadingPattern(2)
   const h2Headings: string[] = []
   const h2Matches = content.matchAll(h2Pattern)
   for (const match of h2Matches) {
@@ -259,8 +277,8 @@ function validateContentQuality(content: string): {
   }
 
   // Check for very long lines in code blocks (might cause horizontal scrolling)
-  const codeBlockPattern = /```[\s\S]*?```/g
-  const codeBlocks = content.match(codeBlockPattern) ?? []
+  // Fixed: Use AST-based parsing instead of regex to prevent ReDoS
+  const codeBlocks = extractCodeBlocks(content)
   for (const block of codeBlocks) {
     const lines = block.split('\n')
     for (const line of lines) {

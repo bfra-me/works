@@ -15,6 +15,7 @@ import type {
 import {err, ok} from '@bfra.me/es/result'
 import {SENTINEL_MARKERS} from '../types'
 
+import {sanitizeAttribute, sanitizeForMDX, sanitizeJSXTag} from '../utils/sanitization'
 import {generateAPIReference} from './api-reference-generator'
 import {formatCodeExamples} from './code-example-formatter'
 import {mapToStarlightComponents} from './component-mapper'
@@ -138,7 +139,7 @@ function generatePackageHeader(packageInfo: PackageInfo): string {
     badges.push(`<Badge text="Config" variant="tip" />`)
   }
 
-  badges.push(`<Badge text="v${packageInfo.version}" variant="note" />`)
+  badges.push(`<Badge text="${sanitizeAttribute(`v${packageInfo.version}`)}" variant="note" />`)
 
   if (badges.length > 0) {
     lines.push(badges.join('\n'))
@@ -167,30 +168,42 @@ function renderMDXDocument(frontmatter: MDXFrontmatter, content: string): string
  * Prevents XSS by escaping potentially dangerous content
  */
 export function sanitizeContent(content: string): string {
-  return content
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('{', '&#123;')
-    .replaceAll('}', '&#125;')
+  // Use comprehensive sanitization from utils
+  return sanitizeForMDX(content)
 }
 
 /**
  * Sanitizes content within MDX while preserving JSX components
  * Only escapes content that appears to be user-provided text
+ * Now includes sanitization of JSX component attributes to prevent XSS
  */
 export function sanitizeTextContent(content: string): string {
-  const jsxPattern = /<[A-Z][^>]*>/g
+  // Match both opening tags (with/without attributes), self-closing tags, and closing tags
+  const jsxPattern = /<[A-Z][a-zA-Z0-9]*(?:\s[^>]*)?(?:\/>|>)|<\/[A-Z][a-zA-Z0-9]*>/g
   const parts: string[] = []
   let lastIndex = 0
 
   for (const match of content.matchAll(jsxPattern)) {
-    if (match.index !== undefined && match.index > lastIndex) {
-      parts.push(sanitizeContent(content.slice(lastIndex, match.index)))
+    const matchIndex = match.index ?? 0
+
+    // Sanitize text content before this JSX tag
+    if (matchIndex > lastIndex) {
+      parts.push(sanitizeContent(content.slice(lastIndex, matchIndex)))
     }
-    parts.push(match[0])
-    lastIndex = (match.index ?? 0) + match[0].length
+
+    // Sanitize the JSX tag itself (including attributes)
+    if (match[0].startsWith('</')) {
+      // Closing tag - no attributes to sanitize
+      parts.push(match[0])
+    } else {
+      // Opening or self-closing tag - sanitize attributes
+      parts.push(sanitizeJSXTag(match[0]))
+    }
+
+    lastIndex = matchIndex + match[0].length
   }
 
+  // Sanitize any remaining text content
   if (lastIndex < content.length) {
     parts.push(sanitizeContent(content.slice(lastIndex)))
   }
@@ -222,7 +235,8 @@ function checkForUnclosedTags(mdx: string): string[] {
   const unclosed: string[] = []
   const tagStack: string[] = []
 
-  const openTagPattern = /<([A-Z][a-zA-Z]*)(?:\s[^>]*)?[^/]>/g
+  // Fixed ReDoS: Use non-backtracking pattern with explicit character classes
+  const openTagPattern = /<([A-Z][a-zA-Z]*)(?:\s[^/>][^>]*)?>(?!\/)/g
   const closeTagPattern = /<\/([A-Z][a-zA-Z]*)>/g
   const selfClosingPattern = /<([A-Z][a-zA-Z]*)(?:\s[^>]*)?\/?\/>/g
 
