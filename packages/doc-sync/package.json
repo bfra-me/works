@@ -30,6 +30,11 @@
       "source": "./src/index.ts",
       "import": "./lib/index.js"
     },
+    "./parsers": {
+      "types": "./lib/parsers/index.d.ts",
+      "source": "./src/parsers/index.ts",
+      "import": "./lib/parsers/index.js"
+    },
     "./types": {
       "types": "./lib/types.d.ts",
       "source": "./src/types.ts",
