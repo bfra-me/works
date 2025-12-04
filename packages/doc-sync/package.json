@@ -63,6 +63,7 @@
     "prepack": "pnpm --filter-prod=\"{.}...\" run build",
     "start": "node lib/cli/index.js",
     "test": "vitest run",
+    "lint": "eslint",
     "test:watch": "vitest"
   },
   "dependencies": {
