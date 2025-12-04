@@ -15,6 +15,7 @@ import type {
 import {err, ok} from '@bfra.me/es/result'
 import {SENTINEL_MARKERS} from '../types'
 
+import {parseJSXTags} from '../utils/safe-patterns'
 import {sanitizeAttribute, sanitizeForMDX, sanitizeJSXTag} from '../utils/sanitization'
 import {generateAPIReference} from './api-reference-generator'
 import {formatCodeExamples} from './code-example-formatter'
@@ -176,34 +177,27 @@ export function sanitizeContent(content: string): string {
  * Sanitizes content within MDX while preserving JSX components
  * Only escapes content that appears to be user-provided text
  * Now includes sanitization of JSX component attributes to prevent XSS
+ * Uses safe, non-backtracking parsing to prevent ReDoS
  */
 export function sanitizeTextContent(content: string): string {
-  // Match both opening tags (with/without attributes), self-closing tags, and closing tags
-  const jsxPattern = /<[A-Z][a-zA-Z0-9]*(?:\s[^>]*)?(?:\/>|>)|<\/[A-Z][a-zA-Z0-9]*>/g
+  const jsxTags = parseJSXTags(content)
   const parts: string[] = []
   let lastIndex = 0
 
-  for (const match of content.matchAll(jsxPattern)) {
-    const matchIndex = match.index ?? 0
-
-    // Sanitize text content before this JSX tag
-    if (matchIndex > lastIndex) {
-      parts.push(sanitizeContent(content.slice(lastIndex, matchIndex)))
+  for (const {tag, index, isClosing} of jsxTags) {
+    if (index > lastIndex) {
+      parts.push(sanitizeContent(content.slice(lastIndex, index)))
     }
 
-    // Sanitize the JSX tag itself (including attributes)
-    if (match[0].startsWith('</')) {
-      // Closing tag - no attributes to sanitize
-      parts.push(match[0])
+    if (isClosing) {
+      parts.push(tag)
     } else {
-      // Opening or self-closing tag - sanitize attributes
-      parts.push(sanitizeJSXTag(match[0]))
+      parts.push(sanitizeJSXTag(tag))
     }
 
-    lastIndex = matchIndex + match[0].length
+    lastIndex = index + tag.length
   }
 
-  // Sanitize any remaining text content
   if (lastIndex < content.length) {
     parts.push(sanitizeContent(content.slice(lastIndex)))
   }
@@ -235,32 +229,23 @@ function checkForUnclosedTags(mdx: string): string[] {
   const unclosed: string[] = []
   const tagStack: string[] = []
 
-  // Fixed ReDoS: Use non-backtracking pattern with explicit character classes
-  const openTagPattern = /<([A-Z][a-zA-Z]*)(?:\s[^/>][^>]*)?>(?!\/)/g
-  const closeTagPattern = /<\/([A-Z][a-zA-Z]*)>/g
-  const selfClosingPattern = /<([A-Z][a-zA-Z]*)(?:\s[^>]*)?\/?\/>/g
+  const jsxTags = parseJSXTags(mdx)
 
-  const selfClosingTags = new Set<string>()
-  for (const match of mdx.matchAll(selfClosingPattern)) {
-    if (match[1] !== undefined) {
-      selfClosingTags.add(match[1])
-    }
-  }
+  for (const {tag, isClosing, isSelfClosing} of jsxTags) {
+    const tagNameMatch = isClosing
+      ? tag.match(/^<\/([A-Z][a-zA-Z0-9]*)>$/)
+      : tag.match(/^<([A-Z][a-zA-Z0-9]*)/)
+    const tagName = tagNameMatch?.[1]
 
-  for (const match of mdx.matchAll(openTagPattern)) {
-    const tagName = match[1]
-    if (tagName !== undefined && !selfClosingTags.has(tagName)) {
-      tagStack.push(tagName)
-    }
-  }
+    if (tagName === undefined) continue
 
-  for (const match of mdx.matchAll(closeTagPattern)) {
-    const tagName = match[1]
-    if (tagName !== undefined) {
+    if (isClosing) {
       const lastOpenTag = tagStack.pop()
       if (lastOpenTag !== tagName && lastOpenTag !== undefined) {
         unclosed.push(lastOpenTag)
       }
+    } else if (!isSelfClosing) {
+      tagStack.push(tagName)
     }
   }
 

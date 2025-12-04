@@ -117,3 +117,180 @@ export function extractCodeBlocks(content: string): readonly string[] {
   visit(tree as MarkdownNode)
   return blocks
 }
+
+/**
+ * Parse JSX tags from content using a safe, non-backtracking approach.
+ * Uses a state machine instead of regex to prevent ReDoS.
+ *
+ * @param content - The MDX/HTML content to parse
+ * @returns Array of matched JSX tags with their positions
+ */
+export function parseJSXTags(
+  content: string,
+): readonly {tag: string; index: number; isClosing: boolean; isSelfClosing: boolean}[] {
+  const results: {tag: string; index: number; isClosing: boolean; isSelfClosing: boolean}[] = []
+  let i = 0
+
+  while (i < content.length) {
+    if (content[i] !== '<') {
+      i++
+      continue
+    }
+
+    const startIndex = i
+    i++
+
+    if (i >= content.length) break
+
+    const isClosing = content[i] === '/'
+    if (isClosing) {
+      i++
+      if (i >= content.length) break
+    }
+
+    // JSX components must start with uppercase (React convention)
+    if (!/^[A-Z]/.test(content[i] ?? '')) {
+      continue
+    }
+
+    let tagName = ''
+    while (i < content.length && /^[a-z0-9]/i.test(content[i] ?? '')) {
+      tagName += content[i]
+      i++
+    }
+
+    if (tagName.length === 0) {
+      continue
+    }
+
+    if (isClosing) {
+      if (i < content.length && content[i] === '>') {
+        results.push({
+          tag: `</${tagName}>`,
+          index: startIndex,
+          isClosing: true,
+          isSelfClosing: false,
+        })
+        i++
+      }
+      continue
+    }
+
+    // Skip attributes while tracking nested structures
+    let depth = 0
+    let foundEnd = false
+    let isSelfClosing = false
+
+    while (i < content.length && !foundEnd) {
+      const char = content[i]
+
+      // Skip quoted string contents to avoid misinterpreting > inside strings
+      if ((char === '"' || char === "'") && depth === 0) {
+        const quote = char
+        i++
+        while (i < content.length && content[i] !== quote) {
+          if (content[i] === '\\' && i + 1 < content.length) {
+            i += 2
+          } else {
+            i++
+          }
+        }
+        if (i < content.length) i++
+        continue
+      }
+
+      // Track brace depth for JSX expressions like {value}
+      if (char === '{') {
+        depth++
+        i++
+        continue
+      }
+      if (char === '}') {
+        depth = Math.max(0, depth - 1)
+        i++
+        continue
+      }
+
+      // Only match tag end when not inside a JSX expression
+      if (depth === 0) {
+        if (char === '/' && i + 1 < content.length && content[i + 1] === '>') {
+          isSelfClosing = true
+          foundEnd = true
+          i += 2
+          continue
+        }
+        if (char === '>') {
+          foundEnd = true
+          i++
+          continue
+        }
+      }
+
+      i++
+    }
+
+    if (foundEnd) {
+      const fullTag = content.slice(startIndex, i)
+      results.push({tag: fullTag, index: startIndex, isClosing: false, isSelfClosing})
+    }
+  }
+
+  return results
+}
+
+/**
+ * Find empty markdown links in content using safe parsing.
+ * Uses indexOf-based scanning instead of regex to prevent ReDoS.
+ *
+ * @param content - The markdown content to check
+ * @returns Array of positions where empty links were found
+ */
+export function findEmptyMarkdownLinks(content: string): readonly number[] {
+  const positions: number[] = []
+  let pos = 0
+
+  while (pos < content.length) {
+    const openBracket = content.indexOf('[', pos)
+    if (openBracket === -1) break
+
+    // Handle nested brackets
+    let bracketDepth = 1
+    let closeBracket = openBracket + 1
+    while (closeBracket < content.length && bracketDepth > 0) {
+      if (content[closeBracket] === '[') {
+        bracketDepth++
+      } else if (content[closeBracket] === ']') {
+        bracketDepth--
+      }
+      closeBracket++
+    }
+
+    if (bracketDepth !== 0) {
+      pos = openBracket + 1
+      continue
+    }
+
+    closeBracket--
+
+    if (closeBracket + 1 < content.length && content[closeBracket + 1] === '(') {
+      let parenPos = closeBracket + 2
+      let isEmptyOrWhitespace = true
+
+      while (parenPos < content.length && content[parenPos] !== ')') {
+        if (!/^\s/.test(content[parenPos] ?? '')) {
+          isEmptyOrWhitespace = false
+          break
+        }
+        parenPos++
+      }
+
+      if (isEmptyOrWhitespace && parenPos < content.length && content[parenPos] === ')') {
+        positions.push(openBracket)
+      }
+    }
+
+    pos = closeBracket + 1
+  }
+
+  return positions
+}

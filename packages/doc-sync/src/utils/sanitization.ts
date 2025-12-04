@@ -69,11 +69,9 @@ interface JSXAttribute {
 export function parseJSXAttributes(tag: string): readonly JSXAttribute[] {
   const attrs: JSXAttribute[] = []
 
-  // Find the start of attributes (after first space)
   const spaceIndex = tag.indexOf(' ')
   if (spaceIndex === -1) return attrs
 
-  // Find the end of attributes (before > or />)
   const closeIndex = tag.lastIndexOf('>')
   if (closeIndex === -1) return attrs
 
@@ -81,11 +79,9 @@ export function parseJSXAttributes(tag: string): readonly JSXAttribute[] {
   let i = 0
 
   while (i < attrRegion.length) {
-    // Skip whitespace
     while (i < attrRegion.length && /\s/.test(attrRegion.charAt(i))) i++
     if (i >= attrRegion.length) break
 
-    // Extract attribute name
     let name = ''
     while (i < attrRegion.length && /[\w-]/.test(attrRegion.charAt(i))) {
       name += attrRegion[i]
@@ -94,17 +90,14 @@ export function parseJSXAttributes(tag: string): readonly JSXAttribute[] {
 
     if (!name) break
 
-    // Skip whitespace around =
     while (i < attrRegion.length && /\s/.test(attrRegion.charAt(i))) i++
 
-    // Check for = sign
     if (i >= attrRegion.length || attrRegion[i] !== '=') {
-      // Boolean attribute (no value)
       attrs.push({name, value: null})
       continue
     }
 
-    i++ // skip =
+    i++
     while (i < attrRegion.length && /\s/.test(attrRegion.charAt(i))) i++
 
     if (i >= attrRegion.length) {
@@ -112,18 +105,16 @@ export function parseJSXAttributes(tag: string): readonly JSXAttribute[] {
       break
     }
 
-    // Extract value
     let value = ''
     const quote = attrRegion[i]
     if (quote === '"' || quote === "'") {
-      i++ // skip opening quote
+      i++
       while (i < attrRegion.length && attrRegion[i] !== quote) {
         value += attrRegion[i]
         i++
       }
-      if (i < attrRegion.length) i++ // skip closing quote
+      if (i < attrRegion.length) i++
     } else {
-      // Unquoted value
       while (i < attrRegion.length && !/[\s/>]/.test(attrRegion.charAt(i))) {
         value += attrRegion[i]
         i++

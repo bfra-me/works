@@ -4,7 +4,12 @@ import type {MDXDocument, SyncError} from '../types'
 import {err, ok} from '@bfra.me/es/result'
 
 import {validateMDXSyntax} from '../generators'
-import {createHeadingPattern, extractCodeBlocks, hasComponent} from '../utils/safe-patterns'
+import {
+  createHeadingPattern,
+  extractCodeBlocks,
+  findEmptyMarkdownLinks,
+  hasComponent,
+} from '../utils/safe-patterns'
 
 export interface ValidationResult {
   readonly valid: boolean
@@ -188,7 +193,6 @@ function validateStarlightComponents(content: string): {
   const errors: ValidationError[] = []
   const warnings: ValidationWarning[] = []
 
-  // Check for unclosed components
   for (const component of STARLIGHT_COMPONENTS) {
     const openPattern = new RegExp(`<${component}[^/>]*>`, 'g')
     const closePattern = new RegExp(`</${component}>`, 'g')
@@ -207,7 +211,6 @@ function validateStarlightComponents(content: string): {
     }
   }
 
-  // Check for TabItem outside Tabs
   const hasTabItem = content.includes('<TabItem')
   const hasTabs = content.includes('<Tabs')
   if (hasTabItem && !hasTabs) {
@@ -217,8 +220,7 @@ function validateStarlightComponents(content: string): {
     })
   }
 
-  // Check for Card outside CardGrid (warning only)
-  // Fixed: Use safe component detection instead of fragile regex
+  // Ensures hasCard detects 'Card' but not 'CardGrid'
   const hasCard = hasComponent(content, 'Card')
   const hasCardGrid = hasComponent(content, 'CardGrid')
   if (hasCard && !hasCardGrid) {
@@ -238,17 +240,14 @@ function validateContentQuality(content: string): {
   const errors: ValidationError[] = []
   const warnings: ValidationWarning[] = []
 
-  // Check for broken markdown links
-  const brokenLinkPattern = /\[[^\]]*\]\(\s*\)/g
-  const brokenLinks = content.match(brokenLinkPattern)
-  if (brokenLinks !== null && brokenLinks.length > 0) {
+  const emptyLinkPositions = findEmptyMarkdownLinks(content)
+  if (emptyLinkPositions.length > 0) {
     errors.push({
       type: 'content',
-      message: `Found ${brokenLinks.length} empty link(s)`,
+      message: `Found ${emptyLinkPositions.length} empty link(s)`,
     })
   }
 
-  // Check for unclosed code blocks
   const codeBlockMarkers = content.match(/```/g)?.length ?? 0
   if (codeBlockMarkers % 2 !== 0) {
     errors.push({
@@ -257,8 +256,7 @@ function validateContentQuality(content: string): {
     })
   }
 
-  // Check for duplicate headings at the same level
-  // Fixed: Use safe pattern that prevents ReDoS
+  // Duplicate headings can confuse readers and break anchor links
   const h2Pattern = createHeadingPattern(2)
   const h2Headings: string[] = []
   const h2Matches = content.matchAll(h2Pattern)
@@ -276,8 +274,6 @@ function validateContentQuality(content: string): {
     h2Headings.push(heading)
   }
 
-  // Check for very long lines in code blocks (might cause horizontal scrolling)
-  // Fixed: Use AST-based parsing instead of regex to prevent ReDoS
   const codeBlocks = extractCodeBlocks(content)
   for (const block of codeBlocks) {
     const lines = block.split('\n')
