@@ -5,6 +5,55 @@
  * automatically update Astro Starlight documentation sites.
  */
 
+// Re-export generators
+export {
+  cleanCodeExample,
+  createBadge,
+  createCard,
+  createCardGrid,
+  createDiffSummary,
+  createTabs,
+  detectLanguage,
+  extractAutoSections,
+  extractManualSections,
+  formatCodeBlock,
+  formatCodeExamples,
+  formatFunctionExamples,
+  formatGroupedExamples,
+  formatTypeExamples,
+  formatUsageExample,
+  generateAPICompact,
+  generateAPIReference,
+  generateCategoryReference,
+  generateFrontmatter,
+  generateInstallTabs,
+  generateMDXDocument,
+  groupExamplesByCategory,
+  hasAutoContent,
+  hasManualContent,
+  mapToStarlightComponents,
+  mergeContent,
+  parseFrontmatter,
+  sanitizeContent,
+  sanitizeTextContent,
+  stringifyFrontmatter,
+  stripSentinelMarkers,
+  validateMarkerPairing,
+  validateMDXSyntax,
+  wrapAutoSection,
+  wrapManualSection,
+} from './generators'
+
+export type {
+  CodeExampleOptions,
+  ComponentMapperConfig,
+  ContentSection,
+  MDXGeneratorOptions,
+  MergeOptions,
+  MergeResult,
+  SectionMapper,
+} from './generators'
+
 export type {
   CLIOptions,
   DocConfig,

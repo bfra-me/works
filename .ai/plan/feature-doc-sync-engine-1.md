@@ -84,13 +84,13 @@ Build an intelligent documentation synchronization engine that continuously moni
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-015 | Create `src/generators/mdx-generator.ts` for MDX document structure generation | | |
-| TASK-016 | Implement `src/generators/frontmatter-generator.ts` for Starlight-compatible frontmatter | | |
-| TASK-017 | Create `src/generators/api-reference-generator.ts` for function/type documentation tables | | |
-| TASK-018 | Implement `src/generators/component-mapper.ts` to map content sections to Starlight components | | |
-| TASK-019 | Create `src/generators/content-merger.ts` to preserve manual sections using sentinel markers | | |
-| TASK-020 | Build `src/generators/code-example-formatter.ts` for syntax-highlighted code blocks | | |
-| TASK-021 | Create generator barrel export in `src/generators/index.ts` | | |
+| TASK-015 | Create `src/generators/mdx-generator.ts` for MDX document structure generation | ✅ | 2025-12-04 |
+| TASK-016 | Implement `src/generators/frontmatter-generator.ts` for Starlight-compatible frontmatter | ✅ | 2025-12-04 |
+| TASK-017 | Create `src/generators/api-reference-generator.ts` for function/type documentation tables | ✅ | 2025-12-04 |
+| TASK-018 | Implement `src/generators/component-mapper.ts` to map content sections to Starlight components | ✅ | 2025-12-04 |
+| TASK-019 | Create `src/generators/content-merger.ts` to preserve manual sections using sentinel markers | ✅ | 2025-12-04 |
+| TASK-020 | Build `src/generators/code-example-formatter.ts` for syntax-highlighted code blocks | ✅ | 2025-12-04 |
+| TASK-021 | Create generator barrel export in `src/generators/index.ts` | ✅ | 2025-12-04 |
 
 ### Implementation Phase 4: File System Watcher and Sync Orchestrator
 
