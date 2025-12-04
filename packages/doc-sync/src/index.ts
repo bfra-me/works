@@ -1,10 +1,3 @@
-/**
- * @bfra.me/doc-sync - Intelligent documentation synchronization engine
- *
- * Monitors package source code, README files, and JSDoc comments to
- * automatically update Astro Starlight documentation sites.
- */
-
 // Re-export generators
 export {
   cleanCodeExample,
@@ -54,6 +47,30 @@ export type {
   SectionMapper,
 } from './generators'
 
+// Re-export orchestrator
+export {
+  createPackageScanner,
+  createSyncOrchestrator,
+  createValidationPipeline,
+  filterPackagesByPattern,
+  groupPackagesByScope,
+  isValidFilePath,
+  validateContentString,
+  validateDocument,
+} from './orchestrator'
+
+export type {
+  PackageScannerOptions,
+  ScannedPackage,
+  ScanResult,
+  SyncOrchestrator,
+  SyncOrchestratorOptions,
+  ValidationError,
+  ValidationPipelineOptions,
+  ValidationResult,
+  ValidationWarning,
+} from './orchestrator'
+
 export type {
   CLIOptions,
   DocConfig,
@@ -84,3 +101,31 @@ export type {
 } from './types'
 
 export {SENTINEL_MARKERS} from './types'
+
+// Re-export watcher
+export {
+  categorizeFile,
+  consolidateEvents,
+  createDocChangeDetector,
+  createDocDebouncer,
+  createDocWatcher,
+  deduplicateEvents,
+  determineRegenerationScope,
+  filterDocumentationChanges,
+  groupChangesByPackage,
+  hasAnyFileChanged,
+} from './watcher'
+
+export type {
+  BatchChangeHandler,
+  DocChangeDetector,
+  DocChangeDetectorOptions,
+  DocChangeHandler,
+  DocDebouncer,
+  DocDebouncerOptions,
+  DocFileWatcher,
+  DocWatcherOptions,
+  FileCategory,
+  PackageChangeAnalysis,
+  RegenerationScope,
+} from './watcher'
