@@ -161,7 +161,7 @@ function hasAPIContent(api: PackageAPI): boolean {
 
 function renderMDXDocument(frontmatter: MDXFrontmatter, content: string): string {
   const frontmatterYaml = stringifyFrontmatter(frontmatter)
-  return `---\n${frontmatterYaml}---\n\n${content}\n`
+  return `---\n${frontmatterYaml}\n---\n\n${content}\n`
 }
 
 /**

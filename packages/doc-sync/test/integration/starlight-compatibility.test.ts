@@ -259,6 +259,84 @@ const x = 1;
       expect(mapped).toContain('Usage')
       expect(mapped).toContain('Basic')
     })
+
+    it.concurrent('should extract emoji-dash feature items', () => {
+      const readme = createTestReadme({
+        sections: [
+          {
+            heading: 'Features',
+            level: 2,
+            content: `- 📝 TypeScript Support — Full TypeScript language support
+- 🚀 Performance — Optimized for speed
+- 🛡️ Security — Built-in content sanitization`,
+            children: [],
+          },
+        ],
+      })
+      const packageInfo = createTestPackageInfo()
+
+      const mapped = mapToStarlightComponents(readme, packageInfo)
+
+      expect(mapped).toContain('TypeScript Support')
+      expect(mapped).toContain('Full TypeScript language support')
+      expect(mapped).toContain('Performance')
+      expect(mapped).toContain('Optimized for speed')
+      expect(mapped).toContain('<CardGrid>')
+      expect(mapped).toContain('</CardGrid>')
+    })
+
+    it.concurrent('should map emoji to appropriate Starlight icons', () => {
+      const readme = createTestReadme({
+        sections: [
+          {
+            heading: 'Features',
+            level: 2,
+            content: `- 📝 TypeScript Parsing — Documentation extraction
+- 📖 README Integration — Content incorporation
+- 🔄 Incremental Updates — Efficient regeneration
+- 👁️ Watch Mode — Automatic syncing
+- ✨ MDX Generation — File creation
+- 🛡️ Content Preservation — Safety features
+- 🎨 Modern CLI — User interface
+- 🔒 Security — Protection measures`,
+            children: [],
+          },
+        ],
+      })
+      const packageInfo = createTestPackageInfo()
+
+      const mapped = mapToStarlightComponents(readme, packageInfo)
+
+      expect(mapped).toContain('icon="document"') // 📝 and 📖 should map to document
+      expect(mapped).toContain('icon="seti:refresh"') // 🔄 should map to refresh
+      expect(mapped).toContain('icon="eye-open"') // 👁️ should map to eye-open
+      expect(mapped).toContain('icon="star"') // ✨ should map to star
+      expect(mapped).toContain('icon="shield"') // 🛡️ should map to shield
+      expect(mapped).toContain('icon="lock"') // 🔒 should map to lock
+    })
+
+    it.concurrent('should extract bold-formatted feature items', () => {
+      const readme = createTestReadme({
+        sections: [
+          {
+            heading: 'Features',
+            level: 2,
+            content: `- **Fast**: Lightning quick performance
+- **Safe**: Type-safe by default
+- **Simple**: Easy to use API`,
+            children: [],
+          },
+        ],
+      })
+      const packageInfo = createTestPackageInfo()
+
+      const mapped = mapToStarlightComponents(readme, packageInfo)
+
+      expect(mapped).toContain('Fast')
+      expect(mapped).toContain('Lightning quick performance')
+      expect(mapped).toContain('Safe')
+      expect(mapped).toContain('<CardGrid>')
+    })
   })
 
   describe('full MDX document with Starlight components', () => {

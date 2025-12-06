@@ -82,7 +82,7 @@ function mapSection(
     return mapInstallationSection(section, packageInfo)
   }
 
-  return mapDefaultSection(section, config)
+  return mapDefaultSection(section, packageInfo, config)
 }
 
 function isExcludedSection(
@@ -122,7 +122,7 @@ function mapFeatureSection(section: ReadmeSection): string {
   if (features.length > 0) {
     lines.push('<CardGrid>')
     for (const feature of features) {
-      const icon = inferFeatureIcon(feature.title)
+      const icon = inferFeatureIcon(feature.title, feature.emoji)
       lines.push(`  <Card title="${sanitizeAttribute(feature.title)}" icon="${icon}">`)
       lines.push(`    ${feature.description}`)
       lines.push('  </Card>')
@@ -138,22 +138,60 @@ function mapFeatureSection(section: ReadmeSection): string {
 interface FeatureItem {
   readonly title: string
   readonly description: string
+  readonly emoji?: string
 }
+
+const EMOJI_TO_ICON_MAP: Record<string, string> = {
+  '📝': 'document',
+  '📖': 'document',
+  '🔄': 'seti:refresh',
+  '👁️': 'eye-open',
+  '✨': 'star',
+  '🛡️': 'shield',
+  '🎨': 'seti:settings',
+  '🔒': 'lock',
+} as const
 
 function extractFeatureItems(content: string): FeatureItem[] {
   const features: FeatureItem[] = []
 
-  const listItemPattern = /^[-*]\s+\*\*([^*]+)\*\*[:\s-](.+)$/gm
+  // Uses non-greedy matching and specific character classes to avoid catastrophic backtracking
+  const boldListPattern = /^[-*] (.+?)\*\*([^*]+)\*\* ?[:—–-] ?(.+)$/gm
 
-  for (const match of content.matchAll(listItemPattern)) {
-    if (match[1] !== undefined && match[2] !== undefined) {
+  for (const match of content.matchAll(boldListPattern)) {
+    if (match[2] !== undefined && match[3] !== undefined) {
+      const prefix = match[1] ?? ''
+      const emoji = extractEmoji(prefix)
+
       features.push({
-        title: match[1].trim(),
-        description: match[2].trim(),
+        title: match[2].trim(),
+        description: match[3].trim(),
+        emoji,
       })
     }
   }
 
+  if (features.length === 0) {
+    const dashSeparatedPattern = /^[-*] ([^—–\n]+)[—–] (.+)$/gm
+
+    for (const match of content.matchAll(dashSeparatedPattern)) {
+      if (match[1] !== undefined && match[2] !== undefined) {
+        const rawTitle = match[1].trim()
+        const description = match[2].trim()
+        const emoji = extractEmoji(rawTitle)
+        const title = rawTitle.replace(
+          /^[\p{Emoji_Presentation}\p{Extended_Pictographic}]+\s*/u,
+          '',
+        )
+
+        if (title.length > 0 && description.length > 0 && description.length < 300) {
+          features.push({title, description, emoji})
+        }
+      }
+    }
+  }
+
+  // Tertiary fallback pattern: any bold text followed by description
   if (features.length === 0) {
     const boldPattern = /\*\*([^*]+)\*\*/g
     const boldMatches = [...content.matchAll(boldPattern)]
@@ -174,10 +212,19 @@ function extractFeatureItems(content: string): FeatureItem[] {
   return features
 }
 
-function inferFeatureIcon(title: string): string {
+function extractEmoji(text: string): string | undefined {
+  const emojiMatch = text.match(/^[\p{Emoji_Presentation}\p{Extended_Pictographic}]+/u)
+  return emojiMatch?.[0]
+}
+
+function inferFeatureIcon(title: string, emoji?: string): string {
+  if (emoji !== undefined && EMOJI_TO_ICON_MAP[emoji] !== undefined) {
+    return EMOJI_TO_ICON_MAP[emoji]
+  }
+
   const lowerTitle = title.toLowerCase()
 
-  const iconMap: Record<string, string> = {
+  const keywordIconMap: Record<string, string> = {
     typescript: 'approve-check',
     type: 'approve-check',
     test: 'approve-check',
@@ -200,9 +247,14 @@ function inferFeatureIcon(title: string): string {
     async: 'rocket',
     result: 'approve-check',
     function: 'puzzle',
+    watch: 'eye-open',
+    incremental: 'seti:refresh',
+    preservation: 'shield',
+    mdx: 'document',
+    parsing: 'document',
   }
 
-  for (const [keyword, icon] of Object.entries(iconMap)) {
+  for (const [keyword, icon] of Object.entries(keywordIconMap)) {
     if (lowerTitle.includes(keyword)) {
       return icon
     }
@@ -217,11 +269,14 @@ function mapInstallationSection(section: ReadmeSection, packageInfo: PackageInfo
   lines.push(`## ${section.heading}`)
   lines.push('')
 
+  // Use word boundaries to avoid matching 'npm' within 'pnpm'
+  const hasPnpm = /\bpnpm\b/.test(section.content)
+  const hasNpm = /\bnpm\b/.test(section.content)
+  const hasYarn = /\byarn\b/.test(section.content)
+  const packageManagerCount = [hasPnpm, hasNpm, hasYarn].filter(Boolean).length
+
   const hasExistingTabs = section.content.includes('```bash')
-  const hasMultiplePackageManagers =
-    section.content.includes('pnpm') ||
-    section.content.includes('npm') ||
-    section.content.includes('yarn')
+  const hasMultiplePackageManagers = packageManagerCount >= 2
 
   if (hasExistingTabs && hasMultiplePackageManagers) {
     lines.push(section.content)
@@ -266,6 +321,7 @@ function removeInstallCommand(content: string): string {
 
 function mapDefaultSection(
   section: ReadmeSection,
+  packageInfo: PackageInfo,
   config: Required<Omit<ComponentMapperConfig, 'customMappings'>> &
     Pick<ComponentMapperConfig, 'customMappings'>,
 ): string {
@@ -277,7 +333,7 @@ function mapDefaultSection(
   lines.push(section.content)
 
   for (const child of section.children) {
-    const childOutput = mapSection(child, {} as PackageInfo, config)
+    const childOutput = mapSection(child, packageInfo, config)
     if (childOutput.length > 0) {
       lines.push('')
       lines.push(childOutput)

@@ -4,7 +4,7 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
 
-import {generateMDXDocument} from '../../generators/index.js'
+import {generateMDXDocument, mergeContent} from '../../generators/index.js'
 import {createPackageScanner} from '../../orchestrator/package-scanner.js'
 import {createValidationPipeline} from '../../orchestrator/validation-pipeline.js'
 import {getUnscopedName} from '../../parsers/index.js'
@@ -66,8 +66,16 @@ export async function runValidate(packages: string[], options: GlobalOptions): P
 
       if (docResult.success) {
         const generatedContent = docResult.data.rendered
+        const mergedResult = mergeContent(existingContent, generatedContent)
 
-        if (normalizeContent(existingContent) !== normalizeContent(generatedContent)) {
+        // Use mergeContent to respect manual edits between sentinel markers
+        // This ensures validation matches sync behavior
+        if (mergedResult.success) {
+          if (normalizeContent(existingContent) !== normalizeContent(mergedResult.data.content)) {
+            isValid = false
+            issues.push('Documentation is out of date with source')
+          }
+        } else if (normalizeContent(existingContent) !== normalizeContent(generatedContent)) {
           isValid = false
           issues.push('Documentation is out of date with source')
         }
