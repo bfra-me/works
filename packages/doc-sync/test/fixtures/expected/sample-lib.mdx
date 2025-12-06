@@ -1,0 +1,181 @@
+---
+title: "@fixtures/sample-lib"
+description: "A sample library package for testing documentation sync"
+sidebar:
+  label: "sample-lib"
+---
+
+import { Badge, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+
+# @fixtures/sample-lib
+
+<Badge text="Library" variant="tip" />
+<Badge text="v1.0.0" variant="note" />
+
+A sample library package for testing documentation sync
+
+## Installation
+
+```bash
+pnpm add @fixtures/sample-lib
+```
+
+## Usage
+
+Import and use the math utilities:
+
+```typescript
+import { add, subtract, multiply, Calculator } from '@fixtures/sample-lib'
+
+// Basic operations
+const sum = add(1, 2)       // 3
+const diff = subtract(5, 3)  // 2
+const product = multiply(4, 5) // 20
+
+// Using the Calculator class
+const calc = new Calculator(10)
+calc.add(5).add(3)
+console.log(calc.getValue()) // 18
+```
+
+## Features
+
+- Simple math operations
+- Type-safe Result type
+- Calculator class for chaining operations
+- Comprehensive TypeScript support
+
+## API
+
+See the API reference section below for detailed documentation.
+
+## License
+
+MIT
+
+{/* AUTO-GENERATED-START */}
+
+## API Reference
+
+### Functions
+
+#### `add`
+
+Adds two numbers together
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `a` | `number` | The first number to add |
+| `b` | `number` | The second number to add |
+
+**Returns:** `number` - The sum of a and b
+
+#### `subtract`
+
+Subtracts the second number from the first
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `a` | `number` | The number to subtract from |
+| `b` | `number` | The number to subtract |
+
+**Returns:** `number` - The difference between a and b
+
+#### `multiply`
+
+Multiplies two numbers
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `a` | `number` | First factor |
+| `b` | `number` | Second factor |
+
+**Returns:** `number` - The product of a and b
+
+*Since: 1.0.0*
+
+#### `divide`
+
+<Badge text="Deprecated" variant="caution" />
+
+Divides the first number by the second
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `dividend` | `number` | The number to divide |
+| `divisor` | `number` | The number to divide by |
+
+**Returns:** `number` - The quotient of dividend / divisor
+
+> ⚠️ **Deprecated:** Use `safeDivide` instead for better error handling
+
+### Types
+
+#### `Config`
+
+Configuration options for the library
+
+```typescript
+interface Config {
+  readonly name: string
+  readonly debug: boolean
+  readonly maxRetries?: number
+}
+```
+
+#### `Status`
+
+Operation status codes
+
+```typescript
+enum Status {
+  Success = 'success',
+  Error = 'error',
+  Pending = 'pending',
+}
+```
+
+#### `Result`
+
+Result type for operations that may fail
+
+```typescript
+type Result<T, E = Error> =
+  | {readonly success: true; readonly data: T}
+  | {readonly success: false; readonly error: E}
+```
+
+### Classes
+
+#### `Calculator`
+
+A utility class for managing calculations
+
+##### Constructor
+
+```typescript
+new Calculator(initialValue?: number)
+```
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `initialValue` | `number` | `0` | The starting value |
+
+##### Methods
+
+- `getValue()`: Returns the current calculated value
+- `add(n: number)`: Adds a number to the current value
+- `reset()`: Resets the calculator to zero
+
+## Examples
+
+```typescript
+const result = add(2, 3)
+console.log(result) // 5
+```
+
+```typescript
+multiply(4, 5) // returns 20
+```
+
+{/* AUTO-GENERATED-END */}

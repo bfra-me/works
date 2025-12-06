@@ -628,18 +628,6 @@ This package requires TypeScript 5.0+ and works best with strict mode:
 }
 ```
 
-## Bundle Size
-
-- Core utilities (excluding watcher): < 5KB minified
-- Full package with watcher: < 10KB minified
-- Tree-shaking supported via subpath exports
-
-## Requirements
-
-- Node.js 20+
-- TypeScript 5.0+ (for development)
-- ES2022+ compatible runtime
-
 ## Related Packages
 
 - [`@bfra.me/eslint-config`](../eslint-config) - ESLint configuration using these utilities
@@ -647,4 +635,4 @@ This package requires TypeScript 5.0+ and works best with strict mode:
 
 ## License
 
-MIT © [Marcus R. Brown](https://github.com/marcusrbrown)
+[MIT](../../LICENSE.md)

@@ -1,0 +1,14 @@
+{
+  "name": "@fixtures/types-only",
+  "version": "0.1.0",
+  "description": "A package with only type definitions",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
+  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts"
+}

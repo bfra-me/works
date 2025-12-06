@@ -31,6 +31,7 @@ Built with a focus on consistency, quality, and developer experience, it enables
 
 - [@bfra.me/badge-config README](packages/badge-config/README.md): Badge URL generation API and usage
 - [@bfra.me/create README](packages/create/README.md): CLI for project generation and templates
+- [@bfra.me/doc-sync README](packages/doc-sync/README.md): Documentation synchronization engine for Astro Starlight
 - [@bfra.me/es README](packages/es/README.md): ES utilities with Result type, async helpers, functional utilities, and type guards
 - [@bfra.me/es API Reference](packages/es/docs/api.md): Complete API documentation for all @bfra.me/es subpath exports
 - [@bfra.me/es Migration Guide](packages/es/docs/migration.md): Migration guide for consumers of inline utilities
@@ -42,6 +43,7 @@ Built with a focus on consistency, quality, and developer experience, it enables
 ## Package Documentation (Starlight)
 
 - [@bfra.me/create Docs](docs/src/content/docs/packages/create.mdx): Detailed create CLI documentation
+- [@bfra.me/doc-sync Docs](docs/src/content/docs/packages/doc-sync.mdx): Documentation sync engine with CLI and API
 - [@bfra.me/es Docs](docs/src/content/docs/packages/es.mdx): ES utilities package documentation
 - [@bfra.me/eslint-config Docs](docs/src/content/docs/packages/eslint-config.mdx): ESLint config documentation
 - [@bfra.me/prettier-config Docs](docs/src/content/docs/packages/prettier-config.mdx): Prettier config documentation
