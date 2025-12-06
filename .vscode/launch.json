@@ -1,14 +1,26 @@
 {
     "version": "0.2.0",
     "configurations": [
-        // Configuration for running the Astro development server in a terminal
-        // This configuration is set to run in the 'docs' directory of the workspace
         {
-            "command": "./node_modules/.bin/astro dev",
-            "name": "Development server",
-            "request": "launch",
+            "name": "docs: dev server",
             "type": "node-terminal",
+            "request": "launch",
+            "command": "./node_modules/.bin/astro dev",
             "cwd": "${workspaceFolder}/docs"
+        },
+        {
+            "name": "doc-sync: sync",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "pnpm dev sync -r ${workspaceFolder} @bfra.me/doc-sync",
+            "cwd": "${workspaceFolder}/packages/doc-sync"
+        },
+        {
+            "name": "doc-sync: validate",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "pnpm dev validate -r ${workspaceFolder} @bfra.me/doc-sync",
+            "cwd": "${workspaceFolder}/packages/doc-sync"
         }
     ]
 }
