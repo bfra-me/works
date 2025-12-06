@@ -3,7 +3,7 @@ import {isPackageExists} from 'local-pkg'
 
 const scopeUrl = fileURLToPath(new URL('.', import.meta.url))
 
-export {interopDefault} from '@bfra.me/es/module'
+export {interopDefault} from '../../es/src/module'
 
 /**
  * Check if a package exists within the eslint-config package scope.
