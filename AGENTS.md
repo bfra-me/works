@@ -9,12 +9,13 @@ TypeScript-centric monorepo providing reusable tooling for modern JavaScript/Typ
 - **@bfra.me/eslint-config** – Shared ESLint configuration with TypeScript/Prettier/Vitest support
 - **@bfra.me/prettier-config** – Prettier configuration variants
 - **@bfra.me/tsconfig** – Strict TypeScript configurations for libraries and apps
-- **@bfra.me/es** – ES utilities: Result type, async helpers, functional utilities, type guards
-- **@bfra.me/create** – CLI for project scaffolding from customizable templates
+- **@bfra.me/es** – ES utilities: Result type, async helpers, functional utilities, type guards, validation
+- **@bfra.me/create** – CLI for project scaffolding from customizable templates (supports AI enhancement)
 - **@bfra.me/badge-config** – Badge URL generation for Shields.io
 - **@bfra.me/semantic-release** – Semantic-release presets
+- **@bfra.me/doc-sync** – Documentation synchronization utilities
 
-All packages target ES2022+/Node.js 20+. Uses pnpm workspaces with ESM throughout.
+All packages target ES2022+/Node.js 20+. Uses pnpm 10+ workspaces with ESM throughout.
 
 ## Setup Commands
 
@@ -24,6 +25,9 @@ pnpm bootstrap
 
 # Or standard install
 pnpm install
+
+# Prepare workspace (sync docs, setup husky)
+pnpm prepare
 ```
 
 ## Development Workflow
@@ -62,6 +66,7 @@ Use the `name` field in each package's `package.json` to identify packages:
 | `@bfra.me/create`           | `packages/create/`           | Project creation CLI              |
 | `@bfra.me/badge-config`     | `packages/badge-config/`     | Badge URL generation              |
 | `@bfra.me/semantic-release` | `packages/semantic-release/` | Release presets                   |
+| `@bfra.me/doc-sync`         | `packages/doc-sync/`         | Documentation sync utilities      |
 
 ## Testing Instructions
 
@@ -81,6 +86,9 @@ pnpm vitest run -t "Result type"
 
 # Watch mode
 pnpm vitest
+
+# Coverage for specific package
+pnpm --filter @bfra.me/create test:coverage
 ```
 
 **Test conventions:**
@@ -90,6 +98,7 @@ pnpm vitest
 - Use `expect.soft` for multiple assertions when available
 - Fixture folders for integration scenarios
 - File snapshots via `toMatchFileSnapshot`
+- Vitest resolves workspace packages to TypeScript source via `conditions: ['source']`
 
 ## Code Style Guidelines
 
@@ -99,11 +108,12 @@ pnpm vitest
 - **Result handling:** Use `Result<T, E>` from `@bfra.me/es/result`; never throw for expected errors
 - **Naming:** Functions verb-noun (`createTemplateContext`), types PascalCase (`TemplateSource`), constants UPPER_SNAKE
 - **Comments:** Explain WHY not WHAT; avoid redundant inline comments
+- **Strict mode:** All packages use strict TypeScript with `noUncheckedIndexedAccess`
 
 ### File Organization
 
 - Each package has `src/index.ts` as explicit barrel entry
-- Build output goes to `lib/` (via tsup)
+- Build output goes to `lib/` (via tsup), except `@bfra.me/create` uses `dist/`
 - Config files: `eslint.config.ts`, `tsconfig.json`, `tsup.config.ts`, `vitest.config.ts`
 
 ### Linting & Formatting
@@ -117,6 +127,9 @@ pnpm fix
 
 # Inspect ESLint config
 pnpm inspect-eslint-config
+
+# Lint packages for publishing issues
+pnpm lint-packages
 ```
 
 Prettier config at `packages/prettier-config/prettier.config.cjs` (referenced by root).
@@ -160,6 +173,10 @@ import { debounce, retry, throttle } from '@bfra.me/es/async'
 import { compose, curry, pipe } from '@bfra.me/es/functional'
 import { err, isErr, isOk, ok } from '@bfra.me/es/result'
 import { Brand, isNumber, isString } from '@bfra.me/es/types'
+import { createValidator } from '@bfra.me/es/validation'
+import { createWatcher } from '@bfra.me/es/watcher'
+import { getEnv, requireEnv } from '@bfra.me/es/env'
+import { createAppError, isAppError } from '@bfra.me/es/error'
 ```
 
 ## Release Workflow
@@ -173,6 +190,9 @@ pnpm version-changesets
 
 # Publish packages (used by CI)
 pnpm publish-changesets
+
+# Clean old changesets
+pnpm clean-changesets
 ```
 
 **Changeset guidelines:**
@@ -186,12 +206,18 @@ pnpm publish-changesets
 
 The CI workflow (`.github/workflows/main.yaml`) runs:
 
-1. **Prepare** – Install dependencies
+1. **Prepare** – Install dependencies via `.github/actions/pnpm-install`
 2. **Lint** – `pnpm lint` + type coverage check
 3. **Test** – `pnpm test`
 4. **Build** – `pnpm build`
 
 All checks must pass before merging to main.
+
+The Release workflow (`.github/workflows/release.yaml`) handles:
+
+- Automated changeset PR management
+- Package publishing on merge to main
+- Scheduled releases every Sunday at 6 PM UTC
 
 ## PR Guidelines
 
@@ -199,6 +225,7 @@ All checks must pass before merging to main.
 - **Required checks:** lint, test, build must pass
 - **Before committing:** Run `pnpm validate` locally
 - **Changesets:** Include for publishable changes
+- **Lint-staged:** Runs ESLint auto-fix on commit via husky
 
 ## Common Tasks
 
@@ -217,6 +244,8 @@ packages/new-package/
 ├── test/new-package.test.ts
 └── README.md
 ```
+
+Remember to add the package to root `tsconfig.json` references and path mappings.
 
 ### Working with Result Type
 
@@ -249,6 +278,9 @@ pnpm vitest run packages/es/test/result.test.ts
 
 # Pattern match
 pnpm vitest run -t "should handle errors"
+
+# Interactive UI
+pnpm --filter @bfra.me/create test:ui
 ```
 
 ## Troubleshooting
@@ -276,13 +308,22 @@ pnpm lint                  # Check issues
 pnpm fix                   # Auto-fix where possible
 ```
 
+### Workspace Package Resolution Issues
+
+```bash
+# Vitest resolves workspace packages to source via 'source' condition
+# Ensure packages export 'source' field in package.json exports
+```
+
 ## Security Notes
 
 - Never commit real API keys/secrets; use placeholders like `<API_KEY>`
 - Validate/sanitize user-provided template paths before filesystem writes
 - AI features (`@bfra.me/create`) require `OPENAI_API_KEY` or `ANTHROPIC_API_KEY` environment variables
+- Use `@bfra.me/es/env` for safe environment variable access
 
 ## Additional Resources
 
 - **llms.txt** – Full documentation index for AI tools
+- **CLAUDE.md** – Claude-specific instructions
 - **docs/** – Astro Starlight documentation site
