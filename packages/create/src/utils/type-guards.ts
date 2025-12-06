@@ -13,6 +13,7 @@ import type {
 } from '../types.js'
 import path from 'node:path'
 import {brand, isObject, isString} from '@bfra.me/es/types'
+import {isBuiltinModule, isReservedName} from './constants.js'
 
 /**
  * Validates and brands a string as a template source
@@ -92,58 +93,14 @@ export function isPackageName(value: unknown): value is PackageName {
     return false
   }
 
-  // Check against reserved names
-  const reservedNames = [
-    'node_modules',
-    'favicon.ico',
-    'package.json',
-    'readme.md',
-    'changelog.md',
-    'license',
-    'mit',
-    'apache',
-    'gpl',
-    'bsd',
-  ]
-
+  // Check against reserved names using shared constant
   const nameWithoutScope = trimmed.includes('/') ? trimmed.split('/')[1] : trimmed
-  if (reservedNames.includes(nameWithoutScope?.toLowerCase() ?? '')) {
+  if (isReservedName(nameWithoutScope ?? '')) {
     return false
   }
 
-  // Check against built-in Node.js modules
-  const builtinModules = [
-    'assert',
-    'buffer',
-    'child_process',
-    'cluster',
-    'crypto',
-    'dgram',
-    'dns',
-    'domain',
-    'events',
-    'fs',
-    'http',
-    'https',
-    'net',
-    'os',
-    'path',
-    'punycode',
-    'querystring',
-    'readline',
-    'stream',
-    'string_decoder',
-    'timers',
-    'tls',
-    'tty',
-    'url',
-    'util',
-    'v8',
-    'vm',
-    'zlib',
-  ]
-
-  return !builtinModules.includes(trimmed)
+  // Check against built-in Node.js modules using shared constant
+  return !isBuiltinModule(trimmed)
 }
 
 /**
