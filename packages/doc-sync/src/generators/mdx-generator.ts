@@ -15,7 +15,7 @@ import type {
 import {err, ok} from '@bfra.me/es/result'
 import {SENTINEL_MARKERS} from '../types'
 
-import {parseJSXTags} from '../utils/safe-patterns'
+import {extractCodeBlocks, parseJSXTags} from '../utils/safe-patterns'
 import {sanitizeAttribute, sanitizeForMDX, sanitizeJSXTag} from '../utils/sanitization'
 import {generateAPIReference} from './api-reference-generator'
 import {formatCodeExamples} from './code-example-formatter'
@@ -229,7 +229,19 @@ function checkForUnclosedTags(mdx: string): string[] {
   const unclosed: string[] = []
   const tagStack: string[] = []
 
-  const jsxTags = parseJSXTags(mdx)
+  // Remove code blocks from content before checking for JSX tags
+  // This prevents TypeScript generics like Result<T, E> from being
+  // misinterpreted as unclosed JSX tags
+  const codeBlocks = extractCodeBlocks(mdx)
+  let contentWithoutCodeBlocks = mdx
+  for (const block of codeBlocks) {
+    // Replace code block with empty lines to preserve line numbers
+    const lineCount = block.split('\n').length
+    const placeholder = '\n'.repeat(lineCount)
+    contentWithoutCodeBlocks = contentWithoutCodeBlocks.replace(block, placeholder)
+  }
+
+  const jsxTags = parseJSXTags(contentWithoutCodeBlocks)
 
   for (const {tag, isClosing, isSelfClosing} of jsxTags) {
     const tagNameMatch = isClosing

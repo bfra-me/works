@@ -194,9 +194,9 @@ function validateStarlightComponents(content: string): {
   const warnings: ValidationWarning[] = []
 
   for (const component of STARLIGHT_COMPONENTS) {
-    const openPattern = new RegExp(`<${component}[^/>]*>`, 'g')
+    const openPattern = new RegExp(String.raw`<${component}(?:\s[^>]*)?>`, 'g')
     const closePattern = new RegExp(`</${component}>`, 'g')
-    const selfClosePattern = new RegExp(`<${component}[^>]*/>`, 'g')
+    const selfClosePattern = new RegExp(String.raw`<${component}(?:\s[^>]*)?/>`, 'g')
 
     const opens = content.match(openPattern)?.length ?? 0
     const closes = content.match(closePattern)?.length ?? 0

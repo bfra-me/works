@@ -53,7 +53,7 @@ jobs:
         run: pnpm --filter @bfra.me/doc-sync run build
 
       - name: Validate documentation freshness
-        run: pnpm --filter @bfra.me/doc-sync exec doc-sync validate ${{ github.event.inputs.packages }}
+        run: pnpm --filter @bfra.me/doc-sync run start validate --root ${{ github.workspace }} ${{ github.event.inputs.packages }}
 
   sync:
     name: Sync Documentation
@@ -82,9 +82,9 @@ jobs:
         id: sync
         run: |
           if [ "${{ github.event.inputs.dry-run }}" = "true" ]; then
-            pnpm --filter @bfra.me/doc-sync exec doc-sync sync --dry-run ${{ github.event.inputs.packages }}
+            pnpm --filter @bfra.me/doc-sync run start sync --dry-run --root ${{ github.workspace }} ${{ github.event.inputs.packages }}
           else
-            pnpm --filter @bfra.me/doc-sync exec doc-sync sync ${{ github.event.inputs.packages }}
+            pnpm --filter @bfra.me/doc-sync run start sync --root ${{ github.workspace }} ${{ github.event.inputs.packages }}
           fi
 
       - name: Check for changes
