@@ -534,7 +534,7 @@ Return only the enhanced markdown content.
    * Generate API documentation
    */
   private generateApiDocumentation(
-    projectStructure: ProjectStructure,
+    _projectStructure: ProjectStructure,
     options: DocumentationOptions,
   ): DocumentationFile {
     const {projectName = 'Project'} = options
@@ -673,7 +673,7 @@ When reporting issues:
    * Generate changelog template
    */
   private generateChangelog(
-    projectStructure: ProjectStructure,
+    _projectStructure: ProjectStructure,
     options: DocumentationOptions,
   ): DocumentationFile {
     const content = `# Changelog
@@ -729,7 +729,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    * Generate license file
    */
   private generateLicense(
-    projectStructure: ProjectStructure,
+    _projectStructure: ProjectStructure,
     options: DocumentationOptions,
   ): DocumentationFile {
     const {license = 'MIT', author} = options
@@ -792,7 +792,7 @@ Please see the license terms for more details.`
    * Generate getting started guide
    */
   private generateGettingStarted(
-    projectStructure: ProjectStructure,
+    _projectStructure: ProjectStructure,
     options: DocumentationOptions,
   ): DocumentationFile {
     const {projectName = 'Project'} = options
@@ -864,7 +864,7 @@ If you encounter issues, check out our [troubleshooting guide](docs/TROUBLESHOOT
    * Generate configuration documentation
    */
   private generateConfiguration(
-    projectStructure: ProjectStructure,
+    _projectStructure: ProjectStructure,
     options: DocumentationOptions,
   ): DocumentationFile {
     const {projectName = 'Project'} = options
@@ -1016,7 +1016,7 @@ We welcome example contributions! Please see our [contributing guide](CONTRIBUTI
    * Generate troubleshooting documentation
    */
   private generateTroubleshooting(
-    projectStructure: ProjectStructure,
+    _projectStructure: ProjectStructure,
     options: DocumentationOptions,
   ): DocumentationFile {
     const {projectName = 'Project'} = options
