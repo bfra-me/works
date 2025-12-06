@@ -2,9 +2,9 @@
 
 > A comprehensive toolkit for modern JavaScript and TypeScript development, providing shared configurations, development tools, and utilities for building consistent, high-quality projects.
 
-bfra.me Works is a monorepo containing multiple packages designed to streamline development with opinionated, battle-tested configurations. The toolkit includes ESLint and Prettier configurations, TypeScript configs, a project creation CLI, and automated release tooling.
+bfra.me Works is a monorepo containing multiple packages designed to streamline development with opinionated, battle-tested configurations. The toolkit includes ESLint and Prettier configurations, TypeScript configs, a project creation CLI, documentation sync utilities, and automated release tooling.
 
-Built with a focus on consistency, quality, and developer experience, it enables teams to maintain professional-grade projects with minimal configuration overhead. All packages work independently but are designed to complement each other for a cohesive development experience.
+Built with a focus on consistency, quality, and developer experience, it enables teams to maintain professional-grade projects with minimal configuration overhead. All packages work independently but are designed to complement each other for a cohesive development experience. Targets ES2022+/Node.js 20+ with ESM throughout.
 
 ## AI Agent Instructions
 
@@ -30,8 +30,9 @@ Built with a focus on consistency, quality, and developer experience, it enables
 ## Packages
 
 - [@bfra.me/badge-config README](packages/badge-config/README.md): Badge URL generation API and usage
-- [@bfra.me/create README](packages/create/README.md): CLI for project generation and templates
-- [@bfra.me/es README](packages/es/README.md): ES utilities with Result type, async helpers, functional utilities, and type guards
+- [@bfra.me/create README](packages/create/README.md): CLI for project generation and templates (supports AI enhancement)
+- [@bfra.me/doc-sync README](packages/doc-sync/README.md): Documentation synchronization engine for Astro Starlight
+- [@bfra.me/es README](packages/es/README.md): ES utilities with Result type, async helpers, functional utilities, type guards, validation, and environment detection
 - [@bfra.me/es API Reference](packages/es/docs/api.md): Complete API documentation for all @bfra.me/es subpath exports
 - [@bfra.me/es Migration Guide](packages/es/docs/migration.md): Migration guide for consumers of inline utilities
 - [@bfra.me/eslint-config README](packages/eslint-config/readme.md): Shared ESLint config with TypeScript/Prettier/Vitest support
@@ -39,9 +40,20 @@ Built with a focus on consistency, quality, and developer experience, it enables
 - [@bfra.me/tsconfig README](packages/tsconfig/readme.md): Strict TypeScript configs for libraries/apps
 - [@bfra.me/semantic-release README](packages/semantic-release/readme.md): Semantic-release presets and guidance
 
+## Semantic Release Docs
+
+- [Getting Started](packages/semantic-release/docs/getting-started.md): Introduction to semantic-release presets
+- [Presets Reference](packages/semantic-release/docs/presets.md): Available preset configurations and options
+- [CI/CD Integration](packages/semantic-release/docs/ci-cd-integration.md): GitHub Actions and CI pipeline setup
+- [Changesets Integration](packages/semantic-release/docs/changesets-integration.md): Using changesets with semantic-release
+- [Advanced Configuration](packages/semantic-release/docs/advanced-configuration.md): Custom plugins and advanced options
+- [Plugin Development](packages/semantic-release/docs/plugin-development.md): Creating custom semantic-release plugins
+- [Migration Guide](packages/semantic-release/docs/migration-guide.md): Migrating from other release workflows
+
 ## Package Documentation (Starlight)
 
 - [@bfra.me/create Docs](docs/src/content/docs/packages/create.mdx): Detailed create CLI documentation
+- [@bfra.me/doc-sync Docs](docs/src/content/docs/packages/doc-sync.mdx): Documentation sync engine with CLI and API
 - [@bfra.me/es Docs](docs/src/content/docs/packages/es.mdx): ES utilities package documentation
 - [@bfra.me/eslint-config Docs](docs/src/content/docs/packages/eslint-config.mdx): ESLint config documentation
 - [@bfra.me/prettier-config Docs](docs/src/content/docs/packages/prettier-config.mdx): Prettier config documentation
@@ -52,14 +64,14 @@ Built with a focus on consistency, quality, and developer experience, it enables
 
 - [Root ESLint Config](eslint.config.ts): Workspace ESLint configuration (inspector uses this file)
 - [Root TS Config](tsconfig.json): Base TypeScript configuration for the workspace
-- [Root Vitest Config](vitest.config.ts): Testing configuration and coverage setup
-- [Workspace](pnpm-workspace.yaml): pnpm workspace packages and inclusion rules
+- [Root Vitest Config](vitest.config.ts): Testing configuration with source condition for workspace resolution
+- [Workspace](pnpm-workspace.yaml): pnpm 10+ workspace packages and inclusion rules
 - [Type Coverage Config](type-coverage.json): Type coverage thresholds and reporting
 
 ## Examples
 
 - [Badge Generators](packages/badge-config/src/generators/): Generator pattern for Shields.io URLs
-- [Create Templates](packages/create/templates/): Built-in templates for project scaffolding
+- [Create Templates](packages/create/templates/): Built-in templates (cli, default, library, node, react, works)
 - [ES Result Type](packages/es/src/result/): Discriminated union Result type with ok/err factories and operators
 - [ES Async Utilities](packages/es/src/async/): retry, timeout, debounce, throttle, sleep, concurrency control
 - [ES Functional](packages/es/src/functional/): pipe, compose, curry, memoize, tap, identity utilities
@@ -68,6 +80,7 @@ Built with a focus on consistency, quality, and developer experience, it enables
 - [ES Validation](packages/es/src/validation/): Path validation, sanitization, and validators (email, url, uuid, semver)
 - [ES Error Utilities](packages/es/src/error/): BaseError class and specialized error factories
 - [ES Environment Detection](packages/es/src/env/): CI, editor, git lifecycle, and runtime detection
+- [ES Module Interop](packages/es/src/module/): Dynamic import, interopDefault, isESModule, and package resolution
 - [ES File Watcher](packages/es/src/watcher/): File watcher abstraction with debouncing and change detection
 - [Script – Clean Changesets](scripts/src/clean-changesets.ts): Utility script used by `version-changesets`
 
@@ -86,3 +99,10 @@ Built with a focus on consistency, quality, and developer experience, it enables
 
 - [License](license.md): Project license (MIT)
 - [Prettier Config](packages/prettier-config/prettier.config.cjs): Shared formatting configuration referenced by root
+
+## Optional
+
+- [Semantic Release Presets Dir](packages/semantic-release/semantic-release-presets/): Preset configuration files for different release strategies
+- [ESLint Config Scripts](packages/eslint-config/scripts/): Type generation scripts for ESLint config
+- [Create Templates React](packages/create/templates/react/): React project template with TypeScript
+- [Create Templates Works](packages/create/templates/works/): Full monorepo template matching this project structure

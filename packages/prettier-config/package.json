@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/prettier-config",
-  "version": "0.16.5",
+  "version": "0.16.6",
   "description": "Shared Prettier configuration for bfra.me",
   "keywords": [
     "bfra.me",
@@ -53,7 +53,7 @@
   },
   "devDependencies": {
     "@bfra.me/works": "workspace:*",
-    "prettier": "3.7.3"
+    "prettier": "3.7.4"
   },
   "peerDependencies": {
     "prettier": "^3.0.0"

@@ -1,7 +1,7 @@
 import type {Config, ConfigNames, FlatConfigComposer, ResolvableFlatConfig} from './config'
 import type {Options} from './options'
 import {isPackageExists} from 'local-pkg'
-import {isInEditorEnv} from '../../es/src'
+import {isInEditorEnv} from '../../es/src/env'
 import {composeConfig} from './compose-config'
 import {
   astro,
