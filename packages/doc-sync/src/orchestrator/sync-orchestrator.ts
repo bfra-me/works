@@ -89,44 +89,48 @@ export function createSyncOrchestrator(options: SyncOrchestratorOptions): SyncOr
     let action: SyncInfo['action'] = 'created'
     let contentToWrite = doc.rendered
 
-    if (pkg.existingDocPath === undefined) {
-      // New documentation file
-      if (!dryRun) {
-        await writeFile(outputPath, contentToWrite)
-      }
-    } else {
-      // Existing documentation file - try to merge
-      try {
-        const existingContent = await fs.readFile(pkg.existingDocPath, 'utf-8')
-        const mergedResult = mergeContent(existingContent, doc.rendered)
-
-        if (!mergedResult.success) {
-          // Merge failed - use new content
-          if (!dryRun) {
-            await writeFile(outputPath, contentToWrite)
-          }
-          action = 'updated'
-        } else if (mergedResult.data.content === existingContent) {
-          return ok({
-            packageName: pkg.info.name,
-            outputPath,
-            action: 'unchanged',
-            timestamp: new Date(),
-          })
-        } else {
-          contentToWrite = mergedResult.data.content
-          action = 'updated'
-
-          if (!dryRun) {
-            await writeFile(outputPath, contentToWrite)
-          }
-        }
-      } catch {
-        // Error reading existing file - write new content
+    try {
+      if (pkg.existingDocPath === undefined) {
+        // New documentation file
         if (!dryRun) {
           await writeFile(outputPath, contentToWrite)
         }
+      } else {
+        // Existing documentation file - try to merge
+        try {
+          const existingContent = await fs.readFile(pkg.existingDocPath, 'utf-8')
+          const mergedResult = mergeContent(existingContent, doc.rendered)
+
+          if (!mergedResult.success) {
+            // Merge failed - use new content
+            if (!dryRun) {
+              await writeFile(outputPath, contentToWrite)
+            }
+            action = 'updated'
+          } else if (mergedResult.data.content === existingContent) {
+            return ok({
+              packageName: pkg.info.name,
+              outputPath,
+              action: 'unchanged',
+              timestamp: new Date(),
+            })
+          } else {
+            contentToWrite = mergedResult.data.content
+            action = 'updated'
+
+            if (!dryRun) {
+              await writeFile(outputPath, contentToWrite)
+            }
+          }
+        } catch {
+          // Error reading existing file - write new content
+          if (!dryRun) {
+            await writeFile(outputPath, contentToWrite)
+          }
+        }
       }
+    } catch (error) {
+      return err(createWriteError(error, outputPath, pkg.info.name))
     }
 
     log(`${dryRun ? '[DRY RUN] Would write' : 'Wrote'} ${outputPath}`)
@@ -331,6 +335,34 @@ async function writeFile(filePath: string, content: string): Promise<void> {
   const dir = path.dirname(filePath)
   await fs.mkdir(dir, {recursive: true})
   await fs.writeFile(filePath, content, 'utf-8')
+}
+
+function createWriteError(error: unknown, filePath: string, packageName: string): SyncError {
+  const errorMessage = error instanceof Error ? error.message : String(error)
+  const errorCode = isNodeError(error) ? error.code : undefined
+
+  let message: string
+  if (errorCode === 'EACCES') {
+    message = `Permission denied writing to ${filePath}`
+  } else if (errorCode === 'ENOENT') {
+    message = `Directory not found for ${filePath}`
+  } else if (errorCode === 'EISDIR') {
+    message = `Cannot write to directory ${filePath}`
+  } else {
+    message = `Failed to write ${filePath}: ${errorMessage}`
+  }
+
+  return {
+    code: 'WRITE_ERROR',
+    message,
+    packageName,
+    filePath,
+    cause: error,
+  }
+}
+
+function isNodeError(error: unknown): error is NodeJS.ErrnoException {
+  return error instanceof Error && 'code' in error
 }
 
 // Prevents directory traversal attacks (SEC-002)
