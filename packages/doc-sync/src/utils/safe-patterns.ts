@@ -7,22 +7,6 @@ import remarkParse from 'remark-parse'
 import {unified} from 'unified'
 
 /**
- * Safe pattern for matching JSX component opening tags (non-backtracking)
- * Uses explicit character classes and negative lookahead to prevent backtracking
- */
-export const JSX_COMPONENT_TAG = /<([A-Z][a-zA-Z0-9]*)(?:\s[^/>][^>]*)?>(?!\/)/g
-
-/**
- * Safe pattern for matching self-closing JSX tags
- */
-export const JSX_SELF_CLOSING_TAG = /<([A-Z][a-zA-Z0-9]*)(?:\s[^/>][^>]*)?\/>/g
-
-/**
- * Safe pattern for matching closing JSX tags
- */
-export const JSX_CLOSING_TAG = /<\/([A-Z][a-zA-Z0-9]*)>/g
-
-/**
  * Create safe heading pattern for specific level
  * Uses explicit character class instead of greedy `.+` to prevent ReDoS
  *

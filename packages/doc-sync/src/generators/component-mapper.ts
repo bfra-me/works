@@ -155,8 +155,14 @@ const EMOJI_TO_ICON_MAP: Record<string, string> = {
 function extractFeatureItems(content: string): FeatureItem[] {
   const features: FeatureItem[] = []
 
-  // Uses non-greedy matching and specific character classes to avoid catastrophic backtracking
-  const boldListPattern = /^[-*] (.+?)\*\*([^*]+)\*\* ?[:—–-] ?(.+)$/gm
+  // Uses specific character classes to prevent catastrophic backtracking
+  // Pattern breakdown:
+  // ^[-*] - list marker at start of line
+  // ([^*\r\n]*) - prefix (no asterisks or newlines)
+  // \*\*([^*\r\n]+)\*\* - bold text (must contain non-asterisk chars)
+  // [ ]?[:—–-][ ]? - separator with optional spaces
+  // ([^\r\n]+) - description (rest of line, no newlines)
+  const boldListPattern = /^[-*] ([^*\r\n]*)\*\*([^*\r\n]+)\*\* ?[:—–-] ?([^\r\n]+)$/gm
 
   for (const match of content.matchAll(boldListPattern)) {
     if (match[2] !== undefined && match[3] !== undefined) {

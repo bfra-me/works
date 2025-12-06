@@ -7,9 +7,6 @@ export {
   extractCodeBlocks,
   findEmptyMarkdownLinks,
   hasComponent,
-  JSX_CLOSING_TAG,
-  JSX_COMPONENT_TAG,
-  JSX_SELF_CLOSING_TAG,
   parseJSXTags,
 } from './safe-patterns'
 
