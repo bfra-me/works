@@ -53,13 +53,13 @@ export function createSyncOrchestrator(options: SyncOrchestratorOptions): SyncOr
   let watching = false
 
   function log(message: string): void {
-    if (verbose && onProgress !== undefined) {
+    if (verbose && onProgress != null) {
       onProgress(message)
     }
   }
 
   function reportError(error: SyncError): void {
-    if (onError !== undefined) {
+    if (onError != null) {
       onError(error)
     }
   }
@@ -90,19 +90,16 @@ export function createSyncOrchestrator(options: SyncOrchestratorOptions): SyncOr
     let contentToWrite = doc.rendered
 
     try {
-      if (pkg.existingDocPath === undefined) {
-        // New documentation file
+      if (pkg.existingDocPath == null) {
         if (!dryRun) {
           await writeFile(outputPath, contentToWrite)
         }
       } else {
-        // Existing documentation file - try to merge
         try {
           const existingContent = await fs.readFile(pkg.existingDocPath, 'utf-8')
           const mergedResult = mergeContent(existingContent, doc.rendered)
 
           if (!mergedResult.success) {
-            // Merge failed - use new content
             if (!dryRun) {
               await writeFile(outputPath, contentToWrite)
             }
@@ -123,7 +120,6 @@ export function createSyncOrchestrator(options: SyncOrchestratorOptions): SyncOr
             }
           }
         } catch {
-          // Error reading existing file - write new content
           if (!dryRun) {
             await writeFile(outputPath, contentToWrite)
           }
@@ -225,13 +221,7 @@ export function createSyncOrchestrator(options: SyncOrchestratorOptions): SyncOr
         continue
       }
 
-      const categories = packageEvents.map(e => {
-        const basename = path.basename(e.path).toLowerCase()
-        if (basename === 'readme.md' || basename === 'readme') return 'readme' as const
-        if (basename === 'package.json') return 'package-json' as const
-        if (e.path.endsWith('.ts') || e.path.endsWith('.tsx')) return 'source' as const
-        return 'unknown' as const
-      })
+      const categories = packageEvents.map(e => categorizeFileChange(e.path))
 
       const scope = determineRegenerationScope(categories)
       if (scope !== 'none') {
@@ -314,11 +304,12 @@ export function createSyncOrchestrator(options: SyncOrchestratorOptions): SyncOr
 }
 
 function getOutputPath(packageName: string, outputDir: string): string {
-  const slug = getUnscopedName(packageName)
-    .toLowerCase()
-    .replaceAll(/[^a-z0-9-]/g, '-')
-
+  const slug = createSlug(getUnscopedName(packageName))
   return path.join(outputDir, `${slug}.mdx`)
+}
+
+function createSlug(name: string): string {
+  return name.toLowerCase().replaceAll(/[^a-z0-9-]/g, '-')
 }
 
 function getUnscopedName(packageName: string): string {
@@ -338,20 +329,7 @@ async function writeFile(filePath: string, content: string): Promise<void> {
 }
 
 function createWriteError(error: unknown, filePath: string, packageName: string): SyncError {
-  const errorMessage = error instanceof Error ? error.message : String(error)
-  const errorCode = isNodeError(error) ? error.code : undefined
-
-  let message: string
-  if (errorCode === 'EACCES') {
-    message = `Permission denied writing to ${filePath}`
-  } else if (errorCode === 'ENOENT') {
-    message = `Directory not found for ${filePath}`
-  } else if (errorCode === 'EISDIR') {
-    message = `Cannot write to directory ${filePath}`
-  } else {
-    message = `Failed to write ${filePath}: ${errorMessage}`
-  }
-
+  const message = formatWriteErrorMessage(error, filePath)
   return {
     code: 'WRITE_ERROR',
     message,
@@ -361,11 +339,38 @@ function createWriteError(error: unknown, filePath: string, packageName: string)
   }
 }
 
+function formatWriteErrorMessage(error: unknown, filePath: string): string {
+  const errorCode = isNodeError(error) ? error.code : undefined
+
+  switch (errorCode) {
+    case 'EACCES':
+      return `Permission denied writing to ${filePath}`
+    case 'ENOENT':
+      return `Directory not found for ${filePath}`
+    case 'EISDIR':
+      return `Cannot write to directory ${filePath}`
+    case undefined:
+    default: {
+      const errorMessage = error instanceof Error ? error.message : String(error)
+      return `Failed to write ${filePath}: ${errorMessage}`
+    }
+  }
+}
+
 function isNodeError(error: unknown): error is NodeJS.ErrnoException {
   return error instanceof Error && 'code' in error
 }
 
-// Prevents directory traversal attacks (SEC-002)
+function categorizeFileChange(filePath: string): 'readme' | 'package-json' | 'source' | 'unknown' {
+  const basename = path.basename(filePath).toLowerCase()
+
+  if (basename === 'readme.md' || basename === 'readme') return 'readme'
+  if (basename === 'package.json') return 'package-json'
+  if (filePath.endsWith('.ts') || filePath.endsWith('.tsx')) return 'source'
+  return 'unknown'
+}
+
+/** Prevents directory traversal attacks (SEC-002) */
 export function isValidFilePath(filePath: string, rootDir: string): boolean {
   const resolvedPath = path.resolve(filePath)
   const resolvedRoot = path.resolve(rootDir)
