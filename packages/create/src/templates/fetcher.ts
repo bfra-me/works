@@ -1,4 +1,5 @@
-import type {Result, TemplateMetadata, TemplateSource} from '../types.js'
+import type {Result} from '@bfra.me/es/result'
+import type {TemplateMetadata, TemplateSource} from '../types.js'
 import {existsSync, statSync} from 'node:fs'
 import {cp, mkdir, readFile} from 'node:fs/promises'
 import path from 'node:path'

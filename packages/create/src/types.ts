@@ -2,6 +2,27 @@
  * Comprehensive type definitions for the @bfra.me/create CLI redesign
  */
 
+import type {Brand} from '@bfra.me/es/types'
+
+/**
+ * Branded types for compile-time validation
+ */
+
+/**
+ * Branded type for template sources to ensure type safety in template resolution
+ */
+export type BrandedTemplateSource = Brand<string, 'TemplateSource'>
+
+/**
+ * Branded type for project paths to prevent path traversal attacks at compile time
+ */
+export type ProjectPath = Brand<string, 'ProjectPath'>
+
+/**
+ * Branded type for package names validated against npm naming rules
+ */
+export type PackageName = Brand<string, 'PackageName'>
+
 // Template System Types
 export interface TemplateSource {
   /** Template source type */
@@ -242,7 +263,7 @@ export interface CreatePackageOptions extends CreateCommandOptions {
 }
 
 // Result Types
-export type Result<T, E = Error> = {success: true; data: T} | {success: false; error: E}
+// Note: Result<T, E> is imported from @bfra.me/es/result for consistent error handling
 
 export interface ValidationResult {
   /** Validation passed */

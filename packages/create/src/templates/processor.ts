@@ -1,4 +1,5 @@
-import type {FileOperation, Result, TemplateContext} from '../types.js'
+import type {Result} from '@bfra.me/es/result'
+import type {FileOperation, TemplateContext} from '../types.js'
 import {existsSync} from 'node:fs'
 import {mkdir, readFile, stat, writeFile} from 'node:fs/promises'
 import path from 'node:path'
