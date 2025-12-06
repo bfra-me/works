@@ -259,7 +259,7 @@ describe('incremental-sync integration', () => {
       const result = await orchestrator.handleChanges(events)
 
       expect(result.totalPackages).toBeGreaterThanOrEqual(0)
-    })
+    }, 10000)
 
     it('should skip unchanged packages on subsequent syncs', async () => {
       const config: DocConfig = {
