@@ -256,7 +256,7 @@ export const ValidationUtils = {
    * Sanitize string input by removing/escaping dangerous characters.
    */
   sanitizeString(input: string): string {
-    if (!input) return ''
+    if (input.length === 0) return ''
 
     return (
       input
@@ -275,7 +275,7 @@ export const ValidationUtils = {
    * Sanitize file path to prevent directory traversal.
    */
   sanitizePath(filePath: string): string {
-    if (!filePath) return ''
+    if (filePath.length === 0) return ''
 
     return (
       path

@@ -1,4 +1,5 @@
-import type {CreateCommandOptions, CreatePackageOptions, Result, TemplateContext} from './types.js'
+import type {Result} from '@bfra.me/es/result'
+import type {CreateCommandOptions, CreatePackageOptions, TemplateContext} from './types.js'
 import path from 'node:path'
 import process from 'node:process'
 import {consola} from 'consola'
@@ -241,7 +242,7 @@ export async function createPackage(
     // Validate template context
     const contextValidation = templateProcessor.validateContext(
       context,
-      metadata.variables?.map(v => v.name),
+      metadata.variables?.map((v: {name: string}) => v.name),
     )
     if (!contextValidation.valid) {
       consola.warn('Template context validation warnings:', contextValidation.missing)

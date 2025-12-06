@@ -1,4 +1,5 @@
-import type {CreateCommandOptions, FileOperation, Result, TemplateContext} from '../types.js'
+import type {Result} from '@bfra.me/es/result'
+import type {CreateCommandOptions, FileOperation, TemplateContext} from '../types.js'
 import {existsSync} from 'node:fs'
 import {rm} from 'node:fs/promises'
 import path from 'node:path'

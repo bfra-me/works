@@ -2,6 +2,10 @@
   "$schema": "http://json.schemastore.org/tsconfig",
   "extends": "../tsconfig/tsconfig.json",
   "compilerOptions": {
+    "paths": {
+      "@bfra.me/es": ["../es/src"],
+      "@bfra.me/es/*": ["../es/src/*"]
+    },
     "noEmit": false,
     "outDir": "./dist"
   },
