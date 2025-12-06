@@ -1,0 +1,106 @@
+# Automated Documentation Sync for @bfra.me/doc-sync
+---
+name: Docs Sync
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/*/src/**/*.ts'
+      - 'packages/*/README.md'
+      - 'packages/*/package.json'
+      - 'packages/doc-sync/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'packages/*/src/**/*.ts'
+      - 'packages/*/README.md'
+      - 'packages/*/package.json'
+      - 'packages/doc-sync/**'
+  workflow_dispatch:
+    inputs:
+      packages:
+        description: Packages to sync (space-separated, empty for all)
+        required: false
+        default: ''
+      dry-run:
+        description: Preview changes without writing files
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate Documentation
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Prepare job
+        uses: ./.github/actions/pnpm-install
+
+      - name: Build doc-sync package
+        run: pnpm --filter @bfra.me/doc-sync run build
+
+      - name: Validate documentation freshness
+        run: pnpm --filter @bfra.me/doc-sync exec doc-sync validate ${{ github.event.inputs.packages }}
+
+  sync:
+    name: Sync Documentation
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: validate
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Prepare job
+        uses: ./.github/actions/pnpm-install
+
+      - name: Build doc-sync package
+        run: pnpm --filter @bfra.me/doc-sync run build
+
+      - name: Sync documentation
+        id: sync
+        run: |
+          if [ "${{ github.event.inputs.dry-run }}" = "true" ]; then
+            pnpm --filter @bfra.me/doc-sync exec doc-sync sync --dry-run ${{ github.event.inputs.packages }}
+          else
+            pnpm --filter @bfra.me/doc-sync exec doc-sync sync ${{ github.event.inputs.packages }}
+          fi
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if [ -n "$(git status --porcelain docs/)" ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit documentation updates
+        if: steps.check_changes.outputs.has_changes == 'true' && github.event.inputs.dry-run != 'true'
+        run: |
+          git config user.email '118100583+bfra-me[bot]@users.noreply.github.com'
+          git config user.name 'bfra-me[bot]'
+          git add docs/
+          git commit -m "docs: sync documentation from source [skip ci]"
+          git push
