@@ -3,6 +3,7 @@
  */
 
 export * from './command-options.js'
+export * from './constants.js'
 export * from './errors.js'
 export * from './file-system.js'
 export * from './help.js'
