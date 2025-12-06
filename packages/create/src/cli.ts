@@ -6,9 +6,18 @@ import cac from 'cac'
 import {consola} from 'consola'
 import {name, version} from '../package.json'
 import {handleAddCommand} from './commands/add.js'
+import {displayError} from './commands/error-messages.js'
+import {showProjectSummary} from './commands/progress-indicators.js'
+import {
+  normalizeCreateOptions,
+  registerAddCommandOptions,
+  registerCreateCommandOptions,
+  registerGlobalOptions,
+} from './commands/shared-context.js'
+import {validateCreateOptions} from './commands/validation-pipeline.js'
 import {createPackage} from './index.js'
 import {isRetryableError, promptRetry, retry} from './utils/retry.js'
-import {displayProjectSummary, logger} from './utils/ui.js'
+import {logger} from './utils/ui.js'
 
 /**
  * Apply configuration preset to provide sensible defaults
@@ -16,7 +25,7 @@ import {displayProjectSummary, logger} from './utils/ui.js'
 function applyConfigurationPreset(
   preset?: 'minimal' | 'standard' | 'full',
 ): Partial<CreateCommandOptions> {
-  if (!preset) {
+  if (preset == null) {
     return {}
   }
 
@@ -49,80 +58,45 @@ function applyConfigurationPreset(
 
 const cli = cac(name)
 
-// Global options
-cli
-  .option('--verbose', 'Enable verbose output')
-  .option('--dry-run', 'Show what would be done without making changes')
+// Register global options using shared infrastructure
+registerGlobalOptions(cli)
 
 // Create command - main functionality
-cli
-  .command('create [projectName]', 'Create a new project from a template')
-  .option('-t, --template <template>', 'Template to use (GitHub repo, URL, or built-in name)')
-  .option('-d, --description <desc>', 'Project description')
-  .option('-a, --author <author>', 'Project author')
-  .option('-v, --version <version>', 'Project version', {default: '1.0.0'})
-  .option('-o, --output-dir <dir>', 'Output directory for the project')
-  .option('--package-manager <pm>', 'Package manager to use (npm, yarn, pnpm, bun)')
-  .option('--skip-prompts', 'Skip interactive prompts and use defaults')
-  .option('--force', 'Force overwrite existing files')
-  .option('--no-interactive', 'Disable interactive mode')
-  .option('--template-ref <ref>', 'Git branch or tag for GitHub templates')
-  .option('--template-subdir <subdir>', 'Subdirectory within template repository')
-  .option('--features <features>', 'Comma-separated list of features to include')
-  .option('--no-git', 'Skip git repository initialization')
-  .option('--no-install', 'Skip dependency installation')
-  .option('--preset <preset>', 'Use a configuration preset (minimal, standard, full)')
-  .option('--ai', 'Enable AI-powered features for intelligent project setup')
-  .option('--describe <description>', 'Natural language description of the project for AI analysis')
-  .action(async (projectName?: string, options: CreateCommandOptions = {}): Promise<void> => {
+const createCommand = cli.command('create [projectName]', 'Create a new project from a template')
+
+// Register create command options using shared infrastructure
+registerCreateCommandOptions(createCommand)
+
+createCommand.action(
+  async (projectName?: string, options: CreateCommandOptions = {}): Promise<void> => {
     const startTime = Date.now()
 
     try {
-      // Parse features string into array
-      const features =
-        options.features
-          ?.split(',')
-          .map(f => f.trim())
-          .filter(Boolean) || []
-
       // Apply configuration preset if specified
       const presetConfig = applyConfigurationPreset(options.preset)
 
-      // Merge CLI options with preset config
-      const createOptions: CreateCommandOptions = {
-        ...presetConfig,
-        name: projectName,
-        template: options.template,
-        description: options.description,
-        author: options.author,
-        version: options.version,
-        outputDir: options.outputDir,
-        packageManager: options.packageManager,
-        skipPrompts: options.skipPrompts,
-        force: options.force,
-        interactive: options.interactive !== false,
-        verbose: options.verbose,
-        dryRun: options.dryRun,
-        templateRef: options.templateRef,
-        templateSubdir: options.templateSubdir,
-        features: features.join(','),
-        git: options.git !== false,
-        install: options.install !== false,
-        preset: options.preset,
-        ai: options.ai,
-        describe: options.describe,
+      // Normalize options using shared infrastructure
+      const createOptions = normalizeCreateOptions(projectName, {...presetConfig, ...options})
+
+      // Validate options using the validation pipeline
+      const validationResult = validateCreateOptions(createOptions)
+      if (!validationResult.success) {
+        const errorMessages = validationResult.errors.map(e => e.message).join(', ')
+        const validationError = new Error(`Validation failed: ${errorMessages}`)
+        displayError(validationError, {verbose: options.verbose})
+        process.exit(1)
       }
 
       // Show configuration summary if verbose
-      if (options.verbose) {
+      if (options.verbose === true) {
         logger.info('Configuration summary:')
         consola.info({
           project: createOptions.name ?? 'auto-generated',
           template: createOptions.template ?? 'default',
           interactive: createOptions.interactive,
-          features: features.length > 0 ? features : 'none',
+          features: createOptions.features ?? 'none',
           preset: createOptions.preset ?? 'none',
-          ai: createOptions.ai ? 'enabled' : 'disabled',
+          ai: createOptions.ai === true ? 'enabled' : 'disabled',
           aiDescription:
             createOptions.describe != null && createOptions.describe.length > 0
               ? `"${createOptions.describe}"`
@@ -156,12 +130,18 @@ cli
         if (result.success) {
           logger.projectSuccess(projectName ?? 'new-project', process.cwd())
 
-          displayProjectSummary({
+          // Parse features for display
+          const displayFeatures =
+            createOptions.features
+              ?.split(',')
+              .map(f => f.trim())
+              .filter(Boolean) ?? []
+
+          showProjectSummary({
             name: projectName ?? 'new-project',
+            path: createOptions.outputDir ?? process.cwd(),
             template: createOptions.template ?? 'default',
-            location: createOptions.outputDir ?? process.cwd(),
-            dependencies: features,
-            scripts: ['build', 'test', 'lint'],
+            features: displayFeatures,
           })
 
           if (options.verbose) {
@@ -177,7 +157,7 @@ cli
       const err = error as Error
 
       // Enhanced error handling with retry prompts for interactive mode
-      if (options.interactive && isRetryableError(err)) {
+      if (options.interactive === true && isRetryableError(err)) {
         const action = await promptRetry(err)
 
         switch (action) {
@@ -196,59 +176,55 @@ cli
         }
       }
 
-      logger.error(`Failed to create project: ${err.message}`)
-
-      if (options.verbose) {
-        consola.error(err.stack)
-      }
+      // Use shared error display with suggestions
+      displayError(err, {verbose: options.verbose, showSuggestions: true})
 
       process.exit(1)
     }
-  })
+  },
+)
 
 // Add command - for adding features to existing projects
-cli
-  .command('add [feature]', 'Add a feature to an existing project')
-  .option('--skip-confirm', 'Skip confirmation prompts')
-  .option('--list', 'List available features')
-  .option('--dry-run', 'Show what would be done without making changes')
-  .action(async (feature?: string, cliOptions: Record<string, unknown> = {}) => {
-    try {
-      const options = {
-        skipConfirm: cliOptions.skipConfirm as boolean | undefined,
-        verbose: cliOptions.verbose as boolean | undefined,
-        dryRun: cliOptions.dryRun as boolean | undefined,
-        list: cliOptions.list as boolean | undefined,
-      }
+const addCommand = cli.command('add [feature]', 'Add a feature to an existing project')
 
-      // Handle list option
-      if (options.list === true || feature === 'list') {
-        await handleAddCommand({
-          feature: 'list',
-          skipConfirm: options.skipConfirm,
-          verbose: options.verbose,
-          dryRun: options.dryRun,
-        })
-        return
-      }
+// Register add command options using shared infrastructure
+registerAddCommandOptions(addCommand)
 
+addCommand.action(async (feature?: string, cliOptions: Record<string, unknown> = {}) => {
+  try {
+    const options = {
+      skipConfirm: cliOptions.skipConfirm as boolean | undefined,
+      verbose: cliOptions.verbose as boolean | undefined,
+      dryRun: cliOptions.dryRun as boolean | undefined,
+      list: cliOptions.list as boolean | undefined,
+    }
+
+    // Handle list option
+    if (options.list === true || feature === 'list') {
       await handleAddCommand({
-        feature: feature ?? '',
+        feature: 'list',
         skipConfirm: options.skipConfirm,
         verbose: options.verbose,
         dryRun: options.dryRun,
       })
-    } catch (error) {
-      const err = error as Error
-      consola.error(`Failed to add feature: ${err.message}`)
-
-      if (cliOptions.verbose === true) {
-        consola.error(err.stack)
-      }
-
-      process.exit(1)
+      return
     }
-  })
+
+    await handleAddCommand({
+      feature: feature ?? '',
+      skipConfirm: options.skipConfirm,
+      verbose: options.verbose,
+      dryRun: options.dryRun,
+    })
+  } catch (error) {
+    const err = error as Error
+
+    // Use shared error display with suggestions
+    displayError(err, {verbose: cliOptions.verbose === true, showSuggestions: true})
+
+    process.exit(1)
+  }
+})
 
 // Legacy compatibility - default command for backward compatibility
 cli
@@ -264,7 +240,8 @@ cli
       await createPackage(createOptions)
       consola.success(`Project created successfully at: ${projectPath ?? process.cwd()}`)
     } catch (error) {
-      consola.error('Failed to create project:', error)
+      // Use shared error display for legacy mode too
+      displayError(error, {showSuggestions: true})
       process.exit(1)
     }
   })
