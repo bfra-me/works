@@ -25,12 +25,6 @@
 pnpm add @bfra.me/doc-sync
 ```
 
-Or with npm:
-
-```bash
-npm install @bfra.me/doc-sync
-```
-
 ## CLI Usage
 
 The `doc-sync` CLI provides three main commands for managing documentation synchronization.
