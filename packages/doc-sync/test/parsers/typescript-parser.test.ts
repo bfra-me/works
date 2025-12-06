@@ -18,6 +18,22 @@ import {
   parseSourceContent,
 } from '../../src/parsers/typescript-parser'
 
+/** Extracts SourceFile from a successful parse result */
+function getSourceFile(result: ReturnType<typeof parseSourceContent>): SourceFile {
+  if (!result.success) {
+    throw new Error('Expected successful parse result')
+  }
+  return result.data
+}
+
+/** Extracts PackageAPI from a successful analysis result */
+function getAPI(result: ReturnType<typeof analyzeTypeScriptContent>): PackageAPI {
+  if (!result.success) {
+    throw new Error('Expected successful analysis result')
+  }
+  return result.data
+}
+
 describe('typescript-parser', () => {
   describe('createProject', () => {
     it.concurrent('should create a ts-morph Project instance', () => {
@@ -44,8 +60,7 @@ describe('typescript-parser', () => {
       const result = parseSourceContent(project, content)
 
       expect(result.success).toBe(true)
-      expect(result).toHaveProperty('data')
-      const sourceFile = (result as {success: true; data: SourceFile}).data
+      const sourceFile = getSourceFile(result)
       expect(sourceFile.getFilePath()).toContain('virtual.ts')
     })
 
@@ -56,8 +71,7 @@ describe('typescript-parser', () => {
       const result = parseSourceContent(project, content, 'custom.ts')
 
       expect(result.success).toBe(true)
-      expect(result).toHaveProperty('data')
-      const sourceFile = (result as {success: true; data: SourceFile}).data
+      const sourceFile = getSourceFile(result)
       expect(sourceFile.getFilePath()).toContain('custom.ts')
     })
 
@@ -70,7 +84,8 @@ describe('typescript-parser', () => {
   })
 
   describe('extractExportedFunctions', () => {
-    it.concurrent('should extract simple exported functions', () => {
+    // Sequential tests: ts-morph type resolution is slow and doesn't benefit from concurrency
+    it('should extract simple exported functions', () => {
       const project = createProject()
       const content = `
         export function add(a: number, b: number): number {
@@ -80,9 +95,8 @@ describe('typescript-parser', () => {
 
       const result = parseSourceContent(project, content)
       expect(result.success).toBe(true)
-      const sourceFile = (result as {success: true; data: SourceFile}).data
 
-      const functions = extractExportedFunctions(sourceFile)
+      const functions = extractExportedFunctions(getSourceFile(result))
 
       expect(functions.length).toBe(1)
       expect(functions[0]?.name).toBe('add')
@@ -90,7 +104,7 @@ describe('typescript-parser', () => {
       expect(functions[0]?.isDefault).toBe(false)
     })
 
-    it.concurrent('should extract async functions', () => {
+    it('should extract async functions', () => {
       const project = createProject()
       const content = `
         export async function fetchData(): Promise<string> {
@@ -100,16 +114,15 @@ describe('typescript-parser', () => {
 
       const result = parseSourceContent(project, content)
       expect(result.success).toBe(true)
-      const sourceFile = (result as {success: true; data: SourceFile}).data
 
-      const functions = extractExportedFunctions(sourceFile)
+      const functions = extractExportedFunctions(getSourceFile(result))
 
       expect(functions.length).toBe(1)
       expect(functions[0]?.name).toBe('fetchData')
       expect(functions[0]?.isAsync).toBe(true)
     })
 
-    it.concurrent('should extract function parameters', () => {
+    it('should extract function parameters', () => {
       const project = createProject()
       const content = `
         export function greet(name: string, age?: number): string {
@@ -119,9 +132,8 @@ describe('typescript-parser', () => {
 
       const result = parseSourceContent(project, content)
       expect(result.success).toBe(true)
-      const sourceFile = (result as {success: true; data: SourceFile}).data
 
-      const functions = extractExportedFunctions(sourceFile)
+      const functions = extractExportedFunctions(getSourceFile(result))
       const params = functions[0]?.parameters
 
       expect(params?.length).toBe(2)
@@ -132,7 +144,7 @@ describe('typescript-parser', () => {
       expect(params?.[1]?.optional).toBe(true)
     })
 
-    it.concurrent('should extract default parameter values', () => {
+    it('should extract default parameter values', () => {
       const project = createProject()
       const content = `
         export function greet(name: string = 'World'): string {
@@ -142,15 +154,14 @@ describe('typescript-parser', () => {
 
       const result = parseSourceContent(project, content)
       expect(result.success).toBe(true)
-      const sourceFile = (result as {success: true; data: SourceFile}).data
 
-      const functions = extractExportedFunctions(sourceFile)
+      const functions = extractExportedFunctions(getSourceFile(result))
       const params = functions[0]?.parameters
 
       expect(params?.[0]?.defaultValue).toBe("'World'")
     })
 
-    it.concurrent('should ignore non-exported functions', () => {
+    it('should ignore non-exported functions', () => {
       const project = createProject()
       const content = `
         function internalFn(): void {}
@@ -159,15 +170,14 @@ describe('typescript-parser', () => {
 
       const result = parseSourceContent(project, content)
       expect(result.success).toBe(true)
-      const sourceFile = (result as {success: true; data: SourceFile}).data
 
-      const functions = extractExportedFunctions(sourceFile)
+      const functions = extractExportedFunctions(getSourceFile(result))
 
       expect(functions.length).toBe(1)
       expect(functions[0]?.name).toBe('publicFn')
     })
 
-    it.concurrent('should extract multiple functions', () => {
+    it('should extract multiple functions', () => {
       const project = createProject()
       const content = `
         export function add(a: number, b: number): number { return a + b }
@@ -177,9 +187,8 @@ describe('typescript-parser', () => {
 
       const result = parseSourceContent(project, content)
       expect(result.success).toBe(true)
-      const sourceFile = (result as {success: true; data: SourceFile}).data
 
-      const functions = extractExportedFunctions(sourceFile)
+      const functions = extractExportedFunctions(getSourceFile(result))
 
       expect(functions.length).toBe(3)
       expect(functions.map(f => f.name)).toEqual(['add', 'subtract', 'multiply'])
@@ -187,7 +196,8 @@ describe('typescript-parser', () => {
   })
 
   describe('extractExportedTypes', () => {
-    it.concurrent('should extract interfaces', () => {
+    // Sequential tests: ts-morph type resolution is slow and doesn't benefit from concurrency
+    it('should extract interfaces', () => {
       const project = createProject()
       const content = `
         export interface User {
@@ -198,16 +208,15 @@ describe('typescript-parser', () => {
 
       const result = parseSourceContent(project, content)
       expect(result.success).toBe(true)
-      const sourceFile = (result as {success: true; data: SourceFile}).data
 
-      const types = extractExportedTypes(sourceFile)
+      const types = extractExportedTypes(getSourceFile(result))
 
       expect(types.length).toBe(1)
       expect(types[0]?.name).toBe('User')
       expect(types[0]?.kind).toBe('interface')
     })
 
-    it.concurrent('should extract type aliases', () => {
+    it('should extract type aliases', () => {
       const project = createProject()
       const content = `
         export type ID = string | number
@@ -215,16 +224,15 @@ describe('typescript-parser', () => {
 
       const result = parseSourceContent(project, content)
       expect(result.success).toBe(true)
-      const sourceFile = (result as {success: true; data: SourceFile}).data
 
-      const types = extractExportedTypes(sourceFile)
+      const types = extractExportedTypes(getSourceFile(result))
 
       expect(types.length).toBe(1)
       expect(types[0]?.name).toBe('ID')
       expect(types[0]?.kind).toBe('type')
     })
 
-    it.concurrent('should extract enums', () => {
+    it('should extract enums', () => {
       const project = createProject()
       const content = `
         export enum Status {
@@ -235,16 +243,15 @@ describe('typescript-parser', () => {
 
       const result = parseSourceContent(project, content)
       expect(result.success).toBe(true)
-      const sourceFile = (result as {success: true; data: SourceFile}).data
 
-      const types = extractExportedTypes(sourceFile)
+      const types = extractExportedTypes(getSourceFile(result))
 
       expect(types.length).toBe(1)
       expect(types[0]?.name).toBe('Status')
       expect(types[0]?.kind).toBe('enum')
     })
 
-    it.concurrent('should extract classes', () => {
+    it('should extract classes', () => {
       const project = createProject()
       const content = `
         export class Calculator {
@@ -255,16 +262,15 @@ describe('typescript-parser', () => {
 
       const result = parseSourceContent(project, content)
       expect(result.success).toBe(true)
-      const sourceFile = (result as {success: true; data: SourceFile}).data
 
-      const types = extractExportedTypes(sourceFile)
+      const types = extractExportedTypes(getSourceFile(result))
 
       expect(types.length).toBe(1)
       expect(types[0]?.name).toBe('Calculator')
       expect(types[0]?.kind).toBe('class')
     })
 
-    it.concurrent('should extract generic type parameters', () => {
+    it('should extract generic type parameters', () => {
       const project = createProject()
       const content = `
         export interface Container<T> {
@@ -275,16 +281,15 @@ describe('typescript-parser', () => {
 
       const result = parseSourceContent(project, content)
       expect(result.success).toBe(true)
-      const sourceFile = (result as {success: true; data: SourceFile}).data
 
-      const types = extractExportedTypes(sourceFile)
+      const types = extractExportedTypes(getSourceFile(result))
 
       expect(types.length).toBe(2)
       expect(types[0]?.typeParameters).toEqual(['T'])
       expect(types[1]?.typeParameters).toEqual(['T', 'E'])
     })
 
-    it.concurrent('should ignore non-exported types', () => {
+    it('should ignore non-exported types', () => {
       const project = createProject()
       const content = `
         interface InternalType { x: number }
@@ -293,9 +298,8 @@ describe('typescript-parser', () => {
 
       const result = parseSourceContent(project, content)
       expect(result.success).toBe(true)
-      const sourceFile = (result as {success: true; data: SourceFile}).data
 
-      const types = extractExportedTypes(sourceFile)
+      const types = extractExportedTypes(getSourceFile(result))
 
       expect(types.length).toBe(1)
       expect(types[0]?.name).toBe('PublicType')
@@ -311,9 +315,8 @@ describe('typescript-parser', () => {
 
       const result = parseSourceContent(project, content)
       expect(result.success).toBe(true)
-      const sourceFile = (result as {success: true; data: SourceFile}).data
 
-      const reExports = extractReExports(sourceFile)
+      const reExports = extractReExports(getSourceFile(result))
 
       expect(reExports.length).toBe(1)
       expect(reExports[0]?.from).toBe('./math')
@@ -328,9 +331,8 @@ describe('typescript-parser', () => {
 
       const result = parseSourceContent(project, content)
       expect(result.success).toBe(true)
-      const sourceFile = (result as {success: true; data: SourceFile}).data
 
-      const reExports = extractReExports(sourceFile)
+      const reExports = extractReExports(getSourceFile(result))
 
       expect(reExports.length).toBe(1)
       expect(reExports[0]?.from).toBe('./utils')
@@ -346,9 +348,8 @@ describe('typescript-parser', () => {
 
       const result = parseSourceContent(project, content)
       expect(result.success).toBe(true)
-      const sourceFile = (result as {success: true; data: SourceFile}).data
 
-      const reExports = extractReExports(sourceFile)
+      const reExports = extractReExports(getSourceFile(result))
 
       expect(reExports.length).toBe(2)
       expect(reExports[0]?.exports).toContain('default as helper')
@@ -363,9 +364,8 @@ describe('typescript-parser', () => {
 
       const result = parseSourceContent(project, content)
       expect(result.success).toBe(true)
-      const sourceFile = (result as {success: true; data: SourceFile}).data
 
-      const reExports = extractReExports(sourceFile)
+      const reExports = extractReExports(getSourceFile(result))
 
       expect(reExports.length).toBe(1)
       expect(reExports[0]?.exports).toBe('*')
@@ -397,9 +397,8 @@ describe('typescript-parser', () => {
 
       const result = parseSourceContent(project, content)
       expect(result.success).toBe(true)
-      const sourceFile = (result as {success: true; data: SourceFile}).data
 
-      const api = extractPackageAPI(sourceFile)
+      const api = extractPackageAPI(getSourceFile(result))
 
       expect(api.functions.length).toBe(1)
       expect(api.types.length).toBe(2)
@@ -422,8 +421,7 @@ describe('typescript-parser', () => {
       const result = analyzeTypeScriptContent(content)
 
       expect(result.success).toBe(true)
-      expect(result).toHaveProperty('data')
-      const api = (result as {success: true; data: PackageAPI}).data
+      const api = getAPI(result)
       expect(api.functions.length).toBe(1)
       expect(api.types.length).toBe(1)
     })
@@ -434,8 +432,7 @@ describe('typescript-parser', () => {
       const result = analyzeTypeScriptContent(content)
 
       expect(result.success).toBe(true)
-      expect(result).toHaveProperty('data')
-      const api = (result as {success: true; data: PackageAPI}).data
+      const api = getAPI(result)
       expect(api.functions.length).toBe(0)
     })
 
@@ -443,8 +440,7 @@ describe('typescript-parser', () => {
       const result = analyzeTypeScriptContent('')
 
       expect(result.success).toBe(true)
-      expect(result).toHaveProperty('data')
-      const api = (result as {success: true; data: PackageAPI}).data
+      const api = getAPI(result)
       expect(api.functions.length).toBe(0)
       expect(api.types.length).toBe(0)
       expect(api.reExports.length).toBe(0)
