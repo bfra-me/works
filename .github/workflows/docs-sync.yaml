@@ -50,7 +50,7 @@ jobs:
         uses: ./.github/actions/pnpm-install
 
       - name: Build doc-sync package
-        run: pnpm --filter @bfra.me/doc-sync run build
+        run: pnpm --filter @bfra.me/doc-sync run prepack
 
       - name: Validate documentation freshness
         run: pnpm --filter @bfra.me/doc-sync run start validate --root ${{ github.workspace }} ${{ github.event.inputs.packages }}
@@ -76,7 +76,7 @@ jobs:
         uses: ./.github/actions/pnpm-install
 
       - name: Build doc-sync package
-        run: pnpm --filter @bfra.me/doc-sync run build
+        run: pnpm --filter @bfra.me/doc-sync run prepack
 
       - name: Sync documentation
         id: sync
