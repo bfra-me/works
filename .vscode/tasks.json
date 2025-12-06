@@ -1,0 +1,22 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "pnpm build",
+            "problemMatcher": ["$tsc"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "doc-sync: build",
+            "type": "shell",
+            "command": "pnpm --filter @bfra.me/doc-sync run build",
+            "problemMatcher": ["$tsc"],
+            "group": "build"
+        }
+    ]
+}

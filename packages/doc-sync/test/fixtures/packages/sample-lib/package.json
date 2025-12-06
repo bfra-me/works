@@ -1,0 +1,17 @@
+{
+  "name": "@fixtures/sample-lib",
+  "version": "1.0.0",
+  "description": "A sample library package for testing documentation sync",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
+  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "keywords": ["library", "testing", "fixtures"],
+  "author": "Test Author",
+  "license": "MIT"
+}

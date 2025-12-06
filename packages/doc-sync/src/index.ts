@@ -1,0 +1,131 @@
+// Re-export generators
+export {
+  cleanCodeExample,
+  createBadge,
+  createCard,
+  createCardGrid,
+  createDiffSummary,
+  createTabs,
+  detectLanguage,
+  extractAutoSections,
+  extractManualSections,
+  formatCodeBlock,
+  formatCodeExamples,
+  formatFunctionExamples,
+  formatGroupedExamples,
+  formatTypeExamples,
+  formatUsageExample,
+  generateAPICompact,
+  generateAPIReference,
+  generateCategoryReference,
+  generateFrontmatter,
+  generateInstallTabs,
+  generateMDXDocument,
+  groupExamplesByCategory,
+  hasAutoContent,
+  hasManualContent,
+  mapToStarlightComponents,
+  mergeContent,
+  parseFrontmatter,
+  sanitizeContent,
+  sanitizeTextContent,
+  stringifyFrontmatter,
+  stripSentinelMarkers,
+  validateMarkerPairing,
+  validateMDXSyntax,
+  wrapAutoSection,
+  wrapManualSection,
+} from './generators'
+
+export type {
+  CodeExampleOptions,
+  ComponentMapperConfig,
+  ContentSection,
+  MDXGeneratorOptions,
+  MergeOptions,
+  MergeResult,
+  SectionMapper,
+} from './generators'
+
+// Re-export orchestrator
+export {
+  createPackageScanner,
+  createSyncOrchestrator,
+  createValidationPipeline,
+  filterPackagesByPattern,
+  groupPackagesByScope,
+  isValidFilePath,
+  validateContentString,
+  validateDocument,
+} from './orchestrator'
+
+export type {
+  PackageScannerOptions,
+  ScannedPackage,
+  ScanResult,
+  SyncOrchestrator,
+  SyncOrchestratorOptions,
+  ValidationError,
+  ValidationPipelineOptions,
+  ValidationResult,
+  ValidationWarning,
+} from './orchestrator'
+
+export type {
+  CLIOptions,
+  DocConfig,
+  DocConfigSource,
+  ExportedFunction,
+  ExportedType,
+  FileChangeEvent,
+  FunctionParameter,
+  InferSchema,
+  JSDocInfo,
+  JSDocParam,
+  JSDocTag,
+  MDXDocument,
+  MDXFrontmatter,
+  PackageAPI,
+  PackageInfo,
+  ParseError,
+  ParseErrorCode,
+  ParseResult,
+  ReadmeContent,
+  ReadmeSection,
+  ReExport,
+  SyncError,
+  SyncErrorCode,
+  SyncInfo,
+  SyncResult,
+  SyncSummary,
+} from './types'
+
+export {SENTINEL_MARKERS} from './types'
+
+// Re-export watcher
+export {
+  categorizeFile,
+  consolidateEvents,
+  createDocChangeDetector,
+  createDocDebouncer,
+  createDocWatcher,
+  deduplicateEvents,
+  determineRegenerationScope,
+  filterDocumentationChanges,
+  groupChangesByPackage,
+  hasAnyFileChanged,
+} from './watcher'
+
+export type {
+  BatchChangeHandler,
+  DocChangeDetector,
+  DocChangeDetectorOptions,
+  DocChangeHandler,
+  DocDebouncer,
+  DocDebouncerOptions,
+  DocFileWatcher,
+  DocWatcherOptions,
+  FileCategory,
+  PackageChangeAnalysis,
+  RegenerationScope,
+} from './watcher'

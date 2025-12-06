@@ -22,6 +22,7 @@ export default defineConfig({
           label: 'Packages',
           items: [
             {label: 'create', slug: 'packages/create'},
+            {label: 'doc-sync', slug: 'packages/doc-sync'},
             {label: 'es', slug: 'packages/es'},
             {label: 'eslint-config', slug: 'packages/eslint-config'},
             {label: 'prettier-config', slug: 'packages/prettier-config'},

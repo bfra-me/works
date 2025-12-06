@@ -1,0 +1,312 @@
+---
+title: '@bfra.me/doc-sync'
+description: Intelligent documentation synchronization engine for automatic Astro Starlight site updates
+---
+
+import { Badge, Card, CardGrid, Tabs, TabItem, LinkCard } from '@astrojs/starlight/components';
+
+# @bfra.me/doc-sync
+
+<Badge text="CLI" variant="tip" />
+<Badge text="Library" variant="tip" />
+<Badge text="v0.0.1" variant="note" />
+
+An intelligent documentation synchronization engine that monitors package source code, README files, and JSDoc comments to automatically update Astro Starlight documentation sites with zero manual intervention.
+
+## Features
+
+<CardGrid>
+  <Card title="TypeScript/JSDoc Parsing" icon="seti:typescript">
+    Extracts documentation from source files using the TypeScript Compiler API via ts-morph.
+  </Card>
+  <Card title="README Integration" icon="document">
+    Parses and incorporates README content into documentation pages automatically.
+  </Card>
+  <Card title="Incremental Updates" icon="rocket">
+    Only regenerates documentation for changed packages using content hashing.
+  </Card>
+  <Card title="Watch Mode" icon="magnifier">
+    Monitors for changes and syncs automatically during development.
+  </Card>
+  <Card title="MDX Generation" icon="seti:markdown">
+    Creates Starlight-compatible MDX files with proper frontmatter and components.
+  </Card>
+  <Card title="Content Preservation" icon="approve-check">
+    Protects manual content sections using sentinel markers during regeneration.
+  </Card>
+</CardGrid>
+
+## Installation
+
+<Tabs>
+  <TabItem label="pnpm">
+    ```bash
+    pnpm add @bfra.me/doc-sync
+    ```
+  </TabItem>
+  <TabItem label="npm">
+    ```bash
+    npm install @bfra.me/doc-sync
+    ```
+  </TabItem>
+  <TabItem label="yarn">
+    ```bash
+    yarn add @bfra.me/doc-sync
+    ```
+  </TabItem>
+</Tabs>
+
+## Quick Start
+
+### CLI Usage
+
+The `doc-sync` CLI provides three main commands:
+
+```bash
+# Sync all packages
+doc-sync sync
+
+# Watch for changes during development
+doc-sync watch
+
+# Validate documentation freshness
+doc-sync validate
+```
+
+### Programmatic API
+
+```typescript
+import { createSyncOrchestrator, createPackageScanner } from '@bfra.me/doc-sync'
+
+const scanner = createPackageScanner({
+  rootDir: process.cwd(),
+  includePatterns: ['packages/*'],
+})
+
+const orchestrator = createSyncOrchestrator({
+  rootDir: process.cwd(),
+  outputDir: 'docs/src/content/docs/packages',
+})
+
+const packages = await scanner.scan()
+const result = await orchestrator.sync(packages)
+
+if (result.success) {
+  console.log(`Synced ${result.data.synced.length} packages`)
+}
+```
+
+## CLI Commands
+
+### Sync Command
+
+Synchronize documentation for all or specific packages:
+
+```bash
+# Sync all packages
+doc-sync sync
+
+# Sync specific packages
+doc-sync sync @bfra.me/es @bfra.me/eslint-config
+
+# Interactive package selection
+doc-sync sync --interactive
+
+# Preview changes without writing
+doc-sync sync --dry-run
+
+# Verbose output
+doc-sync sync --verbose
+```
+
+### Watch Command
+
+Monitor for changes and sync automatically:
+
+```bash
+# Watch all packages
+doc-sync watch
+
+# Watch specific packages
+doc-sync watch @bfra.me/es
+
+# Watch with verbose logging
+doc-sync watch --verbose
+```
+
+### Validate Command
+
+Check documentation freshness and MDX syntax:
+
+```bash
+# Validate all packages
+doc-sync validate
+
+# Validate specific packages
+doc-sync validate @bfra.me/es
+```
+
+### Global Options
+
+| Option | Alias | Description |
+|--------|-------|-------------|
+| `--root <dir>` | `-r` | Root directory of the monorepo |
+| `--dry-run` | `-d` | Preview changes without writing |
+| `--verbose` | `-v` | Enable verbose output |
+| `--quiet` | `-q` | Suppress non-error output |
+| `--interactive` | `-i` | Interactive package selection |
+
+## Configuration
+
+Configure documentation generation per package in `package.json`:
+
+```json
+{
+  "name": "@bfra.me/example",
+  "docs": {
+    "title": "Custom Package Title",
+    "description": "Override the default description",
+    "sidebar": {
+      "label": "Short Name",
+      "order": 1,
+      "hidden": false
+    },
+    "excludeSections": ["internal-api"],
+    "frontmatter": {
+      "tableOfContents": {
+        "minHeadingLevel": 2,
+        "maxHeadingLevel": 3
+      }
+    }
+  }
+}
+```
+
+### Configuration Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `title` | `string` | Custom title for the documentation page |
+| `description` | `string` | Custom description override |
+| `sidebar.label` | `string` | Label shown in sidebar navigation |
+| `sidebar.order` | `number` | Sort order in sidebar |
+| `sidebar.hidden` | `boolean` | Whether to hide from sidebar |
+| `excludeSections` | `string[]` | Sections to exclude from auto-generation |
+| `frontmatter` | `object` | Additional frontmatter fields |
+
+## Content Preservation
+
+Use sentinel markers to preserve manual content during regeneration:
+
+```mdx
+{/* AUTO-GENERATED-START */}
+
+This content is automatically generated and will be replaced on sync.
+
+{/* AUTO-GENERATED-END */}
+
+{/* MANUAL-CONTENT-START */}
+
+Your custom content here will be preserved during regeneration.
+Add examples, notes, or any additional documentation.
+
+{/* MANUAL-CONTENT-END */}
+```
+
+## Available Subpath Exports
+
+| Subpath | Description |
+|---------|-------------|
+| `@bfra.me/doc-sync` | Main entry with all exports |
+| `@bfra.me/doc-sync/generators` | MDX and content generation utilities |
+| `@bfra.me/doc-sync/parsers` | TypeScript, JSDoc, and README parsers |
+| `@bfra.me/doc-sync/types` | Type definitions only |
+
+## Key Concepts
+
+### TypeScript Parsing
+
+The package uses `ts-morph` to parse TypeScript source files and extract:
+
+- Exported functions with parameters and return types
+- Type definitions and interfaces
+- JSDoc annotations (@param, @returns, @example, @deprecated)
+- Re-exports and barrel exports
+
+```typescript
+import { parseTypeScript, extractJSDoc } from '@bfra.me/doc-sync/parsers'
+
+const result = parseTypeScript('src/index.ts')
+if (result.success) {
+  const { functions, types, reExports } = result.data
+  // Process extracted documentation
+}
+```
+
+### MDX Generation
+
+Generate Starlight-compatible MDX with proper frontmatter and components:
+
+```typescript
+import {
+  generateMDXDocument,
+  generateFrontmatter,
+  generateAPIReference,
+} from '@bfra.me/doc-sync/generators'
+
+const frontmatter = generateFrontmatter({
+  title: '@bfra.me/es',
+  description: 'ES utilities package',
+})
+
+const apiRef = generateAPIReference(packageAPI)
+const mdx = generateMDXDocument({ frontmatter, sections: [apiRef] })
+```
+
+### File Watching
+
+Watch for changes and trigger documentation regeneration:
+
+```typescript
+import { createDocWatcher, createDocDebouncer } from '@bfra.me/doc-sync'
+
+const watcher = createDocWatcher({
+  rootDir: process.cwd(),
+  patterns: ['packages/*/src/**/*.ts', 'packages/*/README.md'],
+})
+
+const debouncer = createDocDebouncer({
+  delayMs: 300,
+  onBatch: async (events) => {
+    console.log(`Processing ${events.length} file changes`)
+  },
+})
+
+watcher.on('change', debouncer.add)
+await watcher.start()
+```
+
+## Documentation
+
+<CardGrid>
+  <LinkCard
+    title="README"
+    description="Full package documentation with API examples"
+    href="https://github.com/bfra-me/works/blob/main/packages/doc-sync/README.md"
+  />
+  <LinkCard
+    title="Source Code"
+    description="Browse the source on GitHub"
+    href="https://github.com/bfra-me/works/tree/main/packages/doc-sync"
+  />
+</CardGrid>
+
+## Requirements
+
+- Node.js 20+
+- TypeScript 5.0+ (for type features)
+- ES2022+ target
+
+## License
+
+MIT
