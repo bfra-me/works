@@ -20,6 +20,42 @@
  * ```
  */
 
+// Analyzer utilities
+export {
+  BUILTIN_ANALYZER_IDS,
+  builtinAnalyzers,
+  createAnalyzerRegistry,
+  createBuildConfigAnalyzer,
+  createConfigConsistencyAnalyzer,
+  createDefaultRegistry,
+  createEslintConfigAnalyzer,
+  createExportsFieldAnalyzer,
+  createIssue,
+  createPackageJsonAnalyzer,
+  createTsconfigAnalyzer,
+  createVersionAlignmentAnalyzer,
+  filterIssues,
+  meetsMinSeverity,
+  shouldAnalyzeCategory,
+} from './analyzers/index'
+
+export type {
+  AnalysisContext,
+  Analyzer,
+  AnalyzerError,
+  AnalyzerFactory,
+  AnalyzerMetadata,
+  AnalyzerOptions,
+  AnalyzerRegistration,
+  AnalyzerRegistry,
+  BuildConfigAnalyzerOptions,
+  ConfigConsistencyAnalyzerOptions,
+  EslintConfigAnalyzerOptions,
+  ExportsFieldAnalyzerOptions,
+  PackageJsonAnalyzerOptions,
+  TsconfigAnalyzerOptions,
+  VersionAlignmentAnalyzerOptions,
+} from './analyzers/index'
 // Dependency graph utilities
 export {
   buildDependencyGraph,
@@ -77,6 +113,7 @@ export type {
   TsProjectReference,
   TypeScriptParserOptions,
 } from './parser/index'
+
 // Scanner utilities
 export {
   createWorkspaceScanner,
@@ -93,6 +130,7 @@ export type {
   WorkspaceScannerOptions,
   WorkspaceScanResult,
 } from './scanner/index'
+
 // Core types
 export type {
   AnalysisError,
