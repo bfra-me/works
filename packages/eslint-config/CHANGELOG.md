@@ -1,5 +1,14 @@
 # @bfra.me/eslint-config
 
+## 0.47.2
+### Patch Changes
+
+
+- Updated dependency `eslint-plugin-pnpm` to `1.4.0`. ([#2421](https://github.com/bfra-me/works/pull/2421))
+
+
+- Updated dependency `@next/eslint-plugin-next` to `16.0.7`. ([#2389](https://github.com/bfra-me/works/pull/2389))
+
 ## 0.47.1
 ### Patch Changes
 
