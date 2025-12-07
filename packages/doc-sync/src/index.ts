@@ -71,6 +71,75 @@ export type {
   ValidationWarning,
 } from './orchestrator'
 
+// Re-export parsers
+export {
+  analyzePublicAPI,
+  analyzeTypeScriptContent,
+  analyzeTypeScriptFile,
+  assertPackageAPI,
+  assertPackageInfo,
+  assertParseError,
+  buildDocSlug,
+  createProject,
+  extractDocsConfig,
+  extractExportedFunctions,
+  extractExportedTypes,
+  extractJSDocInfo,
+  extractPackageAPI,
+  extractReExports,
+  findEntryPoint,
+  findExportedSymbols,
+  findReadmePath,
+  findSection,
+  flattenSections,
+  getExportedSymbolInfo,
+  getExportsByKind,
+  getPackageScope,
+  getSectionsByLevel,
+  getTableOfContents,
+  getUnscopedName,
+  hasJSDoc,
+  isDocConfigSource,
+  isExportedFunction,
+  isExportedType,
+  isJSDocInfo,
+  isJSDocParam,
+  isJSDocTag,
+  isMDXFrontmatter,
+  isPackageAPI,
+  isPackageInfo,
+  isParseError,
+  isReadmeContent,
+  isReadmeSection,
+  isReExport,
+  isSafeContent,
+  isSafeFilePath,
+  isSymbolExported,
+  isSyncError,
+  isValidHeadingLevel,
+  isValidPackageName,
+  isValidSemver,
+  parseJSDoc,
+  parsePackageComplete,
+  parsePackageJson,
+  parsePackageJsonContent,
+  parseReadme,
+  parseReadmeFile,
+  parseSourceContent,
+  parseSourceFile,
+} from './parsers'
+
+export type {
+  ExportAnalyzerOptions,
+  JSDocableDeclaration,
+  PackageInfoOptions,
+  PackageJsonSchema,
+  PublicAPIAnalysis,
+  ReadmeParserOptions,
+  ResolvedExport,
+  TypeScriptParserOptions,
+} from './parsers'
+
 export type {
   CLIOptions,
   DocConfig,
@@ -101,6 +170,19 @@ export type {
 } from './types'
 
 export {SENTINEL_MARKERS} from './types'
+
+// Re-export utils
+export {
+  createHeadingPattern,
+  extractCodeBlocks,
+  findEmptyMarkdownLinks,
+  hasComponent,
+  parseJSXAttributes,
+  parseJSXTags,
+  sanitizeAttribute,
+  sanitizeForMDX,
+  sanitizeJSXTag,
+} from './utils'
 
 // Re-export watcher
 export {
