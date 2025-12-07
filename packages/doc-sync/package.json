@@ -35,6 +35,11 @@
       "source": "./src/generators/index.ts",
       "import": "./lib/generators/index.js"
     },
+    "./orchestrator": {
+      "types": "./lib/orchestrator/index.d.ts",
+      "source": "./src/orchestrator/index.ts",
+      "import": "./lib/orchestrator/index.js"
+    },
     "./parsers": {
       "types": "./lib/parsers/index.d.ts",
       "source": "./src/parsers/index.ts",
@@ -44,6 +49,16 @@
       "types": "./lib/types.d.ts",
       "source": "./src/types.ts",
       "import": "./lib/types.js"
+    },
+    "./utils": {
+      "types": "./lib/utils/index.d.ts",
+      "source": "./src/utils/index.ts",
+      "import": "./lib/utils/index.js"
+    },
+    "./watcher": {
+      "types": "./lib/watcher/index.d.ts",
+      "source": "./src/watcher/index.ts",
+      "import": "./lib/watcher/index.js"
     },
     "./package.json": "./package.json"
   },
