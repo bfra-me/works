@@ -660,7 +660,7 @@ function findMatchingAlias(
     for (const target of targets) {
       const normalizedTarget = target.replaceAll('*', '')
       if (specifier.includes(normalizedTarget)) {
-        return alias.replace('*', specifier.replace(normalizedTarget, ''))
+        return alias.replace(/\*/g, specifier.replace(normalizedTarget, ''))
       }
     }
   }
