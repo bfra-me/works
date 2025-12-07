@@ -1,0 +1,82 @@
+{
+  "name": "@bfra.me/workspace-analyzer",
+  "version": "0.0.0",
+  "description": "Comprehensive monorepo static analysis for workspace configuration, dependencies, and architecture",
+  "keywords": [
+    "analyzer",
+    "architecture",
+    "ast",
+    "bfra.me",
+    "circular-dependencies",
+    "dependency-analysis",
+    "monorepo",
+    "static-analysis",
+    "typescript",
+    "works"
+  ],
+  "homepage": "https://github.com/bfra-me/works/tree/main/packages/workspace-analyzer#readme",
+  "bugs": "https://github.com/bfra-me/works/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bfra-me/works.git",
+    "directory": "packages/workspace-analyzer"
+  },
+  "license": "MIT",
+  "author": "Marcus R. Brown <contact@bfra.me>",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "source": "./src/index.ts",
+      "import": "./lib/index.js"
+    },
+    "./types": {
+      "types": "./lib/types/index.d.ts",
+      "source": "./src/types/index.ts",
+      "import": "./lib/types/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "bin": {
+    "workspace-analyzer": "./lib/cli.js"
+  },
+  "files": [
+    "!**/*.map",
+    "lib",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsx src/cli.ts",
+    "lint": "eslint",
+    "prepack": "pnpm --filter-prod=\"{.}...\" run build",
+    "start": "node lib/cli.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@bfra.me/es": "workspace:*",
+    "@clack/prompts": "0.11.0",
+    "cac": "6.7.14",
+    "consola": "3.4.2",
+    "ts-morph": "27.0.2"
+  },
+  "devDependencies": {
+    "@bfra.me/works": "workspace:*",
+    "memfs": "^4.17.2"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
