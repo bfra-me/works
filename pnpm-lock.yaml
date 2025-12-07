@@ -398,6 +398,31 @@ importers:
         specifier: 1.0.0
         version: 1.0.0(ajv@8.17.1)
 
+  packages/workspace-analyzer:
+    dependencies:
+      '@bfra.me/es':
+        specifier: workspace:*
+        version: link:../es
+      '@clack/prompts':
+        specifier: 0.11.0
+        version: 0.11.0
+      cac:
+        specifier: 6.7.14
+        version: 6.7.14
+      consola:
+        specifier: 3.4.2
+        version: 3.4.2
+      ts-morph:
+        specifier: 27.0.2
+        version: 27.0.2
+    devDependencies:
+      '@bfra.me/works':
+        specifier: workspace:*
+        version: link:../..
+      memfs:
+        specifier: ^4.17.2
+        version: 4.51.1
+
   scripts:
     dependencies:
       '@changesets/parse':
