@@ -24,11 +24,14 @@
 export {
   // Dependency analyzers (Phase 4)
   aggregatePackageImports,
+  // Architectural analyzer (Phase 5)
+  architecturalAnalyzerMetadata,
   BUILTIN_ANALYZER_IDS,
   builtinAnalyzers,
   computeCycleStats,
   computeDuplicateStats,
   createAnalyzerRegistry,
+  createArchitecturalAnalyzer,
   createBuildConfigAnalyzer,
   createCircularImportAnalyzer,
   createConfigConsistencyAnalyzer,
@@ -57,6 +60,8 @@ export type {
   AnalyzerOptions,
   AnalyzerRegistration,
   AnalyzerRegistry,
+  // Architectural analyzer types (Phase 5)
+  ArchitecturalAnalyzerOptions,
   BuildConfigAnalyzerOptions,
   // Dependency analyzer types (Phase 4)
   CircularImportAnalyzerOptions,
@@ -133,6 +138,49 @@ export type {
   TypeScriptParserOptions,
 } from './parser/index'
 
+// Rules engine and built-in rules (Phase 5)
+export {
+  barrelExportRuleMetadata,
+  BUILTIN_RULE_IDS,
+  createBarrelExportRule,
+  createLayerViolationRule,
+  createPackageBoundaryRule,
+  createPathAliasRule,
+  createPublicApiRule,
+  createRuleEngine,
+  createSideEffectRule,
+  DEFAULT_LAYER_CONFIG,
+  getFileLayer,
+  isLayerImportAllowed,
+  layerViolationRuleMetadata,
+  packageBoundaryRuleMetadata,
+  pathAliasRuleMetadata,
+  publicApiRuleMetadata,
+  sideEffectRuleMetadata,
+} from './rules/index'
+
+export type {
+  BarrelExportRuleOptions,
+  LayerConfiguration,
+  LayerDefinition,
+  LayerPattern,
+  LayerViolationRuleOptions,
+  PackageBoundaryRuleOptions,
+  PathAliasRuleOptions,
+  PublicApiRuleOptions,
+  Rule,
+  RuleContext,
+  RuleEngine,
+  RuleEngineError,
+  RuleFactory,
+  RuleMetadata,
+  RuleOptions,
+  RuleRegistration,
+  RuleResult,
+  RuleViolation,
+  SideEffectRuleOptions,
+} from './rules/index'
+
 // Scanner utilities
 export {
   createWorkspaceScanner,
@@ -179,7 +227,10 @@ export {
   unwrap,
   unwrapOr,
 } from './types/index'
+
 export type {Err, Ok, Result} from './types/index'
+// Utility functions
+export {matchAnyPattern, matchPattern, normalizePath} from './utils/index'
 
 // Placeholder for main API entry point (will be implemented in Phase 9)
 // export {analyzeWorkspace} from './api/analyze-workspace'

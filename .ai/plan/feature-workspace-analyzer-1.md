@@ -136,16 +136,16 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-035 | Create architectural rule engine in `src/rules/rule-engine.ts` | | |
-| TASK-036 | Define built-in rule set in `src/rules/builtin-rules.ts` | | |
-| TASK-037 | Implement `LayerViolationRule` for detecting cross-layer imports | | |
-| TASK-038 | Implement `BarrelExportRule` for detecting `export *` misuse in application code | | |
-| TASK-039 | Implement `PublicApiRule` for validating explicit public API surface using export-analyzer pattern | | |
-| TASK-040 | Implement `SideEffectRule` for detecting side effects in module initialization | | |
-| TASK-041 | Create `ArchitecturalAnalyzer` in `src/analyzers/architectural-analyzer.ts` | | |
-| TASK-042 | Add configurable layer definition (domain, application, infrastructure, presentation) | | |
-| TASK-043 | Implement import path alias validation against tsconfig paths | | |
-| TASK-044 | Add monorepo package boundary enforcement rules | | |
+| TASK-035 | Create architectural rule engine in `src/rules/rule-engine.ts` | ✅ | 2025-12-06 |
+| TASK-036 | Define built-in rule set in `src/rules/builtin-rules.ts` | ✅ | 2025-12-06 |
+| TASK-037 | Implement `LayerViolationRule` for detecting cross-layer imports | ✅ | 2025-12-06 |
+| TASK-038 | Implement `BarrelExportRule` for detecting `export *` misuse in application code | ✅ | 2025-12-06 |
+| TASK-039 | Implement `PublicApiRule` for validating explicit public API surface using export-analyzer pattern | ✅ | 2025-12-06 |
+| TASK-040 | Implement `SideEffectRule` for detecting side effects in module initialization | ✅ | 2025-12-06 |
+| TASK-041 | Create `ArchitecturalAnalyzer` in `src/analyzers/architectural-analyzer.ts` | ✅ | 2025-12-06 |
+| TASK-042 | Add configurable layer definition (domain, application, infrastructure, presentation) | ✅ | 2025-12-06 |
+| TASK-043 | Implement import path alias validation against tsconfig paths | ✅ | 2025-12-06 |
+| TASK-044 | Add monorepo package boundary enforcement rules | ✅ | 2025-12-06 |
 
 ### Implementation Phase 6: Performance Analysis
 
