@@ -660,7 +660,8 @@ function findMatchingAlias(
     for (const target of targets) {
       const normalizedTarget = target.replaceAll('*', '')
       if (specifier.includes(normalizedTarget)) {
-        return alias.replace('*', specifier.replace(normalizedTarget, ''))
+        // eslint-disable-next-line unicorn/prefer-string-replace-all
+        return alias.replace(/\*/g, specifier.replace(normalizedTarget, ''))
       }
     }
   }
