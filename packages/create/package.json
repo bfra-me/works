@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/create",
-  "version": "0.5.26",
+  "version": "0.6.0",
   "description": "A command line utility to create new packages from customizable templates.",
   "keywords": [
     "cli",
@@ -48,7 +48,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "0.71.0",
+    "@anthropic-ai/sdk": "0.71.1",
     "@bfra.me/es": "workspace:*",
     "@clack/prompts": "0.11.0",
     "cac": "6.7.14",
@@ -57,7 +57,7 @@
     "eta": "4.4.1",
     "giget": "2.0.0",
     "glob": "13.0.0",
-    "openai": "6.9.1",
+    "openai": "6.10.0",
     "package-manager-detector": "1.6.0",
     "semver": "7.7.3"
   },

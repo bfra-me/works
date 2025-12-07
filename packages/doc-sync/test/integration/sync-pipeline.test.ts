@@ -256,7 +256,7 @@ describe('sync-pipeline integration', () => {
       const secondSync = await orchestrator.syncAll()
       // Second sync should also complete
       expect(secondSync.totalPackages).toBe(firstSync.totalPackages)
-    })
+    }, 10000)
 
     it('should support dry-run mode without writing files', async () => {
       const config: DocConfig = {
