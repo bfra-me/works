@@ -196,6 +196,40 @@ export type {
   TreeShakingSavingsEstimate,
 } from './performance/index'
 
+// Reporter utilities (Phase 7)
+export {
+  calculateSummary,
+  CATEGORY_CONFIG,
+  createConsoleReporter,
+  createJsonReporter,
+  createMarkdownReporter,
+  DEFAULT_REPORT_OPTIONS,
+  filterIssuesForReport,
+  formatDuration,
+  formatLocation,
+  getRelativePath,
+  groupIssues,
+  SEVERITY_CONFIG,
+  truncateText,
+} from './reporters/index'
+
+export type {
+  ConsoleReporterOptions,
+  GroupedIssues,
+  JsonReport,
+  JsonReporterOptions,
+  JsonReportGroup,
+  JsonReportIssue,
+  JsonReportLocation,
+  JsonReportMetadata,
+  MarkdownReporterOptions,
+  Reporter,
+  ReporterFactory,
+  ReportFormat,
+  ReportOptions,
+  ReportSummary,
+} from './reporters/index'
+
 // Rules engine and built-in rules (Phase 5)
 export {
   barrelExportRuleMetadata,
@@ -287,6 +321,7 @@ export {
 } from './types/index'
 
 export type {Err, Ok, Result} from './types/index'
+
 // Utility functions
 export {matchAnyPattern, matchPattern, normalizePath} from './utils/index'
 
