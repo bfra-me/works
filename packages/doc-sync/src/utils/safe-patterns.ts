@@ -51,11 +51,11 @@ export function hasComponent(content: string, componentName: string): boolean {
 }
 
 /**
- * Extract code blocks from markdown content using unified/remark (safe, no regex)
+ * Extract code blocks and inline code from markdown content using unified/remark (safe, no regex)
  * This approach uses AST parsing instead of regex to avoid ReDoS vulnerabilities
  *
  * @param content - The markdown content to parse
- * @returns Array of code block strings with their language identifiers
+ * @returns Array of code block strings (fenced blocks with backticks, inline code with backticks)
  *
  * @example
  * ```ts
@@ -90,6 +90,10 @@ export function extractCodeBlocks(content: string): readonly string[] {
       const lang = node.lang ?? ''
       const value = node.value ?? ''
       blocks.push(`\`\`\`${lang}\n${value}\n\`\`\``)
+    }
+    if (node.type === 'inlineCode') {
+      const value = node.value ?? ''
+      blocks.push(`\`${value}\``)
     }
     if (Array.isArray(node.children)) {
       for (const child of node.children) {

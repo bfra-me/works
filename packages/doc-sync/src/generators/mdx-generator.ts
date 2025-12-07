@@ -169,15 +169,12 @@ function renderMDXDocument(frontmatter: MDXFrontmatter, content: string): string
  * Prevents XSS by escaping potentially dangerous content
  */
 export function sanitizeContent(content: string): string {
-  // Use comprehensive sanitization from utils
   return sanitizeForMDX(content)
 }
 
 /**
  * Sanitizes content within MDX while preserving JSX components
- * Only escapes content that appears to be user-provided text
- * Now includes sanitization of JSX component attributes to prevent XSS
- * Uses safe, non-backtracking parsing to prevent ReDoS
+ * Sanitizes JSX component attributes to prevent XSS while leaving closing tags unchanged
  */
 export function sanitizeTextContent(content: string): string {
   const jsxTags = parseJSXTags(content)
@@ -189,12 +186,7 @@ export function sanitizeTextContent(content: string): string {
       parts.push(sanitizeContent(content.slice(lastIndex, index)))
     }
 
-    if (isClosing) {
-      parts.push(tag)
-    } else {
-      parts.push(sanitizeJSXTag(tag))
-    }
-
+    parts.push(isClosing ? tag : sanitizeJSXTag(tag))
     lastIndex = index + tag.length
   }
 
@@ -225,23 +217,32 @@ export function validateMDXSyntax(mdx: string): Result<true, SyncError> {
   return ok(true)
 }
 
+/**
+ * Checks if a tag name is likely a TypeScript generic parameter rather than a JSX component
+ * Single uppercase letters (T, E, K, V, etc.) are common generic type parameters
+ */
+function isTypeScriptGeneric(tag: string): boolean {
+  const tagNameMatch = tag.match(/<\/?([A-Z][a-zA-Z0-9]*)/)
+  const tagName = tagNameMatch?.[1]
+  return tagName !== undefined && tagName.length === 1
+}
+
 function checkForUnclosedTags(mdx: string): string[] {
   const unclosed: string[] = []
   const tagStack: string[] = []
 
-  // Remove code blocks from content before checking for JSX tags
-  // This prevents TypeScript generics like Result<T, E> from being
-  // misinterpreted as unclosed JSX tags
+  // Remove code blocks and inline code to prevent TypeScript generics like Result<T, E>
+  // from being misinterpreted as JSX tags
   const codeBlocks = extractCodeBlocks(mdx)
-  let contentWithoutCodeBlocks = mdx
+  let contentWithoutCode = mdx
   for (const block of codeBlocks) {
-    // Replace code block with empty lines to preserve line numbers
     const lineCount = block.split('\n').length
     const placeholder = '\n'.repeat(lineCount)
-    contentWithoutCodeBlocks = contentWithoutCodeBlocks.replace(block, placeholder)
+    contentWithoutCode = contentWithoutCode.replace(block, placeholder)
   }
 
-  const jsxTags = parseJSXTags(contentWithoutCodeBlocks)
+  const allJSXTags = parseJSXTags(contentWithoutCode)
+  const jsxTags = allJSXTags.filter(({tag}) => !isTypeScriptGeneric(tag))
 
   for (const {tag, isClosing, isSelfClosing} of jsxTags) {
     const tagNameMatch = isClosing
