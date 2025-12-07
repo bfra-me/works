@@ -2,17 +2,21 @@
  * Analyzer registry and exports for workspace analysis.
  *
  * Provides a plugin architecture for registering and managing analyzers,
- * with built-in analyzers for configuration validation.
+ * with built-in analyzers for configuration validation and dependency analysis.
  */
 
 import type {Analyzer, AnalyzerRegistration} from './analyzer'
 
 import {createBuildConfigAnalyzer} from './build-config-analyzer'
+import {createCircularImportAnalyzer} from './circular-import-analyzer'
 import {createConfigConsistencyAnalyzer} from './config-consistency-analyzer'
+import {createDuplicateDependencyAnalyzer} from './duplicate-dependency-analyzer'
 import {createEslintConfigAnalyzer} from './eslint-config-analyzer'
 import {createExportsFieldAnalyzer} from './exports-field-analyzer'
 import {createPackageJsonAnalyzer} from './package-json-analyzer'
+import {createPeerDependencyAnalyzer} from './peer-dependency-analyzer'
 import {createTsconfigAnalyzer} from './tsconfig-analyzer'
+import {createUnusedDependencyAnalyzer} from './unused-dependency-analyzer'
 import {createVersionAlignmentAnalyzer} from './version-alignment-analyzer'
 
 export type {
@@ -29,11 +33,35 @@ export {createIssue, filterIssues, meetsMinSeverity, shouldAnalyzeCategory} from
 export type {BuildConfigAnalyzerOptions} from './build-config-analyzer'
 export {buildConfigAnalyzerMetadata, createBuildConfigAnalyzer} from './build-config-analyzer'
 
+// Dependency analysis exports
+export type {CircularImportAnalyzerOptions} from './circular-import-analyzer'
+export {
+  circularImportAnalyzerMetadata,
+  computeCycleStats,
+  createCircularImportAnalyzer,
+  generateCycleVisualization,
+} from './circular-import-analyzer'
+
+export type {
+  CircularImportStats,
+  CycleEdge,
+  CycleNode,
+  CycleVisualization,
+} from './circular-import-analyzer'
 export type {ConfigConsistencyAnalyzerOptions} from './config-consistency-analyzer'
+
 export {
   configConsistencyAnalyzerMetadata,
   createConfigConsistencyAnalyzer,
 } from './config-consistency-analyzer'
+export type {DuplicateDependencyAnalyzerOptions} from './duplicate-dependency-analyzer'
+
+export {
+  computeDuplicateStats,
+  createDuplicateDependencyAnalyzer,
+  duplicateDependencyAnalyzerMetadata,
+} from './duplicate-dependency-analyzer'
+export type {DuplicateDependencyStats} from './duplicate-dependency-analyzer'
 
 export type {EslintConfigAnalyzerOptions} from './eslint-config-analyzer'
 export {createEslintConfigAnalyzer, eslintConfigAnalyzerMetadata} from './eslint-config-analyzer'
@@ -43,10 +71,22 @@ export {createExportsFieldAnalyzer, exportsFieldAnalyzerMetadata} from './export
 
 export type {PackageJsonAnalyzerOptions} from './package-json-analyzer'
 export {createPackageJsonAnalyzer, packageJsonAnalyzerMetadata} from './package-json-analyzer'
+export type {PeerDependencyAnalyzerOptions} from './peer-dependency-analyzer'
 
+export {
+  createPeerDependencyAnalyzer,
+  peerDependencyAnalyzerMetadata,
+} from './peer-dependency-analyzer'
 export type {TsconfigAnalyzerOptions} from './tsconfig-analyzer'
-export {createTsconfigAnalyzer, tsconfigAnalyzerMetadata} from './tsconfig-analyzer'
 
+export {createTsconfigAnalyzer, tsconfigAnalyzerMetadata} from './tsconfig-analyzer'
+export type {UnusedDependencyAnalyzerOptions} from './unused-dependency-analyzer'
+
+export {
+  aggregatePackageImports,
+  createUnusedDependencyAnalyzer,
+  unusedDependencyAnalyzerMetadata,
+} from './unused-dependency-analyzer'
 export type {VersionAlignmentAnalyzerOptions} from './version-alignment-analyzer'
 export {
   createVersionAlignmentAnalyzer,
@@ -142,6 +182,11 @@ export const BUILTIN_ANALYZER_IDS = {
   CONFIG_CONSISTENCY: 'config-consistency',
   VERSION_ALIGNMENT: 'version-alignment',
   EXPORTS_FIELD: 'exports-field',
+  // Dependency analyzers
+  UNUSED_DEPENDENCY: 'unused-dependency',
+  CIRCULAR_IMPORT: 'circular-import',
+  PEER_DEPENDENCY: 'peer-dependency',
+  DUPLICATE_DEPENDENCY: 'duplicate-dependency',
 } as const
 
 /**
@@ -207,6 +252,31 @@ export function createDefaultRegistry(): AnalyzerRegistry {
     priority: 70,
   })
 
+  // Dependency analyzers
+  registry.register(BUILTIN_ANALYZER_IDS.UNUSED_DEPENDENCY, {
+    analyzer: createUnusedDependencyAnalyzer(),
+    enabled: true,
+    priority: 80,
+  })
+
+  registry.register(BUILTIN_ANALYZER_IDS.CIRCULAR_IMPORT, {
+    analyzer: createCircularImportAnalyzer(),
+    enabled: true,
+    priority: 90,
+  })
+
+  registry.register(BUILTIN_ANALYZER_IDS.PEER_DEPENDENCY, {
+    analyzer: createPeerDependencyAnalyzer(),
+    enabled: true,
+    priority: 100,
+  })
+
+  registry.register(BUILTIN_ANALYZER_IDS.DUPLICATE_DEPENDENCY, {
+    analyzer: createDuplicateDependencyAnalyzer(),
+    enabled: true,
+    priority: 110,
+  })
+
   return registry
 }
 
@@ -221,4 +291,9 @@ export const builtinAnalyzers = {
   configConsistency: createConfigConsistencyAnalyzer,
   versionAlignment: createVersionAlignmentAnalyzer,
   exportsField: createExportsFieldAnalyzer,
+  // Dependency analyzers
+  unusedDependency: createUnusedDependencyAnalyzer,
+  circularImport: createCircularImportAnalyzer,
+  peerDependency: createPeerDependencyAnalyzer,
+  duplicateDependency: createDuplicateDependencyAnalyzer,
 } as const

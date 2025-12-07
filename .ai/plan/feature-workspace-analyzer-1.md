@@ -122,13 +122,13 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-028 | Implement `UnusedDependencyAnalyzer` in `src/analyzers/unused-dependency-analyzer.ts` using import extraction | | |
-| TASK-029 | Handle dynamic imports and require() calls in dependency detection | | |
-| TASK-030 | Implement dev vs production dependency classification | | |
-| TASK-031 | Implement `CircularImportAnalyzer` in `src/analyzers/circular-import-analyzer.ts` with Tarjan's algorithm | | |
-| TASK-032 | Generate cycle visualization data for reporting | | |
-| TASK-033 | Implement peer dependency validation for workspace packages | | |
-| TASK-034 | Add duplicate dependency detection across workspace packages | | |
+| TASK-028 | Implement `UnusedDependencyAnalyzer` in `src/analyzers/unused-dependency-analyzer.ts` using import extraction | ✅ | 2025-12-06 |
+| TASK-029 | Handle dynamic imports and require() calls in dependency detection | ✅ | 2025-12-06 |
+| TASK-030 | Implement dev vs production dependency classification | ✅ | 2025-12-06 |
+| TASK-031 | Implement `CircularImportAnalyzer` in `src/analyzers/circular-import-analyzer.ts` with Tarjan's algorithm | ✅ | 2025-12-06 |
+| TASK-032 | Generate cycle visualization data for reporting | ✅ | 2025-12-06 |
+| TASK-033 | Implement peer dependency validation for workspace packages | ✅ | 2025-12-06 |
+| TASK-034 | Add duplicate dependency detection across workspace packages | ✅ | 2025-12-06 |
 
 ### Implementation Phase 5: Architectural Analysis
 

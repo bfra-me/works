@@ -22,19 +22,28 @@
 
 // Analyzer utilities
 export {
+  // Dependency analyzers (Phase 4)
+  aggregatePackageImports,
   BUILTIN_ANALYZER_IDS,
   builtinAnalyzers,
+  computeCycleStats,
+  computeDuplicateStats,
   createAnalyzerRegistry,
   createBuildConfigAnalyzer,
+  createCircularImportAnalyzer,
   createConfigConsistencyAnalyzer,
   createDefaultRegistry,
+  createDuplicateDependencyAnalyzer,
   createEslintConfigAnalyzer,
   createExportsFieldAnalyzer,
   createIssue,
   createPackageJsonAnalyzer,
+  createPeerDependencyAnalyzer,
   createTsconfigAnalyzer,
+  createUnusedDependencyAnalyzer,
   createVersionAlignmentAnalyzer,
   filterIssues,
+  generateCycleVisualization,
   meetsMinSeverity,
   shouldAnalyzeCategory,
 } from './analyzers/index'
@@ -49,11 +58,21 @@ export type {
   AnalyzerRegistration,
   AnalyzerRegistry,
   BuildConfigAnalyzerOptions,
+  // Dependency analyzer types (Phase 4)
+  CircularImportAnalyzerOptions,
+  CircularImportStats,
   ConfigConsistencyAnalyzerOptions,
+  CycleEdge,
+  CycleNode,
+  CycleVisualization,
+  DuplicateDependencyAnalyzerOptions,
+  DuplicateDependencyStats,
   EslintConfigAnalyzerOptions,
   ExportsFieldAnalyzerOptions,
   PackageJsonAnalyzerOptions,
+  PeerDependencyAnalyzerOptions,
   TsconfigAnalyzerOptions,
+  UnusedDependencyAnalyzerOptions,
   VersionAlignmentAnalyzerOptions,
 } from './analyzers/index'
 // Dependency graph utilities
