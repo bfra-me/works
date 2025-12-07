@@ -11,11 +11,15 @@ import {createArchitecturalAnalyzer} from './architectural-analyzer'
 import {createBuildConfigAnalyzer} from './build-config-analyzer'
 import {createCircularImportAnalyzer} from './circular-import-analyzer'
 import {createConfigConsistencyAnalyzer} from './config-consistency-analyzer'
+import {createDeadCodeAnalyzer} from './dead-code-analyzer'
+import {createDuplicateCodeAnalyzer} from './duplicate-code-analyzer'
 import {createDuplicateDependencyAnalyzer} from './duplicate-dependency-analyzer'
 import {createEslintConfigAnalyzer} from './eslint-config-analyzer'
 import {createExportsFieldAnalyzer} from './exports-field-analyzer'
+import {createLargeDependencyAnalyzer} from './large-dependency-analyzer'
 import {createPackageJsonAnalyzer} from './package-json-analyzer'
 import {createPeerDependencyAnalyzer} from './peer-dependency-analyzer'
+import {createTreeShakingBlockerAnalyzer} from './tree-shaking-analyzer'
 import {createTsconfigAnalyzer} from './tsconfig-analyzer'
 import {createUnusedDependencyAnalyzer} from './unused-dependency-analyzer'
 import {createVersionAlignmentAnalyzer} from './version-alignment-analyzer'
@@ -58,6 +62,22 @@ export {
   configConsistencyAnalyzerMetadata,
   createConfigConsistencyAnalyzer,
 } from './config-consistency-analyzer'
+
+// Performance analysis exports (Phase 6)
+export type {DeadCodeAnalyzerOptions, DeadCodeStats, ExportedSymbol} from './dead-code-analyzer'
+export {
+  computeDeadCodeStats,
+  createDeadCodeAnalyzer,
+  deadCodeAnalyzerMetadata,
+} from './dead-code-analyzer'
+
+export type {
+  CodeFingerprint,
+  DuplicateCodeAnalyzerOptions,
+  DuplicatePattern,
+} from './duplicate-code-analyzer'
+export {createDuplicateCodeAnalyzer, duplicateCodeAnalyzerMetadata} from './duplicate-code-analyzer'
+
 export type {DuplicateDependencyAnalyzerOptions} from './duplicate-dependency-analyzer'
 
 export {
@@ -73,6 +93,14 @@ export {createEslintConfigAnalyzer, eslintConfigAnalyzerMetadata} from './eslint
 export type {ExportsFieldAnalyzerOptions} from './exports-field-analyzer'
 export {createExportsFieldAnalyzer, exportsFieldAnalyzerMetadata} from './exports-field-analyzer'
 
+export type {LargeDependencyAnalyzerOptions} from './large-dependency-analyzer'
+export {
+  createLargeDependencyAnalyzer,
+  getKnownLargePackages,
+  getPackageInfo,
+  largeDependencyAnalyzerMetadata,
+} from './large-dependency-analyzer'
+
 export type {PackageJsonAnalyzerOptions} from './package-json-analyzer'
 export {createPackageJsonAnalyzer, packageJsonAnalyzerMetadata} from './package-json-analyzer'
 export type {PeerDependencyAnalyzerOptions} from './peer-dependency-analyzer'
@@ -81,6 +109,17 @@ export {
   createPeerDependencyAnalyzer,
   peerDependencyAnalyzerMetadata,
 } from './peer-dependency-analyzer'
+
+export type {
+  TreeShakingBlocker,
+  TreeShakingBlockerAnalyzerOptions,
+  TreeShakingBlockerType,
+} from './tree-shaking-analyzer'
+export {
+  createTreeShakingBlockerAnalyzer,
+  treeShakingBlockerAnalyzerMetadata,
+} from './tree-shaking-analyzer'
+
 export type {TsconfigAnalyzerOptions} from './tsconfig-analyzer'
 
 export {createTsconfigAnalyzer, tsconfigAnalyzerMetadata} from './tsconfig-analyzer'
@@ -193,6 +232,11 @@ export const BUILTIN_ANALYZER_IDS = {
   DUPLICATE_DEPENDENCY: 'duplicate-dependency',
   // Architectural analyzer
   ARCHITECTURAL: 'architectural',
+  // Performance analyzers (Phase 6)
+  DEAD_CODE: 'dead-code',
+  DUPLICATE_CODE: 'duplicate-code',
+  LARGE_DEPENDENCY: 'large-dependency',
+  TREE_SHAKING_BLOCKER: 'tree-shaking-blocker',
 } as const
 
 /**
@@ -290,6 +334,31 @@ export function createDefaultRegistry(): AnalyzerRegistry {
     priority: 120,
   })
 
+  // Performance analyzers (Phase 6)
+  registry.register(BUILTIN_ANALYZER_IDS.DEAD_CODE, {
+    analyzer: createDeadCodeAnalyzer(),
+    enabled: true,
+    priority: 130,
+  })
+
+  registry.register(BUILTIN_ANALYZER_IDS.DUPLICATE_CODE, {
+    analyzer: createDuplicateCodeAnalyzer(),
+    enabled: true,
+    priority: 140,
+  })
+
+  registry.register(BUILTIN_ANALYZER_IDS.LARGE_DEPENDENCY, {
+    analyzer: createLargeDependencyAnalyzer(),
+    enabled: true,
+    priority: 150,
+  })
+
+  registry.register(BUILTIN_ANALYZER_IDS.TREE_SHAKING_BLOCKER, {
+    analyzer: createTreeShakingBlockerAnalyzer(),
+    enabled: true,
+    priority: 160,
+  })
+
   return registry
 }
 
@@ -311,4 +380,9 @@ export const builtinAnalyzers = {
   duplicateDependency: createDuplicateDependencyAnalyzer,
   // Architectural analyzer
   architectural: createArchitecturalAnalyzer,
+  // Performance analyzers (Phase 6)
+  deadCode: createDeadCodeAnalyzer,
+  duplicateCode: createDuplicateCodeAnalyzer,
+  largeDependency: createLargeDependencyAnalyzer,
+  treeShakingBlocker: createTreeShakingBlockerAnalyzer,
 } as const

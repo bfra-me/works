@@ -26,29 +26,54 @@ export {
   aggregatePackageImports,
   // Architectural analyzer (Phase 5)
   architecturalAnalyzerMetadata,
+  buildConfigAnalyzerMetadata,
   BUILTIN_ANALYZER_IDS,
   builtinAnalyzers,
+  circularImportAnalyzerMetadata,
   computeCycleStats,
+  // Performance analyzers (Phase 6)
+  computeDeadCodeStats,
   computeDuplicateStats,
+  configConsistencyAnalyzerMetadata,
   createAnalyzerRegistry,
   createArchitecturalAnalyzer,
   createBuildConfigAnalyzer,
   createCircularImportAnalyzer,
   createConfigConsistencyAnalyzer,
+  // Performance analyzer factories (Phase 6)
+  createDeadCodeAnalyzer,
   createDefaultRegistry,
+  createDuplicateCodeAnalyzer,
   createDuplicateDependencyAnalyzer,
   createEslintConfigAnalyzer,
   createExportsFieldAnalyzer,
   createIssue,
+  createLargeDependencyAnalyzer,
   createPackageJsonAnalyzer,
   createPeerDependencyAnalyzer,
+  createTreeShakingBlockerAnalyzer,
   createTsconfigAnalyzer,
   createUnusedDependencyAnalyzer,
   createVersionAlignmentAnalyzer,
+  // Performance analyzer metadata (Phase 6)
+  deadCodeAnalyzerMetadata,
+  duplicateCodeAnalyzerMetadata,
+  duplicateDependencyAnalyzerMetadata,
+  eslintConfigAnalyzerMetadata,
+  exportsFieldAnalyzerMetadata,
   filterIssues,
   generateCycleVisualization,
+  getKnownLargePackages,
+  getPackageInfo,
+  largeDependencyAnalyzerMetadata,
   meetsMinSeverity,
+  packageJsonAnalyzerMetadata,
+  peerDependencyAnalyzerMetadata,
   shouldAnalyzeCategory,
+  treeShakingBlockerAnalyzerMetadata,
+  tsconfigAnalyzerMetadata,
+  unusedDependencyAnalyzerMetadata,
+  versionAlignmentAnalyzerMetadata,
 } from './analyzers/index'
 
 export type {
@@ -66,20 +91,32 @@ export type {
   // Dependency analyzer types (Phase 4)
   CircularImportAnalyzerOptions,
   CircularImportStats,
+  // Performance analyzer types (Phase 6)
+  CodeFingerprint,
   ConfigConsistencyAnalyzerOptions,
   CycleEdge,
   CycleNode,
   CycleVisualization,
+  DeadCodeAnalyzerOptions,
+  DeadCodeStats,
+  DuplicateCodeAnalyzerOptions,
   DuplicateDependencyAnalyzerOptions,
   DuplicateDependencyStats,
+  DuplicatePattern,
   EslintConfigAnalyzerOptions,
+  ExportedSymbol,
   ExportsFieldAnalyzerOptions,
+  LargeDependencyAnalyzerOptions,
   PackageJsonAnalyzerOptions,
   PeerDependencyAnalyzerOptions,
+  TreeShakingBlocker,
+  TreeShakingBlockerAnalyzerOptions,
+  TreeShakingBlockerType,
   TsconfigAnalyzerOptions,
   UnusedDependencyAnalyzerOptions,
   VersionAlignmentAnalyzerOptions,
 } from './analyzers/index'
+
 // Dependency graph utilities
 export {
   buildDependencyGraph,
@@ -97,6 +134,7 @@ export type {
   DependencyNode,
   GraphStatistics,
 } from './graph/index'
+
 // Parser utilities
 export {
   createProject,
@@ -137,6 +175,26 @@ export type {
   TsProjectReference,
   TypeScriptParserOptions,
 } from './parser/index'
+
+// Performance utilities (Phase 6)
+export {
+  estimateDependencySize,
+  estimateFileSize,
+  estimatePackageBundleSize,
+  estimateTreeShakingSavings,
+  findLargeDependencies,
+  findLargeFiles,
+  formatBytes,
+} from './performance/index'
+
+export type {
+  BundleEstimatorOptions,
+  BundleSizeEstimate,
+  DependencySizeEstimate,
+  OptimizableImport,
+  PackageBundleStats,
+  TreeShakingSavingsEstimate,
+} from './performance/index'
 
 // Rules engine and built-in rules (Phase 5)
 export {
