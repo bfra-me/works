@@ -58,20 +58,26 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@bfra.me/doc-sync": "workspace:*",
     "@bfra.me/es": "workspace:*",
     "@clack/prompts": "0.11.0",
     "cac": "6.7.14",
-    "consola": "3.4.2",
-    "ts-morph": "27.0.2"
+    "consola": "3.4.2"
   },
   "devDependencies": {
     "@bfra.me/works": "workspace:*",
-    "memfs": "^4.17.2"
+    "memfs": "4.51.1",
+    "ts-morph": "27.0.2",
+    "typescript": "5.9.3"
   },
   "peerDependencies": {
+    "ts-morph": ">=27.0.0",
     "typescript": ">=5.0.0"
   },
   "peerDependenciesMeta": {
+    "ts-morph": {
+      "optional": true
+    },
     "typescript": {
       "optional": true
     }

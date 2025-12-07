@@ -20,6 +20,79 @@
  * ```
  */
 
+// Dependency graph utilities
+export {
+  buildDependencyGraph,
+  computeGraphStatistics,
+  findCycles,
+  getTransitiveDependencies,
+  getTransitiveDependents,
+} from './graph/index'
+
+export type {
+  DependencyCycle,
+  DependencyEdge,
+  DependencyGraph,
+  DependencyGraphOptions,
+  DependencyNode,
+  GraphStatistics,
+} from './graph/index'
+// Parser utilities
+export {
+  createProject,
+  extractImports,
+  getAllDependencies,
+  getAllSourceFiles,
+  getPackageNameFromSpecifier,
+  getSourceFile,
+  getUniqueDependencies,
+  isJavaScriptFile,
+  isRelativeImport,
+  isSourceFile,
+  isTypeScriptFile,
+  isWorkspacePackageImport,
+  parsePackageJson,
+  parsePackageJsonContent,
+  parseSourceContent,
+  parseSourceFile,
+  parseSourceFiles,
+  parseTsConfig,
+  parseTsConfigContent,
+  resolveRelativeImport,
+  resolveTsConfigExtends,
+} from './parser/index'
+
+export type {
+  ConfigError,
+  ConfigErrorCode,
+  ExtractedImport,
+  ImportExtractionResult,
+  ImportExtractorOptions,
+  ImportType,
+  ParsedPackageJson,
+  ParsedTsConfig,
+  ParseError,
+  ParseErrorCode,
+  TsCompilerOptions,
+  TsProjectReference,
+  TypeScriptParserOptions,
+} from './parser/index'
+// Scanner utilities
+export {
+  createWorkspaceScanner,
+  filterPackagesByPattern,
+  getPackageScope,
+  getUnscopedName,
+  groupPackagesByScope,
+} from './scanner/index'
+
+export type {
+  ScanError,
+  WorkspacePackage,
+  WorkspacePackageJson,
+  WorkspaceScannerOptions,
+  WorkspaceScanResult,
+} from './scanner/index'
 // Core types
 export type {
   AnalysisError,

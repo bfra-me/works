@@ -400,6 +400,9 @@ importers:
 
   packages/workspace-analyzer:
     dependencies:
+      '@bfra.me/doc-sync':
+        specifier: workspace:*
+        version: link:../doc-sync
       '@bfra.me/es':
         specifier: workspace:*
         version: link:../es
@@ -412,16 +415,19 @@ importers:
       consola:
         specifier: 3.4.2
         version: 3.4.2
-      ts-morph:
-        specifier: 27.0.2
-        version: 27.0.2
     devDependencies:
       '@bfra.me/works':
         specifier: workspace:*
         version: link:../..
       memfs:
-        specifier: ^4.17.2
+        specifier: 4.51.1
         version: 4.51.1
+      ts-morph:
+        specifier: 27.0.2
+        version: 27.0.2
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
 
   scripts:
     dependencies:

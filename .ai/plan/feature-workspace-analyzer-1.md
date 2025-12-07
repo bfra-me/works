@@ -87,18 +87,18 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 ### Implementation Phase 2: Workspace Scanner and TypeScript Parser Infrastructure
 
-- GOAL-002: Reuse proven scanning and parsing patterns from @bfra.me/doc-sync
+- GOAL-002: Reuse proven scanning and parsing patterns from @bfra.me/doc-sync by **directly importing** (not duplicating)
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-011 | Adapt `createPackageScanner()` pattern from `@bfra.me/doc-sync/orchestrator/package-scanner` for workspace package discovery | | |
-| TASK-012 | Reuse `createProject()` and TypeScript parsing utilities from `@bfra.me/doc-sync/parsers/typescript-parser` | | |
-| TASK-013 | Create workspace scanner in `src/scanner/workspace-scanner.ts` using adapted package discovery pattern | | |
-| TASK-014 | Implement import extractor in `src/parser/import-extractor.ts` extending doc-sync's TypeScript parsing | | |
-| TASK-015 | Create dependency graph builder in `src/graph/dependency-graph.ts` for import relationship tracking | | |
-| TASK-016 | Implement configuration file parser in `src/parser/config-parser.ts` for package.json, tsconfig.json analysis | | |
-| TASK-017 | Add source file collector using fs.readdir pattern (like doc-sync) instead of fast-glob for better control | | |
-| TASK-018 | Create parser registry in `src/parsers/index.ts` with explicit barrel exports | | |
+| TASK-011 | Adapt `createPackageScanner()` pattern from `@bfra.me/doc-sync/orchestrator/package-scanner` for workspace package discovery | ✅ | 2025-12-06 |
+| TASK-012 | **Import and re-export** `createProject()`, `parseSourceFile()`, `parseSourceContent()` from `@bfra.me/doc-sync/parsers` | ✅ | 2025-12-06 |
+| TASK-013 | Create workspace scanner in `src/scanner/workspace-scanner.ts` using adapted package discovery pattern | ✅ | 2025-12-06 |
+| TASK-014 | Implement import extractor in `src/parser/import-extractor.ts` using ts-morph types (via doc-sync transitive dependency) | ✅ | 2025-12-06 |
+| TASK-015 | Create dependency graph builder in `src/graph/dependency-graph.ts` for import relationship tracking | ✅ | 2025-12-06 |
+| TASK-016 | Implement configuration file parser in `src/parser/config-parser.ts` for package.json, tsconfig.json analysis | ✅ | 2025-12-06 |
+| TASK-017 | Add source file collector using fs.readdir pattern (like doc-sync) instead of fast-glob for better control | ✅ | 2025-12-06 |
+| TASK-018 | Create parser registry in `src/parser/index.ts` with explicit barrel exports (re-exporting from doc-sync + local) | ✅ | 2025-12-06 |
 
 ### Implementation Phase 3: Configuration Analysis
 
@@ -279,46 +279,42 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 ## 4. Dependencies
 
-### Reused Internal Dependencies
+### Reused Internal Dependencies (Direct Imports)
 
-- **DEP-001**: `@bfra.me/es` (workspace:*) — Core utilities package providing:
-  - `Result<T, E>` type from `/result` for error handling
-  - `createFileHasher()` from `/watcher` for file change detection
-  - `createChangeDetector()` from `/watcher` for incremental analysis
-  - `pLimit()` from `/async` for parallel analysis execution
-  - `debounce()`, `throttle()` from `/async` for CLI responsiveness
-  - Type guards and validation from `/types` and `/validation`
+- **DEP-001**: `@bfra.me/es` (workspace:*) — Core utilities package. **Directly imported:**
+  - `Result<T, E>` type from `@bfra.me/es/result` for error handling
+  - `ok()`, `err()`, `isOk()`, `isErr()` utilities from `@bfra.me/es/result`
+  - `createFileHasher()` from `@bfra.me/es/watcher` for file change detection (Phase 8)
+  - `createChangeDetector()` from `@bfra.me/es/watcher` for incremental analysis (Phase 8)
+  - `pLimit()` from `@bfra.me/es/async` for parallel analysis execution (Phase 8)
+  - `debounce()`, `throttle()` from `@bfra.me/es/async` for CLI responsiveness (Phase 10)
 
-- **DEP-002**: `@bfra.me/doc-sync` (workspace:*) — Documentation sync package providing reusable patterns:
-  - `createProject()` and TypeScript parsing utilities from `/parsers/typescript-parser`
-  - Package scanning patterns from `/orchestrator/package-scanner`
-  - CLI structure and @clack/prompts integration patterns from `/cli`
-  - JSDoc extraction utilities from `/parsers/jsdoc-extractor`
-  - Configuration validation patterns using zod
+- **DEP-002**: `@bfra.me/doc-sync` (workspace:*) — Documentation sync package. **Directly imported:**
+  - `createProject()` from `@bfra.me/doc-sync/parsers` for ts-morph project initialization
+  - `parseSourceFile()` from `@bfra.me/doc-sync/parsers` for TypeScript AST parsing
+  - `parseSourceContent()` from `@bfra.me/doc-sync/parsers` for in-memory parsing
+  - `TypeScriptParserOptions` type from `@bfra.me/doc-sync/parsers`
+  - `ParseError`, `ParseErrorCode` types from `@bfra.me/doc-sync/types`
+  - CLI patterns adapted from `@bfra.me/doc-sync/cli` (Phase 10)
+  - Configuration validation patterns using zod (Phase 9)
 
-### External Runtime Dependencies
+### External Dependencies (via @bfra.me/doc-sync transitive)
 
-- **DEP-003**: `typescript` (^5.4.0) — TypeScript Compiler API for AST parsing (already in workspace via doc-sync)
-- **DEP-004**: `ts-morph` (^27.0.0) — TypeScript Compiler API wrapper (already in workspace via doc-sync)
-- **DEP-005**: `@clack/prompts` (^0.11.0) — Modern CLI prompts for interactive TUI (already in workspace via doc-sync)
-- **DEP-006**: `cac` (^6.7.14) — Lightweight CLI argument parser (already in workspace via doc-sync)
-- **DEP-007**: `consola` (^3.4.2) — Console logging with levels (already in workspace via doc-sync)
-- **DEP-008**: `zod` (^4.1.13) — Runtime validation for configuration schemas (already in workspace via doc-sync)
-- **DEP-009**: `picomatch` (^4.0.0) — Glob pattern matching for rule configuration
+- **DEP-003**: `typescript` (^5.4.0) — TypeScript Compiler API for AST parsing (transitive via doc-sync)
+- **DEP-004**: `ts-morph` (^27.0.0) — TypeScript Compiler API wrapper (transitive via doc-sync, peer dependency)
+- **DEP-005**: `@clack/prompts` (^0.11.0) — Modern CLI prompts for interactive TUI
+- **DEP-006**: `cac` (^6.7.14) — Lightweight CLI argument parser
+- **DEP-007**: `consola` (^3.4.2) — Console logging with levels
 
 ### External Development Dependencies
 
-- **DEP-010**: `memfs` (^4.51.1) — In-memory file system for testing (already in workspace via doc-sync)
-- **DEP-011**: `@bfra.me/works` (workspace:*) — Development tooling package for ESLint/TS config
-
-- **DEP-008**: `@bfra.me/works` (workspace:*) — Root workspace dev dependency aggregator
-- **DEP-009**: `@bfra.me/tsconfig` (workspace:*) — Shared TypeScript configuration
-- **DEP-010**: `vitest` — Testing framework (via workspace root)
-- **DEP-011**: `tsup` — Build tool (via workspace root)
+- **DEP-008**: `@bfra.me/works` (workspace:*) — Development tooling package for ESLint/TS config
+- **DEP-009**: `memfs` (^4.51.1) — In-memory file system for testing
 
 ### Peer Dependencies
 
-- **DEP-012**: `typescript` (>=5.0.0) — Consumer provides TypeScript version
+- **DEP-010**: `typescript` (>=5.0.0) — Consumer provides TypeScript version
+- **DEP-011**: `ts-morph` (>=27.0.0) — Consumer provides ts-morph for AST operations
 
 ## 5. Files
 
@@ -356,10 +352,10 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 - **FILE-002**: `packages/workspace-analyzer/src/types/index.ts` — Core analysis types (AnalysisResult, Issue, Severity)
 - **FILE-003**: `packages/workspace-analyzer/src/types/result.ts` — Re-export of Result type from @bfra.me/es
 - **FILE-004**: `packages/workspace-analyzer/src/scanner/workspace-scanner.ts` — Workspace package discovery (adapted from doc-sync)
-- **FILE-005**: `packages/workspace-analyzer/src/parser/typescript-parser.ts` — TypeScript AST parser wrapper (reuses doc-sync patterns)
-- **FILE-006**: `packages/workspace-analyzer/src/parser/import-extractor.ts` — Import statement extraction
-- **FILE-007**: `packages/workspace-analyzer/src/graph/dependency-graph.ts` — Dependency relationship tracking
-- **FILE-008**: `packages/workspace-analyzer/src/analyzers/analyzer.ts` — Analyzer interface definition
+- **FILE-005**: `packages/workspace-analyzer/src/parser/typescript-parser.ts` — **Re-exports from @bfra.me/doc-sync/parsers** + workspace-specific utilities
+- **FILE-006**: `packages/workspace-analyzer/src/parser/import-extractor.ts` — Import statement extraction (uses ts-morph via doc-sync)
+- **FILE-007**: `packages/workspace-analyzer/src/graph/dependency-graph.ts` — Dependency relationship tracking with Tarjan's cycle detection
+- **FILE-008**: `packages/workspace-analyzer/src/parser/config-parser.ts` — package.json and tsconfig.json parsing
 - **FILE-009**: `packages/workspace-analyzer/src/analyzers/unused-dependency-analyzer.ts` — Unused dependency detection
 - **FILE-010**: `packages/workspace-analyzer/src/analyzers/circular-import-analyzer.ts` — Circular dependency detection with Tarjan's algorithm
 - **FILE-011**: `packages/workspace-analyzer/src/analyzers/config-consistency-analyzer.ts` — Configuration cross-validation

@@ -3,6 +3,8 @@
   "extends": "../tsconfig/tsconfig.json",
   "compilerOptions": {
     "paths": {
+      "@bfra.me/doc-sync": ["../doc-sync/src"],
+      "@bfra.me/doc-sync/*": ["../doc-sync/src/*"],
       "@bfra.me/es": ["../es/src"],
       "@bfra.me/es/*": ["../es/src/*"]
     },
