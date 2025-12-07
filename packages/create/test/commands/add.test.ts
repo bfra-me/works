@@ -1,9 +1,14 @@
 import type {AddFeatureOptions} from '../../src/commands/add.js'
+import type {AddCommandOptions} from '../../src/types.js'
 import {existsSync, mkdirSync, rmSync, writeFileSync} from 'node:fs'
 import {readFile} from 'node:fs/promises'
 import path from 'node:path'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
-import {addFeatureToProject} from '../../src/commands/add.js'
+import {
+  addFeatureToProject,
+  handleAddCommand,
+  listAvailableFeatures,
+} from '../../src/commands/add.js'
 import {testUtils} from '../test-utils.js'
 
 interface PackageJson {
@@ -56,6 +61,128 @@ describe('add command', () => {
       rmSync(tempOutputDir, {recursive: true, force: true})
     }
     vi.restoreAllMocks()
+  })
+
+  describe('listAvailableFeatures', () => {
+    it('should list all available features', async () => {
+      // listAvailableFeatures() is an async function that doesn't throw
+      await expect(listAvailableFeatures()).resolves.not.toThrow()
+    })
+  })
+
+  describe('handleAddCommand', () => {
+    it('should handle --list option', async () => {
+      const options: AddCommandOptions = {
+        feature: '--list',
+        verbose: false,
+        dryRun: false,
+      }
+
+      await expect(handleAddCommand(options)).resolves.not.toThrow()
+    })
+
+    it('should handle list option', async () => {
+      const options: AddCommandOptions = {
+        feature: 'list',
+        verbose: false,
+        dryRun: false,
+      }
+
+      await expect(handleAddCommand(options)).resolves.not.toThrow()
+    })
+
+    it('should handle feature with verbose mode', async () => {
+      // Create a TypeScript project
+      writeFileSync(
+        path.join(projectDir, 'package.json'),
+        JSON.stringify(
+          {
+            name: 'test-project',
+            version: '1.0.0',
+            type: 'module',
+            devDependencies: {
+              typescript: '^5.0.0',
+            },
+          },
+          null,
+          2,
+        ),
+      )
+
+      writeFileSync(
+        path.join(projectDir, 'tsconfig.json'),
+        JSON.stringify({extends: '@bfra.me/tsconfig'}, null, 2),
+      )
+
+      mkdirSync(path.join(projectDir, 'src'), {recursive: true})
+      writeFileSync(
+        path.join(projectDir, 'src', 'index.ts'),
+        'export function hello() { return "world" }',
+      )
+
+      // Mock process.cwd to return our test directory
+      const originalCwd = process.cwd
+      process.cwd = () => projectDir
+
+      try {
+        const options: AddCommandOptions = {
+          feature: 'eslint',
+          verbose: true,
+          dryRun: true,
+        }
+
+        await expect(handleAddCommand(options)).resolves.not.toThrow()
+      } finally {
+        process.cwd = originalCwd
+      }
+    })
+
+    it('should handle feature with skipConfirm option', async () => {
+      // Create a TypeScript project
+      writeFileSync(
+        path.join(projectDir, 'package.json'),
+        JSON.stringify(
+          {
+            name: 'test-project',
+            version: '1.0.0',
+            type: 'module',
+            devDependencies: {
+              typescript: '^5.0.0',
+            },
+          },
+          null,
+          2,
+        ),
+      )
+
+      writeFileSync(
+        path.join(projectDir, 'tsconfig.json'),
+        JSON.stringify({extends: '@bfra.me/tsconfig'}, null, 2),
+      )
+
+      mkdirSync(path.join(projectDir, 'src'), {recursive: true})
+      writeFileSync(
+        path.join(projectDir, 'src', 'index.ts'),
+        'export function hello() { return "world" }',
+      )
+
+      // Mock process.cwd to return our test directory
+      const originalCwd = process.cwd
+      process.cwd = () => projectDir
+
+      try {
+        const options: AddCommandOptions = {
+          feature: 'eslint',
+          verbose: false,
+          dryRun: true,
+          skipConfirm: true,
+        }
+
+        await expect(handleAddCommand(options)).resolves.not.toThrow()
+      } finally {
+        process.cwd = originalCwd
+      }
+    })
   })
 
   describe('error handling', () => {
