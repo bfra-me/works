@@ -10,7 +10,21 @@ import {LLMClient} from './llm-client.js'
 
 /**
  * AI-powered project analyzer that examines user input and recommends
- * project configurations, dependencies, and templates
+ * project configurations, dependencies, and templates.
+ *
+ * @deprecated Consider using the functional analysis pipeline from
+ * `./project-analyzer-fn.ts` for better composability and Result-based
+ * error handling:
+ * ```typescript
+ * import { createProjectAnalysisPipeline } from '@bfra.me/create'
+ * import { isOk } from '@bfra.me/es/result'
+ *
+ * const pipeline = createProjectAnalysisPipeline({ provider: 'auto' })
+ * const result = await pipeline.analyze({ description: 'A React app' })
+ * if (isOk(result)) {
+ *   console.log(result.data.templates)
+ * }
+ * ```
  */
 export class ProjectAnalyzer {
   private readonly llmClient: LLMClient

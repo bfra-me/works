@@ -322,6 +322,8 @@ export {createPackage as default}
 export type {CreateCommandOptions, CreatePackageOptions, TemplateContext}
 
 // AI Components (Phase 5 - AI-Powered Features)
+// Note: Class-based AI components are maintained for backward compatibility
+// Consider using createLLMClient() factory for new implementations
 export {AIAssistant} from './ai/assistant.js'
 export {
   CliAIIntegration,
@@ -332,6 +334,43 @@ export {
 export {CodeAnalyzer} from './ai/code-analyzer.js'
 export {CodeGenerator, type CodeGenerationResult} from './ai/code-generator.js'
 export {ConfigurationOptimizer} from './ai/configuration-optimizer.js'
+
 export {DependencyRecommender} from './ai/dependency-recommender.js'
+
+// Functional Factories (Phase 2-4 - Recommended API)
+export {createLLMClient} from './ai/llm-client-factory.js'
+
 export {LLMClient} from './ai/llm-client.js'
+
 export {ProjectAnalyzer} from './ai/project-analyzer.js'
+export {templateFetcher, TemplateFetcher} from './templates/fetcher.js'
+export {createTemplateProcessingPipeline} from './templates/pipeline.js'
+export {templateProcessor} from './templates/processor.js'
+export {createTemplateResolver, templateResolver} from './templates/resolver.js'
+// Error handling utilities
+export {
+  AIErrorCode,
+  CLIErrorCode,
+  createAIError,
+  createCLIError,
+  createTemplateError,
+  isBaseError,
+  ProjectErrorCode,
+  TemplateErrorCode,
+} from './utils/errors.js'
+// Type guards and branded type creators
+export {
+  createPackageName,
+  createProjectPath,
+  createTemplateSource,
+  isPackageManager,
+  isPackageName,
+  isProjectPath,
+} from './utils/type-guards.js'
+// Validation utilities
+export {
+  validatePackageManager,
+  validateProjectName,
+  validateProjectPath,
+  validateTemplateId,
+} from './utils/validation-factory.js'

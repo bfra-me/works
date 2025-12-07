@@ -11,6 +11,11 @@ export type LLMProviderName = 'openai' | 'anthropic'
 
 /**
  * Error class for AI-related operations
+ * @deprecated Use error utilities from `@bfra.me/create` error exports instead:
+ * ```typescript
+ * import { createAIError, AIErrorCode } from '@bfra.me/create'
+ * const error = createAIError('Provider not available', AIErrorCode.AI_PROVIDER_UNAVAILABLE)
+ * ```
  */
 export class AIError extends Error {
   code: 'PROVIDER_UNAVAILABLE' | 'GENERATION_FAILED' | 'INVALID_RESPONSE' | 'CONFIG_ERROR' =
@@ -28,6 +33,19 @@ export class AIError extends Error {
 
 /**
  * LLM Client for interacting with various language model providers
+ *
+ * @deprecated Use the functional factory `createLLMClient()` instead for better
+ * type safety, Result-based error handling, and provider-agnostic API:
+ * ```typescript
+ * import { createLLMClient } from '@bfra.me/create'
+ * import { isOk } from '@bfra.me/es/result'
+ *
+ * const client = createLLMClient({ provider: 'auto' })
+ * const result = await client.complete(prompt)
+ * if (isOk(result) && result.data.success) {
+ *   console.log(result.data.content)
+ * }
+ * ```
  */
 export class LLMClient {
   private openai?: OpenAI
