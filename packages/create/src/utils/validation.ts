@@ -1,9 +1,13 @@
 import type {ValidationResult} from '../types.js'
 import {existsSync, readdirSync} from 'node:fs'
 import path from 'node:path'
+import {BUILTIN_NODE_MODULES, RESERVED_PACKAGE_NAMES} from './constants.js'
 
 /**
  * Input validation and sanitization utilities.
+ *
+ * @deprecated Use validation-factory.ts functions with Result<T, E> pattern instead
+ * for better type safety and consistent error handling.
  */
 export const ValidationUtils = {
   /**
@@ -43,55 +47,13 @@ export const ValidationUtils = {
       )
     }
 
-    // Cannot be reserved names
-    const reservedNames = [
-      'node_modules',
-      'favicon.ico',
-      'package.json',
-      'readme.md',
-      'changelog.md',
-      'license',
-      'mit',
-      'apache',
-      'gpl',
-      'bsd',
-    ]
-    if (reservedNames.includes(trimmedName.toLowerCase())) {
+    // Cannot be reserved names (using shared constant)
+    if ((RESERVED_PACKAGE_NAMES as readonly string[]).includes(trimmedName.toLowerCase())) {
       errors.push(`Project name "${trimmedName}" is reserved`)
     }
 
-    // Cannot match built-in Node.js modules
-    const builtinModules = [
-      'assert',
-      'buffer',
-      'child_process',
-      'cluster',
-      'crypto',
-      'dgram',
-      'dns',
-      'domain',
-      'events',
-      'fs',
-      'http',
-      'https',
-      'net',
-      'os',
-      'path',
-      'punycode',
-      'querystring',
-      'readline',
-      'stream',
-      'string_decoder',
-      'timers',
-      'tls',
-      'tty',
-      'url',
-      'util',
-      'v8',
-      'vm',
-      'zlib',
-    ]
-    if (builtinModules.includes(trimmedName)) {
+    // Cannot match built-in Node.js modules (using shared constant)
+    if ((BUILTIN_NODE_MODULES as readonly string[]).includes(trimmedName)) {
       errors.push(`Project name "${trimmedName}" conflicts with a built-in Node.js module`)
     }
 
@@ -256,7 +218,7 @@ export const ValidationUtils = {
    * Sanitize string input by removing/escaping dangerous characters.
    */
   sanitizeString(input: string): string {
-    if (!input) return ''
+    if (input.length === 0) return ''
 
     return (
       input
@@ -275,7 +237,7 @@ export const ValidationUtils = {
    * Sanitize file path to prevent directory traversal.
    */
   sanitizePath(filePath: string): string {
-    if (!filePath) return ''
+    if (filePath.length === 0) return ''
 
     return (
       path

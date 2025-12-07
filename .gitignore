@@ -33,3 +33,6 @@ coverage/
 packages/semantic-release/semantic-release-presets/Custom Local Preset.preset.json
 semantic-release-presets/Custom Local Preset.preset.json
 .claude/settings.local.json
+
+# Test fixture temp directories
+**/test/fixtures/temp/

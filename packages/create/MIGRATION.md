@@ -480,7 +480,219 @@ The migration to v0.5.x brings significant improvements but requires attention t
 1. **API Changes** - Update function signatures for programmatic usage
 2. **Template Format** - Convert to Eta syntax and add metadata
 3. **New Features** - Take advantage of enhanced capabilities
+4. **Functional Patterns** - Embrace functional factories and Result-based error handling
 
 Most CLI usage remains compatible, but programmatic usage requires updates. The investment in migration pays off with improved performance, better error handling, and powerful new features.
 
 For detailed examples and comprehensive documentation, see the [README.md](./README.md).
+
+## Appendix: Functional Architecture Guide
+
+This section provides guidance for developers using internal APIs or extending the package functionality.
+
+### Result Pattern Migration
+
+The package now uses `Result<T, E>` discriminated unions from `@bfra.me/es/result` instead of throwing exceptions:
+
+**Before (v0.4.x - Exception-based):**
+
+```typescript
+try {
+  const template = await fetchTemplate(source)
+  const processed = await processTemplate(template, context)
+  return processed
+} catch (error) {
+  console.error('Failed:', error)
+  throw error
+}
+```
+
+**After (v0.5.x - Result-based):**
+
+```typescript
+import { isOk, isErr } from '@bfra.me/es/result'
+
+const fetchResult = await fetchTemplate(source)
+if (isErr(fetchResult)) {
+  console.error('Failed:', fetchResult.error.message)
+  return fetchResult // Propagate error
+}
+
+const processResult = await processTemplate(fetchResult.data, context)
+if (isErr(processResult)) {
+  return processResult
+}
+
+return processResult
+```
+
+### Factory Pattern Migration
+
+Class-based components have been replaced with functional factories:
+
+**Before (v0.4.x - Class-based):**
+
+```typescript
+import { TemplateResolver } from '@bfra.me/create'
+
+const resolver = new TemplateResolver({
+  builtinTemplatesDir: './templates',
+  strictMode: true
+})
+
+const source = resolver.resolve('user/repo')
+const isValid = await resolver.validate(source)
+```
+
+**After (v0.5.x - Functional Factory):**
+
+```typescript
+import { createTemplateResolver } from '@bfra.me/create'
+
+const resolver = createTemplateResolver({
+  builtinTemplatesDir: './templates',
+  strictMode: true
+})
+
+const source = resolver.resolve('user/repo')
+const result = await resolver.validateWithResult(source)
+// Now returns Result<void, Error> instead of boolean
+```
+
+### Branded Types
+
+The package now uses branded types for compile-time validation:
+
+```typescript
+import type { ProjectPath, PackageName, BrandedTemplateSource } from '@bfra.me/create'
+import { createProjectPath, createPackageName } from '@bfra.me/create'
+
+// These throw at runtime if validation fails
+const projectPath: ProjectPath = createProjectPath('./my-project')
+const packageName: PackageName = createPackageName('@scope/my-package')
+
+// Type guards for safe validation
+import { isProjectPath, isPackageName } from '@bfra.me/create'
+
+if (isPackageName(userInput)) {
+  // userInput is now typed as PackageName
+}
+```
+
+### Unified Error Handling
+
+All errors now use consistent error codes for programmatic handling:
+
+```typescript
+import {
+  TemplateErrorCode,
+  AIErrorCode,
+  CLIErrorCode,
+  isBaseError
+} from '@bfra.me/create'
+
+const result = await createPackage(options)
+
+if (isErr(result) && isBaseError(result.error)) {
+  switch (result.error.code) {
+    case TemplateErrorCode.TEMPLATE_NOT_FOUND:
+      console.log('Template not found. Available templates:', resolver.getBuiltinTemplates())
+      break
+    case AIErrorCode.AI_API_KEY_MISSING:
+      console.log('AI features require OPENAI_API_KEY or ANTHROPIC_API_KEY')
+      break
+    case CLIErrorCode.PATH_TRAVERSAL_ATTEMPT:
+      console.log('Security: Path traversal detected')
+      break
+    default:
+      console.error('Error:', result.error.message)
+  }
+}
+```
+
+### LLM Client Factory
+
+The AI system now uses a provider-agnostic factory:
+
+**Before (v0.4.x - Separate clients):**
+
+```typescript
+import { OpenAIClient, AnthropicClient } from '@bfra.me/create'
+
+const openai = new OpenAIClient({ apiKey: process.env.OPENAI_API_KEY })
+const anthropic = new AnthropicClient({ apiKey: process.env.ANTHROPIC_API_KEY })
+
+// Separate implementations for each provider
+const response = provider === 'openai'
+  ? await openai.complete(prompt)
+  : await anthropic.complete(prompt)
+```
+
+**After (v0.5.x - Unified factory):**
+
+```typescript
+import { createLLMClient } from '@bfra.me/create'
+import { isOk } from '@bfra.me/es/result'
+
+// Auto-detects available providers from environment
+const client = createLLMClient({ provider: 'auto' })
+
+// Unified interface regardless of provider
+const result = await client.complete(prompt, {
+  maxTokens: 500,
+  temperature: 0.7
+})
+
+if (isOk(result) && result.data.success) {
+  console.log('Response:', result.data.content)
+}
+```
+
+### Template Pipeline
+
+The canonical template processing pipeline provides a unified interface:
+
+```typescript
+import { createTemplateProcessingPipeline } from '@bfra.me/create'
+
+const pipeline = createTemplateProcessingPipeline({
+  cacheEnabled: true,
+  verbose: true,
+  dryRun: false
+})
+
+// Complete fetch → validate → parse → render sequence
+const result = await pipeline.execute(templateSource, outputDir, context)
+
+if (isOk(result)) {
+  console.log('Operations performed:', result.data.operations.length)
+  console.log('Total time:', result.data.stats.totalTimeMs, 'ms')
+}
+```
+
+### Validation Factories
+
+Reusable validation utilities with Result-based returns:
+
+```typescript
+import {
+  validateProjectName,
+  validateProjectPath,
+  validateTemplateId
+} from '@bfra.me/create'
+
+// All validators return Result<BrandedType, Error>
+const nameResult = validateProjectName('my-project', { allowScoped: true })
+const pathResult = validateProjectPath('./output', { allowRelative: true })
+const templateResult = validateTemplateId('library')
+
+// Chain validations
+if (isOk(nameResult) && isOk(pathResult) && isOk(templateResult)) {
+  // All validations passed, values are branded types
+  await createPackage({
+    name: nameResult.data,
+    outputDir: pathResult.data,
+    template: templateResult.data
+  })
+}
+```

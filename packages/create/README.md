@@ -13,6 +13,72 @@ A powerful, modern command-line utility for creating new projects from customiza
 🔧 **Feature Addition** - Add components, configurations, and tools to existing projects
 ⚡ **Fast & Reliable** - Template caching, concurrent operations, and error recovery
 🎯 **TypeScript First** - Comprehensive type safety and modern development practices
+🏗️ **Functional Architecture** - Modern functional factory patterns for maintainability
+🛡️ **Robust Error Handling** - Consistent Result<T, E> patterns and unified error codes
+
+## Architecture
+
+This package uses a modern **functional architecture** with factory patterns, providing better testability, maintainability, and type safety compared to traditional class-based approaches.
+
+### Core Design Principles
+
+- **Functional Factories** - All components use factory functions (`createTemplateResolver()`, `createLLMClient()`) instead of classes
+- **Result Pattern** - All operations return `Result<T, E>` discriminated unions from `@bfra.me/es/result` for explicit error handling
+- **Branded Types** - Compile-time validation using branded types (`BrandedTemplateSource`, `ProjectPath`, `PackageName`)
+- **Unified Error System** - Consistent error codes across template, AI, and CLI domains
+- **Composition over Inheritance** - Functional composition using `pipe()`, `compose()`, and `curry()` from `@bfra.me/es/functional`
+
+### Key Components
+
+```text
+src/
+├── ai/                     # AI integration (provider-agnostic LLM client)
+│   ├── llm-client-factory.ts   # createLLMClient() factory
+│   ├── providers/              # OpenAI/Anthropic adapters
+│   └── project-analyzer-fn.ts  # Functional analysis pipeline
+├── commands/               # CLI command infrastructure
+│   ├── shared-context.ts       # Reusable command context
+│   └── validation-pipeline.ts  # Unified input validation
+├── templates/              # Template processing system
+│   ├── pipeline.ts             # Canonical processing pipeline
+│   ├── resolver.ts             # createTemplateResolver() factory
+│   └── fetcher.ts              # Template fetching with caching
+├── utils/                  # Shared utilities
+│   ├── errors.ts               # Unified error factory
+│   ├── validation-factory.ts   # Reusable validators
+│   └── type-guards.ts          # Runtime type validation
+└── types.ts                # Comprehensive type definitions
+```
+
+### Error Handling
+
+All errors use unified error codes for consistent handling:
+
+```typescript
+import { TemplateErrorCode, AIErrorCode, CLIErrorCode } from '@bfra.me/create'
+
+// Template errors: TEMPLATE_NOT_FOUND, TEMPLATE_INVALID, TEMPLATE_FETCH_FAILED, etc.
+// AI errors: AI_PROVIDER_UNAVAILABLE, AI_API_KEY_MISSING, AI_REQUEST_FAILED, etc.
+// CLI errors: INVALID_INPUT, INVALID_PROJECT_NAME, PATH_TRAVERSAL_ATTEMPT, etc.
+```
+
+### Functional Patterns
+
+```typescript
+import { createTemplateResolver } from '@bfra.me/create/templates'
+import { isOk, isErr } from '@bfra.me/es/result'
+
+// Factory function usage
+const resolver = createTemplateResolver({ strictMode: true })
+
+// Result-based error handling
+const result = resolver.resolveWithResult('user/repo')
+if (isOk(result)) {
+  console.log('Resolved:', result.data)
+} else {
+  console.error('Error:', result.error.message)
+}
+```
 
 ## Installation
 
@@ -572,6 +638,186 @@ create my-project --verbose --dry-run
 | `CREATE_CONCURRENCY` | Max concurrent operations | `5` |
 | `NODE_ENV` | Environment mode | `production` |
 | `DEBUG` | Debug mode | `false` |
+
+## Best Practices
+
+### Error Handling with Result Pattern
+
+Always use the Result pattern for explicit error handling:
+
+```typescript
+import { createPackage } from '@bfra.me/create'
+import { isOk, isErr } from '@bfra.me/es/result'
+
+async function createMyProject() {
+  const result = await createPackage({
+    name: 'my-project',
+    template: 'library',
+    outputDir: './my-project',
+    interactive: false
+  })
+
+  if (isErr(result)) {
+    // Handle error explicitly
+    console.error('Failed to create project:', result.error.message)
+    process.exit(1)
+  }
+
+  console.log('Project created at:', result.data.projectPath)
+}
+```
+
+### Validation Before Operations
+
+Always validate user input before performing operations:
+
+```typescript
+import {
+  validateProjectName,
+  validateProjectPath,
+  createPackage
+} from '@bfra.me/create'
+import { isOk, isErr } from '@bfra.me/es/result'
+
+async function safeCreateProject(name: string, outputDir: string) {
+  // Validate inputs first
+  const nameResult = validateProjectName(name, { allowScoped: true })
+  if (isErr(nameResult)) {
+    throw new Error(`Invalid project name: ${nameResult.error.message}`)
+  }
+
+  const pathResult = validateProjectPath(outputDir)
+  if (isErr(pathResult)) {
+    throw new Error(`Invalid output path: ${pathResult.error.message}`)
+  }
+
+  // Now safe to use validated, branded types
+  return createPackage({
+    name: nameResult.data,
+    outputDir: pathResult.data,
+    template: 'library',
+    interactive: false
+  })
+}
+```
+
+### Using Functional Factories
+
+Prefer functional factories over class instantiation:
+
+```typescript
+import { createLLMClient, createTemplateResolver } from '@bfra.me/create'
+import { isOk } from '@bfra.me/es/result'
+
+// Create LLM client with auto provider detection
+const llm = createLLMClient({ provider: 'auto' })
+
+// Create template resolver with custom config
+const resolver = createTemplateResolver({
+  builtinTemplatesDir: './custom-templates',
+  strictMode: true
+})
+
+// Use Result-based methods for safety
+const resolveResult = resolver.resolveWithResult('library')
+if (isOk(resolveResult)) {
+  const validationResult = await resolver.validateWithResult(resolveResult.data)
+  if (isOk(validationResult)) {
+    console.log('Template is valid!')
+  }
+}
+```
+
+### Handling AI Feature Availability
+
+Check AI availability before using AI-powered features:
+
+```typescript
+import { createLLMClient } from '@bfra.me/create'
+import { isOk } from '@bfra.me/es/result'
+
+const client = createLLMClient({ provider: 'auto' })
+
+// Check if any AI provider is available
+if (client.isAvailable()) {
+  const result = await client.complete('Analyze this project')
+  if (isOk(result) && result.data.success) {
+    console.log('AI Response:', result.data.content)
+  }
+} else {
+  console.log('AI features not available. Set OPENAI_API_KEY or ANTHROPIC_API_KEY.')
+}
+```
+
+### Template Processing Pipeline
+
+Use the canonical pipeline for complex template operations:
+
+```typescript
+import { createTemplateProcessingPipeline } from '@bfra.me/create'
+import { isOk } from '@bfra.me/es/result'
+
+const pipeline = createTemplateProcessingPipeline({
+  cacheEnabled: true,
+  verbose: true,
+  dryRun: false,
+  ignorePatterns: ['**/node_modules/**', '**/.git/**']
+})
+
+const result = await pipeline.execute(
+  { type: 'builtin', location: 'library' },
+  './output',
+  {
+    projectName: 'my-library',
+    author: 'Your Name',
+    description: 'A great library'
+  }
+)
+
+if (isOk(result)) {
+  console.log('Files processed:', result.data.operations.length)
+  console.log('Stage timings:', result.data.stats.stageTimings)
+}
+```
+
+### Error Code Handling
+
+Handle specific error codes for appropriate user feedback:
+
+```typescript
+import {
+  createPackage,
+  TemplateErrorCode,
+  AIErrorCode,
+  CLIErrorCode,
+  isBaseError
+} from '@bfra.me/create'
+import { isErr } from '@bfra.me/es/result'
+
+const result = await createPackage(options)
+
+if (isErr(result) && isBaseError(result.error)) {
+  switch (result.error.code) {
+    case TemplateErrorCode.TEMPLATE_NOT_FOUND:
+      console.log('Template not found. Try: create --template library')
+      break
+    case TemplateErrorCode.TEMPLATE_FETCH_FAILED:
+      console.log('Network error. Check your internet connection.')
+      break
+    case CLIErrorCode.DIRECTORY_EXISTS:
+      console.log('Directory exists. Use --force to overwrite.')
+      break
+    case CLIErrorCode.PATH_TRAVERSAL_ATTEMPT:
+      console.log('Security: Invalid path detected.')
+      break
+    case AIErrorCode.AI_API_KEY_MISSING:
+      console.log('AI requires OPENAI_API_KEY or ANTHROPIC_API_KEY')
+      break
+    default:
+      console.log('Error:', result.error.message)
+  }
+}
+```
 
 ## Contributing
 

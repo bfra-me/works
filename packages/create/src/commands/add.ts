@@ -32,7 +32,6 @@ export async function addFeatureToProject(options: AddFeatureOptions): Promise<v
     consola.info('Starting feature addition process...')
   }
 
-  // Validate target directory
   if (!isNodeProject(targetDir)) {
     throw new Error(
       `Target directory does not contain a valid Node.js project. Please run this command in a project directory with a package.json file.`,
@@ -41,7 +40,6 @@ export async function addFeatureToProject(options: AddFeatureOptions): Promise<v
 
   intro(`Adding ${feature} to your project`)
 
-  // Analyze existing project
   const s = spinner()
   s.start('Analyzing project structure...')
   const projectInfo = await analyzeProject(targetDir)
@@ -56,7 +54,6 @@ export async function addFeatureToProject(options: AddFeatureOptions): Promise<v
     })
   }
 
-  // Check if feature is available
   const availableFeatures = getAvailableFeatures()
   const featureInfo = getFeatureInfo(feature)
 
@@ -83,7 +80,6 @@ export async function addFeatureToProject(options: AddFeatureOptions): Promise<v
     }
   }
 
-  // Check for conflicts
   const conflicts = await detectConflicts(targetDir, feature, projectInfo)
 
   if (conflicts.length > 0 && !skipConfirm) {
@@ -110,7 +106,7 @@ export async function addFeatureToProject(options: AddFeatureOptions): Promise<v
     await resolveConflicts(conflicts, resolution as string, targetDir)
   }
 
-  // Create backup before making changes
+  // Backup enables safe rollback if feature addition fails partway through
   let backupId: string | undefined
   if (!dryRun) {
     const s = spinner()
@@ -124,7 +120,6 @@ export async function addFeatureToProject(options: AddFeatureOptions): Promise<v
   }
 
   try {
-    // Add the feature
     const s = spinner()
     s.start(`Adding ${feature}...`)
 
@@ -143,7 +138,6 @@ export async function addFeatureToProject(options: AddFeatureOptions): Promise<v
     } else {
       outro(`✅ Successfully added ${feature} to your project!`)
 
-      // Show next steps if available
       if (featureInfo?.nextSteps) {
         consola.info('\nNext steps:')
         for (const step of featureInfo.nextSteps) {
@@ -154,7 +148,6 @@ export async function addFeatureToProject(options: AddFeatureOptions): Promise<v
   } catch (error) {
     const err = error as Error
 
-    // Restore backup on failure
     if (backupId != null && !dryRun) {
       consola.warn('Feature addition failed, restoring backup...')
       try {
@@ -200,15 +193,12 @@ export async function handleAddCommand(options: AddCommandOptions): Promise<void
   const {feature, verbose, dryRun} = options
 
   try {
-    // Handle list option
     if (feature === '--list' || feature === 'list') {
       await listAvailableFeatures()
       return
     }
 
-    // Handle interactive mode for feature selection
-    if (feature) {
-      // Direct feature addition
+    if (feature.length > 0) {
       await addFeatureToProject({
         feature,
         verbose,

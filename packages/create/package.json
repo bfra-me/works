@@ -38,15 +38,18 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsx src/cli.ts",
-    "prepack": "pnpm run build",
+    "prepack": "pnpm --filter-prod=\"{.}...\" run build",
     "start": "node dist/index.js",
+    "type-check": "tsc --noEmit",
     "test": "vitest run",
+    "lint": "eslint",
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
     "test:watch": "vitest"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.71.0",
+    "@bfra.me/es": "workspace:*",
     "@clack/prompts": "0.11.0",
     "cac": "6.7.14",
     "consola": "3.4.2",
