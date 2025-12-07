@@ -416,6 +416,58 @@ title: Test
 
       expect(result.success).toBe(true)
     })
+
+    it.concurrent('should not treat TypeScript generics in inline code as JSX tags', () => {
+      const mdx = `---
+title: Test
+---
+
+# Type Safety
+
+Use the \`Result<T, E>\` type for error handling.
+
+All operations return \`Result<T, E>\` discriminated unions.
+`
+      const result = validateMDXSyntax(mdx)
+
+      expect(result.success).toBe(true)
+    })
+
+    it.concurrent('should not treat generics in fenced code blocks as JSX tags', () => {
+      const mdx = `---
+title: Test
+---
+
+# Example
+
+\`\`\`typescript
+function process<T, E>(result: Result<T, E>): T {
+  return result.value
+}
+\`\`\`
+`
+      const result = validateMDXSyntax(mdx)
+
+      expect(result.success).toBe(true)
+    })
+
+    it.concurrent('should handle mixed inline code and JSX components', () => {
+      const mdx = `---
+title: Test
+---
+
+# Documentation
+
+Use \`Result<T, E>\` with the following component:
+
+<Badge text="TypeScript" variant="tip" />
+
+The \`Option<T>\` type is also available.
+`
+      const result = validateMDXSyntax(mdx)
+
+      expect(result.success).toBe(true)
+    })
   })
 
   describe('edge cases', () => {

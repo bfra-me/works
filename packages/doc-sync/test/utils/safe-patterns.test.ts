@@ -188,6 +188,52 @@ const y = 2
       expect(duration).toBeLessThan(100)
       expect(blocks.length).toBeGreaterThan(0)
     })
+
+    it('should extract inline code spans', () => {
+      const content = 'This is `inline code` in a sentence.'
+      const blocks = extractCodeBlocks(content)
+
+      expect(blocks).toHaveLength(1)
+      expect(blocks[0]).toBe('`inline code`')
+    })
+
+    it('should extract TypeScript generics in inline code', () => {
+      const content = 'Use the `Result<T, E>` type for error handling.'
+      const blocks = extractCodeBlocks(content)
+
+      expect(blocks).toHaveLength(1)
+      expect(blocks[0]).toBe('`Result<T, E>`')
+    })
+
+    it('should extract both fenced and inline code', () => {
+      const content = `
+# Title
+
+Here is \`inline code\` in text.
+
+\`\`\`typescript
+const x = 1
+\`\`\`
+
+More text with \`Result<T, E>\` types.
+`
+      const blocks = extractCodeBlocks(content)
+
+      expect(blocks.length).toBeGreaterThanOrEqual(3)
+      // Should include both inline code spans and fenced block
+      expect(blocks.some(b => b.includes('inline code'))).toBe(true)
+      expect(blocks.some(b => b.includes('Result<T, E>'))).toBe(true)
+      expect(blocks.some(b => b.includes('const x = 1'))).toBe(true)
+    })
+
+    it('should handle multiple inline code spans in one line', () => {
+      const content = 'Use `Result<T>` or `Option<T>` for handling values.'
+      const blocks = extractCodeBlocks(content)
+
+      expect(blocks).toHaveLength(2)
+      expect(blocks[0]).toBe('`Result<T>`')
+      expect(blocks[1]).toBe('`Option<T>`')
+    })
   })
 
   describe('performance Benchmarks', () => {
