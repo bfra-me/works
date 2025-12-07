@@ -7,6 +7,7 @@
 
 import type {Analyzer, AnalyzerRegistration} from './analyzer'
 
+import {createArchitecturalAnalyzer} from './architectural-analyzer'
 import {createBuildConfigAnalyzer} from './build-config-analyzer'
 import {createCircularImportAnalyzer} from './circular-import-analyzer'
 import {createConfigConsistencyAnalyzer} from './config-consistency-analyzer'
@@ -29,6 +30,9 @@ export type {
   AnalyzerRegistration,
 } from './analyzer'
 export {createIssue, filterIssues, meetsMinSeverity, shouldAnalyzeCategory} from './analyzer'
+
+export type {ArchitecturalAnalyzerOptions} from './architectural-analyzer'
+export {architecturalAnalyzerMetadata, createArchitecturalAnalyzer} from './architectural-analyzer'
 
 export type {BuildConfigAnalyzerOptions} from './build-config-analyzer'
 export {buildConfigAnalyzerMetadata, createBuildConfigAnalyzer} from './build-config-analyzer'
@@ -187,6 +191,8 @@ export const BUILTIN_ANALYZER_IDS = {
   CIRCULAR_IMPORT: 'circular-import',
   PEER_DEPENDENCY: 'peer-dependency',
   DUPLICATE_DEPENDENCY: 'duplicate-dependency',
+  // Architectural analyzer
+  ARCHITECTURAL: 'architectural',
 } as const
 
 /**
@@ -277,6 +283,13 @@ export function createDefaultRegistry(): AnalyzerRegistry {
     priority: 110,
   })
 
+  // Architectural analyzer
+  registry.register(BUILTIN_ANALYZER_IDS.ARCHITECTURAL, {
+    analyzer: createArchitecturalAnalyzer(),
+    enabled: true,
+    priority: 120,
+  })
+
   return registry
 }
 
@@ -296,4 +309,6 @@ export const builtinAnalyzers = {
   circularImport: createCircularImportAnalyzer,
   peerDependency: createPeerDependencyAnalyzer,
   duplicateDependency: createDuplicateDependencyAnalyzer,
+  // Architectural analyzer
+  architectural: createArchitecturalAnalyzer,
 } as const
