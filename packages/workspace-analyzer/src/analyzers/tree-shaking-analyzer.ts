@@ -599,7 +599,7 @@ function filterSourceFiles(
         const regex = patternToRegex(pattern)
         return regex.test(filePath)
       }
-      return fileName.includes(pattern.replace('*', ''))
+      return fileName.includes(pattern.replaceAll('*', ''))
     })
   })
 }
