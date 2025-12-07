@@ -273,6 +273,109 @@ describe('config-parser', () => {
       expect(result.success).toBe(true)
       expect(result.success && result.data.compilerOptions?.strict).toBe(true)
     })
+
+    it.concurrent(
+      'should handle many slashes without performance degradation (ReDoS protection)',
+      () => {
+        // This would cause ReDoS with the old /\/\/.*$/gm regex pattern
+        // Test with thousands of slashes to verify linear time complexity
+        const manySlashes = '/'.repeat(10000)
+        const content = `{
+        "compilerOptions": {
+          "comment": "${manySlashes}"
+        }
+      }`
+
+        const start = Date.now()
+        const result = parseTsConfigContent(content, '/path/to/tsconfig.json')
+        const duration = Date.now() - start
+
+        expect(result.success).toBe(true)
+        expect(duration).toBeLessThan(100) // Should complete quickly (< 100ms)
+      },
+    )
+
+    it.concurrent('should preserve // in URLs within JSON strings', () => {
+      const content = `{
+        // Comment with URL: http://example.com
+        "compilerOptions": {
+          "outDir": "./lib" // inline comment
+        },
+        "include": ["http://example.com/src"]
+      }`
+
+      const result = parseTsConfigContent(content, '/path/to/tsconfig.json')
+
+      expect(result.success).toBe(true)
+      expect(result.success && result.data.include).toEqual(['http://example.com/src'])
+    })
+
+    it.concurrent('should handle multiple // patterns on single line', () => {
+      const content = `{
+        "compilerOptions": {
+          "paths": {
+            "@/*": ["./src/*"] // Path mapping // with multiple comments
+          }
+        }
+      }`
+
+      const result = parseTsConfigContent(content, '/path/to/tsconfig.json')
+
+      expect(result.success).toBe(true)
+      expect(result.success && result.data.compilerOptions?.paths).toBeDefined()
+    })
+
+    it.concurrent('should handle many lines with // comments', () => {
+      // Test with many lines containing comments
+      const lines = Array.from({length: 1000}, (_, i) => `  "field${i}": "value${i}", // comment`)
+      const content = `{
+        "compilerOptions": {
+          ${lines.join('\n')}
+          "strict": true
+        }
+      }`
+
+      const start = Date.now()
+      const result = parseTsConfigContent(content, '/path/to/tsconfig.json')
+      const duration = Date.now() - start
+
+      expect(result.success).toBe(true)
+      expect(duration).toBeLessThan(500) // Should handle 1000 lines quickly
+    })
+
+    it.concurrent('should handle mixed comment types', () => {
+      const content = `{
+        /* Block comment at start */
+        "compilerOptions": {
+          // Single line comment
+          "target": "ES2022", /* inline block */ // and single line
+          "module": "NodeNext" // another comment
+        } /* block comment */
+        // Final comment
+      }`
+
+      const result = parseTsConfigContent(content, '/path/to/tsconfig.json')
+
+      expect(result.success).toBe(true)
+      expect(result.success && result.data.compilerOptions?.target).toBe('ES2022')
+      expect(result.success && result.data.compilerOptions?.module).toBe('NodeNext')
+    })
+
+    it.concurrent('should handle empty lines with // comments', () => {
+      const content = `{
+        //
+        // Empty comment lines
+        //
+        "compilerOptions": {
+          "strict": true
+        }
+      }`
+
+      const result = parseTsConfigContent(content, '/path/to/tsconfig.json')
+
+      expect(result.success).toBe(true)
+      expect(result.success && result.data.compilerOptions?.strict).toBe(true)
+    })
   })
 
   describe('getAllDependencies', () => {

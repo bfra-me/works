@@ -426,14 +426,66 @@ function isNodeError(error: unknown): error is Error & {code: string} {
  * Strips JSON comments (// and /* *\/) and trailing commas.
  */
 function stripJsonComments(content: string): string {
-  // Remove single-line comments
-  let result = content.replaceAll(/\/\/.*$/gm, '')
+  // Use character-based scanning to safely remove comments
+  // This avoids ReDoS vulnerabilities from regex patterns like /\/\/.*$/gm
+  let result = ''
+  let i = 0
+  let inString = false
+  let stringChar = ''
 
-  // Remove multi-line comments
-  result = result.replaceAll(/\/\*[\s\S]*?\*\//g, '')
+  while (i < content.length) {
+    const char = content[i]
+    const nextChar = content[i + 1]
+
+    // Track string boundaries to avoid removing // inside strings
+    if ((char === '"' || char === "'") && (i === 0 || content[i - 1] !== '\\')) {
+      if (!inString) {
+        inString = true
+        stringChar = char
+      } else if (char === stringChar) {
+        inString = false
+        stringChar = ''
+      }
+      result += char
+      i++
+      continue
+    }
+
+    // Skip comments only when not inside a string
+    if (!inString) {
+      // Single-line comment
+      if (char === '/' && nextChar === '/') {
+        // Skip until end of line
+        while (i < content.length && content[i] !== '\n') {
+          i++
+        }
+        // Include the newline
+        if (i < content.length) {
+          result += content[i]
+          i++
+        }
+        continue
+      }
+
+      // Multi-line comment
+      if (char === '/' && nextChar === '*') {
+        // Skip until */
+        i += 2
+        while (i < content.length - 1) {
+          if (content[i] === '*' && content[i + 1] === '/') {
+            i += 2
+            break
+          }
+          i++
+        }
+        continue
+      }
+    }
+
+    result += char
+    i++
+  }
 
   // Remove trailing commas before } or ]
-  result = result.replaceAll(/,(\s*[}\]])/g, '$1')
-
-  return result
+  return result.replaceAll(/,(\s*[}\]])/g, '$1')
 }
