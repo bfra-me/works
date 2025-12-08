@@ -29,9 +29,9 @@ describe('@bfra.me/es/env - helpers', () => {
       expect(hasNonEmptyEnv('TEST_VAR')).toBe(false)
     })
 
-    it('should return true for whitespace-only value', () => {
+    it('should return false for whitespace-only value', () => {
       process.env.TEST_VAR = '   '
-      expect(hasNonEmptyEnv('TEST_VAR')).toBe(true)
+      expect(hasNonEmptyEnv('TEST_VAR')).toBe(false)
     })
 
     it('should return true for single character value', () => {

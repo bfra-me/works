@@ -1,5 +1,5 @@
 import type {AIConfig, DependencyRecommendation, ProjectAnalysis} from '../types.js'
-import process from 'node:process'
+import {hasNonEmptyEnv} from '@bfra.me/es/env'
 import {CodeGenerator, type CodeGenerationResult} from './code-generator.js'
 import {DependencyRecommender} from './dependency-recommender.js'
 import {ProjectAnalyzer} from './project-analyzer.js'
@@ -272,10 +272,10 @@ export class CliAIIntegration {
     const providers: string[] = []
     const limitations: string[] = []
 
-    if (process.env.OPENAI_API_KEY != null) {
+    if (hasNonEmptyEnv('OPENAI_API_KEY')) {
       providers.push('OpenAI')
     }
-    if (process.env.ANTHROPIC_API_KEY != null) {
+    if (hasNonEmptyEnv('ANTHROPIC_API_KEY')) {
       providers.push('Anthropic')
     }
 

@@ -6,7 +6,7 @@
  * replacing inline environment variable checks throughout the codebase.
  */
 
-import process from 'node:process'
+import {hasNonEmptyEnv} from '@bfra.me/es/env'
 
 /**
  * Describes the AI capabilities available in the current environment
@@ -50,11 +50,8 @@ export interface AICapabilities {
  * ```
  */
 export function getAICapabilities(requestedProvider?: string): AICapabilities {
-  const openaiKey = process.env.OPENAI_API_KEY
-  const anthropicKey = process.env.ANTHROPIC_API_KEY
-
-  const hasOpenAI = openaiKey !== undefined && openaiKey.trim().length > 0
-  const hasAnthropic = anthropicKey !== undefined && anthropicKey.trim().length > 0
+  const hasOpenAI = hasNonEmptyEnv('OPENAI_API_KEY')
+  const hasAnthropic = hasNonEmptyEnv('ANTHROPIC_API_KEY')
 
   // Determine provider priority
   let provider: 'openai' | 'anthropic' | 'none' = 'none'

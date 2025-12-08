@@ -155,148 +155,156 @@ export async function createPackage(
   }
 
   let tempOutputDir: string | undefined
-  if (finalOptions.dryRun) {
-    const {mkdtemp} = await import('node:fs/promises')
-    const {tmpdir} = await import('node:os')
-    tempOutputDir = await mkdtemp(path.join(tmpdir(), 'bfra-me-create-'))
-    outputDir = tempOutputDir
-  }
+  try {
+    if (finalOptions.dryRun) {
+      const {mkdtemp} = await import('node:fs/promises')
+      const {tmpdir} = await import('node:os')
+      tempOutputDir = await mkdtemp(path.join(tmpdir(), 'bfra-me-create-'))
+      outputDir = tempOutputDir
+    }
 
-  if (finalOptions.verbose) {
-    consola.info('Creating project with options:', {
-      projectName,
-      template,
-      outputDir,
-      author,
-      description,
-      version,
-      dryRun: Boolean(finalOptions.dryRun),
-    })
-  }
+    if (finalOptions.verbose) {
+      consola.info('Creating project with options:', {
+        projectName,
+        template,
+        outputDir,
+        author,
+        description,
+        version,
+        dryRun: Boolean(finalOptions.dryRun),
+      })
+    }
 
-  const templateSource = templateResolver.resolve(template)
-  const sourceValidation = await templateResolver.validate(templateSource)
+    const templateSource = templateResolver.resolve(template)
+    const sourceValidation = await templateResolver.validate(templateSource)
 
-  if (!sourceValidation.valid) {
-    return err(
-      templateInvalidError(
-        `Invalid template: ${sourceValidation.errors?.join(', ')}`,
-        sourceValidation.errors?.join(', ') ?? 'validation failed',
-      ),
+    if (!sourceValidation.valid) {
+      return err(
+        templateInvalidError(
+          `Invalid template: ${sourceValidation.errors?.join(', ')}`,
+          sourceValidation.errors?.join(', ') ?? 'validation failed',
+        ),
+      )
+    }
+
+    if (finalOptions.verbose) {
+      consola.info('Template source resolved:', templateSource)
+    }
+
+    const fetchResult = await templateFetcher.fetch(
+      templateSource,
+      path.join(outputDir, '.template'),
     )
-  }
 
-  if (finalOptions.verbose) {
-    consola.info('Template source resolved:', templateSource)
-  }
+    if (isErr(fetchResult)) {
+      return err(fetchResult.error)
+    }
 
-  const fetchResult = await templateFetcher.fetch(templateSource, path.join(outputDir, '.template'))
+    const {path: templatePath, metadata} = fetchResult.data
 
-  if (isErr(fetchResult)) {
-    return err(fetchResult.error)
-  }
+    if (finalOptions.verbose) {
+      consola.info('Template fetched:', {templatePath, metadata})
+    }
 
-  const {path: templatePath, metadata} = fetchResult.data
-
-  if (finalOptions.verbose) {
-    consola.info('Template fetched:', {templatePath, metadata})
-  }
-
-  const context: TemplateContext = {
-    projectName,
-    description,
-    author,
-    version,
-    packageManager: finalOptions.packageManager || 'npm',
-    variables: {
-      name: projectName,
+    const context: TemplateContext = {
+      projectName,
       description,
       author,
       version,
-      year: new Date().getFullYear(),
-      date: new Date().toISOString().split('T')[0],
-      kebabCase: (str: string) =>
-        str
-          .replaceAll(/([a-z])([A-Z])/g, '$1-$2')
-          .replaceAll(/[\s_]+/g, '-')
-          .toLowerCase(),
-      camelCase: (str: string) =>
-        str
-          .replaceAll(/^\w|[A-Z]|\b\w/g, (word, index) =>
-            index === 0 ? word.toLowerCase() : word.toUpperCase(),
-          )
-          .replaceAll(/\s+/g, ''),
-      pascalCase: (str: string) =>
-        str.replaceAll(/^\w|[A-Z]|\b\w/g, word => word.toUpperCase()).replaceAll(/\s+/g, ''),
-      snakeCase: (str: string) =>
-        str
-          .replaceAll(/([a-z])([A-Z])/g, '$1_$2')
-          .replaceAll(/[\s-]+/g, '_')
-          .toLowerCase(),
-    },
-  }
+      packageManager: finalOptions.packageManager || 'npm',
+      variables: {
+        name: projectName,
+        description,
+        author,
+        version,
+        year: new Date().getFullYear(),
+        date: new Date().toISOString().split('T')[0],
+        kebabCase: (str: string) =>
+          str
+            .replaceAll(/([a-z])([A-Z])/g, '$1-$2')
+            .replaceAll(/[\s_]+/g, '-')
+            .toLowerCase(),
+        camelCase: (str: string) =>
+          str
+            .replaceAll(/^\w|[A-Z]|\b\w/g, (word, index) =>
+              index === 0 ? word.toLowerCase() : word.toUpperCase(),
+            )
+            .replaceAll(/\s+/g, ''),
+        pascalCase: (str: string) =>
+          str.replaceAll(/^\w|[A-Z]|\b\w/g, word => word.toUpperCase()).replaceAll(/\s+/g, ''),
+        snakeCase: (str: string) =>
+          str
+            .replaceAll(/([a-z])([A-Z])/g, '$1_$2')
+            .replaceAll(/[\s-]+/g, '_')
+            .toLowerCase(),
+      },
+    }
 
-  const contextValidation = templateProcessor.validateContext(
-    context,
-    metadata.variables?.map((v: {name: string}) => v.name),
-  )
-  if (!contextValidation.valid) {
-    consola.warn('Template context validation warnings:', contextValidation.missing)
-  }
+    const contextValidation = templateProcessor.validateContext(
+      context,
+      metadata.variables?.map((v: {name: string}) => v.name),
+    )
+    if (!contextValidation.valid) {
+      consola.warn('Template context validation warnings:', contextValidation.missing)
+    }
 
-  if (finalOptions.force === true) {
-    try {
-      const {existsSync, readdirSync} = await import('node:fs')
-      const {rm} = await import('node:fs/promises')
+    if (finalOptions.force === true) {
+      try {
+        const {existsSync, readdirSync} = await import('node:fs')
+        const {rm} = await import('node:fs/promises')
 
-      if (existsSync(outputDir)) {
-        const entries = readdirSync(outputDir)
-        for (const entry of entries) {
-          const entryPath = path.join(outputDir, entry)
-          if (entry !== '.template') {
-            await rm(entryPath, {recursive: true, force: true})
+        if (existsSync(outputDir)) {
+          const entries = readdirSync(outputDir)
+          for (const entry of entries) {
+            const entryPath = path.join(outputDir, entry)
+            if (entry !== '.template') {
+              await rm(entryPath, {recursive: true, force: true})
+            }
           }
         }
+      } catch (error) {
+        consola.warn('Failed to clear existing directory:', error)
       }
-    } catch (error) {
-      consola.warn('Failed to clear existing directory:', error)
     }
-  }
 
-  const processResult = await templateProcessor.process(templatePath, outputDir, context)
+    const processResult = await templateProcessor.process(templatePath, outputDir, context)
 
-  if (isErr(processResult)) {
-    return err({
-      code: 'TEMPLATE_RENDER_ERROR',
-      message: processResult.error?.message ?? 'Failed to process template',
-      file: templatePath,
-      cause: processResult.error instanceof Error ? processResult.error : undefined,
-    })
-  }
+    if (isErr(processResult)) {
+      return err({
+        code: 'TEMPLATE_RENDER_ERROR',
+        message: processResult.error?.message ?? 'Failed to process template',
+        file: templatePath,
+        cause: processResult.error instanceof Error ? processResult.error : undefined,
+      })
+    }
 
-  try {
-    await import('node:fs/promises').then(async fs =>
-      fs.rm(path.join(outputDir, '.template'), {recursive: true, force: true}),
-    )
-  } catch {
-    // Ignore cleanup errors - non-critical
-  }
-
-  if (finalOptions.dryRun && tempOutputDir != null) {
+    // Cleanup template temporary directory
     try {
       await import('node:fs/promises').then(async fs =>
-        fs.rm(tempOutputDir, {recursive: true, force: true}),
+        fs.rm(path.join(outputDir, '.template'), {recursive: true, force: true}),
       )
     } catch {
       // Ignore cleanup errors - non-critical
     }
-  }
 
-  if (finalOptions.verbose) {
-    consola.info(`Template processed: ${processResult.data.operations.length} operations completed`)
-  }
+    if (finalOptions.verbose) {
+      consola.info(
+        `Template processed: ${processResult.data.operations.length} operations completed`,
+      )
+    }
 
-  return ok({projectPath: outputDir})
+    return ok({projectPath: outputDir})
+  } finally {
+    // Ensure temp directory cleanup happens even on errors
+    if (finalOptions.dryRun && tempOutputDir != null) {
+      try {
+        const {rm} = await import('node:fs/promises')
+        await rm(tempOutputDir, {recursive: true, force: true})
+      } catch {
+        // Ignore cleanup errors - non-critical in finally block
+      }
+    }
+  }
 }
 
 export {createPackage as default}

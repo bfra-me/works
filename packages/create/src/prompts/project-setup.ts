@@ -10,7 +10,7 @@ import type {
   ProjectSetupResult,
   TemplateSelection,
 } from '../types.js'
-import process from 'node:process'
+import {hasNonEmptyEnv} from '@bfra.me/es/env'
 import {isErr} from '@bfra.me/es/result'
 import {cancel, intro, isCancel, outro, spinner, text} from '@clack/prompts'
 import {consola} from 'consola'
@@ -36,9 +36,8 @@ export async function projectSetup(
 
   // Check if AI features should be enabled
   const aiEnabled = initialOptions.ai === true || initialOptions.describe != null
-  const hasOpenAI = process.env.OPENAI_API_KEY != null && process.env.OPENAI_API_KEY.length > 0
-  const hasAnthropic =
-    process.env.ANTHROPIC_API_KEY != null && process.env.ANTHROPIC_API_KEY.length > 0
+  const hasOpenAI = hasNonEmptyEnv('OPENAI_API_KEY')
+  const hasAnthropic = hasNonEmptyEnv('ANTHROPIC_API_KEY')
   const hasAIKeys = hasOpenAI || hasAnthropic
 
   // AI Status indication
