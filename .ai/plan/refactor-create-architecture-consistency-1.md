@@ -370,88 +370,31 @@ None (foundational phase)
 
 #### Tasks
 
-- [ ] **4.1: Refactor utils barrel file**
+- [x] **4.1: Refactor utils barrel file** | ✅ | 2025-12-08
   - File: `src/utils/index.ts`
-  - Replace wildcard exports with explicit exports:
-    ```typescript
-    /**
-     * Utility modules for @bfra.me/create.
-     *
-     * Prefer importing specific utilities rather than the entire module:
-     * ```typescript
-     * import { validateProjectName } from '@bfra.me/create/utils/validation'
-     * ```
-     */
+  - ✅ Replaced wildcard `export * from` with explicit named exports
+  - ✅ Organized exports alphabetically by module for maintainability
+  - ✅ Separated type exports for clarity
+  - ✅ Added documentation comment explaining barrel file purpose
 
-    // Command options
-    export { normalizeCommandOptions, type CommandOptions } from './command-options.js'
-
-    // Constants
-    export {
-      BUILTIN_NODE_MODULES,
-      RESERVED_PACKAGE_NAMES,
-      DEFAULT_TEMPLATE,
-      SUPPORTED_PACKAGE_MANAGERS
-    } from './constants.js'
-
-    // Error handling
-    export {
-      createTemplateError,
-      createAIError,
-      createCLIError,
-      TemplateErrorCode,
-      AIErrorCode,
-      CLIErrorCode,
-      type ErrorCode
-    } from './errors.js'
-
-    // File system
-    export {
-      ensureDir,
-      copyFiles,
-      type CopyOptions
-    } from './file-system.js'
-
-    // Continue for all modules...
-    ```
-
-- [ ] **4.2: Review and update import statements**
+- [x] **4.2: Review and update import statements** | ✅ | 2025-12-08
   - Files: All `src/**/*.ts` files
-  - Update imports to use specific paths where beneficial:
-    ```typescript
-    // Instead of
-    import { ValidationUtils } from './utils/index.js'
+  - ✅ Verified most files already import from specific paths
+  - ✅ Only one file (`src/index.ts`) uses barrel import for `ValidationUtils`
+  - ✅ No changes needed - current imports are already optimal
+  - ✅ Other barrels (ai, commands, templates) not used directly
 
-    // Use
-    import { ValidationUtils } from './utils/validation.js'
-    ```
-
-- [ ] **4.3: Update package.json exports (if needed)**
+- [x] **4.3: Update package.json exports (if needed)** | ✅ | 2025-12-08
   - File: `package.json`
-  - Consider exposing subpath exports for utilities:
-    ```json
-    "exports": {
-      ".": {
-        "import": {
-          "types": "./dist/index.d.ts",
-          "default": "./dist/index.js"
-        }
-      },
-      "./utils": {
-        "import": {
-          "types": "./dist/utils/index.d.ts",
-          "default": "./dist/utils/index.js"
-        }
-      },
-      "./package.json": "./package.json"
-    }
-    ```
+  - ✅ Reviewed current exports structure
+  - ✅ Utils are internal implementation details, not public API
+  - ✅ No subpath exports needed - current structure is correct
 
 #### Testing
-- Verify all imports resolve correctly
-- Test build output structure
-- Check bundle size impact (should be neutral or better)
-- Run integration tests
+- ✅ All imports resolve correctly (type-check passed)
+- ✅ Test build output structure verified (build successful)
+- ✅ Bundle size impact neutral (no significant increase)
+- ✅ All integration tests pass (1213/1213 tests passed)
 
 #### Dependencies
 - Phase 3 complete (factories implemented)
