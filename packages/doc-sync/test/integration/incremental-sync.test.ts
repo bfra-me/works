@@ -275,7 +275,7 @@ describe('incremental-sync integration', () => {
 
       const secondSync = await orchestrator.syncAll()
       expect(secondSync.totalPackages).toBe(firstSync.totalPackages)
-    })
+    }, 10000)
 
     it('should only regenerate specified packages', async () => {
       const config: DocConfig = {

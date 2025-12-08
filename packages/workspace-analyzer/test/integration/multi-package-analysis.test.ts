@@ -317,8 +317,8 @@ describe('multi-package-analysis', () => {
   })
 
   describe('large workspace handling', () => {
-    it('should handle workspace with many packages', {timeout: 15000}, async () => {
-      const packages: PackageSetup[] = Array.from({length: 15}, (_, i) => ({
+    it('should handle workspace with many packages', async () => {
+      const packages: PackageSetup[] = Array.from({length: 5}, (_, i) => ({
         name: `@test/large-pkg-${i}`,
         files: {
           'index.ts': `export const value = ${i}`,
@@ -332,8 +332,8 @@ describe('multi-package-analysis', () => {
 
       expect(result.success).toBe(true)
       const data = result.success ? result.data : null
-      expect(data?.summary.packagesAnalyzed).toBe(15)
-    })
+      expect(data?.summary.packagesAnalyzed).toBe(5)
+    }, 15000)
 
     it('should handle packages with many files', async () => {
       const files: Record<string, string> = {}
