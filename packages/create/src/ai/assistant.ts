@@ -13,8 +13,52 @@ import {LLMClient} from './llm-client.js'
 import {ProjectAnalyzer} from './project-analyzer.js'
 
 /**
- * AI-powered assistant for conversational project setup
- * Provides an interactive, guided experience for creating new projects
+ * AI assistant interface for the functional factory.
+ *
+ * Provides methods for interactive, AI-assisted project setup.
+ */
+export interface AIAssistantInterface {
+  /**
+   * Start an interactive AI-assisted project setup session.
+   *
+   * @param initialOptions - Optional initial command options
+   * @returns Final command options after interactive session
+   */
+  startAssistSession: (
+    initialOptions?: Partial<CreateCommandOptions>,
+  ) => Promise<CreateCommandOptions>
+
+  /**
+   * Continue an existing assist session.
+   *
+   * @param sessionId - Session ID to continue
+   * @returns Command options if session found, null otherwise
+   */
+  continueSession: (sessionId: string) => Promise<CreateCommandOptions | null>
+
+  /**
+   * Check if AI assistant features are available.
+   *
+   * @returns True if AI is available
+   */
+  isAIAvailable: () => boolean
+}
+
+/**
+ * AI-powered assistant for conversational project setup.
+ * Provides an interactive, guided experience for creating new projects.
+ *
+ * @deprecated Use createAIAssistant() factory function instead.
+ * Will be removed in v1.0.0.
+ *
+ * @example
+ * ```typescript
+ * // Before (deprecated)
+ * const assistant = new AIAssistant(config)
+ *
+ * // After (recommended)
+ * const assistant = createAIAssistant(config)
+ * ```
  */
 export class AIAssistant {
   private readonly llmClient: LLMClient
@@ -467,8 +511,32 @@ Focus on modern best practices, TypeScript-first development, and creating maint
 }
 
 /**
- * Create an AI assistant instance
+ * Creates an AI assistant instance for interactive, conversational project setup.
+ *
+ * @param config - Optional AI configuration
+ * @returns AI assistant instance with session methods
+ *
+ * @example
+ * ```typescript
+ * const assistant = createAIAssistant()
+ *
+ * // Check if AI is available
+ * if (assistant.isAIAvailable()) {
+ *   // Start interactive session
+ *   const options = await assistant.startAssistSession({
+ *     name: 'my-project'
+ *   })
+ *
+ *   console.log('Final options:', options)
+ * }
+ * ```
  */
-export function createAIAssistant(config?: Partial<AIConfig>): AIAssistant {
-  return new AIAssistant(config)
+export function createAIAssistant(config?: Partial<AIConfig>): AIAssistantInterface {
+  const instance = new AIAssistant(config)
+
+  return {
+    startAssistSession: instance.startAssistSession.bind(instance),
+    continueSession: instance.continueSession.bind(instance),
+    isAIAvailable: instance.isAIAvailable.bind(instance),
+  }
 }

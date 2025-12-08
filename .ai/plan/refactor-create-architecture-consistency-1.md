@@ -267,7 +267,7 @@ None (foundational phase)
 
 #### Tasks
 
-- [ ] **3.1: Create factory for TemplateFetcher**
+- [x] **3.1: Create factory for TemplateFetcher** | ✅ | 2025-12-08
   - File: `src/templates/fetcher.ts`
   - Add factory function before class:
     ```typescript
@@ -307,38 +307,38 @@ None (foundational phase)
     export class TemplateFetcher { /* existing implementation */ }
     ```
 
-- [ ] **3.2: Create factory for TemplateValidator**
+- [x] **3.2: Create factory for TemplateValidator** | ✅ | 2025-12-08
   - File: `src/templates/validator.ts`
   - Follow same pattern as 3.1
   - Export `createTemplateValidator()` factory
   - Add deprecation warning to class
 
-- [ ] **3.3: Create factory for ProjectAnalyzer**
+- [x] **3.3: Create factory for ProjectAnalyzer** | ✅ | 2025-12-08
   - File: `src/ai/project-analyzer.ts`
   - Note existing deprecation notice (line 15)
   - Create `createProjectAnalyzer()` factory
   - Update documentation to reference functional alternative
 
-- [ ] **3.4: Create factory for LLMClient**
-  - File: `src/ai/llm-client.ts`
+- [x] **3.4: Create factory for LLMClient** | ✅ | 2025-12-08
+  - File: `src/ai/llm-client.ts` (already exists in `llm-client-factory.ts`)
   - Export `createLLMClient()` factory
   - Ensure provider-agnostic interface
 
-- [ ] **3.5: Create factory for CodeGenerator**
+- [x] **3.5: Create factory for CodeGenerator** | ✅ | 2025-12-08
   - File: `src/ai/code-generator.ts`
   - Export `createCodeGenerator()` factory
   - Maintain existing functionality
 
-- [ ] **3.6: Create factory for AIAssistant**
+- [x] **3.6: Create factory for AIAssistant** | ✅ | 2025-12-08
   - File: `src/ai/assistant.ts`
   - Export `createAIAssistant()` factory
 
-- [ ] **3.7: Create factory for ConfigurationOptimizer**
+- [x] **3.7: Create factory for ConfigurationOptimizer** | ✅ | 2025-12-08
   - File: `src/ai/configuration-optimizer.ts`
   - Export `createConfigurationOptimizer()` factory
 
-- [ ] **3.8: Update all factory consumers**
-  - File: `src/index.ts`, `src/commands/add.ts`
+- [x] **3.8: Update all factory consumers** | ✅ | 2025-12-08
+  - File: `src/index.ts`, `src/prompts/project-setup.ts`
   - Replace class instantiation with factory calls:
     ```typescript
     // Before
@@ -348,7 +348,7 @@ None (foundational phase)
     const projectAnalyzer = createProjectAnalyzer({ enabled: true })
     ```
 
-- [ ] **3.9: Update main exports**
+- [x] **3.9: Update main exports** | ✅ | 2025-12-08
   - File: `src/index.ts`
   - Export factory functions alongside deprecated classes
   - Add migration notes in comments

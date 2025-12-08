@@ -19,6 +19,10 @@ vi.mock('../../src/ai/project-analyzer', () => ({
   ProjectAnalyzer: class MockProjectAnalyzer {
     analyzeProject = mockAnalyzeProject
   },
+  createProjectAnalyzer: () => ({
+    analyzeProject: mockAnalyzeProject,
+    analyzeExistingProject: vi.fn(),
+  }),
 }))
 
 vi.mock('../../src/ai/dependency-recommender', () => ({

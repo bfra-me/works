@@ -43,7 +43,14 @@ describe('CodeGenerator', () => {
   describe('createCodeGenerator', () => {
     it('creates CodeGenerator instance', () => {
       const generator = createCodeGenerator()
-      expect(generator).toBeInstanceOf(CodeGenerator)
+      // Factory returns interface with bound methods, not class instance
+      expect(generator).toBeDefined()
+      expect(generator.generateCode).toBeDefined()
+      expect(generator.generateComponent).toBeDefined()
+      expect(generator.generateFunction).toBeDefined()
+      expect(generator.generateTest).toBeDefined()
+      expect(generator.generateConfig).toBeDefined()
+      expect(typeof generator.generateCode).toBe('function')
     })
   })
 

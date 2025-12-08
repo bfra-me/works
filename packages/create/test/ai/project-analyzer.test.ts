@@ -43,7 +43,12 @@ describe('ProjectAnalyzer', () => {
   describe('createProjectAnalyzer', () => {
     it('creates ProjectAnalyzer instance', () => {
       const analyzer = createProjectAnalyzer()
-      expect(analyzer).toBeInstanceOf(ProjectAnalyzer)
+      // Factory returns interface with bound methods, not class instance
+      expect(analyzer).toBeDefined()
+      expect(analyzer.analyzeProject).toBeDefined()
+      expect(analyzer.analyzeExistingProject).toBeDefined()
+      expect(typeof analyzer.analyzeProject).toBe('function')
+      expect(typeof analyzer.analyzeExistingProject).toBe('function')
     })
   })
 

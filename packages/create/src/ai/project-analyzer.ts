@@ -9,21 +9,68 @@ import type {
 import {LLMClient} from './llm-client.js'
 
 /**
+ * Input for project analysis.
+ */
+export interface ProjectAnalysisInput {
+  /** Project description */
+  description?: string
+  /** Project name */
+  name?: string
+  /** Keywords for project categorization */
+  keywords?: string[]
+  /** Target audience */
+  targetAudience?: string
+  /** Project requirements */
+  requirements?: string[]
+  /** User preferences */
+  preferences?: {
+    packageManager?: 'npm' | 'yarn' | 'pnpm' | 'bun'
+    framework?: string
+    testingFramework?: string
+    buildTool?: string
+  }
+}
+
+/**
+ * Project analyzer interface for the functional factory.
+ *
+ * Provides methods to analyze project requirements and recommend
+ * configurations, dependencies, and templates.
+ */
+export interface ProjectAnalyzerInterface {
+  /**
+   * Analyze user input and provide project recommendations.
+   *
+   * @param input - Project requirements and preferences
+   * @returns Analysis results with recommendations
+   */
+  analyzeProject: (input: ProjectAnalysisInput) => Promise<ProjectAnalysis>
+
+  /**
+   * Analyze existing project structure and suggest improvements.
+   *
+   * @param projectPath - Path to the project directory
+   * @param packageJson - Optional parsed package.json content
+   * @returns Analysis results with improvement suggestions
+   */
+  analyzeExistingProject: (
+    projectPath: string,
+    packageJson?: Record<string, unknown>,
+  ) => Promise<ProjectAnalysis>
+}
+
+/**
  * AI-powered project analyzer that examines user input and recommends
  * project configurations, dependencies, and templates.
  *
- * @deprecated Consider using the functional analysis pipeline from
- * `./project-analyzer-fn.ts` for better composability and Result-based
- * error handling:
+ * @deprecated Use createProjectAnalyzer() factory function instead for better
+ * composability and a consistent interface:
  * ```typescript
- * import { createProjectAnalysisPipeline } from '@bfra.me/create'
- * import { isOk } from '@bfra.me/es/result'
+ * import { createProjectAnalyzer } from '@bfra.me/create'
  *
- * const pipeline = createProjectAnalysisPipeline({ provider: 'auto' })
- * const result = await pipeline.analyze({ description: 'A React app' })
- * if (isOk(result)) {
- *   console.log(result.data.templates)
- * }
+ * const analyzer = createProjectAnalyzer({ provider: 'auto' })
+ * const analysis = await analyzer.analyzeProject({ description: 'A React app' })
+ * console.log(analysis.templates)
  * ```
  */
 export class ProjectAnalyzer {
@@ -462,8 +509,34 @@ Focus on practical improvements that provide clear value without unnecessary com
 }
 
 /**
- * Create a project analyzer instance
+ * Creates a project analyzer instance for analyzing project requirements
+ * and providing recommendations.
+ *
+ * @param config - Optional AI configuration
+ * @returns Project analyzer instance with analysis methods
+ *
+ * @example
+ * ```typescript
+ * const analyzer = createProjectAnalyzer({ provider: 'auto' })
+ *
+ * // Analyze new project requirements
+ * const analysis = await analyzer.analyzeProject({
+ *   description: 'A TypeScript library for data validation',
+ *   preferences: { packageManager: 'pnpm' }
+ * })
+ *
+ * console.log('Recommended templates:', analysis.templates)
+ * console.log('Suggested dependencies:', analysis.dependencies)
+ *
+ * // Analyze existing project
+ * const existingAnalysis = await analyzer.analyzeExistingProject('./my-project')
+ * ```
  */
-export function createProjectAnalyzer(config?: Partial<AIConfig>): ProjectAnalyzer {
-  return new ProjectAnalyzer(config)
+export function createProjectAnalyzer(config?: Partial<AIConfig>): ProjectAnalyzerInterface {
+  const instance = new ProjectAnalyzer(config)
+
+  return {
+    analyzeProject: instance.analyzeProject.bind(instance),
+    analyzeExistingProject: instance.analyzeExistingProject.bind(instance),
+  }
 }

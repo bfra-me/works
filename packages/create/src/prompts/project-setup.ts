@@ -85,7 +85,7 @@ export async function projectSetup(
 
     if (aiEnabled && hasAIKeys && initialOptions.describe != null) {
       try {
-        const {ProjectAnalyzer} = await import('../ai/project-analyzer.js')
+        const {createProjectAnalyzer} = await import('../ai/project-analyzer.js')
         const {DependencyRecommender} = await import('../ai/dependency-recommender.js')
         const {
           AIProgressIndicator,
@@ -97,7 +97,7 @@ export async function projectSetup(
         const progressIndicator = new AIProgressIndicator()
         await progressIndicator.startAnalysis(initialOptions.describe)
 
-        const projectAnalyzer = new ProjectAnalyzer({
+        const projectAnalyzer = createProjectAnalyzer({
           enabled: true,
           provider: hasOpenAI ? 'openai' : 'anthropic',
         })

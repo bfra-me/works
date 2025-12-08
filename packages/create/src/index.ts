@@ -8,7 +8,7 @@ import path from 'node:path'
 import process from 'node:process'
 import {err, isErr, ok, type Result} from '@bfra.me/es/result'
 import {consola} from 'consola'
-import {ProjectAnalyzer} from './ai/project-analyzer.js'
+import {createProjectAnalyzer} from './ai/project-analyzer.js'
 import {projectSetup} from './prompts/project-setup.js'
 import {templateFetcher} from './templates/fetcher.js'
 import {templateProcessor} from './templates/processor.js'
@@ -109,7 +109,7 @@ export async function createPackage(
 
   if (aiEnabled && aiCapabilities.enabled && options.describe != null) {
     try {
-      const projectAnalyzer = new ProjectAnalyzer({
+      const projectAnalyzer = createProjectAnalyzer({
         enabled: true,
         provider: aiCapabilities.openai ? 'openai' : 'anthropic',
       })
@@ -303,33 +303,120 @@ export {createPackage as default}
 
 export type {CreateCommandOptions, CreatePackageOptions, TemplateContext}
 
-// AI Components (Phase 5 - AI-Powered Features)
-// Note: Class-based AI components are maintained for backward compatibility
-// Consider using createLLMClient() factory for new implementations
+// =============================================================================
+// AI Components - Factory Functions (Recommended API)
+// =============================================================================
+// Factory functions provide a functional, interface-based API with better
+// composability and type safety. Use these for new implementations.
+
+/**
+ * Factory functions for AI components.
+ * @module AI/Factories
+ */
+export {createAIAssistant, type AIAssistantInterface} from './ai/assistant.js'
+/**
+ * @deprecated Use createAIAssistant() factory function instead.
+ */
 export {AIAssistant} from './ai/assistant.js'
+// AI supporting types and components
 export {
   CliAIIntegration,
   type AICliOptions,
   type AIEnhancementResult,
-  type ProjectAnalysisInput,
 } from './ai/cli-integration.js'
 export {CodeAnalyzer} from './ai/code-analyzer.js'
-export {CodeGenerator, type CodeGenerationResult} from './ai/code-generator.js'
+export {
+  createCodeGenerator,
+  type CodeGenerationResult,
+  type CodeGeneratorInterface,
+} from './ai/code-generator.js'
+
+// =============================================================================
+// AI Components - Classes (Deprecated, backward compatible)
+// =============================================================================
+// Class-based AI components are maintained for backward compatibility.
+// They will be removed in v1.0.0. Use factory functions instead.
+
+/**
+ * @deprecated Use createCodeGenerator() factory function instead.
+ */
+export {CodeGenerator} from './ai/code-generator.js'
+
+export {
+  createConfigurationOptimizer,
+  type ConfigType,
+  type ConfigurationOptimizerInterface,
+  type OptimizeConfigOptions,
+} from './ai/configuration-optimizer.js'
+
+/**
+ * @deprecated Use createConfigurationOptimizer() factory function instead.
+ */
 export {ConfigurationOptimizer} from './ai/configuration-optimizer.js'
 
 export {DependencyRecommender} from './ai/dependency-recommender.js'
 
-// Functional Factories (Phase 2-4 - Recommended API)
 export {createLLMClient} from './ai/llm-client-factory.js'
 
+/**
+ * @deprecated Use createLLMClient() factory function instead.
+ */
 export {LLMClient} from './ai/llm-client.js'
-
+export {
+  createProjectAnalyzer,
+  type ProjectAnalysisInput,
+  type ProjectAnalyzerInterface,
+} from './ai/project-analyzer.js'
+/**
+ * @deprecated Use createProjectAnalyzer() factory function instead.
+ */
 export {ProjectAnalyzer} from './ai/project-analyzer.js'
+
+// =============================================================================
+// Template Components - Factory Functions (Recommended API)
+// =============================================================================
+
+/**
+ * Factory functions for template components.
+ * @module Templates/Factories
+ */
+export {
+  createTemplateFetcher,
+  type FetcherConfig,
+  type TemplateFetcherInterface,
+} from './templates/fetcher.js'
+/**
+ * @deprecated Use createTemplateFetcher() factory function instead.
+ */
 export {templateFetcher, TemplateFetcher} from './templates/fetcher.js'
 export {createTemplateProcessingPipeline} from './templates/pipeline.js'
+export {createTemplateProcessor} from './templates/processor.js'
+/**
+ * @deprecated Use createTemplateProcessor() factory function instead.
+ */
 export {templateProcessor} from './templates/processor.js'
-export {createTemplateResolver, templateResolver} from './templates/resolver.js'
-// Error handling utilities
+
+// =============================================================================
+// Template Components - Classes and Instances (Deprecated, backward compatible)
+// =============================================================================
+
+export {createTemplateResolver, type TemplateResolverInterface} from './templates/resolver.js'
+
+/**
+ * @deprecated Use createTemplateResolver() factory function instead.
+ */
+export {templateResolver} from './templates/resolver.js'
+
+export {createTemplateValidator, type TemplateValidatorInterface} from './templates/validator.js'
+
+/**
+ * @deprecated Use createTemplateValidator() factory function instead.
+ */
+export {templateValidator, TemplateValidator} from './templates/validator.js'
+
+// =============================================================================
+// Error Handling Utilities
+// =============================================================================
 export {
   AIErrorCode,
   CLIErrorCode,
@@ -340,7 +427,10 @@ export {
   ProjectErrorCode,
   TemplateErrorCode,
 } from './utils/errors.js'
-// Type guards and branded type creators
+
+// =============================================================================
+// Type Guards and Branded Type Creators
+// =============================================================================
 export {
   createPackageName,
   createProjectPath,
@@ -349,7 +439,10 @@ export {
   isPackageName,
   isProjectPath,
 } from './utils/type-guards.js'
-// Validation utilities
+
+// =============================================================================
+// Validation Utilities
+// =============================================================================
 export {
   validatePackageManager,
   validateProjectName,

@@ -7,7 +7,67 @@ import {templateMetadataManager} from './metadata.js'
 import {templateResolver} from './resolver.js'
 
 /**
+ * Template validator interface for the functional factory.
+ *
+ * Provides methods to validate template sources, directory structures,
+ * metadata, and individual files.
+ */
+export interface TemplateValidatorInterface {
+  /**
+   * Validate a template source.
+   *
+   * @param source - Template source to validate
+   * @returns Validation result with errors and warnings
+   */
+  validateSource: (source: TemplateSource) => Promise<ValidationResult>
+
+  /**
+   * Validate a template directory structure and metadata.
+   *
+   * @param templatePath - Path to the template directory
+   * @returns Validation result with detailed feedback
+   */
+  validateTemplate: (templatePath: string) => Promise<ValidationResult>
+
+  /**
+   * Validate template metadata.
+   *
+   * @param templatePath - Path to the template directory
+   * @returns Validation result for metadata
+   */
+  validateMetadata: (templatePath: string) => Promise<ValidationResult>
+
+  /**
+   * Validate template directory structure.
+   *
+   * @param templatePath - Path to the template directory
+   * @returns Validation result for structure
+   */
+  validateStructure: (templatePath: string) => Promise<ValidationResult>
+
+  /**
+   * Validate template files for common issues.
+   *
+   * @param templatePath - Path to the template directory
+   * @returns Validation result for files
+   */
+  validateFiles: (templatePath: string) => Promise<ValidationResult>
+}
+
+/**
  * Template validation system for structure and metadata verification.
+ *
+ * @deprecated Use createTemplateValidator() factory function instead.
+ * Will be removed in v1.0.0.
+ *
+ * @example
+ * ```typescript
+ * // Before (deprecated)
+ * const validator = new TemplateValidator()
+ *
+ * // After (recommended)
+ * const validator = createTemplateValidator()
+ * ```
  */
 export class TemplateValidator {
   /**
@@ -536,6 +596,49 @@ export class TemplateValidator {
 }
 
 /**
+ * Creates a template validator instance for validating template sources,
+ * directory structures, metadata, and files.
+ *
+ * @returns Template validator instance with validation methods
+ *
+ * @example
+ * ```typescript
+ * const validator = createTemplateValidator()
+ *
+ * // Validate a template source
+ * const sourceResult = await validator.validateSource({
+ *   type: 'github',
+ *   location: 'user/repo'
+ * })
+ *
+ * if (!sourceResult.valid) {
+ *   console.error('Source validation errors:', sourceResult.errors)
+ * }
+ *
+ * // Validate a template directory
+ * const templateResult = await validator.validateTemplate('./my-template')
+ *
+ * if (templateResult.warnings) {
+ *   console.warn('Warnings:', templateResult.warnings)
+ * }
+ * ```
+ */
+export function createTemplateValidator(): TemplateValidatorInterface {
+  const instance = new TemplateValidator()
+
+  return {
+    validateSource: instance.validateSource.bind(instance),
+    validateTemplate: instance.validateTemplate.bind(instance),
+    validateMetadata: instance.validateMetadata.bind(instance),
+    validateStructure: instance.validateStructure.bind(instance),
+    validateFiles: instance.validateFiles.bind(instance),
+  }
+}
+
+/**
  * Default template validator instance.
+ *
+ * @deprecated Use createTemplateValidator() factory function instead.
+ * Will be removed in v1.0.0.
  */
 export const templateValidator = new TemplateValidator()
