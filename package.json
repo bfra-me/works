@@ -14,7 +14,7 @@
   "author": "Marcus R. Brown <contact@bfra.me>",
   "type": "module",
   "scripts": {
-    "analyze": "workspace-analyzer",
+    "analyze": "pnpm workspace-analyzer",
     "bootstrap": "pnpm -r install --prefer-offline --loglevel warn",
     "build": "pnpm -r --stream run build && pnpm lint-packages",
     "clean": "pnpx rimraf --glob \"**/node_modules/**/!(.pnpm)\" \"packages/*/lib\" \"**/.turbo\" \"**/*.tsbuildinfo\" .eslintcache .workspace-analyzer-cache",
@@ -34,7 +34,7 @@
     "type-coverage:detail": "type-coverage --detail --project .",
     "type-coverage:report": "type-coverage --detail --reportSemanticError --project .",
     "validate": "pnpm run type-check && pnpm run build && pnpm run lint && pnpm run test && pnpm run type-coverage",
-    "version-changesets": "pnpm clean-changesets && changeset version && pnpm bootstrap --no-frozen-lockfile && pnpm build",
+    "version-changesets": "changeset version && pnpm bootstrap --no-frozen-lockfile && pnpm build",
     "watch": "pnpm run build --watch"
   },
   "lint-staged": {
