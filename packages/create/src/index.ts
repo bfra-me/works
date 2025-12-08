@@ -6,7 +6,7 @@ import type {
 } from './types.js'
 import path from 'node:path'
 import process from 'node:process'
-import {err, ok, type Result} from '@bfra.me/es/result'
+import {err, isErr, ok, type Result} from '@bfra.me/es/result'
 import {consola} from 'consola'
 import {ProjectAnalyzer} from './ai/project-analyzer.js'
 import {projectSetup} from './prompts/project-setup.js'
@@ -192,13 +192,8 @@ export async function createPackage(
 
   const fetchResult = await templateFetcher.fetch(templateSource, path.join(outputDir, '.template'))
 
-  if (!fetchResult.success) {
-    return err({
-      code: 'TEMPLATE_FETCH_FAILED',
-      message: fetchResult.error?.message ?? 'Failed to fetch template',
-      source: templateSource.location,
-      cause: fetchResult.error,
-    })
+  if (isErr(fetchResult)) {
+    return err(fetchResult.error)
   }
 
   const {path: templatePath, metadata} = fetchResult.data
@@ -270,12 +265,12 @@ export async function createPackage(
 
   const processResult = await templateProcessor.process(templatePath, outputDir, context)
 
-  if (!processResult.success) {
+  if (isErr(processResult)) {
     return err({
       code: 'TEMPLATE_RENDER_ERROR',
       message: processResult.error?.message ?? 'Failed to process template',
       file: templatePath,
-      cause: processResult.error,
+      cause: processResult.error instanceof Error ? processResult.error : undefined,
     })
   }
 

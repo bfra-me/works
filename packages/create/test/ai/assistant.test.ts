@@ -35,6 +35,7 @@ const mockSpinner = vi.fn(() => ({
 vi.mock('@clack/prompts', () => ({
   confirm: mockConfirm,
   intro: mockIntro,
+  isCancel: (value: unknown) => value === Symbol.for('cancel'),
   multiselect: mockMultiselect,
   outro: mockOutro,
   select: mockSelect,

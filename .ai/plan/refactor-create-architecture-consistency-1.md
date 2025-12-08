@@ -211,7 +211,7 @@ None (foundational phase)
     }
     ```
 
-- [ ] **2.4: Update CLI entry point error handling**
+- [x] **2.4: Update CLI entry point error handling** | ✅ | 2025-12-08
   - File: `src/cli.ts`
   - Use Result guards (`isOk`, `isErr`) instead of try-catch:
     ```typescript
@@ -225,13 +225,13 @@ None (foundational phase)
     consola.success(`Project created at: ${result.data.projectPath}`)
     ```
 
-- [ ] **2.5: Convert template processing pipeline**
+- [x] **2.5: Convert template processing pipeline** | ✅ | 2025-12-08
   - File: `src/templates/fetcher.ts`
   - Update `fetch()` method to return proper Result
   - Replace custom `{success, data, error}` with Result guards
   - Update callers in `src/index.ts` (lines 189-196)
 
-- [ ] **2.6: Convert AI assistant functions**
+- [x] **2.6: Convert AI assistant functions** | ✅ | 2025-12-08
   - File: `src/ai/assistant.ts`
   - Update `gatherProjectDescription()` (line 132) return type
   - Replace exception throws (lines 154, 266) with error Results

@@ -8,7 +8,13 @@
  */
 
 import type {Result} from '@bfra.me/es/result'
-import type {FileOperation, ResolvedTemplate, TemplateContext, TemplateSource} from '../types.js'
+import type {
+  FileOperation,
+  ResolvedTemplate,
+  TemplateContext,
+  TemplateError,
+  TemplateSource,
+} from '../types.js'
 import {err, ok} from '@bfra.me/es/result'
 import {createTemplateError, TemplateErrorCode, type ErrorContext} from '../utils/errors.js'
 import {createLogger} from '../utils/logger.js'
@@ -137,7 +143,9 @@ export interface PipelineDependencies {
   fetch: (
     source: TemplateSource,
     targetDir: string,
-  ) => Promise<Result<{path: string; metadata: import('../types.js').TemplateMetadata}>>
+  ) => Promise<
+    Result<{path: string; metadata: import('../types.js').TemplateMetadata}, TemplateError>
+  >
   /** Template validator function */
   validate: (templatePath: string) => Promise<Result<void>>
   /** Template processor function */
@@ -149,6 +157,11 @@ export interface PipelineDependencies {
 }
 
 /**
+ * Pipeline error type combining all possible error types
+ */
+export type PipelineError = TemplateError | ReturnType<typeof createTemplateError> | Error
+
+/**
  * Template processing pipeline interface
  */
 export interface TemplatePipeline {
@@ -156,7 +169,7 @@ export interface TemplatePipeline {
   execute: (
     template: string,
     options: PipelineExecutionOptions,
-  ) => Promise<Result<PipelineResult, Error>>
+  ) => Promise<Result<PipelineResult, PipelineError>>
   /** Get pipeline configuration */
   getConfig: () => Readonly<Required<PipelineConfig>>
   /** Update pipeline configuration */
@@ -180,12 +193,12 @@ function getStageProgress(stage: PipelineStage): {start: number; end: number} {
 /**
  * Execute a pipeline stage with timing and error handling
  */
-async function executeStage<T>(
+async function executeStage<T, E = Error>(
   stage: PipelineStage,
-  operation: () => Promise<Result<T>>,
+  operation: () => Promise<Result<T, E>>,
   timings: Record<PipelineStage, number>,
   onProgress?: PipelineProgressCallback,
-): Promise<Result<T>> {
+): Promise<Result<T, E | ReturnType<typeof createTemplateError>>> {
   const startTime = performance.now()
 
   if (onProgress != null) {
@@ -276,7 +289,7 @@ export function createTemplateProcessingPipeline(
   async function execute(
     template: string,
     options: PipelineExecutionOptions,
-  ): Promise<Result<PipelineResult, Error>> {
+  ): Promise<Result<PipelineResult, PipelineError>> {
     const startTime = performance.now()
     const timings: Record<PipelineStage, number> = {
       [PipelineStageNames.RESOLVE]: 0,
