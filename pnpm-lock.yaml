@@ -415,6 +415,9 @@ importers:
       consola:
         specifier: 3.4.2
         version: 3.4.2
+      zod:
+        specifier: 4.1.13
+        version: 4.1.13
     devDependencies:
       '@bfra.me/works':
         specifier: workspace:*
