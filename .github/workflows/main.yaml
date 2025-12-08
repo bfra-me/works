@@ -91,6 +91,9 @@ jobs:
       - name: Prepare job
         uses: ./.github/actions/pnpm-install
 
+      - name: Build workspace-analyzer package
+        run: pnpm --filter @bfra.me/workspace-analyzer run prepack
+
       - name: Run workspace analysis
         run: pnpm run analyze --json > workspace-analysis.json
         continue-on-error: true
