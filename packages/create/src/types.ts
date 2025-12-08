@@ -2,6 +2,13 @@
  * Comprehensive type definitions for the @bfra.me/create CLI redesign
  */
 
+/**
+ * Import Result type from @bfra.me/es/result for consistent error handling
+ */
+import type {Result} from '@bfra.me/es/result'
+
+// Result Pattern Types (Phase 1: Foundation & Type System Enhancement)
+
 import type {Brand} from '@bfra.me/es/types'
 
 /**
@@ -669,3 +676,67 @@ export interface BackupInfo {
   /** Backup directory */
   backupDir: string
 }
+
+/**
+ * Template-related error types using discriminated unions
+ */
+export type TemplateError =
+  | {code: 'TEMPLATE_NOT_FOUND'; message: string; source: string}
+  | {code: 'TEMPLATE_INVALID'; message: string; reason: string}
+  | {code: 'TEMPLATE_FETCH_FAILED'; message: string; source: string; cause?: Error}
+  | {code: 'TEMPLATE_PARSE_ERROR'; message: string; file: string}
+  | {code: 'TEMPLATE_RENDER_ERROR'; message: string; file: string; cause?: Error}
+  | {code: 'TEMPLATE_METADATA_INVALID'; message: string; reason: string}
+  | {code: 'TEMPLATE_VARIABLE_MISSING'; message: string; variable: string}
+  | {code: 'TEMPLATE_CACHE_ERROR'; message: string; operation: string; cause?: Error}
+
+/**
+ * AI-related error types using discriminated unions
+ */
+export type AIError =
+  | {code: 'AI_PROVIDER_UNAVAILABLE'; message: string; provider: string}
+  | {code: 'AI_API_KEY_MISSING'; message: string; variable: string}
+  | {code: 'AI_API_KEY_INVALID'; message: string; provider: string}
+  | {code: 'AI_REQUEST_FAILED'; message: string; provider: string; cause?: Error}
+  | {code: 'AI_RESPONSE_INVALID'; message: string; reason: string}
+  | {code: 'AI_RATE_LIMIT'; message: string; provider: string; retryAfter?: number}
+  | {code: 'AI_TIMEOUT'; message: string; provider: string}
+  | {code: 'AI_ANALYSIS_FAILED'; message: string; reason: string}
+
+/**
+ * CLI-related error types using discriminated unions
+ */
+export type CLIError =
+  | {code: 'VALIDATION_FAILED'; message: string; details?: string[]}
+  | {code: 'INVALID_PROJECT_NAME'; message: string; name: string}
+  | {code: 'INVALID_INPUT'; message: string; field?: string}
+  | {code: 'INVALID_PATH'; message: string; path: string}
+  | {code: 'PATH_TRAVERSAL_ATTEMPT'; message: string; path: string}
+  | {code: 'DIRECTORY_EXISTS'; message: string; path: string}
+  | {code: 'DIRECTORY_NOT_EMPTY'; message: string; path: string}
+  | {code: 'FILE_SYSTEM_ERROR'; message: string; operation: string; cause?: Error}
+  | {code: 'PERMISSION_DENIED'; message: string; path: string}
+  | {code: 'COMMAND_FAILED'; message: string; command: string; exitCode?: number}
+
+/**
+ * Project detection error types using discriminated unions
+ */
+export type ProjectError =
+  | {code: 'PROJECT_DETECTION_FAILED'; message: string; path: string}
+  | {code: 'PACKAGE_JSON_NOT_FOUND'; message: string; path: string}
+  | {code: 'PACKAGE_JSON_INVALID'; message: string; path: string; reason: string}
+  | {code: 'PACKAGE_MANAGER_NOT_DETECTED'; message: string; path: string}
+
+/**
+ * Combined error type encompassing all error domains
+ */
+export type CreateError = TemplateError | AIError | CLIError | ProjectError
+
+/**
+ * Convenience type aliases for Result types with domain-specific errors
+ */
+export type CreateResult<T> = Result<T, CreateError>
+export type TemplateResult<T> = Result<T, TemplateError>
+export type AIResult<T> = Result<T, AIError>
+export type CLIResult<T> = Result<T, CLIError>
+export type ProjectResult<T> = Result<T, ProjectError>

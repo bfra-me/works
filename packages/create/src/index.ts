@@ -8,6 +8,7 @@ import {projectSetup} from './prompts/project-setup.js'
 import {templateFetcher} from './templates/fetcher.js'
 import {templateProcessor} from './templates/processor.js'
 import {templateResolver} from './templates/resolver.js'
+import {getAICapabilities} from './utils/ai-capabilities.js'
 import {ValidationUtils} from './utils/index.js'
 
 /**
@@ -42,43 +43,34 @@ export async function createPackage(
   options: CreateCommandOptions,
 ): Promise<Result<{projectPath: string}>> {
   try {
-    // Environment variable detection for AI features (TASK-049)
     const aiEnabled = options.ai === true || options.describe != null
-    const hasOpenAI = process.env.OPENAI_API_KEY != null && process.env.OPENAI_API_KEY.length > 0
-    const hasAnthropic =
-      process.env.ANTHROPIC_API_KEY != null && process.env.ANTHROPIC_API_KEY.length > 0
-    const hasAIKeys = hasOpenAI || hasAnthropic
+    const aiCapabilities = getAICapabilities()
 
-    // Show AI status if verbose
     if (options.verbose && aiEnabled) {
       consola.info('AI features:', {
         enabled: aiEnabled,
-        openai: hasOpenAI ? 'available' : 'not available',
-        anthropic: hasAnthropic ? 'available' : 'not available',
-        fallback: hasAIKeys ? 'AI analysis enabled' : 'will use non-AI mode',
+        openai: aiCapabilities.openai ? 'available' : 'not available',
+        anthropic: aiCapabilities.anthropic ? 'available' : 'not available',
+        fallback: aiCapabilities.enabled ? 'AI analysis enabled' : 'will use non-AI mode',
       })
     }
 
-    // Validation
     const validation = ValidationUtils.validateCreateOptions(options)
     if (!validation.valid) {
       const errorMessage = validation.errors?.join(', ') ?? 'Invalid options'
       throw new Error(errorMessage)
     }
 
-    // Show warnings if any
-    if (validation.warnings && validation.warnings.length > 0) {
+    if (validation.warnings != null && validation.warnings.length > 0) {
       for (const warning of validation.warnings) {
         consola.warn(warning)
       }
     }
 
-    // Interactive mode - Use sophisticated prompts for enhanced UX
     let finalOptions = {...options}
     if (options.interactive && !options.skipPrompts) {
       const setupResult = await projectSetup(options)
 
-      // Extract the finalized options from the setup result
       finalOptions = {
         ...options,
         name: setupResult.projectName,
@@ -87,11 +79,10 @@ export async function createPackage(
         author: setupResult.customization.author,
         outputDir: setupResult.customization.outputDir,
         packageManager: setupResult.customization.packageManager,
-        force: options.force || false, // Use original option or default to false
+        force: options.force ?? false,
       }
     }
 
-    // Set defaults
     const projectName = finalOptions.name ?? 'new-project'
     let template = finalOptions.template ?? 'default'
     let outputDir =
@@ -102,12 +93,11 @@ export async function createPackage(
     const description = finalOptions.description ?? 'A new project'
     const version = finalOptions.version ?? '1.0.0'
 
-    // AI-powered template selection when --describe option is used (TASK-048)
-    if (aiEnabled && hasAIKeys && options.describe != null) {
+    if (aiEnabled && aiCapabilities.enabled && options.describe != null) {
       try {
         const projectAnalyzer = new ProjectAnalyzer({
           enabled: true,
-          provider: hasOpenAI ? 'openai' : 'anthropic',
+          provider: aiCapabilities.openai ? 'openai' : 'anthropic',
         })
 
         if (finalOptions.verbose) {
@@ -122,7 +112,6 @@ export async function createPackage(
           },
         })
 
-        // Use AI-recommended template if available and not explicitly specified
         if (aiAnalysis.templates.length > 0 && finalOptions.template == null) {
           const recommendedTemplate = aiAnalysis.templates[0]
           if (recommendedTemplate != null) {
@@ -138,7 +127,6 @@ export async function createPackage(
           }
         }
 
-        // Show AI insights if verbose
         if (finalOptions.verbose && aiAnalysis.dependencies.length > 0) {
           consola.info(
             'AI dependency suggestions:',
@@ -146,15 +134,12 @@ export async function createPackage(
           )
         }
       } catch (aiError) {
-        // Comprehensive fallback handling when AI APIs fail (TASK-050)
         if (finalOptions.verbose) {
           consola.warn('AI analysis failed, continuing with standard mode:', aiError)
         }
-        // Continue with normal operation - AI is optional enhancement
       }
     }
 
-    // If dryRun is requested, use a temporary directory to avoid writing to the repo
     let tempOutputDir: string | undefined
     if (finalOptions.dryRun) {
       const {mkdtemp} = await import('node:fs/promises')
@@ -175,7 +160,6 @@ export async function createPackage(
       })
     }
 
-    // Resolve template source
     const templateSource = templateResolver.resolve(template)
     const sourceValidation = await templateResolver.validate(templateSource)
 
@@ -187,7 +171,6 @@ export async function createPackage(
       consola.info('Template source resolved:', templateSource)
     }
 
-    // Fetch template
     const fetchResult = await templateFetcher.fetch(
       templateSource,
       path.join(outputDir, '.template'),
@@ -203,7 +186,6 @@ export async function createPackage(
       consola.info('Template fetched:', {templatePath, metadata})
     }
 
-    // Build template context
     const context: TemplateContext = {
       projectName,
       description,
@@ -217,7 +199,6 @@ export async function createPackage(
         version,
         year: new Date().getFullYear(),
         date: new Date().toISOString().split('T')[0],
-        // Utility functions for templates
         kebabCase: (str: string) =>
           str
             .replaceAll(/([a-z])([A-Z])/g, '$1-$2')
@@ -239,7 +220,6 @@ export async function createPackage(
       },
     }
 
-    // Validate template context
     const contextValidation = templateProcessor.validateContext(
       context,
       metadata.variables?.map((v: {name: string}) => v.name),
@@ -248,7 +228,6 @@ export async function createPackage(
       consola.warn('Template context validation warnings:', contextValidation.missing)
     }
 
-    // If force is true and output directory exists with files, clear it first
     if (finalOptions.force === true) {
       try {
         const {existsSync, readdirSync} = await import('node:fs')
@@ -259,7 +238,6 @@ export async function createPackage(
           for (const entry of entries) {
             const entryPath = path.join(outputDir, entry)
             if (entry !== '.template') {
-              // Don't delete our template directory
               await rm(entryPath, {recursive: true, force: true})
             }
           }
@@ -269,30 +247,27 @@ export async function createPackage(
       }
     }
 
-    // Process template
     const processResult = await templateProcessor.process(templatePath, outputDir, context)
 
     if (!processResult.success) {
       throw processResult.error
     }
 
-    // Cleanup temporary template files
     try {
       await import('node:fs/promises').then(async fs =>
         fs.rm(path.join(outputDir, '.template'), {recursive: true, force: true}),
       )
     } catch {
-      // Ignore cleanup errors
+      // Ignore cleanup errors - non-critical
     }
 
-    // If this was a dry run, remove the temporary output directory so nothing is left behind
     if (finalOptions.dryRun && tempOutputDir != null) {
       try {
         await import('node:fs/promises').then(async fs =>
           fs.rm(tempOutputDir, {recursive: true, force: true}),
         )
       } catch {
-        // Ignore cleanup errors
+        // Ignore cleanup errors - non-critical
       }
     }
 
@@ -315,10 +290,8 @@ export async function createPackage(
   }
 }
 
-// Export legacy interface for backward compatibility
 export {createPackage as default}
 
-// Re-export types
 export type {CreateCommandOptions, CreatePackageOptions, TemplateContext}
 
 // AI Components (Phase 5 - AI-Powered Features)

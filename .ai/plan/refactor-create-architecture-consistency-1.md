@@ -4,7 +4,7 @@ version: 1.0
 date_created: 2025-12-08
 last_updated: 2025-12-08
 owner: @bfra.me/works
-status: Planned
+status: In Progress
 tags:
   - refactor
   - architecture
@@ -17,7 +17,7 @@ related_issues:
 
 # Implementation Plan: @bfra.me/create Architecture Consistency Refactor
 
-![Status: Planned](https://img.shields.io/badge/status-Planned-blue)
+![Status: In Progress](https://img.shields.io/badge/status-In%20Progress-yellow)
 
 ## Overview
 
@@ -80,7 +80,7 @@ This implementation plan addresses the high and medium-priority architectural in
 
 #### Tasks
 
-- [ ] **1.1: Create Result type variants for all error domains**
+- [x] **1.1: Create Result type variants for all error domains** | ✅ | 2025-12-08
   - File: `src/types.ts`
   - Define `CreateError`, `TemplateError`, `AIError`, `CLIError` discriminated unions
   - Example pattern from `@bfra.me/es/result`:
@@ -96,7 +96,7 @@ This implementation plan addresses the high and medium-priority architectural in
     export type CreateResult<T> = Result<T, CreateError>
     ```
 
-- [ ] **1.2: Extract AI capability detection to utility**
+- [x] **1.2: Extract AI capability detection to utility** | ✅ | 2025-12-08
   - File: `src/utils/ai-capabilities.ts` (new)
   - Create `getAICapabilities()` function:
     ```typescript
@@ -117,7 +117,7 @@ This implementation plan addresses the high and medium-priority architectural in
     ```
   - Replace inline checks in `src/index.ts` lines 44-52
 
-- [ ] **1.3: Update error utility functions**
+- [x] **1.3: Update error utility functions** | ✅ | 2025-12-08
   - File: `src/utils/errors.ts`
   - Add factory functions returning typed errors:
     ```typescript
