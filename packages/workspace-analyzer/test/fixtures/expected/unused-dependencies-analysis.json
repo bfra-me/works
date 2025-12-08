@@ -1,0 +1,30 @@
+{
+  "summary": {
+    "totalIssues": 2,
+    "bySeverity": {
+      "info": 0,
+      "warning": 2,
+      "error": 0,
+      "critical": 0
+    },
+    "byCategory": {
+      "dependency": 2
+    }
+  },
+  "issues": [
+    {
+      "id": "unused-dependency",
+      "severity": "warning",
+      "category": "dependency",
+      "packageName": "@fixture/unused",
+      "dependency": "ramda"
+    },
+    {
+      "id": "unused-dependency",
+      "severity": "warning",
+      "category": "dependency",
+      "packageName": "@fixture/unused",
+      "dependency": "date-fns"
+    }
+  ]
+}

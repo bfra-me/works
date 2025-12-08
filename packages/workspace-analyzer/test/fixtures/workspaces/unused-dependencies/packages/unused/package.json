@@ -1,0 +1,21 @@
+{
+  "name": "@fixture/unused",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "ramda": "^0.29.0",
+    "date-fns": "^2.30.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0",
+    "unused-dev-dep": "^1.0.0"
+  }
+}

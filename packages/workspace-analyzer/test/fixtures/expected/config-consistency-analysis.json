@@ -1,0 +1,27 @@
+{
+  "summary": {
+    "totalIssues": 2,
+    "bySeverity": {
+      "warning": 2
+    },
+    "byCategory": {
+      "configuration": 2
+    }
+  },
+  "issues": [
+    {
+      "id": "config-consistency-outdir-mismatch",
+      "severity": "warning",
+      "category": "configuration",
+      "packageName": "@fixture/mismatched",
+      "description": "package.json exports reference ./dist but tsconfig.json outDir is ./lib"
+    },
+    {
+      "id": "config-consistency-module-type-mismatch",
+      "severity": "warning",
+      "category": "configuration",
+      "packageName": "@fixture/mismatched",
+      "description": "package.json type is 'module' but tsconfig.json module is 'commonjs'"
+    }
+  ]
+}

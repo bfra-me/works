@@ -79,9 +79,32 @@ jobs:
       - name: Build
         run: pnpm run build
 
+  analyze:
+    name: Workspace Analysis
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Prepare job
+        uses: ./.github/actions/pnpm-install
+
+      - name: Run workspace analysis
+        run: pnpm run analyze --json > workspace-analysis.json
+        continue-on-error: true
+
+      - name: Upload analysis report
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: workspace-analysis
+          path: workspace-analysis.json
+          retention-days: 7
+
   ci:
     name: CI
-    needs: [build, lint, test]
+    needs: [build, lint, test, analyze]
     runs-on: ubuntu-latest
 
     steps:

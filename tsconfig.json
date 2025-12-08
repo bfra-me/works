@@ -16,7 +16,9 @@
       "@bfra.me/semantic-release": ["packages/semantic-release/src"],
       "@bfra.me/semantic-release/*": ["packages/semantic-release/src/*"],
       "@bfra.me/tsconfig": ["packages/tsconfig"],
-      "@bfra.me/tsconfig/*": ["packages/tsconfig/*"]
+      "@bfra.me/tsconfig/*": ["packages/tsconfig/*"],
+      "@bfra.me/workspace-analyzer": ["packages/workspace-analyzer/src"],
+      "@bfra.me/workspace-analyzer/*": ["packages/workspace-analyzer/src/*"]
     },
     "noEmit": true
   },
@@ -29,6 +31,7 @@
     {"path": "./packages/eslint-config"},
     {"path": "./packages/semantic-release"},
     {"path": "./packages/create"},
+    {"path": "./packages/workspace-analyzer"},
     {"path": "./scripts"},
     {"path": "./tsconfig.eslint.json"}
   ],

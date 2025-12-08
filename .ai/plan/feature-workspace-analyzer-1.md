@@ -2,15 +2,15 @@
 goal: Create @bfra.me/workspace-analyzer Package for Comprehensive Monorepo Static Analysis
 version: 1.2
 date_created: 2025-11-29
-last_updated: 2025-12-06
+last_updated: 2025-12-07
 owner: marcusrbrown
-status: 'Planned'
+status: 'Completed'
 tags: ['feature', 'package', 'typescript', 'static-analysis', 'ast', 'monorepo', 'architecture', 'cli']
 ---
 
 # Introduction
 
-![Status: Planned](https://img.shields.io/badge/status-Planned-blue)
+![Status: Completed](https://img.shields.io/badge/status-Completed-green)
 
 Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo that provides comprehensive workspace analysis through deep AST parsing and static analysis. The package will detect configuration inconsistencies, unused dependencies, circular imports, architectural violations, and performance optimization opportunities across the entire monorepo. The implementation reuses proven infrastructure from `@bfra.me/es` (Result types, file watchers, async utilities) and `@bfra.me/doc-sync` (TypeScript parsing with ts-morph, package scanning patterns, orchestrator architecture). A modern CLI interface using `@clack/prompts` provides interactive analysis with progress reporting. The package includes a `workspace-analyzer.config.ts` configuration file for the `@bfra.me/works` monorepo itself to codify project-specific rules and integrate with CI validation.
 
@@ -74,31 +74,31 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-001 | Create package directory structure at `packages/workspace-analyzer/` with `src/`, `test/`, `lib/` folders | | |
-| TASK-002 | Initialize `package.json` with proper exports, scripts, dependencies (typescript, ts-morph, @clack/prompts, cac, consola), and `bin` entry for CLI | | |
-| TASK-003 | Configure `tsconfig.json` extending `@bfra.me/tsconfig` with strict mode | | |
-| TASK-004 | Set up `eslint.config.ts` using `defineConfig()` with TypeScript and Vitest support | | |
-| TASK-005 | Create `tsup.config.ts` for ES module build with entry points `['src/index.ts', 'src/cli.ts']` | | |
-| TASK-006 | Create `vitest.config.ts` with coverage thresholds (80% statements, 75% branches) | | |
-| TASK-007 | Import and re-export `Result<T, E>` type from `@bfra.me/es/result` in `src/types/result.ts` | | |
-| TASK-008 | Create core analysis types in `src/types/index.ts` (AnalysisResult, Issue, Severity, AnalyzerConfig) extending Result pattern | | |
-| TASK-009 | Create main export barrel in `src/index.ts` with explicit named exports | | |
-| TASK-010 | Update root `tsconfig.json` to add path mapping for `@bfra.me/workspace-analyzer` | | |
+| TASK-001 | Create package directory structure at `packages/workspace-analyzer/` with `src/`, `test/`, `lib/` folders | ✅ | 2025-12-06 |
+| TASK-002 | Initialize `package.json` with proper exports, scripts, dependencies (typescript, ts-morph, @clack/prompts, cac, consola), and `bin` entry for CLI | ✅ | 2025-12-06 |
+| TASK-003 | Configure `tsconfig.json` extending `@bfra.me/tsconfig` with strict mode | ✅ | 2025-12-06 |
+| TASK-004 | Set up `eslint.config.ts` using `defineConfig()` with TypeScript and Vitest support | ✅ | 2025-12-06 |
+| TASK-005 | Create `tsup.config.ts` for ES module build with entry points `['src/index.ts', 'src/cli.ts']` | ✅ | 2025-12-06 |
+| TASK-006 | Create `vitest.config.ts` with coverage thresholds (80% statements, 75% branches) | ✅ | 2025-12-06 |
+| TASK-007 | Import and re-export `Result<T, E>` type from `@bfra.me/es/result` in `src/types/result.ts` | ✅ | 2025-12-06 |
+| TASK-008 | Create core analysis types in `src/types/index.ts` (AnalysisResult, Issue, Severity, AnalyzerConfig) extending Result pattern | ✅ | 2025-12-06 |
+| TASK-009 | Create main export barrel in `src/index.ts` with explicit named exports | ✅ | 2025-12-06 |
+| TASK-010 | Update root `tsconfig.json` to add path mapping for `@bfra.me/workspace-analyzer` | ✅ | 2025-12-06 |
 
 ### Implementation Phase 2: Workspace Scanner and TypeScript Parser Infrastructure
 
-- GOAL-002: Reuse proven scanning and parsing patterns from @bfra.me/doc-sync
+- GOAL-002: Reuse proven scanning and parsing patterns from @bfra.me/doc-sync by **directly importing** (not duplicating)
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-011 | Adapt `createPackageScanner()` pattern from `@bfra.me/doc-sync/orchestrator/package-scanner` for workspace package discovery | | |
-| TASK-012 | Reuse `createProject()` and TypeScript parsing utilities from `@bfra.me/doc-sync/parsers/typescript-parser` | | |
-| TASK-013 | Create workspace scanner in `src/scanner/workspace-scanner.ts` using adapted package discovery pattern | | |
-| TASK-014 | Implement import extractor in `src/parser/import-extractor.ts` extending doc-sync's TypeScript parsing | | |
-| TASK-015 | Create dependency graph builder in `src/graph/dependency-graph.ts` for import relationship tracking | | |
-| TASK-016 | Implement configuration file parser in `src/parser/config-parser.ts` for package.json, tsconfig.json analysis | | |
-| TASK-017 | Add source file collector using fs.readdir pattern (like doc-sync) instead of fast-glob for better control | | |
-| TASK-018 | Create parser registry in `src/parsers/index.ts` with explicit barrel exports | | |
+| TASK-011 | Adapt `createPackageScanner()` pattern from `@bfra.me/doc-sync/orchestrator/package-scanner` for workspace package discovery | ✅ | 2025-12-06 |
+| TASK-012 | **Import and re-export** `createProject()`, `parseSourceFile()`, `parseSourceContent()` from `@bfra.me/doc-sync/parsers` | ✅ | 2025-12-06 |
+| TASK-013 | Create workspace scanner in `src/scanner/workspace-scanner.ts` using adapted package discovery pattern | ✅ | 2025-12-06 |
+| TASK-014 | Implement import extractor in `src/parser/import-extractor.ts` using ts-morph types (via doc-sync transitive dependency) | ✅ | 2025-12-06 |
+| TASK-015 | Create dependency graph builder in `src/graph/dependency-graph.ts` for import relationship tracking | ✅ | 2025-12-06 |
+| TASK-016 | Implement configuration file parser in `src/parser/config-parser.ts` for package.json, tsconfig.json analysis | ✅ | 2025-12-06 |
+| TASK-017 | Add source file collector using fs.readdir pattern (like doc-sync) instead of fast-glob for better control | ✅ | 2025-12-06 |
+| TASK-018 | Create parser registry in `src/parser/index.ts` with explicit barrel exports (re-exporting from doc-sync + local) | ✅ | 2025-12-06 |
 
 ### Implementation Phase 3: Configuration Analysis
 
@@ -106,15 +106,15 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-019 | Create analyzer interface in `src/analyzers/analyzer.ts` with `analyze(context): Promise<Result<Issue[]>>` | | |
-| TASK-020 | Implement `PackageJsonAnalyzer` in `src/analyzers/package-json-analyzer.ts` reusing package parsing from doc-sync | | |
-| TASK-021 | Implement `TsconfigAnalyzer` in `src/analyzers/tsconfig-analyzer.ts` for tsconfig.json consistency | | |
-| TASK-022 | Implement `EslintConfigAnalyzer` in `src/analyzers/eslint-config-analyzer.ts` for eslint.config.ts validation | | |
-| TASK-023 | Implement `BuildConfigAnalyzer` in `src/analyzers/build-config-analyzer.ts` for tsup.config.ts analysis | | |
-| TASK-024 | Create `ConfigConsistencyAnalyzer` in `src/analyzers/config-consistency-analyzer.ts` for cross-config validation | | |
-| TASK-025 | Implement version alignment checker for workspace dependencies | | |
-| TASK-026 | Add exports field validation against actual source file structure | | |
-| TASK-027 | Create analyzer registry in `src/analyzers/index.ts` for plugin architecture | | |
+| TASK-019 | Create analyzer interface in `src/analyzers/analyzer.ts` with `analyze(context): Promise<Result<Issue[]>>` | ✅ | 2025-12-06 |
+| TASK-020 | Implement `PackageJsonAnalyzer` in `src/analyzers/package-json-analyzer.ts` reusing package parsing from doc-sync | ✅ | 2025-12-06 |
+| TASK-021 | Implement `TsconfigAnalyzer` in `src/analyzers/tsconfig-analyzer.ts` for tsconfig.json consistency | ✅ | 2025-12-06 |
+| TASK-022 | Implement `EslintConfigAnalyzer` in `src/analyzers/eslint-config-analyzer.ts` for eslint.config.ts validation | ✅ | 2025-12-06 |
+| TASK-023 | Implement `BuildConfigAnalyzer` in `src/analyzers/build-config-analyzer.ts` for tsup.config.ts analysis | ✅ | 2025-12-06 |
+| TASK-024 | Create `ConfigConsistencyAnalyzer` in `src/analyzers/config-consistency-analyzer.ts` for cross-config validation | ✅ | 2025-12-06 |
+| TASK-025 | Implement version alignment checker for workspace dependencies | ✅ | 2025-12-06 |
+| TASK-026 | Add exports field validation against actual source file structure | ✅ | 2025-12-06 |
+| TASK-027 | Create analyzer registry in `src/analyzers/index.ts` for plugin architecture | ✅ | 2025-12-06 |
 
 ### Implementation Phase 4: Dependency Analysis
 
@@ -122,13 +122,13 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-028 | Implement `UnusedDependencyAnalyzer` in `src/analyzers/unused-dependency-analyzer.ts` using import extraction | | |
-| TASK-029 | Handle dynamic imports and require() calls in dependency detection | | |
-| TASK-030 | Implement dev vs production dependency classification | | |
-| TASK-031 | Implement `CircularImportAnalyzer` in `src/analyzers/circular-import-analyzer.ts` with Tarjan's algorithm | | |
-| TASK-032 | Generate cycle visualization data for reporting | | |
-| TASK-033 | Implement peer dependency validation for workspace packages | | |
-| TASK-034 | Add duplicate dependency detection across workspace packages | | |
+| TASK-028 | Implement `UnusedDependencyAnalyzer` in `src/analyzers/unused-dependency-analyzer.ts` using import extraction | ✅ | 2025-12-06 |
+| TASK-029 | Handle dynamic imports and require() calls in dependency detection | ✅ | 2025-12-06 |
+| TASK-030 | Implement dev vs production dependency classification | ✅ | 2025-12-06 |
+| TASK-031 | Implement `CircularImportAnalyzer` in `src/analyzers/circular-import-analyzer.ts` with Tarjan's algorithm | ✅ | 2025-12-06 |
+| TASK-032 | Generate cycle visualization data for reporting | ✅ | 2025-12-06 |
+| TASK-033 | Implement peer dependency validation for workspace packages | ✅ | 2025-12-06 |
+| TASK-034 | Add duplicate dependency detection across workspace packages | ✅ | 2025-12-06 |
 
 ### Implementation Phase 5: Architectural Analysis
 
@@ -136,16 +136,16 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-035 | Create architectural rule engine in `src/rules/rule-engine.ts` | | |
-| TASK-036 | Define built-in rule set in `src/rules/builtin-rules.ts` | | |
-| TASK-037 | Implement `LayerViolationRule` for detecting cross-layer imports | | |
-| TASK-038 | Implement `BarrelExportRule` for detecting `export *` misuse in application code | | |
-| TASK-039 | Implement `PublicApiRule` for validating explicit public API surface using export-analyzer pattern | | |
-| TASK-040 | Implement `SideEffectRule` for detecting side effects in module initialization | | |
-| TASK-041 | Create `ArchitecturalAnalyzer` in `src/analyzers/architectural-analyzer.ts` | | |
-| TASK-042 | Add configurable layer definition (domain, application, infrastructure, presentation) | | |
-| TASK-043 | Implement import path alias validation against tsconfig paths | | |
-| TASK-044 | Add monorepo package boundary enforcement rules | | |
+| TASK-035 | Create architectural rule engine in `src/rules/rule-engine.ts` | ✅ | 2025-12-06 |
+| TASK-036 | Define built-in rule set in `src/rules/builtin-rules.ts` | ✅ | 2025-12-06 |
+| TASK-037 | Implement `LayerViolationRule` for detecting cross-layer imports | ✅ | 2025-12-06 |
+| TASK-038 | Implement `BarrelExportRule` for detecting `export *` misuse in application code | ✅ | 2025-12-06 |
+| TASK-039 | Implement `PublicApiRule` for validating explicit public API surface using export-analyzer pattern | ✅ | 2025-12-06 |
+| TASK-040 | Implement `SideEffectRule` for detecting side effects in module initialization | ✅ | 2025-12-06 |
+| TASK-041 | Create `ArchitecturalAnalyzer` in `src/analyzers/architectural-analyzer.ts` | ✅ | 2025-12-06 |
+| TASK-042 | Add configurable layer definition (domain, application, infrastructure, presentation) | ✅ | 2025-12-06 |
+| TASK-043 | Implement import path alias validation against tsconfig paths | ✅ | 2025-12-06 |
+| TASK-044 | Add monorepo package boundary enforcement rules | ✅ | 2025-12-06 |
 
 ### Implementation Phase 6: Performance Analysis
 
@@ -153,14 +153,14 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-045 | Create bundle size estimator in `src/performance/bundle-estimator.ts` | | |
-| TASK-046 | Implement `TreeShakingBlockerAnalyzer` in `src/analyzers/tree-shaking-analyzer.ts` | | |
-| TASK-047 | Detect CommonJS interop patterns that prevent tree-shaking | | |
-| TASK-048 | Implement `DuplicateCodeAnalyzer` in `src/analyzers/duplicate-code-analyzer.ts` using AST fingerprinting | | |
-| TASK-049 | Create `LargeDependencyAnalyzer` in `src/analyzers/large-dependency-analyzer.ts` | | |
-| TASK-050 | Implement `DeadCodeAnalyzer` in `src/analyzers/dead-code-analyzer.ts` for unreachable exports | | |
-| TASK-051 | Add type-only import enforcement detection | | |
-| TASK-052 | Implement dynamic import optimization suggestions | | |
+| TASK-045 | Create bundle size estimator in `src/performance/bundle-estimator.ts` | ✅ | 2025-12-06 |
+| TASK-046 | Implement `TreeShakingBlockerAnalyzer` in `src/analyzers/tree-shaking-analyzer.ts` | ✅ | 2025-12-06 |
+| TASK-047 | Detect CommonJS interop patterns that prevent tree-shaking | ✅ | 2025-12-06 |
+| TASK-048 | Implement `DuplicateCodeAnalyzer` in `src/analyzers/duplicate-code-analyzer.ts` using AST fingerprinting | ✅ | 2025-12-06 |
+| TASK-049 | Create `LargeDependencyAnalyzer` in `src/analyzers/large-dependency-analyzer.ts` | ✅ | 2025-12-06 |
+| TASK-050 | Implement `DeadCodeAnalyzer` in `src/analyzers/dead-code-analyzer.ts` for unreachable exports | ✅ | 2025-12-06 |
+| TASK-051 | Add type-only import enforcement detection | ✅ | 2025-12-06 |
+| TASK-052 | Implement dynamic import optimization suggestions | ✅ | 2025-12-06 |
 
 ### Implementation Phase 7: Reporting and Output
 
@@ -168,14 +168,14 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-053 | Create report generator interface in `src/reporters/reporter.ts` | | |
-| TASK-054 | Implement `JsonReporter` in `src/reporters/json-reporter.ts` for machine-readable output | | |
-| TASK-055 | Implement `MarkdownReporter` in `src/reporters/markdown-reporter.ts` for human-readable summaries | | |
-| TASK-056 | Implement `ConsoleReporter` in `src/reporters/console-reporter.ts` using consola for colored terminal output | | |
-| TASK-057 | Add severity filtering and grouping options | | |
-| TASK-058 | Implement fix suggestions in report output where applicable | | |
-| TASK-059 | Create summary statistics (total issues, by category, by severity) | | |
-| TASK-060 | Add file-based issue location with line/column numbers | | |
+| TASK-053 | Create report generator interface in `src/reporters/reporter.ts` | ✅ | 2025-12-07 |
+| TASK-054 | Implement `JsonReporter` in `src/reporters/json-reporter.ts` for machine-readable output | ✅ | 2025-12-07 |
+| TASK-055 | Implement `MarkdownReporter` in `src/reporters/markdown-reporter.ts` for human-readable summaries | ✅ | 2025-12-07 |
+| TASK-056 | Implement `ConsoleReporter` in `src/reporters/console-reporter.ts` using consola for colored terminal output | ✅ | 2025-12-07 |
+| TASK-057 | Add severity filtering and grouping options | ✅ | 2025-12-07 |
+| TASK-058 | Implement fix suggestions in report output where applicable | ✅ | 2025-12-07 |
+| TASK-059 | Create summary statistics (total issues, by category, by severity) | ✅ | 2025-12-07 |
+| TASK-060 | Add file-based issue location with line/column numbers | ✅ | 2025-12-07 |
 
 ### Implementation Phase 8: Caching and Incremental Analysis
 
@@ -183,14 +183,14 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-061 | Design cache schema in `src/cache/cache-schema.ts` | | |
-| TASK-062 | Reuse `createFileHasher()` from `@bfra.me/es/watcher` for file change detection | | |
-| TASK-063 | Reuse `createChangeDetector()` from `@bfra.me/es/watcher` for incremental analysis | | |
-| TASK-064 | Create cache manager in `src/cache/cache-manager.ts` with file-based storage | | |
-| TASK-065 | Implement incremental analysis orchestrator in `src/core/incremental-analyzer.ts` | | |
-| TASK-066 | Add cache invalidation for configuration file changes | | |
-| TASK-067 | Use `pLimit()` from `@bfra.me/es/async` for parallel analysis execution | | |
-| TASK-068 | Add progress reporting callback for long-running analysis | | |
+| TASK-061 | Design cache schema in `src/cache/cache-schema.ts` | ✅ | 2025-12-07 |
+| TASK-062 | Reuse `createFileHasher()` from `@bfra.me/es/watcher` for file change detection | ✅ | 2025-12-07 |
+| TASK-063 | Reuse `createChangeDetector()` from `@bfra.me/es/watcher` for incremental analysis | ✅ | 2025-12-07 |
+| TASK-064 | Create cache manager in `src/cache/cache-manager.ts` with file-based storage | ✅ | 2025-12-07 |
+| TASK-065 | Implement incremental analysis orchestrator in `src/core/incremental-analyzer.ts` | ✅ | 2025-12-07 |
+| TASK-066 | Add cache invalidation for configuration file changes | ✅ | 2025-12-07 |
+| TASK-067 | Use `pLimit()` from `@bfra.me/es/async` for parallel analysis execution | ✅ | 2025-12-07 |
+| TASK-068 | Add progress reporting callback for long-running analysis | ✅ | 2025-12-07 |
 
 ### Implementation Phase 9: Main API and Orchestration
 
@@ -198,14 +198,14 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-069 | Create main API entry in `src/api/analyze-workspace.ts` | | |
-| TASK-070 | Implement `AnalysisContext` for sharing state between analyzers | | |
-| TASK-071 | Create analysis orchestrator in `src/core/orchestrator.ts` adapting doc-sync's sync-orchestrator pattern | | |
-| TASK-072 | Implement analyzer pipeline with dependency ordering | | |
-| TASK-073 | Add configuration validation using zod (already in workspace via doc-sync) | | |
-| TASK-074 | Create default configuration in `src/config/defaults.ts` | | |
-| TASK-075 | Implement configuration merging (file + programmatic) | | |
-| TASK-076 | Add `workspace-analyzer.config.ts` file support with defineConfig() pattern | | |
+| TASK-069 | Create main API entry in `src/api/analyze-workspace.ts` | ✅ | 2025-12-07 |
+| TASK-070 | Implement `AnalysisContext` for sharing state between analyzers | ✅ | 2025-12-07 |
+| TASK-071 | Create analysis orchestrator in `src/core/orchestrator.ts` adapting doc-sync's sync-orchestrator pattern | ✅ | 2025-12-07 |
+| TASK-072 | Implement analyzer pipeline with dependency ordering | ✅ | 2025-12-07 |
+| TASK-073 | Add configuration validation using zod (already in workspace via doc-sync) | ✅ | 2025-12-07 |
+| TASK-074 | Create default configuration in `src/config/defaults.ts` | ✅ | 2025-12-07 |
+| TASK-075 | Implement configuration merging (file + programmatic) | ✅ | 2025-12-07 |
+| TASK-076 | Add `workspace-analyzer.config.ts` file support with defineConfig() pattern | ✅ | 2025-12-07 |
 
 ### Implementation Phase 10: CLI Interface
 
@@ -213,16 +213,16 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-077 | Create CLI entry point in `src/cli/index.ts` adapting doc-sync's CLI structure with cac for argument parsing | | |
-| TASK-078 | Implement `analyze` command with `@clack/prompts` intro, outro, and spinner components | | |
-| TASK-079 | Add analyzer selection using `@clack/prompts` multiselect adapting doc-sync's package selection pattern | | |
-| TASK-080 | Implement progress reporting with `@clack/prompts` spinner and createProgressCallback pattern from doc-sync | | |
-| TASK-081 | Create results display using `@clack/prompts` log methods and consola integration like doc-sync | | |
-| TASK-082 | Add `--config` flag support for custom `workspace-analyzer.config.ts` path | | |
-| TASK-083 | Implement `--json` and `--markdown` output format flags for non-interactive use | | |
-| TASK-084 | Add `--fix` flag placeholder for future auto-fix capabilities | | |
-| TASK-085 | Implement `--dry-run`, `--verbose`, `--quiet` logging options like doc-sync | | |
-| TASK-086 | Write CLI unit tests in `test/cli/cli.test.ts` | | |
+| TASK-077 | Create CLI entry point in `src/cli/index.ts` adapting doc-sync's CLI structure with cac for argument parsing | ✅ | 2025-12-07 |
+| TASK-078 | Implement `analyze` command with `@clack/prompts` intro, outro, and spinner components | ✅ | 2025-12-07 |
+| TASK-079 | Add analyzer selection using `@clack/prompts` multiselect adapting doc-sync's package selection pattern | ✅ | 2025-12-07 |
+| TASK-080 | Implement progress reporting with `@clack/prompts` spinner and createProgressCallback pattern from doc-sync | ✅ | 2025-12-07 |
+| TASK-081 | Create results display using `@clack/prompts` log methods and consola integration like doc-sync | ✅ | 2025-12-07 |
+| TASK-082 | Add `--config` flag support for custom `workspace-analyzer.config.ts` path | ✅ | 2025-12-07 |
+| TASK-083 | Implement `--json` and `--markdown` output format flags for non-interactive use | ✅ | 2025-12-07 |
+| TASK-084 | Add `--fix` flag placeholder for future auto-fix capabilities | ✅ | 2025-12-07 |
+| TASK-085 | Implement `--dry-run`, `--verbose`, `--quiet` logging options like doc-sync | ✅ | 2025-12-07 |
+| TASK-086 | Write CLI unit tests in `test/cli/cli.test.ts` | ✅ | 2025-12-07 |
 
 ### Implementation Phase 11: Testing Infrastructure
 
@@ -230,14 +230,14 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-087 | Create `__mocks__/fs.ts` with memfs-based mock file system adapting doc-sync's testing pattern | | |
-| TASK-088 | Create test fixtures in `test/fixtures/workspaces/` with sample monorepo structures | | |
-| TASK-089 | Create expected output fixtures in `test/fixtures/expected/` for analysis result comparison | | |
-| TASK-090 | Implement `test/scanner/workspace-scanner.test.ts` with concurrent test execution | | |
-| TASK-091 | Implement `test/analyzers/unused-dependency-analyzer.test.ts` | | |
-| TASK-092 | Implement `test/analyzers/circular-import-analyzer.test.ts` | | |
-| TASK-093 | Implement `test/analyzers/config-consistency-analyzer.test.ts` | | |
-| TASK-094 | Implement `test/reporters/report-generation.test.ts` with snapshot testing | | |
+| TASK-087 | Create `__mocks__/fs.ts` with memfs-based mock file system adapting doc-sync's testing pattern | ✅ | 2025-12-07 |
+| TASK-088 | Create test fixtures in `test/fixtures/workspaces/` with sample monorepo structures | ✅ | 2025-12-07 |
+| TASK-089 | Create expected output fixtures in `test/fixtures/expected/` for analysis result comparison | ✅ | 2025-12-07 |
+| TASK-090 | Implement `test/scanner/workspace-scanner.test.ts` with concurrent test execution | ✅ | 2025-12-07 |
+| TASK-091 | Implement `test/analyzers/unused-dependency-analyzer.test.ts` | ✅ | 2025-12-07 |
+| TASK-092 | Implement `test/analyzers/circular-import-analyzer.test.ts` | ✅ | 2025-12-07 |
+| TASK-093 | Implement `test/analyzers/config-consistency-analyzer.test.ts` | ✅ | 2025-12-07 |
+| TASK-094 | Implement `test/reporters/report-generation.test.ts` with snapshot testing | ✅ | 2025-12-07 |
 
 ### Implementation Phase 12: Integration Testing
 
@@ -245,11 +245,11 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-095 | Create `test/integration/analysis-pipeline.test.ts` for full analysis flow validation | | |
-| TASK-096 | Implement `test/integration/incremental-analysis.test.ts` for cache and change detection accuracy | | |
-| TASK-097 | Create `test/integration/configuration-validation.test.ts` for config file handling | | |
-| TASK-098 | Implement `test/integration/multi-package-analysis.test.ts` for workspace-wide scenarios | | |
-| TASK-099 | Add test coverage for error scenarios and recovery paths | | |
+| TASK-095 | Create `test/integration/analysis-pipeline.test.ts` for full analysis flow validation | ✅ | 2025-12-07 |
+| TASK-096 | Implement `test/integration/incremental-analysis.test.ts` for cache and change detection accuracy | ✅ | 2025-12-07 |
+| TASK-097 | Create `test/integration/configuration-validation.test.ts` for config file handling | ✅ | 2025-12-07 |
+| TASK-098 | Implement `test/integration/multi-package-analysis.test.ts` for workspace-wide scenarios | ✅ | 2025-12-07 |
+| TASK-099 | Add test coverage for error scenarios and recovery paths | ✅ | 2025-12-07 |
 
 ### Implementation Phase 13: Documentation and Works Integration
 
@@ -257,15 +257,15 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-100 | Create comprehensive README.md for `packages/workspace-analyzer/` | | |
-| TASK-101 | Add package documentation to `docs/src/content/docs/packages/workspace-analyzer.mdx` | | |
-| TASK-102 | Create `workspace-analyzer.config.ts` at workspace root codifying bfra.me/works-specific rules | | |
-| TASK-103 | Document built-in analyzers and rule configuration patterns | | |
-| TASK-104 | Add `workspace-analyzer` script to root `package.json` for running analysis | | |
-| TASK-105 | Integrate workspace-analyzer into `pnpm validate` script | | |
-| TASK-106 | Add workspace-analyzer step to `.github/workflows/main.yaml` CI workflow | | |
-| TASK-107 | Create changeset entry for initial release | | |
-| TASK-108 | Update root `llms.txt` with workspace-analyzer package information | | |
+| TASK-100 | Create comprehensive README.md for `packages/workspace-analyzer/` | ✅ | 2025-12-07 |
+| TASK-101 | Add package documentation to `docs/src/content/docs/packages/workspace-analyzer.mdx` | ✅ | 2025-12-07 |
+| TASK-102 | Create `workspace-analyzer.config.ts` at workspace root codifying bfra.me/works-specific rules | ✅ | 2025-12-07 |
+| TASK-103 | Document built-in analyzers and rule configuration patterns | ✅ | 2025-12-07 |
+| TASK-104 | Add `workspace-analyzer` script to root `package.json` for running analysis | ✅ | 2025-12-07 |
+| TASK-105 | Integrate workspace-analyzer into `pnpm validate` script | ✅ | 2025-12-07 |
+| TASK-106 | Add workspace-analyzer step to `.github/workflows/main.yaml` CI workflow | ✅ | 2025-12-07 |
+| TASK-107 | Create changeset entry for initial release | ✅ | 2025-12-07 |
+| TASK-108 | Update root `llms.txt` with workspace-analyzer package information | ✅ | 2025-12-07 |
 
 ## 3. Alternatives
 
@@ -279,46 +279,42 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 ## 4. Dependencies
 
-### Reused Internal Dependencies
+### Reused Internal Dependencies (Direct Imports)
 
-- **DEP-001**: `@bfra.me/es` (workspace:*) — Core utilities package providing:
-  - `Result<T, E>` type from `/result` for error handling
-  - `createFileHasher()` from `/watcher` for file change detection
-  - `createChangeDetector()` from `/watcher` for incremental analysis
-  - `pLimit()` from `/async` for parallel analysis execution
-  - `debounce()`, `throttle()` from `/async` for CLI responsiveness
-  - Type guards and validation from `/types` and `/validation`
+- **DEP-001**: `@bfra.me/es` (workspace:*) — Core utilities package. **Directly imported:**
+  - `Result<T, E>` type from `@bfra.me/es/result` for error handling
+  - `ok()`, `err()`, `isOk()`, `isErr()` utilities from `@bfra.me/es/result`
+  - `createFileHasher()` from `@bfra.me/es/watcher` for file change detection (Phase 8)
+  - `createChangeDetector()` from `@bfra.me/es/watcher` for incremental analysis (Phase 8)
+  - `pLimit()` from `@bfra.me/es/async` for parallel analysis execution (Phase 8)
+  - `debounce()`, `throttle()` from `@bfra.me/es/async` for CLI responsiveness (Phase 10)
 
-- **DEP-002**: `@bfra.me/doc-sync` (workspace:*) — Documentation sync package providing reusable patterns:
-  - `createProject()` and TypeScript parsing utilities from `/parsers/typescript-parser`
-  - Package scanning patterns from `/orchestrator/package-scanner`
-  - CLI structure and @clack/prompts integration patterns from `/cli`
-  - JSDoc extraction utilities from `/parsers/jsdoc-extractor`
-  - Configuration validation patterns using zod
+- **DEP-002**: `@bfra.me/doc-sync` (workspace:*) — Documentation sync package. **Directly imported:**
+  - `createProject()` from `@bfra.me/doc-sync/parsers` for ts-morph project initialization
+  - `parseSourceFile()` from `@bfra.me/doc-sync/parsers` for TypeScript AST parsing
+  - `parseSourceContent()` from `@bfra.me/doc-sync/parsers` for in-memory parsing
+  - `TypeScriptParserOptions` type from `@bfra.me/doc-sync/parsers`
+  - `ParseError`, `ParseErrorCode` types from `@bfra.me/doc-sync/types`
+  - CLI patterns adapted from `@bfra.me/doc-sync/cli` (Phase 10)
+  - Configuration validation patterns using zod (Phase 9)
 
-### External Runtime Dependencies
+### External Dependencies (via @bfra.me/doc-sync transitive)
 
-- **DEP-003**: `typescript` (^5.4.0) — TypeScript Compiler API for AST parsing (already in workspace via doc-sync)
-- **DEP-004**: `ts-morph` (^26.0.0) — TypeScript Compiler API wrapper (already in workspace via doc-sync)
-- **DEP-005**: `@clack/prompts` (^0.11.0) — Modern CLI prompts for interactive TUI (already in workspace via doc-sync)
-- **DEP-006**: `cac` (^6.7.14) — Lightweight CLI argument parser (already in workspace via doc-sync)
-- **DEP-007**: `consola` (^3.4.2) — Console logging with levels (already in workspace via doc-sync)
-- **DEP-008**: `zod` (^4.1.13) — Runtime validation for configuration schemas (already in workspace via doc-sync)
-- **DEP-009**: `picomatch` (^4.0.0) — Glob pattern matching for rule configuration
+- **DEP-003**: `typescript` (^5.4.0) — TypeScript Compiler API for AST parsing (transitive via doc-sync)
+- **DEP-004**: `ts-morph` (^27.0.0) — TypeScript Compiler API wrapper (transitive via doc-sync, peer dependency)
+- **DEP-005**: `@clack/prompts` (^0.11.0) — Modern CLI prompts for interactive TUI
+- **DEP-006**: `cac` (^6.7.14) — Lightweight CLI argument parser
+- **DEP-007**: `consola` (^3.4.2) — Console logging with levels
 
 ### External Development Dependencies
 
-- **DEP-010**: `memfs` (^4.51.1) — In-memory file system for testing (already in workspace via doc-sync)
-- **DEP-011**: `@bfra.me/works` (workspace:*) — Development tooling package for ESLint/TS config
-
-- **DEP-008**: `@bfra.me/works` (workspace:*) — Root workspace dev dependency aggregator
-- **DEP-009**: `@bfra.me/tsconfig` (workspace:*) — Shared TypeScript configuration
-- **DEP-010**: `vitest` — Testing framework (via workspace root)
-- **DEP-011**: `tsup` — Build tool (via workspace root)
+- **DEP-008**: `@bfra.me/works` (workspace:*) — Development tooling package for ESLint/TS config
+- **DEP-009**: `memfs` (^4.51.1) — In-memory file system for testing
 
 ### Peer Dependencies
 
-- **DEP-012**: `typescript` (>=5.0.0) — Consumer provides TypeScript version
+- **DEP-010**: `typescript` (>=5.0.0) — Consumer provides TypeScript version
+- **DEP-011**: `ts-morph` (>=27.0.0) — Consumer provides ts-morph for AST operations
 
 ## 5. Files
 
@@ -356,10 +352,10 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 - **FILE-002**: `packages/workspace-analyzer/src/types/index.ts` — Core analysis types (AnalysisResult, Issue, Severity)
 - **FILE-003**: `packages/workspace-analyzer/src/types/result.ts` — Re-export of Result type from @bfra.me/es
 - **FILE-004**: `packages/workspace-analyzer/src/scanner/workspace-scanner.ts` — Workspace package discovery (adapted from doc-sync)
-- **FILE-005**: `packages/workspace-analyzer/src/parser/typescript-parser.ts` — TypeScript AST parser wrapper (reuses doc-sync patterns)
-- **FILE-006**: `packages/workspace-analyzer/src/parser/import-extractor.ts` — Import statement extraction
-- **FILE-007**: `packages/workspace-analyzer/src/graph/dependency-graph.ts` — Dependency relationship tracking
-- **FILE-008**: `packages/workspace-analyzer/src/analyzers/analyzer.ts` — Analyzer interface definition
+- **FILE-005**: `packages/workspace-analyzer/src/parser/typescript-parser.ts` — **Re-exports from @bfra.me/doc-sync/parsers** + workspace-specific utilities
+- **FILE-006**: `packages/workspace-analyzer/src/parser/import-extractor.ts` — Import statement extraction (uses ts-morph via doc-sync)
+- **FILE-007**: `packages/workspace-analyzer/src/graph/dependency-graph.ts` — Dependency relationship tracking with Tarjan's cycle detection
+- **FILE-008**: `packages/workspace-analyzer/src/parser/config-parser.ts` — package.json and tsconfig.json parsing
 - **FILE-009**: `packages/workspace-analyzer/src/analyzers/unused-dependency-analyzer.ts` — Unused dependency detection
 - **FILE-010**: `packages/workspace-analyzer/src/analyzers/circular-import-analyzer.ts` — Circular dependency detection with Tarjan's algorithm
 - **FILE-011**: `packages/workspace-analyzer/src/analyzers/config-consistency-analyzer.ts` — Configuration cross-validation

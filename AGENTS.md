@@ -14,81 +14,57 @@ TypeScript-centric monorepo providing reusable tooling for modern JavaScript/Typ
 - **@bfra.me/badge-config** – Badge URL generation for Shields.io
 - **@bfra.me/semantic-release** – Semantic-release presets
 - **@bfra.me/doc-sync** – Documentation synchronization utilities
+- **@bfra.me/workspace-analyzer** – Comprehensive monorepo static analysis with CLI and API
 
 All packages target ES2022+/Node.js 20+. Uses pnpm 10+ workspaces with ESM throughout.
 
 ## Setup Commands
 
 ```bash
-# Install dependencies (prefer-offline mode)
-pnpm bootstrap
-
-# Or standard install
-pnpm install
-
-# Prepare workspace (sync docs, setup husky)
-pnpm prepare
+pnpm bootstrap          # Install dependencies (prefer-offline mode)
+pnpm install            # Standard install
+pnpm prepare            # Sync docs, setup husky hooks
 ```
 
 ## Development Workflow
 
 ```bash
-# Full validation: type-check → build → lint → test → type-coverage
-pnpm validate
-
-# Build all packages (streams per package) + publint
-pnpm build
-
-# Watch mode for development
-pnpm dev       # Parallel watch across packages
-pnpm watch     # Build with --watch
-
-# Lint workspace
-pnpm lint                  # manypkg check + eslint
-pnpm fix                   # manypkg fix + eslint --fix
-
-# Type checking
-pnpm type-check            # TypeScript noEmit check
-pnpm type-coverage         # Type coverage analysis
-pnpm type-coverage:detail  # Detailed type coverage report
+pnpm validate           # Full validation: type-check → build → lint → test → type-coverage
+pnpm build              # Build all packages (streams per package) + publint
+pnpm dev                # Parallel watch across packages
+pnpm watch              # Build with --watch
+pnpm lint               # manypkg check + eslint
+pnpm fix                # manypkg fix + eslint --fix
+pnpm type-check         # TypeScript noEmit check
+pnpm type-coverage      # Type coverage analysis
+pnpm analyze            # Run workspace static analysis
 ```
 
 ## Package Navigation
 
 Use the `name` field in each package's `package.json` to identify packages:
 
-| Package                     | Location                     | Description                       |
-| --------------------------- | ---------------------------- | --------------------------------- |
-| `@bfra.me/eslint-config`    | `packages/eslint-config/`    | Shared ESLint config              |
-| `@bfra.me/prettier-config`  | `packages/prettier-config/`  | Prettier config                   |
-| `@bfra.me/tsconfig`         | `packages/tsconfig/`         | TypeScript configs                |
-| `@bfra.me/es`               | `packages/es/`               | ES utilities with subpath exports |
-| `@bfra.me/create`           | `packages/create/`           | Project creation CLI              |
-| `@bfra.me/badge-config`     | `packages/badge-config/`     | Badge URL generation              |
-| `@bfra.me/semantic-release` | `packages/semantic-release/` | Release presets                   |
-| `@bfra.me/doc-sync`         | `packages/doc-sync/`         | Documentation sync utilities      |
+| Package                        | Location                        | Description                       |
+| ------------------------------ | ------------------------------- | --------------------------------- |
+| `@bfra.me/eslint-config`       | `packages/eslint-config/`       | Shared ESLint config              |
+| `@bfra.me/prettier-config`     | `packages/prettier-config/`     | Prettier config                   |
+| `@bfra.me/tsconfig`            | `packages/tsconfig/`            | TypeScript configs                |
+| `@bfra.me/es`                  | `packages/es/`                  | ES utilities with subpath exports |
+| `@bfra.me/create`              | `packages/create/`              | Project creation CLI              |
+| `@bfra.me/badge-config`        | `packages/badge-config/`        | Badge URL generation              |
+| `@bfra.me/semantic-release`    | `packages/semantic-release/`    | Release presets                   |
+| `@bfra.me/doc-sync`            | `packages/doc-sync/`            | Documentation sync utilities      |
+| `@bfra.me/workspace-analyzer`  | `packages/workspace-analyzer/`  | Monorepo static analysis CLI      |
 
 ## Testing Instructions
 
 ```bash
-# Run all tests
-pnpm test
-
-# Run tests for a specific package
-pnpm --filter @bfra.me/es test
-pnpm --filter @bfra.me/eslint-config test
-
-# Run specific test file
-pnpm vitest run packages/es/test/result.test.ts
-
-# Run tests matching pattern
-pnpm vitest run -t "Result type"
-
-# Watch mode
-pnpm vitest
-
-# Coverage for specific package
-pnpm --filter @bfra.me/create test:coverage
+pnpm test                                           # Run all tests
+pnpm --filter @bfra.me/es test                      # Test specific package
+pnpm vitest run packages/es/test/result.test.ts    # Test specific file
+pnpm vitest run -t "Result type"                    # Test matching pattern
+pnpm vitest                                         # Watch mode
+pnpm --filter @bfra.me/create test:coverage         # Coverage for specific package
 ```
 
 **Test conventions:**
@@ -119,17 +95,10 @@ pnpm --filter @bfra.me/create test:coverage
 ### Linting & Formatting
 
 ```bash
-# Check lint
-pnpm lint
-
-# Fix lint issues
-pnpm fix
-
-# Inspect ESLint config
-pnpm inspect-eslint-config
-
-# Lint packages for publishing issues
-pnpm lint-packages
+pnpm lint                    # Check lint issues
+pnpm fix                     # Auto-fix lint issues
+pnpm inspect-eslint-config   # Inspect ESLint config
+pnpm lint-packages           # Lint packages for publishing issues
 ```
 
 Prettier config at `packages/prettier-config/prettier.config.cjs` (referenced by root).
@@ -150,18 +119,25 @@ The `pnpm build` command handles this automatically via streaming.
 ### @bfra.me/eslint-config
 
 ```bash
-cd packages/eslint-config
-pnpm run generate-types   # Generate rule types
-pnpm run dev              # Run config inspector
-pnpm run build-inspector  # Build inspector for deployment
+pnpm --filter @bfra.me/eslint-config run generate-types    # Generate rule types
+pnpm --filter @bfra.me/eslint-config run dev               # Run config inspector
+pnpm --filter @bfra.me/eslint-config run build-inspector   # Build inspector for deployment
 ```
 
 ### @bfra.me/create
 
 ```bash
-cd packages/create
-pnpm run dev              # Run CLI in dev mode with tsx
-pnpm run start            # Run built CLI
+pnpm --filter @bfra.me/create run dev     # Run CLI in dev mode with tsx
+pnpm --filter @bfra.me/create run start   # Run built CLI
+```
+
+### @bfra.me/workspace-analyzer
+
+```bash
+pnpm analyze                              # Run workspace analysis
+pnpm --filter @bfra.me/workspace-analyzer run dev     # Run CLI in dev mode
+workspace-analyzer --interactive          # Interactive analyzer selection
+workspace-analyzer --json > report.json   # JSON output for CI
 ```
 
 ### @bfra.me/es
@@ -182,17 +158,10 @@ import { createAppError, isAppError } from '@bfra.me/es/error'
 ## Release Workflow
 
 ```bash
-# Create a changeset for your changes
-pnpm changeset
-
-# Version packages (used by CI)
-pnpm version-changesets
-
-# Publish packages (used by CI)
-pnpm publish-changesets
-
-# Clean old changesets
-pnpm clean-changesets
+pnpm changeset           # Create a changeset for your changes
+pnpm version-changesets  # Version packages (used by CI)
+pnpm publish-changesets  # Publish packages (used by CI)
+pnpm clean-changesets    # Clean old changesets
 ```
 
 **Changeset guidelines:**
@@ -210,6 +179,7 @@ The CI workflow (`.github/workflows/main.yaml`) runs:
 2. **Lint** – `pnpm lint` + type coverage check
 3. **Test** – `pnpm test`
 4. **Build** – `pnpm build`
+5. **Analyze** – `pnpm analyze` workspace analysis (allows failures)
 
 All checks must pass before merging to main.
 
@@ -270,17 +240,10 @@ if (isOk(result)) {
 ### Running Specific Tests
 
 ```bash
-# Single package
-pnpm --filter @bfra.me/es test
-
-# Single file
-pnpm vitest run packages/es/test/result.test.ts
-
-# Pattern match
-pnpm vitest run -t "should handle errors"
-
-# Interactive UI
-pnpm --filter @bfra.me/create test:ui
+pnpm --filter @bfra.me/es test                       # Single package
+pnpm vitest run packages/es/test/result.test.ts     # Single file
+pnpm vitest run -t "should handle errors"            # Pattern match
+pnpm --filter @bfra.me/create test:ui                # Interactive UI
 ```
 
 ## Troubleshooting
@@ -288,32 +251,28 @@ pnpm --filter @bfra.me/create test:ui
 ### Build Failures
 
 ```bash
-# Clean and rebuild
-pnpm clean
-pnpm bootstrap
-pnpm build
+pnpm clean       # Remove build artifacts and caches
+pnpm bootstrap   # Reinstall dependencies
+pnpm build       # Rebuild all packages
 ```
 
 ### Type Errors After Changes
 
 ```bash
-pnpm type-check
+pnpm type-check            # Check for type errors
 pnpm type-coverage:detail  # See specific coverage issues
 ```
 
 ### Lint Errors
 
 ```bash
-pnpm lint                  # Check issues
-pnpm fix                   # Auto-fix where possible
+pnpm lint   # Check issues
+pnpm fix    # Auto-fix where possible
 ```
 
 ### Workspace Package Resolution Issues
 
-```bash
-# Vitest resolves workspace packages to source via 'source' condition
-# Ensure packages export 'source' field in package.json exports
-```
+Vitest resolves workspace packages to TypeScript source via `conditions: ['source']`. Ensure packages export `source` field in package.json exports.
 
 ## Security Notes
 

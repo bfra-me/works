@@ -74,3 +74,26 @@ Implementation plans to reference for shared code to implement in `@bfra.me/es`:
 ### 3. **Add Built-in Template to @bfra.me/create**
 
 > Create a new built-in template for `@bfra.me/create` (e.g., a Vitest library template or an Astro component package). Add template files to `packages/create/templates/<template-name>/`, use Eta templating syntax for dynamic content, ensure the template includes proper package.json, tsconfig.json (extending `@bfra.me/tsconfig`), eslint.config.ts, and test setup. Add integration tests that verify template rendering produces valid project structure.
+
+---
+
+## Implementation Prompts
+
+Based on the AGENTS.md and project architecture, here are 3 unique prompts for extending the project:
+
+1. **Add a caching layer to @bfra.me/create**: Implement template caching using the `Result<T, E>` pattern from `@bfra.me/es/result` to cache remote Git template fetches in a local `.bfra-cache` directory, reducing network requests and enabling offline template usage with cache invalidation based on content hashes using `@bfra.me/es/watcher` utilities.
+
+2. **Create a @bfra.me/metrics package**: Build a new package that aggregates workspace metrics (test coverage, type coverage, bundle sizes, dependency counts) across all packages using the existing `@bfra.me/workspace-analyzer` infrastructure, outputting JSON reports compatible with GitHub Actions job summaries and supporting trend analysis via file snapshots.
+
+3. **Implement cross-package import linting rules**: Extend `@bfra.me/eslint-config` with custom rules that enforce the architectural layer patterns defined in workspace-analyzer.config.ts, preventing packages from importing internal modules that aren't explicitly exported and ensuring proper dependency direction between config packages (`tsconfig` → `prettier-config` → `eslint-config`).
+
+Here are **3 additional implementation prompts** for the bfra.me/works monorepo:
+
+### 4. **Add AI-powered template generation to @bfra.me/create**
+Extend the `@bfra.me/create` CLI to accept natural language descriptions of projects and generate custom `tsup.config.ts` and eslint.config.ts configurations using OpenAI or Anthropic APIs (already supported via environment variables), storing generated configs in a versioned template cache and allowing users to iterate on generated templates before scaffolding new projects with the `Result<T, E>` pattern for error handling.
+
+### 5. **Implement automated dependency upgrade analysis in @bfra.me/workspace-analyzer**
+Add a new analyzer that detects outdated dependencies across packages using npm registry data, estimates upgrade effort based on breaking changes in changelogs, and suggests safe upgrade paths while respecting the workspace protocol (`workspace:*`) constraints, outputting compatibility reports for each package upgrade that integrate with the existing analyzer registry architecture.
+
+### 6. **Create interactive package dependency visualizer**
+Build a CLI tool (as part of `@bfra.me/workspace-analyzer`) that generates interactive HTML visualizations of cross-package dependencies and circular import chains, highlighting architectural violations from the rules engine, and supporting graph filtering by layer, severity, and package scope for easier dependency management—leveraging the existing `buildDependencyGraph()` and `findCycles()` functions.

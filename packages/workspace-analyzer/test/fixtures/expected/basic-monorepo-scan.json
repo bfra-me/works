@@ -1,0 +1,21 @@
+{
+  "workspacePath": "/workspace",
+  "packages": [
+    {
+      "name": "@fixture/core",
+      "version": "1.0.0",
+      "hasTsConfig": true,
+      "hasEslintConfig": false,
+      "sourceFileCount": 1
+    },
+    {
+      "name": "@fixture/utils",
+      "version": "1.0.0",
+      "hasTsConfig": true,
+      "hasEslintConfig": false,
+      "sourceFileCount": 1
+    }
+  ],
+  "packageCount": 2,
+  "errors": []
+}

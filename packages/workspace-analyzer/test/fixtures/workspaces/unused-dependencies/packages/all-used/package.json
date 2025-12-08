@@ -1,0 +1,12 @@
+{
+  "name": "@fixture/all-used",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "date-fns": "^2.30.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

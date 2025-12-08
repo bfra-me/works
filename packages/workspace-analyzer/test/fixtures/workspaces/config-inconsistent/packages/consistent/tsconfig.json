@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "outDir": "./lib",
+    "rootDir": "./src",
+    "module": "ESNext",
+    "target": "ES2022"
+  }
+}
