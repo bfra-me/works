@@ -57,8 +57,12 @@ describe('add command', () => {
   })
 
   afterEach(() => {
-    if (existsSync(tempOutputDir)) {
-      rmSync(tempOutputDir, {recursive: true, force: true})
+    try {
+      if (existsSync(tempOutputDir)) {
+        rmSync(tempOutputDir, {recursive: true, force: true})
+      }
+    } catch (error) {
+      console.warn(`Failed to clean up ${tempOutputDir}:`, error)
     }
     vi.restoreAllMocks()
   })

@@ -4,11 +4,12 @@ import {defineConfig} from 'vitest/config'
 
 export default defineConfig({
   plugins: [tsconfigPaths()],
+  globalTeardown: './vitest.global-teardown.ts',
   test: {
     environment: 'node',
     globals: true,
     include: ['test/**/*.test.ts'],
-    exclude: ['node_modules/', 'dist/', 'test-add-project/', 'test-dry-run/', '**/*.d.ts'],
+    exclude: ['node_modules/', 'dist/', 'test-add-project/', 'test-dry-run/', '.tmp/', '**/*.d.ts'],
     testTimeout: 30000, // Allow longer timeouts for integration tests
     coverage: {
       provider: 'v8',

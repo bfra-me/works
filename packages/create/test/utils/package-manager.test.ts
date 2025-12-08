@@ -31,7 +31,7 @@ describe('package-manager utilities', () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
-    tempDir = path.join(process.cwd(), `test-temp-pm-${Date.now()}`)
+    tempDir = path.join(process.cwd(), '.tmp', `test-temp-pm-${Date.now()}`)
     mkdirSync(tempDir, {recursive: true})
     writeFileSync(
       path.join(tempDir, 'package.json'),
@@ -40,8 +40,12 @@ describe('package-manager utilities', () => {
   })
 
   afterEach(() => {
-    if (existsSync(tempDir)) {
-      rmSync(tempDir, {recursive: true, force: true})
+    try {
+      if (existsSync(tempDir)) {
+        rmSync(tempDir, {recursive: true, force: true})
+      }
+    } catch (error) {
+      console.warn(`Failed to clean up ${tempDir}:`, error)
     }
   })
 

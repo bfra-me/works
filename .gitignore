@@ -36,3 +36,9 @@ semantic-release-presets/Custom Local Preset.preset.json
 
 # Test fixture temp directories
 **/test/fixtures/temp/
+
+# Additional test temporary directories
+.tmp/
+**/test-temp-pm-*
+test-add-project/
+test-dry-run/
