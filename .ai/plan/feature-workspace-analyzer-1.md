@@ -213,16 +213,16 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-077 | Create CLI entry point in `src/cli/index.ts` adapting doc-sync's CLI structure with cac for argument parsing | | |
-| TASK-078 | Implement `analyze` command with `@clack/prompts` intro, outro, and spinner components | | |
-| TASK-079 | Add analyzer selection using `@clack/prompts` multiselect adapting doc-sync's package selection pattern | | |
-| TASK-080 | Implement progress reporting with `@clack/prompts` spinner and createProgressCallback pattern from doc-sync | | |
-| TASK-081 | Create results display using `@clack/prompts` log methods and consola integration like doc-sync | | |
-| TASK-082 | Add `--config` flag support for custom `workspace-analyzer.config.ts` path | | |
-| TASK-083 | Implement `--json` and `--markdown` output format flags for non-interactive use | | |
-| TASK-084 | Add `--fix` flag placeholder for future auto-fix capabilities | | |
-| TASK-085 | Implement `--dry-run`, `--verbose`, `--quiet` logging options like doc-sync | | |
-| TASK-086 | Write CLI unit tests in `test/cli/cli.test.ts` | | |
+| TASK-077 | Create CLI entry point in `src/cli/index.ts` adapting doc-sync's CLI structure with cac for argument parsing | ✅ | 2025-12-07 |
+| TASK-078 | Implement `analyze` command with `@clack/prompts` intro, outro, and spinner components | ✅ | 2025-12-07 |
+| TASK-079 | Add analyzer selection using `@clack/prompts` multiselect adapting doc-sync's package selection pattern | ✅ | 2025-12-07 |
+| TASK-080 | Implement progress reporting with `@clack/prompts` spinner and createProgressCallback pattern from doc-sync | ✅ | 2025-12-07 |
+| TASK-081 | Create results display using `@clack/prompts` log methods and consola integration like doc-sync | ✅ | 2025-12-07 |
+| TASK-082 | Add `--config` flag support for custom `workspace-analyzer.config.ts` path | ✅ | 2025-12-07 |
+| TASK-083 | Implement `--json` and `--markdown` output format flags for non-interactive use | ✅ | 2025-12-07 |
+| TASK-084 | Add `--fix` flag placeholder for future auto-fix capabilities | ✅ | 2025-12-07 |
+| TASK-085 | Implement `--dry-run`, `--verbose`, `--quiet` logging options like doc-sync | ✅ | 2025-12-07 |
+| TASK-086 | Write CLI unit tests in `test/cli/cli.test.ts` | ✅ | 2025-12-07 |
 
 ### Implementation Phase 11: Testing Infrastructure
 
