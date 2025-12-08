@@ -49,9 +49,29 @@ const BUILTIN_TEMPLATES: Record<string, TemplateMetadata> = {
 }
 
 /**
- * Interactive template selection with preview
+ * Interactive template selection with preview and validation.
  *
- * @returns A Result containing the selected template or an error
+ * Provides an interactive prompt for users to select from built-in templates or specify
+ * custom template sources (GitHub repositories, URLs, or local paths). When a template is
+ * selected, displays a preview of the template's metadata before proceeding.
+ *
+ * @param initialTemplate - Optional pre-selected template identifier. If provided, skips interactive selection.
+ * @returns A Result containing the selected template information or an error.
+ *
+ * @example
+ * ```typescript
+ * import { templateSelection } from '@bfra.me/create/prompts'
+ * import { isOk } from '@bfra.me/es/result'
+ *
+ * // Interactive selection
+ * const result = await templateSelection()
+ * if (isOk(result)) {
+ *   console.log('Selected:', result.value.type, result.value.location)
+ * }
+ *
+ * // Pre-selected template
+ * const result = await templateSelection('library')
+ * ```
  */
 export async function templateSelection(
   initialTemplate?: string,

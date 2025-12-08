@@ -25,9 +25,41 @@ export interface AddFeatureOptions {
 }
 
 /**
- * Add a feature to an existing project
+ * Add a feature to an existing project with conflict detection and backup.
  *
- * @returns A Result indicating success or containing an error
+ * Analyzes the target project, detects potential conflicts, and safely adds the requested
+ * feature. Automatically creates backups before making changes and can restore them if the
+ * operation fails. Supports dry-run mode for previewing changes without modification.
+ *
+ * @param options - Feature addition configuration
+ * @param options.feature - Feature identifier to add (e.g., 'eslint', 'vitest', 'component')
+ * @param options.targetDir - Target directory path (defaults to current working directory)
+ * @param options.skipConfirm - Skip confirmation prompts for automated workflows
+ * @param options.verbose - Enable detailed logging output
+ * @param options.dryRun - Preview changes without modifying files
+ * @param options.options - Feature-specific configuration options
+ * @returns A Result indicating success or containing a CreateError with details
+ *
+ * @example
+ * ```typescript
+ * import { addFeatureToProject } from '@bfra.me/create'
+ * import { isOk, isErr } from '@bfra.me/es/result'
+ *
+ * // Add ESLint with defaults
+ * const result = await addFeatureToProject({ feature: 'eslint' })
+ *
+ * if (isErr(result)) {
+ *   console.error('Failed:', result.error.message)
+ *   process.exit(1)
+ * }
+ *
+ * // Add component with options
+ * const result = await addFeatureToProject({
+ *   feature: 'component',
+ *   targetDir: './src',
+ *   options: { name: 'Button', type: 'functional' }
+ * })
+ * ```
  */
 export async function addFeatureToProject(
   options: AddFeatureOptions,

@@ -20,7 +20,29 @@ interface CustomizationInput {
 }
 
 /**
- * Collect project customization details through interactive prompts
+ * Collect project customization details through interactive prompts.
+ *
+ * Guides users through configuring project metadata (description, author, version),
+ * package manager selection, output directory, and optional features. When AI recommendations
+ * are available, displays them before collecting user input.
+ *
+ * @param input - Configuration input containing project name, template selection, initial options, and AI recommendations
+ * @returns Promise resolving to ProjectCustomization with all collected details
+ *
+ * @example
+ * ```typescript
+ * import { projectCustomization } from '@bfra.me/create/prompts'
+ *
+ * const customization = await projectCustomization({
+ *   projectName: 'my-app',
+ *   template: { type: 'builtin', location: 'react', metadata: {...} },
+ *   initialOptions: { interactive: true },
+ *   aiRecommendations: []
+ * })
+ *
+ * console.log('Package manager:', customization.packageManager)
+ * console.log('Output dir:', customization.outputDir)
+ * ```
  */
 export async function projectCustomization(
   input: CustomizationInput,

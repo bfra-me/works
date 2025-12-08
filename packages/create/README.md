@@ -18,65 +18,124 @@ A powerful, modern command-line utility for creating new projects from customiza
 
 ## Architecture
 
-This package uses a modern **functional architecture** with factory patterns, providing better testability, maintainability, and type safety compared to traditional class-based approaches.
+This package uses a modern **functional architecture** with Result-based error handling, providing better testability, maintainability, and type safety compared to traditional exception-based approaches.
 
 ### Core Design Principles
 
-- **Functional Factories** - All components use factory functions (`createTemplateResolver()`, `createLLMClient()`) instead of classes
-- **Result Pattern** - All operations return `Result<T, E>` discriminated unions from `@bfra.me/es/result` for explicit error handling
+- **Result Pattern** - All async operations return `Promise<Result<T, E>>` discriminated unions from `@bfra.me/es/result` for explicit, type-safe error handling
+- **Factory Functions** - Core components provide factory functions (`createTemplateResolver()`, `createLLMClient()`, `createProjectAnalyzer()`) alongside classes for flexibility
+- **Unified Error System** - Consistent error codes across template, AI, CLI, and project domains with structured error types
 - **Branded Types** - Compile-time validation using branded types (`BrandedTemplateSource`, `ProjectPath`, `PackageName`)
-- **Unified Error System** - Consistent error codes across template, AI, and CLI domains
-- **Composition over Inheritance** - Functional composition using `pipe()`, `compose()`, and `curry()` from `@bfra.me/es/functional`
+- **Functional Composition** - Leverages composition patterns with utilities from `@bfra.me/es/functional` and `@bfra.me/es/async`
+- **Type Safety First** - Strict TypeScript with no `any` types, comprehensive type guards, and runtime validation
 
 ### Key Components
 
 ```text
 src/
+├── index.ts                # Main API: createPackage() with Result returns
+├── types.ts                # Comprehensive type definitions and error types
+├── cli.ts                  # CLI entry point with Result-based error handling
+├── commands/
+│   ├── add.ts              # addFeatureToProject() - returns Result<void, CreateError>
+│   └── progress-indicators.ts  # Interactive UI utilities
 ├── ai/                     # AI integration (provider-agnostic LLM client)
 │   ├── llm-client-factory.ts   # createLLMClient() factory
-│   ├── providers/              # OpenAI/Anthropic adapters
-│   └── project-analyzer-fn.ts  # Functional analysis pipeline
-├── commands/               # CLI command infrastructure
-│   ├── shared-context.ts       # Reusable command context
-│   └── validation-pipeline.ts  # Unified input validation
+│   ├── llm-client.ts           # LLMClient class (deprecated, use factory)
+│   ├── project-analyzer.ts     # createProjectAnalyzer() factory
+│   ├── assistant.ts            # AI assistant with Result returns
+│   ├── code-generator.ts       # Code generation utilities
+│   └── providers/              # OpenAI/Anthropic adapters
 ├── templates/              # Template processing system
-│   ├── pipeline.ts             # Canonical processing pipeline
-│   ├── resolver.ts             # createTemplateResolver() factory
-│   └── fetcher.ts              # Template fetching with caching
-├── utils/                  # Shared utilities
-│   ├── errors.ts               # Unified error factory
-│   ├── validation-factory.ts   # Reusable validators
-│   └── type-guards.ts          # Runtime type validation
-└── types.ts                # Comprehensive type definitions
+│   ├── fetcher.ts              # createTemplateFetcher() factory + TemplateFetcher class
+│   ├── processor.ts            # Template processing with Result returns
+│   ├── resolver.ts             # Template resolution (returns Result)
+│   └── validator.ts            # createTemplateValidator() factory + TemplateValidator class
+├── prompts/                # Interactive prompts (return Result types)
+│   ├── template-selection.ts   # templateSelection() - returns Result<TemplateSelection>
+│   ├── customization.ts        # customize() - returns Result<ProjectCustomization>
+│   └── project-setup.ts        # Full interactive setup workflow
+├── features/               # Feature addition system
+│   ├── registry.ts             # Feature registration and management
+│   ├── eslint.ts               # ESLint feature implementation
+│   └── typescript.ts           # TypeScript feature implementation
+└── utils/                  # Shared utilities
+    ├── errors.ts               # Unified error factory (TemplateError, AIError, CLIError)
+    ├── ai-capabilities.ts      # getAICapabilities() - AI provider detection
+    ├── validation.ts           # Input validation with Result returns
+    ├── conflict-resolution.ts  # Configuration merge strategies
+    └── project-detection.ts    # Project type detection
 ```
 
 ### Error Handling
 
-All errors use unified error codes for consistent handling:
+All async operations use the Result pattern for consistent, type-safe error handling. Each error includes a specific error code for programmatic handling:
 
 ```typescript
-import { TemplateErrorCode, AIErrorCode, CLIErrorCode } from '@bfra.me/create'
-
-// Template errors: TEMPLATE_NOT_FOUND, TEMPLATE_INVALID, TEMPLATE_FETCH_FAILED, etc.
-// AI errors: AI_PROVIDER_UNAVAILABLE, AI_API_KEY_MISSING, AI_REQUEST_FAILED, etc.
-// CLI errors: INVALID_INPUT, INVALID_PROJECT_NAME, PATH_TRAVERSAL_ATTEMPT, etc.
-```
-
-### Functional Patterns
-
-```typescript
-import { createTemplateResolver } from '@bfra.me/create/templates'
+import { createPackage, TemplateErrorCode, AIErrorCode, CLIErrorCode } from '@bfra.me/create'
 import { isOk, isErr } from '@bfra.me/es/result'
 
-// Factory function usage
-const resolver = createTemplateResolver({ strictMode: true })
+const result = await createPackage({ name: 'my-project', template: 'library' })
 
-// Result-based error handling
-const result = resolver.resolveWithResult('user/repo')
+if (isErr(result)) {
+  // Type-safe error handling
+  switch (result.error.code) {
+    case TemplateErrorCode.TEMPLATE_NOT_FOUND:
+      console.error('Template not found:', result.error.message)
+      break
+    case AIErrorCode.AI_API_KEY_MISSING:
+      console.error('AI features require API key:', result.error.message)
+      break
+    case CLIErrorCode.DIRECTORY_EXISTS:
+      console.error('Directory exists:', result.error.message)
+      break
+    default:
+      console.error('Error:', result.error.message)
+  }
+  process.exit(1)
+}
+
+console.log('Project created at:', result.value.projectPath)
+```
+
+**Error Code Categories:**
+
+- **Template Errors**: `TEMPLATE_NOT_FOUND`, `TEMPLATE_INVALID`, `TEMPLATE_FETCH_FAILED`, `TEMPLATE_PARSE_ERROR`, `TEMPLATE_RENDER_ERROR`, etc.
+- **AI Errors**: `AI_PROVIDER_UNAVAILABLE`, `AI_API_KEY_MISSING`, `AI_REQUEST_FAILED`, `AI_RESPONSE_INVALID`, etc.
+- **CLI Errors**: `INVALID_INPUT`, `INVALID_PROJECT_NAME`, `PATH_TRAVERSAL_ATTEMPT`, `DIRECTORY_EXISTS`, `FILE_SYSTEM_ERROR`, etc.
+- **Project Errors**: `PROJECT_DETECTION_FAILED`, `PACKAGE_JSON_NOT_FOUND`, `PACKAGE_MANAGER_NOT_DETECTED`, etc.
+
+### Result Pattern Usage
+
+All async operations return `Promise<Result<T, E>>` for explicit error handling:
+
+```typescript
+import { createPackage, addFeatureToProject } from '@bfra.me/create'
+import { isOk, isErr, unwrap, unwrapOr } from '@bfra.me/es/result'
+
+// Basic Result handling
+const result = await createPackage({ name: 'my-app', template: 'react' })
+
 if (isOk(result)) {
-  console.log('Resolved:', result.data)
+  console.log('Success:', result.value.projectPath)
 } else {
   console.error('Error:', result.error.message)
+}
+
+// Using unwrap utilities
+const projectPath = isOk(result) ? unwrap(result) : unwrapOr(result, { projectPath: './default' })
+
+// Chaining operations
+const createResult = await createPackage(options)
+if (isOk(createResult)) {
+  const addResult = await addFeatureToProject({
+    feature: 'eslint',
+    targetDir: createResult.value.projectPath
+  })
+
+  if (isErr(addResult)) {
+    console.error('Failed to add feature:', addResult.error.message)
+  }
 }
 ```
 
@@ -818,6 +877,419 @@ if (isErr(result) && isBaseError(result.error)) {
   }
 }
 ```
+
+## API Reference
+
+### Core Functions
+
+#### `createPackage(options)`
+
+Creates a new project from a template with Result-based error handling.
+
+```typescript
+function createPackage(
+  options: CreateCommandOptions
+): Promise<Result<{projectPath: string}, CreateError>>
+```
+
+**Parameters:**
+- `options.name` - Project name (required unless interactive)
+- `options.template` - Template identifier (builtin name, GitHub repo, URL, or local path)
+- `options.outputDir` - Output directory path
+- `options.interactive` - Enable interactive prompts (default: true for CLI, false for API)
+- `options.description` - Project description
+- `options.author` - Project author
+- `options.version` - Initial version (default: "1.0.0")
+- `options.packageManager` - Package manager to use (npm, yarn, pnpm, bun)
+- `options.git` - Initialize git repository (default: true)
+- `options.install` - Install dependencies (default: true)
+- `options.force` - Overwrite existing files (default: false)
+- `options.dryRun` - Preview changes without modification (default: false)
+- `options.verbose` - Enable detailed logging (default: false)
+
+**Returns:** `Promise<Result<{projectPath: string}, CreateError>>`
+
+**Error Codes:** `VALIDATION_FAILED`, `TEMPLATE_NOT_FOUND`, `TEMPLATE_FETCH_FAILED`, `DIRECTORY_EXISTS`, `FILE_SYSTEM_ERROR`, `AI_API_KEY_MISSING` (if AI requested)
+
+#### `addFeatureToProject(options)`
+
+Adds a feature to an existing project with automatic conflict detection and backup.
+
+```typescript
+function addFeatureToProject(
+  options: AddFeatureOptions
+): Promise<Result<void, CreateError>>
+```
+
+**Parameters:**
+- `options.feature` - Feature identifier (e.g., 'eslint', 'vitest', 'component')
+- `options.targetDir` - Target directory (default: current directory)
+- `options.skipConfirm` - Skip confirmation prompts (default: false)
+- `options.verbose` - Enable detailed logging (default: false)
+- `options.dryRun` - Preview changes without modification (default: false)
+- `options.options` - Feature-specific configuration
+
+**Returns:** `Promise<Result<void, CreateError>>`
+
+**Error Codes:** `PROJECT_DETECTION_FAILED`, `FEATURE_NOT_FOUND`, `FILE_SYSTEM_ERROR`
+
+### Factory Functions
+
+#### `createLLMClient(config)`
+
+Creates an AI LLM client with auto provider detection.
+
+```typescript
+function createLLMClient(config?: {
+  provider?: 'openai' | 'anthropic' | 'auto'
+  apiKey?: string
+  options?: Record<string, unknown>
+}): LLMClientInstance
+```
+
+#### `createTemplateFetcher(options)`
+
+Creates a template fetcher with caching support.
+
+```typescript
+function createTemplateFetcher(options?: {
+  cacheDir?: string
+  cacheEnabled?: boolean
+  verbose?: boolean
+}): TemplateFetcherInstance
+```
+
+#### `createTemplateValidator()`
+
+Creates a template validator for metadata and structure validation.
+
+```typescript
+function createTemplateValidator(): TemplateValidatorInstance
+```
+
+#### `createProjectAnalyzer()`
+
+Creates a project analyzer for detecting project type and configuration.
+
+```typescript
+function createProjectAnalyzer(): ProjectAnalyzerInstance
+```
+
+### Prompt Functions
+
+#### `templateSelection(initialTemplate?)`
+
+Interactive template selection with preview.
+
+```typescript
+function templateSelection(
+  initialTemplate?: string
+): Promise<Result<TemplateSelection, TemplateError>>
+```
+
+#### `projectCustomization(input)`
+
+Collects project customization details through interactive prompts.
+
+```typescript
+function projectCustomization(input: {
+  projectName: string
+  template: TemplateSelection
+  initialOptions: CreateCommandOptions
+  aiRecommendations?: DependencyRecommendation[]
+}): Promise<ProjectCustomization>
+```
+
+### Utility Functions
+
+#### `getAICapabilities(provider?)`
+
+Detects available AI providers from environment variables.
+
+```typescript
+function getAICapabilities(provider?: string): {
+  enabled: boolean
+  openai: boolean
+  anthropic: boolean
+  provider: 'openai' | 'anthropic' | 'none'
+}
+```
+
+#### `validateProjectName(name, options?)`
+
+Validates project name against npm naming rules.
+
+```typescript
+function validateProjectName(
+  name: string,
+  options?: { allowScoped?: boolean }
+): Result<PackageName, ValidationError>
+```
+
+#### `validateProjectPath(path, options?)`
+
+Validates and sanitizes project path.
+
+```typescript
+function validateProjectPath(
+  path: string,
+  options?: { allowRelative?: boolean }
+): Result<ProjectPath, ValidationError>
+```
+
+### Error Codes
+
+#### Template Errors
+
+- `TEMPLATE_NOT_FOUND` - Template source not found
+- `TEMPLATE_INVALID` - Template structure or metadata invalid
+- `TEMPLATE_FETCH_FAILED` - Network error fetching template
+- `TEMPLATE_PARSE_ERROR` - Template file parsing error
+- `TEMPLATE_RENDER_ERROR` - Template rendering error
+- `TEMPLATE_METADATA_INVALID` - Invalid template.json
+- `TEMPLATE_VARIABLE_MISSING` - Required variable not provided
+- `TEMPLATE_CACHE_ERROR` - Template cache operation failed
+
+#### AI Errors
+
+- `AI_PROVIDER_UNAVAILABLE` - No AI provider configured
+- `AI_API_KEY_MISSING` - Required API key not found
+- `AI_API_KEY_INVALID` - API key authentication failed
+- `AI_REQUEST_FAILED` - AI API request failed
+- `AI_RESPONSE_INVALID` - AI response parsing error
+- `AI_RATE_LIMIT` - AI provider rate limit exceeded
+- `AI_TIMEOUT` - AI request timeout
+- `AI_ANALYSIS_FAILED` - AI analysis processing error
+
+#### CLI Errors
+
+- `INVALID_INPUT` - User input validation failed
+- `INVALID_PROJECT_NAME` - Project name invalid
+- `INVALID_PATH` - File path invalid
+- `PATH_TRAVERSAL_ATTEMPT` - Security: path traversal detected
+- `DIRECTORY_EXISTS` - Target directory already exists
+- `DIRECTORY_NOT_EMPTY` - Directory not empty
+- `FILE_SYSTEM_ERROR` - File system operation failed
+- `PERMISSION_DENIED` - Insufficient permissions
+- `COMMAND_FAILED` - Command execution failed
+- `VALIDATION_FAILED` - Input validation failed
+
+#### Project Errors
+
+- `PROJECT_DETECTION_FAILED` - Cannot detect project type
+- `PACKAGE_JSON_NOT_FOUND` - No package.json found
+- `PACKAGE_JSON_INVALID` - Invalid package.json format
+- `PACKAGE_MANAGER_NOT_DETECTED` - Cannot detect package manager
+
+### Type Exports
+
+```typescript
+import type {
+  // Main types
+  CreateCommandOptions,
+  CreateError,
+  TemplateSource,
+  TemplateMetadata,
+  TemplateSelection,
+  ProjectCustomization,
+
+  // Error types
+  TemplateError,
+  AIError,
+  CLIError,
+  ProjectError,
+
+  // Branded types
+  BrandedTemplateSource,
+  ProjectPath,
+  PackageName,
+
+  // Result types
+  Result
+} from '@bfra.me/create'
+```
+
+## Troubleshooting
+
+### Common Issues and Solutions
+
+#### Template Not Found
+
+**Problem:** `TEMPLATE_NOT_FOUND` error when trying to use a template.
+
+**Solutions:**
+```bash
+# Verify builtin template name
+create my-project --template library  # Use: default, library, cli, node, react
+
+# Check GitHub repository format
+create my-project --template user/repo  # Or: github:user/repo
+
+# Test local path exists
+create my-project --template ./path/to/template
+
+# Enable verbose mode for debugging
+create my-project --template mytemplate --verbose
+```
+
+#### Directory Already Exists
+
+**Problem:** `DIRECTORY_EXISTS` error when target directory exists.
+
+**Solutions:**
+```bash
+# Use --force to overwrite
+create my-project --force
+
+# Choose different output directory
+create my-project --output-dir ./my-project-v2
+
+# Clean up existing directory first
+rm -rf ./my-project && create my-project
+```
+
+#### AI Features Not Working
+
+**Problem:** `AI_API_KEY_MISSING` or `AI_PROVIDER_UNAVAILABLE` errors.
+
+**Solutions:**
+```bash
+# Set OpenAI API key
+export OPENAI_API_KEY="your-key-here"
+
+# Or set Anthropic API key
+export ANTHROPIC_API_KEY="your-key-here"
+
+# Verify environment variable is set
+echo $OPENAI_API_KEY
+
+# Check AI capabilities programmatically
+```
+
+```typescript
+import { getAICapabilities } from '@bfra.me/create'
+
+const capabilities = getAICapabilities()
+console.log('OpenAI available:', capabilities.openai)
+console.log('Anthropic available:', capabilities.anthropic)
+```
+
+#### Network/Fetch Errors
+
+**Problem:** `TEMPLATE_FETCH_FAILED` when downloading templates.
+
+**Solutions:**
+```bash
+# Check internet connectivity
+ping github.com
+
+# Try with local template instead
+create my-project --template ./local-template
+
+# Clear template cache
+rm -rf ~/.cache/@bfra.me/create/templates
+
+# Use verbose mode to see detailed error
+create my-project --template user/repo --verbose
+```
+
+#### Permission Denied Errors
+
+**Problem:** `PERMISSION_DENIED` when creating files.
+
+**Solutions:**
+```bash
+# Check directory permissions
+ls -la ./target-directory
+
+# Use directory you have write access to
+create my-project --output-dir ~/projects/my-project
+
+# Run with appropriate permissions (avoid sudo if possible)
+```
+
+#### Package Manager Detection Issues
+
+**Problem:** Wrong package manager detected or `PACKAGE_MANAGER_NOT_DETECTED`.
+
+**Solutions:**
+```bash
+# Explicitly specify package manager
+create my-project --package-manager pnpm
+
+# Install preferred package manager first
+npm install -g pnpm
+
+# Check what's detected
+```
+
+```typescript
+import { detect } from 'package-manager-detector'
+
+const pm = await detect({ cwd: process.cwd() })
+console.log('Detected:', pm?.name)
+```
+
+#### Test Coverage Validation
+
+**Problem:** Tests failing after integrating Result pattern.
+
+**Solutions:**
+```typescript
+// Update assertions from:
+expect(result.success).toBe(true)
+
+// To Result guards:
+import { isOk, isErr } from '@bfra.me/es/result'
+expect(isOk(result)).toBe(true)
+
+// Check error codes explicitly:
+if (isErr(result)) {
+  expect(result.error.code).toBe('EXPECTED_ERROR_CODE')
+}
+```
+
+### Debug Mode
+
+Enable maximum debugging information:
+
+```bash
+# CLI with all debug flags
+create my-project \
+  --template library \
+  --verbose \
+  --dry-run
+
+# Programmatic with error details
+```
+
+```typescript
+import { createPackage, CLIErrorCode } from '@bfra.me/create'
+import { isErr } from '@bfra.me/es/result'
+
+const result = await createPackage({
+  name: 'my-project',
+  template: 'library',
+  verbose: true,
+  dryRun: true  // Preview without changes
+})
+
+if (isErr(result)) {
+  console.error('Error code:', result.error.code)
+  console.error('Message:', result.error.message)
+  console.error('Full error:', JSON.stringify(result.error, null, 2))
+}
+```
+
+### Getting Additional Help
+
+Still stuck? Here are more resources:
+
+1. **Check GitHub Issues**: Search for similar problems at [github.com/bfra-me/works/issues](https://github.com/bfra-me/works/issues)
+2. **Ask in Discussions**: Post questions at [github.com/bfra-me/works/discussions](https://github.com/bfra-me/works/discussions)
+3. **Review Migration Guide**: See [MIGRATION.md](./MIGRATION.md) for v0.6.x → v0.7.0 changes
+4. **Check Examples**: Browse [test/](./test/) directory for usage examples
+5. **Enable Verbose Logging**: Always use `--verbose` when reporting issues
 
 ## Contributing
 
