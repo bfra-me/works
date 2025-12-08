@@ -1,4 +1,5 @@
 import type {CreateCommandOptions} from '../../src/types.js'
+import {ok} from '@bfra.me/es/result'
 import {confirm, intro, isCancel, multiselect, outro, select, text} from '@clack/prompts'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
 import {projectSetup} from '../../src/prompts/project-setup.js'
@@ -139,11 +140,13 @@ describe('cLI interaction prompts', () => {
       const {projectCustomization} = await import('../../src/prompts/customization.js')
       const {confirmationStep} = await import('../../src/prompts/confirmation.js')
 
-      vi.mocked(templateSelection).mockResolvedValue({
-        type: 'builtin',
-        location: 'default',
-        metadata: {name: 'default', description: 'Default template', version: '1.0.0'},
-      })
+      vi.mocked(templateSelection).mockResolvedValue(
+        ok({
+          type: 'builtin',
+          location: 'default',
+          metadata: {name: 'default', description: 'Default template', version: '1.0.0'},
+        }),
+      )
 
       vi.mocked(projectCustomization).mockResolvedValue({
         description: 'Test description',
@@ -175,11 +178,13 @@ describe('cLI interaction prompts', () => {
       const {projectCustomization} = await import('../../src/prompts/customization.js')
       const {confirmationStep} = await import('../../src/prompts/confirmation.js')
 
-      vi.mocked(templateSelection).mockResolvedValue({
-        type: 'builtin',
-        location: 'default',
-        metadata: {name: 'default', description: 'Default template', version: '1.0.0'},
-      })
+      vi.mocked(templateSelection).mockResolvedValue(
+        ok({
+          type: 'builtin',
+          location: 'default',
+          metadata: {name: 'default', description: 'Default template', version: '1.0.0'},
+        }),
+      )
 
       vi.mocked(projectCustomization).mockResolvedValue({
         description: 'Test description',
@@ -218,11 +223,13 @@ describe('cLI interaction prompts', () => {
       const {templateSelection} = await import('../../src/prompts/template-selection.js')
       const {projectCustomization} = await import('../../src/prompts/customization.js')
 
-      vi.mocked(templateSelection).mockResolvedValue({
-        type: 'builtin',
-        location: 'default',
-        metadata: {name: 'default', description: 'Default template', version: '1.0.0'},
-      })
+      vi.mocked(templateSelection).mockResolvedValue(
+        ok({
+          type: 'builtin',
+          location: 'default',
+          metadata: {name: 'default', description: 'Default template', version: '1.0.0'},
+        }),
+      )
 
       vi.mocked(projectCustomization).mockRejectedValue(new Error('Customization failed'))
 
@@ -270,7 +277,7 @@ describe('cLI interaction prompts', () => {
         features: ['typescript', 'vitest'],
       }
 
-      vi.mocked(templateSelection).mockResolvedValue(mockTemplate)
+      vi.mocked(templateSelection).mockResolvedValue(ok(mockTemplate))
       vi.mocked(projectCustomization).mockResolvedValue(mockCustomization)
       vi.mocked(confirmationStep).mockResolvedValue(true)
 
@@ -301,11 +308,13 @@ describe('cLI interaction prompts', () => {
       const {projectCustomization} = await import('../../src/prompts/customization.js')
       const {confirmationStep} = await import('../../src/prompts/confirmation.js')
 
-      vi.mocked(templateSelection).mockResolvedValue({
-        type: 'builtin',
-        location: 'default',
-        metadata: {name: 'default', description: 'Default template', version: '1.0.0'},
-      })
+      vi.mocked(templateSelection).mockResolvedValue(
+        ok({
+          type: 'builtin',
+          location: 'default',
+          metadata: {name: 'default', description: 'Default template', version: '1.0.0'},
+        }),
+      )
 
       vi.mocked(projectCustomization).mockResolvedValue({
         description: 'Test description',

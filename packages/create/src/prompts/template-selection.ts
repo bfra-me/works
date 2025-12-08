@@ -2,8 +2,10 @@
  * Template selection interface with preview and description support
  */
 
-import type {TemplateMetadata, TemplateSelection} from '../types.js'
+import type {Result} from '@bfra.me/es/result'
+import type {TemplateError, TemplateMetadata, TemplateSelection} from '../types.js'
 import process from 'node:process'
+import {err, ok} from '@bfra.me/es/result'
 import {cancel, isCancel, note, select} from '@clack/prompts'
 import {consola} from 'consola'
 
@@ -48,8 +50,12 @@ const BUILTIN_TEMPLATES: Record<string, TemplateMetadata> = {
 
 /**
  * Interactive template selection with preview
+ *
+ * @returns A Result containing the selected template or an error
  */
-export async function templateSelection(initialTemplate?: string): Promise<TemplateSelection> {
+export async function templateSelection(
+  initialTemplate?: string,
+): Promise<Result<TemplateSelection, TemplateError>> {
   // If template is already specified, resolve it directly
   if (initialTemplate != null && initialTemplate.trim().length > 0) {
     return resolveTemplateSource(initialTemplate)
@@ -113,14 +119,16 @@ export async function templateSelection(initialTemplate?: string): Promise<Templ
 
 /**
  * Resolve template source into TemplateSelection
+ *
+ * @returns A Result containing the resolved template or an error
  */
-function resolveTemplateSource(source: string): TemplateSelection {
+function resolveTemplateSource(source: string): Result<TemplateSelection, TemplateError> {
   // GitHub repository pattern: github:user/repo or user/repo
   if (source.startsWith('github:') || /^[\w-]+\/[\w-]+$/.test(source)) {
     const repo = source.startsWith('github:') ? source.slice(7) : source
     const [repoPath, ref] = repo.includes('#') ? repo.split('#') : [repo, undefined]
 
-    return {
+    return ok({
       type: 'github',
       location: repoPath,
       ref,
@@ -129,12 +137,12 @@ function resolveTemplateSource(source: string): TemplateSelection {
         description: `GitHub template: ${repo}`,
         version: '1.0.0',
       },
-    }
+    })
   }
 
   // URL pattern: http:// or https://
   if (source.startsWith('http://') || source.startsWith('https://')) {
-    return {
+    return ok({
       type: 'url',
       location: source,
       metadata: {
@@ -142,12 +150,12 @@ function resolveTemplateSource(source: string): TemplateSelection {
         description: `URL template: ${source}`,
         version: '1.0.0',
       },
-    }
+    })
   }
 
   // Local path pattern: ./ or / or ~/
   if (source.startsWith('./') || source.startsWith('/') || source.startsWith('~/')) {
-    return {
+    return ok({
       type: 'local',
       location: source,
       metadata: {
@@ -155,31 +163,35 @@ function resolveTemplateSource(source: string): TemplateSelection {
         description: `Local template: ${source}`,
         version: '1.0.0',
       },
-    }
+    })
   }
 
   // Built-in template
   const metadata = BUILTIN_TEMPLATES[source]
   if (metadata) {
-    return {
+    return ok({
       type: 'builtin',
       location: source,
       metadata,
-    }
+    })
   }
 
   // Default fallback
   consola.warn(`Unknown template "${source}", using default template`)
   const defaultTemplate = BUILTIN_TEMPLATES.default
   if (!defaultTemplate) {
-    throw new Error('Default template not found')
+    return err({
+      code: 'TEMPLATE_NOT_FOUND',
+      message: 'Default template not found',
+      source: 'builtin:default',
+    })
   }
 
-  return {
+  return ok({
     type: 'builtin',
     location: 'default',
     metadata: defaultTemplate,
-  }
+  })
 }
 
 /**

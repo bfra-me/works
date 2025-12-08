@@ -3,6 +3,7 @@
  */
 
 import process from 'node:process'
+import {isOk} from '@bfra.me/es/result'
 import * as clackPrompts from '@clack/prompts'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
 
@@ -36,10 +37,10 @@ describe('template-selection', () => {
 
       const result = await templateSelection('default')
 
-      expect(result).toBeDefined()
-      expect(result.type).toBe('builtin')
-      expect(result.location).toBe('default')
-      expect(result.metadata.name).toBe('default')
+      expect(isOk(result)).toBe(true)
+      expect(isOk(result) && result.data.type).toBe('builtin')
+      expect(isOk(result) && result.data.location).toBe('default')
+      expect(isOk(result) && result.data.metadata.name).toBe('default')
     })
 
     it('should return builtin selection for library template', async () => {
@@ -47,9 +48,10 @@ describe('template-selection', () => {
 
       const result = await templateSelection('library')
 
-      expect(result.type).toBe('builtin')
-      expect(result.location).toBe('library')
-      expect(result.metadata.name).toBe('library')
+      expect(isOk(result)).toBe(true)
+      expect(isOk(result) && result.data.type).toBe('builtin')
+      expect(isOk(result) && result.data.location).toBe('library')
+      expect(isOk(result) && result.data.metadata.name).toBe('library')
     })
 
     it('should return builtin selection for cli template', async () => {
@@ -57,9 +59,10 @@ describe('template-selection', () => {
 
       const result = await templateSelection('cli')
 
-      expect(result.type).toBe('builtin')
-      expect(result.location).toBe('cli')
-      expect(result.metadata.name).toBe('cli')
+      expect(isOk(result)).toBe(true)
+      expect(isOk(result) && result.data.type).toBe('builtin')
+      expect(isOk(result) && result.data.location).toBe('cli')
+      expect(isOk(result) && result.data.metadata.name).toBe('cli')
     })
 
     it('should return builtin selection for node template', async () => {
@@ -67,9 +70,10 @@ describe('template-selection', () => {
 
       const result = await templateSelection('node')
 
-      expect(result.type).toBe('builtin')
-      expect(result.location).toBe('node')
-      expect(result.metadata.name).toBe('node')
+      expect(isOk(result)).toBe(true)
+      expect(isOk(result) && result.data.type).toBe('builtin')
+      expect(isOk(result) && result.data.location).toBe('node')
+      expect(isOk(result) && result.data.metadata.name).toBe('node')
     })
 
     it('should return builtin selection for react template', async () => {
@@ -77,9 +81,10 @@ describe('template-selection', () => {
 
       const result = await templateSelection('react')
 
-      expect(result.type).toBe('builtin')
-      expect(result.location).toBe('react')
-      expect(result.metadata.name).toBe('react')
+      expect(isOk(result)).toBe(true)
+      expect(isOk(result) && result.data.type).toBe('builtin')
+      expect(isOk(result) && result.data.location).toBe('react')
+      expect(isOk(result) && result.data.metadata.name).toBe('react')
     })
 
     it('should resolve github: prefix templates', async () => {
@@ -87,8 +92,9 @@ describe('template-selection', () => {
 
       const result = await templateSelection('github:user/repo')
 
-      expect(result.type).toBe('github')
-      expect(result.location).toBe('user/repo')
+      expect(isOk(result)).toBe(true)
+      expect(isOk(result) && result.data.type).toBe('github')
+      expect(isOk(result) && result.data.location).toBe('user/repo')
     })
 
     it('should resolve short github user/repo format', async () => {
@@ -96,8 +102,9 @@ describe('template-selection', () => {
 
       const result = await templateSelection('owner/repository')
 
-      expect(result.type).toBe('github')
-      expect(result.location).toBe('owner/repository')
+      expect(isOk(result)).toBe(true)
+      expect(isOk(result) && result.data.type).toBe('github')
+      expect(isOk(result) && result.data.location).toBe('owner/repository')
     })
 
     it('should resolve github templates with ref', async () => {
@@ -105,9 +112,10 @@ describe('template-selection', () => {
 
       const result = await templateSelection('github:user/repo#v1.0.0')
 
-      expect(result.type).toBe('github')
-      expect(result.location).toBe('user/repo')
-      expect(result.ref).toBe('v1.0.0')
+      expect(isOk(result)).toBe(true)
+      expect(isOk(result) && result.data.type).toBe('github')
+      expect(isOk(result) && result.data.location).toBe('user/repo')
+      expect(isOk(result) && result.data.ref).toBe('v1.0.0')
     })
 
     it('should resolve https URL templates', async () => {
@@ -115,8 +123,9 @@ describe('template-selection', () => {
 
       const result = await templateSelection('https://example.com/template.zip')
 
-      expect(result.type).toBe('url')
-      expect(result.location).toBe('https://example.com/template.zip')
+      expect(isOk(result)).toBe(true)
+      expect(isOk(result) && result.data.type).toBe('url')
+      expect(isOk(result) && result.data.location).toBe('https://example.com/template.zip')
     })
 
     it('should resolve http URL templates', async () => {
@@ -124,8 +133,9 @@ describe('template-selection', () => {
 
       const result = await templateSelection('http://example.com/template')
 
-      expect(result.type).toBe('url')
-      expect(result.location).toBe('http://example.com/template')
+      expect(isOk(result)).toBe(true)
+      expect(isOk(result) && result.data.type).toBe('url')
+      expect(isOk(result) && result.data.location).toBe('http://example.com/template')
     })
 
     it('should resolve ./ local path templates', async () => {
@@ -133,8 +143,9 @@ describe('template-selection', () => {
 
       const result = await templateSelection('./my-template')
 
-      expect(result.type).toBe('local')
-      expect(result.location).toBe('./my-template')
+      expect(isOk(result)).toBe(true)
+      expect(isOk(result) && result.data.type).toBe('local')
+      expect(isOk(result) && result.data.location).toBe('./my-template')
     })
 
     it('should resolve / absolute path templates', async () => {
@@ -142,8 +153,9 @@ describe('template-selection', () => {
 
       const result = await templateSelection('/path/to/template')
 
-      expect(result.type).toBe('local')
-      expect(result.location).toBe('/path/to/template')
+      expect(isOk(result)).toBe(true)
+      expect(isOk(result) && result.data.type).toBe('local')
+      expect(isOk(result) && result.data.location).toBe('/path/to/template')
     })
 
     it('should resolve ~/ home path templates', async () => {
@@ -151,8 +163,9 @@ describe('template-selection', () => {
 
       const result = await templateSelection('~/templates/my-template')
 
-      expect(result.type).toBe('local')
-      expect(result.location).toBe('~/templates/my-template')
+      expect(isOk(result)).toBe(true)
+      expect(isOk(result) && result.data.type).toBe('local')
+      expect(isOk(result) && result.data.location).toBe('~/templates/my-template')
     })
 
     it('should fallback unknown template to default with warning', async () => {
@@ -162,8 +175,9 @@ describe('template-selection', () => {
       const result = await templateSelection('unknown-single-word')
 
       expect(consola.warn).toHaveBeenCalled()
-      expect(result.type).toBe('builtin')
-      expect(result.location).toBe('default')
+      expect(isOk(result)).toBe(true)
+      expect(isOk(result) && result.data.type).toBe('builtin')
+      expect(isOk(result) && result.data.location).toBe('default')
     })
 
     it('should show interactive selection when no template provided', async () => {
@@ -175,7 +189,8 @@ describe('template-selection', () => {
       const result = await templateSelection()
 
       expect(clackPrompts.select).toHaveBeenCalled()
-      expect(result.type).toBe('builtin')
+      expect(isOk(result)).toBe(true)
+      expect(isOk(result) && result.data.type).toBe('builtin')
     })
 
     it('should show interactive selection for empty string template', async () => {
@@ -187,8 +202,9 @@ describe('template-selection', () => {
       const result = await templateSelection('')
 
       expect(clackPrompts.select).toHaveBeenCalled()
-      expect(result.type).toBe('builtin')
-      expect(result.location).toBe('library')
+      expect(isOk(result)).toBe(true)
+      expect(isOk(result) && result.data.type).toBe('builtin')
+      expect(isOk(result) && result.data.location).toBe('library')
     })
 
     it('should show interactive selection for whitespace template', async () => {
@@ -200,7 +216,8 @@ describe('template-selection', () => {
       const result = await templateSelection('   ')
 
       expect(clackPrompts.select).toHaveBeenCalled()
-      expect(result.type).toBe('builtin')
+      expect(isOk(result)).toBe(true)
+      expect(isOk(result) && result.data.type).toBe('builtin')
     })
 
     it('should handle cancellation during interactive selection', async () => {
@@ -222,8 +239,9 @@ describe('template-selection', () => {
       const result = await templateSelection()
 
       expect(clackPrompts.text).toHaveBeenCalled()
-      expect(result.type).toBe('github')
-      expect(result.location).toBe('custom/template')
+      expect(isOk(result)).toBe(true)
+      expect(isOk(result) && result.data.type).toBe('github')
+      expect(isOk(result) && result.data.location).toBe('custom/template')
     })
 
     it('should handle custom template with local path', async () => {
@@ -235,8 +253,9 @@ describe('template-selection', () => {
 
       const result = await templateSelection()
 
-      expect(result.type).toBe('local')
-      expect(result.location).toBe('./local/custom')
+      expect(isOk(result)).toBe(true)
+      expect(isOk(result) && result.data.type).toBe('local')
+      expect(isOk(result) && result.data.location).toBe('./local/custom')
     })
 
     it('should handle cancellation during custom template input', async () => {

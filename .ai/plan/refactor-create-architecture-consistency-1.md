@@ -145,7 +145,7 @@ None (foundational phase)
 
 #### Tasks
 
-- [ ] **2.1: Refactor `createPackage()` function**
+- [x] **2.1: Refactor `createPackage()` function** | ✅ | 2025-12-08
   - File: `src/index.ts`
   - Change return type from custom object to `Promise<Result<{projectPath: string}, CreateError>>`
   - Before:
@@ -182,7 +182,7 @@ None (foundational phase)
     }
     ```
 
-- [ ] **2.2: Convert `addFeatureToProject()` function**
+- [x] **2.2: Convert `addFeatureToProject()` function** | ✅ | 2025-12-08
   - File: `src/commands/add.ts`
   - Change return type from `Promise<void>` to `Promise<Result<void, CreateError>>`
   - Replace exception throws (line 34) with error returns:
@@ -196,7 +196,7 @@ None (foundational phase)
     }
     ```
 
-- [ ] **2.3: Convert `templateSelection()` function**
+- [x] **2.3: Convert `templateSelection()` function** | ✅ | 2025-12-08
   - File: `src/prompts/template-selection.ts`
   - Change return from `Promise<TemplateSelection>` to `Promise<Result<TemplateSelection, TemplateError>>`
   - Replace exception throw (line 175) with error result:

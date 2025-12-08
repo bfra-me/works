@@ -11,6 +11,7 @@ import type {
   TemplateSelection,
 } from '../types.js'
 import process from 'node:process'
+import {isErr} from '@bfra.me/es/result'
 import {cancel, intro, isCancel, outro, spinner, text} from '@clack/prompts'
 import {consola} from 'consola'
 import {detect} from 'package-manager-detector'
@@ -184,11 +185,18 @@ export async function projectSetup(
       const aiRecommendedTemplate = aiAnalysis?.templates?.[0]?.source?.location
       const templateToUse = initialOptions.template ?? aiRecommendedTemplate
 
-      templateResult = await templateSelection(templateToUse)
-      if (isCancel(templateResult)) {
+      const selectionResult = await templateSelection(templateToUse)
+      if (isCancel(selectionResult)) {
         cancel('Project creation cancelled')
         throw new Error('Process exit called')
       }
+
+      if (isErr(selectionResult)) {
+        consola.error('Template selection failed:', selectionResult.error)
+        throw new Error(`Template selection failed: ${selectionResult.error.message}`)
+      }
+
+      templateResult = selectionResult.data
     } catch (error) {
       consola.error('Template selection failed:', error)
       throw error
