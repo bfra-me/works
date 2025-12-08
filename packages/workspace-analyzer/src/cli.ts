@@ -3,11 +3,19 @@
  * CLI entry point for workspace-analyzer.
  *
  * Provides interactive workspace analysis with progress reporting using @clack/prompts.
+ * Full interactive TUI will be implemented in Phase 10.
  */
 
-import {intro, log, outro} from '@clack/prompts'
+import process from 'node:process'
+
+import {intro, log, outro, spinner} from '@clack/prompts'
 import cac from 'cac'
 import consola from 'consola'
+
+import {analyzeWorkspace} from './api/analyze-workspace'
+import {createConsoleReporter} from './reporters/console-reporter'
+import {createJsonReporter} from './reporters/json-reporter'
+import {createMarkdownReporter} from './reporters/markdown-reporter'
 
 /**
  * CLI command options for workspace analysis.
@@ -29,26 +37,54 @@ cli
   .option('--markdown', 'Output results as Markdown')
   .option('--verbose', 'Enable verbose logging')
   .option('--quiet', 'Suppress non-essential output')
-  .action(async (path = '.', options: AnalyzeOptions) => {
-    if (!options.quiet) {
+  .action(async (inputPath = '.', options: AnalyzeOptions) => {
+    const workspacePath = String(inputPath)
+    if (options.quiet !== true) {
       intro('🔍 Workspace Analyzer')
     }
 
-    if (options.verbose) {
+    if (options.verbose === true) {
       consola.level = 4
     }
 
-    log.info(`Analyzing workspace at: ${path}`)
+    const s = spinner()
+    s.start('Analyzing workspace...')
 
-    if (options.config != null) {
-      log.info(`Using config: ${options.config}`)
-    }
+    const result = await analyzeWorkspace(workspacePath, {
+      configPath: options.config,
+      verbose: options.verbose,
+      onProgress: progress => {
+        const totalSuffix = progress.total == null ? '' : `/${progress.total}`
+        const currentItem = progress.current ?? ''
+        const message = `${progress.phase}: ${currentItem} (${progress.processed}${totalSuffix})`
+        s.message(message)
+      },
+    })
 
-    // Full analysis pipeline implemented in Phase 9-10
-    log.warn('Analysis implementation coming in Phase 9-10')
+    s.stop('Analysis complete')
 
-    if (!options.quiet) {
-      outro('Analysis complete!')
+    if (result.success) {
+      const analysisResult = result.data
+
+      if (options.json === true) {
+        const jsonReporter = createJsonReporter()
+        const report = jsonReporter.generate(analysisResult)
+        console.log(JSON.stringify(report, null, 2))
+      } else if (options.markdown === true) {
+        const mdReporter = createMarkdownReporter()
+        const report = mdReporter.generate(analysisResult)
+        console.log(report)
+      } else {
+        const consoleReporter = createConsoleReporter({verbose: options.verbose})
+        consoleReporter.generate(analysisResult)
+      }
+
+      if (options.quiet !== true) {
+        outro(`Found ${analysisResult.summary.totalIssues} issues`)
+      }
+    } else {
+      log.error(`Analysis failed: ${result.error.message}`)
+      process.exit(1)
     }
   })
 

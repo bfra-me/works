@@ -21,3 +21,14 @@ export type {
   IncrementalAnalysisResult,
   IncrementalAnalyzer,
 } from './incremental-analyzer'
+
+// Analysis orchestrator
+export {createOrchestrator} from './orchestrator'
+
+export type {
+  AnalysisContext,
+  AnalysisOrchestrator,
+  OrchestratorError,
+  OrchestratorErrorCode,
+  OrchestratorOptions,
+} from './orchestrator'

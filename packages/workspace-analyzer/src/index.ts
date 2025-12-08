@@ -117,6 +117,9 @@ export type {
   VersionAlignmentAnalyzerOptions,
 } from './analyzers/index'
 
+// Main API entry point (Phase 9)
+export {analyzePackages, analyzeWorkspace} from './api/index'
+
 // Cache utilities (Phase 8)
 export {
   CACHE_SCHEMA_VERSION,
@@ -156,21 +159,53 @@ export type {
   WorkspaceHasherOptions,
 } from './cache/index'
 
-// Core orchestration utilities (Phase 8)
+// Configuration utilities (Phase 9)
+export {
+  DEFAULT_ANALYZER_CONFIG,
+  DEFAULT_CONCURRENCY,
+  DEFAULT_EXCLUDE_PATTERNS,
+  DEFAULT_INCLUDE_PATTERNS,
+  DEFAULT_PACKAGE_PATTERNS,
+  DEFAULT_WORKSPACE_OPTIONS,
+  defineConfig,
+  findConfigFile,
+  getAnalyzerOptions,
+  getDefaultConfig,
+  loadConfig,
+  loadConfigFile,
+  mergeAnalyzerConfigs,
+  mergeConfig,
+  parseWorkspaceAnalyzerConfig,
+  safeParseAnalyzeOptions,
+} from './config/index'
+
+export type {
+  ConfigLoadError,
+  ConfigLoadErrorCode,
+  ConfigLoadResult,
+  MergedConfig,
+  SafeParseResult,
+  WorkspaceAnalyzerConfig,
+} from './config/index'
+
+// Core orchestration utilities (Phase 8 & 9)
 export {
   createConsoleProgressCallback,
   createIncrementalAnalyzer,
+  createOrchestrator,
   createSilentProgressCallback,
   DEFAULT_INCREMENTAL_OPTIONS,
 } from './core/index'
 
 export type {
+  AnalysisOrchestrator,
   IncrementalAnalysisContext,
   IncrementalAnalysisError,
   IncrementalAnalysisErrorCode,
   IncrementalAnalysisOptions,
   IncrementalAnalysisResult,
   IncrementalAnalyzer,
+  OrchestratorOptions,
 } from './core/index'
 
 // Dependency graph utilities
@@ -380,6 +415,3 @@ export type {Err, Ok, Result} from './types/index'
 
 // Utility functions
 export {matchAnyPattern, matchPattern, normalizePath} from './utils/index'
-
-// Placeholder for main API entry point (will be implemented in Phase 9)
-// export {analyzeWorkspace} from './api/analyze-workspace'

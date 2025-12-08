@@ -62,7 +62,8 @@
     "@bfra.me/es": "workspace:*",
     "@clack/prompts": "0.11.0",
     "cac": "6.7.14",
-    "consola": "3.4.2"
+    "consola": "3.4.2",
+    "zod": "4.1.13"
   },
   "devDependencies": {
     "@bfra.me/works": "workspace:*",

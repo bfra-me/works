@@ -198,14 +198,14 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-069 | Create main API entry in `src/api/analyze-workspace.ts` | | |
-| TASK-070 | Implement `AnalysisContext` for sharing state between analyzers | | |
-| TASK-071 | Create analysis orchestrator in `src/core/orchestrator.ts` adapting doc-sync's sync-orchestrator pattern | | |
-| TASK-072 | Implement analyzer pipeline with dependency ordering | | |
-| TASK-073 | Add configuration validation using zod (already in workspace via doc-sync) | | |
-| TASK-074 | Create default configuration in `src/config/defaults.ts` | | |
-| TASK-075 | Implement configuration merging (file + programmatic) | | |
-| TASK-076 | Add `workspace-analyzer.config.ts` file support with defineConfig() pattern | | |
+| TASK-069 | Create main API entry in `src/api/analyze-workspace.ts` | ✅ | 2025-12-07 |
+| TASK-070 | Implement `AnalysisContext` for sharing state between analyzers | ✅ | 2025-12-07 |
+| TASK-071 | Create analysis orchestrator in `src/core/orchestrator.ts` adapting doc-sync's sync-orchestrator pattern | ✅ | 2025-12-07 |
+| TASK-072 | Implement analyzer pipeline with dependency ordering | ✅ | 2025-12-07 |
+| TASK-073 | Add configuration validation using zod (already in workspace via doc-sync) | ✅ | 2025-12-07 |
+| TASK-074 | Create default configuration in `src/config/defaults.ts` | ✅ | 2025-12-07 |
+| TASK-075 | Implement configuration merging (file + programmatic) | ✅ | 2025-12-07 |
+| TASK-076 | Add `workspace-analyzer.config.ts` file support with defineConfig() pattern | ✅ | 2025-12-07 |
 
 ### Implementation Phase 10: CLI Interface
 
