@@ -409,4 +409,156 @@ describe('unified error handling system', () => {
       expect(hasErrorCode(projectError, TemplateErrorCode.TEMPLATE_INVALID)).toBe(false)
     })
   })
+
+  // Phase 1 Task 1.3: Tests for Result error factory functions
+  describe('Result error factory functions', () => {
+    describe('template error factories', () => {
+      it('should create templateNotFoundError', async () => {
+        const {templateNotFoundError} = await import('../../src/utils/errors.js')
+        const error = templateNotFoundError('Template not found', 'github:user/repo')
+
+        expect(error).toEqual({
+          code: 'TEMPLATE_NOT_FOUND',
+          message: 'Template not found',
+          source: 'github:user/repo',
+        })
+      })
+
+      it('should create templateInvalidError', async () => {
+        const {templateInvalidError} = await import('../../src/utils/errors.js')
+        const error = templateInvalidError('Invalid template', 'missing package.json')
+
+        expect(error).toEqual({
+          code: 'TEMPLATE_INVALID',
+          message: 'Invalid template',
+          reason: 'missing package.json',
+        })
+      })
+
+      it('should create templateFetchFailedError with cause', async () => {
+        const {templateFetchFailedError} = await import('../../src/utils/errors.js')
+        const cause = new Error('Network error')
+        const error = templateFetchFailedError('Fetch failed', 'https://example.com', cause)
+
+        expect(error).toEqual({
+          code: 'TEMPLATE_FETCH_FAILED',
+          message: 'Fetch failed',
+          source: 'https://example.com',
+          cause,
+        })
+      })
+    })
+
+    describe('AI error factories', () => {
+      it('should create aiProviderUnavailableError', async () => {
+        const {aiProviderUnavailableError} = await import('../../src/utils/errors.js')
+        const error = aiProviderUnavailableError('Provider unavailable', 'openai')
+
+        expect(error).toEqual({
+          code: 'AI_PROVIDER_UNAVAILABLE',
+          message: 'Provider unavailable',
+          provider: 'openai',
+        })
+      })
+
+      it('should create aiApiKeyMissingError', async () => {
+        const {aiApiKeyMissingError} = await import('../../src/utils/errors.js')
+        const error = aiApiKeyMissingError('API key missing', 'OPENAI_API_KEY')
+
+        expect(error).toEqual({
+          code: 'AI_API_KEY_MISSING',
+          message: 'API key missing',
+          variable: 'OPENAI_API_KEY',
+        })
+      })
+
+      it('should create aiRateLimitError with retryAfter', async () => {
+        const {aiRateLimitError} = await import('../../src/utils/errors.js')
+        const error = aiRateLimitError('Rate limit exceeded', 'anthropic', 60)
+
+        expect(error).toEqual({
+          code: 'AI_RATE_LIMIT',
+          message: 'Rate limit exceeded',
+          provider: 'anthropic',
+          retryAfter: 60,
+        })
+      })
+    })
+
+    describe('CLI error factories', () => {
+      it('should create validationFailedError', async () => {
+        const {validationFailedError} = await import('../../src/utils/errors.js')
+        const error = validationFailedError('Validation failed', ['Invalid name', 'Missing field'])
+
+        expect(error).toEqual({
+          code: 'VALIDATION_FAILED',
+          message: 'Validation failed',
+          details: ['Invalid name', 'Missing field'],
+        })
+      })
+
+      it('should create invalidProjectNameError', async () => {
+        const {invalidProjectNameError} = await import('../../src/utils/errors.js')
+        const error = invalidProjectNameError('Invalid project name', 'Invalid Name!')
+
+        expect(error).toEqual({
+          code: 'INVALID_PROJECT_NAME',
+          message: 'Invalid project name',
+          name: 'Invalid Name!',
+        })
+      })
+
+      it('should create pathTraversalAttemptError', async () => {
+        const {pathTraversalAttemptError} = await import('../../src/utils/errors.js')
+        const error = pathTraversalAttemptError('Path traversal detected', '../../../etc/passwd')
+
+        expect(error).toEqual({
+          code: 'PATH_TRAVERSAL_ATTEMPT',
+          message: 'Path traversal detected',
+          path: '../../../etc/passwd',
+        })
+      })
+
+      it('should create commandFailedError with exitCode', async () => {
+        const {commandFailedError} = await import('../../src/utils/errors.js')
+        const error = commandFailedError('Command failed', 'npm install', 1)
+
+        expect(error).toEqual({
+          code: 'COMMAND_FAILED',
+          message: 'Command failed',
+          command: 'npm install',
+          exitCode: 1,
+        })
+      })
+    })
+
+    describe('project error factories', () => {
+      it('should create projectDetectionFailedError', async () => {
+        const {projectDetectionFailedError} = await import('../../src/utils/errors.js')
+        const error = projectDetectionFailedError('Project detection failed', '/path/to/project')
+
+        expect(error).toEqual({
+          code: 'PROJECT_DETECTION_FAILED',
+          message: 'Project detection failed',
+          path: '/path/to/project',
+        })
+      })
+
+      it('should create packageJsonInvalidError', async () => {
+        const {packageJsonInvalidError} = await import('../../src/utils/errors.js')
+        const error = packageJsonInvalidError(
+          'Invalid package.json',
+          '/path/to/package.json',
+          'Invalid JSON syntax',
+        )
+
+        expect(error).toEqual({
+          code: 'PACKAGE_JSON_INVALID',
+          message: 'Invalid package.json',
+          path: '/path/to/package.json',
+          reason: 'Invalid JSON syntax',
+        })
+      })
+    })
+  })
 })

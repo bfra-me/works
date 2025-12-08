@@ -4,8 +4,79 @@ import {join} from 'node:path'
 import {LLMClient} from './llm-client.js'
 
 /**
+ * Configuration types that can be optimized.
+ */
+export type ConfigType = 'eslint' | 'typescript' | 'prettier' | 'vitest' | 'package.json'
+
+/**
+ * Options for configuration optimization.
+ */
+export interface OptimizeConfigOptions {
+  /** Configuration types to analyze */
+  configTypes?: ConfigType[]
+  /** Include experimental suggestions */
+  includeExperimental?: boolean
+  /** Maximum number of suggestions per config type */
+  maxSuggestions?: number
+}
+
+/**
+ * Configuration optimizer interface for the functional factory.
+ *
+ * Provides methods to analyze and optimize project configurations.
+ */
+export interface ConfigurationOptimizerInterface {
+  /**
+   * Analyze project configurations and suggest optimizations.
+   *
+   * @param projectPath - Path to the project
+   * @param projectAnalysis - Optional project analysis for context
+   * @param options - Optimization options
+   * @returns Array of configuration suggestions
+   */
+  optimizeConfigurations: (
+    projectPath: string,
+    projectAnalysis?: ProjectAnalysis,
+    options?: OptimizeConfigOptions,
+  ) => Promise<ConfigOptimizationSuggestion[]>
+
+  /**
+   * Generate optimized configuration for a specific type.
+   *
+   * @param configType - Type of configuration to generate
+   * @param projectAnalysis - Project analysis for context
+   * @param existingConfig - Optional existing configuration to improve upon
+   * @returns Generated configuration object
+   */
+  generateOptimizedConfig: (
+    configType: ConfigType,
+    projectAnalysis: ProjectAnalysis,
+    existingConfig?: Record<string, unknown>,
+  ) => Promise<Record<string, unknown>>
+
+  /**
+   * Check if configuration optimization is available.
+   *
+   * @returns True if AI is available for optimization
+   */
+  isOptimizationAvailable: () => boolean
+}
+
+/**
  * AI-powered configuration optimizer that analyzes project configurations
- * and suggests improvements for ESLint, TypeScript, Prettier, and other tools
+ * and suggests improvements for ESLint, TypeScript, Prettier, and other tools.
+ *
+ * @deprecated Use createConfigurationOptimizer() factory function instead.
+ * Will be removed in v1.0.0.
+ *
+ * @example
+ * ```typescript
+ * // Before (deprecated)
+ * const optimizer = new ConfigurationOptimizer(config)
+ *
+ * // After (recommended)
+ * const optimizer = createConfigurationOptimizer(config)
+ * ```
  */
 export class ConfigurationOptimizer {
   private readonly llmClient: LLMClient
@@ -501,8 +572,42 @@ Prioritize practical suggestions that provide clear benefits. Consider the proje
 }
 
 /**
- * Create a configuration optimizer instance
+ * Creates a configuration optimizer instance for analyzing and improving
+ * project configurations.
+ *
+ * @param config - Optional AI configuration
+ * @returns Configuration optimizer instance with optimization methods
+ *
+ * @example
+ * ```typescript
+ * const optimizer = createConfigurationOptimizer()
+ *
+ * // Check if optimization is available
+ * if (optimizer.isOptimizationAvailable()) {
+ *   // Get configuration suggestions
+ *   const suggestions = await optimizer.optimizeConfigurations('./my-project', undefined, {
+ *     configTypes: ['eslint', 'typescript'],
+ *     maxSuggestions: 3
+ *   })
+ *
+ *   for (const suggestion of suggestions) {
+ *     console.log(`${suggestion.type}: ${suggestion.reason}`)
+ *   }
+ * }
+ *
+ * // Generate optimized config
+ * const projectAnalysis = await analyzer.analyzeProject({...})
+ * const eslintConfig = await optimizer.generateOptimizedConfig('eslint', projectAnalysis)
+ * ```
  */
-export function createConfigurationOptimizer(config?: Partial<AIConfig>): ConfigurationOptimizer {
-  return new ConfigurationOptimizer(config)
+export function createConfigurationOptimizer(
+  config?: Partial<AIConfig>,
+): ConfigurationOptimizerInterface {
+  const instance = new ConfigurationOptimizer(config)
+
+  return {
+    optimizeConfigurations: instance.optimizeConfigurations.bind(instance),
+    generateOptimizedConfig: instance.generateOptimizedConfig.bind(instance),
+    isOptimizationAvailable: instance.isOptimizationAvailable.bind(instance),
+  }
 }

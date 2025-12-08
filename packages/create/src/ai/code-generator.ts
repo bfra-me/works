@@ -26,7 +26,92 @@ export interface CodeGenerationResult {
 }
 
 /**
- * AI-powered code generator for creating boilerplate code and configurations
+ * Code generator interface for the functional factory.
+ *
+ * Provides methods to generate various types of code and configurations.
+ */
+export interface CodeGeneratorInterface {
+  /**
+   * Generate code based on request specifications.
+   *
+   * @param request - Code generation request
+   * @returns Code generation result
+   */
+  generateCode: (request: CodeGenerationRequest) => Promise<CodeGenerationResult>
+
+  /**
+   * Generate a React component.
+   *
+   * @param name - Component name
+   * @param props - Optional prop definitions
+   * @param features - Optional features to include
+   * @returns Code generation result
+   */
+  generateComponent: (
+    name: string,
+    props?: Record<string, string>,
+    features?: string[],
+  ) => Promise<CodeGenerationResult>
+
+  /**
+   * Generate a TypeScript function.
+   *
+   * @param name - Function name
+   * @param parameters - Function parameters
+   * @param returnType - Return type
+   * @param description - Function description
+   * @returns Code generation result
+   */
+  generateFunction: (
+    name: string,
+    parameters: {name: string; type: string}[],
+    returnType: string,
+    description: string,
+  ) => Promise<CodeGenerationResult>
+
+  /**
+   * Generate a test file.
+   *
+   * @param targetFile - File to generate tests for
+   * @param testFramework - Test framework to use
+   * @returns Code generation result
+   */
+  generateTest: (
+    targetFile: string,
+    testFramework?: 'vitest' | 'jest',
+  ) => Promise<CodeGenerationResult>
+
+  /**
+   * Generate a configuration file.
+   *
+   * @param configType - Type of configuration
+   * @param projectContext - Optional project context
+   * @returns Code generation result
+   */
+  generateConfig: (
+    configType: 'eslint' | 'prettier' | 'tsconfig' | 'package.json' | 'vite' | 'webpack',
+    projectContext?: {
+      type?: string
+      features?: string[]
+      dependencies?: string[]
+    },
+  ) => Promise<CodeGenerationResult>
+}
+
+/**
+ * AI-powered code generator for creating boilerplate code and configurations.
+ *
+ * @deprecated Use createCodeGenerator() factory function instead.
+ * Will be removed in v1.0.0.
+ *
+ * @example
+ * ```typescript
+ * // Before (deprecated)
+ * const generator = new CodeGenerator(config)
+ *
+ * // After (recommended)
+ * const generator = createCodeGenerator(config)
+ * ```
  */
 export class CodeGenerator {
   private readonly llmClient: LLMClient
@@ -395,8 +480,44 @@ This is generated documentation.
 }
 
 /**
- * Create a code generator instance
+ * Creates a code generator instance for generating boilerplate code,
+ * components, functions, tests, and configurations.
+ *
+ * @param config - Optional AI configuration
+ * @returns Code generator instance with generation methods
+ *
+ * @example
+ * ```typescript
+ * const generator = createCodeGenerator()
+ *
+ * // Generate a React component
+ * const componentResult = await generator.generateComponent('MyButton', {
+ *   onClick: '() => void',
+ *   label: 'string'
+ * })
+ *
+ * if (componentResult.success) {
+ *   console.log(componentResult.code)
+ * }
+ *
+ * // Generate a test file
+ * const testResult = await generator.generateTest('./src/utils.ts', 'vitest')
+ *
+ * // Generate configuration
+ * const configResult = await generator.generateConfig('eslint', {
+ *   type: 'library',
+ *   features: ['typescript', 'prettier']
+ * })
+ * ```
  */
-export function createCodeGenerator(config?: Partial<AIConfig>): CodeGenerator {
-  return new CodeGenerator(config)
+export function createCodeGenerator(config?: Partial<AIConfig>): CodeGeneratorInterface {
+  const instance = new CodeGenerator(config)
+
+  return {
+    generateCode: instance.generateCode.bind(instance),
+    generateComponent: instance.generateComponent.bind(instance),
+    generateFunction: instance.generateFunction.bind(instance),
+    generateTest: instance.generateTest.bind(instance),
+    generateConfig: instance.generateConfig.bind(instance),
+  }
 }

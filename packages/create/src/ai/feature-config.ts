@@ -82,8 +82,12 @@ export function createAIFeatureConfig(options?: Partial<AIFeatureConfig>): AIFea
   const envProvider = parseProviderFromEnv()
   const envFallback = parseFallbackBehaviorFromEnv()
 
+  // If explicitly provided, use that value
+  // Otherwise, check if AI_ENABLED env var says false, or use true as default
+  const enabled = options?.enabled ?? envEnabled
+
   return {
-    enabled: options?.enabled ?? envEnabled,
+    enabled,
     features: {
       ...DEFAULT_FEATURE_FLAGS,
       ...options?.features,

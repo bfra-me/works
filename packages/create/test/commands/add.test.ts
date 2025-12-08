@@ -3,6 +3,7 @@ import type {AddCommandOptions} from '../../src/types.js'
 import {existsSync, mkdirSync, rmSync, writeFileSync} from 'node:fs'
 import {readFile} from 'node:fs/promises'
 import path from 'node:path'
+import {isErr} from '@bfra.me/es/result'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
 import {
   addFeatureToProject,
@@ -57,8 +58,12 @@ describe('add command', () => {
   })
 
   afterEach(() => {
-    if (existsSync(tempOutputDir)) {
-      rmSync(tempOutputDir, {recursive: true, force: true})
+    try {
+      if (existsSync(tempOutputDir)) {
+        rmSync(tempOutputDir, {recursive: true, force: true})
+      }
+    } catch (error) {
+      console.warn(`Failed to clean up ${tempOutputDir}:`, error)
     }
     vi.restoreAllMocks()
   })
@@ -197,7 +202,9 @@ describe('add command', () => {
         dryRun: false,
       }
 
-      await expect(addFeatureToProject(options)).rejects.toThrow(
+      const result = await addFeatureToProject(options)
+      expect(isErr(result)).toBe(true)
+      expect(isErr(result) && result.error.message).toContain(
         'Target directory does not contain a valid Node.js project',
       )
     })
@@ -216,7 +223,9 @@ describe('add command', () => {
         dryRun: false,
       }
 
-      await expect(addFeatureToProject(options)).rejects.toThrow(
+      const result = await addFeatureToProject(options)
+      expect(isErr(result)).toBe(true)
+      expect(isErr(result) && result.error.message).toContain(
         'Target directory does not contain a valid Node.js project',
       )
     })
@@ -246,7 +255,9 @@ describe('add command', () => {
         dryRun: false,
       }
 
-      await expect(addFeatureToProject(options)).rejects.toThrow(
+      const result = await addFeatureToProject(options)
+      expect(isErr(result)).toBe(true)
+      expect(isErr(result) && result.error.message).toContain(
         'Feature "vitest" is not supported for node projects',
       )
     })
@@ -443,7 +454,9 @@ describe('add command', () => {
       }
 
       // Vitest is not supported for node projects
-      await expect(addFeatureToProject(options)).rejects.toThrow(
+      const result = await addFeatureToProject(options)
+      expect(isErr(result)).toBe(true)
+      expect(isErr(result) && result.error.message).toContain(
         'Feature "vitest" is not supported for node projects',
       )
     })

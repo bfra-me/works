@@ -198,9 +198,17 @@ function resolveTemplate(template: string): TemplateSource {
   }
 
   if (isLocalPath(template)) {
+    const resolvedPath = path.resolve(template)
+    const normalizedInput = path.normalize(template)
+
+    // Check for path traversal attempts in the original input
+    if (normalizedInput.includes('..')) {
+      throw new Error(`Path traversal detected in template path: ${path.basename(template)}`)
+    }
+
     return {
       type: 'local',
-      location: path.resolve(template),
+      location: resolvedPath,
     }
   }
 

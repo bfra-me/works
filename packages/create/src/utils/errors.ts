@@ -7,6 +7,12 @@
  */
 
 import type {ErrorContext} from '@bfra.me/es/error'
+import type {AIError, CLIError, ProjectError, TemplateError} from '../types.js'
+
+/**
+ * Factory functions for creating typed Result errors (Phase 1 Task 1.3)
+ */
+
 import {BaseError, createError, formatError, withErrorContext} from '@bfra.me/es/error'
 
 /**
@@ -116,16 +122,10 @@ export function createProjectError(
   return createError(message, {code, context})
 }
 
-/**
- * Type guard to check if an error is a BaseError
- */
 export function isBaseError(error: unknown): error is BaseError {
   return error instanceof BaseError
 }
 
-/**
- * Type guard to check if an error has a specific error code
- */
 export function hasErrorCode(error: unknown, code: ErrorCode): boolean {
   return isBaseError(error) && error.code === code
 }
@@ -171,3 +171,135 @@ export function getUserFriendlyMessage(error: unknown): string {
  */
 export {BaseError, createError, formatError, withErrorContext}
 export type {ErrorContext}
+
+export function templateNotFoundError(message: string, source: string): TemplateError {
+  return {code: 'TEMPLATE_NOT_FOUND', message, source}
+}
+
+export function templateInvalidError(message: string, reason: string): TemplateError {
+  return {code: 'TEMPLATE_INVALID', message, reason}
+}
+
+export function templateFetchFailedError(
+  message: string,
+  source: string,
+  cause?: Error,
+): TemplateError {
+  return {code: 'TEMPLATE_FETCH_FAILED', message, source, cause}
+}
+
+export function templateParseError(message: string, file: string): TemplateError {
+  return {code: 'TEMPLATE_PARSE_ERROR', message, file}
+}
+
+export function templateRenderError(message: string, file: string, cause?: Error): TemplateError {
+  return {code: 'TEMPLATE_RENDER_ERROR', message, file, cause}
+}
+
+export function templateMetadataInvalidError(message: string, reason: string): TemplateError {
+  return {code: 'TEMPLATE_METADATA_INVALID', message, reason}
+}
+
+export function templateVariableMissingError(message: string, variable: string): TemplateError {
+  return {code: 'TEMPLATE_VARIABLE_MISSING', message, variable}
+}
+
+export function templateCacheError(
+  message: string,
+  operation: string,
+  cause?: Error,
+): TemplateError {
+  return {code: 'TEMPLATE_CACHE_ERROR', message, operation, cause}
+}
+
+export function aiProviderUnavailableError(message: string, provider: string): AIError {
+  return {code: 'AI_PROVIDER_UNAVAILABLE', message, provider}
+}
+
+export function aiApiKeyMissingError(message: string, variable: string): AIError {
+  return {code: 'AI_API_KEY_MISSING', message, variable}
+}
+
+export function aiApiKeyInvalidError(message: string, provider: string): AIError {
+  return {code: 'AI_API_KEY_INVALID', message, provider}
+}
+
+export function aiRequestFailedError(message: string, provider: string, cause?: Error): AIError {
+  return {code: 'AI_REQUEST_FAILED', message, provider, cause}
+}
+
+export function aiResponseInvalidError(message: string, reason: string): AIError {
+  return {code: 'AI_RESPONSE_INVALID', message, reason}
+}
+
+export function aiRateLimitError(message: string, provider: string, retryAfter?: number): AIError {
+  return {code: 'AI_RATE_LIMIT', message, provider, retryAfter}
+}
+
+export function aiTimeoutError(message: string, provider: string): AIError {
+  return {code: 'AI_TIMEOUT', message, provider}
+}
+
+export function aiAnalysisFailedError(message: string, reason: string): AIError {
+  return {code: 'AI_ANALYSIS_FAILED', message, reason}
+}
+
+export function validationFailedError(message: string, details?: string[]): CLIError {
+  return {code: 'VALIDATION_FAILED', message, details}
+}
+
+export function invalidProjectNameError(message: string, name: string): CLIError {
+  return {code: 'INVALID_PROJECT_NAME', message, name}
+}
+
+export function invalidInputError(message: string, field?: string): CLIError {
+  return {code: 'INVALID_INPUT', message, field}
+}
+
+export function invalidPathError(message: string, path: string): CLIError {
+  return {code: 'INVALID_PATH', message, path}
+}
+
+export function pathTraversalAttemptError(message: string, path: string): CLIError {
+  return {code: 'PATH_TRAVERSAL_ATTEMPT', message, path}
+}
+
+export function directoryExistsError(message: string, path: string): CLIError {
+  return {code: 'DIRECTORY_EXISTS', message, path}
+}
+
+export function directoryNotEmptyError(message: string, path: string): CLIError {
+  return {code: 'DIRECTORY_NOT_EMPTY', message, path}
+}
+
+export function fileSystemError(message: string, operation: string, cause?: Error): CLIError {
+  return {code: 'FILE_SYSTEM_ERROR', message, operation, cause}
+}
+
+export function permissionDeniedError(message: string, path: string): CLIError {
+  return {code: 'PERMISSION_DENIED', message, path}
+}
+
+export function commandFailedError(message: string, command: string, exitCode?: number): CLIError {
+  return {code: 'COMMAND_FAILED', message, command, exitCode}
+}
+
+export function projectDetectionFailedError(message: string, path: string): ProjectError {
+  return {code: 'PROJECT_DETECTION_FAILED', message, path}
+}
+
+export function packageJsonNotFoundError(message: string, path: string): ProjectError {
+  return {code: 'PACKAGE_JSON_NOT_FOUND', message, path}
+}
+
+export function packageJsonInvalidError(
+  message: string,
+  path: string,
+  reason: string,
+): ProjectError {
+  return {code: 'PACKAGE_JSON_INVALID', message, path, reason}
+}
+
+export function packageManagerNotDetectedError(message: string, path: string): ProjectError {
+  return {code: 'PACKAGE_MANAGER_NOT_DETECTED', message, path}
+}

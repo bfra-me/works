@@ -2,17 +2,63 @@ import type {
   AIAssistantMessage,
   AIAssistSession,
   AIConfig,
+  AIError,
   CreateCommandOptions,
   ProjectAnalysis,
 } from '../types.js'
 import {randomBytes} from 'node:crypto'
-import {confirm, intro, multiselect, outro, select, spinner, text} from '@clack/prompts'
+import {err, isErr, ok, type Result} from '@bfra.me/es/result'
+import {confirm, intro, isCancel, multiselect, outro, select, spinner, text} from '@clack/prompts'
 import {LLMClient} from './llm-client.js'
 import {ProjectAnalyzer} from './project-analyzer.js'
 
 /**
- * AI-powered assistant for conversational project setup
- * Provides an interactive, guided experience for creating new projects
+ * AI assistant interface for the functional factory.
+ *
+ * Provides methods for interactive, AI-assisted project setup.
+ */
+export interface AIAssistantInterface {
+  /**
+   * Start an interactive AI-assisted project setup session.
+   *
+   * @param initialOptions - Optional initial command options
+   * @returns Final command options after interactive session
+   */
+  startAssistSession: (
+    initialOptions?: Partial<CreateCommandOptions>,
+  ) => Promise<CreateCommandOptions>
+
+  /**
+   * Continue an existing assist session.
+   *
+   * @param sessionId - Session ID to continue
+   * @returns Command options if session found, null otherwise
+   */
+  continueSession: (sessionId: string) => Promise<CreateCommandOptions | null>
+
+  /**
+   * Check if AI assistant features are available.
+   *
+   * @returns True if AI is available
+   */
+  isAIAvailable: () => boolean
+}
+
+/**
+ * AI-powered assistant for conversational project setup.
+ * Provides an interactive, guided experience for creating new projects.
+ *
+ * @deprecated Use createAIAssistant() factory function instead.
+ * Will be removed in v1.0.0.
+ *
+ * @example
+ * ```typescript
+ * // Before (deprecated)
+ * const assistant = new AIAssistant(config)
+ *
+ * // After (recommended)
+ * const assistant = createAIAssistant(config)
+ * ```
  */
 export class AIAssistant {
   private readonly llmClient: LLMClient
@@ -106,7 +152,12 @@ export class AIAssistant {
   ): Promise<CreateCommandOptions> {
     try {
       // Step 1: Gather project description
-      const projectDescription = await this.gatherProjectDescription(session)
+      const descriptionResult = await this.gatherProjectDescription(session)
+      if (isErr(descriptionResult)) {
+        // User cancelled, fall back to standard setup
+        return this.fallbackToTraditionalSetup(initialOptions)
+      }
+      const projectDescription = descriptionResult.data
       session.projectContext.description = projectDescription
 
       // Step 2: Analyze requirements with AI
@@ -129,7 +180,9 @@ export class AIAssistant {
     }
   }
 
-  private async gatherProjectDescription(session: AIAssistSession): Promise<string> {
+  private async gatherProjectDescription(
+    session: AIAssistSession,
+  ): Promise<Result<string, AIError>> {
     const response = await text({
       message: 'What would you like to build? Describe your project:',
       placeholder: 'e.g., "A TypeScript library for validating user input forms"',
@@ -141,6 +194,14 @@ export class AIAssistant {
       },
     })
 
+    if (isCancel(response)) {
+      return err({
+        code: 'AI_REQUEST_FAILED',
+        message: 'User cancelled project description',
+        provider: 'interactive',
+      })
+    }
+
     if (typeof response === 'string') {
       this.addMessage(session, {
         role: 'user',
@@ -148,10 +209,14 @@ export class AIAssistant {
         context: {step: 'description'},
       })
 
-      return response
+      return ok(response)
     }
 
-    throw new Error('User cancelled project description')
+    return err({
+      code: 'AI_RESPONSE_INVALID',
+      message: 'Unexpected response type from text prompt',
+      reason: `Expected string, got ${typeof response}`,
+    })
   }
 
   private async analyzeProjectWithAI(
@@ -195,7 +260,11 @@ export class AIAssistant {
     const selectedTemplate = await this.selectTemplate(analysis)
 
     // Project name
-    const projectName = await this.getProjectName(session, initialOptions?.name)
+    const projectNameResult = await this.getProjectName(session, initialOptions?.name)
+    if (isErr(projectNameResult)) {
+      throw new Error(projectNameResult.error.message)
+    }
+    const projectName = projectNameResult.data
 
     // Additional features
     const features = await this.selectFeatures(analysis)
@@ -239,9 +308,12 @@ export class AIAssistant {
     return template as string
   }
 
-  private async getProjectName(session: AIAssistSession, initialName?: string): Promise<string> {
+  private async getProjectName(
+    session: AIAssistSession,
+    initialName?: string,
+  ): Promise<Result<string, AIError>> {
     if (initialName != null && initialName.trim() !== '') {
-      return initialName
+      return ok(initialName)
     }
 
     const response = await text({
@@ -258,12 +330,24 @@ export class AIAssistant {
       },
     })
 
-    if (typeof response === 'string') {
-      session.projectContext.name = response
-      return response
+    if (isCancel(response)) {
+      return err({
+        code: 'AI_REQUEST_FAILED',
+        message: 'User cancelled project name input',
+        provider: 'interactive',
+      })
     }
 
-    throw new Error('User cancelled project name input')
+    if (typeof response === 'string') {
+      session.projectContext.name = response
+      return ok(response)
+    }
+
+    return err({
+      code: 'AI_RESPONSE_INVALID',
+      message: 'Unexpected response type from text prompt',
+      reason: `Expected string, got ${typeof response}`,
+    })
   }
 
   private async selectFeatures(analysis: ProjectAnalysis): Promise<string[]> {
@@ -427,8 +511,32 @@ Focus on modern best practices, TypeScript-first development, and creating maint
 }
 
 /**
- * Create an AI assistant instance
+ * Creates an AI assistant instance for interactive, conversational project setup.
+ *
+ * @param config - Optional AI configuration
+ * @returns AI assistant instance with session methods
+ *
+ * @example
+ * ```typescript
+ * const assistant = createAIAssistant()
+ *
+ * // Check if AI is available
+ * if (assistant.isAIAvailable()) {
+ *   // Start interactive session
+ *   const options = await assistant.startAssistSession({
+ *     name: 'my-project'
+ *   })
+ *
+ *   console.log('Final options:', options)
+ * }
+ * ```
  */
-export function createAIAssistant(config?: Partial<AIConfig>): AIAssistant {
-  return new AIAssistant(config)
+export function createAIAssistant(config?: Partial<AIConfig>): AIAssistantInterface {
+  const instance = new AIAssistant(config)
+
+  return {
+    startAssistSession: instance.startAssistSession.bind(instance),
+    continueSession: instance.continueSession.bind(instance),
+    isAIAvailable: instance.isAIAvailable.bind(instance),
+  }
 }

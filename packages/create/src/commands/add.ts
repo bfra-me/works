@@ -1,5 +1,7 @@
-import type {AddCommandOptions} from '../types.js'
+import type {Result} from '@bfra.me/es/result'
+import type {AddCommandOptions, CreateError} from '../types.js'
 import process from 'node:process'
+import {err, isOk, ok} from '@bfra.me/es/result'
 import {intro, isCancel, outro, select, spinner} from '@clack/prompts'
 import {consola} from 'consola'
 import {addFeature, getAvailableFeatures, getFeatureInfo} from '../features/registry.js'
@@ -23,9 +25,45 @@ export interface AddFeatureOptions {
 }
 
 /**
- * Add a feature to an existing project
+ * Add a feature to an existing project with conflict detection and backup.
+ *
+ * Analyzes the target project, detects potential conflicts, and safely adds the requested
+ * feature. Automatically creates backups before making changes and can restore them if the
+ * operation fails. Supports dry-run mode for previewing changes without modification.
+ *
+ * @param options - Feature addition configuration
+ * @param options.feature - Feature identifier to add (e.g., 'eslint', 'vitest', 'component')
+ * @param options.targetDir - Target directory path (defaults to current working directory)
+ * @param options.skipConfirm - Skip confirmation prompts for automated workflows
+ * @param options.verbose - Enable detailed logging output
+ * @param options.dryRun - Preview changes without modifying files
+ * @param options.options - Feature-specific configuration options
+ * @returns A Result indicating success or containing a CreateError with details
+ *
+ * @example
+ * ```typescript
+ * import { addFeatureToProject } from '@bfra.me/create'
+ * import { isOk, isErr } from '@bfra.me/es/result'
+ *
+ * // Add ESLint with defaults
+ * const result = await addFeatureToProject({ feature: 'eslint' })
+ *
+ * if (isErr(result)) {
+ *   console.error('Failed:', result.error.message)
+ *   process.exit(1)
+ * }
+ *
+ * // Add component with options
+ * const result = await addFeatureToProject({
+ *   feature: 'component',
+ *   targetDir: './src',
+ *   options: { name: 'Button', type: 'functional' }
+ * })
+ * ```
  */
-export async function addFeatureToProject(options: AddFeatureOptions): Promise<void> {
+export async function addFeatureToProject(
+  options: AddFeatureOptions,
+): Promise<Result<void, CreateError>> {
   const {feature, targetDir = process.cwd(), skipConfirm, verbose, dryRun} = options
 
   if (verbose) {
@@ -33,9 +71,12 @@ export async function addFeatureToProject(options: AddFeatureOptions): Promise<v
   }
 
   if (!isNodeProject(targetDir)) {
-    throw new Error(
-      `Target directory does not contain a valid Node.js project. Please run this command in a project directory with a package.json file.`,
-    )
+    return err({
+      code: 'PROJECT_DETECTION_FAILED',
+      message:
+        'Target directory does not contain a valid Node.js project. Please run this command in a project directory with a package.json file.',
+      path: targetDir,
+    })
   }
 
   intro(`Adding ${feature} to your project`)
@@ -68,7 +109,7 @@ export async function addFeatureToProject(options: AddFeatureOptions): Promise<v
 
     if (isCancel(suggestion) || suggestion === 'abort') {
       outro('Operation cancelled')
-      return
+      return ok(undefined)
     }
 
     if (suggestion === 'list') {
@@ -76,7 +117,7 @@ export async function addFeatureToProject(options: AddFeatureOptions): Promise<v
       for (const [name, info] of Object.entries(availableFeatures)) {
         consola.info(`  ${name}: ${info.description}`)
       }
-      return
+      return ok(undefined)
     }
   }
 
@@ -100,7 +141,7 @@ export async function addFeatureToProject(options: AddFeatureOptions): Promise<v
 
     if (isCancel(resolution) || resolution === 'abort') {
       outro('Operation cancelled')
-      return
+      return ok(undefined)
     }
 
     await resolveConflicts(conflicts, resolution as string, targetDir)
@@ -145,8 +186,10 @@ export async function addFeatureToProject(options: AddFeatureOptions): Promise<v
         }
       }
     }
+
+    return ok(undefined)
   } catch (error) {
-    const err = error as Error
+    const errorObj = error as Error
 
     if (backupId != null && !dryRun) {
       consola.warn('Feature addition failed, restoring backup...')
@@ -159,7 +202,12 @@ export async function addFeatureToProject(options: AddFeatureOptions): Promise<v
       }
     }
 
-    throw new Error(`Failed to add ${feature}: ${err.message}`)
+    return err({
+      code: 'FILE_SYSTEM_ERROR',
+      message: `Failed to add ${feature}: ${errorObj.message}`,
+      operation: 'add-feature',
+      cause: errorObj,
+    })
   }
 }
 
@@ -192,58 +240,63 @@ export async function listAvailableFeatures(): Promise<void> {
 export async function handleAddCommand(options: AddCommandOptions): Promise<void> {
   const {feature, verbose, dryRun} = options
 
-  try {
-    if (feature === '--list' || feature === 'list') {
-      await listAvailableFeatures()
+  if (feature === '--list' || feature === 'list') {
+    await listAvailableFeatures()
+    return
+  }
+
+  if (feature.length > 0) {
+    const result = await addFeatureToProject({
+      feature,
+      verbose,
+      dryRun,
+      skipConfirm: options.skipConfirm,
+      options: options.options,
+    })
+
+    if (!isOk(result)) {
+      consola.error(`Failed to add feature: ${result.error.message}`)
+      if (verbose) {
+        consola.error('Error code:', result.error.code)
+      }
+      process.exit(1)
+    }
+  } else {
+    const availableFeatures = getAvailableFeatures()
+    const featureNames = Object.keys(availableFeatures)
+
+    if (featureNames.length === 0) {
+      consola.warn('No features available')
       return
     }
 
-    if (feature.length > 0) {
-      await addFeatureToProject({
-        feature,
-        verbose,
-        dryRun,
-        skipConfirm: options.skipConfirm,
-        options: options.options,
-      })
-    } else {
-      const availableFeatures = getAvailableFeatures()
-      const featureNames = Object.keys(availableFeatures)
+    const selectedFeature = await select({
+      message: 'Select a feature to add:',
+      options: featureNames.map(name => ({
+        value: name,
+        label: `${name} - ${availableFeatures[name]?.description ?? 'No description'}`,
+      })),
+    })
 
-      if (featureNames.length === 0) {
-        consola.warn('No features available')
-        return
-      }
-
-      const selectedFeature = await select({
-        message: 'Select a feature to add:',
-        options: featureNames.map(name => ({
-          value: name,
-          label: `${name} - ${availableFeatures[name]?.description ?? 'No description'}`,
-        })),
-      })
-
-      if (isCancel(selectedFeature)) {
-        outro('Operation cancelled')
-        return
-      }
-
-      await addFeatureToProject({
-        feature: selectedFeature,
-        verbose,
-        dryRun,
-        skipConfirm: options.skipConfirm,
-        options: options.options,
-      })
-    }
-  } catch (error) {
-    const err = error as Error
-    consola.error(`Failed to add feature: ${err.message}`)
-
-    if (verbose) {
-      consola.error(err.stack)
+    if (isCancel(selectedFeature)) {
+      outro('Operation cancelled')
+      return
     }
 
-    process.exit(1)
+    const result = await addFeatureToProject({
+      feature: selectedFeature,
+      verbose,
+      dryRun,
+      skipConfirm: options.skipConfirm,
+      options: options.options,
+    })
+
+    if (!isOk(result)) {
+      consola.error(`Failed to add feature: ${result.error.message}`)
+      if (verbose) {
+        consola.error('Error code:', result.error.code)
+      }
+      process.exit(1)
+    }
   }
 }

@@ -2,8 +2,10 @@
  * Template selection interface with preview and description support
  */
 
-import type {TemplateMetadata, TemplateSelection} from '../types.js'
+import type {Result} from '@bfra.me/es/result'
+import type {TemplateError, TemplateMetadata, TemplateSelection} from '../types.js'
 import process from 'node:process'
+import {err, ok} from '@bfra.me/es/result'
 import {cancel, isCancel, note, select} from '@clack/prompts'
 import {consola} from 'consola'
 
@@ -47,9 +49,33 @@ const BUILTIN_TEMPLATES: Record<string, TemplateMetadata> = {
 }
 
 /**
- * Interactive template selection with preview
+ * Interactive template selection with preview and validation.
+ *
+ * Provides an interactive prompt for users to select from built-in templates or specify
+ * custom template sources (GitHub repositories, URLs, or local paths). When a template is
+ * selected, displays a preview of the template's metadata before proceeding.
+ *
+ * @param initialTemplate - Optional pre-selected template identifier. If provided, skips interactive selection.
+ * @returns A Result containing the selected template information or an error.
+ *
+ * @example
+ * ```typescript
+ * import { templateSelection } from '@bfra.me/create/prompts'
+ * import { isOk } from '@bfra.me/es/result'
+ *
+ * // Interactive selection
+ * const result = await templateSelection()
+ * if (isOk(result)) {
+ *   console.log('Selected:', result.value.type, result.value.location)
+ * }
+ *
+ * // Pre-selected template
+ * const result = await templateSelection('library')
+ * ```
  */
-export async function templateSelection(initialTemplate?: string): Promise<TemplateSelection> {
+export async function templateSelection(
+  initialTemplate?: string,
+): Promise<Result<TemplateSelection, TemplateError>> {
   // If template is already specified, resolve it directly
   if (initialTemplate != null && initialTemplate.trim().length > 0) {
     return resolveTemplateSource(initialTemplate)
@@ -113,14 +139,16 @@ export async function templateSelection(initialTemplate?: string): Promise<Templ
 
 /**
  * Resolve template source into TemplateSelection
+ *
+ * @returns A Result containing the resolved template or an error
  */
-function resolveTemplateSource(source: string): TemplateSelection {
+function resolveTemplateSource(source: string): Result<TemplateSelection, TemplateError> {
   // GitHub repository pattern: github:user/repo or user/repo
   if (source.startsWith('github:') || /^[\w-]+\/[\w-]+$/.test(source)) {
     const repo = source.startsWith('github:') ? source.slice(7) : source
     const [repoPath, ref] = repo.includes('#') ? repo.split('#') : [repo, undefined]
 
-    return {
+    return ok({
       type: 'github',
       location: repoPath,
       ref,
@@ -129,12 +157,12 @@ function resolveTemplateSource(source: string): TemplateSelection {
         description: `GitHub template: ${repo}`,
         version: '1.0.0',
       },
-    }
+    })
   }
 
   // URL pattern: http:// or https://
   if (source.startsWith('http://') || source.startsWith('https://')) {
-    return {
+    return ok({
       type: 'url',
       location: source,
       metadata: {
@@ -142,12 +170,12 @@ function resolveTemplateSource(source: string): TemplateSelection {
         description: `URL template: ${source}`,
         version: '1.0.0',
       },
-    }
+    })
   }
 
   // Local path pattern: ./ or / or ~/
   if (source.startsWith('./') || source.startsWith('/') || source.startsWith('~/')) {
-    return {
+    return ok({
       type: 'local',
       location: source,
       metadata: {
@@ -155,31 +183,35 @@ function resolveTemplateSource(source: string): TemplateSelection {
         description: `Local template: ${source}`,
         version: '1.0.0',
       },
-    }
+    })
   }
 
   // Built-in template
   const metadata = BUILTIN_TEMPLATES[source]
   if (metadata) {
-    return {
+    return ok({
       type: 'builtin',
       location: source,
       metadata,
-    }
+    })
   }
 
   // Default fallback
   consola.warn(`Unknown template "${source}", using default template`)
   const defaultTemplate = BUILTIN_TEMPLATES.default
   if (!defaultTemplate) {
-    throw new Error('Default template not found')
+    return err({
+      code: 'TEMPLATE_NOT_FOUND',
+      message: 'Default template not found',
+      source: 'builtin:default',
+    })
   }
 
-  return {
+  return ok({
     type: 'builtin',
     location: 'default',
     metadata: defaultTemplate,
-  }
+  })
 }
 
 /**

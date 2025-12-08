@@ -1,5 +1,5 @@
 import type {Result} from '@bfra.me/es/result'
-import type {TemplateMetadata, TemplateSource} from '../types.js'
+import type {TemplateError, TemplateMetadata, TemplateSource} from '../types.js'
 import {existsSync, statSync} from 'node:fs'
 import {cp, mkdir, readFile, writeFile} from 'node:fs/promises'
 import path from 'node:path'
@@ -8,7 +8,12 @@ import {err, ok} from '@bfra.me/es/result'
 import {consola} from 'consola'
 import {downloadTemplate} from 'giget'
 import {glob} from 'glob'
-import {createTemplateError, TemplateErrorCode} from '../utils/errors.js'
+import {
+  createTemplateError,
+  TemplateErrorCode,
+  templateFetchFailedError,
+  templateInvalidError,
+} from '../utils/errors.js'
 import {createLogger} from '../utils/logger.js'
 import {templateMetadataManager} from './metadata.js'
 import {templateResolver} from './resolver.js'
@@ -54,15 +59,19 @@ export class TemplateFetcher {
    *
    * @example
    * ```typescript
+   * import { isOk, isErr } from '@bfra.me/es/result'
+   *
    * const fetcher = new TemplateFetcher()
    * const result = await fetcher.fetch(
    *   { type: 'github', location: 'user/repo' },
    *   './output'
    * )
    *
-   * if (result.success) {
+   * if (isOk(result)) {
    *   console.log('Template fetched to:', result.data.path)
    *   console.log('Template metadata:', result.data.metadata)
+   * } else {
+   *   console.error('Error:', result.error.message)
    * }
    * ```
    */
@@ -70,10 +79,13 @@ export class TemplateFetcher {
     source: TemplateSource,
     targetDir: string,
   ): Promise<
-    Result<{
-      path: string
-      metadata: TemplateMetadata
-    }>
+    Result<
+      {
+        path: string
+        metadata: TemplateMetadata
+      },
+      TemplateError
+    >
   > {
     try {
       let templatePath: string
@@ -96,27 +108,30 @@ export class TemplateFetcher {
           break
 
         default:
-          throw new Error(
-            `Unsupported template source type: ${String((source as {type?: string}).type)}`,
+          return err(
+            templateInvalidError(
+              `Unsupported template source type: ${String((source as {type?: string}).type)}`,
+              `Invalid source type: ${String((source as {type?: string}).type)}`,
+            ),
           )
       }
 
       // Load template metadata
       const metadata = await this.loadMetadata(templatePath)
 
-      return {
-        success: true,
-        data: {
-          path: templatePath,
-          metadata,
-        },
-      }
+      return ok({
+        path: templatePath,
+        metadata,
+      })
     } catch (error) {
       consola.error('Failed to fetch template:', error)
-      return {
-        success: false,
-        error: error as Error,
-      }
+      return err(
+        templateFetchFailedError(
+          error instanceof Error ? error.message : 'Failed to fetch template',
+          source.location,
+          error instanceof Error ? error : undefined,
+        ),
+      )
     }
   }
 

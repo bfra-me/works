@@ -38,8 +38,12 @@ describe('File System Utilities', () => {
   })
 
   afterEach(async () => {
-    if (existsSync(testDir)) {
-      rmSync(testDir, {recursive: true, force: true})
+    try {
+      if (existsSync(testDir)) {
+        rmSync(testDir, {recursive: true, force: true})
+      }
+    } catch (error) {
+      console.warn(`Failed to clean up ${testDir}:`, error)
     }
   })
 

@@ -2,6 +2,7 @@
 
 import type {CreateCommandOptions} from './types.js'
 import process from 'node:process'
+import {isErr, isOk} from '@bfra.me/es/result'
 import cac from 'cac'
 import {consola} from 'consola'
 import {name, version} from '../package.json'
@@ -127,7 +128,7 @@ createCommand.action(
       const duration = Date.now() - startTime
 
       if (options.dryRun === false || options.dryRun === undefined) {
-        if (result.success) {
+        if (isOk(result)) {
           logger.projectSuccess(projectName ?? 'new-project', process.cwd())
 
           // Parse features for display
@@ -148,9 +149,22 @@ createCommand.action(
             logger.info(`Project created in ${duration}ms`)
           }
         } else {
-          throw result.error
+          // Result type error - create proper Error from CreateError
+          const createError = result.error
+          const errorMessage = createError.message
+          const errorWithCode = new Error(errorMessage) as Error & {code?: string}
+          errorWithCode.code = createError.code
+          throw errorWithCode
         }
       } else {
+        // Dry run mode - check for errors even in dry run
+        if (isErr(result)) {
+          const createError = result.error
+          const errorMessage = createError.message
+          const errorWithCode = new Error(errorMessage) as Error & {code?: string}
+          errorWithCode.code = createError.code
+          throw errorWithCode
+        }
         logger.info('Dry run completed successfully')
       }
     } catch (error) {
@@ -237,8 +251,15 @@ cli
         interactive: true,
       }
 
-      await createPackage(createOptions)
-      consola.success(`Project created successfully at: ${projectPath ?? process.cwd()}`)
+      const result = await createPackage(createOptions)
+      if (isOk(result)) {
+        consola.success(`Project created successfully at: ${result.data.projectPath}`)
+      } else {
+        const createError = result.error
+        const errorWithCode = new Error(createError.message) as Error & {code?: string}
+        errorWithCode.code = createError.code
+        throw errorWithCode
+      }
     } catch (error) {
       // Use shared error display for legacy mode too
       displayError(error, {showSuggestions: true})

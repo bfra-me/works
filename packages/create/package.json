@@ -45,7 +45,8 @@
     "lint": "eslint",
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "clean:test": "rm -rf .tmp test-temp-pm-* test-add-project test-dry-run test/fixtures/temp/*"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.71.1",

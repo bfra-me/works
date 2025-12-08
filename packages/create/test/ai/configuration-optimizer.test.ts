@@ -60,7 +60,12 @@ describe('ConfigurationOptimizer', () => {
   describe('createConfigurationOptimizer', () => {
     it('creates ConfigurationOptimizer instance', () => {
       const optimizer = createConfigurationOptimizer()
-      expect(optimizer).toBeInstanceOf(ConfigurationOptimizer)
+      // Factory returns interface with bound methods, not class instance
+      expect(optimizer).toBeDefined()
+      expect(optimizer.optimizeConfigurations).toBeDefined()
+      expect(optimizer.generateOptimizedConfig).toBeDefined()
+      expect(optimizer.isOptimizationAvailable).toBeDefined()
+      expect(typeof optimizer.optimizeConfigurations).toBe('function')
     })
   })
 

@@ -35,6 +35,7 @@ const mockSpinner = vi.fn(() => ({
 vi.mock('@clack/prompts', () => ({
   confirm: mockConfirm,
   intro: mockIntro,
+  isCancel: (value: unknown) => value === Symbol.for('cancel'),
   multiselect: mockMultiselect,
   outro: mockOutro,
   select: mockSelect,
@@ -334,13 +335,21 @@ describe('AIAssistant', () => {
   describe('createAIAssistant factory', () => {
     it('should create AIAssistant instance', () => {
       const assistant = createAIAssistant()
-      expect(assistant).toBeInstanceOf(AIAssistant)
+      // Factory returns interface with bound methods, not class instance
+      expect(assistant).toBeDefined()
+      expect(assistant.startAssistSession).toBeDefined()
+      expect(assistant.continueSession).toBeDefined()
+      expect(assistant.isAIAvailable).toBeDefined()
+      expect(typeof assistant.startAssistSession).toBe('function')
     })
 
     it('should pass config to AIAssistant constructor', () => {
       const config = {provider: 'anthropic' as const, temperature: 0.5}
       const assistant = createAIAssistant(config)
-      expect(assistant).toBeInstanceOf(AIAssistant)
+      // Factory returns interface with bound methods, not class instance
+      expect(assistant).toBeDefined()
+      expect(assistant.startAssistSession).toBeDefined()
+      expect(assistant.isAIAvailable).toBeDefined()
     })
   })
 })
