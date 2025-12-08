@@ -183,14 +183,14 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-061 | Design cache schema in `src/cache/cache-schema.ts` | | |
-| TASK-062 | Reuse `createFileHasher()` from `@bfra.me/es/watcher` for file change detection | | |
-| TASK-063 | Reuse `createChangeDetector()` from `@bfra.me/es/watcher` for incremental analysis | | |
-| TASK-064 | Create cache manager in `src/cache/cache-manager.ts` with file-based storage | | |
-| TASK-065 | Implement incremental analysis orchestrator in `src/core/incremental-analyzer.ts` | | |
-| TASK-066 | Add cache invalidation for configuration file changes | | |
-| TASK-067 | Use `pLimit()` from `@bfra.me/es/async` for parallel analysis execution | | |
-| TASK-068 | Add progress reporting callback for long-running analysis | | |
+| TASK-061 | Design cache schema in `src/cache/cache-schema.ts` | ✅ | 2025-12-07 |
+| TASK-062 | Reuse `createFileHasher()` from `@bfra.me/es/watcher` for file change detection | ✅ | 2025-12-07 |
+| TASK-063 | Reuse `createChangeDetector()` from `@bfra.me/es/watcher` for incremental analysis | ✅ | 2025-12-07 |
+| TASK-064 | Create cache manager in `src/cache/cache-manager.ts` with file-based storage | ✅ | 2025-12-07 |
+| TASK-065 | Implement incremental analysis orchestrator in `src/core/incremental-analyzer.ts` | ✅ | 2025-12-07 |
+| TASK-066 | Add cache invalidation for configuration file changes | ✅ | 2025-12-07 |
+| TASK-067 | Use `pLimit()` from `@bfra.me/es/async` for parallel analysis execution | ✅ | 2025-12-07 |
+| TASK-068 | Add progress reporting callback for long-running analysis | ✅ | 2025-12-07 |
 
 ### Implementation Phase 9: Main API and Orchestration
 
