@@ -39,6 +39,7 @@ Built with a focus on consistency, quality, and developer experience, it enables
 - [@bfra.me/prettier-config README](packages/prettier-config/readme.md): Prettier config variants and usage
 - [@bfra.me/tsconfig README](packages/tsconfig/readme.md): Strict TypeScript configs for libraries/apps
 - [@bfra.me/semantic-release README](packages/semantic-release/readme.md): Semantic-release presets and guidance
+- [@bfra.me/workspace-analyzer README](packages/workspace-analyzer/README.md): Comprehensive monorepo static analysis with CLI and API
 
 ## Semantic Release Docs
 
@@ -59,6 +60,7 @@ Built with a focus on consistency, quality, and developer experience, it enables
 - [@bfra.me/prettier-config Docs](docs/src/content/docs/packages/prettier-config.mdx): Prettier config documentation
 - [@bfra.me/semantic-release Docs](docs/src/content/docs/packages/semantic-release.mdx): Semantic-release presets documentation
 - [@bfra.me/tsconfig Docs](docs/src/content/docs/packages/tsconfig.mdx): TypeScript config documentation
+- [@bfra.me/workspace-analyzer Docs](docs/src/content/docs/packages/workspace-analyzer.mdx): Workspace analyzer documentation with analyzers and configuration
 
 ## Specifications
 
@@ -67,6 +69,7 @@ Built with a focus on consistency, quality, and developer experience, it enables
 - [Root Vitest Config](vitest.config.ts): Testing configuration with source condition for workspace resolution
 - [Workspace](pnpm-workspace.yaml): pnpm 10+ workspace packages and inclusion rules
 - [Type Coverage Config](type-coverage.json): Type coverage thresholds and reporting
+- [Workspace Analyzer Config](workspace-analyzer.config.ts): Workspace analyzer configuration for bfra.me/works monorepo
 
 ## Examples
 
@@ -82,6 +85,9 @@ Built with a focus on consistency, quality, and developer experience, it enables
 - [ES Environment Detection](packages/es/src/env/): CI, editor, git lifecycle, and runtime detection
 - [ES Module Interop](packages/es/src/module/): Dynamic import, interopDefault, isESModule, and package resolution
 - [ES File Watcher](packages/es/src/watcher/): File watcher abstraction with debouncing and change detection
+- [Workspace Analyzer Analyzers](packages/workspace-analyzer/src/analyzers/): Built-in analyzers for dependencies, architecture, and performance
+- [Workspace Analyzer Rules](packages/workspace-analyzer/src/rules/): Architectural rule engine with layer violation, barrel export, and public API rules
+- [Workspace Analyzer Reporters](packages/workspace-analyzer/src/reporters/): Console, JSON, and Markdown output formatters
 - [Script – Clean Changesets](scripts/src/clean-changesets.ts): Utility script used by `version-changesets`
 
 ## Reference

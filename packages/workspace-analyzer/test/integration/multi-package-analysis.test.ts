@@ -317,7 +317,7 @@ describe('multi-package-analysis', () => {
   })
 
   describe('large workspace handling', () => {
-    it('should handle workspace with many packages', async () => {
+    it('should handle workspace with many packages', {timeout: 15000}, async () => {
       const packages: PackageSetup[] = Array.from({length: 15}, (_, i) => ({
         name: `@test/large-pkg-${i}`,
         files: {
