@@ -117,6 +117,62 @@ export type {
   VersionAlignmentAnalyzerOptions,
 } from './analyzers/index'
 
+// Cache utilities (Phase 8)
+export {
+  CACHE_SCHEMA_VERSION,
+  collectConfigFileStates,
+  CONFIG_FILE_PATTERNS,
+  createAnalysisChangeDetector,
+  createCacheManager,
+  createChangeDetector,
+  createEmptyCache,
+  createFileAnalysisEntry,
+  createFileHasher,
+  createPackageAnalysisEntry,
+  createWorkspaceHasher,
+  DEFAULT_CACHE_OPTIONS,
+  initializeCache,
+} from './cache/index'
+
+export type {
+  AnalysisCache,
+  AnalysisChangeDetector,
+  AnalysisChangeDetectorOptions,
+  CachedFileAnalysis,
+  CachedFileState,
+  CachedPackageAnalysis,
+  CacheError,
+  CacheErrorCode,
+  CacheManager,
+  CacheManagerOptions,
+  CacheMetadata,
+  CacheOptions,
+  CacheStatistics,
+  CacheValidationResult,
+  ChangeDetector,
+  ChangeDetectorOptions,
+  FileHasher,
+  WorkspaceFileHasher,
+  WorkspaceHasherOptions,
+} from './cache/index'
+
+// Core orchestration utilities (Phase 8)
+export {
+  createConsoleProgressCallback,
+  createIncrementalAnalyzer,
+  createSilentProgressCallback,
+  DEFAULT_INCREMENTAL_OPTIONS,
+} from './core/index'
+
+export type {
+  IncrementalAnalysisContext,
+  IncrementalAnalysisError,
+  IncrementalAnalysisErrorCode,
+  IncrementalAnalysisOptions,
+  IncrementalAnalysisResult,
+  IncrementalAnalyzer,
+} from './core/index'
+
 // Dependency graph utilities
 export {
   buildDependencyGraph,
