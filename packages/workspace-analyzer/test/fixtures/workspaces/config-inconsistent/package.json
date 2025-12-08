@@ -1,0 +1,5 @@
+{
+  "name": "config-inconsistent-monorepo",
+  "private": true,
+  "workspaces": ["packages/*"]
+}

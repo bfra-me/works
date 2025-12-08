@@ -230,14 +230,14 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-087 | Create `__mocks__/fs.ts` with memfs-based mock file system adapting doc-sync's testing pattern | | |
-| TASK-088 | Create test fixtures in `test/fixtures/workspaces/` with sample monorepo structures | | |
-| TASK-089 | Create expected output fixtures in `test/fixtures/expected/` for analysis result comparison | | |
-| TASK-090 | Implement `test/scanner/workspace-scanner.test.ts` with concurrent test execution | | |
-| TASK-091 | Implement `test/analyzers/unused-dependency-analyzer.test.ts` | | |
-| TASK-092 | Implement `test/analyzers/circular-import-analyzer.test.ts` | | |
-| TASK-093 | Implement `test/analyzers/config-consistency-analyzer.test.ts` | | |
-| TASK-094 | Implement `test/reporters/report-generation.test.ts` with snapshot testing | | |
+| TASK-087 | Create `__mocks__/fs.ts` with memfs-based mock file system adapting doc-sync's testing pattern | ✅ | 2025-12-07 |
+| TASK-088 | Create test fixtures in `test/fixtures/workspaces/` with sample monorepo structures | ✅ | 2025-12-07 |
+| TASK-089 | Create expected output fixtures in `test/fixtures/expected/` for analysis result comparison | ✅ | 2025-12-07 |
+| TASK-090 | Implement `test/scanner/workspace-scanner.test.ts` with concurrent test execution | ✅ | 2025-12-07 |
+| TASK-091 | Implement `test/analyzers/unused-dependency-analyzer.test.ts` | ✅ | 2025-12-07 |
+| TASK-092 | Implement `test/analyzers/circular-import-analyzer.test.ts` | ✅ | 2025-12-07 |
+| TASK-093 | Implement `test/analyzers/config-consistency-analyzer.test.ts` | ✅ | 2025-12-07 |
+| TASK-094 | Implement `test/reporters/report-generation.test.ts` with snapshot testing | ✅ | 2025-12-07 |
 
 ### Implementation Phase 12: Integration Testing
 

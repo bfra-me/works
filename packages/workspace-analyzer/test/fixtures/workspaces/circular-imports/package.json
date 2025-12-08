@@ -1,0 +1,5 @@
+{
+  "name": "circular-imports-monorepo",
+  "private": true,
+  "workspaces": ["packages/*"]
+}

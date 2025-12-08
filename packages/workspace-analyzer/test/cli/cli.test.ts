@@ -158,7 +158,6 @@ describe('cli UI utilities', () => {
 
 describe('cli types', () => {
   it.concurrent('should define valid AnalyzeOptions type', () => {
-    // Import the type to verify it's properly defined
     const options: AnalyzeOptions = {
       root: '/workspace',
       config: './config.ts',

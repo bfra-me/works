@@ -1,0 +1,28 @@
+{
+  "summary": {
+    "totalIssues": 2,
+    "bySeverity": {
+      "error": 1,
+      "warning": 1
+    },
+    "byCategory": {
+      "circular-import": 2
+    }
+  },
+  "issues": [
+    {
+      "id": "circular-import",
+      "severity": "error",
+      "category": "circular-import",
+      "cycleLength": 2,
+      "description": "Direct cycle: x.ts → y.ts → x.ts"
+    },
+    {
+      "id": "circular-import",
+      "severity": "warning",
+      "category": "circular-import",
+      "cycleLength": 3,
+      "description": "Transitive cycle: a.ts → b.ts → c.ts → a.ts"
+    }
+  ]
+}

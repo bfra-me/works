@@ -1,0 +1,5 @@
+{
+  "name": "unused-deps-monorepo",
+  "private": true,
+  "workspaces": ["packages/*"]
+}
