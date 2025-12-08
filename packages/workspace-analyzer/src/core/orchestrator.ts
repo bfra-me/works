@@ -68,6 +68,8 @@ export interface OrchestratorError {
  * Options for the analysis orchestrator.
  */
 export interface OrchestratorOptions {
+  /** Root path of the workspace to analyze */
+  readonly workspacePath: string
   /** Merged configuration */
   readonly config: MergedConfig
   /** Progress callback */
@@ -188,10 +190,10 @@ function filterBySeverity(issues: readonly Issue[], minSeverity: Severity): read
  * ```
  */
 export function createOrchestrator(options: OrchestratorOptions): AnalysisOrchestrator {
-  const {config, onProgress, verbose = false} = options
+  const {workspacePath, config, onProgress, verbose = false} = options
 
   const scanner = createWorkspaceScanner({
-    rootDir: config.packagePatterns[0]?.includes('/') ? '.' : '.',
+    rootDir: workspacePath,
     includePatterns: config.packagePatterns,
     excludePackages: [],
     sourceExtensions: ['.ts', '.tsx', '.js', '.jsx', '.mts', '.cts'],
@@ -366,7 +368,6 @@ export function createOrchestrator(options: OrchestratorOptions): AnalysisOrches
       packageNames: readonly string[],
     ): Promise<Result<AnalysisResult, OrchestratorError>> {
       const startTime = Date.now()
-      const workspacePath = path.resolve('.')
 
       const contextResult = await buildContext(workspacePath)
       if (!contextResult.success) {

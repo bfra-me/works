@@ -169,6 +169,7 @@ export async function analyzeWorkspace(
 
   // Create orchestrator and run analysis
   const orchestrator = createOrchestrator({
+    workspacePath: resolvedPath,
     config: mergedConfig,
     onProgress: options.onProgress,
     verbose: options.verbose,
@@ -228,6 +229,7 @@ export async function analyzePackages(
 
   // Create orchestrator and run analysis
   const orchestrator = createOrchestrator({
+    workspacePath: resolvedPath,
     config: mergedConfig,
     onProgress: options.onProgress,
     verbose: options.verbose,

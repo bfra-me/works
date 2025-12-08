@@ -245,11 +245,11 @@ Create a new `@bfra.me/workspace-analyzer` package in the bfra.me/works monorepo
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-095 | Create `test/integration/analysis-pipeline.test.ts` for full analysis flow validation | | |
-| TASK-096 | Implement `test/integration/incremental-analysis.test.ts` for cache and change detection accuracy | | |
-| TASK-097 | Create `test/integration/configuration-validation.test.ts` for config file handling | | |
-| TASK-098 | Implement `test/integration/multi-package-analysis.test.ts` for workspace-wide scenarios | | |
-| TASK-099 | Add test coverage for error scenarios and recovery paths | | |
+| TASK-095 | Create `test/integration/analysis-pipeline.test.ts` for full analysis flow validation | ✅ | 2025-12-07 |
+| TASK-096 | Implement `test/integration/incremental-analysis.test.ts` for cache and change detection accuracy | ✅ | 2025-12-07 |
+| TASK-097 | Create `test/integration/configuration-validation.test.ts` for config file handling | ✅ | 2025-12-07 |
+| TASK-098 | Implement `test/integration/multi-package-analysis.test.ts` for workspace-wide scenarios | ✅ | 2025-12-07 |
+| TASK-099 | Add test coverage for error scenarios and recovery paths | ✅ | 2025-12-07 |
 
 ### Implementation Phase 13: Documentation and Works Integration
 
