@@ -35,7 +35,8 @@ Updated dependency \`oas\` to \`26.0.4\`.
 
     // Set up test fixtures
     await fs.ensureDir(changesetDir)
-    await fs.writeFile(join(changesetDir, 'test.md'), mockChangesetContent)
+    // Use Renovate-style filename pattern (renovate-{7-hex-chars}.md)
+    await fs.writeFile(join(changesetDir, 'renovate-abc1234.md'), mockChangesetContent)
   })
 
   afterEach(async () => {
@@ -51,7 +52,7 @@ Updated dependency \`oas\` to \`26.0.4\`.
       privatePackages: ['@api/test-utils'],
     })
 
-    const result = await fs.readFile(join(changesetDir, 'test.md'), 'utf8')
+    const result = await fs.readFile(join(changesetDir, 'renovate-abc1234.md'), 'utf8')
     expect(result).toContain('@bfra.me/api-core')
     expect(result).not.toContain('@api/test-utils')
   })
@@ -62,7 +63,7 @@ Updated dependency \`oas\` to \`26.0.4\`.
       privatePackages: ['@api/test-utils', '@api/other-private'],
     })
 
-    const result = await fs.readFile(join(changesetDir, 'test.md'), 'utf8')
+    const result = await fs.readFile(join(changesetDir, 'renovate-abc1234.md'), 'utf8')
     expect(result).toContain('@bfra.me/api-core')
     expect(result).not.toContain('@api/test-utils')
     expect(result).not.toContain('@api/other-private')
@@ -85,14 +86,14 @@ Updated dependency \`oas\` to \`26.0.4\`.
 
 Updated dependency \`@readme/oas-to-har\` to \`25.0.4\`.
 `
-    await fs.writeFile(join(changesetDir, 'test.md'), contentWithoutPrivate)
+    await fs.writeFile(join(changesetDir, 'renovate-def5678.md'), contentWithoutPrivate)
 
     await cleanChangesets({
       changesetDir,
       privatePackages: ['@api/test-utils'],
     })
 
-    const result = await fs.readFile(join(changesetDir, 'test.md'), 'utf8')
+    const result = await fs.readFile(join(changesetDir, 'renovate-def5678.md'), 'utf8')
     expect(result).toBe(contentWithoutPrivate)
   })
 
@@ -103,7 +104,7 @@ Updated dependency \`@readme/oas-to-har\` to \`25.0.4\`.
       dryRun: true,
     })
 
-    const result = await fs.readFile(join(changesetDir, 'test.md'), 'utf8')
+    const result = await fs.readFile(join(changesetDir, 'renovate-abc1234.md'), 'utf8')
     expect(result).toBe(mockChangesetContent)
   })
 
@@ -114,7 +115,7 @@ Updated dependency \`@readme/oas-to-har\` to \`25.0.4\`.
 
 Updated dependency \`some-dep\` to \`1.0.0\`.
 `
-      await fs.writeFile(join(changesetDir, 'empty.md'), emptyChangesetContent)
+      await fs.writeFile(join(changesetDir, 'renovate-1234567.md'), emptyChangesetContent)
 
       await cleanChangesets({
         changesetDir,
@@ -122,7 +123,9 @@ Updated dependency \`some-dep\` to \`1.0.0\`.
       })
 
       // File should be deleted
-      await expect(access(join(changesetDir, 'empty.md'), constants.F_OK)).rejects.toThrow()
+      await expect(
+        access(join(changesetDir, 'renovate-1234567.md'), constants.F_OK),
+      ).rejects.toThrow()
     })
 
     it('should delete changesets that become empty after cleaning', async () => {
@@ -132,7 +135,7 @@ Updated dependency \`some-dep\` to \`1.0.0\`.
 
 Updated dependency \`some-dep\` to \`1.0.0\`.
 `
-      await fs.writeFile(join(changesetDir, 'will-be-empty.md'), willBeEmptyContent)
+      await fs.writeFile(join(changesetDir, 'renovate-abcdef0.md'), willBeEmptyContent)
 
       await cleanChangesets({
         changesetDir,
@@ -140,7 +143,9 @@ Updated dependency \`some-dep\` to \`1.0.0\`.
       })
 
       // File should be deleted
-      await expect(access(join(changesetDir, 'will-be-empty.md'), constants.F_OK)).rejects.toThrow()
+      await expect(
+        access(join(changesetDir, 'renovate-abcdef0.md'), constants.F_OK),
+      ).rejects.toThrow()
     })
 
     it('should not delete files with valid packages after cleaning', async () => {
@@ -151,7 +156,7 @@ Updated dependency \`some-dep\` to \`1.0.0\`.
 
 Updated dependencies.
 `
-      await fs.writeFile(join(changesetDir, 'valid.md'), validContent)
+      await fs.writeFile(join(changesetDir, 'renovate-9876543.md'), validContent)
 
       await cleanChangesets({
         changesetDir,
@@ -159,7 +164,7 @@ Updated dependencies.
       })
 
       // File should still exist with only @bfra.me/other-package
-      const result = await fs.readFile(join(changesetDir, 'valid.md'), 'utf8')
+      const result = await fs.readFile(join(changesetDir, 'renovate-9876543.md'), 'utf8')
       expect(result).toContain('@bfra.me/other-package')
       expect(result).not.toContain('@bfra.me/works')
     })
@@ -171,7 +176,7 @@ this is not valid yaml: {]
 
 Some description.
 `
-      await fs.writeFile(join(changesetDir, 'malformed.md'), malformedContent)
+      await fs.writeFile(join(changesetDir, 'renovate-bad0000.md'), malformedContent)
 
       await cleanChangesets({
         changesetDir,
@@ -179,7 +184,7 @@ Some description.
       })
 
       // File should still exist (we don't delete unparseable files)
-      const result = await fs.readFile(join(changesetDir, 'malformed.md'), 'utf8')
+      const result = await fs.readFile(join(changesetDir, 'renovate-bad0000.md'), 'utf8')
       expect(result).toBe(malformedContent)
     })
 
@@ -189,7 +194,7 @@ Some description.
 
 Updated dependency.
 `
-      await fs.writeFile(join(changesetDir, 'empty-dry-run.md'), emptyChangesetContent)
+      await fs.writeFile(join(changesetDir, 'renovate-dryrun1.md'), emptyChangesetContent)
 
       await cleanChangesets({
         changesetDir,
@@ -198,7 +203,7 @@ Updated dependency.
       })
 
       // File should still exist in dry-run mode
-      const result = await fs.readFile(join(changesetDir, 'empty-dry-run.md'), 'utf8')
+      const result = await fs.readFile(join(changesetDir, 'renovate-dryrun1.md'), 'utf8')
       expect(result).toBe(emptyChangesetContent)
     })
   })
