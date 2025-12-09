@@ -13,11 +13,22 @@ interface ChangesetFile {
   content: string
 }
 
+/**
+ * Checks if a filename matches the Renovate changeset naming pattern.
+ * Renovate generates changesets with names like: renovate-{7-char-hex}.md
+ * @param filename - The changeset filename (not the full path)
+ * @returns True if the filename matches the Renovate pattern
+ */
+function isRenovateChangeset(filename: string): boolean {
+  return /^renovate-[\da-f]{7}\.md$/i.test(filename)
+}
+
 async function getChangesetFiles(changesetDir: string): Promise<ChangesetFile[]> {
   try {
     const files = await readdir(changesetDir)
     const changesetFiles = files.filter(
-      file => file.endsWith('.md') && !/^(?:README|CHANGELOG)/i.test(file),
+      file =>
+        file.endsWith('.md') && !/^(?:README|CHANGELOG)/i.test(file) && isRenovateChangeset(file),
     )
 
     const fileContents = await Promise.all(
@@ -108,7 +119,8 @@ export async function cleanChangesets(options: CleanChangesetsOptions = {}): Pro
     consola.info('Running in dry-run mode (no changes will be made)')
   }
 
-  consola.info('Cleaning changesets for private packages:', privatePackages)
+  consola.info('Only processing Renovate-generated changesets (renovate-*.md)')
+  consola.info('Cleaning Renovate changesets for private packages:', privatePackages)
 
   const changesetFiles = await getChangesetFiles(changesetDir)
 
