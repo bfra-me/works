@@ -95,7 +95,7 @@ jobs:
         run: pnpm --filter @bfra.me/workspace-analyzer run prepack
 
       - name: Run workspace analysis
-        run: pnpm run analyze --json > workspace-analysis.json
+        run: node packages/workspace-analyzer/lib/cli.js --json | tee workspace-analysis.json
         continue-on-error: true
 
       - name: Upload analysis report
