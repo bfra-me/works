@@ -85,12 +85,12 @@ export const analyzerConfigSchema = z
     include: z
       .array(z.string())
       .optional()
-      .default(DEFAULT_ANALYZER_CONFIG.include as unknown as string[])
+      .default([...DEFAULT_ANALYZER_CONFIG.include])
       .describe('Glob patterns for files to include in analysis'),
     exclude: z
       .array(z.string())
       .optional()
-      .default(DEFAULT_ANALYZER_CONFIG.exclude as unknown as string[])
+      .default([...DEFAULT_ANALYZER_CONFIG.exclude])
       .describe('Glob patterns for files to exclude from analysis'),
     minSeverity: severitySchema
       .optional()
@@ -114,7 +114,7 @@ export const workspaceOptionsSchema = z
     packagePatterns: z
       .array(z.string())
       .optional()
-      .default(DEFAULT_PACKAGE_PATTERNS as unknown as string[])
+      .default([...DEFAULT_PACKAGE_PATTERNS])
       .describe('Glob patterns for package locations'),
     concurrency: z
       .number()
