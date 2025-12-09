@@ -155,6 +155,38 @@ import { getEnv, requireEnv } from '@bfra.me/es/env'
 import { createAppError, isAppError } from '@bfra.me/es/error'
 ```
 
+### docs (Documentation Site)
+
+The documentation site uses Astro Starlight with quality infrastructure:
+
+```bash
+pnpm --filter docs dev              # Start dev server at localhost:4321/works/
+pnpm --filter docs build            # Build static site
+pnpm --filter docs preview          # Preview production build
+pnpm --filter docs lint             # Lint MDX and TypeScript files
+pnpm --filter docs test             # Run content validation tests
+pnpm --filter docs type-check       # Type-check with Astro Check
+pnpm --filter docs validate         # Full validation (type-check + lint + test + build)
+pnpm --filter docs sync-versions    # Sync package versions to MDX badge components
+```
+
+**Quality infrastructure:**
+
+- ESLint with Astro/MDX support for linting documentation files
+- Vitest test suite validating MDX syntax, frontmatter, code blocks, and internal links
+- Automated version badge synchronization from package.json files
+- Type checking via Astro Check
+- Tests ensure all 8 packages maintain valid documentation
+
+**Adding new package documentation:**
+
+1. Write comprehensive README.md in the package directory
+2. Add package to sidebar in `docs/astro.config.mjs`
+3. Add version mapping to `docs/scripts/sync-versions.ts`
+4. Run `pnpm --filter docs validate` to verify
+
+Package documentation is automatically synchronized from READMEs - do not manually edit `docs/src/content/docs/packages/[name].mdx` files. See `docs/CONTRIBUTING.md` for detailed guidelines.
+
 ## Release Workflow
 
 ```bash

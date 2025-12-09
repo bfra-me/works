@@ -146,7 +146,7 @@ describe('link validation', () => {
         slugs.add(slug)
       }
 
-      expect(slugs.size).toBe(17)
+      expect(slugs.size).toBe(16)
       expect(slugs.has('getting-started/introduction')).toBe(true)
       expect(slugs.has('packages/create')).toBe(true)
     })

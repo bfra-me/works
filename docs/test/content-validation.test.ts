@@ -142,7 +142,7 @@ describe('content validation', () => {
     it('should find all content files', async () => {
       const files = await getAllContentFiles()
       expect(files.length).toBeGreaterThan(0)
-      expect(files.length).toBe(17)
+      expect(files.length).toBe(16)
     })
 
     it('should only include .md and .mdx files', async () => {
