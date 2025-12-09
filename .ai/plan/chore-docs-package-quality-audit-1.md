@@ -60,10 +60,10 @@ The `docs` package is a comprehensive Astro Starlight documentation site with co
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-011 | Create `docs/scripts/sync-versions.ts` utility to read package versions and update MDX badge components | | |
-| TASK-012 | Define version mapping for 8 package MDX files: `create.mdx`, `doc-sync.mdx`, `es.mdx`, `eslint-config.mdx`, `prettier-config.mdx`, `semantic-release.mdx`, `tsconfig.mdx`, `workspace-analyzer.mdx` | | |
-| TASK-013 | Add `sync-versions` script to `docs/package.json` and integrate into `pnpm prepare` workflow | | |
-| TASK-014 | Create test in `docs/test/version-sync.test.ts` to verify badge versions match package.json versions | | |
+| TASK-011 | Create `docs/scripts/sync-versions.ts` utility to read package versions and update MDX badge components | ✅ | 2025-12-09 |
+| TASK-012 | Define version mapping for 8 package MDX files: `create.mdx`, `doc-sync.mdx`, `es.mdx`, `eslint-config.mdx`, `prettier-config.mdx`, `semantic-release.mdx`, `tsconfig.mdx`, `workspace-analyzer.mdx` | ✅ | 2025-12-09 |
+| TASK-013 | Add `sync-versions` script to `docs/package.json` and integrate into `pnpm prepare` workflow | ✅ | 2025-12-09 |
+| TASK-014 | Create test in `docs/test/version-sync.test.ts` to verify badge versions match package.json versions | ✅ | 2025-12-09 |
 
 ### Implementation Phase 4: CI/CD Integration
 

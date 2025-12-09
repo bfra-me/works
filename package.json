@@ -26,7 +26,7 @@
     "lint-packages": "pnpm -r --include-workspace-root --parallel exec publint",
     "lint-source": "eslint --flag v10_config_lookup_from_file --cache",
     "precommit": "lint-staged",
-    "prepare": "pnpm --filter docs astro sync && husky",
+    "prepare": "pnpm --filter docs astro sync && pnpm --filter docs sync-versions && husky",
     "publish-changesets": "changeset publish",
     "test": "vitest run",
     "type-check": "tsc --noEmit",

@@ -10,6 +10,7 @@
     "lint": "eslint",
     "preview": "astro preview",
     "start": "astro dev",
+    "sync-versions": "tsx scripts/sync-versions.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "type-check": "astro check",
