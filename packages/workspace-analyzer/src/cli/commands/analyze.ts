@@ -122,7 +122,7 @@ function reportResults(result: AnalysisResult, options: AnalyzeOptions): void {
   if (options.json === true) {
     const jsonReporter = createJsonReporter()
     const report = jsonReporter.generate(result)
-    console.log(JSON.stringify(report, null, 2))
+    console.log(report)
     return
   }
 
@@ -144,7 +144,10 @@ export async function runAnalyze(inputPath: string, options: AnalyzeOptions): Pr
   const logger = createLogger(options)
   const rootDir = path.resolve(options.root ?? inputPath)
 
-  if (options.quiet !== true) {
+  // Suppress UI elements when outputting machine-readable formats
+  const suppressUI = options.json === true || options.markdown === true || options.quiet === true
+
+  if (!suppressUI) {
     showIntro('🔍 Workspace Analyzer')
   }
 
@@ -173,7 +176,7 @@ export async function runAnalyze(inputPath: string, options: AnalyzeOptions): Pr
     if (options.config != null) {
       logger.info(`[DRY RUN] Using config: ${options.config}`)
     }
-    if (options.quiet !== true) {
+    if (!suppressUI) {
       showOutro('Dry run complete - no analysis performed')
     }
     return
@@ -183,7 +186,7 @@ export async function runAnalyze(inputPath: string, options: AnalyzeOptions): Pr
     logger.warn('Auto-fix mode is not yet implemented. Running analysis only.')
   }
 
-  const spinner = options.quiet === true ? undefined : createSpinner()
+  const spinner = suppressUI ? undefined : createSpinner()
   spinner?.start('Analyzing workspace...')
 
   const startTime = Date.now()
@@ -218,7 +221,7 @@ export async function runAnalyze(inputPath: string, options: AnalyzeOptions): Pr
 
     reportResults(analysisResult, options)
 
-    if (options.quiet !== true) {
+    if (!suppressUI) {
       const summary = formatSeveritySummary(analysisResult.summary.bySeverity)
       showOutro(`${summary} (${analysisResult.summary.totalIssues} total issues)`)
     }
