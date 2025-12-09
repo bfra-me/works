@@ -33,7 +33,7 @@
     "type-coverage": "type-coverage --project .",
     "type-coverage:detail": "type-coverage --detail --project .",
     "type-coverage:report": "type-coverage --detail --reportSemanticError --project .",
-    "validate": "pnpm run type-check && pnpm run build && pnpm run lint && pnpm run test && pnpm run type-coverage",
+    "validate": "pnpm run type-check & pnpm run lint & pnpm run test & wait && pnpm run build && pnpm run type-coverage",
     "version-changesets": "changeset version && pnpm bootstrap --no-frozen-lockfile && pnpm build",
     "watch": "pnpm run build --watch"
   },

@@ -81,7 +81,7 @@ jobs:
 
   analyze:
     name: Workspace Analysis
-    needs: build
+    needs: prepare
     runs-on: ubuntu-latest
 
     steps:
