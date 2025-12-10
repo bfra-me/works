@@ -10,6 +10,7 @@ Built with a focus on consistency, quality, and developer experience, it enables
 
 - [AGENTS.md](AGENTS.md): Agent-focused context, commands, conventions, and workflows for working with this monorepo
 - [CLAUDE.md](CLAUDE.md): Claude Code instructions directing to AGENTS.md
+- [PERFORMANCE.md](PERFORMANCE.md): Performance optimization tracking and baseline metrics
 
 ## Documentation
 
@@ -93,7 +94,6 @@ Built with a focus on consistency, quality, and developer experience, it enables
 ## Reference
 
 - [Reference Index](docs/src/content/docs/reference/index.mdx): API and configuration reference overview
-- [Reference Example](docs/src/content/docs/reference/example.md): Reference documentation example
 
 ## Development
 
