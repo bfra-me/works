@@ -415,3 +415,30 @@ export type {Err, Ok, Result} from './types/index'
 
 // Utility functions
 export {matchAnyPattern, matchPattern, normalizePath} from './utils/index'
+
+// Visualizer module
+export type {
+  BuildVisualizationOptions,
+  GraphBuilderContext,
+  VisualizationCycle,
+  VisualizationData,
+  VisualizationEdge,
+  VisualizationError,
+  VisualizationFilters,
+  VisualizationLayerDefinition,
+  VisualizationMetadata,
+  VisualizationNode,
+  VisualizationStatistics,
+  VisualizationViolation,
+  VisualizerOptions,
+} from './visualizer/index'
+export {
+  buildVisualizationData,
+  DEFAULT_BUILD_OPTIONS,
+  DEFAULT_VISUALIZER_OPTIONS,
+  getHighestSeverity,
+  SEVERITY_ORDER,
+  transformCycleToVisualization,
+  transformEdgeToVisualization,
+  transformNodeToVisualization,
+} from './visualizer/index'
