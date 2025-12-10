@@ -79,8 +79,8 @@ importers:
         specifier: 2.29.7
         version: 2.29.7(typescript@5.9.3)
       type-fest:
-        specifier: 5.3.0
-        version: 5.3.0
+        specifier: 5.3.1
+        version: 5.3.1
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -284,8 +284,8 @@ importers:
         specifier: 4.16.1
         version: 4.16.1(@typescript-eslint/utils@8.48.1(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))
       eslint-plugin-jsdoc:
-        specifier: 61.4.2
-        version: 61.4.2(eslint@9.39.1(jiti@2.6.1))
+        specifier: 61.5.0
+        version: 61.5.0(eslint@9.39.1(jiti@2.6.1))
       eslint-plugin-json-schema-validator:
         specifier: 5.5.0
         version: 5.5.0(eslint@9.39.1(jiti@2.6.1))
@@ -3081,8 +3081,8 @@ packages:
       eslint-import-resolver-node:
         optional: true
 
-  eslint-plugin-jsdoc@61.4.2:
-    resolution: {integrity: sha512-WzZNvefoUaG/JWikVFhNLYqE2BEd6LQD2ZyfJOe1Ld3Cir05csDMMf0AihGwrSbB/e7fHRSfQOZ4F/hik9fQww==}
+  eslint-plugin-jsdoc@61.5.0:
+    resolution: {integrity: sha512-PR81eOGq4S7diVnV9xzFSBE4CDENRQGP0Lckkek8AdHtbj+6Bm0cItwlFnxsLFriJHspiE3mpu8U20eODyToIg==}
     engines: {node: '>=20.11.0'}
     peerDependencies:
       eslint: ^9.38.0
@@ -5918,8 +5918,8 @@ packages:
     resolution: {integrity: sha512-TeTSQ6H5YHvpqVwBRcnLDCBnDOHWYu7IvGbHT6N8AOymcr9PJGjc1GTtiWZTYg0NCgYwvnYWEkVChQAr9bjfwA==}
     engines: {node: '>=16'}
 
-  type-fest@5.3.0:
-    resolution: {integrity: sha512-d9CwU93nN0IA1QL+GSNDdwLAu1Ew5ZjTwupvedwg3WdfoH6pIDvYQ2hV0Uc2nKBLPq7NB5apCx57MLS5qlmO5g==}
+  type-fest@5.3.1:
+    resolution: {integrity: sha512-VCn+LMHbd4t6sF3wfU/+HKT63C9OoyrSIf4b+vtWHpt2U7/4InZG467YDNMFMR70DdHjAdpPWmw2lzRdg0Xqqg==}
     engines: {node: '>=20'}
 
   typed-array-buffer@1.0.3:
@@ -9575,7 +9575,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-jsdoc@61.4.2(eslint@9.39.1(jiti@2.6.1)):
+  eslint-plugin-jsdoc@61.5.0(eslint@9.39.1(jiti@2.6.1)):
     dependencies:
       '@es-joy/jsdoccomment': 0.76.0
       '@es-joy/resolve.exports': 1.2.0
@@ -11677,7 +11677,7 @@ snapshots:
       statuses: 2.0.2
       strict-event-emitter: 0.5.1
       tough-cookie: 6.0.0
-      type-fest: 5.3.0
+      type-fest: 5.3.1
       until-async: 3.0.2
       yargs: 17.7.2
     optionalDependencies:
@@ -12171,14 +12171,14 @@ snapshots:
     dependencies:
       find-up-simple: 1.0.1
       read-pkg: 10.0.0
-      type-fest: 5.3.0
+      type-fest: 5.3.1
 
   read-pkg@10.0.0:
     dependencies:
       '@types/normalize-package-data': 2.4.4
       normalize-package-data: 8.0.0
       parse-json: 8.3.0
-      type-fest: 5.3.0
+      type-fest: 5.3.1
       unicorn-magic: 0.3.0
 
   read-pkg@9.0.1:
@@ -13121,7 +13121,7 @@ snapshots:
 
   type-fest@4.41.0: {}
 
-  type-fest@5.3.0:
+  type-fest@5.3.1:
     dependencies:
       tagged-tag: 1.0.0
 
