@@ -7,6 +7,6 @@ export default defineConfig({
     conditions: ['source'],
   },
   test: {
-    projects: ['packages/*', 'scripts'],
+    projects: ['docs', 'packages/*', 'scripts'],
   },
 })

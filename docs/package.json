@@ -7,12 +7,29 @@
     "astro": "astro",
     "build": "astro build",
     "dev": "astro dev",
+    "lint": "eslint",
     "preview": "astro preview",
-    "start": "astro dev"
+    "start": "astro dev",
+    "sync-versions": "tsx scripts/sync-versions.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "type-check": "astro check",
+    "validate": "pnpm run type-check & pnpm run lint & pnpm run test & wait && pnpm run build"
   },
   "dependencies": {
+    "@astrojs/check": "0.9.6",
     "@astrojs/starlight": "^0.37.0",
     "astro": "^5.6.1",
     "sharp": "^0.34.2"
+  },
+  "devDependencies": {
+    "@bfra.me/eslint-config": "workspace:*",
+    "@bfra.me/works": "workspace:*",
+    "@vitest/coverage-v8": "4.0.15",
+    "fast-glob": "3.3.3",
+    "gray-matter": "4.0.3",
+    "typescript": "5.9.3",
+    "vite-tsconfig-paths": "5.1.4",
+    "vitest": "4.0.15"
   }
 }

@@ -4,11 +4,10 @@
     "composite": true,
     "baseUrl": ".",
     "paths": {
-      "@bfra.me/create": ["../packages/create/src"],
-      "@bfra.me/eslint-config": ["../packages/eslint-config/src"],
-      "@bfra.me/prettier-config": ["../packages/prettier-config/src"],
-      "@bfra.me/semantic-release": ["../packages/semantic-release/src"],
-      "@bfra.me/tsconfig": ["../packages/tsconfig/src"]
+      "@bfra.me/doc-sync": ["../packages/doc-sync/src"],
+      "@bfra.me/doc-sync/*": ["../packages/doc-sync/src/*"],
+      "@bfra.me/es": ["../packages/es/src"],
+      "@bfra.me/es/*": ["../packages/es/src/*"]
     }
   },
   "include": [".astro/types.d.ts", "**/*"],
