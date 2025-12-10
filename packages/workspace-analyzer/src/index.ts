@@ -415,3 +415,52 @@ export type {Err, Ok, Result} from './types/index'
 
 // Utility functions
 export {matchAnyPattern, matchPattern, normalizePath} from './utils/index'
+
+// Visualizer module
+export type {
+  BuildVisualizationOptions,
+  GraphBuilderContext,
+  GraphConfig,
+  HtmlRenderError,
+  HtmlRenderOptions,
+  MermaidExportOptions,
+  ViolationCollectionContext,
+  ViolationCollectionOptions,
+  VisualizationCycle,
+  VisualizationData,
+  VisualizationEdge,
+  VisualizationError,
+  VisualizationFilters,
+  VisualizationLayerDefinition,
+  VisualizationMetadata,
+  VisualizationNode,
+  VisualizationStatistics,
+  VisualizationViolation,
+  VisualizerOptions,
+} from './visualizer/index'
+export {
+  buildVisualizationData,
+  collectVisualizationViolations,
+  D3_CDN_URLS,
+  D3_VERSION,
+  DEFAULT_BUILD_OPTIONS,
+  DEFAULT_HTML_RENDER_OPTIONS,
+  DEFAULT_VIOLATION_COLLECTION_OPTIONS,
+  DEFAULT_VISUALIZER_OPTIONS,
+  estimateHtmlSize,
+  exportCycleMermaid,
+  exportVisualizationJson,
+  exportVisualizationMermaid,
+  getHighestSeverity,
+  isWithinSizeLimit,
+  mapIssuesToNodes,
+  renderVisualizationHtml,
+  sanitizeFilePath,
+  sanitizeHtml,
+  sanitizeJsString,
+  sanitizeVisualizationData,
+  SEVERITY_ORDER,
+  transformCycleToVisualization,
+  transformEdgeToVisualization,
+  transformNodeToVisualization,
+} from './visualizer/index'

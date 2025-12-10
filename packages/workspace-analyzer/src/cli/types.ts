@@ -63,3 +63,46 @@ export interface AnalyzerStatus {
   /** Duration in milliseconds */
   readonly durationMs: number
 }
+
+/**
+ * Output format for visualization.
+ */
+export type VisualizeFormat = 'html' | 'json' | 'mermaid' | 'both'
+
+/**
+ * Options for the visualize command.
+ */
+export interface VisualizeOptions extends GlobalOptions {
+  /** Output path for the generated file (default: ./workspace-graph.html) */
+  readonly output?: string
+  /** Output format: html, json, or both */
+  readonly format?: VisualizeFormat
+  /** Disable auto-opening the generated file in browser */
+  readonly noOpen?: boolean
+  /** Title for the visualization */
+  readonly title?: string
+  /** Maximum number of nodes to include (for performance) */
+  readonly maxNodes?: number
+  /** Include type-only imports in the graph */
+  readonly includeTypeImports?: boolean
+  /** Enable interactive mode for options selection */
+  readonly interactive?: boolean
+}
+
+/**
+ * Options for interactive visualization prompts.
+ */
+export interface VisualizePromptResult {
+  /** Selected output path */
+  readonly outputPath: string
+  /** Selected format */
+  readonly format: VisualizeFormat
+  /** Whether to auto-open */
+  readonly autoOpen: boolean
+  /** Visualization title */
+  readonly title: string
+  /** Maximum nodes */
+  readonly maxNodes: number
+  /** Include type imports */
+  readonly includeTypeImports: boolean
+}
