@@ -365,6 +365,124 @@ describe('visualizer/html-renderer', () => {
 
       expect(json).not.toContain('<script>xss</script>')
     })
+
+    it.concurrent('should include all required fields', () => {
+      const data = createVisualizationData({
+        nodes: [createNode({id: 'test-node', filePath: '/test/path.ts'})],
+        edges: [
+          {
+            source: 'test-node',
+            target: 'other-node',
+            type: 'static',
+            isInCycle: false,
+            cycleId: undefined,
+          },
+        ],
+        statistics: {
+          totalNodes: 1,
+          totalEdges: 1,
+          totalCycles: 0,
+          nodesByLayer: {domain: 5, application: 3},
+          violationsBySeverity: {critical: 1, error: 2, warning: 3, info: 0},
+          packagesAnalyzed: 2,
+          filesAnalyzed: 10,
+        },
+      })
+
+      const json = exportVisualizationJson(data)
+      const parsed = JSON.parse(json) as VisualizationData
+
+      expect(parsed.nodes).toBeDefined()
+      expect(parsed.edges).toBeDefined()
+      expect(parsed.cycles).toBeDefined()
+      expect(parsed.statistics).toBeDefined()
+      expect(parsed.layers).toBeDefined()
+      expect(parsed.metadata).toBeDefined()
+
+      expect(parsed.statistics.totalNodes).toBe(1)
+      expect(parsed.statistics.violationsBySeverity.critical).toBe(1)
+    })
+
+    it.concurrent('should format JSON with proper indentation', () => {
+      const data = createVisualizationData()
+
+      const json = exportVisualizationJson(data)
+
+      expect(json).toContain('\n  ')
+      expect(json).toMatch(/\{\n {2}"nodes"/)
+    })
+
+    it.concurrent('should preserve cycle information', () => {
+      const data = createVisualizationData({
+        cycles: [
+          {
+            id: 'cycle-1',
+            nodes: ['a.ts', 'b.ts'],
+            edges: [
+              {from: 'a.ts', to: 'b.ts'},
+              {from: 'b.ts', to: 'a.ts'},
+            ],
+            length: 2,
+            description: 'Test cycle',
+          },
+        ],
+      })
+
+      const json = exportVisualizationJson(data)
+      const parsed = JSON.parse(json) as VisualizationData
+
+      expect(parsed.cycles).toHaveLength(1)
+      expect(parsed.cycles[0]?.id).toBe('cycle-1')
+      expect(parsed.cycles[0]?.length).toBe(2)
+    })
+
+    it.concurrent('should preserve metadata', () => {
+      const data = createVisualizationData({
+        metadata: {
+          workspacePath: '/test/workspace',
+          generatedAt: '2025-12-10T00:00:00Z',
+          analyzerVersion: '0.1.0',
+        },
+      })
+
+      const json = exportVisualizationJson(data)
+      const parsed = JSON.parse(json) as VisualizationData
+
+      expect(parsed.metadata.workspacePath).toBe('/test/workspace')
+      expect(parsed.metadata.generatedAt).toBe('2025-12-10T00:00:00Z')
+      expect(parsed.metadata.analyzerVersion).toBe('0.1.0')
+    })
+
+    it.concurrent('should handle empty violations array', () => {
+      const data = createVisualizationData({
+        nodes: [createNode({id: 'test-node', violations: []})],
+      })
+
+      const json = exportVisualizationJson(data)
+      const parsed = JSON.parse(json) as VisualizationData
+
+      expect(parsed.nodes[0]?.violations).toEqual([])
+    })
+
+    it.concurrent('should handle undefined optional fields', () => {
+      const data = createVisualizationData({
+        nodes: [
+          createNode({
+            id: 'test-node',
+            packageName: undefined,
+            layer: undefined,
+            highestViolationSeverity: undefined,
+          }),
+        ],
+      })
+
+      const json = exportVisualizationJson(data)
+      const parsed = JSON.parse(json) as VisualizationData
+
+      expect(parsed.nodes[0]?.packageName).toBeUndefined()
+      expect(parsed.nodes[0]?.layer).toBeUndefined()
+      expect(parsed.nodes[0]?.highestViolationSeverity).toBeUndefined()
+    })
   })
 
   describe('estimateHtmlSize', () => {

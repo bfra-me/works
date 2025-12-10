@@ -26,6 +26,7 @@ import {
   buildVisualizationData,
   DEFAULT_VISUALIZER_OPTIONS,
   exportVisualizationJson,
+  exportVisualizationMermaid,
   isWithinSizeLimit,
   renderVisualizationHtml,
 } from '../../visualizer/index'
@@ -74,9 +75,10 @@ async function promptVisualizeOptions(
     options: [
       {value: 'html' as const, label: 'HTML', hint: 'Interactive D3.js visualization'},
       {value: 'json' as const, label: 'JSON', hint: 'Raw data for external tools'},
+      {value: 'mermaid' as const, label: 'Mermaid', hint: 'Mermaid diagram markup'},
       {value: 'both' as const, label: 'Both', hint: 'Generate HTML and JSON files'},
     ],
-    initialValue: defaultFormat as 'html' | 'json' | 'both',
+    initialValue: defaultFormat as 'html' | 'json' | 'mermaid' | 'both',
   })
 
   if (p.isCancel(format)) return format
@@ -127,15 +129,16 @@ async function promptVisualizeOptions(
 }
 
 /**
- * Generates HTML and/or JSON visualization files.
+ * Generates HTML, JSON, and/or Mermaid visualization files.
  */
 async function writeVisualizationFiles(
   outputPath: string,
   format: VisualizeFormat,
   html: string | undefined,
   json: string,
-): Promise<{htmlPath?: string; jsonPath?: string}> {
-  const result: {htmlPath?: string; jsonPath?: string} = {}
+  mermaid: string | undefined,
+): Promise<{htmlPath?: string; jsonPath?: string; mermaidPath?: string}> {
+  const result: {htmlPath?: string; jsonPath?: string; mermaidPath?: string} = {}
 
   if (format === 'html' || format === 'both') {
     const htmlPath = outputPath.endsWith('.html') ? outputPath : `${outputPath}.html`
@@ -150,6 +153,13 @@ async function writeVisualizationFiles(
     await fs.mkdir(path.dirname(finalJsonPath), {recursive: true})
     await fs.writeFile(finalJsonPath, json, 'utf-8')
     result.jsonPath = finalJsonPath
+  }
+
+  if (format === 'mermaid' && mermaid !== undefined) {
+    const mermaidPath = outputPath.endsWith('.mmd') ? outputPath : `${outputPath}.mmd`
+    await fs.mkdir(path.dirname(mermaidPath), {recursive: true})
+    await fs.writeFile(mermaidPath, mermaid, 'utf-8')
+    result.mermaidPath = mermaidPath
   }
 
   return result
@@ -325,6 +335,7 @@ export async function runVisualize(inputPath: string, options: VisualizeOptions)
     spinner?.message('Rendering visualization...')
 
     let htmlContent: string | undefined
+    let mermaidContent: string | undefined
     const jsonContent = exportVisualizationJson(vizData)
 
     if (visualizeOpts.format === 'html' || visualizeOpts.format === 'both') {
@@ -343,6 +354,14 @@ export async function runVisualize(inputPath: string, options: VisualizeOptions)
       htmlContent = htmlResult.data
     }
 
+    if (visualizeOpts.format === 'mermaid') {
+      mermaidContent = exportVisualizationMermaid(vizData, {
+        cyclesOnly: false,
+        includeViolations: true,
+        direction: 'LR',
+      })
+    }
+
     spinner?.message('Writing output files...')
 
     const outputFiles = await writeVisualizationFiles(
@@ -350,6 +369,7 @@ export async function runVisualize(inputPath: string, options: VisualizeOptions)
       visualizeOpts.format,
       htmlContent,
       jsonContent,
+      mermaidContent,
     )
 
     const duration = Date.now() - startTime
@@ -360,6 +380,9 @@ export async function runVisualize(inputPath: string, options: VisualizeOptions)
     }
     if (outputFiles.jsonPath != null) {
       logger.info(`JSON: ${outputFiles.jsonPath}`)
+    }
+    if (outputFiles.mermaidPath != null) {
+      logger.info(`Mermaid: ${outputFiles.mermaidPath}`)
     }
 
     if (!suppressUI) {

@@ -28,6 +28,9 @@ export {
   sanitizeVisualizationData,
 } from './html-renderer'
 
+export type {MermaidExportOptions} from './mermaid-exporter'
+export {exportCycleMermaid, exportVisualizationMermaid} from './mermaid-exporter'
+
 export {
   D3_CDN_URLS,
   D3_TYPE_DECLARATIONS,

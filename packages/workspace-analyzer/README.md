@@ -76,6 +76,162 @@ workspace-analyzer --dry-run       # Preview without analysis
 | `--interactive`          | Interactive package selection                               |
 | `--fix`                  | Apply auto-fixes where available (placeholder)              |
 
+### Visualization Command
+
+Generate interactive dependency graph visualizations with the `visualize` command:
+
+```bash
+# Generate interactive HTML visualization
+workspace-analyzer visualize
+
+# Generate JSON data for external tools
+workspace-analyzer visualize --format json --output graph.json
+
+# Generate Mermaid diagram
+workspace-analyzer visualize --format mermaid --output graph.mmd
+
+# Interactive mode with options
+workspace-analyzer visualize --interactive
+
+# Custom title and node limits
+workspace-analyzer visualize --title "My Project" --max-nodes 100
+
+# Generate both HTML and JSON
+workspace-analyzer visualize --format both
+```
+
+#### Visualization Options
+
+| Option | Description | Default |
+| --- | --- | --- |
+| `--output <path>` | Output file path | `workspace-graph.html` |
+| `--format <format>` | Output format: html, json, mermaid, both | `html` |
+| `--no-open` | Disable auto-opening in browser | false (opens by default) |
+| `--title <title>` | Visualization title | `Workspace Dependency Graph` |
+| `--max-nodes <number>` | Maximum nodes to render (performance) | `1000` |
+| `--include-type-imports` | Include type-only imports in graph | `false` |
+| `--interactive` | Interactive mode for options selection | false |
+
+#### Export Formats
+
+**HTML** - Self-contained interactive visualization with D3.js:
+
+- Force-directed graph layout with zoom/pan controls
+- Filter by layer, severity, package scope
+- View modes: all, cycles-only, violations-only
+- Node tooltips with violation details
+- No external network requests (fully offline)
+
+**JSON** - Structured data for external tools and custom processing:
+
+```json
+{
+  "nodes": [
+    {
+      "id": "src/utils/helpers.ts",
+      "name": "helpers.ts",
+      "filePath": "src/utils/helpers.ts",
+      "packageName": "@myorg/utils",
+      "layer": "infrastructure",
+      "importsCount": 5,
+      "importedByCount": 12,
+      "isInCycle": false,
+      "violations": [
+        {
+          "id": "v1",
+          "message": "Layer violation: infrastructure importing from domain",
+          "severity": "error",
+          "ruleId": "layer-dependency"
+        }
+      ],
+      "highestViolationSeverity": "error"
+    }
+  ],
+  "edges": [
+    {
+      "source": "src/utils/helpers.ts",
+      "target": "src/core/types.ts",
+      "type": "static",
+      "isInCycle": false
+    }
+  ],
+  "cycles": [
+    {
+      "id": "cycle-1",
+      "nodes": ["src/a.ts", "src/b.ts"],
+      "edges": [
+        {"from": "src/a.ts", "to": "src/b.ts"},
+        {"from": "src/b.ts", "to": "src/a.ts"}
+      ],
+      "length": 2,
+      "description": "Circular dependency: a.ts → b.ts → a.ts"
+    }
+  ],
+  "statistics": {
+    "totalNodes": 250,
+    "totalEdges": 380,
+    "totalCycles": 3,
+    "nodesByLayer": {
+      "domain": 50,
+      "application": 80,
+      "infrastructure": 120
+    },
+    "violationsBySeverity": {
+      "critical": 0,
+      "error": 5,
+      "warning": 15,
+      "info": 2
+    },
+    "packagesAnalyzed": 12,
+    "filesAnalyzed": 250
+  },
+  "metadata": {
+    "workspacePath": "/path/to/workspace",
+    "generatedAt": "2025-12-10T00:00:00Z",
+    "analyzerVersion": "0.1.0"
+  }
+}
+```
+
+**Mermaid** - Diagram markup for documentation and external rendering:
+
+```mermaid
+graph LR
+  src_utils_helpers_ts["helpers.ts"]:::class-error
+  src_core_types_ts["types.ts"]:::class-normal
+  src_utils_helpers_ts --> src_core_types_ts
+
+  classDef class-critical fill:#ff4444,stroke:#cc0000,stroke-width:3px,color:#fff
+  classDef class-error fill:#ff8844,stroke:#cc4400,stroke-width:2px,color:#fff
+  classDef class-warning fill:#ffcc44,stroke:#ccaa00,stroke-width:2px,color:#000
+  classDef class-info fill:#4488ff,stroke:#0044cc,stroke-width:1px,color:#fff
+  classDef class-normal fill:#88ccff,stroke:#0088cc,stroke-width:1px,color:#000
+```
+
+#### Integration with External Tools
+
+The JSON export format is designed for integration with custom analysis pipelines:
+
+```typescript
+import {readFile} from 'node:fs/promises'
+
+const data = JSON.parse(await readFile('graph.json', 'utf-8'))
+
+// Find all files with critical violations
+const criticalFiles = data.nodes.filter(
+  node => node.highestViolationSeverity === 'critical'
+)
+
+// Identify largest cycles
+const largeCycles = data.cycles
+  .filter(cycle => cycle.length > 5)
+  .sort((a, b) => b.length - a.length)
+
+// Calculate dependency metrics
+const avgImportsPerFile = data.statistics.totalEdges / data.statistics.totalNodes
+const cycleRate = data.statistics.totalCycles / data.statistics.totalNodes
+```
+
 ## Programmatic API
 
 ### `analyzeWorkspace(path, options)`

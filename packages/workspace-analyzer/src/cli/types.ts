@@ -67,7 +67,7 @@ export interface AnalyzerStatus {
 /**
  * Output format for visualization.
  */
-export type VisualizeFormat = 'html' | 'json' | 'both'
+export type VisualizeFormat = 'html' | 'json' | 'mermaid' | 'both'
 
 /**
  * Options for the visualize command.

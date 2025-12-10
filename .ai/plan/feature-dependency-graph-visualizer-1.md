@@ -2,7 +2,7 @@
 goal: Build Interactive HTML Dependency Graph Visualization CLI Tool for @bfra.me/workspace-analyzer
 version: 1.0
 date_created: 2025-12-09
-last_updated: 2025-12-09
+last_updated: 2025-12-10
 owner: marcusrbrown
 status: 'In Progress'
 tags: ['feature', 'cli', 'visualization', 'dependency-graph', 'html', 'd3', 'typescript', 'architecture']
@@ -349,11 +349,11 @@ async function generateVisualization(workspacePath: string, options: VisualizerO
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-042 | Implement `exportVisualizationJson()` writing structured JSON file | ☐ | |
-| TASK-043 | Support Mermaid diagram export using existing `generateCycleVisualization()` | ☐ | |
-| TASK-044 | Add `--format mermaid` option for Mermaid-only output | ☐ | |
-| TASK-045 | Document JSON schema in README for external tool integration | ☐ | |
-| TASK-046 | Write tests for JSON export format validation | ☐ | |
+| TASK-042 | Implement `exportVisualizationJson()` writing structured JSON file | ✅ | 2025-12-10 |
+| TASK-043 | Support Mermaid diagram export using existing `generateCycleVisualization()` | ✅ | 2025-12-10 |
+| TASK-044 | Add `--format mermaid` option for Mermaid-only output | ✅ | 2025-12-10 |
+| TASK-045 | Document JSON schema in README for external tool integration | ✅ | 2025-12-10 |
+| TASK-046 | Write tests for JSON export format validation | ✅ | 2025-12-10 |
 
 ### Implementation Phase 7: Documentation and Polish
 
