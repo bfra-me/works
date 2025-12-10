@@ -317,15 +317,15 @@ async function generateVisualization(workspacePath: string, options: VisualizerO
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-024 | Implement layer filter checkboxes with D3 node/edge show/hide logic | ☐ | |
-| TASK-025 | Implement severity filter dropdown with dynamic graph updates | ☐ | |
-| TASK-026 | Implement package search input with fuzzy matching and highlight | ☐ | |
-| TASK-027 | Implement view mode buttons (All/Cycles Only/Violations Only) | ☐ | |
-| TASK-028 | Implement statistics sidebar with live counts during filtering | ☐ | |
-| TASK-029 | Implement node click to center and highlight connected nodes | ☐ | |
-| TASK-030 | Implement edge click to show import details in tooltip | ☐ | |
-| TASK-031 | Add keyboard shortcuts (Escape to reset, +/- for zoom, F for fullscreen) | ☐ | |
-| TASK-032 | Write E2E tests for filtering using Playwright in `test/visualizer/e2e/` | ☐ | |
+| TASK-024 | Implement layer filter checkboxes with D3 node/edge show/hide logic | ✅ | 2025-12-09 |
+| TASK-025 | Implement severity filter dropdown with dynamic graph updates | ✅ | 2025-12-09 |
+| TASK-026 | Implement package search input with fuzzy matching and highlight | ✅ | 2025-12-09 |
+| TASK-027 | Implement view mode buttons (All/Cycles Only/Violations Only) | ✅ | 2025-12-09 |
+| TASK-028 | Implement statistics sidebar with live counts during filtering | ✅ | 2025-12-09 |
+| TASK-029 | Implement node click to center and highlight connected nodes | ✅ | 2025-12-09 |
+| TASK-030 | Implement edge click to show import details in tooltip | ✅ | 2025-12-09 |
+| TASK-031 | Add keyboard shortcuts (Escape to reset, +/- for zoom, F for fullscreen) | ✅ | 2025-12-09 |
+| TASK-032 | Write E2E tests for filtering using Playwright in `test/visualizer/e2e/` | ✅ | 2025-12-09 |
 
 ### Implementation Phase 5: CLI Command Integration
 

@@ -224,7 +224,10 @@ export function generateGraphInitScript(): string {
     // Edge line
     edgeEnter.append('line')
       .attr('class', d => getEdgeClass(d))
-      .attr('marker-end', d => d.isInCycle ? 'url(#arrow-cycle)' : 'url(#arrow)');
+      .attr('marker-end', d => d.isInCycle ? 'url(#arrow-cycle)' : 'url(#arrow)')
+      .on('mouseenter', handleEdgeMouseEnter)
+      .on('mouseleave', handleEdgeMouseLeave)
+      .on('click', handleEdgeClick);
 
     // Merge and update
     const edgeMerged = edgeEnter.merge(edge);
@@ -318,6 +321,11 @@ export function generateGraphInitScript(): string {
         return false;
       }
 
+      // Severity filter - only filter out nodes with violations if their highest severity is not selected
+      if (node.highestViolationSeverity && !state.filters.severities.has(node.highestViolationSeverity)) {
+        return false;
+      }
+
       // Cycles only
       if (state.filters.showCyclesOnly && !node.isInCycle) {
         return false;
@@ -399,6 +407,19 @@ export function generateGraphInitScript(): string {
     }
   }
 
+  function handleEdgeMouseEnter(event, d) {
+    showEdgeTooltip(event, d);
+  }
+
+  function handleEdgeMouseLeave(event, d) {
+    hideTooltip();
+  }
+
+  function handleEdgeClick(event, d) {
+    event.stopPropagation();
+    showEdgeTooltip(event, d);
+  }
+
   function showTooltip(event, node) {
     const iconClass = node.highestViolationSeverity
       ? 'severity-' + node.highestViolationSeverity
@@ -448,6 +469,72 @@ export function generateGraphInitScript(): string {
       (node.isInCycle ? '<div class="tooltip-row"><span class="tooltip-label">In Cycle</span><span class="tooltip-value" style="color: #ef4444;">Yes</span></div>' : '') +
       '</div>' +
       violationsHtml;
+
+    tooltip.html(html);
+
+    // Position tooltip
+    const tooltipNode = tooltip.node();
+    const tooltipRect = tooltipNode.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    let left = event.clientX + 10;
+    let top = event.clientY + 10;
+
+    // Adjust if tooltip would overflow
+    if (left + tooltipRect.width > viewportWidth - 20) {
+      left = event.clientX - tooltipRect.width - 10;
+    }
+    if (top + tooltipRect.height > viewportHeight - 20) {
+      top = event.clientY - tooltipRect.height - 10;
+    }
+
+    tooltip
+      .style('left', left + 'px')
+      .style('top', top + 'px')
+      .classed('visible', true);
+  }
+
+  function showEdgeTooltip(event, edge) {
+    const sourceId = typeof edge.source === 'object' ? edge.source.id : edge.source;
+    const targetId = typeof edge.target === 'object' ? edge.target.id : edge.target;
+    const sourceNode = nodeById.get(sourceId);
+    const targetNode = nodeById.get(targetId);
+
+    if (!sourceNode || !targetNode) return;
+
+    const iconClass = edge.isInCycle ? 'cycle' : 'default';
+    const importType = edge.type === 'static' ? 'Static Import' :
+                       edge.type === 'dynamic' ? 'Dynamic Import' :
+                       edge.type === 'type-only' ? 'Type-Only Import' :
+                       'Require Import';
+
+    const html = '<div class=\"tooltip-header\">' +
+      '<div class=\"tooltip-icon ' + iconClass + '\">' +
+      (edge.isInCycle ? '↻' : '→') +
+      '</div>' +
+      '<div>' +
+      '<div class=\"tooltip-title\">Import Relationship</div>' +
+      '<div class=\"tooltip-subtitle\">' + escapeHtml(importType) + '</div>' +
+      '</div>' +
+      '</div>' +
+      '<div class=\"tooltip-content\">' +
+      '<div class=\"tooltip-row\">' +
+      '<span class=\"tooltip-label\">From</span>' +
+      '<span class=\"tooltip-value\">' + escapeHtml(sourceNode.name) + '</span>' +
+      '</div>' +
+      '<div class=\"tooltip-row\">' +
+      '<span class=\"tooltip-label\">To</span>' +
+      '<span class=\"tooltip-value\">' + escapeHtml(targetNode.name) + '</span>' +
+      '</div>' +
+      '<div class=\"tooltip-divider\"></div>' +
+      '<div class=\"tooltip-row\">' +
+      '<span class=\"tooltip-label\">Type</span>' +
+      '<span class=\"tooltip-value\">' + escapeHtml(edge.type) + '</span>' +
+      '</div>' +
+      (edge.isInCycle ? '<div class=\"tooltip-row\"><span class=\"tooltip-label\">Part of Cycle</span><span class=\"tooltip-value\" style=\"color: #ef4444;\">Yes</span></div>' : '') +
+      (edge.cycleId ? '<div class=\"tooltip-row\"><span class=\"tooltip-label\">Cycle ID</span><span class=\"tooltip-value\">' + escapeHtml(edge.cycleId) + '</span></div>' : '') +
+      '</div>';
 
     tooltip.html(html);
 
@@ -561,6 +648,15 @@ export function generateGraphInitScript(): string {
     updateGraph();
   }
 
+  function setSeverityFilter(severity, enabled) {
+    if (enabled) {
+      state.filters.severities.add(severity);
+    } else {
+      state.filters.severities.delete(severity);
+    }
+    updateGraph();
+  }
+
   function setViewMode(mode) {
     state.filters.showCyclesOnly = mode === 'cycles';
     state.filters.showViolationsOnly = mode === 'violations';
@@ -637,6 +733,7 @@ export function generateGraphInitScript(): string {
     zoomOut,
     zoomReset,
     setLayerFilter,
+    setSeverityFilter,
     setViewMode,
     setSearchQuery,
     updateGraph,
@@ -713,6 +810,13 @@ export function generateControlPanelScript(): string {
     document.querySelectorAll('.layer-checkbox').forEach(checkbox => {
       checkbox.addEventListener('change', (e) => {
         api.setLayerFilter(e.target.dataset.layer, e.target.checked);
+      });
+    });
+
+    // Severity checkboxes
+    document.querySelectorAll('.severity-checkbox').forEach(checkbox => {
+      checkbox.addEventListener('change', (e) => {
+        api.setSeverityFilter(e.target.dataset.severity, e.target.checked);
       });
     });
 

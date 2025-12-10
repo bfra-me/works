@@ -243,6 +243,40 @@ function generateSidebarHtml(data: VisualizationData, title: string): string {
       </section>
 
       <section class="sidebar-section">
+        <h2 class="section-title">Filter by Severity</h2>
+        <div class="severity-filter-list">
+          <label class="severity-filter-item">
+            <input type="checkbox" class="severity-checkbox" data-severity="critical" checked>
+            <div class="severity-indicator">
+              <div class="severity-dot critical"></div>
+              <span class="severity-name">Critical</span>
+            </div>
+          </label>
+          <label class="severity-filter-item">
+            <input type="checkbox" class="severity-checkbox" data-severity="error" checked>
+            <div class="severity-indicator">
+              <div class="severity-dot error"></div>
+              <span class="severity-name">Error</span>
+            </div>
+          </label>
+          <label class="severity-filter-item">
+            <input type="checkbox" class="severity-checkbox" data-severity="warning" checked>
+            <div class="severity-indicator">
+              <div class="severity-dot warning"></div>
+              <span class="severity-name">Warning</span>
+            </div>
+          </label>
+          <label class="severity-filter-item">
+            <input type="checkbox" class="severity-checkbox" data-severity="info" checked>
+            <div class="severity-indicator">
+              <div class="severity-dot info"></div>
+              <span class="severity-name">Info</span>
+            </div>
+          </label>
+        </div>
+      </section>
+
+      <section class="sidebar-section">
         <h2 class="section-title">Filter by Layer</h2>
         <div class="layer-list">
           ${layerFiltersHtml}

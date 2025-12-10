@@ -453,6 +453,31 @@ export const SIDEBAR_SECTION_STYLES = `
     color: var(--text-primary);
   }
 
+  .severity-filter-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .severity-filter-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+
+  .severity-filter-item:hover {
+    opacity: 0.8;
+  }
+
+  .severity-checkbox {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--focus-ring);
+  }
+
   .layer-list {
     display: flex;
     flex-direction: column;
