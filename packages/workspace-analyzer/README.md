@@ -208,6 +208,51 @@ graph LR
   classDef class-normal fill:#88ccff,stroke:#0088cc,stroke-width:1px,color:#000
 ```
 
+#### Common Visualization Scenarios
+
+**Investigate Circular Dependencies:**
+
+```bash
+# Generate visualization focusing on cycles
+workspace-analyzer visualize --title "Circular Dependencies" --output cycles.html
+
+# Export cycle data for CI validation
+workspace-analyzer visualize --format json --output cycles.json
+
+# Generate Mermaid diagram for documentation
+workspace-analyzer visualize --format mermaid --output cycles.mmd
+```
+
+**Analyze Layer Architecture:**
+
+```bash
+# Visualize architectural boundaries with violations highlighted
+workspace-analyzer visualize --title "Architecture Review" --output architecture.html
+
+# Focus on specific package scope
+workspace-analyzer visualize --title "Core Packages" --output core.html
+```
+
+**Performance Analysis:**
+
+```bash
+# Limit visualization to high-impact nodes
+workspace-analyzer visualize --max-nodes 200 --output critical-paths.html
+
+# Export JSON for custom metrics calculation
+workspace-analyzer visualize --format json --output metrics.json
+```
+
+**CI/CD Integration:**
+
+```bash
+# Generate artifacts for PR review
+workspace-analyzer visualize --format both --no-open --output build/graph
+
+# Validate no new circular dependencies
+workspace-analyzer visualize --format json | jq '.statistics.totalCycles == 0'
+```
+
 #### Integration with External Tools
 
 The JSON export format is designed for integration with custom analysis pipelines:
@@ -230,6 +275,23 @@ const largeCycles = data.cycles
 // Calculate dependency metrics
 const avgImportsPerFile = data.statistics.totalEdges / data.statistics.totalNodes
 const cycleRate = data.statistics.totalCycles / data.statistics.totalNodes
+
+// Detect architectural hotspots
+const layerViolations = data.nodes
+  .filter(node => node.violations.some(v => v.ruleId === 'layer-dependency'))
+  .map(node => ({
+    file: node.filePath,
+    layer: node.layer,
+    violations: node.violations.length,
+  }))
+  .sort((a, b) => b.violations - a.violations)
+
+// Find most connected nodes (potential coupling issues)
+const highlyConnected = data.nodes
+  .filter(node => node.importsCount + node.importedByCount > 20)
+  .sort((a, b) =>
+    (b.importsCount + b.importedByCount) - (a.importsCount + a.importedByCount)
+  )
 ```
 
 ## Programmatic API
