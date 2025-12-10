@@ -288,11 +288,11 @@ async function generateVisualization(workspacePath: string, options: VisualizerO
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-009 | Implement `collectVisualizationViolations()` using RuleEngine to gather architectural issues | ☐ | |
-| TASK-010 | Implement `mapIssuesToNodes()` associating Issue locations with VisualizationNodes | ☐ | |
-| TASK-011 | Implement `computeVisualizationStatistics()` calculating all summary stats | ☐ | |
-| TASK-012 | Add severity ranking logic for `highestViolationSeverity` on nodes | ☐ | |
-| TASK-013 | Write unit tests for violation collection in `test/visualizer/violation-collector.test.ts` | ☐ | |
+| TASK-009 | Implement `collectVisualizationViolations()` using RuleEngine to gather architectural issues | ✅ | 2025-12-09 |
+| TASK-010 | Implement `mapIssuesToNodes()` associating Issue locations with VisualizationNodes | ✅ | 2025-12-09 |
+| TASK-011 | Implement `computeVisualizationStatistics()` calculating all summary stats | ✅ | 2025-12-09 |
+| TASK-012 | Add severity ranking logic for `highestViolationSeverity` on nodes | ✅ | 2025-12-09 |
+| TASK-013 | Write unit tests for violation collection in `test/visualizer/violation-collector.test.ts` | ✅ | 2025-12-09 |
 
 ### Implementation Phase 3: HTML Template and D3.js Visualization
 

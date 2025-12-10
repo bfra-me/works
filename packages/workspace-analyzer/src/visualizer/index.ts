@@ -28,3 +28,10 @@ export type {
   VisualizerOptions,
 } from './types'
 export {DEFAULT_VISUALIZER_OPTIONS, getHighestSeverity, SEVERITY_ORDER} from './types'
+
+export type {ViolationCollectionContext, ViolationCollectionOptions} from './violation-collector'
+export {
+  collectVisualizationViolations,
+  DEFAULT_VIOLATION_COLLECTION_OPTIONS,
+  mapIssuesToNodes,
+} from './violation-collector'
