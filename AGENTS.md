@@ -26,6 +26,19 @@ pnpm install            # Standard install
 pnpm prepare            # Sync docs, setup husky hooks
 ```
 
+**First-time setup:**
+
+1. Clone the repository
+2. Run `pnpm bootstrap` to install all dependencies
+3. Run `pnpm build` to build all packages in correct order
+4. Verify setup with `pnpm validate`
+
+**Environment variables:**
+
+- `OPENAI_API_KEY` or `ANTHROPIC_API_KEY` – Required for AI-enhanced project creation with `@bfra.me/create`
+- `NODE_ENV` – Set to `development` for local work, `production` for builds
+- `CI` – Automatically set in CI environments; affects logging and error handling
+
 ## Development Workflow
 
 ```bash
@@ -56,6 +69,31 @@ Use the `name` field in each package's `package.json` to identify packages:
 | `@bfra.me/doc-sync`            | `packages/doc-sync/`            | Documentation sync utilities      |
 | `@bfra.me/workspace-analyzer`  | `packages/workspace-analyzer/`  | Monorepo static analysis CLI      |
 
+**Monorepo navigation tips:**
+
+```bash
+# List all workspace packages
+pnpm ls -r --depth -1
+
+# Find package location by name
+pnpm ls -r --depth -1 | grep @bfra.me/es@
+
+# Run command in specific package
+pnpm --filter @bfra.me/es <command>
+
+# Run command in multiple packages (pattern matching)
+pnpm --filter "@bfra.me/*-config" <command>
+
+# Jump to package directory
+cd packages/es
+
+# Install dependency to specific package
+pnpm --filter @bfra.me/es add <package>
+
+# Add dev dependency to specific package
+pnpm --filter @bfra.me/es add -D <package>
+```
+
 ## Testing Instructions
 
 ```bash
@@ -75,6 +113,29 @@ pnpm --filter @bfra.me/create test:coverage         # Coverage for specific pack
 - Fixture folders for integration scenarios
 - File snapshots via `toMatchFileSnapshot`
 - Vitest resolves workspace packages to TypeScript source via `conditions: ['source']`
+
+**Test workflow tips:**
+
+```bash
+# Run tests for changed packages only (useful during development)
+pnpm --filter ...[HEAD] test
+
+# Run tests with UI for interactive debugging
+pnpm --filter @bfra.me/es test:ui
+
+# Run tests with coverage for specific package
+pnpm --filter @bfra.me/create test:coverage
+
+# Debug specific test in VS Code by adding to launch.json:
+# {
+#   "type": "node",
+#   "request": "launch",
+#   "name": "Vitest Current File",
+#   "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+#   "args": ["run", "${file}"],
+#   "console": "integratedTerminal"
+# }
+```
 
 ## Code Style Guidelines
 
@@ -305,6 +366,31 @@ pnpm fix    # Auto-fix where possible
 ### Workspace Package Resolution Issues
 
 Vitest resolves workspace packages to TypeScript source via `conditions: ['source']`. Ensure packages export `source` field in package.json exports.
+
+### Common Issues and Solutions
+
+**Issue:** `Cannot find module '@bfra.me/...'` in tests
+**Solution:** Ensure package has `"source"` field in `package.json` exports and Vitest config includes `conditions: ['source']`
+
+**Issue:** ESLint cache causing false positives/negatives
+**Solution:** Run `pnpm lint --cache-location .eslintcache` or delete `.eslintcache`
+
+**Issue:** Build fails after adding new package
+**Solution:** Add package to root `tsconfig.json` references array and rebuild
+
+**Issue:** Hot reload not working in docs
+**Solution:** Clear Astro cache: `rm -rf docs/.astro` and restart dev server
+
+**Issue:** Changesets version bump not working
+**Solution:** Run `pnpm clean-changesets` to remove invalid changesets, then `pnpm version-changesets`
+
+### Performance Tips
+
+- Use `--filter` to work on single packages instead of full workspace
+- Keep `node_modules` clean with periodic `pnpm clean && pnpm bootstrap`
+- Use `pnpm dev` for parallel watch mode during active development
+- Enable TypeScript incremental builds (already configured in tsconfig.json)
+- Use `vitest --watch` with focused tests during active development
 
 ## Security Notes
 
