@@ -300,16 +300,16 @@ async function generateVisualization(workspacePath: string, options: VisualizerO
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-014 | Create `src/visualizer/templates/styles.ts` with embedded CSS for graph, controls, sidebar, tooltips | ☐ | |
-| TASK-015 | Create `src/visualizer/templates/d3-bundle.ts` with minified D3.js v7 code (force, zoom, drag modules) | ☐ | |
-| TASK-016 | Create `src/visualizer/templates/graph-template.ts` with D3.js force-directed graph initialization | ☐ | |
-| TASK-017 | Implement node rendering with severity-based colors, cycle highlighting, and layer grouping | ☐ | |
-| TASK-018 | Implement edge rendering with directional arrows, cycle highlighting (red/animated), and type styling | ☐ | |
-| TASK-019 | Implement tooltip component showing node details on hover | ☐ | |
-| TASK-020 | Implement zoom/pan controls with D3 zoom behavior | ☐ | |
-| TASK-021 | Implement `renderVisualizationHtml()` in `src/visualizer/html-renderer.ts` combining all templates | ☐ | |
-| TASK-022 | Add HTML sanitization for all embedded data to prevent XSS | ☐ | |
-| TASK-023 | Write unit tests for HTML renderer in `test/visualizer/html-renderer.test.ts` | ☐ | |
+| TASK-014 | Create `src/visualizer/templates/styles.ts` with embedded CSS for graph, controls, sidebar, tooltips | ✅ | 2025-12-09 |
+| TASK-015 | Create `src/visualizer/templates/d3-bundle.ts` with minified D3.js v7 code (force, zoom, drag modules) | ✅ | 2025-12-09 |
+| TASK-016 | Create `src/visualizer/templates/graph-template.ts` with D3.js force-directed graph initialization | ✅ | 2025-12-09 |
+| TASK-017 | Implement node rendering with severity-based colors, cycle highlighting, and layer grouping | ✅ | 2025-12-09 |
+| TASK-018 | Implement edge rendering with directional arrows, cycle highlighting (red/animated), and type styling | ✅ | 2025-12-09 |
+| TASK-019 | Implement tooltip component showing node details on hover | ✅ | 2025-12-09 |
+| TASK-020 | Implement zoom/pan controls with D3 zoom behavior | ✅ | 2025-12-09 |
+| TASK-021 | Implement `renderVisualizationHtml()` in `src/visualizer/html-renderer.ts` combining all templates | ✅ | 2025-12-09 |
+| TASK-022 | Add HTML sanitization for all embedded data to prevent XSS | ✅ | 2025-12-09 |
+| TASK-023 | Write unit tests for HTML renderer in `test/visualizer/html-renderer.test.ts` | ✅ | 2025-12-09 |
 
 ### Implementation Phase 4: Client-Side Filtering and Interactivity
 
