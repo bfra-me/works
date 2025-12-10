@@ -333,15 +333,15 @@ async function generateVisualization(workspacePath: string, options: VisualizerO
 
 | Task | Description | Completed | Date |
 |------|-------------|-----------|------|
-| TASK-033 | Create `src/cli/commands/visualize.ts` with `cac` command registration | ☐ | |
-| TASK-034 | Implement CLI options: `--output`, `--format`, `--no-open`, `--title`, `--max-nodes` | ☐ | |
-| TASK-035 | Implement interactive mode using `@clack/prompts` for options selection | ☐ | |
-| TASK-036 | Add progress spinner showing scanning, parsing, building, rendering phases | ☐ | |
-| TASK-037 | Implement auto-open in default browser using `open` package | ☐ | |
-| TASK-038 | Add `--json` flag for JSON-only output (no HTML) | ☐ | |
-| TASK-039 | Update `src/cli/index.ts` to register `visualize` command | ☐ | |
-| TASK-040 | Add help text and examples for `visualize` command | ☐ | |
-| TASK-041 | Write CLI integration tests in `test/cli/visualize.test.ts` | ☐ | |
+| TASK-033 | Create `src/cli/commands/visualize.ts` with `cac` command registration | ✅ | 2025-12-09 |
+| TASK-034 | Implement CLI options: `--output`, `--format`, `--no-open`, `--title`, `--max-nodes` | ✅ | 2025-12-09 |
+| TASK-035 | Implement interactive mode using `@clack/prompts` for options selection | ✅ | 2025-12-09 |
+| TASK-036 | Add progress spinner showing scanning, parsing, building, rendering phases | ✅ | 2025-12-09 |
+| TASK-037 | Implement auto-open in default browser using `open` package | ✅ | 2025-12-09 |
+| TASK-038 | Add `--json` flag for JSON-only output (no HTML) | ✅ | 2025-12-09 |
+| TASK-039 | Update `src/cli/index.ts` to register `visualize` command | ✅ | 2025-12-09 |
+| TASK-040 | Add help text and examples for `visualize` command | ✅ | 2025-12-09 |
+| TASK-041 | Write CLI integration tests in `test/cli/visualize.test.ts` | ✅ | 2025-12-09 |
 
 ### Implementation Phase 6: JSON Export and Alternative Formats
 

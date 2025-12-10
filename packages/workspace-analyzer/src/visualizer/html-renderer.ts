@@ -13,7 +13,6 @@ import type {VisualizationData} from './types'
 
 import {err, ok} from '@bfra.me/es/result'
 
-import {getD3InlineScript} from './templates/d3-bundle'
 import {generateControlPanelScript, generateGraphInitScript} from './templates/graph-template'
 import {generateStyles, SEVERITY_COLORS} from './templates/styles'
 
@@ -430,7 +429,6 @@ export function renderVisualizationHtml(
   const controlPanelHtml = generateControlPanelHtml()
 
   // Generate JavaScript
-  const d3Script = opts.inlineD3 ? getD3InlineScript() : ''
   const graphScript = generateGraphInitScript()
   const controlScript = generateControlPanelScript()
 
@@ -471,10 +469,7 @@ ${controlPanelHtml}
 // Visualization data (sanitized)
 window.VISUALIZATION_DATA = ${dataJson};
   </script>
-  <script>
-// D3.js Library
-${d3Script}
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
   <script>
 // Graph Initialization
 ${graphScript}
