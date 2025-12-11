@@ -15873,7 +15873,6 @@ type PnpmYamlEnforceSettings = []|[{
   requiredFields?: string[]
   
   forbiddenFields?: string[]
-  [k: string]: unknown | undefined
 }]
 // ----- pnpm/yaml-no-duplicate-catalog-item -----
 type PnpmYamlNoDuplicateCatalogItem = []|[{
