@@ -1,5 +1,35 @@
 # @bfra.me/eslint-config
 
+## 0.47.4
+### Patch Changes
+
+
+- Updated dependency `@typescript-eslint/types` to `8.49.0`. ([#2489](https://github.com/bfra-me/works/pull/2489))
+  Updated dependency `typescript-eslint` to `8.49.0`.
+
+- Updated dependency `sort-package-json` to `3.5.1`. ([#2487](https://github.com/bfra-me/works/pull/2487))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `61.4.2`. ([#2455](https://github.com/bfra-me/works/pull/2455))
+
+
+- Updated dependency `eslint-plugin-command` to `3.4.0`. ([#2496](https://github.com/bfra-me/works/pull/2496))
+
+
+- Updated dependency `@next/eslint-plugin-next` to `16.0.8`. ([#2490](https://github.com/bfra-me/works/pull/2490))
+
+
+- Updated dependency `@eslint-react/eslint-plugin` to `2.3.13`. ([#2492](https://github.com/bfra-me/works/pull/2492))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `61.5.0`. ([#2481](https://github.com/bfra-me/works/pull/2481))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.5.2`. ([#2483](https://github.com/bfra-me/works/pull/2483))
+
+
+- Updated dependency `eslint-plugin-pnpm` to `1.4.2`. ([#2486](https://github.com/bfra-me/works/pull/2486))
+
 ## 0.47.3
 ### Patch Changes
 
