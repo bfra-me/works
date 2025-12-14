@@ -111,6 +111,16 @@ function isInstallationSection(heading: string, tabSections: readonly string[]):
   return tabSections.some(tab => heading.includes(tab.toLowerCase()))
 }
 
+/**
+ * Escape angle brackets in text to prevent MDX JSX tag misinterpretation
+ * This is applied to section content to prevent TypeScript generics like Result<T, E>
+ * from being interpreted as unclosed JSX tags
+ */
+function escapeAngleBrackets(text: string): string {
+  // Escape all < and > to HTML entities
+  return text.replaceAll('<', '&lt;').replaceAll('>', '&gt;')
+}
+
 function mapFeatureSection(section: ReadmeSection): string {
   const lines: string[] = []
 
@@ -124,7 +134,7 @@ function mapFeatureSection(section: ReadmeSection): string {
     for (const feature of features) {
       const icon = inferFeatureIcon(feature.title, feature.emoji)
       lines.push(`  <Card title="${sanitizeAttribute(feature.title)}" icon="${icon}">`)
-      lines.push(`    ${feature.description}`)
+      lines.push(`    ${escapeAngleBrackets(feature.description)}`)
       lines.push('  </Card>')
     }
     lines.push('</CardGrid>')
