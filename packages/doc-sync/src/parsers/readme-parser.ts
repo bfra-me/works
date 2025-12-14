@@ -183,12 +183,12 @@ function extractTextFromNode(node: RootContent): string {
 
 function serializeNode(node: RootContent): string {
   if (node.type === 'paragraph') {
-    return extractTextFromNode(node)
+    return serializeInlineContent(node)
   }
 
   if (node.type === 'heading') {
     const prefix = '#'.repeat(node.depth)
-    return `${prefix} ${extractTextFromNode(node)}`
+    return `${prefix} ${serializeInlineContent(node)}`
   }
 
   if (node.type === 'code') {
@@ -225,6 +225,59 @@ function serializeNode(node: RootContent): string {
 
   // For all other node types, extract text content
   return extractTextFromNode(node)
+}
+
+/**
+ * Serialize inline content preserving markdown formatting like **bold**, *italic*, `code`, etc.
+ */
+function serializeInlineContent(node: RootContent): string {
+  if ('value' in node && typeof node.value === 'string') {
+    return node.value
+  }
+
+  if (!('children' in node) || !Array.isArray(node.children)) {
+    return ''
+  }
+
+  return (node.children as RootContent[])
+    .map(child => {
+      // Handle strong (bold) text
+      if (child.type === 'strong') {
+        return `**${serializeInlineContent(child)}**`
+      }
+
+      // Handle emphasis (italic) text
+      if (child.type === 'emphasis') {
+        return `*${serializeInlineContent(child)}*`
+      }
+
+      // Handle inline code
+      if (child.type === 'inlineCode') {
+        return `\`${'value' in child ? child.value : ''}\``
+      }
+
+      // Handle links
+      if (child.type === 'link') {
+        const text = serializeInlineContent(child)
+        return `[${text}](${'url' in child ? child.url : ''})`
+      }
+
+      // Handle images
+      if (child.type === 'image') {
+        const alt = 'alt' in child ? child.alt : ''
+        const url = 'url' in child ? child.url : ''
+        return `![${alt}](${url})`
+      }
+
+      // Handle plain text
+      if ('value' in child && typeof child.value === 'string') {
+        return child.value
+      }
+
+      // Recursively handle other inline elements
+      return serializeInlineContent(child)
+    })
+    .join('')
 }
 
 function serializeTable(node: RootContent): string {
