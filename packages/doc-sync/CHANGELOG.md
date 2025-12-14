@@ -1,5 +1,11 @@
 # @bfra.me/doc-sync
 
+## 0.1.2
+### Patch Changes
+
+
+- Add inline content serialization to preserve markdown formatting. ([#2499](https://github.com/bfra-me/works/pull/2499))
+
 ## 0.1.1
 ### Patch Changes
 
