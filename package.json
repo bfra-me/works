@@ -48,7 +48,7 @@
     "@microsoft/api-extractor": "7.55.2",
     "@svitejs/changesets-changelog-github-compact": "1.2.0",
     "@types/fs-extra": "11.0.4",
-    "@types/node": "24.10.1",
+    "@types/node": "24.10.3",
     "@vitest/coverage-v8": "4.0.15",
     "eslint": "9.39.1",
     "execa": "9.6.1",
