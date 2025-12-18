@@ -68,7 +68,7 @@
     "typescript": "5.9.3",
     "vite-tsconfig-paths": "5.1.4",
     "vitest": "4.0.15",
-    "zod": "4.1.13"
+    "zod": "4.2.0"
   },
   "packageManager": "pnpm@10.25.0",
   "manypkg": {
