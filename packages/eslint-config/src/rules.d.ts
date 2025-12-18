@@ -1059,6 +1059,11 @@ export interface Rules {
    */
   '@typescript-eslint/no-useless-constructor'?: Linter.RuleEntry<[]>
   /**
+   * Disallow default values that will never be used
+   * @see https://typescript-eslint.io/rules/no-useless-default-assignment
+   */
+  '@typescript-eslint/no-useless-default-assignment'?: Linter.RuleEntry<[]>
+  /**
    * Disallow empty exports that don't change anything in a module file
    * @see https://typescript-eslint.io/rules/no-useless-empty-export
    */
