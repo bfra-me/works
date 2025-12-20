@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/workspace-analyzer",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Comprehensive monorepo static analysis for workspace configuration, dependencies, and architecture",
   "keywords": [
     "analyzer",
