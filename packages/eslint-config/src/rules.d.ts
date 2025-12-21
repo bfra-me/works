@@ -25,7 +25,7 @@ export interface Rules {
    */
   '@next/next/inline-script-id'?: Linter.RuleEntry<[]>
   /**
-   * Prefer `next/script` component when using the inline script for Google Analytics.
+   * Prefer `@next/third-parties/google` when using the inline script for Google Analytics and Tag Manager.
    * @see https://nextjs.org/docs/messages/next-script-for-ga
    */
   '@next/next/next-script-for-ga'?: Linter.RuleEntry<[]>
