@@ -1,5 +1,17 @@
 # @bfra.me/create
 
+## 0.7.2
+### Patch Changes
+
+
+- Updated dependency `openai` to `6.14.0`. ([#2526](https://github.com/bfra-me/works/pull/2526))
+
+
+- Updated dependency `eta` to `4.5.0`. ([#2510](https://github.com/bfra-me/works/pull/2510))
+
+
+- Updated dependency `openai` to `6.13.0`. ([#2522](https://github.com/bfra-me/works/pull/2522))
+
 ## 0.7.1
 ### Patch Changes
 
