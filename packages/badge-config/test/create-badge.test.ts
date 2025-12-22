@@ -170,12 +170,12 @@ describe('createBadge function', () => {
   })
 
   it.concurrent('handles error cases gracefully', async () => {
-    await expect(async () => {
-      await createBadge({
+    await expect(
+      createBadge({
         label: '',
         message: 'test',
-      })
-    }).rejects.toThrow(BadgeError)
+      }),
+    ).rejects.toThrow(BadgeError)
   })
 })
 
