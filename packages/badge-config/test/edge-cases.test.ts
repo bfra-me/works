@@ -123,21 +123,21 @@ describe('edge cases and error handling', () => {
 
   describe('createBadge async error handling', () => {
     it.concurrent('handles missing label in async call', async () => {
-      await expect(async () => {
-        await createBadge({
+      await expect(
+        createBadge({
           label: '',
           message: 'test',
-        })
-      }).rejects.toThrow(BadgeError)
+        }),
+      ).rejects.toThrow(BadgeError)
     })
 
     it.concurrent('handles missing message in async call', async () => {
-      await expect(async () => {
-        await createBadge({
+      await expect(
+        createBadge({
           label: 'test',
           message: '',
-        })
-      }).rejects.toThrow(BadgeError)
+        }),
+      ).rejects.toThrow(BadgeError)
     })
 
     it.concurrent('creates badge without fetch options', async () => {
