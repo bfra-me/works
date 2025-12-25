@@ -6819,6 +6819,11 @@ export interface Rules {
    */
   'vitest/prefer-to-contain'?: Linter.RuleEntry<[]>
   /**
+   * Suggest using `toHaveBeenCalledTimes()`
+   * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-to-have-been-called-times.md
+   */
+  'vitest/prefer-to-have-been-called-times'?: Linter.RuleEntry<[]>
+  /**
    * enforce using toHaveLength()
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-to-have-length.md
    */
@@ -6843,11 +6848,6 @@ export interface Rules {
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/require-hook.md
    */
   'vitest/require-hook'?: Linter.RuleEntry<VitestRequireHook>
-  /**
-   * require usage of import in vi.mock()
-   * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/require-import-vi-mock.md
-   */
-  'vitest/require-import-vi-mock'?: Linter.RuleEntry<[]>
   /**
    * require local Test Context for concurrent snapshot tests
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/require-local-test-context-for-concurrent-snapshots.md
