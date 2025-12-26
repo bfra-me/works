@@ -4762,7 +4762,7 @@ export interface Rules {
    * Enforces destructuring and symmetric naming of `useState` hook value and setter.
    * @see https://eslint-react.xyz/docs/rules/naming-convention-use-state
    */
-  'react-naming-convention/use-state'?: Linter.RuleEntry<[]>
+  'react-naming-convention/use-state'?: Linter.RuleEntry<ReactNamingConventionUseState>
   'react-refresh/only-export-components'?: Linter.RuleEntry<ReactRefreshOnlyExportComponents>
   /**
    * Prevents leaked `addEventListener` in a component or custom Hook.
@@ -16111,6 +16111,11 @@ type ReactNamingConventionFilenameExtension = []|[(("always" | "as-needed") | {
   extensions?: string[]
   ignoreFilesWithoutCode?: boolean
 })]
+// ----- react-naming-convention/use-state -----
+type ReactNamingConventionUseState = []|[{
+  enforceAssignment?: boolean
+  enforceSetterName?: boolean
+}]
 // ----- react-refresh/only-export-components -----
 type ReactRefreshOnlyExportComponents = []|[{
   allowExportNames?: string[]
