@@ -6757,7 +6757,7 @@ export interface Rules {
    * prefer dynamic import in mock
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-import-in-mock.md
    */
-  'vitest/prefer-import-in-mock'?: Linter.RuleEntry<[]>
+  'vitest/prefer-import-in-mock'?: Linter.RuleEntry<VitestPreferImportInMock>
   /**
    * enforce importing Vitest globals
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-importing-vitest-globals.md
@@ -16839,6 +16839,10 @@ type VitestPreferExpectAssertions = []|[{
   onlyFunctionsWithAsyncKeyword?: boolean
   onlyFunctionsWithExpectInLoop?: boolean
   onlyFunctionsWithExpectInCallback?: boolean
+}]
+// ----- vitest/prefer-import-in-mock -----
+type VitestPreferImportInMock = []|[{
+  fixable?: boolean
 }]
 // ----- vitest/prefer-lowercase-title -----
 type VitestPreferLowercaseTitle = []|[{
