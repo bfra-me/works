@@ -81,7 +81,7 @@
     "@types/eslint-config-prettier": "6.11.3",
     "@types/eslint-plugin-jsx-a11y": "6.10.1",
     "@typescript-eslint/types": "8.50.1",
-    "@vitest/eslint-plugin": "1.6.3",
+    "@vitest/eslint-plugin": "1.6.4",
     "astro-eslint-parser": "1.2.2",
     "eslint": "9.39.2",
     "eslint-config-prettier": "10.1.8",
