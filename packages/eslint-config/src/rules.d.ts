@@ -6774,6 +6774,11 @@ export interface Rules {
    */
   'vitest/prefer-mock-promise-shorthand'?: Linter.RuleEntry<[]>
   /**
+   * Prefer mock return shorthands
+   * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-mock-return-shorthand.md
+   */
+  'vitest/prefer-mock-return-shorthand'?: Linter.RuleEntry<[]>
+  /**
    * enforce including a hint with external snapshots
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-snapshot-hint.md
    */
