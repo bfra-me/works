@@ -66,7 +66,7 @@
     "@bfra.me/works": "workspace:*",
     "happy-dom": "20.0.11",
     "memfs": "4.51.1",
-    "msw": "2.12.5"
+    "msw": "2.12.6"
   },
   "publishConfig": {
     "access": "public",
