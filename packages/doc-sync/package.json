@@ -92,7 +92,7 @@
     "remark-parse": "11.0.0",
     "ts-morph": "27.0.2",
     "unified": "11.0.5",
-    "zod": "4.3.0"
+    "zod": "4.3.2"
   },
   "devDependencies": {
     "@bfra.me/works": "workspace:*",
