@@ -1,5 +1,17 @@
 # @bfra.me/create
 
+## 0.7.4
+### Patch Changes
+
+
+- Updated dependency `msw` to `2.12.5`. ([#2547](https://github.com/bfra-me/works/pull/2547))
+
+
+- Updated dependency `msw` to `2.12.6`. ([#2549](https://github.com/bfra-me/works/pull/2549))
+
+
+- Updated dependency `msw` to `2.12.7`. ([#2550](https://github.com/bfra-me/works/pull/2550))
+
 ## 0.7.3
 ### Patch Changes
 
