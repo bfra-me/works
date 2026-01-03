@@ -91,8 +91,8 @@ importers:
         specifier: 4.0.16
         version: 4.0.16(@types/node@24.10.4)(happy-dom@20.0.11)(jiti@2.6.1)(msw@2.12.7(@types/node@24.10.4)(typescript@5.9.3))(tsx@4.21.0)(yaml@2.8.2)
       zod:
-        specifier: 4.3.3
-        version: 4.3.3
+        specifier: 4.3.4
+        version: 4.3.4
 
   docs:
     dependencies:
@@ -144,7 +144,7 @@ importers:
     dependencies:
       '@anthropic-ai/sdk':
         specifier: 0.71.2
-        version: 0.71.2(zod@4.3.3)
+        version: 0.71.2(zod@4.3.4)
       '@bfra.me/es':
         specifier: workspace:*
         version: link:../es
@@ -171,7 +171,7 @@ importers:
         version: 13.0.0
       openai:
         specifier: 6.15.0
-        version: 6.15.0(ws@8.18.3)(zod@4.3.3)
+        version: 6.15.0(ws@8.18.3)(zod@4.3.4)
       package-manager-detector:
         specifier: 1.6.0
         version: 1.6.0
@@ -225,8 +225,8 @@ importers:
         specifier: 11.0.5
         version: 11.0.5
       zod:
-        specifier: 4.3.3
-        version: 4.3.3
+        specifier: 4.3.4
+        version: 4.3.4
     devDependencies:
       '@bfra.me/works':
         specifier: workspace:*
@@ -447,8 +447,8 @@ importers:
         specifier: ^11.0.0
         version: 11.0.0
       zod:
-        specifier: 4.3.3
-        version: 4.3.3
+        specifier: 4.3.4
+        version: 4.3.4
     devDependencies:
       '@bfra.me/works':
         specifier: workspace:*
@@ -6576,8 +6576,8 @@ packages:
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
 
-  zod@4.3.3:
-    resolution: {integrity: sha512-bQ7Rxwfn04DCrTjjRfD9SavY2vWdmf3REjs/mkc1LdwI1KkcHClBRJmnvmA/6epGeqlHePtIRF1J4SrMMlW7IA==}
+  zod@4.3.4:
+    resolution: {integrity: sha512-Zw/uYiiyF6pUT1qmKbZziChgNPRu+ZRneAsMUDU6IwmXdWt5JwcUfy2bvLOCUtz5UniaN/Zx5aFttZYbYc7O/A==}
 
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
@@ -6600,11 +6600,11 @@ snapshots:
 
   '@actions/io@2.0.0': {}
 
-  '@anthropic-ai/sdk@0.71.2(zod@4.3.3)':
+  '@anthropic-ai/sdk@0.71.2(zod@4.3.4)':
     dependencies:
       json-schema-to-ts: 3.1.1
     optionalDependencies:
-      zod: 4.3.3
+      zod: 4.3.4
 
   '@apidevtools/json-schema-ref-parser@14.2.1(@types/json-schema@7.0.15)':
     dependencies:
@@ -7313,7 +7313,7 @@ snapshots:
       eslint: 9.39.2(jiti@2.6.1)
       ts-pattern: 5.9.0
       typescript: 5.9.3
-      zod: 4.3.3
+      zod: 4.3.4
     transitivePeerDependencies:
       - supports-color
 
@@ -9753,8 +9753,8 @@ snapshots:
       '@babel/parser': 7.28.5
       eslint: 9.39.2(jiti@2.6.1)
       hermes-parser: 0.25.1
-      zod: 4.3.3
-      zod-validation-error: 4.0.2(zod@4.3.3)
+      zod: 4.3.4
+      zod-validation-error: 4.0.2(zod@4.3.4)
     transitivePeerDependencies:
       - supports-color
 
@@ -11853,10 +11853,10 @@ snapshots:
       powershell-utils: 0.1.0
       wsl-utils: 0.3.0
 
-  openai@6.15.0(ws@8.18.3)(zod@4.3.3):
+  openai@6.15.0(ws@8.18.3)(zod@4.3.4):
     optionalDependencies:
       ws: 8.18.3
-      zod: 4.3.3
+      zod: 4.3.4
 
   optionator@0.9.4:
     dependencies:
@@ -13747,12 +13747,12 @@ snapshots:
       typescript: 5.9.3
       zod: 3.25.76
 
-  zod-validation-error@4.0.2(zod@4.3.3):
+  zod-validation-error@4.0.2(zod@4.3.4):
     dependencies:
-      zod: 4.3.3
+      zod: 4.3.4
 
   zod@3.25.76: {}
 
-  zod@4.3.3: {}
+  zod@4.3.4: {}
 
   zwitch@2.0.4: {}
