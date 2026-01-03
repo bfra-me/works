@@ -1,6 +1,6 @@
 {
   "name": "@bfra.me/eslint-config",
-  "version": "0.47.6",
+  "version": "0.47.7",
   "description": "Shared ESLint configuration for bfra.me",
   "keywords": [
     "bfra.me",
