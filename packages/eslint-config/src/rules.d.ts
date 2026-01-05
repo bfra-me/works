@@ -6556,7 +6556,7 @@ export interface Rules {
    * disallow conditional expects
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-conditional-expect.md
    */
-  'vitest/no-conditional-expect'?: Linter.RuleEntry<[]>
+  'vitest/no-conditional-expect'?: Linter.RuleEntry<VitestNoConditionalExpect>
   /**
    * disallow conditional tests
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-conditional-in-test.md
@@ -16819,6 +16819,11 @@ type VitestMaxExpects = []|[{
 // ----- vitest/max-nested-describe -----
 type VitestMaxNestedDescribe = []|[{
   max?: number
+}]
+// ----- vitest/no-conditional-expect -----
+type VitestNoConditionalExpect = []|[{
+  
+  expectAssertions?: boolean
 }]
 // ----- vitest/no-focused-tests -----
 type VitestNoFocusedTests = []|[{
