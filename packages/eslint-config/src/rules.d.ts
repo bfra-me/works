@@ -4759,7 +4759,7 @@ export interface Rules {
    */
   'react-naming-convention/filename-extension'?: Linter.RuleEntry<ReactNamingConventionFilenameExtension>
   /**
-   * Enforces that variables assigned from useRef calls have names ending with 'Ref'.
+   * Enforces that variables assigned from 'useRef' calls have names ending with 'Ref'.
    * @see https://eslint-react.xyz/docs/rules/naming-convention-ref-name
    */
   'react-naming-convention/ref-name'?: Linter.RuleEntry<[]>
