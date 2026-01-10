@@ -6869,6 +6869,11 @@ export interface Rules {
    */
   'vitest/require-mock-type-parameters'?: Linter.RuleEntry<VitestRequireMockTypeParameters>
   /**
+   * require tests to declare a timeout
+   * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/require-test-timeout.md
+   */
+  'vitest/require-test-timeout'?: Linter.RuleEntry<[]>
+  /**
    * require toThrow() to be called with an error message
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/require-to-throw-message.md
    */
