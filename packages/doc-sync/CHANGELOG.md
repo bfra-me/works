@@ -1,5 +1,11 @@
 # @bfra.me/doc-sync
 
+## 0.1.5
+### Patch Changes
+
+
+- Updated dependency `zod` to `4.3.5`. ([#2566](https://github.com/bfra-me/works/pull/2566))
+
 ## 0.1.4
 ### Patch Changes
 
