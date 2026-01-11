@@ -10713,6 +10713,8 @@ type JsdocRequireHyphenBeforeParamDescription = []|[("always" | "never")]|[("alw
 // ----- jsdoc/require-jsdoc -----
 type JsdocRequireJsdoc = []|[{
   
+  checkAllFunctionExpressions?: boolean
+  
   checkConstructors?: boolean
   
   checkGetters?: (boolean | "no-setter")
