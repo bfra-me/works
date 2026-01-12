@@ -4759,7 +4759,7 @@ export interface Rules {
    */
   'react-naming-convention/filename-extension'?: Linter.RuleEntry<ReactNamingConventionFilenameExtension>
   /**
-   * Enforces that variables assigned from 'useRef' calls have names ending with 'Ref'.
+   * Enforces variable names assigned from 'useRef' calls to be either 'ref' or end with 'Ref'.
    * @see https://eslint-react.xyz/docs/rules/naming-convention-ref-name
    */
   'react-naming-convention/ref-name'?: Linter.RuleEntry<[]>
@@ -4795,7 +4795,7 @@ export interface Rules {
    */
   'react/jsx-dollar'?: Linter.RuleEntry<[]>
   /**
-   * Enforces that the 'key' prop is placed before the spread prop in JSX elements.
+   * Enforces that the 'key' prop is placed before the spread prop in JSX elements when using the new JSX transform (automatic runtime).
    * @see https://eslint-react.xyz/docs/rules/jsx-key-before-spread
    */
   'react/jsx-key-before-spread'?: Linter.RuleEntry<[]>
