@@ -1,5 +1,23 @@
 # @bfra.me/eslint-config
 
+## 0.47.9
+### Patch Changes
+
+
+- Updated dependency `@eslint-react/eslint-plugin` to `2.5.5`. ([#2585](https://github.com/bfra-me/works/pull/2585))
+
+
+- Updated dependency `@eslint-react/eslint-plugin` to `2.5.4`. ([#2583](https://github.com/bfra-me/works/pull/2583))
+
+
+- Updated dependency `eslint-plugin-json-schema-validator` to `5.5.1`. ([#2582](https://github.com/bfra-me/works/pull/2582))
+
+
+- Updated dependency `@eslint-react/eslint-plugin` to `2.5.3`. ([#2576](https://github.com/bfra-me/works/pull/2576))
+
+
+- Updated dependency `@eslint/core` to `1.0.1`. ([#2579](https://github.com/bfra-me/works/pull/2579))
+
 ## 0.47.8
 ### Patch Changes
 
