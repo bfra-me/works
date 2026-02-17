@@ -25,11 +25,11 @@
   "devDependencies": {
     "@bfra.me/eslint-config": "workspace:*",
     "@bfra.me/works": "workspace:*",
-    "@vitest/coverage-v8": "4.0.16",
+    "@vitest/coverage-v8": "4.0.18",
     "fast-glob": "3.3.3",
     "gray-matter": "4.0.3",
     "typescript": "5.9.3",
     "vite-tsconfig-paths": "5.1.4",
-    "vitest": "4.0.16"
+    "vitest": "4.0.18"
   }
 }
