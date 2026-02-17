@@ -184,6 +184,11 @@ export interface Rules {
    */
   '@stylistic/eol-last'?: Linter.RuleEntry<StylisticEolLast>
   /**
+   * Enforce consistent line break styles for JSX props
+   * @see https://eslint.style/rules/jsx-props-style
+   */
+  '@stylistic/exp-jsx-props-style'?: Linter.RuleEntry<StylisticExpJsxPropsStyle>
+  /**
    * Enforce consistent spacing and line break styles inside brackets.
    * @see https://eslint.style/rules/list-style
    */
@@ -318,6 +323,7 @@ export interface Rules {
   /**
    * Enforce props alphabetical sorting
    * @see https://eslint.style/rules/jsx-sort-props
+   * @deprecated
    */
   '@stylistic/jsx-sort-props'?: Linter.RuleEntry<StylisticJsxSortProps>
   /**
@@ -7269,15 +7275,25 @@ type StylisticCurlyNewline = []|[(("always" | "never") | {
 type StylisticDotLocation = []|[("object" | "property")]
 // ----- @stylistic/eol-last -----
 type StylisticEolLast = []|[("always" | "never" | "unix" | "windows")]
+// ----- @stylistic/exp-jsx-props-style -----
+type StylisticExpJsxPropsStyle = []|[{
+  singleLine?: {
+    maxItems?: number
+  }
+  multiLine?: {
+    minItems?: number
+    maxItemsPerLine?: number
+  }
+}]
 // ----- @stylistic/exp-list-style -----
 type StylisticExpListStyle = []|[{
   singleLine?: _StylisticExpListStyle_SingleLineConfig
   multiLine?: _StylisticExpListStyle_MultiLineConfig
   overrides?: {
+    "()"?: _StylisticExpListStyle_BaseConfig
     "[]"?: _StylisticExpListStyle_BaseConfig
     "{}"?: _StylisticExpListStyle_BaseConfig
     "<>"?: _StylisticExpListStyle_BaseConfig
-    "()"?: _StylisticExpListStyle_BaseConfig
     ArrayExpression?: _StylisticExpListStyle_BaseConfig
     ArrayPattern?: _StylisticExpListStyle_BaseConfig
     ArrowFunctionExpression?: _StylisticExpListStyle_BaseConfig
@@ -7285,21 +7301,22 @@ type StylisticExpListStyle = []|[{
     ExportNamedDeclaration?: _StylisticExpListStyle_BaseConfig
     FunctionDeclaration?: _StylisticExpListStyle_BaseConfig
     FunctionExpression?: _StylisticExpListStyle_BaseConfig
-    ImportDeclaration?: _StylisticExpListStyle_BaseConfig
+    IfStatement?: _StylisticExpListStyle_BaseConfig
     ImportAttributes?: _StylisticExpListStyle_BaseConfig
+    ImportDeclaration?: _StylisticExpListStyle_BaseConfig
+    JSONArrayExpression?: _StylisticExpListStyle_BaseConfig
+    JSONObjectExpression?: _StylisticExpListStyle_BaseConfig
     NewExpression?: _StylisticExpListStyle_BaseConfig
     ObjectExpression?: _StylisticExpListStyle_BaseConfig
     ObjectPattern?: _StylisticExpListStyle_BaseConfig
     TSDeclareFunction?: _StylisticExpListStyle_BaseConfig
+    TSEnumBody?: _StylisticExpListStyle_BaseConfig
     TSFunctionType?: _StylisticExpListStyle_BaseConfig
     TSInterfaceBody?: _StylisticExpListStyle_BaseConfig
-    TSEnumBody?: _StylisticExpListStyle_BaseConfig
     TSTupleType?: _StylisticExpListStyle_BaseConfig
     TSTypeLiteral?: _StylisticExpListStyle_BaseConfig
     TSTypeParameterDeclaration?: _StylisticExpListStyle_BaseConfig
     TSTypeParameterInstantiation?: _StylisticExpListStyle_BaseConfig
-    JSONArrayExpression?: _StylisticExpListStyle_BaseConfig
-    JSONObjectExpression?: _StylisticExpListStyle_BaseConfig
   }
 }]
 interface _StylisticExpListStyle_SingleLineConfig {
@@ -8312,7 +8329,7 @@ type StylisticTypeAnnotationSpacing = []|[{
   after?: boolean
   overrides?: {
     colon?: _StylisticTypeAnnotationSpacing_SpacingConfig
-    arrow?: _StylisticTypeAnnotationSpacing_SpacingConfig
+    arrow?: ("ignore" | _StylisticTypeAnnotationSpacing_SpacingConfig)
     variable?: _StylisticTypeAnnotationSpacing_SpacingConfig
     parameter?: _StylisticTypeAnnotationSpacing_SpacingConfig
     property?: _StylisticTypeAnnotationSpacing_SpacingConfig
