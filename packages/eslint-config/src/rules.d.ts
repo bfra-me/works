@@ -1068,7 +1068,7 @@ export interface Rules {
    * Disallow default values that will never be used
    * @see https://typescript-eslint.io/rules/no-useless-default-assignment
    */
-  '@typescript-eslint/no-useless-default-assignment'?: Linter.RuleEntry<[]>
+  '@typescript-eslint/no-useless-default-assignment'?: Linter.RuleEntry<TypescriptEslintNoUselessDefaultAssignment>
   /**
    * Disallow empty exports that don't change anything in a module file
    * @see https://typescript-eslint.io/rules/no-useless-empty-export
@@ -1242,6 +1242,11 @@ export interface Rules {
    * @see https://typescript-eslint.io/rules/strict-boolean-expressions
    */
   '@typescript-eslint/strict-boolean-expressions'?: Linter.RuleEntry<TypescriptEslintStrictBooleanExpressions>
+  /**
+   * Disallow passing a value-returning function in a position accepting a void function
+   * @see https://typescript-eslint.io/rules/strict-void-return
+   */
+  '@typescript-eslint/strict-void-return'?: Linter.RuleEntry<TypescriptEslintStrictVoidReturn>
   /**
    * Require switch-case statements to be exhaustive
    * @see https://typescript-eslint.io/rules/switch-exhaustiveness-check
@@ -9209,6 +9214,11 @@ type TypescriptEslintNoUnusedVars = []|[(("all" | "local") | {
   
   destructuredArrayIgnorePattern?: string
   
+  enableAutofixRemoval?: {
+    
+    imports?: boolean
+  }
+  
   ignoreClassWithStaticInitBlock?: boolean
   
   ignoreRestSiblings?: boolean
@@ -9238,6 +9248,11 @@ type TypescriptEslintNoUseBeforeDefine = []|[("nofunc" | {
   
   variables?: boolean
 })]
+// ----- @typescript-eslint/no-useless-default-assignment -----
+type TypescriptEslintNoUselessDefaultAssignment = []|[{
+  
+  allowRuleToRunWithoutStrictNullChecksIKnowWhatIAmDoing?: boolean
+}]
 // ----- @typescript-eslint/no-var-requires -----
 type TypescriptEslintNoVarRequires = []|[{
   
@@ -9492,6 +9507,11 @@ type TypescriptEslintStrictBooleanExpressions = []|[{
   allowRuleToRunWithoutStrictNullChecksIKnowWhatIAmDoing?: boolean
   
   allowString?: boolean
+}]
+// ----- @typescript-eslint/strict-void-return -----
+type TypescriptEslintStrictVoidReturn = []|[{
+  
+  allowReturnAny?: boolean
 }]
 // ----- @typescript-eslint/switch-exhaustiveness-check -----
 type TypescriptEslintSwitchExhaustivenessCheck = []|[{
@@ -17922,6 +17942,11 @@ type UnusedImportsNoUnusedImports = []|[(("all" | "local") | {
   
   destructuredArrayIgnorePattern?: string
   
+  enableAutofixRemoval?: {
+    
+    imports?: boolean
+  }
+  
   ignoreClassWithStaticInitBlock?: boolean
   
   ignoreRestSiblings?: boolean
@@ -17946,6 +17971,11 @@ type UnusedImportsNoUnusedVars = []|[(("all" | "local") | {
   caughtErrorsIgnorePattern?: string
   
   destructuredArrayIgnorePattern?: string
+  
+  enableAutofixRemoval?: {
+    
+    imports?: boolean
+  }
   
   ignoreClassWithStaticInitBlock?: boolean
   
