@@ -43,7 +43,7 @@ jobs:
       - name: Run changesets-renovate
         if: steps.filter.outputs.changes == 'true'
         env:
-          NPM_VERSION: 2.2.2 # renovate: datasource=npm depName=@scaleway/changesets-renovate
+          NPM_VERSION: 2.2.4 # renovate: datasource=npm depName=@scaleway/changesets-renovate
           PRIVATE_PACKAGES: '@bfra.me/works,docs,scripts'
           SKIP_COMMIT: 'TRUE'
           SORT_CHANGESETS: 'TRUE'
