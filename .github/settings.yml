@@ -17,6 +17,7 @@ branches:
           - CI
           - CodeQL
           - Create Renovate Changeset
+          - Fro Bot
           - Lint
           - Prepare
           - Renovate / Renovate
