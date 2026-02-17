@@ -84,6 +84,25 @@ jobs:
         )
       )
     steps:
+      - name: Create GitHub App token
+        uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
+        id: app-token
+        with:
+          app-id: ${{ secrets.FRO_BOT_APPLICATION_ID }}
+          private-key: ${{ secrets.FRO_BOT_APPLICATION_PRIVATE_KEY }}
+          owner: fro-bot
+
+      - name: Configure git for Fro Bot
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
+        run: |
+          name="${APP_SLUG}[bot]"
+          user_id=$(gh api "/users/${name}" --jq .id)
+          email="${user_id}+${name}@users.noreply.github.com"
+          git config --global user.email "${email}"
+          git config --global user.name "${name}"
+
       - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
@@ -92,7 +111,7 @@ jobs:
             ${{
               github.event_name == 'workflow_dispatch'
               && secrets.GITHUB_TOKEN
-              || secrets.FRO_BOT_PAT
+              || steps.app-token.outputs.token
             }}
 
       - name: Install dependencies
@@ -114,7 +133,7 @@ jobs:
             ${{
               github.event_name == 'workflow_dispatch'
               && secrets.GITHUB_TOKEN
-              || secrets.FRO_BOT_PAT
+              || steps.app-token.outputs.token
             }}
           auth-json: ${{ secrets.OPENCODE_AUTH_JSON }}
           prompt: ${{ env.PROMPT }}
