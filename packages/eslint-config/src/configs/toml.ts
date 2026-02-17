@@ -16,7 +16,8 @@ export type TomlOptions = Flatten<OptionsFiles & OptionsOverrides & OptionsStyli
  */
 export async function toml(options: TomlOptions = {}): Promise<Config[]> {
   const {files = GLOB_TOML_FILES, overrides = {}, stylistic = true} = options
-  const {indent = 2} = typeof stylistic === 'boolean' ? {} : stylistic
+  const stylisticConfig = typeof stylistic === 'boolean' ? {} : stylistic
+  const indent = typeof stylisticConfig.indent === 'number' ? stylisticConfig.indent : 2
   const includeStylistic = typeof stylistic === 'boolean' ? stylistic : true
   const pluginToml = await interopDefault(import('eslint-plugin-toml'))
 
@@ -49,7 +50,7 @@ export async function toml(options: TomlOptions = {}): Promise<Config[]> {
               'toml/array-bracket-newline': 'error',
               'toml/array-bracket-spacing': 'error',
               'toml/array-element-newline': 'error',
-              'toml/indent': ['error', indent === 'tab' ? 2 : indent],
+              'toml/indent': ['error', indent],
               'toml/inline-table-curly-spacing': 'error',
               'toml/key-spacing': 'error',
               'toml/padding-line-between-pairs': 'error',
