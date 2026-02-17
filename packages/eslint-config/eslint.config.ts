@@ -13,7 +13,7 @@ export default composeConfig(config)
         'perfectionist/sort-objects': [
           'error',
           {
-            customGroups: {top: ['name']},
+            customGroups: [{groupName: 'top', elementNamePattern: 'name'}],
             groups: ['top', 'unknown'],
           },
         ],

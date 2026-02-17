@@ -35,14 +35,20 @@ export async function perfectionist(options: PerfectionistOptions = {}): Promise
         ...(sortNamedExports && {
           'perfectionist/sort-named-exports': [
             isInEditor ? 'warn' : 'error',
-            {groupKind: 'values-first', type: 'natural'},
+            {
+              groups: ['value-export', 'type-export'],
+              type: 'natural',
+            },
           ],
         }),
 
         ...(sortNamedImports && {
           'perfectionist/sort-named-imports': [
             isInEditor ? 'warn' : 'error',
-            {groupKind: 'values-first', type: 'natural'},
+            {
+              groups: ['value-import', 'type-import'],
+              type: 'natural',
+            },
           ],
         }),
 
@@ -54,18 +60,29 @@ export async function perfectionist(options: PerfectionistOptions = {}): Promise
           'perfectionist/sort-imports': [
             isInEditor ? 'warn' : 'error',
             {
-              groups: [
-                'type',
-                ['parent-type', 'sibling-type', 'index-type'],
-                'builtin',
-                'external',
-                ['internal', 'internal-type'],
-                ['parent', 'sibling', 'index'],
-                'object',
-                'side-effect',
-                'side-effect-style',
+              customGroups: [
+                {
+                  elementNamePattern: '^[~#]/.*',
+                  groupName: 'internal',
+                },
+                {
+                  elementNamePattern: '^[~#]/.*',
+                  groupName: 'internal-type',
+                  selector: 'type',
+                },
               ],
-              internalPattern: ['^[~#]/.*'],
+              groups: [
+                'type-import',
+                'type-builtin',
+                'type-external',
+                ['type-parent', 'type-sibling', 'type-index'],
+                'value-builtin',
+                'value-external',
+                ['internal', 'internal-type'],
+                ['value-parent', 'value-sibling', 'value-index'],
+                'side-effect',
+                'style',
+              ],
               newlinesBetween: 'ignore',
               type: 'natural',
             },

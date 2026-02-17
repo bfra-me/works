@@ -18,7 +18,6 @@ import type {Task} from '@vitest/runner'
 import {execSync} from 'node:child_process'
 import {readFile} from 'node:fs/promises'
 import {dirname, join} from 'node:path'
-
 import process from 'node:process'
 import {fileURLToPath} from 'node:url'
 import {startVitest} from 'vitest/node'

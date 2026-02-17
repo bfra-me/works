@@ -16,7 +16,6 @@ import {
   type DocDebouncer,
   type DocFileWatcher,
 } from '../watcher'
-
 import {createPackageScanner, type ScannedPackage} from './package-scanner'
 import {createValidationPipeline} from './validation-pipeline'
 
