@@ -98,7 +98,7 @@
     "@bfra.me/works": "workspace:*",
     "@types/escape-html": "1.0.4",
     "chokidar": "5.0.0",
-    "memfs": "4.51.1"
+    "memfs": "4.56.10"
   },
   "peerDependencies": {
     "chokidar": "^5.0.0"
