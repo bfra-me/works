@@ -23,6 +23,7 @@ branches:
           - Renovate / Renovate
           - Review Dependencies
           - Test
+          - Workspace Analysis
 
       enforce_admins: true
       required_pull_request_reviews: null
