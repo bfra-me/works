@@ -64,7 +64,7 @@
     "eslint-plugin-unicorn": "62.0.0",
     "eslint-plugin-unused-imports": "4.3.0",
     "eslint-plugin-yml": "1.19.1",
-    "globals": "16.5.0",
+    "globals": "17.3.0",
     "is-in-ci": "2.0.0",
     "local-pkg": "1.1.2",
     "package-manager-detector": "1.6.0",
