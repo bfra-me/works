@@ -35,7 +35,7 @@ runs:
 
     - id: cache-pnpm
       name: Setup pnpm cache
-      uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
+      uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
       with:
         key: ${{ steps.cache-config.outputs.key }}
         path: ${{ steps.cache-config.outputs.path }}
@@ -43,7 +43,7 @@ runs:
 
     - id: cache-development
       name: Restore development related caches
-      uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
+      uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
       with:
         key: ${{ runner.os }}-development-cache-${{ hashFiles('**/pnpm-lock.yaml', 'package.json', 'packages/*/src/**/*.ts', 'tsconfig.json', 'eslint.config.ts', '.github/actions/pnpm-install/action.yaml') }}
         path: |
@@ -55,7 +55,7 @@ runs:
 
     - id: cache-eslint
       name: Restore ESLint cache
-      uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
+      uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
       with:
         key: ${{ runner.os }}-eslint-cache-${{ hashFiles('eslint.config.ts', 'packages/eslint-config/src/**/*.ts', 'packages/*/src/**/*.ts') }}
         path: .eslintcache
