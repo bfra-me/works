@@ -58,7 +58,7 @@
     "jiti": "2.6.1",
     "lint-staged": "16.2.7",
     "prettier": "3.7.4",
-    "publint": "0.3.16",
+    "publint": "0.3.17",
     "rimraf": "6.1.2",
     "ts-essentials": "10.1.1",
     "tsup": "8.5.1",
