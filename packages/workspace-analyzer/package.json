@@ -68,7 +68,7 @@
   },
   "devDependencies": {
     "@bfra.me/works": "workspace:*",
-    "memfs": "4.51.1",
+    "memfs": "4.56.10",
     "ts-morph": "27.0.2",
     "typescript": "5.9.3"
   },
