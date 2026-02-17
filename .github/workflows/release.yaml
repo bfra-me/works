@@ -1,8 +1,6 @@
 name: Release
 
 on:
-  push:
-    branches: [main]
   schedule:
     - cron: '0 18 * * 0' # Run every Sunday at 6 PM UTC
   workflow_dispatch:
@@ -11,6 +9,10 @@ on:
         description: Force release if checks pass
         type: boolean
         default: false
+  workflow_run:
+    workflows: [Main]
+    branches: [main]
+    types: [completed]
 
 permissions:
   contents: read
@@ -22,8 +24,9 @@ concurrency:
 jobs:
   manage-release:
     name: Manage Release PR
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     env:
-      USE_APP_TOKEN: ${{ contains('["push", "schedule"]', github.event_name) }}
+      USE_APP_TOKEN: ${{ contains('["schedule"]', github.event_name) }}
     outputs:
       published: ${{ steps.changesets.outputs.published }}
     permissions:
@@ -115,7 +118,7 @@ jobs:
 
       - name: Enable Auto-merge
         if: >-
-          github.event_name != 'push' &&
+          github.event_name != 'workflow_run' &&
           steps.check-pr.outputs.pr-exists == 'true' &&
           (
             steps.check-pr.outputs.checks-status == 'pending' ||
