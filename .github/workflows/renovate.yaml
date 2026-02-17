@@ -22,7 +22,7 @@ on:
         type: boolean
         default: false
   workflow_run:
-    workflows: [Main]
+    workflows: [Release]
     branches: [main]
     types: [completed]
 
