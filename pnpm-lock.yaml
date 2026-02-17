@@ -232,7 +232,7 @@ importers:
         specifier: workspace:*
         version: link:../..
       '@types/escape-html':
-        specifier: ^1.0.4
+        specifier: 1.0.4
         version: 1.0.4
       chokidar:
         specifier: 5.0.0
