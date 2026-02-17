@@ -16,7 +16,8 @@ export type JsoncOptions = Flatten<OptionsFiles & OptionsOverrides & OptionsStyl
  */
 export async function jsonc(options: JsoncOptions = {}): Promise<Config[]> {
   const {files = GLOB_JSON_FILES, overrides = {}, stylistic = true} = options
-  const {indent = 2} = typeof stylistic === 'boolean' ? {} : stylistic
+  const stylisticConfig = typeof stylistic === 'boolean' ? {} : stylistic
+  const indent = typeof stylisticConfig.indent === 'number' ? stylisticConfig.indent : 2
   const includeStylistic = typeof stylistic === 'boolean' ? stylistic : true
   const pluginJsonc = await interopDefault(import('eslint-plugin-jsonc'))
 

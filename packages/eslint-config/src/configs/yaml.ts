@@ -16,7 +16,9 @@ export type YamlOptions = Flatten<OptionsFiles & OptionsOverrides & OptionsStyli
  */
 export async function yaml(options: YamlOptions = {}): Promise<Config[]> {
   const {files = GLOB_YAML_FILES, overrides = {}, stylistic = true} = options
-  const {indent = 2, quotes = 'single'} = typeof stylistic === 'boolean' ? {} : stylistic
+  const stylisticConfig = typeof stylistic === 'boolean' ? {} : stylistic
+  const indent = typeof stylisticConfig.indent === 'number' ? stylisticConfig.indent : 2
+  const quotes = typeof stylisticConfig.quotes === 'string' ? stylisticConfig.quotes : 'single'
   const includeStylistic = typeof stylistic === 'boolean' ? stylistic : true
   const pluginYaml = await interopDefault(import('eslint-plugin-yml'))
 
@@ -52,7 +54,7 @@ export async function yaml(options: YamlOptions = {}): Promise<Config[]> {
               'yml/flow-mapping-curly-spacing': 'error',
               'yml/flow-sequence-bracket-newline': 'error',
               'yml/flow-sequence-bracket-spacing': 'error',
-              'yml/indent': ['error', indent === 'tab' ? 2 : indent],
+              'yml/indent': ['error', indent],
               'yml/key-spacing': 'error',
               'yml/no-tab-indent': 'error',
               'yml/quotes': [
