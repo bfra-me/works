@@ -1,0 +1,120 @@
+---
+name: Fro Bot
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  discussion_comment:
+    types: [created]
+  issues:
+    types: [opened, edited]
+  pull_request:
+    types: [opened, synchronize, reopened]
+  schedule:
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: Custom prompt for the Fro Bot agent
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: >-
+    fro-bot-${{
+      github.event.issue.number ||
+      github.event.pull_request.number ||
+      github.event.discussion.number ||
+      github.run_id
+    }}
+  cancel-in-progress: false
+
+env:
+  PR_REVIEW_PROMPT: |
+    You are reviewing a TypeScript monorepo (pnpm workspaces, ESM, strict TS).
+    Focus your review on:
+    - Type safety: no `as any`, `@ts-ignore`, or `@ts-expect-error` suppression
+    - Result<T, E> usage instead of throwing for expected errors
+    - Correct use of explicit named exports (no `export *` in application code)
+    - Breaking changes to public API or subpath exports
+    - Test coverage for new/changed behavior
+    - Monorepo concerns: cross-package dependency correctness, build order impact
+    - Security: no secrets/PII in code, proper input validation
+    Skip style nits — the linter and Prettier handle those.
+
+  SCHEDULE_PROMPT: |
+    Perform weekly repository maintenance and create a SINGLE issue titled
+    "Weekly Maintenance Report — YYYY-MM-DD" containing:
+    - Open issues with no activity in 14+ days (list with links)
+    - Open PRs with no review activity in 7+ days (list with links)
+    - Issues labeled 'bug' without assignees (list with links)
+    - Recommended actions for each item
+    Do NOT comment on individual issues or PRs. Produce one summary issue only.
+
+jobs:
+  fro-bot:
+    name: Fro Bot
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      discussions: write
+      issues: write
+      pull-requests: write
+    if: >-
+      (
+        github.event.pull_request == null ||
+        !github.event.pull_request.head.repo.fork
+      ) && (
+        github.event_name == 'issues' ||
+        github.event_name == 'schedule' ||
+        github.event_name == 'workflow_dispatch' ||
+        github.event_name == 'pull_request' ||
+        (
+          (github.event_name == 'issue_comment' ||
+           github.event_name == 'pull_request_review_comment' ||
+           github.event_name == 'discussion_comment') &&
+          contains(github.event.comment.body || '', '@fro-bot') &&
+          (github.event.comment.user.login || '') != 'fro-bot' &&
+          contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.comment.author_association || '')
+        )
+      )
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          fetch-depth: 0
+          token: >-
+            ${{
+              github.event_name == 'workflow_dispatch'
+              && secrets.GITHUB_TOKEN
+              || secrets.FRO_BOT_PAT
+            }}
+
+      - name: Install dependencies
+        uses: ./.github/actions/pnpm-install
+
+      - name: Run Fro Bot
+        uses: fro-bot/agent@v0
+        env:
+          OPENCODE_PROMPT_ARTIFACT: 'true'
+          PROMPT: >-
+            ${{
+              (github.event_name == 'workflow_dispatch' && (github.event.inputs.prompt || ''))
+              || (github.event_name == 'schedule' && env.SCHEDULE_PROMPT)
+              || (github.event_name == 'pull_request' && env.PR_REVIEW_PROMPT)
+              || ''
+            }}
+        with:
+          github-token: >-
+            ${{
+              github.event_name == 'workflow_dispatch'
+              && secrets.GITHUB_TOKEN
+              || secrets.FRO_BOT_PAT
+            }}
+          auth-json: ${{ secrets.OPENCODE_AUTH_JSON }}
+          prompt: ${{ env.PROMPT }}
