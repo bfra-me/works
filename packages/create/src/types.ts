@@ -6,9 +6,7 @@
  * Import Result type from @bfra.me/es/result for consistent error handling
  */
 import type {Result} from '@bfra.me/es/result'
-
 // Result Pattern Types (Phase 1: Foundation & Type System Enhancement)
-
 import type {Brand} from '@bfra.me/es/types'
 
 /**

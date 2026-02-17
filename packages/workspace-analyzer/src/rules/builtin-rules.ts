@@ -26,7 +26,6 @@ import {SyntaxKind} from 'ts-morph'
 
 import {extractImports, isRelativeImport} from '../parser/import-extractor'
 import {matchAnyPattern} from '../utils/pattern-matcher'
-
 import {
   BUILTIN_RULE_IDS,
   DEFAULT_LAYER_CONFIG,

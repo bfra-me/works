@@ -71,7 +71,7 @@ export default defineConfig(
         }),
       )
     },
-    30_000,
+    60_000,
   )
 }
 

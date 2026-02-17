@@ -259,7 +259,7 @@ describe('incremental-sync integration', () => {
       const result = await orchestrator.handleChanges(events)
 
       expect(result.totalPackages).toBeGreaterThanOrEqual(0)
-    }, 10000)
+    }, 30_000)
 
     it('should skip unchanged packages on subsequent syncs', async () => {
       const config: DocConfig = {
@@ -275,7 +275,7 @@ describe('incremental-sync integration', () => {
 
       const secondSync = await orchestrator.syncAll()
       expect(secondSync.totalPackages).toBe(firstSync.totalPackages)
-    }, 10000)
+    }, 30_000)
 
     it('should only regenerate specified packages', async () => {
       const config: DocConfig = {

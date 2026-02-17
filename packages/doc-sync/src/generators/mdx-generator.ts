@@ -14,7 +14,6 @@ import type {
 
 import {err, ok} from '@bfra.me/es/result'
 import {SENTINEL_MARKERS} from '../types'
-
 import {extractCodeBlocks, parseJSXTags} from '../utils/safe-patterns'
 import {sanitizeAttribute, sanitizeForMDX, sanitizeJSXTag} from '../utils/sanitization'
 import {generateAPIReference} from './api-reference-generator'

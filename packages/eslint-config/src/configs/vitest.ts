@@ -67,6 +67,7 @@ export async function vitest(options: VitestOptions = {}): Promise<Config[]> {
             'vitest/consistent-test-it': ['error', {fn: 'it', withinDescribe: 'it'}],
             'vitest/no-focused-tests': isInEditor ? 'off' : ['error', {fixable: true}],
             'vitest/no-import-node-test': 'error',
+            'vitest/no-standalone-expect': ['error', {additionalTestBlockFunctions: []}],
             'vitest/prefer-hooks-in-order': 'error',
             'vitest/prefer-lowercase-title': 'error',
             // @ts-expect-error - @vitest/eslint-plugin types are incorrect
