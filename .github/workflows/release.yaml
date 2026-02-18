@@ -69,17 +69,17 @@ jobs:
             echo "pr-number=$PR_NUMBER" >> $GITHUB_OUTPUT
 
             # Check PR status
-            STATUS=$(gh pr view $PR_NUMBER --json statusCheckRollup --jq '.statusCheckRollup[].conclusion' | sort -u | grep 'SUCCESS' || echo 'PENDING')
+            CONCLUSIONS=$(gh pr view $PR_NUMBER --json statusCheckRollup --jq '.statusCheckRollup[]?.conclusion // empty' | sort -u)
             MERGEABLE=$(gh pr view $PR_NUMBER --json mergeStateStatus --jq '.mergeStateStatus')
             echo "PR $PR_NUMBER:"
-            echo "- checks status: $STATUS"
+            echo "- check conclusions: $CONCLUSIONS"
             echo "- mergeable status: $MERGEABLE"
-            if [ "$STATUS" = "SUCCESS" ]; then
-              echo "checks-status=success" >> $GITHUB_OUTPUT
-            elif [ "$STATUS" = "PENDING" ]; then
-              echo "checks-status=pending" >> $GITHUB_OUTPUT
-            else
+            if echo "$CONCLUSIONS" | grep -qE '^(FAILURE|ERROR|TIMED_OUT|CANCELLED)$'; then
               echo "checks-status=failed" >> $GITHUB_OUTPUT
+            elif echo "$CONCLUSIONS" | grep -qFx 'SUCCESS'; then
+              echo "checks-status=success" >> $GITHUB_OUTPUT
+            else
+              echo "checks-status=pending" >> $GITHUB_OUTPUT
             fi
             if [ "$MERGEABLE" = "BEHIND" ] || [ "$MERGEABLE" = "UNKNOWN" ]; then
               echo "mergeable=false" >> $GITHUB_OUTPUT
@@ -92,12 +92,14 @@ jobs:
         shell: 'bash -Eeux {0}'
 
       - name: Checkout repository
+        if: steps.check-pr.outputs.pr-exists == 'false' || steps.check-pr.outputs.mergeable == 'false'
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
           token: ${{ env.USE_APP_TOKEN == 'true' && steps.get-app-token.outputs.token || secrets.GITHUB_TOKEN }}
 
       - name: Prepare job
+        if: steps.check-pr.outputs.pr-exists == 'false' || steps.check-pr.outputs.mergeable == 'false'
         uses: ./.github/actions/pnpm-install
 
       - id: changesets
