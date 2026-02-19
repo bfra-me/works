@@ -302,8 +302,8 @@ importers:
         specifier: 2.10.0
         version: 2.10.0(eslint@9.39.2(jiti@2.6.1))
       eslint-plugin-toml:
-        specifier: 0.12.0
-        version: 0.12.0(eslint@9.39.2(jiti@2.6.1))
+        specifier: 0.13.1
+        version: 0.13.1(eslint@9.39.2(jiti@2.6.1))
       eslint-plugin-unicorn:
         specifier: 62.0.0
         version: 62.0.0(eslint@9.39.2(jiti@2.6.1))
@@ -3328,8 +3328,8 @@ packages:
     peerDependencies:
       eslint: ^9.38.0
 
-  eslint-plugin-toml@0.12.0:
-    resolution: {integrity: sha512-+/wVObA9DVhwZB1nG83D2OAQRrcQZXy+drqUnFJKymqnmbnbfg/UPmEMCKrJNcEboUGxUjYrJlgy+/Y930mURQ==}
+  eslint-plugin-toml@0.13.1:
+    resolution: {integrity: sha512-xA9Q2DY1fL5HeXzZfiP5Q+yhjHIEeWlp9locoyvn6ywRGbDEpn8hoMgsXgsf8lFimZR1yFzdS5KxPXlRoD4Mug==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^9.38.0
@@ -5921,10 +5921,6 @@ packages:
   to-valid-identifier@1.0.0:
     resolution: {integrity: sha512-41wJyvKep3yT2tyPqX/4blcfybknGB4D+oETKLs7Q76UiPqRpUJK3hr1nxelyYO0PHKVzJwlu0aCeEAsGI6rpw==}
     engines: {node: '>=20'}
-
-  toml-eslint-parser@0.10.1:
-    resolution: {integrity: sha512-9mjy3frhioGIVGcwamlVlUyJ9x+WHw/TXiz9R4YOlmsIuBN43r9Dp8HZ35SF9EKjHrn3BUZj04CF+YqZ2oJ+7w==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
   toml-eslint-parser@0.12.0:
     resolution: {integrity: sha512-4qHgkGXl0LyFp/3aNoi6dKWuPuxFsCiDtBl5IbJljeYR57+5l3pJHJEW9xPSOu2U1drGlG82tpGqkJz/uJZ2Fw==}
@@ -10057,13 +10053,12 @@ snapshots:
       regexp-ast-analysis: 0.7.1
       scslre: 0.3.0
 
-  eslint-plugin-toml@0.12.0(eslint@9.39.2(jiti@2.6.1)):
+  eslint-plugin-toml@0.13.1(eslint@9.39.2(jiti@2.6.1)):
     dependencies:
       debug: 4.4.3
       eslint: 9.39.2(jiti@2.6.1)
       eslint-compat-utils: 0.6.5(eslint@9.39.2(jiti@2.6.1))
-      lodash: 4.17.23
-      toml-eslint-parser: 0.10.1
+      toml-eslint-parser: 0.12.0
     transitivePeerDependencies:
       - supports-color
 
@@ -13236,10 +13231,6 @@ snapshots:
     dependencies:
       '@sindresorhus/base62': 1.0.0
       reserved-identifiers: 1.2.0
-
-  toml-eslint-parser@0.10.1:
-    dependencies:
-      eslint-visitor-keys: 3.4.3
 
   toml-eslint-parser@0.12.0:
     dependencies:
