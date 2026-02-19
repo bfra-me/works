@@ -92,19 +92,19 @@ jobs:
         shell: 'bash -Eeux {0}'
 
       - name: Checkout repository
-        if: steps.check-pr.outputs.pr-exists == 'false' || steps.check-pr.outputs.mergeable == 'false'
+        if: steps.check-pr.outputs.pr-exists == 'false' || steps.check-pr.outputs.mergeable == 'false' || (github.event_name == 'workflow_run' && steps.check-pr.outputs.pr-exists == 'true')
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
           token: ${{ env.USE_APP_TOKEN == 'true' && steps.get-app-token.outputs.token || secrets.GITHUB_TOKEN }}
 
       - name: Prepare job
-        if: steps.check-pr.outputs.pr-exists == 'false' || steps.check-pr.outputs.mergeable == 'false'
+        if: steps.check-pr.outputs.pr-exists == 'false' || steps.check-pr.outputs.mergeable == 'false' || (github.event_name == 'workflow_run' && steps.check-pr.outputs.pr-exists == 'true')
         uses: ./.github/actions/pnpm-install
 
       - id: changesets
         name: Create Release Pull Request or Publish to npm
-        if: steps.check-pr.outputs.pr-exists == 'false' || steps.check-pr.outputs.mergeable == 'false'
+        if: steps.check-pr.outputs.pr-exists == 'false' || steps.check-pr.outputs.mergeable == 'false' || (github.event_name == 'workflow_run' && steps.check-pr.outputs.pr-exists == 'true')
         env:
           GH_REPO: ${{ github.repository }}
           GITHUB_TOKEN: ${{ env.USE_APP_TOKEN == 'true' && steps.get-app-token.outputs.token || secrets.GITHUB_TOKEN }}
@@ -134,8 +134,8 @@ jobs:
           gh pr merge $PR_NUMBER --squash --auto
 
   trigger-org-renovate:
-    name: Trigger Renovate
     if: github.repository == 'bfra-me/works' && needs.manage-release.outputs.published == 'true'
+    name: Trigger Organization Renovate
     needs: manage-release
     secrets: inherit
     uses: bfra-me/.github/.github/workflows/trigger-org-renovate.yaml@0a66d172b59610521437479659a535a909645aaa # v4.3.26
