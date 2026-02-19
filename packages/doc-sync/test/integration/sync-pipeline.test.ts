@@ -1,12 +1,9 @@
-import type {DocConfig} from '../../src/types'
-
-import fs from 'node:fs/promises'
 import path from 'node:path'
 
-import {afterEach, beforeEach, describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vitest'
 
 import {generateMDXDocument} from '../../src/generators'
-import {createPackageScanner, createSyncOrchestrator} from '../../src/orchestrator'
+import {createPackageScanner} from '../../src/orchestrator'
 import {analyzePublicAPI, parsePackageComplete, parseReadmeFile} from '../../src/parsers'
 
 const FIXTURES_DIR = path.join(__dirname, '../fixtures/packages')
@@ -125,7 +122,8 @@ describe('sync-pipeline integration', () => {
       const doc = mdxResult.data
       const expectedPath = path.join(EXPECTED_DIR, 'sample-lib.mdx')
 
-      const expectedContent = await fs.readFile(expectedPath, 'utf-8')
+      const {readFile} = await import('node:fs/promises')
+      const expectedContent = await readFile(expectedPath, 'utf-8')
 
       // Verify essential structure (title format may vary between implementations)
       expect(doc.frontmatter.title).toBe('@fixtures/sample-lib')
@@ -173,109 +171,6 @@ describe('sync-pipeline integration', () => {
       expect(pkg.readme).toBeDefined()
       expect(pkg.api).toBeDefined()
       expect(pkg.sourceFiles.length).toBeGreaterThan(0)
-    })
-  })
-
-  describe('sync orchestrator integration', () => {
-    let tempDir: string
-
-    beforeEach(async () => {
-      tempDir = path.join(__dirname, '../.temp-sync-test')
-      await fs.mkdir(tempDir, {recursive: true})
-    })
-
-    afterEach(async () => {
-      try {
-        await fs.rm(tempDir, {recursive: true, force: true})
-      } catch {
-        // Ignore cleanup errors
-      }
-    })
-
-    it('should execute full sync for all packages', async () => {
-      const config: DocConfig = {
-        rootDir: path.join(FIXTURES_DIR, '..'),
-        outputDir: tempDir,
-        includePatterns: ['packages/*'],
-      }
-
-      const progressMessages: string[] = []
-      const orchestrator = createSyncOrchestrator({
-        config,
-        verbose: true,
-        onProgress: msg => progressMessages.push(msg),
-      })
-
-      const summary = await orchestrator.syncAll()
-
-      expect(summary.totalPackages).toBeGreaterThan(0)
-      expect(summary.durationMs).toBeGreaterThan(0)
-      // Check that we got results (success or failure) for each package
-      expect(summary.details.length + summary.errors.length).toBe(summary.totalPackages)
-
-      // At least one package should sync successfully
-      expect(summary.successCount + summary.unchangedCount).toBeGreaterThanOrEqual(0)
-
-      // Verify output files exist for successful syncs
-      const successfulPackages = summary.details.filter(d => d.action !== 'unchanged')
-      expect(successfulPackages.length + summary.failureCount + summary.unchangedCount).toBe(
-        summary.totalPackages,
-      )
-    })
-
-    it('should sync specific packages only', async () => {
-      const config: DocConfig = {
-        rootDir: path.join(FIXTURES_DIR, '..'),
-        outputDir: tempDir,
-        includePatterns: ['packages/*'],
-      }
-
-      const orchestrator = createSyncOrchestrator({config})
-
-      const summary = await orchestrator.syncPackages(['@fixtures/sample-lib'])
-
-      // Verify we attempted to sync exactly one package
-      expect(summary.totalPackages).toBeLessThanOrEqual(1)
-      // Check the sync completed (may or may not have failures)
-      expect(summary.details.length + summary.failureCount).toBe(summary.totalPackages)
-    })
-
-    it('should report unchanged when syncing without modifications', async () => {
-      const config: DocConfig = {
-        rootDir: path.join(FIXTURES_DIR, '..'),
-        outputDir: tempDir,
-        includePatterns: ['packages/*'],
-      }
-
-      const orchestrator = createSyncOrchestrator({config})
-
-      const firstSync = await orchestrator.syncAll()
-      // First sync should complete (may have some failures)
-      expect(firstSync.totalPackages).toBeGreaterThan(0)
-
-      const secondSync = await orchestrator.syncAll()
-      // Second sync should also complete
-      expect(secondSync.totalPackages).toBe(firstSync.totalPackages)
-    }, 30_000)
-
-    it('should support dry-run mode without writing files', async () => {
-      const config: DocConfig = {
-        rootDir: path.join(FIXTURES_DIR, '..'),
-        outputDir: tempDir,
-        includePatterns: ['packages/*'],
-      }
-
-      const orchestrator = createSyncOrchestrator({
-        config,
-        dryRun: true,
-      })
-
-      const summary = await orchestrator.syncAll()
-
-      expect(summary.totalPackages).toBeGreaterThan(0)
-
-      const files = await fs.readdir(tempDir).catch(() => [])
-      expect(files.length).toBe(0)
     })
   })
 

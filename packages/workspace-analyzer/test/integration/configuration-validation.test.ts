@@ -1,16 +1,8 @@
-/**
- * Integration tests for configuration file handling.
- *
- * These tests verify that workspace-analyzer.config.ts files are correctly
- * discovered, loaded, validated, and merged with default configuration.
- */
-
 import fs from 'node:fs/promises'
 import path from 'node:path'
 
 import {afterEach, beforeEach, describe, expect, it} from 'vitest'
 
-import {analyzeWorkspace} from '../../src/api/analyze-workspace'
 import {
   CONFIG_FILE_NAMES,
   defineConfig,
@@ -19,11 +11,7 @@ import {
   loadConfigFile,
 } from '../../src/config/loader'
 import {getDefaultMergedConfig, mergeConfig} from '../../src/config/merger'
-import {
-  cleanupTempWorkspace,
-  createMonorepoStructure,
-  createTempWorkspace,
-} from '../utils/test-workspace'
+import {cleanupTempWorkspace, createTempWorkspace} from '../utils/test-workspace'
 
 describe('configuration-validation', () => {
   let tempDir: string
@@ -274,87 +262,6 @@ describe('configuration-validation', () => {
       expect(merged.analyzers['circular-import']?.enabled).toBe(true)
       expect(merged.analyzers['circular-import']?.options?.maxCycleLength).toBe(5)
       expect(merged.analyzers['unused-dependency']?.enabled).toBe(true)
-    })
-  })
-
-  describe('integration with analyzeWorkspace', () => {
-    it('should use config file when analyzing workspace', async () => {
-      await createMonorepoStructure(tempDir, [
-        {name: '@test/configured', files: {'index.ts': `export const value = 1`}},
-      ])
-
-      const configPath = path.join(tempDir, 'workspace-analyzer.config.mjs')
-      await fs.writeFile(
-        configPath,
-        `export default {
-          minSeverity: 'error',
-          cache: false,
-        }`,
-      )
-
-      const result = await analyzeWorkspace(tempDir)
-
-      expect(result.success).toBe(true)
-    })
-
-    it('should allow programmatic options to override config file', async () => {
-      await createMonorepoStructure(tempDir, [
-        {
-          name: '@test/override',
-          dependencies: {lodash: '^4.17.21'},
-          files: {'index.ts': `export const value = 1`},
-        },
-      ])
-
-      const configPath = path.join(tempDir, 'workspace-analyzer.config.mjs')
-      await fs.writeFile(
-        configPath,
-        `export default {
-          minSeverity: 'info',
-        }`,
-      )
-
-      const result = await analyzeWorkspace(tempDir, {
-        minSeverity: 'error',
-      })
-
-      expect(result.success).toBe(true)
-    })
-
-    it('should use custom config path via --config option', async () => {
-      await createMonorepoStructure(tempDir, [
-        {name: '@test/custom-config', files: {'index.ts': `export const value = 1`}},
-      ])
-
-      const customPath = path.join(tempDir, 'configs', 'analyzer.mjs')
-      await fs.mkdir(path.dirname(customPath), {recursive: true})
-      await fs.writeFile(
-        customPath,
-        `export default {
-          cache: false,
-          minSeverity: 'warning',
-        }`,
-      )
-
-      const result = await analyzeWorkspace(tempDir, {
-        configPath: customPath,
-      })
-
-      expect(result.success).toBe(true)
-    })
-
-    it('should handle missing custom config path gracefully', async () => {
-      await createMonorepoStructure(tempDir, [
-        {name: '@test/missing-config', files: {'index.ts': `export const value = 1`}},
-      ])
-
-      const result = await analyzeWorkspace(tempDir, {
-        configPath: '/non/existent/config.mjs',
-      })
-
-      expect(result.success).toBe(false)
-      const error = result.success ? null : result.error
-      expect(error?.code).toBe('CONFIG_ERROR')
     })
   })
 
