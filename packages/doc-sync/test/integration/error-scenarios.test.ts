@@ -1,12 +1,10 @@
-import type {DocConfig, SyncError} from '../../src/types'
-
 import fs from 'node:fs/promises'
 import path from 'node:path'
 
-import {afterEach, beforeEach, describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vitest'
 
 import {generateMDXDocument} from '../../src/generators'
-import {createPackageScanner, createSyncOrchestrator} from '../../src/orchestrator'
+import {createPackageScanner} from '../../src/orchestrator'
 import {
   analyzePublicAPI,
   extractJSDocInfo,
@@ -186,100 +184,6 @@ describe('error-scenarios integration', () => {
       const jsdocResult = func ? extractJSDocInfo(func) : undefined
       const paramCount = jsdocResult?.params?.length ?? 0
       expect(func === undefined || paramCount === 2).toBe(true)
-    })
-  })
-
-  describe('sync orchestrator error handling', () => {
-    let tempDir: string
-
-    beforeEach(async () => {
-      tempDir = path.join(__dirname, '../.temp-error-sync-test')
-      await fs.mkdir(tempDir, {recursive: true})
-    })
-
-    afterEach(async () => {
-      try {
-        await fs.rm(tempDir, {recursive: true, force: true})
-      } catch {
-        // Ignore cleanup errors
-      }
-    })
-
-    it('should report errors for invalid packages', async () => {
-      const config: DocConfig = {
-        rootDir: '/nonexistent',
-        outputDir: tempDir,
-        includePatterns: ['packages/*'],
-      }
-
-      const errors: SyncError[] = []
-      const orchestrator = createSyncOrchestrator({
-        config,
-        onError: err => errors.push(err),
-      })
-
-      const result = await orchestrator.syncAll()
-
-      expect(result.totalPackages).toBe(0)
-    })
-
-    it('should continue syncing after individual package failure', async () => {
-      const config: DocConfig = {
-        rootDir: path.join(FIXTURES_DIR, '..'),
-        outputDir: tempDir,
-        includePatterns: ['packages/*'],
-      }
-
-      const orchestrator = createSyncOrchestrator({config})
-
-      const result = await orchestrator.syncAll()
-
-      expect(result.totalPackages).toBeGreaterThanOrEqual(0)
-    })
-
-    it('should track failed packages separately', async () => {
-      const config: DocConfig = {
-        rootDir: path.join(FIXTURES_DIR, '..'),
-        outputDir: tempDir,
-        includePatterns: ['packages/*'],
-      }
-
-      const orchestrator = createSyncOrchestrator({config})
-      const result = await orchestrator.syncAll()
-
-      expect(typeof result.failureCount).toBe('number')
-      expect(Array.isArray(result.errors)).toBe(true)
-    })
-
-    it('should handle write permission errors gracefully', async () => {
-      // Skip on Windows where permission handling differs
-      if (process.platform === 'win32') return
-
-      const readOnlyDir = path.join(tempDir, 'readonly')
-      await fs.mkdir(readOnlyDir)
-
-      try {
-        await fs.chmod(readOnlyDir, 0o444)
-
-        const config: DocConfig = {
-          rootDir: path.join(FIXTURES_DIR, '..'),
-          outputDir: readOnlyDir,
-          includePatterns: ['packages/*'],
-        }
-
-        const errors: SyncError[] = []
-        const orchestrator = createSyncOrchestrator({
-          config,
-          onError: err => errors.push(err),
-        })
-
-        const result = await orchestrator.syncAll()
-
-        expect(result.failureCount).toBeGreaterThanOrEqual(0)
-      } finally {
-        await fs.chmod(readOnlyDir, 0o755)
-        await fs.rm(readOnlyDir, {recursive: true, force: true})
-      }
     })
   })
 

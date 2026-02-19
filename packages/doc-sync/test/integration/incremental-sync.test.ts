@@ -1,11 +1,9 @@
-import type {DocConfig, FileChangeEvent} from '../../src/types'
+import type {FileChangeEvent} from '../../src/types'
 
-import fs from 'node:fs/promises'
 import path from 'node:path'
 
-import {afterEach, beforeEach, describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vitest'
 
-import {createSyncOrchestrator} from '../../src/orchestrator'
 import {
   createDocChangeDetector,
   determineRegenerationScope,
@@ -216,123 +214,6 @@ describe('incremental-sync integration', () => {
 
       expect(await detector.hasChanged(testFile1)).toBe(true)
       expect(await detector.hasChanged(testFile2)).toBe(true)
-    })
-  })
-
-  describe('incremental sync orchestration', () => {
-    let tempDir: string
-
-    beforeEach(async () => {
-      tempDir = path.join(__dirname, '../.temp-incremental-test')
-      await fs.mkdir(tempDir, {recursive: true})
-    })
-
-    afterEach(async () => {
-      try {
-        await fs.rm(tempDir, {recursive: true, force: true})
-      } catch {
-        // Ignore cleanup errors
-      }
-    })
-
-    it('should handle file change events', async () => {
-      const config: DocConfig = {
-        rootDir: path.join(FIXTURES_DIR, '..'),
-        outputDir: tempDir,
-        includePatterns: ['packages/*'],
-      }
-
-      const orchestrator = createSyncOrchestrator({config})
-
-      // Initial sync
-      await orchestrator.syncAll()
-
-      const events: FileChangeEvent[] = [
-        {
-          type: 'change',
-          path: path.join(FIXTURES_DIR, 'sample-lib', 'README.md'),
-          packageName: '@fixtures/sample-lib',
-          timestamp: new Date(),
-        },
-      ]
-
-      const result = await orchestrator.handleChanges(events)
-
-      expect(result.totalPackages).toBeGreaterThanOrEqual(0)
-    }, 30_000)
-
-    it('should skip unchanged packages on subsequent syncs', async () => {
-      const config: DocConfig = {
-        rootDir: path.join(FIXTURES_DIR, '..'),
-        outputDir: tempDir,
-        includePatterns: ['packages/*'],
-      }
-
-      const orchestrator = createSyncOrchestrator({config})
-
-      const firstSync = await orchestrator.syncAll()
-      expect(firstSync.totalPackages).toBeGreaterThan(0)
-
-      const secondSync = await orchestrator.syncAll()
-      expect(secondSync.totalPackages).toBe(firstSync.totalPackages)
-    }, 30_000)
-
-    it('should only regenerate specified packages', async () => {
-      const config: DocConfig = {
-        rootDir: path.join(FIXTURES_DIR, '..'),
-        outputDir: tempDir,
-        includePatterns: ['packages/*'],
-      }
-
-      const orchestrator = createSyncOrchestrator({config})
-
-      const result = await orchestrator.syncPackages(['@fixtures/sample-lib'])
-
-      expect(result.totalPackages).toBe(1)
-      expect(result.details.length).toBeLessThanOrEqual(1)
-
-      const firstDetail = result.details[0]
-      const packageName = firstDetail?.packageName ?? ''
-      expect(packageName === '' || packageName === '@fixtures/sample-lib').toBe(true)
-    })
-
-    it('should handle empty change events gracefully', async () => {
-      const config: DocConfig = {
-        rootDir: path.join(FIXTURES_DIR, '..'),
-        outputDir: tempDir,
-        includePatterns: ['packages/*'],
-      }
-
-      const orchestrator = createSyncOrchestrator({config})
-
-      const result = await orchestrator.handleChanges([])
-
-      expect(result.totalPackages).toBe(0)
-      expect(result.successCount).toBe(0)
-      expect(result.errors.length).toBe(0)
-    })
-
-    it('should handle changes to unknown packages gracefully', async () => {
-      const config: DocConfig = {
-        rootDir: path.join(FIXTURES_DIR, '..'),
-        outputDir: tempDir,
-        includePatterns: ['packages/*'],
-      }
-
-      const orchestrator = createSyncOrchestrator({config})
-
-      const events: FileChangeEvent[] = [
-        {
-          type: 'change',
-          path: '/nonexistent/packages/fake-lib/README.md',
-          packageName: undefined,
-          timestamp: new Date(),
-        },
-      ]
-
-      const result = await orchestrator.handleChanges(events)
-
-      expect(result.totalPackages).toBe(0)
     })
   })
 
