@@ -1,0 +1,508 @@
+{
+  "changesets": [
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/eslint-config",
+          "type": "minor"
+        }
+      ],
+      "summary": "fix(eslint-config): move no-implicit-key to type-aware rules for react v2.13.0 migration\n\nThe no-implicit-key rule in @eslint-react/eslint-plugin v2.13.0 was moved from\nthe recommended preset to the type-checked preset and now requires type\ninformation. This was causing lint errors when applied to JavaScript files\nwithout type checking enabled.\n\nMove the rule from the regular rules section to ReactTypeAwareRules so it only\napplies to TypeScript files where type information is available, fixing errors\nin the ts-strict-with-react and other test fixtures.",
+      "id": "happy-boats-bow"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/workspace-analyzer",
+          "type": "patch"
+        },
+        {
+          "name": "@bfra.me/doc-sync",
+          "type": "patch"
+        }
+      ],
+      "summary": "test(doc-sync,workspace-analyzer): remove orchestrator integration tests\n\n- remove sync orchestrator tests from doc-sync error-scenarios suite\n- remove sync orchestrator tests from doc-sync incremental-sync suite\n- remove sync orchestrator tests from doc-sync sync-pipeline suite\n- remove analysis-pipeline integration test file for workspace-analyzer\n- remove incremental-analysis integration test file for workspace-analyzer\n- remove multi-package-analysis integration test file for workspace-analyzer\n- remove orchestrator integration tests from workspace-analyzer error-scenarios\n- remove orchestrator integration tests from workspace-analyzer configuration-validation",
+      "id": "olive-cows-obey"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/doc-sync",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `zod` to `4.3.6`.",
+      "id": "renovate-06a68c7"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/semantic-release",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `semantic-release` to `25.0.3`.",
+      "id": "renovate-123ef17"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/doc-sync",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `@types/escape-html` to `1.0.4`.",
+      "id": "renovate-1bcac89"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/eslint-config",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `sort-package-json` to `3.6.1`.",
+      "id": "renovate-1d9692f"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/eslint-config",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `eslint-plugin-perfectionist` to `5.5.0`.",
+      "id": "renovate-1de7c93"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/eslint-config",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `@eslint/core` to `1.1.0`.",
+      "id": "renovate-1fdc8ad"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/eslint-config",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `astro-eslint-parser` to `1.3.0`.",
+      "id": "renovate-29afc93"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/eslint-config",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `eslint-plugin-jsonc` to `2.21.1`.",
+      "id": "renovate-29bfedb"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/create",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `msw` to `2.12.10`.",
+      "id": "renovate-2e87c1c"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/eslint-config",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `@eslint-react/eslint-plugin` to `2.13.0`.",
+      "id": "renovate-422eb19"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/eslint-config",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `eslint-plugin-astro` to `1.6.0`.",
+      "id": "renovate-4c2fa0d"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/eslint-config",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `@eslint-react/eslint-plugin` to `2.2.4`.",
+      "id": "renovate-513a3ca"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/eslint-config",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `@vitest/eslint-plugin` to `1.6.9`.",
+      "id": "renovate-5479e74"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/eslint-config",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `@stylistic/eslint-plugin` to `5.8.0`.",
+      "id": "renovate-5ddb5dd"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/eslint-config",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `astro-eslint-parser` to `1.3.0`.",
+      "id": "renovate-6f78fdd"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/prettier-config",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `prettier` to `3.8.1`.",
+      "id": "renovate-766580f"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/eslint-config",
+          "type": "minor"
+        }
+      ],
+      "summary": "Updated dependency `eslint` to `^9.38.0 || ^10.0.0`.",
+      "id": "renovate-7706a2f"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/create",
+          "type": "patch"
+        },
+        {
+          "name": "@bfra.me/doc-sync",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `memfs` to `4.56.10`.",
+      "id": "renovate-7e93ad9"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/create",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `glob` to `13.0.3`.",
+      "id": "renovate-84670e7"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/eslint-config",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `eslint-plugin-pnpm` to `1.5.0`.",
+      "id": "renovate-862420f"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/create",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `openai` to `6.22.0`.",
+      "id": "renovate-895299d"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/eslint-config",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `@next/eslint-plugin-next` to `16.1.6`.",
+      "id": "renovate-90a4d01"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/eslint-config",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `eslint-plugin-prettier` to `5.5.5`.",
+      "id": "renovate-90e3809"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/create",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `semver` to `7.7.4`.",
+      "id": "renovate-940ea28"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/eslint-config",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `eslint-plugin-n` to `17.23.2`.",
+      "id": "renovate-9f090b0"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/create",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `happy-dom` to `20.6.1`.",
+      "id": "renovate-a0bfc1b"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/eslint-config",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `eslint-plugin-n` to `17.24.0`.",
+      "id": "renovate-a85ff92"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/eslint-config",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `@eslint/core` to `1.1.0`.",
+      "id": "renovate-aa0ebf5"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/eslint-config",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `@typescript-eslint/types` to `8.55.0`.\nUpdated dependency `typescript-eslint` to `8.55.0`.",
+      "id": "renovate-b35564f"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/create",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `eta` to `4.5.1`.",
+      "id": "renovate-bab3f97"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/eslint-config",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `@eslint-react/eslint-plugin` to `^1.53.1 || ^2.0.0`.",
+      "id": "renovate-be56139"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/create",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `@anthropic-ai/sdk` to `0.74.0`.",
+      "id": "renovate-d17455a"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/eslint-config",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `@eslint-community/eslint-plugin-eslint-comments` to `4.6.0`.",
+      "id": "renovate-d50f0e2"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/create",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `dotenv` to `17.3.1`.",
+      "id": "renovate-e273075"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/eslint-config",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `globals` to `17.3.0`.",
+      "id": "renovate-f086165"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/eslint-config",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `eslint-plugin-unused-imports` to `4.4.1`.",
+      "id": "renovate-f9584d7"
+    },
+    {
+      "releases": [
+        {
+          "name": "@bfra.me/tsconfig",
+          "type": "patch"
+        }
+      ],
+      "summary": "Updated dependency `ajv` to `8.18.0`.",
+      "id": "renovate-fa75b9e"
+    }
+  ],
+  "releases": [
+    {
+      "name": "@bfra.me/eslint-config",
+      "type": "minor",
+      "oldVersion": "0.47.9",
+      "changesets": [
+        "happy-boats-bow",
+        "renovate-1d9692f",
+        "renovate-1de7c93",
+        "renovate-1fdc8ad",
+        "renovate-29afc93",
+        "renovate-29bfedb",
+        "renovate-422eb19",
+        "renovate-4c2fa0d",
+        "renovate-513a3ca",
+        "renovate-5479e74",
+        "renovate-5ddb5dd",
+        "renovate-6f78fdd",
+        "renovate-7706a2f",
+        "renovate-862420f",
+        "renovate-90a4d01",
+        "renovate-90e3809",
+        "renovate-9f090b0",
+        "renovate-a85ff92",
+        "renovate-aa0ebf5",
+        "renovate-b35564f",
+        "renovate-be56139",
+        "renovate-d50f0e2",
+        "renovate-f086165",
+        "renovate-f9584d7"
+      ],
+      "newVersion": "0.48.0"
+    },
+    {
+      "name": "@bfra.me/workspace-analyzer",
+      "type": "patch",
+      "oldVersion": "0.2.4",
+      "changesets": [
+        "olive-cows-obey"
+      ],
+      "newVersion": "0.2.5"
+    },
+    {
+      "name": "@bfra.me/doc-sync",
+      "type": "patch",
+      "oldVersion": "0.1.5",
+      "changesets": [
+        "olive-cows-obey",
+        "renovate-06a68c7",
+        "renovate-1bcac89",
+        "renovate-7e93ad9"
+      ],
+      "newVersion": "0.1.6"
+    },
+    {
+      "name": "@bfra.me/semantic-release",
+      "type": "patch",
+      "oldVersion": "0.3.6",
+      "changesets": [
+        "renovate-123ef17"
+      ],
+      "newVersion": "0.3.7"
+    },
+    {
+      "name": "@bfra.me/create",
+      "type": "patch",
+      "oldVersion": "0.7.6",
+      "changesets": [
+        "renovate-2e87c1c",
+        "renovate-7e93ad9",
+        "renovate-84670e7",
+        "renovate-895299d",
+        "renovate-940ea28",
+        "renovate-a0bfc1b",
+        "renovate-bab3f97",
+        "renovate-d17455a",
+        "renovate-e273075"
+      ],
+      "newVersion": "0.7.7"
+    },
+    {
+      "name": "@bfra.me/prettier-config",
+      "type": "patch",
+      "oldVersion": "0.16.6",
+      "changesets": [
+        "renovate-766580f"
+      ],
+      "newVersion": "0.16.7"
+    },
+    {
+      "name": "@bfra.me/tsconfig",
+      "type": "patch",
+      "oldVersion": "0.12.1",
+      "changesets": [
+        "renovate-fa75b9e"
+      ],
+      "newVersion": "0.12.2"
+    },
+    {
+      "name": "docs",
+      "type": "none",
+      "oldVersion": "0.0.0-development",
+      "changesets": [],
+      "newVersion": "0.0.0-development"
+    }
+  ]
+}

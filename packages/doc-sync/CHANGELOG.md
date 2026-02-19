@@ -1,5 +1,28 @@
 # @bfra.me/doc-sync
 
+## 0.1.6
+### Patch Changes
+
+
+- test(doc-sync,workspace-analyzer): remove orchestrator integration tests ([#2651](https://github.com/bfra-me/works/pull/2651))
+  
+  - remove sync orchestrator tests from doc-sync error-scenarios suite
+  - remove sync orchestrator tests from doc-sync incremental-sync suite
+  - remove sync orchestrator tests from doc-sync sync-pipeline suite
+  - remove analysis-pipeline integration test file for workspace-analyzer
+  - remove incremental-analysis integration test file for workspace-analyzer
+  - remove multi-package-analysis integration test file for workspace-analyzer
+  - remove orchestrator integration tests from workspace-analyzer error-scenarios
+  - remove orchestrator integration tests from workspace-analyzer configuration-validation
+
+- Updated dependency `zod` to `4.3.6`. ([#2599](https://github.com/bfra-me/works/pull/2599))
+
+
+- Updated dependency `@types/escape-html` to `1.0.4`. ([#2587](https://github.com/bfra-me/works/pull/2587))
+
+
+- Updated dependency `memfs` to `4.56.10`. ([#2638](https://github.com/bfra-me/works/pull/2638))
+
 ## 0.1.5
 ### Patch Changes
 

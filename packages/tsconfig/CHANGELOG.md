@@ -1,5 +1,11 @@
 # @bfra.me/tsconfig
 
+## 0.12.2
+### Patch Changes
+
+
+- Updated dependency `ajv` to `8.18.0`. ([#2600](https://github.com/bfra-me/works/pull/2600))
+
 ## 0.12.1
 ### Patch Changes
 
