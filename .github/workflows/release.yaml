@@ -102,9 +102,26 @@ jobs:
         if: steps.check-pr.outputs.pr-exists == 'false' || steps.check-pr.outputs.mergeable == 'false' || (github.event_name == 'workflow_run' && steps.check-pr.outputs.pr-exists == 'true')
         uses: ./.github/actions/pnpm-install
 
+      - id: check-changesets
+        name: Check for uncommitted changesets
+        if: github.event_name == 'workflow_run' && steps.check-pr.outputs.pr-exists == 'true'
+        run: |
+          # Check if there are any uncommitted changesets
+          if pnpm changeset status --output=json 2>/dev/null | jq -e '.releases | length > 0' >/dev/null; then
+            echo "has-changesets=true" >> $GITHUB_OUTPUT
+            echo "Found uncommitted changesets"
+          else
+            echo "has-changesets=false" >> $GITHUB_OUTPUT
+            echo "No uncommitted changesets"
+          fi
+        shell: 'bash -Eeux {0}'
+
       - id: changesets
         name: Create Release Pull Request or Publish to npm
-        if: steps.check-pr.outputs.pr-exists == 'false' || steps.check-pr.outputs.mergeable == 'false' || (github.event_name == 'workflow_run' && steps.check-pr.outputs.pr-exists == 'true')
+        if: |
+          steps.check-pr.outputs.pr-exists == 'false' ||
+          steps.check-pr.outputs.mergeable == 'false' ||
+          (github.event_name == 'workflow_run' && steps.check-pr.outputs.pr-exists == 'true' && steps.check-changesets.outputs.has-changesets == 'true')
         env:
           GH_REPO: ${{ github.repository }}
           GITHUB_TOKEN: ${{ env.USE_APP_TOKEN == 'true' && steps.get-app-token.outputs.token || secrets.GITHUB_TOKEN }}

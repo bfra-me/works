@@ -11,3 +11,4 @@ globs:
   - '!**/node_modules'
   - '!.specstory/**'
   - '!.ai/**'
+  - '!.github/instructions/**'
