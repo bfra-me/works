@@ -1,5 +1,22 @@
 # @bfra.me/workspace-analyzer
 
+## 0.2.5
+### Patch Changes
+
+
+- test(doc-sync,workspace-analyzer): remove orchestrator integration tests ([#2651](https://github.com/bfra-me/works/pull/2651))
+  
+  - remove sync orchestrator tests from doc-sync error-scenarios suite
+  - remove sync orchestrator tests from doc-sync incremental-sync suite
+  - remove sync orchestrator tests from doc-sync sync-pipeline suite
+  - remove analysis-pipeline integration test file for workspace-analyzer
+  - remove incremental-analysis integration test file for workspace-analyzer
+  - remove multi-package-analysis integration test file for workspace-analyzer
+  - remove orchestrator integration tests from workspace-analyzer error-scenarios
+  - remove orchestrator integration tests from workspace-analyzer configuration-validation
+- Updated dependencies [[`4015ec0`](https://github.com/bfra-me/works/commit/4015ec022a0463ba9a077f77820b51bb45eeffcd), [`7838fbd`](https://github.com/bfra-me/works/commit/7838fbd4bbdb8ba21cf3525b73eeb5f39109d23d), [`9111a16`](https://github.com/bfra-me/works/commit/9111a16c89d8b236a6c31bd7e609cf674ae2e13f), [`6b2841c`](https://github.com/bfra-me/works/commit/6b2841c0809f8f264d06f49f22dc62888f092f1e)]:
+  - @bfra.me/doc-sync@0.1.6
+
 ## 0.2.4
 ### Patch Changes
 

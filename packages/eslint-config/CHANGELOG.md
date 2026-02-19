@@ -1,5 +1,91 @@
 # @bfra.me/eslint-config
 
+## 0.48.0
+### Minor Changes
+
+
+- fix(eslint-config): move no-implicit-key to type-aware rules for react v2.13.0 migration ([#2624](https://github.com/bfra-me/works/pull/2624))
+  
+  The no-implicit-key rule in @eslint-react/eslint-plugin v2.13.0 was moved from
+  the recommended preset to the type-checked preset and now requires type
+  information. This was causing lint errors when applied to JavaScript files
+  without type checking enabled.
+  
+  Move the rule from the regular rules section to ReactTypeAwareRules so it only
+  applies to TypeScript files where type information is available, fixing errors
+  in the ts-strict-with-react and other test fixtures.
+
+- Updated dependency `eslint` to `^9.38.0 || ^10.0.0`. ([#2591](https://github.com/bfra-me/works/pull/2591))
+
+
+### Patch Changes
+
+
+- Updated dependency `sort-package-json` to `3.6.1`. ([#2618](https://github.com/bfra-me/works/pull/2618))
+
+
+- Updated dependency `eslint-plugin-perfectionist` to `5.5.0`. ([#2559](https://github.com/bfra-me/works/pull/2559))
+
+
+- Updated dependency `@eslint/core` to `1.1.0`. ([#2625](https://github.com/bfra-me/works/pull/2625))
+
+
+- Updated dependency `astro-eslint-parser` to `1.3.0`. ([#2634](https://github.com/bfra-me/works/pull/2634))
+
+
+- Updated dependency `eslint-plugin-jsonc` to `2.21.1`. ([#2612](https://github.com/bfra-me/works/pull/2612))
+
+
+- Updated dependency `@eslint-react/eslint-plugin` to `2.13.0`. ([#2624](https://github.com/bfra-me/works/pull/2624))
+
+
+- Updated dependency `eslint-plugin-astro` to `1.6.0`. ([#2635](https://github.com/bfra-me/works/pull/2635))
+
+
+- Updated dependency `@eslint-react/eslint-plugin` to `2.2.4`. ([#2624](https://github.com/bfra-me/works/pull/2624))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.6.9`. ([#2603](https://github.com/bfra-me/works/pull/2603))
+
+
+- Updated dependency `@stylistic/eslint-plugin` to `5.8.0`. ([#2574](https://github.com/bfra-me/works/pull/2574))
+
+
+- Updated dependency `astro-eslint-parser` to `1.3.0`. ([#2632](https://github.com/bfra-me/works/pull/2632))
+
+
+- Updated dependency `eslint-plugin-pnpm` to `1.5.0`. ([#2636](https://github.com/bfra-me/works/pull/2636))
+
+
+- Updated dependency `@next/eslint-plugin-next` to `16.1.6`. ([#2602](https://github.com/bfra-me/works/pull/2602))
+
+
+- Updated dependency `eslint-plugin-prettier` to `5.5.5`. ([#2604](https://github.com/bfra-me/works/pull/2604))
+
+
+- Updated dependency `eslint-plugin-n` to `17.23.2`. ([#2614](https://github.com/bfra-me/works/pull/2614))
+
+
+- Updated dependency `eslint-plugin-n` to `17.24.0`. ([#2647](https://github.com/bfra-me/works/pull/2647))
+
+
+- Updated dependency `@eslint/core` to `1.1.0`. ([#2626](https://github.com/bfra-me/works/pull/2626))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.55.0`. ([#2641](https://github.com/bfra-me/works/pull/2641))
+  Updated dependency `typescript-eslint` to `8.55.0`.
+
+- Updated dependency `@eslint-react/eslint-plugin` to `^1.53.1 || ^2.0.0`. ([#2624](https://github.com/bfra-me/works/pull/2624))
+
+
+- Updated dependency `@eslint-community/eslint-plugin-eslint-comments` to `4.6.0`. ([#2642](https://github.com/bfra-me/works/pull/2642))
+
+
+- Updated dependency `globals` to `17.3.0`. ([#2561](https://github.com/bfra-me/works/pull/2561))
+
+
+- Updated dependency `eslint-plugin-unused-imports` to `4.4.1`. ([#2645](https://github.com/bfra-me/works/pull/2645))
+
 ## 0.47.9
 ### Patch Changes
 
