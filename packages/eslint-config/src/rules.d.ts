@@ -17354,9 +17354,9 @@ type ReactNamingConventionUseState = []|[{
 }]
 // ----- react-refresh/only-export-components -----
 type ReactRefreshOnlyExportComponents = []|[{
+  extraHOCs?: string[]
   allowExportNames?: string[]
   allowConstantExport?: boolean
-  customHOCs?: string[]
   checkJS?: boolean
 }]
 // ----- react/jsx-shorthand-boolean -----

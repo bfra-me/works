@@ -82,7 +82,7 @@ export async function react(options: ReactOptions = {}): Promise<Config[]> {
       const [pluginReact, pluginReactHooks, pluginReactRefresh] = await Promise.all([
         interopDefault(import('@eslint-react/eslint-plugin')),
         interopDefault(import('eslint-plugin-react-hooks')),
-        interopDefault(import('eslint-plugin-react-refresh')),
+        import('eslint-plugin-react-refresh').then(m => m.reactRefresh),
       ] as const)
 
       const plugins = (pluginReact.configs.all as {plugins: Record<string, Plugin>}).plugins
@@ -102,7 +102,7 @@ export async function react(options: ReactOptions = {}): Promise<Config[]> {
             'react-hooks': pluginReactHooks,
             'react-hooks-extra': plugins['@eslint-react/hooks-extra'],
             'react-naming-convention': plugins['@eslint-react/naming-convention'],
-            'react-refresh': pluginReactRefresh,
+            'react-refresh': pluginReactRefresh.plugin,
             'react-web-api': plugins['@eslint-react/web-api'],
           } as Config['plugins'],
         },
