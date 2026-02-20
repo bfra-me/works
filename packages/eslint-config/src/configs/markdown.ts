@@ -401,12 +401,27 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
     const pluginYaml = await interopDefault(import('eslint-plugin-yml'))
 
     // Use plugin's standard config to inherit parser configuration
-    const standardConfigs = pluginYaml.configs['flat/standard'] as Config[]
+    const standardConfigs = (pluginYaml.configs.standard ?? pluginYaml.configs['flat/standard']) as
+      | Config[]
+      | Config
+    const normalizedConfigs = Array.isArray(standardConfigs) ? standardConfigs : [standardConfigs]
+
+    // Find language and parser setup from normalized configs with explicit type guards
+    const languageSetup = normalizedConfigs.find(
+      (c): c is Config & {language: string} =>
+        c != null && 'language' in c && typeof c.language === 'string',
+    )
+    const parserSetup = normalizedConfigs.find(
+      (c): c is Config & {languageOptions: Record<string, unknown>} =>
+        c != null && 'languageOptions' in c && c.languageOptions != null,
+    )
 
     configs.push({
       name: '@bfra.me/markdown/code-blocks/yaml',
       files: GLOB_MARKDOWN_FILES.map(p => `${p}/${GLOB_YAML}`),
-      languageOptions: standardConfigs[1]?.languageOptions ?? {},
+      ...(languageSetup ? {language: languageSetup.language} : {}),
+      ...(parserSetup ? {languageOptions: parserSetup.languageOptions} : {}),
+      ...(languageSetup && 'plugins' in languageSetup ? {plugins: languageSetup.plugins} : {}),
       rules: {
         // Examples may show incomplete YAML mappings to focus on specific concepts
         'yml/no-empty-mapping-value': 'off',
