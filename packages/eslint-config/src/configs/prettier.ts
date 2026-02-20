@@ -7,6 +7,25 @@ import {requireOf} from '../require-of'
 import {interopDefault} from '../utils'
 import {fallback} from './fallback'
 
+function getConfigRules(configs: unknown): OptionsOverrides['overrides'] | undefined {
+  if (Array.isArray(configs)) {
+    const configWithRules = [...(configs as unknown[])]
+      .reverse()
+      .find(
+        (config): config is Config =>
+          typeof config === 'object' && config !== null && 'rules' in config,
+      )
+
+    return configWithRules?.rules
+  }
+
+  if (typeof configs === 'object' && configs !== null && 'rules' in configs) {
+    return (configs as Config).rules
+  }
+
+  return undefined
+}
+
 /**
  * Represents the options for the ESLint Prettier configuration.
  */
@@ -34,6 +53,8 @@ export async function prettier(options: PrettierOptions = {}): Promise<Config[]>
           ? interopDefault(import('eslint-plugin-yml'))
           : Promise.resolve(undefined),
       ])
+      const jsoncPrettierRules = getConfigRules(pluginJsonc?.configs.prettier)
+      const yamlPrettierRules = getConfigRules(pluginYaml?.configs.prettier)
 
       return [
         {
@@ -46,7 +67,7 @@ export async function prettier(options: PrettierOptions = {}): Promise<Config[]>
 
             ...configPrettier.rules,
 
-            ...(pluginJsonc?.configs.prettier.rules as OptionsOverrides['overrides']),
+            ...(jsoncPrettierRules ?? {}),
 
             'toml/array-bracket-newline': 'off',
             'toml/array-bracket-spacing': 'off',
@@ -56,7 +77,7 @@ export async function prettier(options: PrettierOptions = {}): Promise<Config[]>
             'toml/key-spacing': 'off',
             'toml/table-bracket-spacing': 'off',
 
-            ...(pluginYaml?.configs.prettier.rules as OptionsOverrides['overrides']),
+            ...(yamlPrettierRules ?? {}),
 
             ...overrides,
           },

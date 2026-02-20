@@ -144,7 +144,7 @@ With `workflow_run` as a trigger, the Release workflow runs after every successf
 
 This creates noisy PR activity:
 
-```
+```text
 bfra-me[bot] closed this 4 hours ago
 bfra-me[bot] force-pushed the changeset-release/main branch
 bfra-me[bot] reopened this 4 minutes ago

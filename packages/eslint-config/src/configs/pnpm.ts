@@ -1,4 +1,3 @@
-import type {Linter} from 'eslint'
 import type {Config} from '../config'
 import {requireOf} from '../require-of'
 import {interopDefault} from '../utils'
@@ -18,12 +17,51 @@ export async function pnpm(): Promise<Config[]> {
         interopDefault(import('eslint-plugin-yml')),
       ])
 
-      return [
-        {
+      const jsoncBaseConfigs = (pluginJsonc.configs['flat/base'] ??
+        pluginJsonc.configs.base) as unknown as Config[] | Config | undefined
+      const yamlBaseConfigs = (pluginYaml.configs.standard ??
+        pluginYaml.configs['flat/standard']) as unknown as Config[] | Config | undefined
+
+      const jsoncConfigs = Array.isArray(jsoncBaseConfigs)
+        ? jsoncBaseConfigs
+        : jsoncBaseConfigs
+          ? [jsoncBaseConfigs]
+          : []
+      const yamlConfigs = Array.isArray(yamlBaseConfigs)
+        ? yamlBaseConfigs
+        : yamlBaseConfigs
+          ? [yamlBaseConfigs]
+          : []
+
+      const configs: Config[] = []
+
+      const jsoncLanguageSetup = jsoncConfigs.find(
+        (config): config is Config & {language: string} =>
+          config != null && typeof config === 'object' && 'language' in config,
+      )
+      const jsoncParserSetup = jsoncConfigs.find(
+        (config): config is Config & {languageOptions: Record<string, unknown>} =>
+          config != null &&
+          typeof config === 'object' &&
+          'languageOptions' in config &&
+          config.languageOptions != null,
+      )
+      const jsoncPluginSetup = jsoncConfigs.find(
+        (config): config is Config & {plugins: Record<string, unknown>} =>
+          config != null &&
+          typeof config === 'object' &&
+          'plugins' in config &&
+          config.plugins != null,
+      )
+
+      if (jsoncLanguageSetup ?? jsoncParserSetup ?? jsoncPluginSetup) {
+        configs.push({
           name: '@bfra.me/pnpm/package-json',
           files: ['package.json', '**/package.json'],
-          languageOptions: {parser: pluginJsonc as unknown as Linter.Parser},
+          ...(jsoncLanguageSetup ? {language: jsoncLanguageSetup.language} : {}),
+          ...(jsoncParserSetup ? {languageOptions: jsoncParserSetup.languageOptions} : {}),
           plugins: {
+            ...(jsoncPluginSetup?.plugins ?? {}),
             pnpm: pluginPnpm,
           },
           rules: {
@@ -31,20 +69,46 @@ export async function pnpm(): Promise<Config[]> {
             'pnpm/json-prefer-workspace-settings': 'error',
             'pnpm/json-valid-catalog': 'error',
           },
-        },
-        {
+        })
+      }
+
+      const yamlLanguageSetup = yamlConfigs.find(
+        (config): config is Config & {language: string} =>
+          config != null && typeof config === 'object' && 'language' in config,
+      )
+      const yamlParserSetup = yamlConfigs.find(
+        (config): config is Config & {languageOptions: Record<string, unknown>} =>
+          config != null &&
+          typeof config === 'object' &&
+          'languageOptions' in config &&
+          config.languageOptions != null,
+      )
+      const yamlPluginSetup = yamlConfigs.find(
+        (config): config is Config & {plugins: Record<string, unknown>} =>
+          config != null &&
+          typeof config === 'object' &&
+          'plugins' in config &&
+          config.plugins != null,
+      )
+
+      if (yamlLanguageSetup ?? yamlParserSetup ?? yamlPluginSetup) {
+        configs.push({
           name: '@bfra.me/pnpm/pnpm-workspace-yaml',
           files: ['pnpm-workspace.yaml'],
-          languageOptions: {parser: pluginYaml as unknown as Linter.Parser},
+          ...(yamlLanguageSetup ? {language: yamlLanguageSetup.language} : {}),
+          ...(yamlParserSetup ? {languageOptions: yamlParserSetup.languageOptions} : {}),
           plugins: {
+            ...(yamlPluginSetup?.plugins ?? {}),
             pnpm: pluginPnpm,
           },
           rules: {
             'pnpm/yaml-no-duplicate-catalog-item': 'error',
             'pnpm/yaml-no-unused-catalog-item': 'error',
           },
-        },
-      ]
+        })
+      }
+
+      return configs
     },
     fallback,
   )
