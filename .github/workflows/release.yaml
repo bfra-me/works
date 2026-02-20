@@ -106,13 +106,14 @@ jobs:
         name: Check for uncommitted changesets
         if: github.event_name == 'workflow_run' && steps.check-pr.outputs.pr-exists == 'true'
         run: |
-          # Check if there are any uncommitted changesets
-          if pnpm changeset status --output=json 2>/dev/null | jq -e '.releases | length > 0' >/dev/null; then
+          # Check for pending changeset files (*.md excluding README.md)
+          CHANGESET_COUNT=$(find .changeset -maxdepth 1 -name '*.md' ! -name 'README.md' -type f 2>/dev/null | wc -l | tr -d ' ')
+          if [ "$CHANGESET_COUNT" -gt 0 ]; then
             echo "has-changesets=true" >> $GITHUB_OUTPUT
-            echo "Found uncommitted changesets"
+            echo "Found $CHANGESET_COUNT pending changeset(s)"
           else
             echo "has-changesets=false" >> $GITHUB_OUTPUT
-            echo "No uncommitted changesets"
+            echo "No pending changesets found"
           fi
         shell: 'bash -Eeux {0}'
 
