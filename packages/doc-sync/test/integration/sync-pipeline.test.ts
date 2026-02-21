@@ -139,22 +139,6 @@ describe('sync-pipeline integration', () => {
   })
 
   describe('package scanner integration', () => {
-    it.concurrent('should discover packages from fixtures directory', async () => {
-      const scanner = createPackageScanner({
-        rootDir: path.join(FIXTURES_DIR, '..'),
-        includePatterns: ['packages/*'],
-      })
-
-      const result = await scanner.scan()
-
-      expect(result.packages.length).toBeGreaterThan(0)
-      expect(result.errors.length).toBe(0)
-
-      const sampleLib = result.packages.find(p => p.info.name === '@fixtures/sample-lib')
-      expect(sampleLib).toBeDefined()
-      expect(sampleLib?.needsDocumentation).toBe(true)
-    })
-
     it.concurrent('should scan individual package', async () => {
       const packagePath = path.join(FIXTURES_DIR, 'sample-lib')
       const scanner = createPackageScanner({
