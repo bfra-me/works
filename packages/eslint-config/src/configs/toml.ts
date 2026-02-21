@@ -22,7 +22,7 @@ export async function toml(options: TomlOptions = {}): Promise<Config[]> {
   const pluginToml = await interopDefault(import('eslint-plugin-toml'))
 
   return [
-    ...(pluginToml.configs['flat/standard'] as Config[]).map((config: Config, index) => ({
+    ...(pluginToml.configs.standard as Config[]).map((config: Config, index) => ({
       ...config,
       name: config.plugins
         ? `@bfra.me/toml/plugins`
