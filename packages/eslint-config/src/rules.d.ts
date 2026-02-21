@@ -11132,6 +11132,8 @@ type JsdocTypeFormatting = []|[{
   
   objectFieldSeparatorTrailingPunctuation?: boolean
   
+  objectTypeBracketSpacing?: string
+  
   parameterDefaultValueSpacing?: string
   
   postMethodNameSpacing?: string
@@ -11141,6 +11143,8 @@ type JsdocTypeFormatting = []|[{
   separatorForSingleObjectField?: boolean
   
   stringQuotes?: ("double" | "single")
+  
+  trailingPunctuationMultilineOnly?: boolean
   
   typeBracketSpacing?: string
   
