@@ -187,7 +187,7 @@ export class AIAssistant {
       message: 'What would you like to build? Describe your project:',
       placeholder: 'e.g., "A TypeScript library for validating user input forms"',
       validate(value) {
-        if (value.length < 10) {
+        if ((value?.length ?? 0) < 10) {
           return 'Please provide a more detailed description (at least 10 characters)'
         }
         return undefined
@@ -320,7 +320,7 @@ export class AIAssistant {
       message: 'What would you like to name your project?',
       placeholder: 'my-awesome-project',
       validate(value) {
-        if (value.length < 1) {
+        if (value == null || value.length < 1) {
           return 'Project name is required'
         }
         if (!/^[\w\-@/]+$/.test(value)) {

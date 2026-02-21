@@ -55,7 +55,7 @@ export async function projectSetup(
         message: '📦 What is the name of your project?',
         placeholder: 'my-awesome-project',
         validate: value => {
-          if (!value || value.trim().length === 0) {
+          if (value == null || value.trim().length === 0) {
             return 'Project name is required'
           }
           if (!/^[a-z0-9-]+$/.test(value.trim())) {

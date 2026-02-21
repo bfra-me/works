@@ -103,7 +103,7 @@ export async function projectCustomization(
       placeholder: '1.0.0',
       defaultValue: '1.0.0',
       validate: value => {
-        if (!value || value.trim().length === 0) {
+        if (value == null || value.trim().length === 0) {
           return 'Version is required'
         }
         if (!/^\d+\.\d+\.\d+(?:-[\w.]+)?$/.test(value.trim())) {
@@ -171,7 +171,7 @@ export async function projectCustomization(
       placeholder: `./${projectName}`,
       defaultValue: `./${projectName}`,
       validate: value => {
-        if (!value || value.trim().length === 0) {
+        if (value == null || value.trim().length === 0) {
           return 'Output directory is required'
         }
         return undefined
