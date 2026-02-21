@@ -113,7 +113,7 @@ export async function templateSelection(
       message: '🔗 Enter custom template source:',
       placeholder: 'github:user/repo, https://example.com/template.zip, or ./local/path',
       validate: value => {
-        if (!value || value.trim().length === 0) {
+        if (value == null || value.trim().length === 0) {
           return 'Template source is required'
         }
         return undefined
