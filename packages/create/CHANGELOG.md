@@ -1,5 +1,32 @@
 # @bfra.me/create
 
+## 0.7.8
+### Patch Changes
+
+
+- Updated dependency `glob` to `13.0.5`. ([#2673](https://github.com/bfra-me/works/pull/2673))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.76.0`. ([#2675](https://github.com/bfra-me/works/pull/2675))
+
+
+- Updated dependency `@clack/prompts` to `1.0.1`. ([#2656](https://github.com/bfra-me/works/pull/2656))
+  
+  **Migration notes for `@clack/prompts` v1:**
+  
+  - The package is now ESM-only (dropped CJS dual-publish from v0).
+  - `validate` callbacks now receive `string | undefined` instead of `string`. All
+    `validate` usages updated to guard against `undefined` using `value == null ||`
+    rather than the falsy-check `!value` to satisfy `@typescript-eslint/strict-boolean-expressions`.
+
+- Updated dependency `giget` to `3.1.2`. ([#2678](https://github.com/bfra-me/works/pull/2678))
+
+
+- Updated dependency `glob` to `13.0.4`. ([#2665](https://github.com/bfra-me/works/pull/2665))
+
+
+- Updated dependency `happy-dom` to `20.6.2`. ([#2672](https://github.com/bfra-me/works/pull/2672))
+
 ## 0.7.7
 ### Patch Changes
 
