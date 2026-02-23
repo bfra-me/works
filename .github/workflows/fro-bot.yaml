@@ -13,12 +13,15 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
   schedule:
-    - cron: '0 9 * * 1'
+    - cron: '0 16 * * *'
   workflow_dispatch:
     inputs:
       prompt:
         description: Custom prompt for the Fro Bot agent
         required: true
+        default: >-
+          Fix failing CI in @bfra.me/create: diagnose logs, apply minimal fixes,
+          run pnpm validate, push changes, and summarize the outcome.
 
 permissions:
   contents: read
@@ -35,48 +38,128 @@ concurrency:
 
 env:
   PR_REVIEW_PROMPT: |
-    You are reviewing a TypeScript monorepo (pnpm workspaces, ESM, strict TS).
-    Focus your review on:
-    - Type safety: no `as any`, `@ts-ignore`, or `@ts-expect-error` suppression
-    - Result<T, E> usage instead of throwing for expected errors
-    - Correct use of explicit named exports (no `export *` in application code)
-    - Breaking changes to public API or subpath exports
-    - Test coverage for new/changed behavior
-    - Monorepo concerns: cross-package dependency correctness, build order impact
-    - Security: no secrets/PII in code, proper input validation
-    Skip style nits — the linter and Prettier handle those.
+    You are a skeptical reviewer for a TypeScript monorepo (pnpm workspaces, ESM,
+    strict TS). Focus on correctness, safety, and public API stability.
+
+    Scope:
+    - Type safety: no `as any`, `@ts-ignore`, or `@ts-expect-error` suppression.
+    - Result<T, E> usage instead of throwing for expected errors.
+    - Exports: explicit named exports only (no `export *` in application code).
+    - Public API: breaking changes to subpath exports, entrypoints, or types.
+    - Monorepo integrity: dependency boundaries, build order impact, and
+      cross-package version alignment.
+    - Tests: new/changed behavior has coverage for happy path, errors, boundaries.
+      If tests aren't needed, explain why.
+    - Security: no secrets/PII in code, proper input validation.
+
+    Do NOT comment on formatting, lint, or style nits handled by CI.
+
+    Output:
+    ## Verdict: PASS / CONDITIONAL / REJECT
+    ### Blocking issues
+    ### Non-blocking concerns
+    ### Missing tests
+    ### Risk assessment (LOW/MED/HIGH) + rationale
 
   SCHEDULE_PROMPT: |
-    Perform weekly repository maintenance and create a SINGLE issue titled
-    "Weekly Maintenance Report — YYYY-MM-DD" containing:
-    - Open issues with no activity in 14+ days (list with links)
-    - Open PRs with no review activity in 7+ days (list with links)
-    - Issues labeled 'bug' without assignees (list with links)
-    - Recommended actions for each item
-    Do NOT comment on individual issues or PRs. Produce one summary issue only.
+    Perform daily repository autohealing for this TypeScript pnpm monorepo.
+    Work through each category in order, making commits and pushing fixes
+    directly where possible. Prefer minimal diffs and avoid destructive changes.
+
+    1. ERRORED PRs
+       Find open PRs with failing CI checks. For each failing PR:
+       a. Check out the PR branch.
+       b. Read the failing check logs to diagnose the root cause.
+       c. Fix the issue (type errors, lint failures, test regressions, build breaks).
+       d. Run `pnpm validate` to confirm the fix passes locally.
+       e. Commit with a clear message and push to the PR branch.
+       f. Comment on the PR explaining what failed and what was fixed.
+
+    2. SECURITY
+       Review Dependabot alerts and open PRs for vulnerable dependencies.
+       - If a security update PR exists but has conflicts or check failures,
+         fix and push to that PR branch.
+       - For unaddressed critical/high advisories with no existing PR, create a
+         new PR with the remediation.
+       - Do NOT bulk-update unrelated deps in a security PR.
+
+    3. HEALTH & MAINTENANCE
+       Check for outdated dependencies across the monorepo:
+       - package.json files (root and packages/*): major version bumps.
+       - GitHub Actions workflow files (.github/workflows/*.yaml): pin unpinned
+         actions to full SHA hashes; update outdated pinned SHAs.
+       Create one PR per major dependency bump. Do NOT combine unrelated upgrades.
+       Run `pnpm validate` before pushing any upgrade PR.
+
+    4. DEVELOPER EXPERIENCE
+       Ensure consistent linting, formatting, and static analysis:
+       - Run `pnpm lint` and fix any failures.
+       - Run `pnpm type-check` and resolve type errors.
+       - Verify ESLint, Prettier, and TypeScript configs are consistent across
+         all packages. Fix any drift.
+       Commit and push fixes directly to the default branch if they are safe
+       (formatting-only or lint auto-fixes). Otherwise, open a PR.
+
+    OUTPUT FORMAT — SINGLE SUMMARY ISSUE
+    After completing all work, find an existing open issue titled
+    "Daily Autohealing Report — YYYY-MM-DD" (using today's date).
+    - If it exists, UPDATE its body with the results below.
+    - If it does not exist, CREATE a new issue with that title.
+
+    The issue body MUST use this exact structure:
+
+    ```
+    ## Daily Autohealing Report — YYYY-MM-DD
+
+    ### Errored PRs
+    | PR  | Failure      | Fix              | Status                           |
+    | --- | ------------ | ---------------- | -------------------------------- |
+    | #N  | [root cause] | [what was fixed] | ✅ Fixed / ⚠️ Needs human review |
+
+    ### Security
+    | Advisory / PR    | Severity             | Action Taken                                 |
+    | ---------------- | -------------------- | -------------------------------------------- |
+    | [advisory or #N] | Critical/High/Medium | [fix pushed / PR created / skipped — reason] |
+
+    ### Health & Maintenance
+    | Dependency | From → To | PR  |
+    | ---------- | --------- | --- |
+    | [package]  | vX → vY   | #N  |
+
+    ### Developer Experience
+    - [list of fixes applied, e.g., "Fixed ESLint drift in packages/es"]
+
+    ### Needs Human Attention
+    - [items that could not be auto-fixed, with context]
+    ```
+
+    Do NOT create multiple issues. Do NOT comment on individual issues.
+    Produce exactly one summary issue per run.
 
 jobs:
   fro-bot:
     name: Fro Bot
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-    permissions:
-      contents: write
-      discussions: write
-      issues: write
-      pull-requests: write
     if: >-
       (
         github.event.pull_request == null ||
-        !github.event.pull_request.head.repo.fork
+        (
+          !github.event.pull_request.head.repo.fork &&
+          !endsWith(github.event.pull_request.user.login || '', '[bot]')
+        )
       ) && (
         (
           github.event_name == 'issues' &&
-          !endsWith(github.event.issue.user.login || '', '[bot]')
+          !endsWith(github.event.issue.user.login || '', '[bot]') &&
+          (github.event.issue.user.login || '') != 'fro-bot'
+        ) ||
+        (
+          github.event_name == 'pull_request' &&
+          !endsWith(github.event.pull_request.user.login || '', '[bot]') &&
+          (github.event.pull_request.user.login || '') != 'fro-bot'
         ) ||
         github.event_name == 'schedule' ||
         github.event_name == 'workflow_dispatch' ||
-        github.event_name == 'pull_request' ||
         (
           (github.event_name == 'issue_comment' ||
            github.event_name == 'pull_request_review_comment' ||
@@ -97,18 +180,13 @@ jobs:
               || github.event.pull_request.head.sha
               || ''
             }}
-          token: >-
-            ${{
-              github.event_name == 'workflow_dispatch'
-              && secrets.GITHUB_TOKEN
-              || secrets.FRO_BOT_PAT
-            }}
+          token: ${{ secrets.FRO_BOT_PAT }}
 
       - name: Install dependencies
         uses: ./.github/actions/pnpm-install
 
       - name: Run Fro Bot
-        uses: fro-bot/agent@v0
+        uses: fro-bot/agent@81459bc29d4f005d9c4f27eea514b91a2e2ae313 # v0.26.17
         env:
           OPENCODE_PROMPT_ARTIFACT: 'true'
           PROMPT: >-
@@ -119,11 +197,6 @@ jobs:
               || ''
             }}
         with:
-          github-token: >-
-            ${{
-              github.event_name == 'workflow_dispatch'
-              && secrets.GITHUB_TOKEN
-              || secrets.FRO_BOT_PAT
-            }}
+          github-token: ${{ secrets.FRO_BOT_PAT }}
           auth-json: ${{ secrets.OPENCODE_AUTH_JSON }}
           prompt: ${{ env.PROMPT }}
