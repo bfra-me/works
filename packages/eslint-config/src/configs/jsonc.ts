@@ -21,17 +21,15 @@ export async function jsonc(options: JsoncOptions = {}): Promise<Config[]> {
   const includeStylistic = typeof stylistic === 'boolean' ? stylistic : true
   const pluginJsonc = await interopDefault(import('eslint-plugin-jsonc'))
 
+  const baseConfigs = pluginJsonc.configs.base ?? pluginJsonc.configs['flat/base'] ?? []
+
   return [
-    ...(pluginJsonc.configs['flat/base'] as unknown as Config[]).map((config: Config, index) => ({
-      ...config,
-      name: config.plugins
-        ? `@bfra.me/jsonc/plugins`
-        : `@bfra.me/${(config.name ?? '') || `jsonc/unnamed${index}`}`,
-    })),
+    ...baseConfigs,
     ...(await jsonSchema('jsonc', files as string[])),
     {
       name: '@bfra.me/jsonc',
       files,
+      language: 'jsonc/x',
       rules: {
         'jsonc/no-bigint-literals': 'error',
         'jsonc/no-binary-expression': 'error',

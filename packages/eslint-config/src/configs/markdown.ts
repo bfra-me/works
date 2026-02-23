@@ -376,11 +376,6 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
   }
 
   if (json) {
-    const pluginJsonc = await interopDefault(import('eslint-plugin-jsonc'))
-
-    // Use plugin's base config to inherit parser configuration
-    const baseConfigs = pluginJsonc.configs['flat/base']
-
     configs.push({
       name: '@bfra.me/markdown/code-blocks/json',
       files: GLOB_MARKDOWN_FILES.flatMap(p => [
@@ -388,7 +383,7 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
         `${p}/${GLOB_JSON5}`,
         `${p}/${GLOB_JSONC}`,
       ]),
-      languageOptions: baseConfigs[1]?.languageOptions ?? {},
+      language: 'jsonc/x',
       rules: {
         // Examples may show JSON with trailing commas or explanatory comments
         'jsonc/comma-dangle': 'off',

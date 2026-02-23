@@ -36,8 +36,6 @@ export type ConfigNames =
   | '@bfra.me/javascript/options'
   | '@bfra.me/javascript/rules'
   | '@bfra.me/jsdoc'
-  | '@bfra.me/jsonc/plugins'
-  | '@bfra.me/jsonc/unnamed1'
   | '@bfra.me/jsonc/json-schema/plugins'
   | '@bfra.me/jsonc/json-schema/unnamed1'
   | '@bfra.me/jsonc/json-schema'
