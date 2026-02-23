@@ -1,5 +1,40 @@
 # @bfra.me/eslint-config
 
+## 0.50.0
+### Minor Changes
+
+
+- Updated dependency `eslint-plugin-jsonc` to `3.0.0`. ([#2696](https://github.com/bfra-me/works/pull/2696))
+  
+  **Migration Notes:**
+  
+  - Migrated to ESLint language plugin system: replaced parser-based configuration with `language: 'jsonc/x'` field
+  - Updated `jsonc.ts` to use new language plugin approach instead of parser extraction
+  - Simplified `pnpm.ts` configuration by removing complex config extraction logic
+  - Updated `markdown.ts` to leverage language plugin for JSON code block handling
+  - All configurations now use the cleaner language identifier approach (`jsonc/json`, `jsonc/jsonc`, `jsonc/json5`, `jsonc/x`)
+  - Removed unnecessary manual parser configuration extraction
+
+### Patch Changes
+
+
+- Updated dependency `@stylistic/eslint-plugin` to `5.9.0`. ([#2692](https://github.com/bfra-me/works/pull/2692))
+
+
+- Updated dependency `eslint-typegen` to `2.3.1`. ([#2693](https://github.com/bfra-me/works/pull/2693))
+
+
+- Updated dependency `eslint-config-flat-gitignore` to `2.2.1`. ([#2695](https://github.com/bfra-me/works/pull/2695))
+
+
+- Updated dependency `eslint-plugin-toml` to `1.1.1`. ([#2682](https://github.com/bfra-me/works/pull/2682))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `62.6.1`. ([#2691](https://github.com/bfra-me/works/pull/2691))
+
+
+- Updated dependency `eslint-plugin-yml` to `3.2.1`. ([#2683](https://github.com/bfra-me/works/pull/2683))
+
 ## 0.49.0
 ### Minor Changes
 

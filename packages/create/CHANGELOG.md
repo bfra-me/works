@@ -1,5 +1,20 @@
 # @bfra.me/create
 
+## 0.7.9
+### Patch Changes
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.77.0`. ([#2688](https://github.com/bfra-me/works/pull/2688))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.78.0`. ([#2698](https://github.com/bfra-me/works/pull/2698))
+
+
+- Updated dependency `glob` to `13.0.6`. ([#2694](https://github.com/bfra-me/works/pull/2694))
+
+
+- Updated dependency `happy-dom` to `20.6.3`. ([#2689](https://github.com/bfra-me/works/pull/2689))
+
 ## 0.7.8
 ### Patch Changes
 
