@@ -11,57 +11,17 @@ export async function pnpm(): Promise<Config[]> {
   return requireOf(
     ['eslint-plugin-pnpm'],
     async () => {
-      const [pluginJsonc, pluginPnpm, pluginYaml] = await Promise.all([
-        interopDefault(import('eslint-plugin-jsonc')),
+      const [pluginPnpm, pluginYaml] = await Promise.all([
         interopDefault(import('eslint-plugin-pnpm')),
         interopDefault(import('eslint-plugin-yml')),
       ])
 
-      const jsoncBaseConfigs = (pluginJsonc.configs['flat/base'] ??
-        pluginJsonc.configs.base) as unknown as Config[] | Config | undefined
-      const yamlBaseConfigs = (pluginYaml.configs.standard ??
-        pluginYaml.configs['flat/standard']) as unknown as Config[] | Config | undefined
-
-      const jsoncConfigs = Array.isArray(jsoncBaseConfigs)
-        ? jsoncBaseConfigs
-        : jsoncBaseConfigs
-          ? [jsoncBaseConfigs]
-          : []
-      const yamlConfigs = Array.isArray(yamlBaseConfigs)
-        ? yamlBaseConfigs
-        : yamlBaseConfigs
-          ? [yamlBaseConfigs]
-          : []
-
-      const configs: Config[] = []
-
-      const jsoncLanguageSetup = jsoncConfigs.find(
-        (config): config is Config & {language: string} =>
-          config != null && typeof config === 'object' && 'language' in config,
-      )
-      const jsoncParserSetup = jsoncConfigs.find(
-        (config): config is Config & {languageOptions: Record<string, unknown>} =>
-          config != null &&
-          typeof config === 'object' &&
-          'languageOptions' in config &&
-          config.languageOptions != null,
-      )
-      const jsoncPluginSetup = jsoncConfigs.find(
-        (config): config is Config & {plugins: Record<string, unknown>} =>
-          config != null &&
-          typeof config === 'object' &&
-          'plugins' in config &&
-          config.plugins != null,
-      )
-
-      if (jsoncLanguageSetup ?? jsoncParserSetup ?? jsoncPluginSetup) {
-        configs.push({
+      return [
+        {
           name: '@bfra.me/pnpm/package-json',
           files: ['package.json', '**/package.json'],
-          ...(jsoncLanguageSetup ? {language: jsoncLanguageSetup.language} : {}),
-          ...(jsoncParserSetup ? {languageOptions: jsoncParserSetup.languageOptions} : {}),
+          language: 'jsonc/x',
           plugins: {
-            ...(jsoncPluginSetup?.plugins ?? {}),
             pnpm: pluginPnpm,
           },
           rules: {
@@ -69,46 +29,21 @@ export async function pnpm(): Promise<Config[]> {
             'pnpm/json-prefer-workspace-settings': 'error',
             'pnpm/json-valid-catalog': 'error',
           },
-        })
-      }
-
-      const yamlLanguageSetup = yamlConfigs.find(
-        (config): config is Config & {language: string} =>
-          config != null && typeof config === 'object' && 'language' in config,
-      )
-      const yamlParserSetup = yamlConfigs.find(
-        (config): config is Config & {languageOptions: Record<string, unknown>} =>
-          config != null &&
-          typeof config === 'object' &&
-          'languageOptions' in config &&
-          config.languageOptions != null,
-      )
-      const yamlPluginSetup = yamlConfigs.find(
-        (config): config is Config & {plugins: Record<string, unknown>} =>
-          config != null &&
-          typeof config === 'object' &&
-          'plugins' in config &&
-          config.plugins != null,
-      )
-
-      if (yamlLanguageSetup ?? yamlParserSetup ?? yamlPluginSetup) {
-        configs.push({
+        },
+        {
           name: '@bfra.me/pnpm/pnpm-workspace-yaml',
           files: ['pnpm-workspace.yaml'],
-          ...(yamlLanguageSetup ? {language: yamlLanguageSetup.language} : {}),
-          ...(yamlParserSetup ? {languageOptions: yamlParserSetup.languageOptions} : {}),
+          language: 'yaml',
           plugins: {
-            ...(yamlPluginSetup?.plugins ?? {}),
             pnpm: pluginPnpm,
+            yml: pluginYaml,
           },
           rules: {
             'pnpm/yaml-no-duplicate-catalog-item': 'error',
             'pnpm/yaml-no-unused-catalog-item': 'error',
           },
-        })
-      }
-
-      return configs
+        },
+      ] as Config[]
     },
     fallback,
   )
