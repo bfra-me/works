@@ -284,8 +284,8 @@ importers:
         specifier: 62.7.0
         version: 62.7.0(eslint@9.39.3(jiti@2.6.1))
       eslint-plugin-json-schema-validator:
-        specifier: 6.0.3
-        version: 6.0.3(eslint@9.39.3(jiti@2.6.1))
+        specifier: 6.2.0
+        version: 6.2.0(eslint@9.39.3(jiti@2.6.1))
       eslint-plugin-jsonc:
         specifier: 3.0.0
         version: 3.0.0(eslint@9.39.3(jiti@2.6.1))
@@ -3211,8 +3211,8 @@ packages:
     peerDependencies:
       eslint: ^9.38.0
 
-  eslint-plugin-json-schema-validator@6.0.3:
-    resolution: {integrity: sha512-A7n/l/cMQGx1FmE4AteAJxzfkwAF3cfmutbCCX5En7W9tt8WRT5DA/wgxzJMxsFYJrnOfyVqlnntuPUJnprU7Q==}
+  eslint-plugin-json-schema-validator@6.2.0:
+    resolution: {integrity: sha512-jHdo7MwJm94Z0lhlBtwa2dtRKBgiJNk3d5HGeyjhHszmlnCXsEu3blTjGWO0tzWg04UANoygB10CaRYcTBZCsg==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
     peerDependencies:
       eslint: ^9.38.0
@@ -9715,12 +9715,6 @@ snapshots:
     optionalDependencies:
       unrs-resolver: 1.11.1
 
-  eslint-json-compat-utils@0.2.2(eslint@9.39.3(jiti@2.6.1))(jsonc-eslint-parser@2.4.2):
-    dependencies:
-      eslint: 9.39.3(jiti@2.6.1)
-      esquery: 1.7.0
-      jsonc-eslint-parser: 2.4.2
-
   eslint-json-compat-utils@0.2.2(eslint@9.39.3(jiti@2.6.1))(jsonc-eslint-parser@3.1.0):
     dependencies:
       eslint: 9.39.3(jiti@2.6.1)
@@ -9804,15 +9798,15 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-json-schema-validator@6.0.3(eslint@9.39.3(jiti@2.6.1)):
+  eslint-plugin-json-schema-validator@6.2.0(eslint@9.39.3(jiti@2.6.1)):
     dependencies:
       '@eslint-community/eslint-utils': 4.9.1(eslint@9.39.3(jiti@2.6.1))
       ajv: 8.18.0
       debug: 4.4.3
       eslint: 9.39.3(jiti@2.6.1)
-      eslint-json-compat-utils: 0.2.2(eslint@9.39.3(jiti@2.6.1))(jsonc-eslint-parser@2.4.2)
+      eslint-json-compat-utils: 0.2.2(eslint@9.39.3(jiti@2.6.1))(jsonc-eslint-parser@3.1.0)
       json-schema-migrate-x: 2.1.0
-      jsonc-eslint-parser: 2.4.2
+      jsonc-eslint-parser: 3.1.0
       minimatch: 10.2.2
       synckit: 0.11.12
       toml-eslint-parser: 1.0.3
