@@ -86,6 +86,9 @@ export interface CodeGeneratorInterface {
    *
    * @param configType - Type of configuration
    * @param projectContext - Optional project context
+   * @param projectContext.type - Project type
+   * @param projectContext.features - Enabled features
+   * @param projectContext.dependencies - Project dependencies
    * @returns Code generation result
    */
   generateConfig: (
