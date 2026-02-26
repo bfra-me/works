@@ -11348,6 +11348,7 @@ type JsoncObjectCurlyNewline = []|[((("always" | "never") | {
 type JsoncObjectCurlySpacing = []|[("always" | "never")]|[("always" | "never"), {
   arraysInObjects?: boolean
   objectsInObjects?: boolean
+  emptyObjects?: ("ignore" | "always" | "never")
 }]
 // ----- jsonc/object-property-newline -----
 type JsoncObjectPropertyNewline = []|[{
