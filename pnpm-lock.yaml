@@ -299,8 +299,8 @@ importers:
         specifier: 3.0.0
         version: 3.0.0(eslint@9.39.3(jiti@2.6.1))
       eslint-plugin-toml:
-        specifier: 1.1.1
-        version: 1.1.1(eslint@9.39.3(jiti@2.6.1))
+        specifier: 1.1.2
+        version: 1.1.2(eslint@9.39.3(jiti@2.6.1))
       eslint-plugin-unicorn:
         specifier: 63.0.0
         version: 63.0.0(eslint@9.39.3(jiti@2.6.1))
@@ -3329,8 +3329,8 @@ packages:
     peerDependencies:
       eslint: ^9.38.0
 
-  eslint-plugin-toml@1.1.1:
-    resolution: {integrity: sha512-Gg7wxVIYe2bJ1GqcOxmkVqdd1ScE2U3Ia3Q7RLgBhV9NVhAfkFaAOCRwRAAJ2TkbM/dQmXvNuFmAPx4y5XqIHA==}
+  eslint-plugin-toml@1.1.2:
+    resolution: {integrity: sha512-PgVDoT6TWmIjoMuBZPZTWJEHUezCNq17SQ2z+96L1YljNkrr8IwHHskvB9+mzGw8AguRZC4zEfMvrjlWu6Hyiw==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
     peerDependencies:
       eslint: ^9.38.0
@@ -10042,11 +10042,11 @@ snapshots:
       regexp-ast-analysis: 0.7.1
       scslre: 0.3.0
 
-  eslint-plugin-toml@1.1.1(eslint@9.39.3(jiti@2.6.1)):
+  eslint-plugin-toml@1.1.2(eslint@9.39.3(jiti@2.6.1)):
     dependencies:
       '@eslint/core': 1.1.0
       '@eslint/plugin-kit': 0.6.0
-      '@ota-meshi/ast-token-store': 0.2.3
+      '@ota-meshi/ast-token-store': 0.3.0
       debug: 4.4.3
       eslint: 9.39.3(jiti@2.6.1)
       toml-eslint-parser: 1.0.3
