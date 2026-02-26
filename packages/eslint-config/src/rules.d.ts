@@ -17655,6 +17655,7 @@ type TomlIndent = []|[("tab" | number)]|[("tab" | number), {
 type TomlInlineTableCurlySpacing = []|[("always" | "never")]|[("always" | "never"), {
   arraysInObjects?: boolean
   objectsInObjects?: boolean
+  emptyObjects?: ("ignore" | "always" | "never")
 }]
 // ----- toml/key-spacing -----
 type TomlKeySpacing = []|[({

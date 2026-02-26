@@ -299,8 +299,8 @@ importers:
         specifier: 3.0.0
         version: 3.0.0(eslint@9.39.3(jiti@2.6.1))
       eslint-plugin-toml:
-        specifier: 1.1.2
-        version: 1.1.2(eslint@9.39.3(jiti@2.6.1))
+        specifier: 1.2.1
+        version: 1.2.1(eslint@9.39.3(jiti@2.6.1))
       eslint-plugin-unicorn:
         specifier: 63.0.0
         version: 63.0.0(eslint@9.39.3(jiti@2.6.1))
@@ -1653,10 +1653,6 @@ packages:
 
   '@oslojs/encoding@1.1.0':
     resolution: {integrity: sha512-70wQhgYmndg4GCPxPPxPGevRKqTIJ2Nh4OkiMWmDAVYsTQ+Ta7Sq+rPevXyXGdzr30/qZBnyOalCszoMxlyldQ==}
-
-  '@ota-meshi/ast-token-store@0.2.3':
-    resolution: {integrity: sha512-Jgp8rBprSMIDY0IuokbESFozd5SSa/LZsQ9/xiNooDdiy+WK2LlA51f+GjgBKq8CE4YpfK5kdBjNtbwlThApoQ==}
-    engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
   '@ota-meshi/ast-token-store@0.3.0':
     resolution: {integrity: sha512-XRO0zi2NIUKq2lUk3T1ecFSld1fMWRKE6naRFGkgkdeosx7IslyUKNv5Dcb5PJTja9tHJoFu0v/7yEpAkrkrTg==}
@@ -3329,8 +3325,8 @@ packages:
     peerDependencies:
       eslint: ^9.38.0
 
-  eslint-plugin-toml@1.1.2:
-    resolution: {integrity: sha512-PgVDoT6TWmIjoMuBZPZTWJEHUezCNq17SQ2z+96L1YljNkrr8IwHHskvB9+mzGw8AguRZC4zEfMvrjlWu6Hyiw==}
+  eslint-plugin-toml@1.2.1:
+    resolution: {integrity: sha512-V8Hg6GNc5eQOIn1RfbMkJLKiORDGtk/+6UvB30MCzrtB8Fm7KLCmIuZFWx70Avq5OFt6Tq+F09pDM4+uUp11zw==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
     peerDependencies:
       eslint: ^9.38.0
@@ -8060,8 +8056,6 @@ snapshots:
 
   '@oslojs/encoding@1.1.0': {}
 
-  '@ota-meshi/ast-token-store@0.2.3': {}
-
   '@ota-meshi/ast-token-store@0.3.0': {}
 
   '@pagefind/darwin-arm64@1.4.0':
@@ -10042,7 +10036,7 @@ snapshots:
       regexp-ast-analysis: 0.7.1
       scslre: 0.3.0
 
-  eslint-plugin-toml@1.1.2(eslint@9.39.3(jiti@2.6.1)):
+  eslint-plugin-toml@1.2.1(eslint@9.39.3(jiti@2.6.1)):
     dependencies:
       '@eslint/core': 1.1.0
       '@eslint/plugin-kit': 0.6.0
