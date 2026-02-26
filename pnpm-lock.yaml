@@ -287,8 +287,8 @@ importers:
         specifier: 6.2.0
         version: 6.2.0(eslint@9.39.3(jiti@2.6.1))
       eslint-plugin-jsonc:
-        specifier: 3.0.0
-        version: 3.0.0(eslint@9.39.3(jiti@2.6.1))
+        specifier: 3.0.1
+        version: 3.0.1(eslint@9.39.3(jiti@2.6.1))
       eslint-plugin-n:
         specifier: 17.24.0
         version: 17.24.0(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3)
@@ -1656,6 +1656,10 @@ packages:
 
   '@ota-meshi/ast-token-store@0.2.3':
     resolution: {integrity: sha512-Jgp8rBprSMIDY0IuokbESFozd5SSa/LZsQ9/xiNooDdiy+WK2LlA51f+GjgBKq8CE4YpfK5kdBjNtbwlThApoQ==}
+    engines: {node: ^20.19.0 || ^22.13.0 || >=24}
+
+  '@ota-meshi/ast-token-store@0.3.0':
+    resolution: {integrity: sha512-XRO0zi2NIUKq2lUk3T1ecFSld1fMWRKE6naRFGkgkdeosx7IslyUKNv5Dcb5PJTja9tHJoFu0v/7yEpAkrkrTg==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
   '@pagefind/darwin-arm64@1.4.0':
@@ -3217,8 +3221,8 @@ packages:
     peerDependencies:
       eslint: ^9.38.0
 
-  eslint-plugin-jsonc@3.0.0:
-    resolution: {integrity: sha512-v2brGbpGAePVWdMP+TCar5TuHTX+QM0NahF4sEgL1LIZnRvQQ9iBdNN9wUzsVZxpVjsLnuaCVATwzLxsJApd0Q==}
+  eslint-plugin-jsonc@3.0.1:
+    resolution: {integrity: sha512-ZeDUNmiFww0DOlEc1N5H05uh8hI0CCjF1o4vwBUtWPm9oh4xpJy5ofp6JNfbybwi/1L0HKvYD7//na91I3ioig==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
     peerDependencies:
       eslint: ^9.38.0
@@ -8058,6 +8062,8 @@ snapshots:
 
   '@ota-meshi/ast-token-store@0.2.3': {}
 
+  '@ota-meshi/ast-token-store@0.3.0': {}
+
   '@pagefind/darwin-arm64@1.4.0':
     optional: true
 
@@ -9816,12 +9822,12 @@ snapshots:
       - '@eslint/json'
       - supports-color
 
-  eslint-plugin-jsonc@3.0.0(eslint@9.39.3(jiti@2.6.1)):
+  eslint-plugin-jsonc@3.0.1(eslint@9.39.3(jiti@2.6.1)):
     dependencies:
       '@eslint-community/eslint-utils': 4.9.1(eslint@9.39.3(jiti@2.6.1))
       '@eslint/core': 1.1.0
       '@eslint/plugin-kit': 0.6.0
-      '@ota-meshi/ast-token-store': 0.2.3
+      '@ota-meshi/ast-token-store': 0.3.0
       diff-sequences: 29.6.3
       eslint: 9.39.3(jiti@2.6.1)
       eslint-json-compat-utils: 0.2.2(eslint@9.39.3(jiti@2.6.1))(jsonc-eslint-parser@3.1.0)
