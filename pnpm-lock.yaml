@@ -275,8 +275,8 @@ importers:
         specifier: 2.0.0
         version: 2.0.0(eslint@9.39.3(jiti@2.6.1))
       eslint-plugin-command:
-        specifier: 3.5.1
-        version: 3.5.1(@typescript-eslint/typescript-estree@8.56.1(typescript@5.9.3))(@typescript-eslint/utils@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1))
+        specifier: 3.5.2
+        version: 3.5.2(@typescript-eslint/typescript-estree@8.56.1(typescript@5.9.3))(@typescript-eslint/utils@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1))
       eslint-plugin-import-x:
         specifier: 4.16.1
         version: 4.16.1(@typescript-eslint/utils@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1))
@@ -3162,8 +3162,8 @@ packages:
     peerDependencies:
       eslint: ^9.38.0
 
-  eslint-plugin-command@3.5.1:
-    resolution: {integrity: sha512-pwhpDYXTThVBUf22sEPT2i+/SH2RvMzg0mZFU1MIbowWTrefmWMlF0quKa4rpWbiyT4hwMcxP7d9jqERET96ZQ==}
+  eslint-plugin-command@3.5.2:
+    resolution: {integrity: sha512-PA59QAkQDwvcCMEt5lYLJLI3zDGVKJeC4id/pcRY2XdRYhSGW7iyYT1VC1N3bmpuvu6Qb/9QptiS3GJMjeGTJg==}
     peerDependencies:
       '@typescript-eslint/rule-tester': '*'
       '@typescript-eslint/typescript-estree': '*'
@@ -9702,7 +9702,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-command@3.5.1(@typescript-eslint/typescript-estree@8.56.1(typescript@5.9.3))(@typescript-eslint/utils@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1)):
+  eslint-plugin-command@3.5.2(@typescript-eslint/typescript-estree@8.56.1(typescript@5.9.3))(@typescript-eslint/utils@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1)):
     dependencies:
       '@es-joy/jsdoccomment': 0.84.0
       '@typescript-eslint/typescript-estree': 8.56.1(typescript@5.9.3)
