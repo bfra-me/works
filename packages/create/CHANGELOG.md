@@ -1,5 +1,23 @@
 # @bfra.me/create
 
+## 0.7.10
+### Patch Changes
+
+
+- Updated dependency `openai` to `6.23.0`. ([#2735](https://github.com/bfra-me/works/pull/2735))
+
+
+- Updated dependency `happy-dom` to `20.7.0`. ([#2715](https://github.com/bfra-me/works/pull/2715))
+
+
+- Updated dependency `happy-dom` to `20.6.5`. ([#2714](https://github.com/bfra-me/works/pull/2714))
+
+
+- Updated dependency `openai` to `6.24.0`. ([#2741](https://github.com/bfra-me/works/pull/2741))
+
+
+- Updated dependency `openai` to `6.25.0`. ([#2745](https://github.com/bfra-me/works/pull/2745))
+
 ## 0.7.9
 ### Patch Changes
 
