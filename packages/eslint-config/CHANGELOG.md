@@ -1,5 +1,71 @@
 # @bfra.me/eslint-config
 
+## 0.50.1
+### Patch Changes
+
+
+- Updated dependency `eslint-plugin-toml` to `1.3.0`. ([#2732](https://github.com/bfra-me/works/pull/2732))
+
+
+- Updated dependency `eslint-plugin-json-schema-validator` to `6.2.0`. ([#2716](https://github.com/bfra-me/works/pull/2716))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `62.7.1`. ([#2742](https://github.com/bfra-me/works/pull/2742))
+
+
+- Updated dependency `eslint-plugin-jsonc` to `3.1.1`. ([#2749](https://github.com/bfra-me/works/pull/2749))
+
+
+- Updated dependency `eslint` to `10.0.1`. ([#2713](https://github.com/bfra-me/works/pull/2713))
+
+
+- Updated dependency `eslint-plugin-pnpm` to `1.6.0`. ([#2748](https://github.com/bfra-me/works/pull/2748))
+
+
+- Updated dependency `eslint-plugin-command` to `3.5.2`. ([#2747](https://github.com/bfra-me/works/pull/2747))
+
+
+- Updated dependency `eslint-plugin-node-dependencies` to `2.1.0`. ([#2721](https://github.com/bfra-me/works/pull/2721))
+
+
+- Updated dependency `eslint-plugin-react-refresh` to `0.5.2`. ([#2736](https://github.com/bfra-me/works/pull/2736))
+
+
+- Updated dependency `eslint-plugin-toml` to `1.1.2`. ([#2725](https://github.com/bfra-me/works/pull/2725))
+
+
+- Updated dependency `eslint-plugin-jsonc` to `3.0.1`. ([#2724](https://github.com/bfra-me/works/pull/2724))
+
+
+- Updated dependency `eslint` to `10.0.2`. ([#2737](https://github.com/bfra-me/works/pull/2737))
+
+
+- Updated dependency `eslint-plugin-command` to `3.5.1`. ([#2743](https://github.com/bfra-me/works/pull/2743))
+
+
+- Updated dependency `eslint-plugin-node-dependencies` to `2.0.0`. ([#2717](https://github.com/bfra-me/works/pull/2717))
+
+
+- Updated dependency `eslint-plugin-jsonc` to `3.1.0`. ([#2728](https://github.com/bfra-me/works/pull/2728))
+
+
+- Updated dependency `eslint-plugin-yml` to `3.2.2`. ([#2726](https://github.com/bfra-me/works/pull/2726))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.56.1`. ([#2734](https://github.com/bfra-me/works/pull/2734))
+  Updated dependency `typescript-eslint` to `8.56.1`.
+
+- Updated dependency `eslint-plugin-toml` to `1.2.1`. ([#2729](https://github.com/bfra-me/works/pull/2729))
+
+
+- Updated dependency `eslint-plugin-yml` to `3.3.0`. ([#2730](https://github.com/bfra-me/works/pull/2730))
+
+
+- Updated dependency `eslint-plugin-jsdoc` to `62.7.0`. ([#2704](https://github.com/bfra-me/works/pull/2704))
+
+
+- Updated dependency `eslint-plugin-react-refresh` to `0.5.1`. ([#2731](https://github.com/bfra-me/works/pull/2731))
+
 ## 0.50.0
 ### Minor Changes
 
