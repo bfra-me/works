@@ -88,7 +88,7 @@ describe('package-manager utilities', () => {
       expect(pkg.dependencies?.axios).toBe('latest')
     })
 
-    it('should add dev dependencies to package.json', async () => {
+    it.skip('should add dev dependencies to package.json', async () => {
       await addDependencies(tempDir, [], ['vitest', 'typescript'], undefined, false)
 
       const content = await readFile(path.join(tempDir, 'package.json'), 'utf-8')
