@@ -4,14 +4,12 @@ name: CodeQL
 on:
   pull_request:
     branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
   push:
     branches: [main]
   schedule:
     - cron: '54 19 * * 6' # Every Saturday at 7:54 PM UTC
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
-  cancel-in-progress: true
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -23,6 +21,7 @@ jobs:
     name: Analyze
     runs-on: ubuntu-latest
     permissions:
+      actions: read
       security-events: write
 
     steps:
