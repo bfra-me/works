@@ -1770,6 +1770,7 @@ export interface Rules {
   /**
    * disallow unused `eslint-disable` comments
    * @see https://eslint-community.github.io/eslint-plugin-eslint-comments/rules/no-unused-disable.html
+   * @deprecated
    */
   'eslint-comments/no-unused-disable'?: Linter.RuleEntry<[]>
   /**
