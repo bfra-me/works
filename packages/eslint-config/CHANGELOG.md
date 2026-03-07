@@ -1,5 +1,26 @@
 # @bfra.me/eslint-config
 
+## 0.50.2
+### Patch Changes
+
+
+- Updated dependency `@eslint/config-inspector` to `1.5.0`. ([#2793](https://github.com/bfra-me/works/pull/2793))
+
+
+- Updated dependency `eslint-plugin-yml` to `3.3.1`. ([#2792](https://github.com/bfra-me/works/pull/2792))
+
+
+- Updated dependency `@eslint-community/eslint-plugin-eslint-comments` to `4.7.0`. ([#2777](https://github.com/bfra-me/works/pull/2777))
+
+
+- Updated dependency `eslint-plugin-toml` to `1.3.1`. ([#2791](https://github.com/bfra-me/works/pull/2791))
+
+
+- Updated dependency `@eslint-community/eslint-plugin-eslint-comments` to `4.7.1`. ([#2780](https://github.com/bfra-me/works/pull/2780))
+
+
+- Updated dependency `globals` to `17.4.0`. ([#2771](https://github.com/bfra-me/works/pull/2771))
+
 ## 0.50.1
 ### Patch Changes
 
