@@ -43,7 +43,7 @@
   "prettier": "./packages/prettier-config/prettier.config.cjs",
   "devDependencies": {
     "@changesets/cli": "2.30.0",
-    "@eslint/config-inspector": "1.4.2",
+    "@eslint/config-inspector": "1.5.0",
     "@manypkg/cli": "0.25.1",
     "@microsoft/api-extractor": "7.57.6",
     "@svitejs/changesets-changelog-github-compact": "1.2.0",
