@@ -12667,6 +12667,7 @@ type NodeDependenciesAbsoluteVersion = []|[(("always" | "never") | {
 // ----- node-dependencies/compat-engines -----
 type NodeDependenciesCompatEngines = []|[{
   deep?: boolean
+  devDependencies?: boolean
   comparisonType?: ("normal" | "major")
 }]
 // ----- node-dependencies/no-deprecated -----
@@ -12689,6 +12690,7 @@ type NodeDependenciesRequireProvenanceDeps = []|[{
 // ----- node-dependencies/valid-engines -----
 type NodeDependenciesValidEngines = []|[{
   deep?: boolean
+  devDependencies?: boolean
   comparisonType?: ("normal" | "major")
 }]
 // ----- node/callback-return -----
