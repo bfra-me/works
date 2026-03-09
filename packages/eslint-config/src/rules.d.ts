@@ -7331,33 +7331,33 @@ type StylisticExpListStyle = []|[{
   singleLine?: _StylisticExpListStyle_SingleLineConfig
   multiLine?: _StylisticExpListStyle_MultiLineConfig
   overrides?: {
-    "()"?: _StylisticExpListStyle_BaseConfig
-    "[]"?: _StylisticExpListStyle_BaseConfig
-    "{}"?: _StylisticExpListStyle_BaseConfig
-    "<>"?: _StylisticExpListStyle_BaseConfig
-    ArrayExpression?: _StylisticExpListStyle_BaseConfig
-    ArrayPattern?: _StylisticExpListStyle_BaseConfig
-    ArrowFunctionExpression?: _StylisticExpListStyle_BaseConfig
-    CallExpression?: _StylisticExpListStyle_BaseConfig
-    ExportNamedDeclaration?: _StylisticExpListStyle_BaseConfig
-    FunctionDeclaration?: _StylisticExpListStyle_BaseConfig
-    FunctionExpression?: _StylisticExpListStyle_BaseConfig
-    IfStatement?: _StylisticExpListStyle_BaseConfig
-    ImportAttributes?: _StylisticExpListStyle_BaseConfig
-    ImportDeclaration?: _StylisticExpListStyle_BaseConfig
-    JSONArrayExpression?: _StylisticExpListStyle_BaseConfig
-    JSONObjectExpression?: _StylisticExpListStyle_BaseConfig
-    NewExpression?: _StylisticExpListStyle_BaseConfig
-    ObjectExpression?: _StylisticExpListStyle_BaseConfig
-    ObjectPattern?: _StylisticExpListStyle_BaseConfig
-    TSDeclareFunction?: _StylisticExpListStyle_BaseConfig
-    TSEnumBody?: _StylisticExpListStyle_BaseConfig
-    TSFunctionType?: _StylisticExpListStyle_BaseConfig
-    TSInterfaceBody?: _StylisticExpListStyle_BaseConfig
-    TSTupleType?: _StylisticExpListStyle_BaseConfig
-    TSTypeLiteral?: _StylisticExpListStyle_BaseConfig
-    TSTypeParameterDeclaration?: _StylisticExpListStyle_BaseConfig
-    TSTypeParameterInstantiation?: _StylisticExpListStyle_BaseConfig
+    "()"?: (_StylisticExpListStyle_BaseConfig | "off")
+    "[]"?: (_StylisticExpListStyle_BaseConfig | "off")
+    "{}"?: (_StylisticExpListStyle_BaseConfig | "off")
+    "<>"?: (_StylisticExpListStyle_BaseConfig | "off")
+    ArrayExpression?: (_StylisticExpListStyle_BaseConfig | "off")
+    ArrayPattern?: (_StylisticExpListStyle_BaseConfig | "off")
+    ArrowFunctionExpression?: (_StylisticExpListStyle_BaseConfig | "off")
+    CallExpression?: (_StylisticExpListStyle_BaseConfig | "off")
+    ExportNamedDeclaration?: (_StylisticExpListStyle_BaseConfig | "off")
+    FunctionDeclaration?: (_StylisticExpListStyle_BaseConfig | "off")
+    FunctionExpression?: (_StylisticExpListStyle_BaseConfig | "off")
+    IfStatement?: (_StylisticExpListStyle_BaseConfig | "off")
+    ImportAttributes?: (_StylisticExpListStyle_BaseConfig | "off")
+    ImportDeclaration?: (_StylisticExpListStyle_BaseConfig | "off")
+    JSONArrayExpression?: (_StylisticExpListStyle_BaseConfig | "off")
+    JSONObjectExpression?: (_StylisticExpListStyle_BaseConfig | "off")
+    NewExpression?: (_StylisticExpListStyle_BaseConfig | "off")
+    ObjectExpression?: (_StylisticExpListStyle_BaseConfig | "off")
+    ObjectPattern?: (_StylisticExpListStyle_BaseConfig | "off")
+    TSDeclareFunction?: (_StylisticExpListStyle_BaseConfig | "off")
+    TSEnumBody?: (_StylisticExpListStyle_BaseConfig | "off")
+    TSFunctionType?: (_StylisticExpListStyle_BaseConfig | "off")
+    TSInterfaceBody?: (_StylisticExpListStyle_BaseConfig | "off")
+    TSTupleType?: (_StylisticExpListStyle_BaseConfig | "off")
+    TSTypeLiteral?: (_StylisticExpListStyle_BaseConfig | "off")
+    TSTypeParameterDeclaration?: (_StylisticExpListStyle_BaseConfig | "off")
+    TSTypeParameterInstantiation?: (_StylisticExpListStyle_BaseConfig | "off")
   }
 }]
 interface _StylisticExpListStyle_SingleLineConfig {
@@ -8285,6 +8285,7 @@ type StylisticPaddingLineBetweenStatements = {
 }[]
 interface _StylisticPaddingLineBetweenStatements_SelectorOption {
   selector: string
+  lineMode?: ("any" | "singleline" | "multiline")
 }
 // ----- @stylistic/quote-props -----
 type StylisticQuoteProps = ([]|[("always" | "as-needed" | "consistent" | "consistent-as-needed")] | []|[("always" | "as-needed" | "consistent" | "consistent-as-needed")]|[("always" | "as-needed" | "consistent" | "consistent-as-needed"), {
