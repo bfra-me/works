@@ -18074,36 +18074,49 @@ type ValidTypeof = []|[{
 }]
 // ----- vitest/consistent-each-for -----
 type VitestConsistentEachFor = []|[{
+  
   test?: ("each" | "for")
+  
   it?: ("each" | "for")
+  
   describe?: ("each" | "for")
+  
   suite?: ("each" | "for")
 }]
 // ----- vitest/consistent-test-filename -----
 type VitestConsistentTestFilename = []|[{
+  
   pattern?: string
+  
   allTestPattern?: string
 }]
 // ----- vitest/consistent-test-it -----
 type VitestConsistentTestIt = []|[{
+  
   fn?: ("test" | "it")
+  
   withinDescribe?: ("test" | "it")
 }]
 // ----- vitest/consistent-vitest-vi -----
 type VitestConsistentVitestVi = []|[{
+  
   fn?: ("vi" | "vitest")
 }]
 // ----- vitest/expect-expect -----
 type VitestExpectExpect = []|[{
+  
   assertFunctionNames?: string[]
+  
   additionalTestBlockFunctions?: string[]
 }]
 // ----- vitest/max-expects -----
 type VitestMaxExpects = []|[{
+  
   max?: number
 }]
 // ----- vitest/max-nested-describe -----
 type VitestMaxNestedDescribe = []|[{
+  
   max?: number
 }]
 // ----- vitest/no-conditional-expect -----
@@ -18113,6 +18126,7 @@ type VitestNoConditionalExpect = []|[{
 }]
 // ----- vitest/no-focused-tests -----
 type VitestNoFocusedTests = []|[{
+  
   fixable?: boolean
 }]
 // ----- vitest/no-hooks -----
@@ -18122,8 +18136,11 @@ type VitestNoHooks = []|[{
 }]
 // ----- vitest/no-large-snapshots -----
 type VitestNoLargeSnapshots = []|[{
+  
   maxSize?: number
+  
   inlineMaxSize?: number
+  
   allowedSnapshots?: {
     [k: string]: unknown[] | undefined
   }
@@ -18138,50 +18155,69 @@ type VitestNoRestrictedViMethods = []|[{
 }]
 // ----- vitest/no-standalone-expect -----
 type VitestNoStandaloneExpect = []|[{
+  
   additionalTestBlockFunctions?: string[]
 }]
 // ----- vitest/prefer-expect-assertions -----
 type VitestPreferExpectAssertions = []|[{
+  
   onlyFunctionsWithAsyncKeyword?: boolean
+  
   onlyFunctionsWithExpectInLoop?: boolean
+  
   onlyFunctionsWithExpectInCallback?: boolean
 }]
 // ----- vitest/prefer-import-in-mock -----
 type VitestPreferImportInMock = []|[{
+  
   fixable?: boolean
 }]
 // ----- vitest/prefer-lowercase-title -----
 type VitestPreferLowercaseTitle = []|[{
+  
   ignore?: ("describe" | "test" | "it")[]
+  
   allowedPrefixes?: string[]
+  
   ignoreTopLevelDescribe?: boolean
+  
   lowercaseFirstCharacterOnly?: boolean
 }]
 // ----- vitest/prefer-snapshot-hint -----
 type VitestPreferSnapshotHint = []|[("always" | "multi")]
 // ----- vitest/require-hook -----
 type VitestRequireHook = []|[{
+  
   allowedFunctionCalls?: string[]
 }]
 // ----- vitest/require-mock-type-parameters -----
 type VitestRequireMockTypeParameters = []|[{
+  
   checkImportFunctions?: boolean
 }]
 // ----- vitest/require-top-level-describe -----
 type VitestRequireTopLevelDescribe = []|[{
+  
   maxNumberOfTopLevelDescribes?: number
 }]
 // ----- vitest/valid-expect -----
 type VitestValidExpect = []|[{
+  
   alwaysAwait?: boolean
+  
   asyncMatchers?: string[]
+  
   minArgs?: number
+  
   maxArgs?: number
 }]
 // ----- vitest/valid-title -----
 type VitestValidTitle = []|[{
+  
   ignoreTypeOfDescribeName?: boolean
+  
   allowArguments?: boolean
+  
   disallowedWords?: string[]
   [k: string]: (string | [string]|[string, string] | {
     [k: string]: (string | [string]|[string, string]) | undefined
