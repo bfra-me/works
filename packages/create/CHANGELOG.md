@@ -1,5 +1,26 @@
 # @bfra.me/create
 
+## 0.7.11
+### Patch Changes
+
+
+- Updated dependency `@clack/prompts` to `1.1.0`. ([#2790](https://github.com/bfra-me/works/pull/2790))
+
+
+- Updated dependency `memfs` to `4.56.11`. ([#2794](https://github.com/bfra-me/works/pull/2794))
+
+
+- Updated dependency `happy-dom` to `20.8.1`. ([#2783](https://github.com/bfra-me/works/pull/2783))
+
+
+- Updated dependency `happy-dom` to `20.8.3`. ([#2784](https://github.com/bfra-me/works/pull/2784))
+
+
+- Updated dependency `openai` to `6.26.0`. ([#2799](https://github.com/bfra-me/works/pull/2799))
+
+
+- Updated dependency `openai` to `6.27.0`. ([#2801](https://github.com/bfra-me/works/pull/2801))
+
 ## 0.7.10
 ### Patch Changes
 
