@@ -11,7 +11,7 @@ on:
   issues:
     types: [opened, edited]
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, ready_for_review, review_requested]
   schedule:
     - cron: '0 16 * * *'
   workflow_dispatch:
@@ -19,9 +19,12 @@ on:
       prompt:
         description: Custom prompt for the Fro Bot agent
         required: true
-        default: >-
-          Fix failing CI in @bfra.me/create: diagnose logs, apply minimal fixes,
-          run pnpm validate, push changes, and summarize the outcome.
+  workflow_call:
+    inputs:
+      prompt:
+        description: Prompt passed by reusable caller workflow
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -40,6 +43,7 @@ env:
   PR_REVIEW_PROMPT: |
     You are a skeptical reviewer for a TypeScript monorepo (pnpm workspaces, ESM,
     strict TS). Focus on correctness, safety, and public API stability.
+    Read AGENTS.md for full project conventions before reviewing.
 
     Scope:
     - Type safety: no `as any`, `@ts-ignore`, or `@ts-expect-error` suppression.
@@ -53,88 +57,52 @@ env:
     - Security: no secrets/PII in code, proper input validation.
 
     Do NOT comment on formatting, lint, or style nits handled by CI.
+    Do NOT push commits, modify code, or create branches. Review only.
+    Use inline comments for file-specific issues. Reserve the review body
+    for the structured summary below.
 
     Output:
     ## Verdict: PASS / CONDITIONAL / REJECT
+    CONDITIONAL = can merge after addressing the listed blocking issues.
     ### Blocking issues
     ### Non-blocking concerns
     ### Missing tests
     ### Risk assessment (LOW/MED/HIGH) + rationale
+    Evaluate likelihood of regression, security exposure, or blast radius.
+    If a section has no items, write "None" under the heading.
+    Do not omit any heading.
 
   SCHEDULE_PROMPT: |
-    Perform daily repository autohealing for this TypeScript pnpm monorepo.
-    Work through each category in order, making commits and pushing fixes
-    directly where possible. Prefer minimal diffs and avoid destructive changes.
+    Perform daily repository maintenance and update a SINGLE rolling issue titled
+    "Daily Maintenance Report" in this repository.
 
-    1. ERRORED PRs
-       Find open PRs with failing CI checks. For each failing PR:
-       a. Check out the PR branch.
-       b. Read the failing check logs to diagnose the root cause.
-       c. Fix the issue (type errors, lint failures, test regressions, build breaks).
-       d. Run `pnpm validate` to confirm the fix passes locally.
-       e. Commit with a clear message and push to the PR branch.
-       f. Comment on the PR explaining what failed and what was fixed.
+    Search for an issue with this exact title. If multiple matches exist,
+    use the most recently updated one. If no open issue exists, create it.
+    If the most recent matching issue is closed, reopen it instead of creating
+    a new one.
 
-    2. SECURITY
-       Review Dependabot alerts and open PRs for vulnerable dependencies.
-       - If a security update PR exists but has conflicts or check failures,
-         fix and push to that PR branch.
-       - For unaddressed critical/high advisories with no existing PR, create a
-         new PR with the remediation.
-       - Do NOT bulk-update unrelated deps in a security PR.
+    Append a new dated section for each run using "## YYYY-MM-DD (UTC)".
+    To keep the issue bounded: after appending today's section, replace any
+    individual daily sections older than 14 days with a single
+    "## Historical Summary" section that lists only the count of prior runs
+    and any items that remained unresolved across those runs. If a Historical
+    Summary already exists, update it in place — do not create a second one.
 
-    3. HEALTH & MAINTENANCE
-       Check for outdated dependencies across the monorepo:
-       - package.json files (root and packages/*): major version bumps.
-       - GitHub Actions workflow files (.github/workflows/*.yaml): pin unpinned
-         actions to full SHA hashes; update outdated pinned SHAs.
-       Create one PR per major dependency bump. Do NOT combine unrelated upgrades.
-       Run `pnpm validate` before pushing any upgrade PR.
+    Include links only (no full content duplication). Keep it concise and actionable.
+    Flag items that appear in the stale list for the first time (not present in
+    the previous dated section) with a ★ marker.
 
-    4. DEVELOPER EXPERIENCE
-       Ensure consistent linting, formatting, and static analysis:
-       - Run `pnpm lint` and fix any failures.
-       - Run `pnpm type-check` and resolve type errors.
-       - Verify ESLint, Prettier, and TypeScript configs are consistent across
-         all packages. Fix any drift.
-       Commit and push fixes directly to the default branch if they are safe
-       (formatting-only or lint auto-fixes). Otherwise, open a PR.
+    Sections (in order):
+    - Summary metrics (issues opened since last run, currently open PRs, stale
+      issues/PRs count, main branch check status, security alerts if accessible)
+    - Stale issues (no activity >30 days; recommend next step)
+    - Stale PRs (no activity >7 days; stale >14 days)
+    - Unassigned bugs (label bug, no assignee)
+    - Recommended actions (bulleted checklist)
+    - Notes (use "data unavailable" for any inaccessible data source)
 
-    OUTPUT FORMAT — SINGLE SUMMARY ISSUE
-    After completing all work, find an existing open issue titled
-    "Daily Autohealing Report — YYYY-MM-DD" (using today's date).
-    - If it exists, UPDATE its body with the results below.
-    - If it does not exist, CREATE a new issue with that title.
-
-    The issue body MUST use this exact structure:
-
-    ```
-    ## Daily Autohealing Report — YYYY-MM-DD
-
-    ### Errored PRs
-    | PR  | Failure      | Fix              | Status                           |
-    | --- | ------------ | ---------------- | -------------------------------- |
-    | #N  | [root cause] | [what was fixed] | ✅ Fixed / ⚠️ Needs human review |
-
-    ### Security
-    | Advisory / PR    | Severity             | Action Taken                                 |
-    | ---------------- | -------------------- | -------------------------------------------- |
-    | [advisory or #N] | Critical/High/Medium | [fix pushed / PR created / skipped — reason] |
-
-    ### Health & Maintenance
-    | Dependency | From → To | PR  |
-    | ---------- | --------- | --- |
-    | [package]  | vX → vY   | #N  |
-
-    ### Developer Experience
-    - [list of fixes applied, e.g., "Fixed ESLint drift in packages/es"]
-
-    ### Needs Human Attention
-    - [items that could not be auto-fixed, with context]
-    ```
-
-    Do NOT create multiple issues. Do NOT comment on individual issues.
-    Produce exactly one summary issue per run.
+    Do NOT comment on or modify individual issues/PRs. Do NOT apply labels.
+    Do NOT open PRs. This run must update ONE issue only.
 
 jobs:
   fro-bot:
@@ -160,6 +128,7 @@ jobs:
         ) ||
         github.event_name == 'schedule' ||
         github.event_name == 'workflow_dispatch' ||
+        inputs.prompt != '' ||
         (
           (github.event_name == 'issue_comment' ||
            github.event_name == 'pull_request_review_comment' ||
@@ -192,6 +161,7 @@ jobs:
           PROMPT: >-
             ${{
               (github.event_name == 'workflow_dispatch' && (github.event.inputs.prompt || ''))
+              || inputs.prompt
               || (github.event_name == 'schedule' && env.SCHEDULE_PROMPT)
               || (github.event_name == 'pull_request' && env.PR_REVIEW_PROMPT)
               || ''
@@ -199,4 +169,6 @@ jobs:
         with:
           github-token: ${{ secrets.FRO_BOT_PAT }}
           auth-json: ${{ secrets.OPENCODE_AUTH_JSON }}
+          model: ${{ vars.FRO_BOT_MODEL }}
+          omo-providers: ${{ secrets.OMO_PROVIDERS }}
           prompt: ${{ env.PROMPT }}
