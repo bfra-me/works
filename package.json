@@ -24,7 +24,7 @@
     "inspect-eslint-config": "eslint-config-inspector --config eslint.config.ts --open false",
     "lint": "manypkg check && pnpm lint-source",
     "lint-packages": "pnpm -r --include-workspace-root --parallel exec publint",
-    "lint-source": "eslint --flag v10_config_lookup_from_file --cache",
+    "lint-source": "eslint --cache",
     "precommit": "lint-staged",
     "prepare": "pnpm --filter docs astro sync && husky",
     "publish-changesets": "changeset publish",
@@ -38,7 +38,7 @@
     "watch": "pnpm run build --watch"
   },
   "lint-staged": {
-    "*": "eslint --flag v10_config_lookup_from_file --cache --fix --ignore-pattern 'packages/create/templates/**' --ignore-pattern '**/fixtures/input/**' --no-warn-ignored"
+    "*": "eslint --cache --fix --ignore-pattern 'packages/create/templates/**' --ignore-pattern '**/fixtures/input/**' --no-warn-ignored"
   },
   "prettier": "./packages/prettier-config/prettier.config.cjs",
   "devDependencies": {
@@ -72,5 +72,10 @@
   "packageManager": "pnpm@10.32.1",
   "manypkg": {
     "workspaceProtocol": "require"
+  },
+  "pnpm": {
+    "overrides": {
+      "lodash": "^4.17.23"
+    }
   }
 }
