@@ -13,8 +13,23 @@ onlyBuiltDependencies:
   - unrs-resolver
 
 overrides:
-  eslint: ^9.38.0
+  lodash: ^4.17.23
   read-pkg-up@^11: npm:read-package-up
+  undici@<6.24.0: '>=6.24.0'
+  undici@>=7.17.0 <7.24.0: '>=7.24.0'
+
+packageExtensions:
+  eslint-plugin-jsx-a11y:
+    peerDependencies:
+      eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8 || ^9 || ^10
+  eslint-plugin-react-hooks:
+    peerDependencies:
+      eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0 || ^10.0.0
+
+peerDependencyRules:
+  allowedVersions:
+    eslint-plugin-jsx-a11y>eslint: ^10.0.0
+    eslint-plugin-react-hooks>eslint: ^10.0.0
 
 savePrefix: ''
 
