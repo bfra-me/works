@@ -1,6 +1,10 @@
 // @ts-check
+import process from 'node:process'
 import starlight from '@astrojs/starlight'
 import {defineConfig} from 'astro/config'
+
+// Disable Astro telemetry — no defineConfig() option exists for this
+process.env.ASTRO_TELEMETRY_DISABLED = '1'
 
 // https://astro.build/config
 export default defineConfig({
