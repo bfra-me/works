@@ -52,7 +52,7 @@
     "@anthropic-ai/sdk": "0.78.0",
     "@bfra.me/es": "workspace:*",
     "@clack/prompts": "1.1.0",
-    "cac": "6.7.14",
+    "cac": "7.0.0",
     "consola": "3.4.2",
     "dotenv": "17.3.1",
     "eta": "4.5.1",
