@@ -14,7 +14,10 @@ onlyBuiltDependencies:
 
 overrides:
   eslint: ^9.38.0
+  lodash: ^4.17.23
   read-pkg-up@^11: npm:read-package-up
+  undici@<6.24.0: '>=6.24.0'
+  undici@>=7.17.0 <7.24.0: '>=7.24.0'
 
 savePrefix: ''
 
