@@ -4553,7 +4553,7 @@ export interface Rules {
    */
   'quotes'?: Linter.RuleEntry<Quotes>
   /**
-   * Enforce the consistent use of the radix argument when using `parseInt()`
+   * Enforce the use of the radix argument when using `parseInt()`
    * @see https://eslint.org/docs/latest/rules/radix
    */
   'radix'?: Linter.RuleEntry<Radix>
@@ -12236,6 +12236,8 @@ type MaxParams = []|[(number | {
   max?: number
   
   countVoidThis?: boolean
+  
+  countThis?: ("never" | "except-void" | "always")
 })]
 // ----- max-statements -----
 type MaxStatements = []|[(number | {
