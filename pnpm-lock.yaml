@@ -286,8 +286,8 @@ importers:
         specifier: 6.2.0
         version: 6.2.0(eslint@10.0.3(jiti@2.6.1))
       eslint-plugin-jsonc:
-        specifier: 3.1.1
-        version: 3.1.1(eslint@10.0.3(jiti@2.6.1))
+        specifier: 3.1.2
+        version: 3.1.2(eslint@10.0.3(jiti@2.6.1))
       eslint-plugin-n:
         specifier: 17.24.0
         version: 17.24.0(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3)
@@ -3069,6 +3069,17 @@ packages:
       '@eslint/json':
         optional: true
 
+  eslint-json-compat-utils@0.2.3:
+    resolution: {integrity: sha512-RbBmDFyu7FqnjE8F0ZxPNzx5UaptdeS9Uu50r7A+D7s/+FCX+ybiyViYEgFUaFIFqSWJgZRTpL5d8Kanxxl2lQ==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      '@eslint/json': '*'
+      eslint: '*'
+      jsonc-eslint-parser: ^2.4.0 || ^3.0.0
+    peerDependenciesMeta:
+      '@eslint/json':
+        optional: true
+
   eslint-merge-processors@2.0.0:
     resolution: {integrity: sha512-sUuhSf3IrJdGooquEUB5TNpGNpBoQccbnaLHsb1XkBLUPPqCNivCpY05ZcpCOiV9uHwO2yxXEWVczVclzMxYlA==}
     peerDependencies:
@@ -3127,8 +3138,8 @@ packages:
     peerDependencies:
       eslint: '>=9.38.0'
 
-  eslint-plugin-jsonc@3.1.1:
-    resolution: {integrity: sha512-7TSQO8ZyvOuXWb0sYke3KUSh0DJA4/QviKfuzD3/Cy3XDjtrIrTWQbjb7j/Yy2l/DgwuM+lCS2c/jqJifv5jhg==}
+  eslint-plugin-jsonc@3.1.2:
+    resolution: {integrity: sha512-dopTxdB22iuOkgKyJCupEC5IYBItUT4J/teq1H5ddUObcaYhOURxtJElZczdcYnnKCghNU/vccuyPkliy2Wxsg==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
     peerDependencies:
       eslint: '>=9.38.0'
@@ -9539,6 +9550,12 @@ snapshots:
       esquery: 1.7.0
       jsonc-eslint-parser: 3.1.0
 
+  eslint-json-compat-utils@0.2.3(eslint@10.0.3(jiti@2.6.1))(jsonc-eslint-parser@3.1.0):
+    dependencies:
+      eslint: 10.0.3(jiti@2.6.1)
+      esquery: 1.7.0
+      jsonc-eslint-parser: 3.1.0
+
   eslint-merge-processors@2.0.0(eslint@10.0.3(jiti@2.6.1)):
     dependencies:
       eslint: 10.0.3(jiti@2.6.1)
@@ -9638,7 +9655,7 @@ snapshots:
       - '@eslint/json'
       - supports-color
 
-  eslint-plugin-jsonc@3.1.1(eslint@10.0.3(jiti@2.6.1)):
+  eslint-plugin-jsonc@3.1.2(eslint@10.0.3(jiti@2.6.1)):
     dependencies:
       '@eslint-community/eslint-utils': 4.9.1(eslint@10.0.3(jiti@2.6.1))
       '@eslint/core': 1.1.1
@@ -9646,7 +9663,7 @@ snapshots:
       '@ota-meshi/ast-token-store': 0.3.0
       diff-sequences: 29.6.3
       eslint: 10.0.3(jiti@2.6.1)
-      eslint-json-compat-utils: 0.2.2(eslint@10.0.3(jiti@2.6.1))(jsonc-eslint-parser@3.1.0)
+      eslint-json-compat-utils: 0.2.3(eslint@10.0.3(jiti@2.6.1))(jsonc-eslint-parser@3.1.0)
       jsonc-eslint-parser: 3.1.0
       natural-compare: 1.4.0
       synckit: 0.11.12
