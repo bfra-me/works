@@ -171,8 +171,8 @@ importers:
         specifier: 13.0.6
         version: 13.0.6
       openai:
-        specifier: 6.27.0
-        version: 6.27.0(ws@8.19.0)(zod@4.3.6)
+        specifier: 6.28.0
+        version: 6.28.0(ws@8.19.0)(zod@4.3.6)
       package-manager-detector:
         specifier: 1.6.0
         version: 1.6.0
@@ -4784,8 +4784,8 @@ packages:
     resolution: {integrity: sha512-smsWv2LzFjP03xmvFoJ331ss6h+jixfA4UUV/Bsiyuu4YJPfN+FIQGOIiv4w9/+MoHkfkJ22UIaQWRVFRfH6Vw==}
     engines: {node: '>=20'}
 
-  openai@6.27.0:
-    resolution: {integrity: sha512-osTKySlrdYrLYTt0zjhY8yp0JUBmWDCN+Q+QxsV4xMQnnoVFpylgKGgxwN8sSdTNw0G4y+WUXs4eCMWpyDNWZQ==}
+  openai@6.28.0:
+    resolution: {integrity: sha512-zDvMITzeZyljUr67n1dSXpPsMvaXY5okNHfq0KHCNRjgTohYvxu3O4oQ/zZrwTJh+c3n0z/O7oSCGwt5hQkBXg==}
     hasBin: true
     peerDependencies:
       ws: ^8.18.0
@@ -11787,7 +11787,7 @@ snapshots:
       powershell-utils: 0.1.0
       wsl-utils: 0.3.1
 
-  openai@6.27.0(ws@8.19.0)(zod@4.3.6):
+  openai@6.28.0(ws@8.19.0)(zod@4.3.6):
     optionalDependencies:
       ws: 8.19.0
       zod: 4.3.6
