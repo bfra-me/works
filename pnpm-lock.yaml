@@ -39,7 +39,7 @@ importers:
         version: 24.12.0
       '@vitest/coverage-v8':
         specifier: 4.1.0
-        version: 4.1.0(vitest@4.1.0(@types/node@24.12.0)(happy-dom@20.8.4)(msw@2.12.11(@types/node@24.12.0)(typescript@5.9.3))(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2)))
+        version: 4.1.0(vitest@4.1.0(@types/node@24.12.0)(happy-dom@20.8.4)(msw@2.12.12(@types/node@24.12.0)(typescript@5.9.3))(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2)))
       eslint:
         specifier: 10.0.3
         version: 10.0.3(jiti@2.6.1)
@@ -90,7 +90,7 @@ importers:
         version: 6.1.1(typescript@5.9.3)(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2))
       vitest:
         specifier: 4.1.0
-        version: 4.1.0(@types/node@24.12.0)(happy-dom@20.8.4)(msw@2.12.11(@types/node@24.12.0)(typescript@5.9.3))(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2))
+        version: 4.1.0(@types/node@24.12.0)(happy-dom@20.8.4)(msw@2.12.12(@types/node@24.12.0)(typescript@5.9.3))(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2))
       zod:
         specifier: 4.3.6
         version: 4.3.6
@@ -118,7 +118,7 @@ importers:
         version: link:..
       '@vitest/coverage-v8':
         specifier: 4.1.0
-        version: 4.1.0(vitest@4.1.0(@types/node@24.12.0)(happy-dom@20.8.4)(msw@2.12.11(@types/node@24.12.0)(typescript@5.9.3))(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2)))
+        version: 4.1.0(vitest@4.1.0(@types/node@24.12.0)(happy-dom@20.8.4)(msw@2.12.12(@types/node@24.12.0)(typescript@5.9.3))(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2)))
       fast-glob:
         specifier: 3.3.3
         version: 3.3.3
@@ -133,7 +133,7 @@ importers:
         version: 6.1.1(typescript@5.9.3)(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2))
       vitest:
         specifier: 4.1.0
-        version: 4.1.0(@types/node@24.12.0)(happy-dom@20.8.4)(msw@2.12.11(@types/node@24.12.0)(typescript@5.9.3))(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2))
+        version: 4.1.0(@types/node@24.12.0)(happy-dom@20.8.4)(msw@2.12.12(@types/node@24.12.0)(typescript@5.9.3))(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2))
 
   packages/badge-config:
     devDependencies:
@@ -190,8 +190,8 @@ importers:
         specifier: 4.56.11
         version: 4.56.11(tslib@2.8.1)
       msw:
-        specifier: 2.12.11
-        version: 2.12.11(@types/node@24.12.0)(typescript@5.9.3)
+        specifier: 2.12.12
+        version: 2.12.12(@types/node@24.12.0)(typescript@5.9.3)
 
   packages/doc-sync:
     dependencies:
@@ -365,7 +365,7 @@ importers:
         version: 8.57.1
       '@vitest/eslint-plugin':
         specifier: 1.6.12
-        version: 1.6.12(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3)(vitest@4.1.0(@types/node@24.12.0)(happy-dom@20.8.4)(msw@2.12.11(@types/node@24.12.0)(typescript@5.9.3))(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2)))
+        version: 1.6.12(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3)(vitest@4.1.0(@types/node@24.12.0)(happy-dom@20.8.4)(msw@2.12.12(@types/node@24.12.0)(typescript@5.9.3))(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2)))
       astro-eslint-parser:
         specifier: 1.3.0
         version: 1.3.0
@@ -4600,8 +4600,8 @@ packages:
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
 
-  msw@2.12.11:
-    resolution: {integrity: sha512-dVg20zi2I2EvnwH/+WupzsOC2mCa7qsIhyMAWtfRikn6RKtwL9+7SaF1IQ5LyZry4tlUtf6KyTVhnlQiZXozTQ==}
+  msw@2.12.12:
+    resolution: {integrity: sha512-u5tmUr6cO29q61vhOR6CDzasMvq7/WqI4eej6HmyIwjVsTpObtoAin5ac3iwK2vU/9eEo1P4FdY/0tsz7C/4fw==}
     engines: {node: '>=18'}
     hasBin: true
     peerDependencies:
@@ -8493,7 +8493,7 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.11.1':
     optional: true
 
-  '@vitest/coverage-v8@4.1.0(vitest@4.1.0(@types/node@24.12.0)(happy-dom@20.8.4)(msw@2.12.11(@types/node@24.12.0)(typescript@5.9.3))(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2)))':
+  '@vitest/coverage-v8@4.1.0(vitest@4.1.0(@types/node@24.12.0)(happy-dom@20.8.4)(msw@2.12.12(@types/node@24.12.0)(typescript@5.9.3))(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2)))':
     dependencies:
       '@bcoe/v8-coverage': 1.0.2
       '@vitest/utils': 4.1.0
@@ -8505,16 +8505,16 @@ snapshots:
       obug: 2.1.1
       std-env: 4.0.0
       tinyrainbow: 3.1.0
-      vitest: 4.1.0(@types/node@24.12.0)(happy-dom@20.8.4)(msw@2.12.11(@types/node@24.12.0)(typescript@5.9.3))(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2))
+      vitest: 4.1.0(@types/node@24.12.0)(happy-dom@20.8.4)(msw@2.12.12(@types/node@24.12.0)(typescript@5.9.3))(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2))
 
-  '@vitest/eslint-plugin@1.6.12(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3)(vitest@4.1.0(@types/node@24.12.0)(happy-dom@20.8.4)(msw@2.12.11(@types/node@24.12.0)(typescript@5.9.3))(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2)))':
+  '@vitest/eslint-plugin@1.6.12(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3)(vitest@4.1.0(@types/node@24.12.0)(happy-dom@20.8.4)(msw@2.12.12(@types/node@24.12.0)(typescript@5.9.3))(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2)))':
     dependencies:
       '@typescript-eslint/scope-manager': 8.57.1
       '@typescript-eslint/utils': 8.57.1(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3)
       eslint: 10.0.3(jiti@2.6.1)
     optionalDependencies:
       typescript: 5.9.3
-      vitest: 4.1.0(@types/node@24.12.0)(happy-dom@20.8.4)(msw@2.12.11(@types/node@24.12.0)(typescript@5.9.3))(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2))
+      vitest: 4.1.0(@types/node@24.12.0)(happy-dom@20.8.4)(msw@2.12.12(@types/node@24.12.0)(typescript@5.9.3))(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2))
     transitivePeerDependencies:
       - supports-color
 
@@ -8527,13 +8527,13 @@ snapshots:
       chai: 6.2.2
       tinyrainbow: 3.1.0
 
-  '@vitest/mocker@4.1.0(msw@2.12.11(@types/node@24.12.0)(typescript@5.9.3))(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2))':
+  '@vitest/mocker@4.1.0(msw@2.12.12(@types/node@24.12.0)(typescript@5.9.3))(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2))':
     dependencies:
       '@vitest/spy': 4.1.0
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      msw: 2.12.11(@types/node@24.12.0)(typescript@5.9.3)
+      msw: 2.12.12(@types/node@24.12.0)(typescript@5.9.3)
       vite: 7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2)
 
   '@vitest/pretty-format@4.1.0':
@@ -11720,7 +11720,7 @@ snapshots:
 
   ms@2.1.3: {}
 
-  msw@2.12.11(@types/node@24.12.0)(typescript@5.9.3):
+  msw@2.12.12(@types/node@24.12.0)(typescript@5.9.3):
     dependencies:
       '@inquirer/confirm': 5.1.21(@types/node@24.12.0)
       '@mswjs/interceptors': 0.41.3
@@ -13444,10 +13444,10 @@ snapshots:
     optionalDependencies:
       vite: 7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2)
 
-  vitest@4.1.0(@types/node@24.12.0)(happy-dom@20.8.4)(msw@2.12.11(@types/node@24.12.0)(typescript@5.9.3))(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2)):
+  vitest@4.1.0(@types/node@24.12.0)(happy-dom@20.8.4)(msw@2.12.12(@types/node@24.12.0)(typescript@5.9.3))(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2)):
     dependencies:
       '@vitest/expect': 4.1.0
-      '@vitest/mocker': 4.1.0(msw@2.12.11(@types/node@24.12.0)(typescript@5.9.3))(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2))
+      '@vitest/mocker': 4.1.0(msw@2.12.12(@types/node@24.12.0)(typescript@5.9.3))(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.2))
       '@vitest/pretty-format': 4.1.0
       '@vitest/runner': 4.1.0
       '@vitest/snapshot': 4.1.0
