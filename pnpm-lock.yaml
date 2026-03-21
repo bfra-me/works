@@ -144,8 +144,8 @@ importers:
   packages/create:
     dependencies:
       '@anthropic-ai/sdk':
-        specifier: 0.79.0
-        version: 0.79.0(zod@4.3.6)
+        specifier: 0.80.0
+        version: 0.80.0(zod@4.3.6)
       '@bfra.me/es':
         specifier: workspace:*
         version: link:../es
@@ -490,8 +490,8 @@ packages:
   '@actions/io@3.0.2':
     resolution: {integrity: sha512-nRBchcMM+QK1pdjO7/idu86rbJI5YHUKCvKs0KxnSYbVe3F51UfGxuZX4Qy/fWlp6l7gWFwIkrOzN+oUK03kfw==}
 
-  '@anthropic-ai/sdk@0.79.0':
-    resolution: {integrity: sha512-ietmtM6glcnnrWq26H+BZm8J07iay9Cob6hRzDTr/A9QWF1m2T//TQhFO4MTKcZht2/7LS8bG9wUYEhcizKRnA==}
+  '@anthropic-ai/sdk@0.80.0':
+    resolution: {integrity: sha512-WeXLn7zNVk3yjeshn+xZHvld6AoFUOR3Sep6pSoHho5YbSi6HwcirqgPA5ccFuW8QTVJAAU7N8uQQC6Wa9TG+g==}
     hasBin: true
     peerDependencies:
       zod: ^3.25.0 || ^4.0.0
@@ -6565,7 +6565,7 @@ snapshots:
 
   '@actions/io@3.0.2': {}
 
-  '@anthropic-ai/sdk@0.79.0(zod@4.3.6)':
+  '@anthropic-ai/sdk@0.80.0(zod@4.3.6)':
     dependencies:
       json-schema-to-ts: 3.1.1
     optionalDependencies:
