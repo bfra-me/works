@@ -1,5 +1,17 @@
 # @bfra.me/doc-sync
 
+## 0.1.8
+### Patch Changes
+
+
+- Updated dependency `cac` to `7.0.0`. ([#2859](https://github.com/bfra-me/works/pull/2859))
+
+
+- Updated dependency `@clack/prompts` to `1.1.0`. ([#2790](https://github.com/bfra-me/works/pull/2790))
+
+
+- Updated dependency `memfs` to `4.56.11`. ([#2794](https://github.com/bfra-me/works/pull/2794))
+
 ## 0.1.7
 ### Patch Changes
 
