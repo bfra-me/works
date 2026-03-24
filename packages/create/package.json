@@ -65,7 +65,7 @@
   "devDependencies": {
     "@bfra.me/works": "workspace:*",
     "happy-dom": "20.8.4",
-    "memfs": "4.57.0",
+    "memfs": "4.57.1",
     "msw": "2.12.14"
   },
   "publishConfig": {
