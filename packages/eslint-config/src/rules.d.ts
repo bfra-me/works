@@ -6941,6 +6941,11 @@ export interface Rules {
    */
   'vitest/require-top-level-describe'?: Linter.RuleEntry<VitestRequireTopLevelDescribe>
   /**
+   * enforce unbound methods are called with their expected scope
+   * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/unbound-method.md
+   */
+  'vitest/unbound-method'?: Linter.RuleEntry<VitestUnboundMethod>
+  /**
    * enforce valid describe callback
    * @see https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/valid-describe-callback.md
    */
@@ -18400,6 +18405,11 @@ type VitestRequireMockTypeParameters = []|[{
 type VitestRequireTopLevelDescribe = []|[{
   
   maxNumberOfTopLevelDescribes?: number
+}]
+// ----- vitest/unbound-method -----
+type VitestUnboundMethod = []|[{
+  
+  ignoreStatic?: boolean
 }]
 // ----- vitest/valid-expect -----
 type VitestValidExpect = []|[{
