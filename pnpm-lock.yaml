@@ -168,8 +168,8 @@ importers:
         specifier: 4.5.1
         version: 4.5.1
       giget:
-        specifier: 3.1.2
-        version: 3.1.2
+        specifier: 3.2.0
+        version: 3.2.0
       glob:
         specifier: 13.0.6
         version: 13.0.6
@@ -3593,8 +3593,8 @@ packages:
   get-tsconfig@4.13.7:
     resolution: {integrity: sha512-7tN6rFgBlMgpBML5j8typ92BKFi2sFQvIdpAqLA2beia5avZDrMs0FLZiM5etShWq5irVyGcGMEA1jcDaK7A/Q==}
 
-  giget@3.1.2:
-    resolution: {integrity: sha512-T2qUpKBHeUTwHcIhydgnJzhL0Hj785ms+JkxaaWQH9SDM/llXeewnOkfJcFShAHjWI+26hOChwUfCoupaXLm8g==}
+  giget@3.2.0:
+    resolution: {integrity: sha512-GvHTWcykIR/fP8cj8dMpuMMkvaeJfPvYnhq0oW+chSeIr+ldX21ifU2Ms6KBoyKZQZmVaUAAhQ2EZ68KJF8a7A==}
     hasBin: true
 
   git-hooks-list@4.2.1:
@@ -10351,7 +10351,7 @@ snapshots:
     dependencies:
       resolve-pkg-maps: 1.0.0
 
-  giget@3.1.2: {}
+  giget@3.2.0: {}
 
   git-hooks-list@4.2.1: {}
 
