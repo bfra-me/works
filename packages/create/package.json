@@ -51,7 +51,7 @@
   "dependencies": {
     "@anthropic-ai/sdk": "0.81.0",
     "@bfra.me/es": "workspace:*",
-    "@clack/prompts": "1.1.0",
+    "@clack/prompts": "1.2.0",
     "cac": "7.0.0",
     "consola": "3.4.2",
     "dotenv": "17.3.1",
