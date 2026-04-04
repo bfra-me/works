@@ -50,7 +50,7 @@
     "@eslint/markdown": "7.5.1",
     "@stylistic/eslint-plugin": "5.10.0",
     "eslint-config-flat-gitignore": "2.3.0",
-    "eslint-flat-config-utils": "3.0.2",
+    "eslint-flat-config-utils": "3.1.0",
     "eslint-merge-processors": "2.0.0",
     "eslint-plugin-command": "3.5.2",
     "eslint-plugin-import-x": "4.16.2",
