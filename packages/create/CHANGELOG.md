@@ -1,5 +1,101 @@
 # @bfra.me/create
 
+## 0.7.11
+### Patch Changes
+
+
+- Updated dependency `cac` to `7.0.0`. ([#2859](https://github.com/bfra-me/works/pull/2859))
+
+
+- Updated dependency `openai` to `6.28.0`. ([#2873](https://github.com/bfra-me/works/pull/2873))
+
+
+- Updated dependency `@clack/prompts` to `1.1.0`. ([#2790](https://github.com/bfra-me/works/pull/2790))
+
+
+- Updated dependency `msw` to `2.12.11`. ([#2887](https://github.com/bfra-me/works/pull/2887))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.80.0`. ([#2921](https://github.com/bfra-me/works/pull/2921))
+
+
+- Updated dependency `memfs` to `4.56.11`. ([#2794](https://github.com/bfra-me/works/pull/2794))
+
+
+- Updated dependency `memfs` to `4.57.0`. ([#2937](https://github.com/bfra-me/works/pull/2937))
+
+
+- Updated dependency `memfs` to `4.57.1`. ([#2938](https://github.com/bfra-me/works/pull/2938))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.82.0`. ([#3007](https://github.com/bfra-me/works/pull/3007))
+
+
+- Updated dependency `happy-dom` to `20.8.4`. ([#2868](https://github.com/bfra-me/works/pull/2868))
+
+
+- Updated dependency `@clack/prompts` to `1.2.0`. ([#2999](https://github.com/bfra-me/works/pull/2999))
+
+
+- Updated dependency `openai` to `6.31.0`. ([#2905](https://github.com/bfra-me/works/pull/2905))
+
+
+- Updated dependency `openai` to `6.30.1`. ([#2904](https://github.com/bfra-me/works/pull/2904))
+
+
+- Updated dependency `giget` to `3.2.0`. ([#2981](https://github.com/bfra-me/works/pull/2981))
+
+
+- Updated dependency `dotenv` to `17.4.0`. ([#3008](https://github.com/bfra-me/works/pull/3008))
+
+
+- Updated dependency `msw` to `2.12.14`. ([#2934](https://github.com/bfra-me/works/pull/2934))
+
+
+- Updated dependency `happy-dom` to `20.8.1`. ([#2783](https://github.com/bfra-me/works/pull/2783))
+
+
+- Updated dependency `openai` to `6.33.0`. ([#2972](https://github.com/bfra-me/works/pull/2972))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.79.0`. ([#2903](https://github.com/bfra-me/works/pull/2903))
+
+
+- Updated dependency `happy-dom` to `20.8.8`. ([#2958](https://github.com/bfra-me/works/pull/2958))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.81.0`. ([#2988](https://github.com/bfra-me/works/pull/2988))
+
+
+- Updated dependency `happy-dom` to `20.8.3`. ([#2784](https://github.com/bfra-me/works/pull/2784))
+
+
+- Updated dependency `openai` to `6.26.0`. ([#2799](https://github.com/bfra-me/works/pull/2799))
+
+
+- Updated dependency `happy-dom` to `20.8.6`. ([#2956](https://github.com/bfra-me/works/pull/2956))
+
+
+- Updated dependency `openai` to `6.32.0`. ([#2916](https://github.com/bfra-me/works/pull/2916))
+
+
+- Updated dependency `msw` to `2.12.12`. ([#2907](https://github.com/bfra-me/works/pull/2907))
+
+
+- Updated dependency `happy-dom` to `20.8.7`. ([#2957](https://github.com/bfra-me/works/pull/2957))
+
+
+- Updated dependency `happy-dom` to `20.8.9`. ([#2978](https://github.com/bfra-me/works/pull/2978))
+
+
+- Updated dependency `openai` to `6.27.0`. ([#2801](https://github.com/bfra-me/works/pull/2801))
+
+
+- Updated dependency `msw` to `2.12.13`. ([#2911](https://github.com/bfra-me/works/pull/2911))
+
+
+- Updated dependency `openai` to `6.29.0`. ([#2874](https://github.com/bfra-me/works/pull/2874))
+
 ## 0.7.10
 ### Patch Changes
 
