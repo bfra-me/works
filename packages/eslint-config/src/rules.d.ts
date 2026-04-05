@@ -2996,6 +2996,11 @@ export interface Rules {
    */
   'markdown/fenced-code-language'?: Linter.RuleEntry<MarkdownFencedCodeLanguage>
   /**
+   * Require or disallow metadata for fenced code blocks
+   * @see https://github.com/eslint/markdown/blob/main/docs/rules/fenced-code-meta.md
+   */
+  'markdown/fenced-code-meta'?: Linter.RuleEntry<MarkdownFencedCodeMeta>
+  /**
    * Enforce heading levels increment by one
    * @see https://github.com/eslint/markdown/blob/main/docs/rules/heading-increment.md
    */
@@ -12090,6 +12095,8 @@ type LogicalAssignmentOperators = (([]|["always"]|["always", {
 type MarkdownFencedCodeLanguage = []|[{
   required?: string[]
 }]
+// ----- markdown/fenced-code-meta -----
+type MarkdownFencedCodeMeta = []|[("always" | "never")]
 // ----- markdown/heading-increment -----
 type MarkdownHeadingIncrement = []|[{
   frontmatterTitle?: string
@@ -12098,6 +12105,7 @@ type MarkdownHeadingIncrement = []|[{
 type MarkdownNoDuplicateDefinitions = []|[{
   allowDefinitions?: string[]
   allowFootnoteDefinitions?: string[]
+  checkFootnoteDefinitions?: boolean
 }]
 // ----- markdown/no-duplicate-headings -----
 type MarkdownNoDuplicateHeadings = []|[{
@@ -12139,6 +12147,7 @@ type MarkdownNoSpaceInEmphasis = []|[{
 type MarkdownNoUnusedDefinitions = []|[{
   allowDefinitions?: string[]
   allowFootnoteDefinitions?: string[]
+  checkFootnoteDefinitions?: boolean
 }]
 // ----- markdown/table-column-count -----
 type MarkdownTableColumnCount = []|[{
