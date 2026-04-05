@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.50.3
+### Patch Changes
+
+
+- Revert `@eslint-react/eslint-plugin` to v2.13.0. v3 breaks eslint-typegen compatibility (cannot generate rule types), which causes the build to fail. Will revisit v3 once eslint-typegen adds support. ([#2948](https://github.com/bfra-me/works/pull/2948))
+
 ## 0.50.2
 ### Patch Changes
 
