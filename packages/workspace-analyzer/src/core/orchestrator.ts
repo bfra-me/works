@@ -198,6 +198,7 @@ export function createOrchestrator(options: OrchestratorOptions): AnalysisOrches
     excludePackages: [],
     sourceExtensions: ['.ts', '.tsx', '.js', '.jsx', '.mts', '.cts'],
     excludeDirs: ['node_modules', 'dist', 'lib', 'build', '__tests__', '__mocks__'],
+    includeRoot: true,
   })
 
   const registry = createDefaultRegistry()

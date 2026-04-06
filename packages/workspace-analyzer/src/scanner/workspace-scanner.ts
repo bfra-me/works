@@ -26,6 +26,8 @@ export interface WorkspaceScannerOptions {
   readonly sourceExtensions?: readonly string[]
   /** Directories to skip during source file collection */
   readonly excludeDirs?: readonly string[]
+  /** Whether to include the root package in the scan results */
+  readonly includeRoot?: boolean
 }
 
 /**
@@ -143,6 +145,7 @@ export function createWorkspaceScanner(options: WorkspaceScannerOptions): {
     excludePackages = DEFAULT_OPTIONS.excludePackages,
     sourceExtensions = DEFAULT_OPTIONS.sourceExtensions,
     excludeDirs = DEFAULT_OPTIONS.excludeDirs,
+    includeRoot = false,
   } = options
 
   const extensionSet = new Set(sourceExtensions)
@@ -290,6 +293,21 @@ export function createWorkspaceScanner(options: WorkspaceScannerOptions): {
     const packagePaths = await discoverPackages()
     const packages: WorkspacePackage[] = []
     const errors: ScanError[] = []
+
+    // Include root package if configured
+    if (includeRoot) {
+      const rootPackageJsonPath = path.join(rootDir, 'package.json')
+      if (await fileExists(rootPackageJsonPath)) {
+        const result = await scanPackage(rootDir)
+        if (result.success) {
+          if (!excludePackages.includes(result.data.name)) {
+            packages.push(result.data)
+          }
+        } else {
+          errors.push(result.error)
+        }
+      }
+    }
 
     for (const packagePath of packagePaths) {
       const result = await scanPackage(packagePath)

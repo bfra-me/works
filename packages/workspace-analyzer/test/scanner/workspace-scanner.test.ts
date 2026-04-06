@@ -224,6 +224,46 @@ describe('workspace-scanner', () => {
         await cleanupTempDir(tempDir)
       }
     })
+
+    it('should include root package when includeRoot is true', async () => {
+      const tempDir = await createTempDir()
+      try {
+        await fs.writeFile(
+          path.join(tempDir, 'package.json'),
+          JSON.stringify({name: '@test/root', version: '0.0.0', private: true}),
+        )
+        await createPackage('@test/pkg-a', '1.0.0', tempDir)
+
+        const scanner = createWorkspaceScanner({rootDir: tempDir, includeRoot: true})
+        const result = await scanner.scan()
+
+        expect(result.packages).toHaveLength(2)
+        const names = result.packages.map(p => p.name)
+        expect(names).toContain('@test/root')
+        expect(names).toContain('@test/pkg-a')
+      } finally {
+        await cleanupTempDir(tempDir)
+      }
+    })
+
+    it('should not include root package by default', async () => {
+      const tempDir = await createTempDir()
+      try {
+        await fs.writeFile(
+          path.join(tempDir, 'package.json'),
+          JSON.stringify({name: '@test/root', version: '0.0.0', private: true}),
+        )
+        await createPackage('@test/pkg-a', '1.0.0', tempDir)
+
+        const scanner = createWorkspaceScanner({rootDir: tempDir})
+        const result = await scanner.scan()
+
+        expect(result.packages).toHaveLength(1)
+        expect(result.packages[0]?.name).toBe('@test/pkg-a')
+      } finally {
+        await cleanupTempDir(tempDir)
+      }
+    })
   })
 
   describe('scanPackage', () => {
