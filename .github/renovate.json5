@@ -1,9 +1,8 @@
 {
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   extends: [
-    'github>bfra-me/renovate-config#5.2.1',
+    'github>bfra-me/.github:internal.json5#v4.16.0',
     'github>sanity-io/renovate-config:semantic-commit-type',
-    'security:openssf-scorecard',
     'security:minimumReleaseAgeNpm',
   ],
   addLabels: ['{{{parentDir}}}'],
@@ -13,7 +12,6 @@
     '**/test/**',
     'packages/create/**/templates/**',
   ],
-  ignorePresets: ['mergeConfidence:age-confidence-badges', 'mergeConfidence:all-badges'],
   internalChecksFilter: 'flexible',
   packageRules: [
     {
