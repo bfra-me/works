@@ -1,7 +1,7 @@
 {
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   extends: [
-    'github>bfra-me/.github:internal.json5#v4.16.3',
+    'github>bfra-me/.github:internal.json5#v4.16.4',
     'github>sanity-io/renovate-config:semantic-commit-type',
     'security:minimumReleaseAgeNpm',
   ],
