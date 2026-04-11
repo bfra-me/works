@@ -117,6 +117,22 @@ jobs:
           fi
         shell: 'bash -Eeux {0}'
 
+      - name: Close stale release PR before force-push
+        if: |
+          github.event_name == 'workflow_run' &&
+          steps.check-pr.outputs.pr-exists == 'true' &&
+          steps.check-changesets.outputs.has-changesets == 'true'
+        env:
+          GH_TOKEN: ${{ env.USE_APP_TOKEN == 'true' && steps.get-app-token.outputs.token || secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ steps.check-pr.outputs.pr-number }}
+        run: |
+          # commitMode: github-api force-pushes, which makes GitHub consider the
+          # branch "recreated". GitHub then rejects PR updates with:
+          # "state cannot be changed. The changeset-release/main branch was force-pushed or recreated."
+          # Workaround: close the old PR and delete the branch so the action creates a fresh PR.
+          echo "Closing PR #$PR_NUMBER before changesets action runs (workaround for commitMode: github-api)"
+          gh pr close "$PR_NUMBER" --delete-branch || true
+
       - id: changesets
         name: Create Release Pull Request or Publish to npm
         if: |
