@@ -382,8 +382,8 @@ importers:
         specifier: 10.1.8
         version: 10.1.8(eslint@10.2.0(jiti@2.6.1))
       eslint-plugin-astro:
-        specifier: 1.6.0
-        version: 1.6.0(eslint@10.2.0(jiti@2.6.1))
+        specifier: 1.7.0
+        version: 1.7.0(eslint@10.2.0(jiti@2.6.1))
       eslint-plugin-erasable-syntax-only:
         specifier: 0.4.0
         version: 0.4.0(@typescript-eslint/parser@8.58.1(eslint@10.2.0(jiti@2.6.1))(typescript@5.9.3))(eslint@10.2.0(jiti@2.6.1))(typescript@5.9.3)
@@ -3112,8 +3112,8 @@ packages:
     peerDependencies:
       eslint: '*'
 
-  eslint-plugin-astro@1.6.0:
-    resolution: {integrity: sha512-yGIbLHuj5MOUXa0s4sZ6cVhv6ehb+WLF80tsrGaxMk6VTUExruMzubQDzhOYt8fbR1c9vILCCRSCsKI7M1whig==}
+  eslint-plugin-astro@1.7.0:
+    resolution: {integrity: sha512-89xpAn528UKCdmyysbg0AHHqi6sqcK89wXnJIpu4F0mFBN03zATEBNK7pRtMfl6gwtMOm5ECXs+Wz5qDHhwTFw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: '>=8.57.0'
@@ -9681,7 +9681,7 @@ snapshots:
     dependencies:
       eslint: 10.2.0(jiti@2.6.1)
 
-  eslint-plugin-astro@1.6.0(eslint@10.2.0(jiti@2.6.1)):
+  eslint-plugin-astro@1.7.0(eslint@10.2.0(jiti@2.6.1)):
     dependencies:
       '@eslint-community/eslint-utils': 4.9.1(eslint@10.2.0(jiti@2.6.1))
       '@jridgewell/sourcemap-codec': 1.5.5
