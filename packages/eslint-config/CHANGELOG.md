@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.50.4
+### Patch Changes
+
+
+- Updated dependency `@eslint/core` to `1.2.1`. ([#3053](https://github.com/bfra-me/works/pull/3053))
+
 ## 0.50.3
 ### Patch Changes
 
