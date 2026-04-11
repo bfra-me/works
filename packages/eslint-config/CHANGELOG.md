@@ -1,5 +1,27 @@
 # @bfra.me/eslint-config
 
+## 0.50.3
+### Patch Changes
+
+
+- Fix JSON5/YAML prettier compat rules failing silently under Bun workspaces ([#3047](https://github.com/bfra-me/works/pull/3047))
+  
+  Replace `isPackageExists` guards for `eslint-plugin-jsonc` and `eslint-plugin-yml` in `prettier.ts` with direct dynamic imports using `.catch(() => undefined)`. Under Bun, transitive dependencies are not hoisted to a flat `node_modules/` layout, causing `isPackageExists` to return `false` for packages like `eslint-plugin-jsonc` even though Bun's module resolver can load them fine. This caused the jsonc/yaml prettier-compat rule overrides to never load, resulting in conflicting rule errors on `.json5` and `.yaml` files.
+
+- Updated dependency `eslint-plugin-unicorn` to `64.0.0`. ([#3014](https://github.com/bfra-me/works/pull/3014))
+
+
+- Revert `@eslint-react/eslint-plugin` to v2.13.0. v3 breaks eslint-typegen compatibility (cannot generate rule types), which causes the build to fail. Will revisit v3 once eslint-typegen adds support. ([#2948](https://github.com/bfra-me/works/pull/2948))
+
+
+- Updated dependency `@eslint/core` to `1.2.0`. ([#3026](https://github.com/bfra-me/works/pull/3026))
+
+
+- Updated dependency `@eslint/markdown` to `8.0.1`. ([#3013](https://github.com/bfra-me/works/pull/3013))
+
+
+- Updated dependency `eslint` to `10.2.0`. ([#3027](https://github.com/bfra-me/works/pull/3027))
+
 ## 0.50.2
 ### Patch Changes
 
