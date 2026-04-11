@@ -13,10 +13,13 @@ onlyBuiltDependencies:
   - unrs-resolver
 
 overrides:
+  handlebars@>=4.0.0 <4.7.9: ^4.7.9
   lodash: ^4.17.23
+  picomatch@>=2.3.1 <2.3.2: ^2.3.2
+  picomatch@>=4.0.3 <4.0.4: ^4.0.4
   read-pkg-up@^11: npm:read-package-up
-  undici@<6.24.0: '>=6.24.0'
-  undici@>=7.17.0 <7.24.0: '>=7.24.0'
+  undici@<6.24.0: ^6.24.0
+  undici@>=7.17.0 <7.24.0: ^7.24.0
 
 packageExtensions:
   eslint-plugin-jsx-a11y:
@@ -28,8 +31,19 @@ packageExtensions:
 
 peerDependencyRules:
   allowedVersions:
+    '@eslint-react/ast>typescript': ^6.0.0
+    '@eslint-react/core>typescript': ^6.0.0
+    '@eslint-react/eslint-plugin>typescript': ^6.0.0
+    '@eslint-react/shared>typescript': ^6.0.0
+    '@eslint-react/var>typescript': ^6.0.0
     eslint-plugin-jsx-a11y>eslint: ^10.0.0
+    eslint-plugin-react-dom>typescript: ^6.0.0
+    eslint-plugin-react-hooks-extra>typescript: ^6.0.0
+    eslint-plugin-react-naming-convention>typescript: ^6.0.0
     eslint-plugin-react-hooks>eslint: ^10.0.0
+    eslint-plugin-react-rsc>typescript: ^6.0.0
+    eslint-plugin-react-web-api>typescript: ^6.0.0
+    eslint-plugin-react-x>typescript: ^6.0.0
 
 savePrefix: ''
 
