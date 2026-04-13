@@ -1,5 +1,29 @@
 # @bfra.me/create
 
+## 0.7.13
+### Patch Changes
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.87.0`. ([#3084](https://github.com/bfra-me/works/pull/3084))
+
+
+- Updated dependency `msw` to `2.13.2`. ([#3064](https://github.com/bfra-me/works/pull/3064))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.85.0`. ([#3042](https://github.com/bfra-me/works/pull/3042))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.86.0`. ([#3070](https://github.com/bfra-me/works/pull/3070))
+
+
+- Updated dependency `msw` to `2.13.1`. ([#3038](https://github.com/bfra-me/works/pull/3038))
+
+
+- Updated dependency `openai` to `6.34.0`. ([#3074](https://github.com/bfra-me/works/pull/3074))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.86.1`. ([#3073](https://github.com/bfra-me/works/pull/3073))
+
 ## 0.7.12
 ### Patch Changes
 
