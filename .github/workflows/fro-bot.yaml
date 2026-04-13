@@ -155,7 +155,7 @@ jobs:
         uses: ./.github/actions/pnpm-install
 
       - name: Run Fro Bot
-        uses: fro-bot/agent@edd5fc30a6da4deb994274e1e0fbe33c3db8b3ad # v0.38.0
+        uses: fro-bot/agent@629da4c43b8d13fc200097c33ba69fddaf4a9d5c # v0.39.0
         env:
           OPENCODE_PROMPT_ARTIFACT: 'true'
           PROMPT: >-
