@@ -4,7 +4,7 @@
   "compilerOptions": {
     // Language and Environment
     "target": "ES2022",
-    "lib": ["ES2023"],
+    "lib": ["ES2024"],
 
     // Modules
     "module": "Preserve",
