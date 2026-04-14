@@ -1,5 +1,11 @@
 # @bfra.me/tsconfig
 
+## 0.13.0
+### Minor Changes
+
+
+- Bump `lib` from `ES2023` to `ES2024`, exposing ES2024 built-in type definitions (`Object.groupBy`, `Promise.withResolvers`, `Map.groupBy`, etc.) for all consumers. ([#3102](https://github.com/bfra-me/works/pull/3102))
+
 ## 0.12.2
 ### Patch Changes
 
