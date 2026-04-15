@@ -52,14 +52,15 @@ works/
 ├── packages/              # Individual packages
 │   ├── badge-config/     # @bfra.me/badge-config
 │   ├── create/           # @bfra.me/create
+│   ├── doc-sync/         # @bfra.me/doc-sync
 │   ├── es/               # @bfra.me/es
 │   ├── eslint-config/    # @bfra.me/eslint-config
 │   ├── prettier-config/  # @bfra.me/prettier-config
 │   ├── semantic-release/ # @bfra.me/semantic-release
 │   ├── tsconfig/         # @bfra.me/tsconfig
 │   └── workspace-analyzer/ # @bfra.me/workspace-analyzer
-├── docs/                 # Documentation site
-├── scripts/              # Build and utility scripts
+├── docs/                 # Documentation site (see docs/CONTRIBUTING.md)
+├── scripts/              # Utility scripts
 ├── .changeset/           # Changeset configuration
 ├── pnpm-workspace.yaml   # pnpm workspace configuration
 └── package.json          # Root package.json
@@ -142,17 +143,22 @@ We use changesets to manage version bumps and changelog generation:
 Write comprehensive unit tests for all functionality using Vitest:
 
 ```typescript
+import {isErr, isOk} from '@bfra.me/es/result'
 import {describe, expect, it} from 'vitest'
 import {myFunction} from '../src/index'
 
 describe('myFunction', () => {
   it('should handle valid input', () => {
     const result = myFunction('test')
-    expect(result).toBe('expected output')
+    expect(isOk(result)).toBe(true)
+    if (isOk(result)) {
+      expect(result.value).toBe('expected output')
+    }
   })
 
-  it('should handle edge cases', () => {
-    expect(() => myFunction('')).toThrow('Invalid input')
+  it('should handle invalid input', () => {
+    const result = myFunction('')
+    expect(isErr(result)).toBe(true)
   })
 })
 ```
