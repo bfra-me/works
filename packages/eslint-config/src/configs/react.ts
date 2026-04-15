@@ -24,8 +24,8 @@ const ReactRouterPackages = [
 const NextJsPackages = ['next']
 
 const ReactTypeAwareRules: Config['rules'] = {
-  'react/no-implicit-key': 'warn',
-  'react/no-leaked-conditional-rendering': 'warn',
+  '@eslint-react/no-implicit-key': 'warn',
+  '@eslint-react/no-leaked-conditional-rendering': 'warn',
 }
 
 /**
