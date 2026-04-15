@@ -1,5 +1,26 @@
 # @bfra.me/eslint-config
 
+## 0.50.4
+### Patch Changes
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.6.15`. ([#3077](https://github.com/bfra-me/works/pull/3077))
+
+
+- Updated dependency `@eslint/core` to `1.2.1`. ([#3053](https://github.com/bfra-me/works/pull/3053))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.58.1`. ([#3054](https://github.com/bfra-me/works/pull/3054))
+  Updated dependency `typescript-eslint` to `8.58.1`.
+
+- Updated dependency `eslint-plugin-astro` to `1.7.0`. ([#3059](https://github.com/bfra-me/works/pull/3059))
+
+
+- Updated dependency `globals` to `17.5.0`. ([#3108](https://github.com/bfra-me/works/pull/3108))
+
+
+- Updated dependency `@next/eslint-plugin-next` to `16.2.3`. ([#3069](https://github.com/bfra-me/works/pull/3069))
+
 ## 0.50.3
 ### Patch Changes
 
