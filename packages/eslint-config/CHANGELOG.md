@@ -1,5 +1,39 @@
 # @bfra.me/eslint-config
 
+## 0.51.0
+### Minor Changes
+
+
+- Upgrade `@eslint-react/eslint-plugin` from v2 to v4 ([#3107](https://github.com/bfra-me/works/pull/3107))
+  
+  Adopts the unified plugin architecture introduced in v4. Key changes:
+  
+  - **Unified plugin**: Sub-plugins (`@eslint-react/dom`, `@eslint-react/hooks-extra`, `@eslint-react/naming-convention`, `@eslint-react/web-api`) are now merged into a single `@eslint-react` plugin
+  - **Recommended ruleset**: Uses `pluginReact.configs.recommended.rules` spread instead of manually listing ~40 individual rules, keeping the config aligned with upstream defaults
+  - **Removed rules**: Rules deleted in v4 (`no-default-props`, `no-prop-types`, `jsx-no-duplicate-props`, `jsx-uses-vars`, `no-string-refs`, `no-useless-forward-ref`, `prefer-use-state-lazy-initialization`) are no longer configured
+  - **Hooks coverage**: v4's unified plugin includes hooks rules (`rules-of-hooks`, `exhaustive-deps`) via the recommended config; `eslint-plugin-react-hooks` remains as a peer dependency for consumers using it directly
+  - **Peer dependency**: Updated from `^2.2.3` to `^4.2.3`
+
+### Patch Changes
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.6.15`. ([#3077](https://github.com/bfra-me/works/pull/3077))
+
+
+- Updated dependency `@eslint/core` to `1.2.1`. ([#3053](https://github.com/bfra-me/works/pull/3053))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.58.1`. ([#3054](https://github.com/bfra-me/works/pull/3054))
+  Updated dependency `typescript-eslint` to `8.58.1`.
+
+- Updated dependency `eslint-plugin-astro` to `1.7.0`. ([#3059](https://github.com/bfra-me/works/pull/3059))
+
+
+- Updated dependency `globals` to `17.5.0`. ([#3108](https://github.com/bfra-me/works/pull/3108))
+
+
+- Updated dependency `@next/eslint-plugin-next` to `16.2.3`. ([#3069](https://github.com/bfra-me/works/pull/3069))
+
 ## 0.50.3
 ### Patch Changes
 
