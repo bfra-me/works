@@ -1,5 +1,11 @@
 # @bfra.me/create
 
+## 0.7.14
+### Patch Changes
+
+
+- Updated dependency `dotenv` to `17.4.2`. ([#3114](https://github.com/bfra-me/works/pull/3114))
+
 ## 0.7.13
 ### Patch Changes
 
