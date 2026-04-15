@@ -44,6 +44,9 @@ peerDependencyRules:
     eslint-plugin-react-rsc>typescript: ^6.0.0
     eslint-plugin-react-web-api>typescript: ^6.0.0
     eslint-plugin-react-x>typescript: ^6.0.0
+    type-coverage-core>typescript: ^6.0.0
+    tsconfck>typescript: ^6.0.0
+    '@astrojs/check>typescript': ^6.0.0
 
 savePrefix: ''
 

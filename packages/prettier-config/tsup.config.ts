@@ -1,3 +1,4 @@
+import {dts} from '@bfra.me/works/tsup.dts'
 import {defineConfig} from 'tsup'
 
 export default defineConfig([
@@ -5,6 +6,7 @@ export default defineConfig([
     bundle: false,
     clean: true,
     dts: {
+      ...dts,
       entry: './src/index.ts',
     },
     entry: ['./src/*.ts'],
