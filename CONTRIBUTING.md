@@ -294,7 +294,7 @@ Releases are automated using Changesets and GitHub Actions:
 
 If you need help contributing:
 
-1. **Check the documentation**: Most questions are answered in the [docs](docs/)
+1. **Check the documentation**: Most questions are answered in the [docs](./docs/)
 2. **Search existing issues**: Someone might have asked the same question
 3. **Create a discussion**: For general questions about contributing
 4. **Create an issue**: For specific bugs or feature requests
