@@ -1,3 +1,4 @@
+import {dts} from '@bfra.me/works/tsup.dts'
 import {defineConfig} from 'tsup'
 
 export default defineConfig([
@@ -22,7 +23,7 @@ export default defineConfig([
       'src/utils/help.ts',
     ],
     format: ['esm'],
-    dts: true,
+    dts,
     sourcemap: true,
     clean: true,
     // Preserve directory structure for better imports

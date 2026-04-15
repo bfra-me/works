@@ -13,6 +13,10 @@
   "license": "MIT",
   "author": "Marcus R. Brown <contact@bfra.me>",
   "type": "module",
+  "exports": {
+    "./eslint.config": "./eslint.config.ts",
+    "./tsup.dts": "./tsup.dts.ts"
+  },
   "scripts": {
     "analyze": "pnpm --filter @bfra.me/workspace-analyzer build && node packages/workspace-analyzer/lib/cli.js",
     "bootstrap": "pnpm -r install --prefer-offline --loglevel warn",
