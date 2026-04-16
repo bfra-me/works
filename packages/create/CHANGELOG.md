@@ -1,5 +1,14 @@
 # @bfra.me/create
 
+## 0.7.14
+### Patch Changes
+
+
+- Updated dependency `dotenv` to `17.4.2`. ([#3114](https://github.com/bfra-me/works/pull/3114))
+
+
+- Updated dependency `happy-dom` to `20.9.0`. ([#3129](https://github.com/bfra-me/works/pull/3129))
+
 ## 0.7.13
 ### Patch Changes
 
