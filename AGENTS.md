@@ -57,17 +57,17 @@ pnpm analyze            # Run workspace static analysis
 
 Use the `name` field in each package's `package.json` to identify packages:
 
-| Package                        | Location                        | Description                       |
-| ------------------------------ | ------------------------------- | --------------------------------- |
-| `@bfra.me/eslint-config`       | `packages/eslint-config/`       | Shared ESLint config              |
-| `@bfra.me/prettier-config`     | `packages/prettier-config/`     | Prettier config                   |
-| `@bfra.me/tsconfig`            | `packages/tsconfig/`            | TypeScript configs                |
-| `@bfra.me/es`                  | `packages/es/`                  | ES utilities with subpath exports |
-| `@bfra.me/create`              | `packages/create/`              | Project creation CLI              |
-| `@bfra.me/badge-config`        | `packages/badge-config/`        | Badge URL generation              |
-| `@bfra.me/semantic-release`    | `packages/semantic-release/`    | Release presets                   |
-| `@bfra.me/doc-sync`            | `packages/doc-sync/`            | Documentation sync utilities      |
-| `@bfra.me/workspace-analyzer`  | `packages/workspace-analyzer/`  | Monorepo static analysis CLI      |
+| Package | Location | Description |
+| --- | --- | --- |
+| `@bfra.me/eslint-config` | `packages/eslint-config/` | Shared ESLint config |
+| `@bfra.me/prettier-config` | `packages/prettier-config/` | Prettier config |
+| `@bfra.me/tsconfig` | `packages/tsconfig/` | TypeScript configs |
+| `@bfra.me/es` | `packages/es/` | ES utilities with subpath exports |
+| `@bfra.me/create` | `packages/create/` | Project creation CLI |
+| `@bfra.me/badge-config` | `packages/badge-config/` | Badge URL generation |
+| `@bfra.me/semantic-release` | `packages/semantic-release/` | Release presets |
+| `@bfra.me/doc-sync` | `packages/doc-sync/` | Documentation sync utilities |
+| `@bfra.me/workspace-analyzer` | `packages/workspace-analyzer/` | Monorepo static analysis CLI |
 
 **Monorepo navigation tips:**
 
@@ -206,14 +206,14 @@ workspace-analyzer --json > report.json   # JSON output for CI
 Subpath exports for tree-shaking:
 
 ```typescript
-import { debounce, retry, throttle } from '@bfra.me/es/async'
-import { compose, curry, pipe } from '@bfra.me/es/functional'
-import { err, isErr, isOk, ok } from '@bfra.me/es/result'
-import { Brand, isNumber, isString } from '@bfra.me/es/types'
-import { createValidator } from '@bfra.me/es/validation'
-import { createWatcher } from '@bfra.me/es/watcher'
-import { getEnv, requireEnv } from '@bfra.me/es/env'
-import { createAppError, isAppError } from '@bfra.me/es/error'
+import {debounce, retry, throttle} from "@bfra.me/es/async"
+import {compose, curry, pipe} from "@bfra.me/es/functional"
+import {err, isErr, isOk, ok} from "@bfra.me/es/result"
+import {Brand, isNumber, isString} from "@bfra.me/es/types"
+import {createValidator} from "@bfra.me/es/validation"
+import {createWatcher} from "@bfra.me/es/watcher"
+import {getEnv, requireEnv} from "@bfra.me/es/env"
+import {createAppError, isAppError} from "@bfra.me/es/error"
 ```
 
 ### docs (Documentation Site)
@@ -313,11 +313,11 @@ Remember to add the package to root `tsconfig.json` references and path mappings
 ### Working with Result Type
 
 ```typescript
-import { err, isErr, isOk, ok, unwrap, unwrapOr } from '@bfra.me/es/result'
+import {err, isErr, isOk, ok, unwrap, unwrapOr} from "@bfra.me/es/result"
 
 // Return structured results instead of throwing
 function parseConfig(input: string): Result<Config, ParseError> {
-  if (!input) return err({ message: 'Empty input' })
+  if (!input) return err({message: "Empty input"})
   return ok(JSON.parse(input))
 }
 
@@ -369,20 +369,15 @@ Vitest resolves workspace packages to TypeScript source via `conditions: ['sourc
 
 ### Common Issues and Solutions
 
-**Issue:** `Cannot find module '@bfra.me/...'` in tests
-**Solution:** Ensure package has `"source"` field in `package.json` exports and Vitest config includes `conditions: ['source']`
+**Issue:** `Cannot find module '@bfra.me/...'` in tests **Solution:** Ensure package has `"source"` field in `package.json` exports and Vitest config includes `conditions: ['source']`
 
-**Issue:** ESLint cache causing false positives/negatives
-**Solution:** Run `pnpm lint --cache-location .eslintcache` or delete `.eslintcache`
+**Issue:** ESLint cache causing false positives/negatives **Solution:** Run `pnpm lint --cache-location .eslintcache` or delete `.eslintcache`
 
-**Issue:** Build fails after adding new package
-**Solution:** Add package to root `tsconfig.json` references array and rebuild
+**Issue:** Build fails after adding new package **Solution:** Add package to root `tsconfig.json` references array and rebuild
 
-**Issue:** Hot reload not working in docs
-**Solution:** Clear Astro cache: `rm -rf docs/.astro` and restart dev server
+**Issue:** Hot reload not working in docs **Solution:** Clear Astro cache: `rm -rf docs/.astro` and restart dev server
 
-**Issue:** Changesets version bump not working
-**Solution:** Run `pnpm clean-changesets` to remove invalid changesets, then `pnpm version-changesets`
+**Issue:** Changesets version bump not working **Solution:** Run `pnpm clean-changesets` to remove invalid changesets, then `pnpm version-changesets`
 
 ### Performance Tips
 
@@ -403,4 +398,5 @@ Vitest resolves workspace packages to TypeScript source via `conditions: ['sourc
 
 - **llms.txt** – Full documentation index for AI tools
 - **CLAUDE.md** – Claude-specific instructions
+- **CONTRIBUTING.md** – Contribution guidelines for the project
 - **docs/** – Astro Starlight documentation site
