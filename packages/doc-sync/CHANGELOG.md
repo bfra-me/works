@@ -1,5 +1,11 @@
 # @bfra.me/doc-sync
 
+## 0.1.9
+### Patch Changes
+
+
+- Updated dependency `memfs` to `4.57.2`. ([#3162](https://github.com/bfra-me/works/pull/3162))
+
 ## 0.1.8
 ### Patch Changes
 
