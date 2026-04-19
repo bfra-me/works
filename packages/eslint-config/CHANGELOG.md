@@ -1,5 +1,17 @@
 # @bfra.me/eslint-config
 
+## 0.51.1
+### Patch Changes
+
+
+- Updated dependency `@next/eslint-plugin-next` to `16.2.4`. ([#3149](https://github.com/bfra-me/works/pull/3149))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.58.2`. ([#3125](https://github.com/bfra-me/works/pull/3125))
+  Updated dependency `typescript-eslint` to `8.58.2`.
+
+- Updated dependency `@vitest/eslint-plugin` to `1.6.16`. ([#3145](https://github.com/bfra-me/works/pull/3145))
+
 ## 0.51.0
 ### Minor Changes
 
