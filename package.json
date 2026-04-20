@@ -46,7 +46,7 @@
   },
   "prettier": "./packages/prettier-config/prettier.config.cjs",
   "devDependencies": {
-    "@changesets/cli": "2.30.0",
+    "@changesets/cli": "2.31.0",
     "@eslint/config-inspector": "1.5.0",
     "@manypkg/cli": "0.25.1",
     "@microsoft/api-extractor": "7.58.3",
