@@ -1,5 +1,29 @@
 # @bfra.me/create
 
+## 0.7.14
+### Patch Changes
+
+
+- Updated dependency `msw` to `2.13.3`. ([#3131](https://github.com/bfra-me/works/pull/3131))
+
+
+- Updated dependency `memfs` to `4.57.2`. ([#3162](https://github.com/bfra-me/works/pull/3162))
+
+
+- Updated dependency `dotenv` to `17.4.2`. ([#3114](https://github.com/bfra-me/works/pull/3114))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.89.0`. ([#3136](https://github.com/bfra-me/works/pull/3136))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.90.0`. ([#3154](https://github.com/bfra-me/works/pull/3154))
+
+
+- Updated dependency `msw` to `2.13.4`. ([#3156](https://github.com/bfra-me/works/pull/3156))
+
+
+- Updated dependency `happy-dom` to `20.9.0`. ([#3129](https://github.com/bfra-me/works/pull/3129))
+
 ## 0.7.13
 ### Patch Changes
 
