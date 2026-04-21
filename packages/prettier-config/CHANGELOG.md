@@ -1,5 +1,11 @@
 # @bfra.me/prettier-config
 
+## 0.16.9
+### Patch Changes
+
+
+- Updated dependency `prettier` to `3.8.3`. ([#3138](https://github.com/bfra-me/works/pull/3138))
+
 ## 0.16.8
 ### Patch Changes
 
