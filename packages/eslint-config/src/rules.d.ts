@@ -13936,6 +13936,7 @@ type PerfectionistSortClasses = {
   }
   
   useExperimentalDependencyDetection?: boolean
+  newlinesBetweenOverloadSignatures?: ("ignore" | number)
   
   ignoreCallbackDependenciesPatterns?: (({
     
@@ -16217,6 +16218,7 @@ type PerfectionistSortModules = []|[{
   newlinesBetween?: ("ignore" | number)
   
   useExperimentalDependencyDetection?: boolean
+  newlinesBetweenOverloadSignatures?: ("ignore" | number)
   
   partitionByComment?: (boolean | (({
     
