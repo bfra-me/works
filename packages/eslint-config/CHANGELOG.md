@@ -1,5 +1,29 @@
 # @bfra.me/eslint-config
 
+## 0.51.1
+### Patch Changes
+
+
+- Updated dependency `@next/eslint-plugin-next` to `16.2.4`. ([`c333c6d`](https://github.com/bfra-me/works/commit/c333c6d010a221bc3646770545281561bee03d10))
+
+
+- Updated dependency `eslint-plugin-react-hooks` to `7.1.1`. ([`e15541f`](https://github.com/bfra-me/works/commit/e15541f046cc76255f9c3f25205c5335f410dce0))
+
+
+- Updated dependency `eslint-plugin-react-hooks` to `7.1.0`. ([`61f974c`](https://github.com/bfra-me/works/commit/61f974c5fefff17200a7b23e7a94999c3eabc0d3))
+
+
+- Updated dependency `eslint-plugin-perfectionist` to `5.9.0`. ([`e45a15e`](https://github.com/bfra-me/works/commit/e45a15e8e4d8e02f38158b1a7086072e6cd77769))
+
+
+- Updated dependency `eslint` to `10.2.1`. ([`6efe50f`](https://github.com/bfra-me/works/commit/6efe50f453cc5cf84c5435b7b79458d68caa493a))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.58.2`. ([`62c434f`](https://github.com/bfra-me/works/commit/62c434f7b8a999c796ec20e5277835ee2999facb))
+  Updated dependency `typescript-eslint` to `8.58.2`.
+
+- Updated dependency `@vitest/eslint-plugin` to `1.6.16`. ([`39400b0`](https://github.com/bfra-me/works/commit/39400b0fded1e03928a2916863c89855d09f805b))
+
 ## 0.51.0
 ### Minor Changes
 
