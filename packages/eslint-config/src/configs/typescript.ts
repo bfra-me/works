@@ -130,7 +130,7 @@ export async function typescript(options: TypeScriptOptions = {}): Promise<Confi
     files,
     ...(ignores ? {ignores} : {}),
     languageOptions: {
-      parser: tselint.parser as any,
+      parser: tselint.parser,
       parserOptions: {
         sourceType: 'module',
         ...(kind === 'type-aware'
@@ -150,8 +150,8 @@ export async function typescript(options: TypeScriptOptions = {}): Promise<Confi
   return [
     {
       name: '@bfra.me/typescript/plugins',
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      plugins: {'@typescript-eslint': tselint.plugin as any},
+
+      plugins: {'@typescript-eslint': tselint.plugin},
     },
 
     ...(isTypeAware

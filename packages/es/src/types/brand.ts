@@ -68,5 +68,5 @@ export function brand<T, B extends string>(value: T): Brand<T, B> {
  * ```
  */
 export function unbrand<T>(value: Brand<T, string>): T {
-  return value as T
+  return value
 }

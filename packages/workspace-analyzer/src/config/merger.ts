@@ -224,6 +224,6 @@ export function getAnalyzerOptions(
     enabled: analyzerConfig?.enabled ?? true,
     minSeverity: analyzerConfig?.severity ?? mergedConfig.minSeverity,
     categories: mergedConfig.categories,
-    options: (analyzerConfig?.options ?? {}) as Record<string, unknown>,
+    options: analyzerConfig?.options ?? {},
   }
 }

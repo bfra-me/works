@@ -232,7 +232,7 @@ export function createIncrementalAnalyzer(
         const cacheResult = await cacheManager.load()
         if (cacheResult.success && cacheManager.quickValidate(cacheResult.data, configHash)) {
           cache = cacheResult.data
-          validation = await cacheManager.validate(cache, files as string[])
+          validation = await cacheManager.validate(cache, files)
           cacheUsed = true
         }
       }

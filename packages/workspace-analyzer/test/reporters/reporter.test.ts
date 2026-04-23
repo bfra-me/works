@@ -2,7 +2,7 @@
  * Tests for reporter interface utilities and helper functions.
  */
 
-import type {AnalysisResult, Issue, IssueCategory, Severity} from '../../src/types/index'
+import type {AnalysisResult, Issue} from '../../src/types/index'
 
 import {describe, expect, it} from 'vitest'
 
@@ -21,8 +21,8 @@ function createMockIssue(overrides: Partial<Issue> = {}): Issue {
     id: 'test-issue',
     title: 'Test Issue',
     description: 'A test issue description',
-    severity: 'warning' as Severity,
-    category: 'configuration' as IssueCategory,
+    severity: 'warning',
+    category: 'configuration',
     location: {
       filePath: '/workspace/src/test.ts',
       line: 10,

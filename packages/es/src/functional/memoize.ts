@@ -197,7 +197,7 @@ export function memoize<T extends (...args: never[]) => unknown>(
     strategy = 'map',
     maxSize,
     ttl,
-    keyResolver = (args: Parameters<T>) => createKeyResolver(args as unknown[]),
+    keyResolver = (args: Parameters<T>) => createKeyResolver(args),
     onHit,
     onMiss,
   } = options

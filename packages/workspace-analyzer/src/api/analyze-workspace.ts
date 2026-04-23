@@ -162,10 +162,7 @@ export async function analyzeWorkspace(
   }
 
   // Merge configuration from all sources
-  const mergedConfig: MergedConfig = mergeConfig(
-    configResult.data?.config,
-    options as Parameters<typeof mergeConfig>[1],
-  )
+  const mergedConfig: MergedConfig = mergeConfig(configResult.data?.config, options)
 
   // Create orchestrator and run analysis
   const orchestrator = createOrchestrator({
@@ -222,10 +219,7 @@ export async function analyzePackages(
   }
 
   // Merge configuration from all sources
-  const mergedConfig: MergedConfig = mergeConfig(
-    configResult.data?.config,
-    options as Parameters<typeof mergeConfig>[1],
-  )
+  const mergedConfig: MergedConfig = mergeConfig(configResult.data?.config, options)
 
   // Create orchestrator and run analysis
   const orchestrator = createOrchestrator({

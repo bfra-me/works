@@ -78,7 +78,7 @@ async function promptVisualizeOptions(
       {value: 'mermaid' as const, label: 'Mermaid', hint: 'Mermaid diagram markup'},
       {value: 'both' as const, label: 'Both', hint: 'Generate HTML and JSON files'},
     ],
-    initialValue: defaultFormat as 'html' | 'json' | 'mermaid' | 'both',
+    initialValue: defaultFormat,
   })
 
   if (p.isCancel(format)) return format
@@ -120,7 +120,7 @@ async function promptVisualizeOptions(
 
   return {
     outputPath: String(outputPath),
-    format: format as VisualizeFormat,
+    format,
     autoOpen: Boolean(autoOpen),
     title: String(title),
     maxNodes: Number(maxNodesInput),

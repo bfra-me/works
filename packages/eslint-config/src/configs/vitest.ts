@@ -42,8 +42,7 @@ export async function vitest(options: VitestOptions = {}): Promise<Config[]> {
         {
           name: '@bfra.me/vitest/plugins',
           plugins: {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            vitest: vitest as any,
+            vitest,
           },
           ...(isTypeAware
             ? {

@@ -42,10 +42,10 @@ export function generateFrontmatter(
 
   if (packageInfo.docsConfig?.frontmatter !== undefined) {
     const customFrontmatter = packageInfo.docsConfig.frontmatter
-    return {...customFrontmatter, ...frontmatter} as MDXFrontmatter
+    return {...customFrontmatter, ...frontmatter}
   }
 
-  return frontmatter as MDXFrontmatter
+  return frontmatter
 }
 
 function resolveTitle(
@@ -263,7 +263,7 @@ export function parseFrontmatter(yaml: string): Partial<MDXFrontmatter> {
     }
   }
 
-  return result as Partial<MDXFrontmatter>
+  return result
 }
 
 function stripQuotes(value: string): string {

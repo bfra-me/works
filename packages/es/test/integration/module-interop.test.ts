@@ -88,7 +88,7 @@ describe('@bfra.me/es/module - interop integration', () => {
 
       const result = await interopDefault(moduleWithFn)
       expect(typeof result).toBe('function')
-      expect((result as () => number)()).toBe(42)
+      expect(result()).toBe(42)
     })
   })
 
@@ -244,7 +244,7 @@ describe('@bfra.me/es/module - interop integration', () => {
       const result = await interopDefault(factoryModule)
 
       expect(typeof result).toBe('function')
-      const factoryResult = await (result as () => Promise<{data: string}>)()
+      const factoryResult = await result()
       expect(factoryResult).toEqual({data: 'async'})
     })
   })

@@ -97,7 +97,7 @@ export async function react(options: ReactOptions = {}): Promise<Config[]> {
           plugins: {
             ...plugins,
             'react-refresh': pluginReactRefresh.plugin,
-          } as Config['plugins'],
+          },
         },
         {
           name: '@bfra.me/react/rules',

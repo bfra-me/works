@@ -321,5 +321,5 @@ function createMockRuleEngine(issues: Issue[], options: {shouldError?: boolean} 
       return ok(issues)
     }),
     evaluateFiles: vi.fn(),
-  } as unknown as RuleEngine
+  }
 }

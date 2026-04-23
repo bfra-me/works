@@ -1,4 +1,3 @@
-import type {Plugin} from '@eslint/core'
 import type {Config} from '../config'
 import type {JsxOptions} from '../options'
 import {GLOB_JSX, GLOB_TSX} from '../globs'
@@ -77,7 +76,7 @@ export async function jsx(options: JsxOptions = {}): Promise<Config[]> {
           },
           plugins: {
             ...baseConfig.plugins,
-            'jsx-a11y': jsxA11yPlugin as Plugin,
+            'jsx-a11y': jsxA11yPlugin,
           },
           rules: {
             ...baseConfig.rules,
