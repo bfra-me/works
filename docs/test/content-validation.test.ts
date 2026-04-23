@@ -161,7 +161,7 @@ describe('content validation', () => {
       for (const file of files) {
         const content = await fs.readFile(file, 'utf-8')
         const {data} = matter(content)
-        const result = validateFrontmatter(data as FrontmatterData)
+        const result = validateFrontmatter(data)
 
         if (!result.success) {
           errors.push({

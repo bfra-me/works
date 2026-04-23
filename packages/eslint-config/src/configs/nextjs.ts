@@ -1,4 +1,3 @@
-import type {Plugin} from '@eslint/core'
 import type {Config} from '../config'
 import type {Flatten, OptionsFiles, OptionsOverrides} from '../options'
 import {GLOB_SRC} from '../globs'
@@ -52,7 +51,7 @@ export async function nextjs(options: NextjsOptions = {}): Promise<Config[]> {
       return [
         {
           name: '@bfra.me/nextjs/setup',
-          plugins: {'@next/next': pluginNextJs as Record<string, Plugin>},
+          plugins: {'@next/next': pluginNextJs},
         },
         {
           name: '@bfra.me/nextjs/rules',

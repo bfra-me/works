@@ -42,7 +42,7 @@ export function createSyncOrchestrator(options: SyncOrchestratorOptions): SyncOr
   const scanner = createPackageScanner({
     rootDir: config.rootDir,
     includePatterns: config.includePatterns,
-    excludePackages: config.excludePatterns as string[] | undefined,
+    excludePackages: config.excludePatterns,
   })
 
   const validationPipeline = createValidationPipeline()

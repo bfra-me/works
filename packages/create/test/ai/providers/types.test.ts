@@ -129,7 +129,7 @@ describe('provider Types', () => {
       const config: Partial<AIConfig> = {
         openai: {
           model: 'gpt-4',
-        } as AIConfig['openai'],
+        },
       }
 
       const result = createClientConfig(config)
@@ -156,7 +156,7 @@ describe('provider Types', () => {
       const config: Partial<AIConfig> = {
         anthropic: {
           model: 'claude-3',
-        } as AIConfig['anthropic'],
+        },
       }
 
       const result = createClientConfig(config)

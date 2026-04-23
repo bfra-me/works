@@ -30,4 +30,4 @@ const freeze = <C extends Config>(config: C): Readonly<C> => {
   return Object.freeze(config)
 }
 
-export const defineConfig = <C extends Config>(config: C): C => freeze(config) as C
+export const defineConfig = <C extends Config>(config: C): C => freeze(config)

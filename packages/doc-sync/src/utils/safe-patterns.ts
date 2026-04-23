@@ -102,7 +102,7 @@ export function extractCodeBlocks(content: string): readonly string[] {
     }
   }
 
-  visit(tree as MarkdownNode)
+  visit(tree)
   return blocks
 }
 

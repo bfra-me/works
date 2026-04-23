@@ -6,7 +6,7 @@
  */
 
 import type {JsonReport} from '../../src/reporters/json-reporter'
-import type {AnalysisResult, Issue, IssueCategory, Severity} from '../../src/types/index'
+import type {AnalysisResult, Issue, Severity} from '../../src/types/index'
 
 import {describe, expect, it} from 'vitest'
 
@@ -19,8 +19,8 @@ function createIssue(overrides: Partial<Issue>): Issue {
     id: 'test-issue',
     title: 'Test Issue',
     description: 'A test issue description',
-    severity: 'warning' as Severity,
-    category: 'configuration' as IssueCategory,
+    severity: 'warning',
+    category: 'configuration',
     location: {filePath: '/workspace/src/test.ts'},
     ...overrides,
   }

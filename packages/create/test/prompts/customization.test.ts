@@ -99,9 +99,9 @@ describe('projectCustomization', () => {
 
     it('should handle user cancellation in description prompt', async () => {
       const cancelSymbol = Symbol('cancel')
-      vi.mocked(clackPrompts.text).mockResolvedValueOnce(cancelSymbol as never)
+      vi.mocked(clackPrompts.text).mockResolvedValueOnce(cancelSymbol)
       vi.mocked(clackPrompts.isCancel).mockReturnValueOnce(true)
-      vi.mocked(clackPrompts.cancel).mockImplementation(() => undefined as never)
+      vi.mocked(clackPrompts.cancel).mockImplementation(() => undefined)
 
       const mockExit = vi.spyOn(process, 'exit').mockImplementation(() => undefined as never)
 
@@ -165,9 +165,9 @@ describe('projectCustomization', () => {
     it('should handle user cancellation in author prompt', async () => {
       const cancelSymbol = Symbol('cancel')
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('Description')
-      vi.mocked(clackPrompts.text).mockResolvedValueOnce(cancelSymbol as never)
+      vi.mocked(clackPrompts.text).mockResolvedValueOnce(cancelSymbol)
       vi.mocked(clackPrompts.isCancel).mockReturnValueOnce(false).mockReturnValueOnce(true)
-      vi.mocked(clackPrompts.cancel).mockImplementation(() => undefined as never)
+      vi.mocked(clackPrompts.cancel).mockImplementation(() => undefined)
 
       const mockExit = vi.spyOn(process, 'exit').mockImplementation(() => undefined as never)
 
@@ -252,12 +252,12 @@ describe('projectCustomization', () => {
       const cancelSymbol = Symbol('cancel')
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('Description')
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('Author')
-      vi.mocked(clackPrompts.text).mockResolvedValueOnce(cancelSymbol as never)
+      vi.mocked(clackPrompts.text).mockResolvedValueOnce(cancelSymbol)
       vi.mocked(clackPrompts.isCancel)
         .mockReturnValueOnce(false)
         .mockReturnValueOnce(false)
         .mockReturnValueOnce(true)
-      vi.mocked(clackPrompts.cancel).mockImplementation(() => undefined as never)
+      vi.mocked(clackPrompts.cancel).mockImplementation(() => undefined)
 
       const mockExit = vi.spyOn(process, 'exit').mockImplementation(() => undefined as never)
 
@@ -348,7 +348,7 @@ describe('projectCustomization', () => {
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('Author')
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('1.0.0')
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('./test-project')
-      vi.mocked(packageManagerDetector.detect).mockResolvedValue(null as never)
+      vi.mocked(packageManagerDetector.detect).mockResolvedValue(null)
       vi.mocked(clackPrompts.select).mockResolvedValue('npm')
       vi.mocked(clackPrompts.multiselect).mockResolvedValue([])
 
@@ -372,13 +372,13 @@ describe('projectCustomization', () => {
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('Author')
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('1.0.0')
       vi.mocked(packageManagerDetector.detect).mockResolvedValue({name: 'npm'} as never)
-      vi.mocked(clackPrompts.select).mockResolvedValue(cancelSymbol as never)
+      vi.mocked(clackPrompts.select).mockResolvedValue(cancelSymbol)
       vi.mocked(clackPrompts.isCancel)
         .mockReturnValueOnce(false)
         .mockReturnValueOnce(false)
         .mockReturnValueOnce(false)
         .mockReturnValueOnce(true)
-      vi.mocked(clackPrompts.cancel).mockImplementation(() => undefined as never)
+      vi.mocked(clackPrompts.cancel).mockImplementation(() => undefined)
 
       const mockExit = vi.spyOn(process, 'exit').mockImplementation(() => undefined as never)
 
@@ -470,14 +470,14 @@ describe('projectCustomization', () => {
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('Description')
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('Author')
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('1.0.0')
-      vi.mocked(clackPrompts.text).mockResolvedValueOnce(cancelSymbol as never)
+      vi.mocked(clackPrompts.text).mockResolvedValueOnce(cancelSymbol)
       vi.mocked(packageManagerDetector.detect).mockResolvedValue({name: 'npm'} as never)
       vi.mocked(clackPrompts.isCancel)
         .mockReturnValueOnce(false)
         .mockReturnValueOnce(false)
         .mockReturnValueOnce(false)
         .mockReturnValueOnce(true)
-      vi.mocked(clackPrompts.cancel).mockImplementation(() => undefined as never)
+      vi.mocked(clackPrompts.cancel).mockImplementation(() => undefined)
 
       const mockExit = vi.spyOn(process, 'exit').mockImplementation(() => undefined as never)
 
@@ -564,7 +564,7 @@ describe('projectCustomization', () => {
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('./test-project')
       vi.mocked(packageManagerDetector.detect).mockResolvedValue({name: 'npm'} as never)
       vi.mocked(clackPrompts.select).mockResolvedValue('npm')
-      vi.mocked(clackPrompts.multiselect).mockResolvedValue(cancelSymbol as never)
+      vi.mocked(clackPrompts.multiselect).mockResolvedValue(cancelSymbol)
       vi.mocked(clackPrompts.isCancel)
         .mockReturnValueOnce(false)
         .mockReturnValueOnce(false)
@@ -572,7 +572,7 @@ describe('projectCustomization', () => {
         .mockReturnValueOnce(false)
         .mockReturnValueOnce(false)
         .mockReturnValueOnce(true)
-      vi.mocked(clackPrompts.cancel).mockImplementation(() => undefined as never)
+      vi.mocked(clackPrompts.cancel).mockImplementation(() => undefined)
 
       const mockExit = vi.spyOn(process, 'exit').mockImplementation(() => undefined as never)
 

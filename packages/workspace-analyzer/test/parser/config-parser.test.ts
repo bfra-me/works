@@ -142,9 +142,7 @@ describe('config-parser', () => {
       const result = parsePackageJsonContent(content, '/path/to/package.json')
 
       expect(result.success).toBe(true)
-      expect(
-        result.success && (result.data.raw as Record<string, unknown>).customField,
-      ).toBeDefined()
+      expect(result.success && result.data.raw.customField).toBeDefined()
     })
   })
 

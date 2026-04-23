@@ -162,7 +162,7 @@ export function createArchitecturalAnalyzer(options: ArchitecturalAnalyzerOption
       rule: createPublicApiRule({
         severity: resolvedOptions.publicApiSeverity,
         options: {
-          entryPoints: resolvedOptions.entryPointPatterns as string[],
+          entryPoints: resolvedOptions.entryPointPatterns,
           requireReexport: false,
         },
       }),
@@ -202,7 +202,7 @@ export function createArchitecturalAnalyzer(options: ArchitecturalAnalyzerOption
     engine.register('package-boundary', {
       rule: createPackageBoundaryRule({
         options: {
-          sharedPackages: resolvedOptions.sharedPackages as string[],
+          sharedPackages: resolvedOptions.sharedPackages,
           enforceEntryPointImports: true,
         },
       }),

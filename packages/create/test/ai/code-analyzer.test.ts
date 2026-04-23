@@ -1,4 +1,3 @@
-import type {LLMResponse} from '../../src/types.js'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {
   CodeAnalyzer,
@@ -51,7 +50,7 @@ console.log(x);
       vi.mocked(mockLLMClient.complete).mockResolvedValue({
         success: true,
         content: '[]',
-      } as LLMResponse)
+      })
 
       const result = await analyzer.analyzeFile('test.ts', code)
 
@@ -71,7 +70,7 @@ function test() {
       vi.mocked(mockLLMClient.complete).mockResolvedValue({
         success: true,
         content: '[]',
-      } as LLMResponse)
+      })
 
       const result = await analyzer.analyzeFile('test.ts', code, {useAI: false})
 
@@ -171,7 +170,7 @@ function test() {
       vi.mocked(mockLLMClient.complete).mockResolvedValue({
         success: true,
         content: '[]',
-      } as LLMResponse)
+      })
 
       const result = await analyzer.analyzeTargets(targets, {useAI: true})
 
@@ -321,7 +320,7 @@ console.log('5');
             lineNumber: 5,
           },
         ]),
-      } as LLMResponse)
+      })
 
       const result = await analyzer.analyzeFile('test.ts', 'const x = 1;', {useAI: true})
 
@@ -345,7 +344,7 @@ console.log('5');
       vi.mocked(mockLLMClient.complete).mockResolvedValue({
         success: true,
         content: 'not valid json',
-      } as LLMResponse)
+      })
 
       const result = await analyzer.analyzeFile('test.ts', 'const x = 1;', {useAI: true})
 
@@ -356,7 +355,7 @@ console.log('5');
       vi.mocked(mockLLMClient.complete).mockResolvedValue({
         success: true,
         content: JSON.stringify({issues: []}),
-      } as LLMResponse)
+      })
 
       const result = await analyzer.analyzeFile('test.ts', 'const x = 1;', {useAI: true})
 
@@ -367,7 +366,7 @@ console.log('5');
       vi.mocked(mockLLMClient.complete).mockResolvedValue({
         success: true,
         content: JSON.stringify([{title: 'Partial issue'}, {description: 'Only description'}, {}]),
-      } as LLMResponse)
+      })
 
       const result = await analyzer.analyzeFile('test.ts', 'const x = 1;', {useAI: true})
 
@@ -383,7 +382,7 @@ console.log('5');
           {title: 'Valid severity', severity: 'error'},
           {title: 'Invalid severity', severity: 'critical'},
         ]),
-      } as LLMResponse)
+      })
 
       const result = await analyzer.analyzeFile('test.ts', 'const x = 1;', {useAI: true})
 
@@ -399,7 +398,7 @@ console.log('5');
           {title: 'Valid category', category: 'security'},
           {title: 'Invalid category', category: 'unknown-category'},
         ]),
-      } as LLMResponse)
+      })
 
       const result = await analyzer.analyzeFile('test.ts', 'const x = 1;', {useAI: true})
 
@@ -419,7 +418,7 @@ console.log('5');
       vi.mocked(mockLLMClient.complete).mockResolvedValue({
         success: false,
         error: 'Rate limited',
-      } as LLMResponse)
+      })
 
       const result = await analyzer.analyzeFile('test.ts', 'const x = 1;', {useAI: true})
 
@@ -445,7 +444,7 @@ console.log('5');
           'Add type annotations',
           'Extract to separate function',
         ]),
-      } as LLMResponse)
+      })
 
       const suggestions = await analyzer.getImprovementSuggestions(mockIssue, 'const x = 1;')
 
@@ -466,7 +465,7 @@ console.log('5');
       vi.mocked(mockLLMClient.complete).mockResolvedValue({
         success: false,
         error: 'Rate limited',
-      } as LLMResponse)
+      })
 
       const suggestions = await analyzer.getImprovementSuggestions(mockIssue, 'const x = 1;')
 
@@ -478,7 +477,7 @@ console.log('5');
       vi.mocked(mockLLMClient.complete).mockResolvedValue({
         success: true,
         content: 'Use better naming\nAdd comments\nRefactor code',
-      } as LLMResponse)
+      })
 
       const suggestions = await analyzer.getImprovementSuggestions(mockIssue, 'const x = 1;')
 
@@ -895,7 +894,7 @@ line5`
       vi.mocked(mockLLMClient.complete).mockResolvedValue({
         success: true,
         content: '[]',
-      } as LLMResponse)
+      })
 
       const aiResult = await analyzer.analyzeFile('test.ts', 'const x = 1;', {useAI: true})
       expect(aiResult.metadata.analysisEngine).toBe('ai')

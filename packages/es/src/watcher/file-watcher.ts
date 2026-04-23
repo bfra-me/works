@@ -84,7 +84,7 @@ export function createFileWatcher(
         chokidarOptions.ignored = typeof ignored === 'string' ? ignored : [...ignored]
       }
 
-      watcher = chokidar.watch(pathsArray, chokidarOptions) as ChokidarWatcher
+      watcher = chokidar.watch(pathsArray, chokidarOptions)
 
       watcher.on('add', (path: string) => {
         queueChange({path, type: 'add', timestamp: Date.now()})

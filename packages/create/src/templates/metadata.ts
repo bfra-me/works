@@ -215,7 +215,7 @@ export class TemplateMetadataManager {
 
     const saveResult = await this.save(templatePath, metadata)
     if (!saveResult.success) {
-      return saveResult as Result<TemplateMetadata>
+      return saveResult
     }
 
     return {

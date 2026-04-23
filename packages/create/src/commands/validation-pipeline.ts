@@ -311,7 +311,7 @@ export function validateOptions<T extends CreateCommandOptions | AddCommandOptio
 
   const validationResult = isAddCommand
     ? validateAddOptions(options as unknown as AddCommandOptions)
-    : validateCreateOptions(options as unknown as CreateCommandOptions)
+    : validateCreateOptions(options)
 
   if (!validationResult.success) {
     const errorMessages = validationResult.errors.map(e => `${e.field}: ${e.message}`).join('; ')

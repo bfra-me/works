@@ -34,6 +34,6 @@ export async function fallback(
         [`${pluginName}/missing-module-for-config`]: ['error', missingList],
       },
       ...(options ?? {}),
-    } as Config,
+    },
   ]
 }

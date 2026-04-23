@@ -13,7 +13,6 @@ import type {
   TemplateContext,
   TemplateMetadata,
   TemplateSource,
-  ValidationResult,
 } from '../../src/types.js'
 import {err, isErr, isOk, ok} from '@bfra.me/es/result'
 import {describe, expect, it, vi} from 'vitest'
@@ -494,7 +493,7 @@ describe('template processing pipeline', () => {
 
   describe('createValidateStage', () => {
     it('returns ok result for valid template', async () => {
-      const validator = vi.fn().mockResolvedValue({valid: true} as ValidationResult)
+      const validator = vi.fn().mockResolvedValue({valid: true})
       const validateStage = createValidateStage(validator)
 
       const result = await validateStage('/tmp/template')
@@ -507,7 +506,7 @@ describe('template processing pipeline', () => {
       const validator = vi.fn().mockResolvedValue({
         valid: false,
         errors: ['Missing template.json', 'Invalid metadata format'],
-      } as ValidationResult)
+      })
       const validateStage = createValidateStage(validator)
 
       const result = await validateStage('/tmp/template')
@@ -522,7 +521,7 @@ describe('template processing pipeline', () => {
       const validator = vi.fn().mockResolvedValue({
         valid: true,
         warnings: ['Deprecated field in template.json'],
-      } as ValidationResult)
+      })
       const validateStage = createValidateStage(validator)
 
       const result = await validateStage('/tmp/template')
@@ -534,7 +533,7 @@ describe('template processing pipeline', () => {
       const validator = vi.fn().mockResolvedValue({
         valid: false,
         errors: [],
-      } as ValidationResult)
+      })
       const validateStage = createValidateStage(validator)
 
       const result = await validateStage('/tmp/template')

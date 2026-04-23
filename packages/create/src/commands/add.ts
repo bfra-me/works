@@ -144,7 +144,7 @@ export async function addFeatureToProject(
       return ok(undefined)
     }
 
-    await resolveConflicts(conflicts, resolution as string, targetDir)
+    await resolveConflicts(conflicts, resolution, targetDir)
   }
 
   // Backup enables safe rollback if feature addition fails partway through

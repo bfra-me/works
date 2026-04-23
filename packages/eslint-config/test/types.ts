@@ -6,4 +6,4 @@ const assertCompatibility = (
   config: Config,
 ): [Linter.Config, Config] => [linterConfig, config]
 
-assertCompatibility({} as Config, {} as Linter.Config)
+assertCompatibility({}, {})
