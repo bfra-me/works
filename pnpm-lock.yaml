@@ -1,3 +1,97 @@
+---
+lockfileVersion: '9.0'
+
+importers:
+
+  .:
+    configDependencies: {}
+    packageManagerDependencies:
+      '@pnpm/exe':
+        specifier: 10.33.1
+        version: 10.33.1
+      pnpm:
+        specifier: 10.33.1
+        version: 10.33.1
+
+packages:
+
+  '@pnpm/exe@10.33.1':
+    resolution: {integrity: sha512-TAcwWLPYPcZw//TEaqTjSJJ3CWd3MBj1IrGaqEYU5zmwn5DAKTPZHn2MgFfp5vftwLltAwRU7804yxjHfocrYQ==}
+    hasBin: true
+
+  '@pnpm/linux-arm64@10.33.1':
+    resolution: {integrity: sha512-RB+BVGaY+OyG8pvL/JWR5qCRyUw78tVKFqC8HGiuRXY5rVb/MNvuCR0s0THji5qh/2MMByEdlWAQjnwR1aZloA==}
+    cpu: [arm64]
+    os: [linux]
+    hasBin: true
+
+  '@pnpm/linux-x64@10.33.1':
+    resolution: {integrity: sha512-dR5CDECrdEV1sy2G/udWb08v7NdKEECqc4EhVFu5Xh65wEfFNmM/mJ9TBl2UAAi4WX4l4LJjQlLIrSf1AbdO4A==}
+    cpu: [x64]
+    os: [linux]
+    hasBin: true
+
+  '@pnpm/macos-arm64@10.33.1':
+    resolution: {integrity: sha512-4NAnZQQR4Y6UXnllr/Iy7yaEw1PpdccUvO8eCaszGmRffH/6pd3kFwxg/PKjCHVZkQ6RLj1hpFVsZAu87PMVkQ==}
+    cpu: [arm64]
+    os: [darwin]
+    hasBin: true
+
+  '@pnpm/macos-x64@10.33.1':
+    resolution: {integrity: sha512-ql4pOz6co4+vQGkmUeTF71CkFmx/SZJcWiXS+b4NSYSwAt7hhBnD0EMAS0gMbamg/oSc0cFFClrQ5hvw7mVGkg==}
+    cpu: [x64]
+    os: [darwin]
+    hasBin: true
+
+  '@pnpm/win-arm64@10.33.1':
+    resolution: {integrity: sha512-W8uyNhQL8ga6GhtNhM8+nzU8HBUNCLGZLS6sN/jiQxT88i9ugKcGJa/n3G8Dxg2q6gSyeYATZL9DqiOMg3NOPg==}
+    cpu: [arm64]
+    os: [win32]
+    hasBin: true
+
+  '@pnpm/win-x64@10.33.1':
+    resolution: {integrity: sha512-VViwCis92C/EQgosK9J6C2QJyHRQIioy0S01jT0tKsCbuZzAEa4caqh9FZxy5uFarg7GrLy6UOCUyIVamH9Ivg==}
+    cpu: [x64]
+    os: [win32]
+    hasBin: true
+
+  pnpm@10.33.1:
+    resolution: {integrity: sha512-Bbo8HV0cGPaN8GRw10BV5i1B/BEKDGYNsbLfsnhTJ/BM8PaDRdRgm8Ugief6A0PDFZOy+VlOLF1dpCYjCsyYIA==}
+    engines: {node: '>=18.12'}
+    hasBin: true
+
+snapshots:
+
+  '@pnpm/exe@10.33.1':
+    optionalDependencies:
+      '@pnpm/linux-arm64': 10.33.1
+      '@pnpm/linux-x64': 10.33.1
+      '@pnpm/macos-arm64': 10.33.1
+      '@pnpm/macos-x64': 10.33.1
+      '@pnpm/win-arm64': 10.33.1
+      '@pnpm/win-x64': 10.33.1
+
+  '@pnpm/linux-arm64@10.33.1':
+    optional: true
+
+  '@pnpm/linux-x64@10.33.1':
+    optional: true
+
+  '@pnpm/macos-arm64@10.33.1':
+    optional: true
+
+  '@pnpm/macos-x64@10.33.1':
+    optional: true
+
+  '@pnpm/win-arm64@10.33.1':
+    optional: true
+
+  '@pnpm/win-x64@10.33.1':
+    optional: true
+
+  pnpm@10.33.1: {}
+
+---
 lockfileVersion: '9.0'
 
 settings:
