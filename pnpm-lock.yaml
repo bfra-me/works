@@ -168,8 +168,8 @@ importers:
         specifier: 17.4.2
         version: 17.4.2
       eta:
-        specifier: 4.5.1
-        version: 4.5.1
+        specifier: 4.6.0
+        version: 4.6.0
       giget:
         specifier: 3.2.0
         version: 3.2.0
@@ -3367,8 +3367,8 @@ packages:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
 
-  eta@4.5.1:
-    resolution: {integrity: sha512-EaNCGm+8XEIU7YNcc+THptWAO5NfKBHHARxt+wxZljj9bTr/+arRoOm9/MpGt4n6xn9fLnPFRSoLD0WFYGFUxQ==}
+  eta@4.6.0:
+    resolution: {integrity: sha512-lW6is4T1NFOYnmqGZIfvixqj7A7sSvScF+DN8EK6K58xI5MZ5UvYe0GjopxOXQtZvUn4eDdVuZ8XSoYWTMEKwA==}
     engines: {node: '>=20'}
 
   eventemitter3@5.0.4:
@@ -10086,7 +10086,7 @@ snapshots:
 
   esutils@2.0.3: {}
 
-  eta@4.5.1: {}
+  eta@4.6.0: {}
 
   eventemitter3@5.0.4: {}
 
