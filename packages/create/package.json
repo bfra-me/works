@@ -58,7 +58,7 @@
     "eta": "4.6.0",
     "giget": "3.2.0",
     "glob": "13.0.6",
-    "openai": "6.35.0",
+    "openai": "6.36.0",
     "package-manager-detector": "1.6.0",
     "semver": "7.7.4"
   },
