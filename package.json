@@ -58,7 +58,7 @@
     "execa": "9.6.1",
     "fast-glob": "3.3.3",
     "flatted": "3.4.2",
-    "fs-extra": "11.3.4",
+    "fs-extra": "11.3.5",
     "husky": "9.1.7",
     "jiti": "2.7.0",
     "lint-staged": "16.4.0",
