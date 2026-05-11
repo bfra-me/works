@@ -183,8 +183,8 @@ importers:
         specifier: 1.6.0
         version: 1.6.0
       semver:
-        specifier: 7.7.4
-        version: 7.7.4
+        specifier: 7.8.0
+        version: 7.8.0
     devDependencies:
       '@bfra.me/works':
         specifier: workspace:*
@@ -5516,6 +5516,11 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
+  semver@7.8.0:
+    resolution: {integrity: sha512-AcM7dV/5ul4EekoQ29Agm5vri8JNqRyj39o0qpX6vDF2GZrtutZl5RwgD1XnZjiTAfncsJhMI48QQH3sN87YNA==}
+    engines: {node: '>=10'}
+    hasBin: true
+
   set-cookie-parser@3.1.0:
     resolution: {integrity: sha512-kjnC1DXBHcxaOaOXBHBeRtltsDG2nUiUni+jP92M9gYdW12rsmx92UsfpH7o5tDRs7I1ZZPSQJQGv3UaRfCiuw==}
 
@@ -6900,7 +6905,7 @@ snapshots:
       outdent: 0.5.0
       prettier: 2.8.8
       resolve-from: 5.0.0
-      semver: 7.7.4
+      semver: 7.8.0
 
   '@changesets/assemble-release-plan@6.0.10':
     dependencies:
@@ -6909,7 +6914,7 @@ snapshots:
       '@changesets/should-skip-package': 0.1.2
       '@changesets/types': 6.1.0
       '@manypkg/get-packages': 1.1.3
-      semver: 7.7.4
+      semver: 7.8.0
 
   '@changesets/changelog-git@0.2.1':
     dependencies:
@@ -6940,7 +6945,7 @@ snapshots:
       package-manager-detector: 0.2.11
       picocolors: 1.1.1
       resolve-from: 5.0.0
-      semver: 7.7.4
+      semver: 7.8.0
       spawndamnit: 3.0.1
       term-size: 2.2.1
     transitivePeerDependencies:
@@ -6966,7 +6971,7 @@ snapshots:
       '@changesets/types': 6.1.0
       '@manypkg/get-packages': 1.1.3
       picocolors: 1.1.1
-      semver: 7.7.4
+      semver: 7.8.0
 
   '@changesets/get-github-info@0.6.0':
     dependencies:
@@ -7744,7 +7749,7 @@ snapshots:
       parse-github-url: 1.0.4
       picocolors: 1.1.1
       sembear: 0.7.0
-      semver: 7.7.4
+      semver: 7.8.0
       tinyexec: 1.1.2
       validate-npm-package-name: 6.0.2
 
@@ -8171,7 +8176,7 @@ snapshots:
       read-pkg: 10.1.0
       registry-auth-token: 5.1.1
       semantic-release: 25.0.3(typescript@6.0.3)
-      semver: 7.7.4
+      semver: 7.8.0
       tempy: 3.2.0
 
   '@semantic-release/release-notes-generator@14.1.0(semantic-release@25.0.3(typescript@6.0.3))':
@@ -8435,7 +8440,7 @@ snapshots:
       eslint: 10.3.0(jiti@2.7.0)
       json-stable-stringify-without-jsonify: 1.0.1
       lodash.merge: 4.6.2
-      semver: 7.7.4
+      semver: 7.8.0
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -8482,7 +8487,7 @@ snapshots:
       '@typescript-eslint/visitor-keys': 8.59.1
       debug: 4.4.3
       minimatch: 10.2.5
-      semver: 7.7.4
+      semver: 7.8.0
       tinyglobby: 0.2.16
       ts-api-utils: 2.5.0(typescript@6.0.3)
       typescript: 6.0.3
@@ -8497,7 +8502,7 @@ snapshots:
       '@typescript-eslint/visitor-keys': 8.59.2
       debug: 4.4.3
       minimatch: 10.2.5
-      semver: 7.7.4
+      semver: 7.8.0
       tinyglobby: 0.2.16
       ts-api-utils: 2.5.0(typescript@6.0.3)
       typescript: 6.0.3
@@ -8884,7 +8889,7 @@ snapshots:
       espree: 10.4.0
       fast-glob: 3.3.3
       is-glob: 4.0.3
-      semver: 7.7.4
+      semver: 7.8.0
     transitivePeerDependencies:
       - supports-color
 
@@ -8933,7 +8938,7 @@ snapshots:
       piccolore: 0.1.3
       picomatch: 4.0.4
       rehype: 13.0.2
-      semver: 7.7.4
+      semver: 7.8.0
       shiki: 4.0.2
       smol-toml: 1.6.1
       svgo: 4.0.1
@@ -9247,7 +9252,7 @@ snapshots:
       conventional-commits-filter: 5.0.0
       handlebars: 4.7.9
       meow: 13.2.0
-      semver: 7.7.4
+      semver: 7.8.0
 
   conventional-commits-filter@5.0.0: {}
 
@@ -9630,12 +9635,12 @@ snapshots:
   eslint-compat-utils@0.5.1(eslint@10.3.0(jiti@2.7.0)):
     dependencies:
       eslint: 10.3.0(jiti@2.7.0)
-      semver: 7.7.4
+      semver: 7.8.0
 
   eslint-compat-utils@0.6.5(eslint@10.3.0(jiti@2.7.0)):
     dependencies:
       eslint: 10.3.0(jiti@2.7.0)
-      semver: 7.7.4
+      semver: 7.8.0
 
   eslint-config-flat-gitignore@2.3.0(eslint@10.3.0(jiti@2.7.0)):
     dependencies:
@@ -9717,7 +9722,7 @@ snapshots:
       eslint-import-context: 0.1.9(unrs-resolver@1.11.1)
       is-glob: 4.0.3
       minimatch: 10.2.5
-      semver: 7.7.4
+      semver: 7.8.0
       stable-hash-x: 0.2.0
       unrs-resolver: 1.11.1
     optionalDependencies:
@@ -9739,7 +9744,7 @@ snapshots:
       html-entities: 2.6.0
       object-deep-merge: 2.0.0
       parse-imports-exports: 0.2.4
-      semver: 7.7.4
+      semver: 7.8.0
       spdx-expression-parse: 4.0.0
       to-valid-identifier: 1.0.0
     transitivePeerDependencies:
@@ -9807,7 +9812,7 @@ snapshots:
       globals: 15.15.0
       globrex: 0.1.2
       ignore: 5.3.2
-      semver: 7.7.4
+      semver: 7.8.0
       ts-declaration-location: 1.0.7(typescript@6.0.3)
     transitivePeerDependencies:
       - typescript
@@ -9819,7 +9824,7 @@ snapshots:
       jsonc-eslint-parser: 3.1.0
       npm-package-arg: 13.0.2
       package-json: 10.0.1
-      semver: 7.7.4
+      semver: 7.8.0
       synckit: 0.11.12
       undici: 7.25.0
     transitivePeerDependencies:
@@ -10011,7 +10016,7 @@ snapshots:
       pluralize: 8.0.0
       regexp-tree: 0.1.27
       regjsparser: 0.13.1
-      semver: 7.7.4
+      semver: 7.8.0
       strip-indent: 4.1.1
 
   eslint-plugin-unused-imports@4.4.1(@typescript-eslint/eslint-plugin@8.59.2(@typescript-eslint/parser@8.59.2(eslint@10.3.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.3.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.3.0(jiti@2.7.0)):
@@ -11139,7 +11144,7 @@ snapshots:
     dependencies:
       acorn: 8.16.0
       eslint-visitor-keys: 5.0.1
-      semver: 7.7.4
+      semver: 7.8.0
 
   jsonc-parser@2.3.1: {}
 
@@ -11291,7 +11296,7 @@ snapshots:
 
   make-dir@4.0.0:
     dependencies:
-      semver: 7.7.4
+      semver: 7.8.0
 
   markdown-extensions@2.0.0: {}
 
@@ -11975,13 +11980,13 @@ snapshots:
   normalize-package-data@6.0.2:
     dependencies:
       hosted-git-info: 7.0.2
-      semver: 7.7.4
+      semver: 7.8.0
       validate-npm-package-license: 3.0.4
 
   normalize-package-data@8.0.0:
     dependencies:
       hosted-git-info: 9.0.3
-      semver: 7.7.4
+      semver: 7.8.0
       validate-npm-package-license: 3.0.4
 
   normalize-path@3.0.0: {}
@@ -11992,7 +11997,7 @@ snapshots:
     dependencies:
       hosted-git-info: 9.0.3
       proc-log: 6.1.0
-      semver: 7.7.4
+      semver: 7.8.0
       validate-npm-package-name: 7.0.2
 
   npm-run-path@5.3.0:
@@ -12174,7 +12179,7 @@ snapshots:
       ky: 1.14.3
       registry-auth-token: 5.1.1
       registry-url: 6.0.1
-      semver: 7.7.4
+      semver: 7.8.0
 
   package-manager-detector@0.2.11:
     dependencies:
@@ -12795,7 +12800,7 @@ snapshots:
       p-reduce: 3.0.0
       read-package-up: 12.0.0
       resolve-from: 5.0.0
-      semver: 7.7.4
+      semver: 7.8.0
       signale: 1.4.0
       yargs: 18.0.0
     transitivePeerDependencies:
@@ -12804,13 +12809,15 @@ snapshots:
 
   sembear@0.7.0:
     dependencies:
-      semver: 7.7.4
+      semver: 7.8.0
 
   semver-regex@4.0.5: {}
 
   semver@6.3.1: {}
 
   semver@7.7.4: {}
+
+  semver@7.8.0: {}
 
   set-cookie-parser@3.1.0: {}
 
@@ -12840,7 +12847,7 @@ snapshots:
     dependencies:
       '@img/colour': 1.1.0
       detect-libc: 2.1.2
-      semver: 7.7.4
+      semver: 7.8.0
     optionalDependencies:
       '@img/sharp-darwin-arm64': 0.34.5
       '@img/sharp-darwin-x64': 0.34.5
@@ -12957,7 +12964,7 @@ snapshots:
       detect-newline: 4.0.1
       git-hooks-list: 4.2.1
       is-plain-obj: 4.1.0
-      semver: 7.7.4
+      semver: 7.8.0
       sort-object-keys: 2.1.0
       tinyglobby: 0.2.16
 
@@ -13399,7 +13406,7 @@ snapshots:
 
   typescript-auto-import-cache@0.3.6:
     dependencies:
-      semver: 7.7.4
+      semver: 7.8.0
 
   typescript-eslint@8.59.2(eslint@10.3.0(jiti@2.7.0))(typescript@6.0.3):
     dependencies:
@@ -13746,7 +13753,7 @@ snapshots:
   volar-service-typescript@0.0.70(@volar/language-service@2.4.28):
     dependencies:
       path-browserify: 1.0.1
-      semver: 7.7.4
+      semver: 7.8.0
       typescript-auto-import-cache: 0.3.6
       vscode-languageserver-textdocument: 1.0.12
       vscode-nls: 5.2.0
