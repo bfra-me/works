@@ -77,5 +77,10 @@
   "packageManager": "pnpm@10.33.4",
   "manypkg": {
     "workspaceProtocol": "require"
+  },
+  "pnpm": {
+    "overrides": {
+      "fast-uri": ">=3.1.2"
+    }
   }
 }
