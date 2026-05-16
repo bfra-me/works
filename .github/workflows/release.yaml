@@ -172,4 +172,4 @@ jobs:
     name: Trigger Organization Renovate
     needs: manage-release
     secrets: inherit
-    uses: bfra-me/.github/.github/workflows/trigger-org-renovate.yaml@71213b76c0a4c5ba90e8071a5777b3836092b655 # v4.16.16
+    uses: bfra-me/.github/.github/workflows/trigger-org-renovate.yaml@5cb8bc230d36f005cd2de807fe408b428a44c4d5 # v4.16.17
