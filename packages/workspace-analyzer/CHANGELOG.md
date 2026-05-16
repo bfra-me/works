@@ -1,5 +1,11 @@
 # @bfra.me/workspace-analyzer
 
+## 0.2.8
+### Patch Changes
+
+- Updated dependencies [[`763e0a2`](https://github.com/bfra-me/works/commit/763e0a2debd886d757b389b33443bf3dcab64234), [`3af6ec4`](https://github.com/bfra-me/works/commit/3af6ec4188504e69d99f4a79a84748e475822cb2), [`4cefd94`](https://github.com/bfra-me/works/commit/4cefd94350f2f325623d0ef4bbb56a4a3eb8efd4), [`4b0e988`](https://github.com/bfra-me/works/commit/4b0e988e5e693fc485584e82441522ffcceedd67), [`c18748d`](https://github.com/bfra-me/works/commit/c18748d8aa95f6b7b126102d0d17d331eae19af1), [`0324623`](https://github.com/bfra-me/works/commit/03246234e78ee2e605f8be72eb82e9b131ba8338), [`76cf0ff`](https://github.com/bfra-me/works/commit/76cf0ff478221b84d3ebf22fcef60d01b71a5923)]:
+  - @bfra.me/doc-sync@0.1.9
+
 ## 0.2.7
 ### Patch Changes
 

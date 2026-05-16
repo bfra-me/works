@@ -1,5 +1,29 @@
 # @bfra.me/doc-sync
 
+## 0.1.9
+### Patch Changes
+
+
+- Updated dependency `memfs` to `4.57.2`. ([`763e0a2`](https://github.com/bfra-me/works/commit/763e0a2debd886d757b389b33443bf3dcab64234))
+
+
+- Updated dependency `zod` to `4.4.2`. ([#3300](https://github.com/bfra-me/works/pull/3300))
+
+
+- Updated dependency `zod` to `4.4.3`. ([#3309](https://github.com/bfra-me/works/pull/3309))
+
+
+- Updated dependency `@clack/prompts` to `1.3.0`. ([#3270](https://github.com/bfra-me/works/pull/3270))
+
+
+- Updated dependency `zod` to `4.4.1`. ([#3274](https://github.com/bfra-me/works/pull/3274))
+
+
+- Updated dependency `zod` to `4.4.0`. ([#3272](https://github.com/bfra-me/works/pull/3272))
+
+
+- Updated dependency `@clack/prompts` to `1.4.0`. ([#3399](https://github.com/bfra-me/works/pull/3399))
+
 ## 0.1.8
 ### Patch Changes
 
