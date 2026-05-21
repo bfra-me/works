@@ -1,5 +1,14 @@
 # @bfra.me/create
 
+## 0.7.15
+### Patch Changes
+
+
+- Updated dependency `openai` to `6.38.0`. ([#3435](https://github.com/bfra-me/works/pull/3435))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.96.0`. ([#3411](https://github.com/bfra-me/works/pull/3411))
+
 ## 0.7.14
 ### Patch Changes
 
