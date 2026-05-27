@@ -1,5 +1,30 @@
 # @bfra.me/eslint-config
 
+## 0.51.2
+### Patch Changes
+
+
+- Updated dependency `local-pkg` to `1.2.1`. ([#3477](https://github.com/bfra-me/works/pull/3477))
+
+
+- Updated dependency `@eslint/markdown` to `8.0.2`. ([#3475](https://github.com/bfra-me/works/pull/3475))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.6.18`. ([#3492](https://github.com/bfra-me/works/pull/3492))
+
+
+- Updated dependency `eslint` to `10.4.0`. ([#3432](https://github.com/bfra-me/works/pull/3432))
+
+
+- Updated dependency `local-pkg` to `1.2.0`. ([#3469](https://github.com/bfra-me/works/pull/3469))
+
+
+- Updated dependency `eslint-plugin-pnpm` to `1.6.1`. ([#3468](https://github.com/bfra-me/works/pull/3468))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.59.4`. ([#3456](https://github.com/bfra-me/works/pull/3456))
+  Updated dependency `typescript-eslint` to `8.59.4`.
+
 ## 0.51.1
 ### Patch Changes
 
