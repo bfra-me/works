@@ -393,7 +393,10 @@ jobs:
         id: resolve
         env:
           INPUT_MODE: ${{ github.event.inputs.mode || '' }}
-          INPUT_PROMPT: ${{ github.event.inputs.prompt || '' }}
+          INPUT_PROMPT: ${{ inputs.prompt || github.event.inputs.prompt || '' }}
+          PR_REVIEW_PROMPT: ${{ env.PR_REVIEW_PROMPT }}
+          MAINTENANCE_PROMPT: ${{ env.MAINTENANCE_PROMPT }}
+          AUTOHEAL_PROMPT: ${{ env.AUTOHEAL_PROMPT }}
         run: |
           mode="$INPUT_MODE"
           if [ -z "$mode" ]; then
@@ -413,13 +416,13 @@ jobs:
 
           case "$mode" in
             review)
-              prompt="${{ env.PR_REVIEW_PROMPT }}"
+              prompt="$PR_REVIEW_PROMPT"
               ;;
             maintenance)
-              prompt="${{ env.MAINTENANCE_PROMPT }}"
+              prompt="$MAINTENANCE_PROMPT"
               ;;
             autoheal)
-              prompt="${{ env.AUTOHEAL_PROMPT }}"
+              prompt="$AUTOHEAL_PROMPT"
               ;;
             *)
               prompt="$INPUT_PROMPT"
