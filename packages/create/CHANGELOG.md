@@ -1,5 +1,38 @@
 # @bfra.me/create
 
+## 0.7.15
+### Patch Changes
+
+
+- Updated dependency `memfs` to `4.57.3`. ([#3521](https://github.com/bfra-me/works/pull/3521))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.98.0`. ([#3487](https://github.com/bfra-me/works/pull/3487))
+
+
+- Updated dependency `openai` to `6.38.0`. ([#3435](https://github.com/bfra-me/works/pull/3435))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.96.0`. ([#3411](https://github.com/bfra-me/works/pull/3411))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.97.0`. ([#3460](https://github.com/bfra-me/works/pull/3460))
+
+
+- Updated dependency `openai` to `6.39.1`. ([#3524](https://github.com/bfra-me/works/pull/3524))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.99.0`. ([#3507](https://github.com/bfra-me/works/pull/3507))
+
+
+- Updated dependency `openai` to `6.39.0`. ([#3488](https://github.com/bfra-me/works/pull/3488))
+
+
+- Updated dependency `@anthropic-ai/sdk` to `0.97.1`. ([#3466](https://github.com/bfra-me/works/pull/3466))
+
+
+- Updated dependency `semver` to `7.8.1`. ([#3481](https://github.com/bfra-me/works/pull/3481))
+
 ## 0.7.14
 ### Patch Changes
 
