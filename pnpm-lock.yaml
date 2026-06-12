@@ -102,10 +102,10 @@ importers:
         version: 0.9.9(prettier@3.8.4)(typescript@6.0.3)
       '@astrojs/starlight':
         specifier: ^0.38.0
-        version: 0.38.5(astro@6.4.4(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.61.1)(tsx@4.22.4)(yaml@2.9.0))
+        version: 0.38.5(astro@6.4.5(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.61.1)(tsx@4.22.4)(yaml@2.9.0))
       astro:
         specifier: ^6.0.0
-        version: 6.4.4(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.61.1)(tsx@4.22.4)(yaml@2.9.0)
+        version: 6.4.5(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.61.1)(tsx@4.22.4)(yaml@2.9.0)
       sharp:
         specifier: ^0.34.2
         version: 0.34.5
@@ -648,8 +648,8 @@ packages:
     resolution: {integrity: sha512-6zABk/ECA/QYSCQ1NGiVwwbQerUCZ+TQbp64Q3AgmfNvurHH0j8TtXa1qbShXA6qqkpAj4V5W8pP6mLe1mcMqA==}
     engines: {node: '>=18'}
 
-  '@capsizecss/unpack@4.0.0':
-    resolution: {integrity: sha512-VERIM64vtTP1C4mxQ5thVT9fK0apjPFobqybMtA1UdUujWka24ERHbRHFGmpbbhp73MhV+KSsHQH9C6uOTdEQA==}
+  '@capsizecss/unpack@4.0.1':
+    resolution: {integrity: sha512-CuNiSqg7+e1cO/GjffyMOm5Tt2jUF9CWHHnvQ/UkqvtkGfHdgwEC0wpmq7fkN3gxwpRnrAN0WzO3vREKmNolMQ==}
     engines: {node: '>=18'}
 
   '@changesets/apply-release-plan@7.1.1':
@@ -2581,8 +2581,8 @@ packages:
     peerDependencies:
       astro: ^4.0.0-beta || ^5.0.0-beta || ^3.3.0 || ^6.0.0-beta
 
-  astro@6.4.4:
-    resolution: {integrity: sha512-hVe8tq3lqt/Dr0UyB//yUmQSlHMTU8scTiF/vQddQVahLE4TTaSdH5H0nb7OvRcwo0UmlAO8DWYar4jNaS7H+A==}
+  astro@6.4.5:
+    resolution: {integrity: sha512-0R7WLD1+WD/mTPcZxyKtcF0CztQi9ahFRtGM7oChJhxjNbr4lSBenxi+mk91k5bPTaUEoZ6edg1fDo2qP8bCwg==}
     engines: {node: '>=22.12.0', npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -5029,8 +5029,8 @@ packages:
     resolution: {integrity: sha512-gXah6aZrcUxjWg2zR2MwouP2eHlCBzdV4pygudehaKXSGW4v2AsRQUK+lwwXhii6KFZcunEnmSUoYp5CXibxtA==}
     engines: {node: '>= 0.4'}
 
-  obug@2.1.2:
-    resolution: {integrity: sha512-AWGB9WFcRXOQs48Z/udjI5ZcZMHXwX8XPByNpOydgcGsDLIzjGizhoMWJyKAWze7AVW/2W1i+/gPX4YtKe5cyg==}
+  obug@2.1.3:
+    resolution: {integrity: sha512-9miFgM2OFba7hB+pRgvtV84pYTBaoTHohvmIgiRt6dRIzbwEOIaNaP+dIlGs2fNFoB0SeISs0Jz5WFVRid6Xyg==}
     engines: {node: '>=12.20.0'}
 
   ofetch@1.5.1:
@@ -5388,8 +5388,8 @@ packages:
   process-nextick-args@2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
 
-  property-information@7.1.0:
-    resolution: {integrity: sha512-TwEZ+X+yCJmYfL7TPUOcvBZ4QfoT5YenQiJuX//0th53DE6w0xxLEtfK3iyryQFddXuvkIk51EEgrJQ0WJkOmQ==}
+  property-information@7.2.0:
+    resolution: {integrity: sha512-IAtzIB6sUiWaJYrX9smp3V46pBGbBeLFRGdh25kg1334VcBlD8HzhPeNIWQH9zhGmo2itIe25EHt9dQP7G5hmg==}
 
   proto-list@1.2.4:
     resolution: {integrity: sha512-vtK/94akxsTMhe0/cbfpR+syPuszcuwhqVjJq26CuNDgFGj682oRBXOP5MJpv2r7JtE8MsiepGIqvvOTBwn2vA==}
@@ -6905,12 +6905,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/mdx@5.0.4(astro@6.4.4(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.61.1)(tsx@4.22.4)(yaml@2.9.0))':
+  '@astrojs/mdx@5.0.4(astro@6.4.5(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.61.1)(tsx@4.22.4)(yaml@2.9.0))':
     dependencies:
       '@astrojs/markdown-remark': 7.1.1
       '@mdx-js/mdx': 3.1.1
       acorn: 8.16.0
-      astro: 6.4.4(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.61.1)(tsx@4.22.4)(yaml@2.9.0)
+      astro: 6.4.5(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.61.1)(tsx@4.22.4)(yaml@2.9.0)
       es-module-lexer: 2.1.0
       estree-util-visit: 2.0.0
       hast-util-to-html: 9.0.5
@@ -6938,17 +6938,17 @@ snapshots:
       stream-replace-string: 2.0.0
       zod: 4.4.3
 
-  '@astrojs/starlight@0.38.5(astro@6.4.4(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.61.1)(tsx@4.22.4)(yaml@2.9.0))':
+  '@astrojs/starlight@0.38.5(astro@6.4.5(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.61.1)(tsx@4.22.4)(yaml@2.9.0))':
     dependencies:
       '@astrojs/markdown-remark': 7.2.0
-      '@astrojs/mdx': 5.0.4(astro@6.4.4(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.61.1)(tsx@4.22.4)(yaml@2.9.0))
+      '@astrojs/mdx': 5.0.4(astro@6.4.5(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.61.1)(tsx@4.22.4)(yaml@2.9.0))
       '@astrojs/sitemap': 3.7.2
       '@pagefind/default-ui': 1.5.2
       '@types/hast': 3.0.4
       '@types/js-yaml': 4.0.9
       '@types/mdast': 4.0.4
-      astro: 6.4.4(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.61.1)(tsx@4.22.4)(yaml@2.9.0)
-      astro-expressive-code: 0.42.0(astro@6.4.4(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.61.1)(tsx@4.22.4)(yaml@2.9.0))
+      astro: 6.4.5(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.61.1)(tsx@4.22.4)(yaml@2.9.0)
+      astro-expressive-code: 0.42.0(astro@6.4.5(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.61.1)(tsx@4.22.4)(yaml@2.9.0))
       bcp-47: 2.1.0
       hast-util-from-html: 2.0.3
       hast-util-select: 6.0.4
@@ -7088,7 +7088,7 @@ snapshots:
 
   '@bcoe/v8-coverage@1.0.2': {}
 
-  '@capsizecss/unpack@4.0.0':
+  '@capsizecss/unpack@4.0.1':
     dependencies:
       fontkitten: 1.0.3
 
@@ -8856,7 +8856,7 @@ snapshots:
       istanbul-lib-report: 3.0.1
       istanbul-reports: 3.2.0
       magicast: 0.5.3
-      obug: 2.1.2
+      obug: 2.1.3
       std-env: 4.1.0
       tinyrainbow: 3.1.0
       vitest: 4.1.8(@types/node@24.12.4)(@vitest/coverage-v8@4.1.8)(happy-dom@20.10.2)(msw@2.14.6(@types/node@24.12.4)(typescript@6.0.3))(vite@7.3.5(@types/node@24.12.4)(jiti@2.7.0)(tsx@4.22.4)(yaml@2.9.0))
@@ -9129,18 +9129,18 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  astro-expressive-code@0.42.0(astro@6.4.4(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.61.1)(tsx@4.22.4)(yaml@2.9.0)):
+  astro-expressive-code@0.42.0(astro@6.4.5(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.61.1)(tsx@4.22.4)(yaml@2.9.0)):
     dependencies:
-      astro: 6.4.4(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.61.1)(tsx@4.22.4)(yaml@2.9.0)
+      astro: 6.4.5(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.61.1)(tsx@4.22.4)(yaml@2.9.0)
       rehype-expressive-code: 0.42.0
 
-  astro@6.4.4(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.61.1)(tsx@4.22.4)(yaml@2.9.0):
+  astro@6.4.5(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.61.1)(tsx@4.22.4)(yaml@2.9.0):
     dependencies:
       '@astrojs/compiler': 4.0.0
       '@astrojs/internal-helpers': 0.10.0
       '@astrojs/markdown-remark': 7.2.0
       '@astrojs/telemetry': 3.3.2
-      '@capsizecss/unpack': 4.0.0
+      '@capsizecss/unpack': 4.0.1
       '@clack/prompts': 1.5.1
       '@oslojs/encoding': 1.1.0
       '@rollup/pluginutils': 5.4.0(rollup@4.61.1)
@@ -9167,7 +9167,7 @@ snapshots:
       magicast: 0.5.3
       mrmime: 2.0.1
       neotraverse: 0.6.18
-      obug: 2.1.2
+      obug: 2.1.3
       p-limit: 7.3.0
       p-queue: 9.3.0
       package-manager-detector: 1.6.0
@@ -10888,7 +10888,7 @@ snapshots:
       '@types/unist': 3.0.3
       devlop: 1.1.0
       hastscript: 9.0.1
-      property-information: 7.1.0
+      property-information: 7.2.0
       vfile: 6.0.3
       vfile-location: 5.0.3
       web-namespaces: 2.0.1
@@ -10954,7 +10954,7 @@ snapshots:
       hast-util-to-string: 3.0.1
       hast-util-whitespace: 3.0.0
       nth-check: 2.1.1
-      property-information: 7.1.0
+      property-information: 7.2.0
       space-separated-tokens: 2.0.2
       unist-util-visit: 5.1.0
       zwitch: 2.0.4
@@ -10972,7 +10972,7 @@ snapshots:
       mdast-util-mdx-expression: 2.0.1
       mdast-util-mdx-jsx: 3.2.0
       mdast-util-mdxjs-esm: 2.0.1
-      property-information: 7.1.0
+      property-information: 7.2.0
       space-separated-tokens: 2.0.2
       style-to-js: 1.1.21
       unist-util-position: 5.0.0
@@ -10989,7 +10989,7 @@ snapshots:
       hast-util-whitespace: 3.0.0
       html-void-elements: 3.0.0
       mdast-util-to-hast: 13.2.1
-      property-information: 7.1.0
+      property-information: 7.2.0
       space-separated-tokens: 2.0.2
       stringify-entities: 4.0.4
       zwitch: 2.0.4
@@ -11006,7 +11006,7 @@ snapshots:
       mdast-util-mdx-expression: 2.0.1
       mdast-util-mdx-jsx: 3.2.0
       mdast-util-mdxjs-esm: 2.0.1
-      property-information: 7.1.0
+      property-information: 7.2.0
       space-separated-tokens: 2.0.2
       style-to-js: 1.1.21
       unist-util-position: 5.0.0
@@ -11019,7 +11019,7 @@ snapshots:
       '@types/hast': 3.0.4
       comma-separated-tokens: 2.0.3
       devlop: 1.1.0
-      property-information: 7.1.0
+      property-information: 7.2.0
       space-separated-tokens: 2.0.2
       web-namespaces: 2.0.1
       zwitch: 2.0.4
@@ -11044,7 +11044,7 @@ snapshots:
       '@types/hast': 3.0.4
       comma-separated-tokens: 2.0.3
       hast-util-parse-selector: 4.0.0
-      property-information: 7.1.0
+      property-information: 7.2.0
       space-separated-tokens: 2.0.2
 
   headers-polyfill@5.0.1:
@@ -12290,7 +12290,7 @@ snapshots:
       define-properties: 1.2.1
       es-object-atoms: 1.1.1
 
-  obug@2.1.2: {}
+  obug@2.1.3: {}
 
   ofetch@1.5.1:
     dependencies:
@@ -12618,7 +12618,7 @@ snapshots:
 
   process-nextick-args@2.0.1: {}
 
-  property-information@7.1.0: {}
+  property-information@7.2.0: {}
 
   proto-list@1.2.4: {}
 
@@ -13884,7 +13884,7 @@ snapshots:
       es-module-lexer: 2.1.0
       expect-type: 1.3.0
       magic-string: 0.30.21
-      obug: 2.1.2
+      obug: 2.1.3
       pathe: 2.0.3
       picomatch: 4.0.4
       std-env: 4.1.0
