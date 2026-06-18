@@ -1,5 +1,26 @@
 # @bfra.me/doc-sync
 
+## 0.1.10
+### Patch Changes
+
+
+- Updated dependency `memfs` to `4.57.6`. ([#3599](https://github.com/bfra-me/works/pull/3599))
+
+
+- Updated dependency `memfs` to `4.57.3`. ([#3521](https://github.com/bfra-me/works/pull/3521))
+
+
+- Updated dependency `@clack/prompts` to `1.5.0`. ([#3540](https://github.com/bfra-me/works/pull/3540))
+
+
+- Updated dependency `memfs` to `4.57.7`. ([#3687](https://github.com/bfra-me/works/pull/3687))
+
+
+- Updated dependency `@clack/prompts` to `1.5.1`. ([#3603](https://github.com/bfra-me/works/pull/3603))
+
+
+- Updated dependency `memfs` to `4.57.5`. ([#3597](https://github.com/bfra-me/works/pull/3597))
+
 ## 0.1.9
 ### Patch Changes
 
