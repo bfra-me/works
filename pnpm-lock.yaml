@@ -1,3 +1,97 @@
+---
+lockfileVersion: '9.0'
+
+importers:
+
+  .:
+    configDependencies: {}
+    packageManagerDependencies:
+      '@pnpm/exe':
+        specifier: 10.34.4
+        version: 10.34.4
+      pnpm:
+        specifier: 10.34.4
+        version: 10.34.4
+
+packages:
+
+  '@pnpm/exe@10.34.4':
+    resolution: {integrity: sha512-rBg+fjbO68KlFi3bNEnedyBUW5nu+fJdjiA5BmGFeQaRyRkyt0cvm6MBT65ZEP5fplh/Y6M1tmir9Oz09NYxHQ==}
+    hasBin: true
+
+  '@pnpm/linux-arm64@10.34.4':
+    resolution: {integrity: sha512-PCBpbcneXjKwrp86scDasphilTY4ZwWN6KjidudD8H08zHKzqDBJOwYClqUSjvAQzfwTr8wjpGxInLIApdkqEg==}
+    cpu: [arm64]
+    os: [linux]
+    hasBin: true
+
+  '@pnpm/linux-x64@10.34.4':
+    resolution: {integrity: sha512-6gsJT9HUs1kBsJANC5SEJNRGAMzjGMKgxEtCvPLYd7NIktbh1GH5Ktcu7nLYcbxX8SirCHHzhZiMolW0mvzoqA==}
+    cpu: [x64]
+    os: [linux]
+    hasBin: true
+
+  '@pnpm/macos-arm64@10.34.4':
+    resolution: {integrity: sha512-K2quNi8GEwI6INshDRN48G4VprYwKfOJFB5VXwNB2V41j65Ck5LJRjB44AYGaaoOPqDWrVPpxf5SdqjvxaAVaA==}
+    cpu: [arm64]
+    os: [darwin]
+    hasBin: true
+
+  '@pnpm/macos-x64@10.34.4':
+    resolution: {integrity: sha512-JhKmfB3tCrk6OV0GbpDjZWoQP1EGHO7UZdhYO3SW1j/Jp2sM5w1A4sPW3L8QTF3GftUUaX1UfPzS1+XJ2t0KBw==}
+    cpu: [x64]
+    os: [darwin]
+    hasBin: true
+
+  '@pnpm/win-arm64@10.34.4':
+    resolution: {integrity: sha512-Do6YuBNDFP8wmh1a6lXBwPHb73vROg6IFIWZUNRQMG00QngBptN/LGz/oUv1czy62zH7w4D/7MPEhx8yb9nFHA==}
+    cpu: [arm64]
+    os: [win32]
+    hasBin: true
+
+  '@pnpm/win-x64@10.34.4':
+    resolution: {integrity: sha512-KNUojrj5+c6Wk0yYPIr6/LQ3fToLeNq1istUtRPNFW5XjRXEw8ZQ2jw01ipwXMKFC46hHOMxV8dfZ8d2/YPfeQ==}
+    cpu: [x64]
+    os: [win32]
+    hasBin: true
+
+  pnpm@10.34.4:
+    resolution: {integrity: sha512-h2i+VSAK4/Iia2Un/Momh+FLxOXxLXchoPJdo99HkVF3BYZI20F3uvNIEg+guidS2NjZP2vq8f5krhjajelhrw==}
+    engines: {node: '>=18.12'}
+    hasBin: true
+
+snapshots:
+
+  '@pnpm/exe@10.34.4':
+    optionalDependencies:
+      '@pnpm/linux-arm64': 10.34.4
+      '@pnpm/linux-x64': 10.34.4
+      '@pnpm/macos-arm64': 10.34.4
+      '@pnpm/macos-x64': 10.34.4
+      '@pnpm/win-arm64': 10.34.4
+      '@pnpm/win-x64': 10.34.4
+
+  '@pnpm/linux-arm64@10.34.4':
+    optional: true
+
+  '@pnpm/linux-x64@10.34.4':
+    optional: true
+
+  '@pnpm/macos-arm64@10.34.4':
+    optional: true
+
+  '@pnpm/macos-x64@10.34.4':
+    optional: true
+
+  '@pnpm/win-arm64@10.34.4':
+    optional: true
+
+  '@pnpm/win-x64@10.34.4':
+    optional: true
+
+  pnpm@10.34.4: {}
+
+---
 lockfileVersion: '9.0'
 
 settings:
@@ -6,6 +100,8 @@ settings:
 
 overrides:
   fast-uri: '>=3.1.2'
+  undici@<6.27.0: ^6.27.0
+  undici@>=7.17.0 <7.28.0: ^7.28.0
 
 packageExtensionsChecksum: sha256-i9hTx/29Y1lrHwzmZFu5g1e7Gb9/n4mRMNNUhOzLKpo=
 
@@ -6249,12 +6345,12 @@ packages:
   undici-types@7.16.0:
     resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
 
-  undici@6.25.0:
-    resolution: {integrity: sha512-ZgpWDC5gmNiuY9CnLVXEH8rl50xhRCuLNA97fAUnKi8RRuV4E6KG31pDTsLVUKnohJE0I3XDrTeEydAXRw47xg==}
+  undici@6.27.0:
+    resolution: {integrity: sha512-YmfV3YnEDzXRC5lZ2jWtWWHKGUm1zIt8AhesR1tens+HTNv+YZlN/dp6G727LOvMJ8xjP9Be7Y2Sdr96LDm+pg==}
     engines: {node: '>=18.17'}
 
-  undici@7.25.0:
-    resolution: {integrity: sha512-xXnp4kTyor2Zq+J1FfPI6Eq3ew5h6Vl0F/8d9XU5zZQf1tX9s2Su1/3PiMmUANFULpmksxkClamIZcaUqryHsQ==}
+  undici@7.28.0:
+    resolution: {integrity: sha512-cRZYrTDwWznlnRiPjggAGxZXanty6M8RV1ff8Wm4LWXBp7/IG8v5DnOm74DtUBp9OONpK75YlPnIjQqX0dBDtA==}
     engines: {node: '>=20.18.1'}
 
   unicode-emoji-modifier-base@1.0.0:
@@ -6785,7 +6881,7 @@ snapshots:
   '@actions/http-client@4.0.1':
     dependencies:
       tunnel: 0.0.6
-      undici: 6.25.0
+      undici: 6.27.0
 
   '@actions/io@3.0.2': {}
 
@@ -8408,7 +8504,7 @@ snapshots:
       p-filter: 4.1.0
       semantic-release: 25.0.5(typescript@6.0.3)
       tinyglobby: 0.2.17
-      undici: 7.25.0
+      undici: 7.28.0
       url-join: 5.0.0
     transitivePeerDependencies:
       - supports-color
@@ -10096,7 +10192,7 @@ snapshots:
       package-json: 10.0.1
       semver: 7.8.4
       synckit: 0.11.13
-      undici: 7.25.0
+      undici: 7.28.0
     transitivePeerDependencies:
       - '@eslint/json'
 
@@ -13685,9 +13781,9 @@ snapshots:
 
   undici-types@7.16.0: {}
 
-  undici@6.25.0: {}
+  undici@6.27.0: {}
 
-  undici@7.25.0: {}
+  undici@7.28.0: {}
 
   unicode-emoji-modifier-base@1.0.0: {}
 
