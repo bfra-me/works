@@ -7270,6 +7270,11 @@ export interface Rules {
    */
   'yml/no-tab-indent'?: Linter.RuleEntry<[]>
   /**
+   * disallow trailing whitespace at the end of lines
+   * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/no-trailing-spaces.html
+   */
+  'yml/no-trailing-spaces'?: Linter.RuleEntry<YmlNoTrailingSpaces>
+  /**
    * disallow trailing zeros for floats
    * @see https://ota-meshi.github.io/eslint-plugin-yml/rules/no-trailing-zeros.html
    */
@@ -18891,6 +18896,11 @@ type YmlNoMultipleEmptyLines = []|[{
   max: number
   maxEOF?: number
   maxBOF?: number
+}]
+// ----- yml/no-trailing-spaces -----
+type YmlNoTrailingSpaces = []|[{
+  skipBlankLines?: boolean
+  ignoreComments?: boolean
 }]
 // ----- yml/plain-scalar -----
 type YmlPlainScalar = []|[("always" | "never")]|[("always" | "never"), {
