@@ -74,7 +74,7 @@
     "vitest": "4.1.9",
     "zod": "4.4.3"
   },
-  "packageManager": "pnpm@11.5.3",
+  "packageManager": "pnpm@11.8.0",
   "manypkg": {
     "workspaceProtocol": "require"
   }
