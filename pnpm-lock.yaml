@@ -5,7 +5,13 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  fast-uri: '>=3.1.2'
+  handlebars@>=4.0.0 <4.7.9: ^4.7.9
+  lodash: ^4.17.23
+  picomatch@>=2.3.1 <2.3.2: ^2.3.2
+  picomatch@>=4.0.3 <4.0.4: ^4.0.4
+  read-pkg-up@^11: npm:read-package-up
+  undici@<6.24.0: ^8.0.0
+  undici@>=7.17.0 <7.24.0: ^7.24.0
 
 packageExtensionsChecksum: sha256-i9hTx/29Y1lrHwzmZFu5g1e7Gb9/n4mRMNNUhOzLKpo=
 
@@ -3648,7 +3654,7 @@ packages:
     resolution: {integrity: sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
-      picomatch: ^3 || ^4
+      picomatch: ^4.0.4
     peerDependenciesMeta:
       picomatch:
         optional: true
@@ -6246,13 +6252,13 @@ packages:
   undici-types@7.16.0:
     resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
 
-  undici@6.25.0:
-    resolution: {integrity: sha512-ZgpWDC5gmNiuY9CnLVXEH8rl50xhRCuLNA97fAUnKi8RRuV4E6KG31pDTsLVUKnohJE0I3XDrTeEydAXRw47xg==}
-    engines: {node: '>=18.17'}
-
   undici@7.25.0:
     resolution: {integrity: sha512-xXnp4kTyor2Zq+J1FfPI6Eq3ew5h6Vl0F/8d9XU5zZQf1tX9s2Su1/3PiMmUANFULpmksxkClamIZcaUqryHsQ==}
     engines: {node: '>=20.18.1'}
+
+  undici@8.5.0:
+    resolution: {integrity: sha512-xamtWoB1EshgjpmlXd7GGm2VfdDtw1+rD8uhry8pSNW3If6S8E0m2T2+orSKeZXEn/aPJMviCpDBA65WJt8zhg==}
+    engines: {node: '>=22.19.0'}
 
   unicode-emoji-modifier-base@1.0.0:
     resolution: {integrity: sha512-yLSH4py7oFH3oG/9K+XWrz1pSi3dfUrWEnInbxMfArOfc1+33BlGPQtLsOYwvdMy11AwUBetYuaRxSPqgkq+8g==}
@@ -6782,7 +6788,7 @@ snapshots:
   '@actions/http-client@4.0.1':
     dependencies:
       tunnel: 0.0.6
-      undici: 6.25.0
+      undici: 8.5.0
 
   '@actions/io@3.0.2': {}
 
@@ -13679,9 +13685,9 @@ snapshots:
 
   undici-types@7.16.0: {}
 
-  undici@6.25.0: {}
-
   undici@7.25.0: {}
+
+  undici@8.5.0: {}
 
   unicode-emoji-modifier-base@1.0.0: {}
 
