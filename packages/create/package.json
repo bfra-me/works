@@ -49,23 +49,23 @@
     "clean:test": "rm -rf .tmp test-temp-pm-* test-add-project test-dry-run test/fixtures/temp/*"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "0.100.1",
+    "@anthropic-ai/sdk": "0.106.0",
     "@bfra.me/es": "workspace:*",
-    "@clack/prompts": "1.5.1",
+    "@clack/prompts": "1.6.0",
     "cac": "7.0.0",
     "consola": "3.4.2",
     "dotenv": "17.4.2",
     "eta": "4.6.0",
-    "giget": "3.2.0",
+    "giget": "3.3.0",
     "glob": "13.0.6",
-    "openai": "6.42.0",
+    "openai": "6.45.0",
     "package-manager-detector": "1.6.0",
-    "semver": "7.8.1"
+    "semver": "7.8.5"
   },
   "devDependencies": {
     "@bfra.me/works": "workspace:*",
-    "happy-dom": "20.10.1",
-    "memfs": "4.57.6",
+    "happy-dom": "20.10.6",
+    "memfs": "4.57.8",
     "msw": "2.14.6"
   },
   "publishConfig": {
