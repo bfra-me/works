@@ -54,7 +54,7 @@
     "@types/fs-extra": "11.0.4",
     "@types/node": "24.12.4",
     "@vitest/coverage-v8": "4.1.9",
-    "eslint": "10.5.0",
+    "eslint": "10.6.0",
     "execa": "9.6.1",
     "fast-glob": "3.3.3",
     "flatted": "3.4.2",
