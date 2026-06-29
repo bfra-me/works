@@ -16,7 +16,7 @@ TypeScript-centric monorepo providing reusable tooling for modern JavaScript/Typ
 - **@bfra.me/doc-sync** – Documentation synchronization utilities
 - **@bfra.me/workspace-analyzer** – Comprehensive monorepo static analysis with CLI and API
 
-All packages target ES2022+/Node.js 20+. Uses pnpm 10+ workspaces with ESM throughout.
+All packages target ES2022+/Node.js 20+. Uses pnpm 11+ workspaces with ESM throughout.
 
 ## Setup Commands
 
