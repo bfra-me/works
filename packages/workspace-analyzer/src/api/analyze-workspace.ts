@@ -81,10 +81,7 @@ export interface AnalyzeWorkspaceOptions {
  * Error codes for workspace analysis.
  */
 export type AnalyzeWorkspaceErrorCode =
-  | 'CONFIG_ERROR'
-  | 'SCAN_ERROR'
-  | 'ANALYSIS_ERROR'
-  | 'INVALID_PATH'
+  'CONFIG_ERROR' | 'SCAN_ERROR' | 'ANALYSIS_ERROR' | 'INVALID_PATH'
 
 /**
  * Error that occurred during workspace analysis.
