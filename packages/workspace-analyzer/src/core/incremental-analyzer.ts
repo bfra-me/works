@@ -49,11 +49,7 @@ export interface IncrementalAnalysisOptions {
  * Error codes for incremental analysis.
  */
 export type IncrementalAnalysisErrorCode =
-  | 'SCAN_FAILED'
-  | 'ANALYSIS_FAILED'
-  | 'CACHE_ERROR'
-  | 'ANALYZER_ERROR'
-  | 'TIMEOUT'
+  'SCAN_FAILED' | 'ANALYSIS_FAILED' | 'CACHE_ERROR' | 'ANALYZER_ERROR' | 'TIMEOUT'
 
 /**
  * Error for incremental analysis operations.
