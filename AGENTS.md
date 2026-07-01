@@ -16,7 +16,7 @@ TypeScript-centric monorepo providing reusable tooling for modern JavaScript/Typ
 - **@bfra.me/doc-sync** – Documentation synchronization utilities
 - **@bfra.me/workspace-analyzer** – Comprehensive monorepo static analysis with CLI and API
 
-All packages target ES2022+/Node.js 20+. Uses pnpm 10+ workspaces with ESM throughout.
+All packages target ES2022+/Node.js 20+. Uses pnpm 11+ workspaces with ESM throughout.
 
 ## Setup Commands
 
@@ -237,7 +237,7 @@ pnpm --filter docs sync-versions    # Sync package versions to MDX badge compone
 - Vitest test suite validating MDX syntax, frontmatter, code blocks, and internal links
 - Automated version badge synchronization from package.json files
 - Type checking via Astro Check
-- Tests ensure all 8 packages maintain valid documentation
+- Tests ensure all 9 packages maintain valid documentation
 
 **Adding new package documentation:**
 
