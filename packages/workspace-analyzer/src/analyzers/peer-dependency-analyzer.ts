@@ -266,10 +266,8 @@ function isValidVersionRange(version: string): boolean {
   // Basic semver-like patterns (use non-capturing groups for validation only)
   // Avoid catastrophic backtracking by removing ambiguous optional matches/repetitions
   // Accept major, major.minor, major.minor.patch. Use up to two dot-separated numbers.
-  const comparator = String.raw`(?:[\^~]|[<>]=?)?`
-  const semverPattern = new RegExp(
-    String.raw`^${comparator}\d+(?:\.\d+){0,2}(?:-[\w.]+)?(?:\+[\w.]+)?(?:\s*(?:&&|\|\|)\s*${comparator}\d+(?:\.\d+){0,2}(?:-[\w.]+)?(?:\+[\w.]+)?)*$`,
-  )
+  const semverPattern =
+    /^(?:[~^]|[<>]=?)?\d+(?:\.\d+){0,2}(?:-[\w.]+)?(?:\+[\w.]+)?(?:\s*(?:&&|\|\|)\s*(?:[~^]|[<>]=?)?\d+(?:\.\d+){0,2}(?:-[\w.]+)?(?:\+[\w.]+)?)*$/
   const rangePattern = /^>=?\d+(?:\.\d+){0,2}\s+<?=?\d+(?:\.\d+){0,2}$/
   const xRangePattern = /^\d+(?:\.\d+)?\.x$/
 

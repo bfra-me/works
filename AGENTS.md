@@ -42,7 +42,7 @@ pnpm prepare            # Sync docs, setup husky hooks
 ## Development Workflow
 
 ```bash
-pnpm validate           # Full validation: (type-check + lint + test) parallel → build → type-coverage
+pnpm validate           # Full validation: type-check → lint → test → build → type-coverage
 pnpm build              # Build all packages (streams per package) + publint
 pnpm dev                # Parallel watch across packages
 pnpm watch              # Build with --watch
