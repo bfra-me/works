@@ -1,5 +1,137 @@
 # @bfra.me/eslint-config
 
+## 0.51.2
+### Patch Changes
+
+
+- Updated dependency `eslint-plugin-erasable-syntax-only` to `0.4.2`. ([#3754](https://github.com/bfra-me/works/pull/3754))
+
+
+- Updated dependency `@next/eslint-plugin-next` to `16.2.9`. ([#3670](https://github.com/bfra-me/works/pull/3670))
+
+
+- Updated dependency `eslint` to `10.6.0`. ([#3816](https://github.com/bfra-me/works/pull/3816))
+
+
+- Updated dependency `eslint-plugin-perfectionist` to `5.10.0`. ([#3894](https://github.com/bfra-me/works/pull/3894))
+
+
+- Updated dependency `eslint-plugin-jsonc` to `3.3.0`. ([#3890](https://github.com/bfra-me/works/pull/3890))
+
+
+- Updated dependency `local-pkg` to `1.2.1`. ([#3477](https://github.com/bfra-me/works/pull/3477))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.61.0`. ([#3655](https://github.com/bfra-me/works/pull/3655))
+  Updated dependency `typescript-eslint` to `8.61.0`.
+
+- Updated dependency `@next/eslint-plugin-next` to `16.2.10`. ([#3851](https://github.com/bfra-me/works/pull/3851))
+
+
+- Updated dependency `@eslint/markdown` to `8.0.2`. ([#3475](https://github.com/bfra-me/works/pull/3475))
+
+
+- Updated dependency `@eslint/markdown` to `8.0.3`. ([#3847](https://github.com/bfra-me/works/pull/3847))
+
+
+- Updated dependency `@eslint-community/eslint-plugin-eslint-comments` to `4.7.2`. ([#3504](https://github.com/bfra-me/works/pull/3504))
+
+
+- Updated dependency `@next/eslint-plugin-next` to `16.2.7`. ([#3577](https://github.com/bfra-me/works/pull/3577))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.60.1`. ([#3579](https://github.com/bfra-me/works/pull/3579))
+  Updated dependency `typescript-eslint` to `8.60.1`.
+
+- Updated dependency `@vitest/eslint-plugin` to `1.6.18`. ([#3492](https://github.com/bfra-me/works/pull/3492))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.6.19`. ([#3566](https://github.com/bfra-me/works/pull/3566))
+
+
+- Updated dependency `eslint` to `10.4.0`. ([#3432](https://github.com/bfra-me/works/pull/3432))
+
+
+- Updated dependency `eslint-plugin-regexp` to `3.1.1`. ([#3808](https://github.com/bfra-me/works/pull/3808))
+
+
+- Updated dependency `sort-package-json` to `3.7.0`. ([#3591](https://github.com/bfra-me/works/pull/3591))
+
+
+- Updated dependency `eslint-plugin-prettier` to `5.5.6`. ([#3518](https://github.com/bfra-me/works/pull/3518))
+
+
+- Updated dependency `globals` to `17.7.0`. ([#3777](https://github.com/bfra-me/works/pull/3777))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.60.0`. ([#3496](https://github.com/bfra-me/works/pull/3496))
+  Updated dependency `typescript-eslint` to `8.60.0`.
+
+- Updated dependency `@typescript-eslint/types` to `8.61.1`. ([#3731](https://github.com/bfra-me/works/pull/3731))
+  Updated dependency `typescript-eslint` to `8.61.1`.
+
+- Updated dependency `@next/eslint-plugin-next` to `16.2.8`. ([#3667](https://github.com/bfra-me/works/pull/3667))
+
+
+- Updated dependency `eslint-plugin-import-x` to `4.17.0`. ([#3774](https://github.com/bfra-me/works/pull/3774))
+
+
+- Updated dependency `eslint-plugin-react-refresh` to `0.5.3`. ([#3716](https://github.com/bfra-me/works/pull/3716))
+
+
+- Updated dependency `eslint-plugin-jsonc` to `3.2.0`. ([#3533](https://github.com/bfra-me/works/pull/3533))
+
+
+- Updated dependency `sort-package-json` to `3.7.1`. ([#3608](https://github.com/bfra-me/works/pull/3608))
+
+
+- Updated dependency `eslint-plugin-toml` to `1.4.0`. ([#3534](https://github.com/bfra-me/works/pull/3534))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.62.0`. ([#3781](https://github.com/bfra-me/works/pull/3781))
+  Updated dependency `typescript-eslint` to `8.62.0`.
+
+- Updated dependency `local-pkg` to `1.2.0`. ([#3469](https://github.com/bfra-me/works/pull/3469))
+
+
+- Updated dependency `@vitest/eslint-plugin` to `1.6.20`. ([#3675](https://github.com/bfra-me/works/pull/3675))
+
+
+- Updated dependency `eslint-plugin-pnpm` to `1.6.1`. ([#3468](https://github.com/bfra-me/works/pull/3468))
+
+
+- Updated dependency `eslint` to `10.4.1`. ([#3543](https://github.com/bfra-me/works/pull/3543))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.62.1`. ([#3834](https://github.com/bfra-me/works/pull/3834))
+  Updated dependency `typescript-eslint` to `8.62.1`.
+
+- Updated dependency `eslint-plugin-yml` to `3.5.0`. ([#3789](https://github.com/bfra-me/works/pull/3789))
+
+
+- Updated dependency `eslint-plugin-import-x` to `4.17.1`. ([#3821](https://github.com/bfra-me/works/pull/3821))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.59.4`. ([#3456](https://github.com/bfra-me/works/pull/3456))
+  Updated dependency `typescript-eslint` to `8.59.4`.
+
+- Updated dependency `package-manager-detector` to `1.7.0`. ([#3845](https://github.com/bfra-me/works/pull/3845))
+
+
+- Updated dependency `eslint` to `10.5.0`. ([#3705](https://github.com/bfra-me/works/pull/3705))
+
+
+- Updated dependency `eslint-plugin-perfectionist` to `5.9.1`. ([#3732](https://github.com/bfra-me/works/pull/3732))
+
+
+- Updated dependency `eslint-plugin-yml` to `3.6.0`. ([#3891](https://github.com/bfra-me/works/pull/3891))
+
+
+- Updated dependency `@typescript-eslint/types` to `8.63.0`. ([#3887](https://github.com/bfra-me/works/pull/3887))
+  Updated dependency `typescript-eslint` to `8.63.0`.
+
+- Updated dependency `eslint-plugin-yml` to `3.4.0`. ([#3535](https://github.com/bfra-me/works/pull/3535))
+
 ## 0.51.1
 ### Patch Changes
 
