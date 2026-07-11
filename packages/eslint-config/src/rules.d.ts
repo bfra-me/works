@@ -18858,7 +18858,7 @@ type VitestNoFocusedTests = []|[{
 // ----- vitest/no-hooks -----
 type VitestNoHooks = []|[{
   
-  allow?: ("beforeAll" | "beforeEach" | "afterAll" | "afterEach")[]
+  allow?: ("beforeAll" | "beforeEach" | "afterAll" | "afterEach" | "aroundAll" | "aroundEach")[]
 }]
 // ----- vitest/no-large-snapshots -----
 type VitestNoLargeSnapshots = []|[{
