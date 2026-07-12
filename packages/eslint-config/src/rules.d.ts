@@ -11450,6 +11450,7 @@ type JsonSchemaValidatorNoInvalid = []|[(string | {
   }[]
   useSchemastoreCatalog?: boolean
   mergeSchemas?: (boolean | [("$schema" | "catalog" | "options"), ("$schema" | "catalog" | "options"), ...(("$schema" | "catalog" | "options"))[]])
+  mostSpecificErrorsOnly?: boolean
 })]
 // ----- jsonc/array-bracket-newline -----
 type JsoncArrayBracketNewline = []|[(("always" | "never" | "consistent") | {
