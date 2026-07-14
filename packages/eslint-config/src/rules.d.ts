@@ -18899,6 +18899,8 @@ type VitestPreferExpectAssertions = []|[{
   onlyFunctionsWithExpectInLoop?: boolean
   
   onlyFunctionsWithExpectInCallback?: boolean
+  
+  disallowHasAssertions?: boolean
 }]
 // ----- vitest/prefer-import-in-mock -----
 type VitestPreferImportInMock = []|[{
