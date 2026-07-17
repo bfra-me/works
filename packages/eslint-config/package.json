@@ -52,7 +52,7 @@
     "eslint-config-flat-gitignore": "2.3.0",
     "eslint-flat-config-utils": "3.2.0",
     "eslint-merge-processors": "2.0.0",
-    "eslint-plugin-command": "3.5.2",
+    "eslint-plugin-command": "3.5.3",
     "eslint-plugin-import-x": "4.17.1",
     "eslint-plugin-jsdoc": "62.9.0",
     "eslint-plugin-json-schema-validator": "6.3.0",
