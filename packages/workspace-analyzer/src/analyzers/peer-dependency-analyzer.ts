@@ -267,7 +267,7 @@ function isValidVersionRange(version: string): boolean {
   // Avoid catastrophic backtracking by removing ambiguous optional matches/repetitions
   // Accept major, major.minor, major.minor.patch. Use up to two dot-separated numbers.
   const semverPattern =
-    /^[\^~>=<]?\d+(?:\.\d+){0,2}(?:-[\w.]+)?(?:\+[\w.]+)?(?:\s*(?:&&|\|\|)\s*[\^~>=<]?\d+(?:\.\d+){0,2}(?:-[\w.]+)?(?:\+[\w.]+)?)*$/
+    /^(?:[~^]|[<>]=?)?\d+(?:\.\d+){0,2}(?:-[\w.]+)?(?:\+[\w.]+)?(?:\s*(?:&&|\|\|)\s*(?:[~^]|[<>]=?)?\d+(?:\.\d+){0,2}(?:-[\w.]+)?(?:\+[\w.]+)?)*$/
   const rangePattern = /^>=?\d+(?:\.\d+){0,2}\s+<?=?\d+(?:\.\d+){0,2}$/
   const xRangePattern = /^\d+(?:\.\d+)?\.x$/
 
