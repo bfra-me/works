@@ -237,7 +237,7 @@ pnpm --filter docs sync-versions    # Sync package versions to MDX badge compone
 - Vitest test suite validating MDX syntax, frontmatter, code blocks, and internal links
 - Automated version badge synchronization from package.json files
 - Type checking via Astro Check
-- Tests ensure all 8 packages maintain valid documentation
+- Tests ensure all 9 packages maintain valid documentation
 
 **Adding new package documentation:**
 
