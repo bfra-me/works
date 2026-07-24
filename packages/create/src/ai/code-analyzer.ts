@@ -670,21 +670,19 @@ Focus on actionable, specific improvements. Maximum 10 issues per file.
         .filter(
           (issue): issue is Record<string, unknown> => typeof issue === 'object' && issue !== null,
         )
-        .map(
-          (issue): CodeIssue => ({
-            id: `ai-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`,
-            title: typeof issue.title === 'string' ? issue.title : 'AI-detected issue',
-            description:
-              typeof issue.description === 'string' ? issue.description : 'No description provided',
-            severity: this.isValidSeverity(issue.severity) ? issue.severity : 'info',
-            category: this.isValidCategory(issue.category) ? issue.category : 'best-practices',
-            filePath: target.filePath,
-            lineNumber: typeof issue.lineNumber === 'number' ? issue.lineNumber : undefined,
-            codeSnippet: typeof issue.codeSnippet === 'string' ? issue.codeSnippet : undefined,
-            suggestion: typeof issue.suggestion === 'string' ? issue.suggestion : undefined,
-            fixExample: typeof issue.fixExample === 'string' ? issue.fixExample : undefined,
-          }),
-        )
+        .map((issue): CodeIssue => ({
+          id: `ai-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`,
+          title: typeof issue.title === 'string' ? issue.title : 'AI-detected issue',
+          description:
+            typeof issue.description === 'string' ? issue.description : 'No description provided',
+          severity: this.isValidSeverity(issue.severity) ? issue.severity : 'info',
+          category: this.isValidCategory(issue.category) ? issue.category : 'best-practices',
+          filePath: target.filePath,
+          lineNumber: typeof issue.lineNumber === 'number' ? issue.lineNumber : undefined,
+          codeSnippet: typeof issue.codeSnippet === 'string' ? issue.codeSnippet : undefined,
+          suggestion: typeof issue.suggestion === 'string' ? issue.suggestion : undefined,
+          fixExample: typeof issue.fixExample === 'string' ? issue.fixExample : undefined,
+        }))
     } catch (error) {
       console.warn('Failed to parse AI analysis response:', error)
       return []

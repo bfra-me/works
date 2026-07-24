@@ -72,11 +72,7 @@ export interface DocConfig {
  * Error types for parse operations
  */
 export type ParseErrorCode =
-  | 'INVALID_SYNTAX'
-  | 'FILE_NOT_FOUND'
-  | 'READ_ERROR'
-  | 'MALFORMED_JSON'
-  | 'UNSUPPORTED_FORMAT'
+  'INVALID_SYNTAX' | 'FILE_NOT_FOUND' | 'READ_ERROR' | 'MALFORMED_JSON' | 'UNSUPPORTED_FORMAT'
 
 /**
  * Structured error for parse operations
@@ -105,11 +101,7 @@ export type ParseResult<T> = Result<T, ParseError>
  * Error types for sync operations
  */
 export type SyncErrorCode =
-  | 'WRITE_ERROR'
-  | 'VALIDATION_ERROR'
-  | 'GENERATION_ERROR'
-  | 'PACKAGE_NOT_FOUND'
-  | 'CONFIG_ERROR'
+  'WRITE_ERROR' | 'VALIDATION_ERROR' | 'GENERATION_ERROR' | 'PACKAGE_NOT_FOUND' | 'CONFIG_ERROR'
 
 /**
  * Structured error for sync operations

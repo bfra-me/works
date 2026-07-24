@@ -10,13 +10,7 @@ import type {BadgeColor, BadgeOptions, BadgeStyle} from '../types'
  * Defines the possible states for a build status badge.
  */
 export type BuildStatus =
-  | 'success'
-  | 'failure'
-  | 'pending'
-  | 'error'
-  | 'cancelled'
-  | 'skipped'
-  | 'unknown'
+  'success' | 'failure' | 'pending' | 'error' | 'cancelled' | 'skipped' | 'unknown'
 
 /**
  * Configuration options for creating a build status badge.
