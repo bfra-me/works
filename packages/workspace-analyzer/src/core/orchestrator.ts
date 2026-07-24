@@ -50,10 +50,7 @@ export interface AnalysisContext {
  * Error codes for orchestration operations.
  */
 export type OrchestratorErrorCode =
-  | 'SCAN_FAILED'
-  | 'ANALYSIS_FAILED'
-  | 'INVALID_CONFIG'
-  | 'NO_PACKAGES'
+  'SCAN_FAILED' | 'ANALYSIS_FAILED' | 'INVALID_CONFIG' | 'NO_PACKAGES'
 
 /**
  * Error that occurred during orchestration.

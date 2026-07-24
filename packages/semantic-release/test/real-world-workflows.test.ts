@@ -340,13 +340,11 @@ describe('real-world release workflow tests', () => {
       // Verify monorepo-specific configuration (safely)
       const plugins = config.plugins ?? []
       const npmConfig = plugins.find(p => Array.isArray(p) && p[0] === '@semantic-release/npm') as
-        | [string, Record<string, unknown>]
-        | undefined
+        [string, Record<string, unknown>] | undefined
       expect((npmConfig?.[1] as Record<string, unknown>)?.pkgRoot).toBe('./packages/core')
 
       const gitConfig = plugins.find(p => Array.isArray(p) && p[0] === '@semantic-release/git') as
-        | [string, Record<string, unknown>]
-        | undefined
+        [string, Record<string, unknown>] | undefined
       expect(gitConfig).toBeDefined()
       const assets = (gitConfig?.[1] as Record<string, unknown>)?.assets as string[]
       expect(assets).toEqual(expect.arrayContaining(['./packages/core/package.json']))
