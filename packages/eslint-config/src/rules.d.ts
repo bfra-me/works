@@ -5198,6 +5198,11 @@ export interface Rules {
    */
   'pnpm/yaml-enforce-settings'?: Linter.RuleEntry<PnpmYamlEnforceSettings>
   /**
+   * Disallow the anonymous `catalog:` in `pnpm-workspace.yaml` in favor of named catalogs
+   * @see https://github.com/antfu/pnpm-workspace-utils/tree/main/packages/eslint-plugin-pnpm/src/rules/yaml/yaml-no-anonymous-catalog.test.ts
+   */
+  'pnpm/yaml-no-anonymous-catalog'?: Linter.RuleEntry<[]>
+  /**
    * Disallow duplicate catalog items in `pnpm-workspace.yaml`
    * @see https://github.com/antfu/pnpm-workspace-utils/tree/main/packages/eslint-plugin-pnpm/src/rules/yaml/yaml-no-duplicate-catalog-item.test.ts
    */
