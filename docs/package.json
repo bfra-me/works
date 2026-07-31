@@ -17,7 +17,7 @@
     "validate": "pnpm run type-check & pnpm run lint & pnpm run test & wait && pnpm run build"
   },
   "dependencies": {
-    "@astrojs/check": "0.9.9",
+    "@astrojs/check": "0.9.10",
     "@astrojs/starlight": "^0.41.4",
     "astro": "^7.0.0",
     "sharp": "^0.35.0"
