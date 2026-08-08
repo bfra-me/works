@@ -30,10 +30,7 @@ export const CONFIG_FILE_NAMES = [
  * Error codes for configuration loading operations.
  */
 export type ConfigLoadErrorCode =
-  | 'FILE_NOT_FOUND'
-  | 'IMPORT_ERROR'
-  | 'VALIDATION_ERROR'
-  | 'INVALID_EXPORT'
+  'FILE_NOT_FOUND' | 'IMPORT_ERROR' | 'VALIDATION_ERROR' | 'INVALID_EXPORT'
 
 /**
  * Error that occurred during configuration loading.
