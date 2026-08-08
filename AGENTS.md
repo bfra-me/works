@@ -68,6 +68,7 @@ Use the `name` field in each package's `package.json` to identify packages:
 | `@bfra.me/semantic-release` | `packages/semantic-release/` | Release presets |
 | `@bfra.me/doc-sync` | `packages/doc-sync/` | Documentation sync utilities |
 | `@bfra.me/workspace-analyzer` | `packages/workspace-analyzer/` | Monorepo static analysis CLI |
+| `scripts` | `scripts/` | Private workspace automation scripts |
 
 **Monorepo navigation tips:**
 
