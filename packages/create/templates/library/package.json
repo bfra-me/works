@@ -35,7 +35,7 @@
     "eslint": "^9.18.0",
     "tsup": "^8.5.0",
     "typescript": "^5.8.3",
-    "vitest": "^2.3.5"
+    "vitest": "^4.1.8"
   },
   "engines": {
     "node": ">=18"
