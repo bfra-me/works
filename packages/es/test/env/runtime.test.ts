@@ -1,12 +1,20 @@
 import process from 'node:process'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
 
+const ciState = vi.hoisted(() => ({value: false}))
+
+vi.mock('is-in-ci', () => ({
+  get default() {
+    return ciState.value
+  },
+}))
+
 describe('@bfra.me/es/env - runtime detection', () => {
   const originalEnv = {...process.env}
 
   beforeEach(() => {
     vi.resetModules()
-    vi.doMock('is-in-ci', () => ({default: false}))
+    ciState.value = false
     process.env = {...originalEnv}
     delete process.env.GIT_PARAMS
     delete process.env.VSCODE_GIT_COMMAND
@@ -118,7 +126,7 @@ describe('@bfra.me/es/env - runtime detection', () => {
     })
 
     it('should reflect CI environment when set', async () => {
-      vi.doMock('is-in-ci', () => ({default: true}))
+      ciState.value = true
       const {getEnvironment} = await import('../../src/env/runtime')
       const env = getEnvironment()
 
