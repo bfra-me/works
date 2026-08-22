@@ -1,12 +1,18 @@
 import {composeConfig, config as rootConfig} from '@bfra.me/works/eslint.config'
 
-export default composeConfig(rootConfig).append({
-  name: 'docs/overrides',
-  files: ['test/**/*.test.ts'],
-  rules: {
-    '@typescript-eslint/no-unsafe-argument': 'off',
-    '@typescript-eslint/no-unsafe-assignment': 'off',
-    '@typescript-eslint/no-unsafe-call': 'off',
-    '@typescript-eslint/no-unsafe-return': 'off',
+export default composeConfig(rootConfig).append(
+  {
+    name: 'docs/archive-ignores',
+    ignores: ['plans/archive/**'],
   },
-})
+  {
+    name: 'docs/overrides',
+    files: ['test/**/*.test.ts'],
+    rules: {
+      '@typescript-eslint/no-unsafe-argument': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+    },
+  },
+)
