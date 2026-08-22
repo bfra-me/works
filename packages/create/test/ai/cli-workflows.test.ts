@@ -244,7 +244,7 @@ describe('AI CLI Workflow Integration', () => {
   })
 
   describe('AI error handling scenarios', () => {
-    it.concurrent('handles network errors gracefully', async () => {
+    it('handles network errors gracefully', async () => {
       process.env.OPENAI_API_KEY = 'test-key'
 
       mockAnalyzeProject.mockRejectedValue(new Error('Network connection failed'))
@@ -263,7 +263,7 @@ describe('AI CLI Workflow Integration', () => {
       expect(result.success).toBe(true)
     })
 
-    it.concurrent('handles API authentication errors', async () => {
+    it('handles API authentication errors', async () => {
       process.env.OPENAI_API_KEY = 'invalid-key'
 
       mockAnalyzeProject.mockRejectedValue(new Error('Invalid API key or unauthorized access'))
@@ -281,7 +281,7 @@ describe('AI CLI Workflow Integration', () => {
       expect(result.success).toBe(true)
     })
 
-    it.concurrent('handles rate limit errors', async () => {
+    it('handles rate limit errors', async () => {
       process.env.OPENAI_API_KEY = 'test-key'
 
       mockAnalyzeProject.mockRejectedValue(
@@ -303,7 +303,7 @@ describe('AI CLI Workflow Integration', () => {
   })
 
   describe('AI recommendation integration', () => {
-    it.concurrent('displays AI recommendations in CLI output', async () => {
+    it('displays AI recommendations in CLI output', async () => {
       process.env.OPENAI_API_KEY = 'test-key'
 
       const mockTemplates: TemplateRecommendation[] = [
@@ -449,45 +449,42 @@ describe('AI CLI Workflow Integration', () => {
   })
 
   describe('AI feature validation', () => {
-    it.concurrent(
-      'validates AI features enhance user experience without complication',
-      async () => {
-        // Test that AI features remain optional and don't complicate the basic workflow
-        const basicOptions: CreateCommandOptions = {
-          name: 'simple-project',
-          template: 'default',
-          interactive: false,
-          outputDir: testUtils.createTempDir('basic-test'),
-          dryRun: true,
-        }
+    it('validates AI features enhance user experience without complication', async () => {
+      // Test that AI features remain optional and don't complicate the basic workflow
+      const basicOptions: CreateCommandOptions = {
+        name: 'simple-project',
+        template: 'default',
+        interactive: false,
+        outputDir: testUtils.createTempDir('basic-test'),
+        dryRun: true,
+      }
 
-        const basicResult = await createPackage(basicOptions)
+      const basicResult = await createPackage(basicOptions)
 
-        const aiEnhancedOptions: CreateCommandOptions = {
-          name: 'ai-enhanced-project',
-          ai: true,
-          describe: 'Enhanced with AI recommendations',
-          interactive: false,
-          outputDir: testUtils.createTempDir('ai-enhanced-test'),
-          dryRun: true,
-        }
+      const aiEnhancedOptions: CreateCommandOptions = {
+        name: 'ai-enhanced-project',
+        ai: true,
+        describe: 'Enhanced with AI recommendations',
+        interactive: false,
+        outputDir: testUtils.createTempDir('ai-enhanced-test'),
+        dryRun: true,
+      }
 
-        // Ensure no API keys so AI falls back gracefully
-        delete process.env.OPENAI_API_KEY
-        delete process.env.ANTHROPIC_API_KEY
+      // Ensure no API keys so AI falls back gracefully
+      delete process.env.OPENAI_API_KEY
+      delete process.env.ANTHROPIC_API_KEY
 
-        const aiResult = await createPackage(aiEnhancedOptions)
+      const aiResult = await createPackage(aiEnhancedOptions)
 
-        // Both workflows should succeed
-        expect(basicResult.success).toBe(true)
-        expect(aiResult.success).toBe(true)
+      // Both workflows should succeed
+      expect(basicResult.success).toBe(true)
+      expect(aiResult.success).toBe(true)
 
-        // AI-enhanced version should gracefully degrade to standard mode
-        // without throwing errors or complicating the process
-      },
-    )
+      // AI-enhanced version should gracefully degrade to standard mode
+      // without throwing errors or complicating the process
+    })
 
-    it.concurrent('ensures AI recommendations are clearly marked and optional', async () => {
+    it('ensures AI recommendations are clearly marked and optional', async () => {
       // This test validates that AI recommendations are presented as enhancements
       // rather than requirements, maintaining user control over the process
 
