@@ -108,10 +108,7 @@ export function createUnusedDependencyAnalyzer(
  * Dependency classification for proper issue severity and messaging.
  */
 type DependencyType =
-  | 'dependencies'
-  | 'devDependencies'
-  | 'peerDependencies'
-  | 'optionalDependencies'
+  'dependencies' | 'devDependencies' | 'peerDependencies' | 'optionalDependencies'
 
 interface DeclaredDependency {
   readonly name: string
