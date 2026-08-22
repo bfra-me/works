@@ -1,13 +1,23 @@
 import process from 'node:process'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
 
+const ciState = vi.hoisted(() => ({value: false}))
+
+vi.mock('is-in-ci', () => ({
+  get default() {
+    return ciState.value
+  },
+}))
+
 describe('@bfra.me/es/env - isInEditorEnv', () => {
   const originalEnv = {...process.env}
 
   beforeEach(() => {
     vi.resetModules()
-    vi.doMock('is-in-ci', () => ({default: false}))
+    ciState.value = false
     // Clean up environment variables
+    delete process.env.CI
+    delete process.env.CONTINUOUS_INTEGRATION
     delete process.env.VSCODE_PID
     delete process.env.VSCODE_CWD
     delete process.env.JETBRAINS_IDE
@@ -62,7 +72,8 @@ describe('@bfra.me/es/env - isInEditorEnv', () => {
 
   describe('ci environment exclusion', () => {
     it('should return false when in CI environment', async () => {
-      vi.doMock('is-in-ci', () => ({default: true}))
+      ciState.value = true
+      process.env.CI = 'true'
       process.env.VSCODE_PID = '12345'
       const {isInEditorEnv} = await import('../../src/env/editor')
       expect(isInEditorEnv()).toBe(false)
