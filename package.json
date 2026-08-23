@@ -69,7 +69,7 @@
     "tsx": "4.23.12",
     "type-coverage": "2.30.1",
     "type-fest": "5.8.0",
-    "typescript": "6.0.3",
+    "typescript": "7.0.2",
     "vite-tsconfig-paths": "6.1.1",
     "vitest": "4.1.11",
     "zod": "4.4.3"
