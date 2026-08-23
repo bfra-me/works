@@ -1,6 +1,6 @@
 ---
 applyTo: '.github/workflows/release.yaml'
-description: Patterns, pitfalls, and improvement checklist derived from a real refactor of a Changesets-based Release workflow. Apply these when reviewing or improving a similar Release workflow that uses workflow_run chaining, GitHub App tokens, and PR auto-merge.
+description: Patterns, pitfalls, and improvement checklist derived from a real refactor of a Changesets-based Release workflow. Apply these when reviewing or improving a similar Release workflow that uses workflow_run chaining, GitHub App tokens, and manual release PR merging.
 ---
 
 # Release Workflow Improvement Instructions
@@ -10,7 +10,7 @@ description: Patterns, pitfalls, and improvement checklist derived from a real r
 This document captures findings and patterns from improving a Release workflow in a TypeScript monorepo that uses [Changesets](https://github.com/changesets/changesets) for versioning and publishing. The workflow:
 
 - Creates and updates a release PR (`changeset-release/main`) via `changesets/action`
-- Merges it automatically when CI passes
+- Leaves release PR merging to manual review
 - Triggers downstream Renovate runs after publishing
 
 ---
@@ -112,27 +112,31 @@ USE_APP_TOKEN: ${{ contains('["schedule", "workflow_run"]', github.event_name) }
 
 The `checkout` and `pnpm-install` steps were always executed, even when the `changesets` step would be skipped (because a mergeable release PR already exists). A full `pnpm install` in a large monorepo is expensive and provides no value in this code path.
 
-### Solution: Mirror the `changesets` step condition on the setup steps
+### Solution: Run setup only for paths that need a working tree
 
-The `changesets` step already had:
+The setup steps should cover every path that needs a checkout and dependencies, including an explicit force-publish path:
 
 ```yaml
-if: steps.check-pr.outputs.pr-exists == 'false' || steps.check-pr.outputs.mergeable == 'false'
+if: |
+  inputs.force-release == true ||
+  steps.check-pr.outputs.pr-exists == 'false' ||
+  steps.check-pr.outputs.mergeable == 'false' ||
+  (github.event_name == 'workflow_run' && steps.check-pr.outputs.pr-exists == 'true')
 ```
 
-Apply the exact same condition to `checkout` and `prepare`:
+Apply the condition to both `checkout` and `prepare`:
 
 ```yaml
 - name: Checkout repository
-  if: steps.check-pr.outputs.pr-exists == 'false' || steps.check-pr.outputs.mergeable == 'false'
+  if: <setup condition>
   uses: actions/checkout@...
 
 - name: Prepare job
-  if: steps.check-pr.outputs.pr-exists == 'false' || steps.check-pr.outputs.mergeable == 'false'
+  if: <setup condition>
   uses: ./.github/actions/pnpm-install
 ```
 
-When the PR exists and is already mergeable the job completes after `check-pr` with only the lightweight `gh` CLI calls.
+When the PR exists and is already mergeable, schedule and dispatch runs complete after the lightweight `check-pr` call; `workflow_run` also performs the lightweight changeset-file check before deciding whether to do nothing.
 
 ---
 
@@ -192,18 +196,21 @@ Add a conditional check that inspects whether there are uncommitted changesets o
 - id: changesets
   name: Create Release Pull Request or Publish to npm
   if: |
-    steps.check-pr.outputs.pr-exists == 'false' ||
-    steps.check-pr.outputs.mergeable == 'false' ||
-    (github.event_name == 'workflow_run' && steps.check-pr.outputs.pr-exists == 'true' && steps.check-changesets.outputs.has-changesets == 'true')
+    inputs.force-release != true &&
+    (
+      steps.check-pr.outputs.pr-exists == 'false' ||
+      steps.check-pr.outputs.mergeable == 'false' ||
+      (github.event_name == 'workflow_run' && steps.check-pr.outputs.pr-exists == 'true' && steps.check-changesets.outputs.has-changesets == 'true')
+    )
 ```
 
 **Key insight**: The changesets action should only run on `workflow_run` when:
 
-- **No PR exists** → Create the PR or publish (if PR was just merged)
+- **No PR exists** → Create the PR or publish (if PR was just merged; normal path)
 - **PR is behind** → Update the PR to catch up with main
 - **PR exists AND there are new changesets** → Update the PR with new versions
 
-Importantly, when a PR exists, is mergeable, AND there are no new changesets, the workflow should do nothing — letting the existing PR proceed toward auto-merge without interference.
+Importantly, when a PR exists, is mergeable, AND there are no new changesets, the workflow should do nothing — letting the existing PR proceed toward manual review and merge without interference.
 
 ### Alternative: Use changeset status exit code
 
@@ -226,70 +233,11 @@ Note the inverted logic: exit code 0 = no changesets, exit code 1 = has changese
 
 ---
 
-## PR Status Check Logic
+## Manual Release PR Merging
 
-### Problem: `grep | string equality` misclassifies mixed conclusions
+Release PRs should be merged manually after review. A scheduled run with an open release PR must not merge it, and a force-publish dispatch must publish committed versions without using the release PR as an implicit merge mechanism.
 
-A common pattern for checking whether PR checks have passed:
-
-```bash
-STATUS=$(gh pr view $PR_NUMBER --json statusCheckRollup \
-  --jq '.statusCheckRollup[].conclusion' | sort -u | grep 'SUCCESS' || echo 'PENDING')
-if [ "$STATUS" = "SUCCESS" ]; then ...
-```
-
-This has two bugs:
-
-1. **Multi-line match**: When there are multiple distinct conclusions (e.g., both `SUCCESS` and `FAILURE`), `grep 'SUCCESS'` outputs the matching line(s), not the string `"SUCCESS"`. The subsequent `[ "$STATUS" = "SUCCESS" ]` equality test fails because `STATUS` is multi-line, causing a falsely failed classification.
-
-2. **Inverted priority**: The original code checked for success first, which means a PR with one successful check and one failing check could be misclassified as failed (by the fallthrough `else`) rather than explicitly detected as failed.
-
-### Solution: Check for failures first, use `grep -q` for multiline-safe matching
-
-```bash
-CONCLUSIONS=$(gh pr view $PR_NUMBER --json statusCheckRollup \
-  --jq '.statusCheckRollup[].conclusion' | sort -u)
-
-if echo "$CONCLUSIONS" | grep -qE 'FAILURE|ERROR|TIMED_OUT|CANCELLED'; then
-  echo "checks-status=failed" >> $GITHUB_OUTPUT
-elif echo "$CONCLUSIONS" | grep -q 'SUCCESS'; then
-  echo "checks-status=success" >> $GITHUB_OUTPUT
-else
-  echo "checks-status=pending" >> $GITHUB_OUTPUT
-fi
-```
-
-Key points:
-
-- `grep -q` exits non-zero without printing anything — safe for multiline input.
-- Failure-class conclusions (`FAILURE`, `ERROR`, `TIMED_OUT`, `CANCELLED`) are checked first. A PR with mixed conclusions is correctly marked failed.
-- The pending fallback handles all-`null` or all-empty conclusions (checks still in progress or not yet created).
-
----
-
-## Auto-merge Gating
-
-The `Enable Auto-merge` step intentionally excludes `workflow_run`:
-
-```yaml
-- name: Enable Auto-merge
-  if: >-
-    github.event_name != 'workflow_run' &&
-    steps.check-pr.outputs.pr-exists == 'true' &&
-    (
-      steps.check-pr.outputs.checks-status == 'pending' ||
-      steps.check-pr.outputs.checks-status == 'success' ||
-      inputs.force-release == true
-    )
-```
-
-This means:
-
-- **`workflow_run`**: creates or updates the release PR but does not enable auto-merge.
-- **`schedule`** (weekly): enables auto-merge, allowing the PR to land on the release cadence.
-- **`workflow_dispatch`** with `force-release: true`: enables auto-merge immediately on demand.
-
-This is deliberate. Do not add `workflow_run` to the auto-merge path unless you intend for every successful CI run on main to potentially ship a release.
+Avoid adding an auto-merge step to the release workflow. A scheduled auto-merge gate can land a release without an explicit human decision, while a workflow-run path can make every successful CI completion a potential release trigger.
 
 ---
 
@@ -300,7 +248,7 @@ This is deliberate. Do not add `workflow_run` to the auto-merge path unless you 
 - [ ] Does the app token scope match the triggering events that need bot commits?
 - [ ] Are `checkout` and dependency install skipped when the publish step would be skipped?
 - [ ] Does the changesets action check for uncommitted changesets before running on `workflow_run`?
-- [ ] Does PR status checking handle mixed conclusions correctly (failures checked first)?
+- [ ] Does the workflow avoid making release decisions from transient PR check conclusions?
 - [ ] Does the downstream Renovate (or equivalent) chain from Release, not directly from CI?
-- [ ] Is the auto-merge gate intentionally restricted to manual or scheduled events?
+- [ ] Are release PRs left for deliberate manual review and merge rather than auto-merged on a schedule?
 - [ ] Are all action references pinned to full commit SHAs?
