@@ -2,4 +2,4 @@
 '@bfra.me/eslint-config': patch
 ---
 
-Updated dependency `eslint-plugin-unicorn` to `73.0.0`.
+Scoped Unicorn rules to JavaScript and TypeScript source files so they no longer apply to JSON or JSONC files. When TypeScript support is disabled, the rules now apply only to JavaScript and JSX files, avoiding unsupported-language errors in ESLint 10.
