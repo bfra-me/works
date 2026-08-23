@@ -1,5 +1,17 @@
 # @bfra.me/create
 
+## 0.7.16
+### Patch Changes
+
+
+- Updated dependency `happy-dom` to `20.11.4`. ([#4275](https://github.com/bfra-me/works/pull/4275))
+
+
+- Updated dependency `happy-dom` to `20.11.5`. ([#4278](https://github.com/bfra-me/works/pull/4278))
+
+
+- Updated dependency `happy-dom` to `20.11.6`. ([#4280](https://github.com/bfra-me/works/pull/4280))
+
 ## 0.7.15
 ### Patch Changes
 
