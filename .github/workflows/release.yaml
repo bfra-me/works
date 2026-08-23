@@ -175,11 +175,11 @@ jobs:
           GH_TOKEN: ${{ env.USE_APP_TOKEN == 'true' && steps.get-app-token.outputs.token || secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ steps.check-pr.outputs.pr-number }}
         run: |
-          # commitMode: github-api force-pushes, which makes GitHub consider the
+          # GitHub API push mode force-pushes, which makes GitHub consider the
           # branch "recreated". GitHub then rejects PR updates with:
           # "state cannot be changed. The changeset-release/main branch was force-pushed or recreated."
           # Workaround: close the old PR and delete the branch so the action creates a fresh PR.
-          echo "Closing PR #$PR_NUMBER before changesets action runs (workaround for commitMode: github-api)"
+          echo "Closing PR #$PR_NUMBER before changesets action runs (workaround for GitHub API push mode)"
           gh pr close "$PR_NUMBER" --delete-branch || true
 
       - id: changesets
@@ -197,12 +197,11 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         uses: changesets/action@8488615a623b1b9c987934bb89eae8af6a946ac1 # v2.1.1
         with:
-          commit: 'chore(changesets): publish packages'
-          commitMode: github-api
-          publish: pnpm publish-changesets
-          setupGitUser: false
-          title: 'chore(🦋📦): publish packages'
-          version: pnpm version-changesets
+          github-token: ${{ env.USE_APP_TOKEN == 'true' && steps.get-app-token.outputs.token || secrets.GITHUB_TOKEN }}
+          publish-script: pnpm publish-changesets
+          version-script: pnpm version-changesets
+          commit-message: 'chore(changesets): publish packages'
+          pr-title: 'chore(🦋📦): publish packages'
 
       - name: Verify expected publish
         if: |
