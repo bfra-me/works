@@ -34,6 +34,19 @@ Create a `tsconfig.json` file in your project and extend this shared configurati
 }
 ```
 
+## Ambient types
+
+This configuration intentionally leaves `compilerOptions.types` unset. TypeScript 7 changes the default for this option, so projects that depend on ambient type packages should set the list explicitly in their extending configuration, for example:
+
+```json
+{
+  "extends": "@bfra.me/tsconfig",
+  "compilerOptions": {
+    "types": ["node"]
+  }
+}
+```
+
 ## License
 
 [MIT](../../LICENSE.md)
