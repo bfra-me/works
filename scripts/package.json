@@ -18,7 +18,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@changesets/parse": "0.4.3",
+    "@changesets/parse": "1.0.0",
     "consola": "3.4.2"
   }
 }
