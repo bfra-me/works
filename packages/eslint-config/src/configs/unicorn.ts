@@ -1,16 +1,18 @@
 import type {Config} from '../config'
-import type {OptionsOverrides} from '../options'
+import type {Flatten, OptionsFiles, OptionsOverrides} from '../options'
+import {GLOB_SRC} from '../globs'
 import {interopDefault} from '../utils'
 
-export type UnicornOptions = OptionsOverrides
+export type UnicornOptions = Flatten<OptionsFiles & OptionsOverrides>
 
 export async function unicorn(options: UnicornOptions = {}): Promise<Config[]> {
-  const {overrides = {}} = options
+  const {files = [GLOB_SRC], overrides = {}} = options
   const pluginUnicorn = await interopDefault(import('eslint-plugin-unicorn'))
 
   return [
     {
       name: '@bfra.me/unicorn',
+      files,
       plugins: {
         unicorn: pluginUnicorn,
       },
@@ -20,7 +22,7 @@ export async function unicorn(options: UnicornOptions = {}): Promise<Config[]> {
           'error',
           {
             cases: {kebabCase: true, pascalCase: true},
-            ignore: [/^[A-Z]+\..*$/, /import_map\.json/],
+            ignore: [String.raw`^[A-Z]+\..*$`, String.raw`import_map\.json`, '^__mocks__$'],
           },
         ],
         'unicorn/consistent-empty-array-spread': 'error',

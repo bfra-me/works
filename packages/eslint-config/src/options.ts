@@ -360,7 +360,7 @@ export type Options = Flatten<
      *
      * @default true
      */
-    unicorn?: boolean | OptionsOverrides
+    unicorn?: boolean | (OptionsFiles & OptionsOverrides)
 
     /**
      * Enable support for vitest.
