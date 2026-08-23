@@ -1,5 +1,11 @@
 # @bfra.me/tsconfig
 
+## 0.13.2
+
+### Patch Changes
+
+- Documented that consumers should explicitly configure `compilerOptions.types` when they rely on ambient type packages. ([#4312](https://github.com/bfra-me/works/pull/4312))
+
 ## 0.13.1
 ### Patch Changes
 

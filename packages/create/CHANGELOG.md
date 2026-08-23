@@ -1,5 +1,11 @@
 # @bfra.me/create
 
+## 0.7.17
+
+### Patch Changes
+
+- Modernized the module resolution settings in the Node.js and default project templates. ([#4312](https://github.com/bfra-me/works/pull/4312))
+
 ## 0.7.16
 
 ### Patch Changes
