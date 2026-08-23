@@ -82,11 +82,9 @@ jobs:
           fi
 
           if [ "$GITHUB_EVENT_NAME" = "workflow_run" ]; then
-            MERGED_PR_NUMBER=$(gh pr list \
-              --head "changeset-release/main" \
-              --json number,mergeCommit \
-              --jq 'map(select(.mergeCommit.oid == "'"$WORKFLOW_RUN_SHA"'")) | .[0].number // empty' \
-              --state merged)
+            MERGED_PR_NUMBER=$(gh api \
+              "repos/${GH_REPO}/commits/${WORKFLOW_RUN_SHA}/pulls" \
+              --jq 'map(select(.head.ref == "changeset-release/main" and .merged_at != null)) | .[0].number // empty')
             if [ -n "$MERGED_PR_NUMBER" ]; then
               echo "release-pr-merged=true" >> "$GITHUB_OUTPUT"
               echo "Release PR #$MERGED_PR_NUMBER merged in workflow run commit $WORKFLOW_RUN_SHA"
@@ -143,8 +141,7 @@ jobs:
             exit 1
           fi
 
-      - id: force-publish
-        name: Force publish packages to npm
+      - name: Force publish packages to npm
         if: github.event_name == 'workflow_dispatch' && inputs.force-release == true
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -205,23 +202,14 @@ jobs:
 
       - name: Verify expected publish
         if: |
-          (github.event_name == 'workflow_dispatch' && inputs.force-release == true) ||
-          (
-            github.event_name == 'workflow_run' &&
-            steps.check-pr.outputs.release-pr-merged == 'true' &&
-            steps.check-changesets.outputs.has-changesets == 'false'
-          )
+          github.event_name == 'workflow_run' &&
+          steps.check-pr.outputs.release-pr-merged == 'true' &&
+          steps.check-changesets.outputs.has-changesets == 'false'
         env:
-          FORCE_PUBLISH_OUTCOME: ${{ steps.force-publish.outcome }}
           CHANGESETS_OUTCOME: ${{ steps.changesets.outcome }}
           CHANGESETS_PUBLISHED: ${{ steps.changesets.outputs.published }}
         run: |
-          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
-            if [ "$FORCE_PUBLISH_OUTCOME" != "success" ]; then
-              echo "::error::Expected the force publish path to execute successfully for workflow_dispatch with force-release=true, but its outcome was '$FORCE_PUBLISH_OUTCOME'."
-              exit 1
-            fi
-          elif [ "$CHANGESETS_PUBLISHED" != "true" ]; then
+          if [ "$CHANGESETS_PUBLISHED" != "true" ]; then
             echo "::error::Expected changesets/action to publish after the release PR merged, but its outcome was '$CHANGESETS_OUTCOME' and its published output was '$CHANGESETS_PUBLISHED'."
             exit 1
           fi
