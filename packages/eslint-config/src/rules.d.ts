@@ -2475,6 +2475,11 @@ export interface Rules {
    */
   'erasable-syntax-only/enums'?: Linter.RuleEntry<[]>
   /**
+   * Avoid using TypeScript's export aliases.
+   * @see https://github.com/JoshuaKGoldberg/eslint-plugin-erasable-syntax-only/blob/main/docs/rules/export-aliases.md
+   */
+  'erasable-syntax-only/export-aliases'?: Linter.RuleEntry<[]>
+  /**
    * Avoid using TypeScript's import aliases.
    * @see https://github.com/JoshuaKGoldberg/eslint-plugin-erasable-syntax-only/blob/main/docs/rules/import-aliases.md
    */
