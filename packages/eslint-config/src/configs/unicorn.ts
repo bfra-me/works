@@ -22,7 +22,7 @@ export async function unicorn(options: UnicornOptions = {}): Promise<Config[]> {
           'error',
           {
             cases: {kebabCase: true, pascalCase: true},
-            ignore: [String.raw`^[A-Z]+\..*$`, String.raw`import_map\.json`, '^__mocks__$'],
+            ignore: [/^[A-Z]+\..*$/, /import_map\.json/, '^__mocks__$'],
           },
         ],
         'unicorn/consistent-empty-array-spread': 'error',
