@@ -1,5 +1,13 @@
 # @bfra.me/eslint-config
 
+## 0.51.3
+
+### Patch Changes
+
+- Scoped Unicorn rules to JavaScript and TypeScript source files so they no longer apply to JSON or JSONC files. When TypeScript support is disabled, the rules now apply only to JavaScript and JSX files, avoiding unsupported-language errors in ESLint 10. Unicorn 73's generated rule types also require `filename-case` ignore patterns to be strings. ([#4315](https://github.com/bfra-me/works/pull/4315))
+
+- Updated dependency `eslint-plugin-erasable-syntax-only` to `0.7.1`. ([#4301](https://github.com/bfra-me/works/pull/4301))
+
 ## 0.51.2
 ### Patch Changes
 
