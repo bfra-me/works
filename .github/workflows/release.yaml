@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       force-release:
-        description: Force release if checks pass
+        description: Force publish committed versions
         type: boolean
         default: false
   workflow_run:
@@ -65,41 +65,31 @@ jobs:
             --jq '.[0].number' \
             --state open)
           if [ -n "$PR_NUMBER" ]; then
-            echo "pr-exists=true" >> $GITHUB_OUTPUT
-            echo "pr-number=$PR_NUMBER" >> $GITHUB_OUTPUT
+            echo "pr-exists=true" >> "$GITHUB_OUTPUT"
+            echo "pr-number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
 
-            # Check PR status
-            CONCLUSIONS=$(gh pr view $PR_NUMBER --json statusCheckRollup --jq '.statusCheckRollup[]?.conclusion // empty' | sort -u)
-            MERGEABLE=$(gh pr view $PR_NUMBER --json mergeStateStatus --jq '.mergeStateStatus')
+            MERGEABLE=$(gh pr view "$PR_NUMBER" --json mergeStateStatus --jq '.mergeStateStatus')
             echo "PR $PR_NUMBER:"
-            echo "- check conclusions: $CONCLUSIONS"
             echo "- mergeable status: $MERGEABLE"
-            if echo "$CONCLUSIONS" | grep -qE '^(FAILURE|ERROR|TIMED_OUT|CANCELLED)$'; then
-              echo "checks-status=failed" >> $GITHUB_OUTPUT
-            elif echo "$CONCLUSIONS" | grep -qFx 'SUCCESS'; then
-              echo "checks-status=success" >> $GITHUB_OUTPUT
-            else
-              echo "checks-status=pending" >> $GITHUB_OUTPUT
-            fi
             if [ "$MERGEABLE" = "BEHIND" ] || [ "$MERGEABLE" = "UNKNOWN" ]; then
-              echo "mergeable=false" >> $GITHUB_OUTPUT
+              echo "mergeable=false" >> "$GITHUB_OUTPUT"
             else
-              echo "mergeable=true" >> $GITHUB_OUTPUT
+              echo "mergeable=true" >> "$GITHUB_OUTPUT"
             fi
           else
-            echo "pr-exists=false" >> $GITHUB_OUTPUT
+            echo "pr-exists=false" >> "$GITHUB_OUTPUT"
           fi
         shell: 'bash -Eeux {0}'
 
       - name: Checkout repository
-        if: steps.check-pr.outputs.pr-exists == 'false' || steps.check-pr.outputs.mergeable == 'false' || (github.event_name == 'workflow_run' && steps.check-pr.outputs.pr-exists == 'true')
+        if: inputs.force-release == true || steps.check-pr.outputs.pr-exists == 'false' || steps.check-pr.outputs.mergeable == 'false' || (github.event_name == 'workflow_run' && steps.check-pr.outputs.pr-exists == 'true')
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           persist-credentials: false
           token: ${{ env.USE_APP_TOKEN == 'true' && steps.get-app-token.outputs.token || secrets.GITHUB_TOKEN }}
 
       - name: Prepare job
-        if: steps.check-pr.outputs.pr-exists == 'false' || steps.check-pr.outputs.mergeable == 'false' || (github.event_name == 'workflow_run' && steps.check-pr.outputs.pr-exists == 'true')
+        if: inputs.force-release == true || steps.check-pr.outputs.pr-exists == 'false' || steps.check-pr.outputs.mergeable == 'false' || (github.event_name == 'workflow_run' && steps.check-pr.outputs.pr-exists == 'true')
         uses: ./.github/actions/pnpm-install
 
       - id: check-changesets
@@ -116,6 +106,40 @@ jobs:
             echo "No pending changesets found"
           fi
         shell: 'bash -Eeux {0}'
+
+      - name: Check NPM_TOKEN
+        if: |
+          inputs.force-release == true ||
+          steps.check-pr.outputs.pr-exists == 'false' ||
+          steps.check-pr.outputs.mergeable == 'false' ||
+          (github.event_name == 'workflow_run' && steps.check-pr.outputs.pr-exists == 'true' && steps.check-changesets.outputs.has-changesets == 'true')
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ -z "$NPM_TOKEN" ]; then
+            echo '::error::The NPM_TOKEN secret is required for release operations.'
+            exit 1
+          fi
+
+      - name: Force publish packages to npm
+        if: github.event_name == 'workflow_dispatch' && inputs.force-release == true
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GH_TOKEN: ${{ env.USE_APP_TOKEN == 'true' && steps.get-app-token.outputs.token || secrets.GITHUB_TOKEN }}
+        run: |
+          printf '%s\n' "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > "$HOME/.npmrc"
+          if pnpm publish-changesets; then
+            AUTH_HEADER=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 | tr -d '\n')
+            TAG_REFS=()
+            while IFS= read -r TAG; do
+              TAG_REFS+=("refs/tags/${TAG}:refs/tags/${TAG}")
+            done < <(git tag -l '@bfra.me/*@*')
+            if [ "${#TAG_REFS[@]}" -gt 0 ]; then
+              git -c "http.extraheader=AUTHORIZATION: basic ${AUTH_HEADER}" push "https://github.com/${GITHUB_REPOSITORY}.git" "${TAG_REFS[@]}"
+            fi
+          else
+            exit 1
+          fi
 
       - name: Close stale release PR before force-push
         if: |
@@ -136,9 +160,12 @@ jobs:
       - id: changesets
         name: Create Release Pull Request or Publish to npm
         if: |
-          steps.check-pr.outputs.pr-exists == 'false' ||
-          steps.check-pr.outputs.mergeable == 'false' ||
-          (github.event_name == 'workflow_run' && steps.check-pr.outputs.pr-exists == 'true' && steps.check-changesets.outputs.has-changesets == 'true')
+          inputs.force-release != true &&
+          (
+            steps.check-pr.outputs.pr-exists == 'false' ||
+            steps.check-pr.outputs.mergeable == 'false' ||
+            (github.event_name == 'workflow_run' && steps.check-pr.outputs.pr-exists == 'true' && steps.check-changesets.outputs.has-changesets == 'true')
+          )
         env:
           GH_REPO: ${{ github.repository }}
           GITHUB_TOKEN: ${{ env.USE_APP_TOKEN == 'true' && steps.get-app-token.outputs.token || secrets.GITHUB_TOKEN }}
@@ -151,21 +178,6 @@ jobs:
           setupGitUser: false
           title: 'chore(🦋📦): publish packages'
           version: pnpm version-changesets
-
-      - name: Enable Auto-merge
-        if: >-
-          github.event_name != 'workflow_run' &&
-          steps.check-pr.outputs.pr-exists == 'true' &&
-          (
-            steps.check-pr.outputs.checks-status == 'pending' ||
-            steps.check-pr.outputs.checks-status == 'success' ||
-            inputs.force-release == true
-          )
-        env:
-          GH_TOKEN: ${{ env.USE_APP_TOKEN == 'true' && steps.get-app-token.outputs.token || secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ steps.check-pr.outputs.pr-number }}
-        run: |
-          gh pr merge $PR_NUMBER --squash --auto
 
   trigger-org-renovate:
     if: github.repository == 'bfra-me/works' && needs.manage-release.outputs.published == 'true'
