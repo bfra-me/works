@@ -397,8 +397,7 @@ export async function markdown(options: MarkdownOptions = {}): Promise<Config[]>
 
     // Use plugin's standard config to inherit parser configuration
     const standardConfigs = (pluginYaml.configs.standard ?? pluginYaml.configs['flat/standard']) as
-      | Config[]
-      | Config
+      Config[] | Config
     const normalizedConfigs = Array.isArray(standardConfigs) ? standardConfigs : [standardConfigs]
 
     // Find language and parser setup from normalized configs with explicit type guards
