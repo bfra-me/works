@@ -221,7 +221,7 @@ importers:
   .:
     devDependencies:
       '@changesets/cli':
-        specifier: ^3.0.1
+        specifier: 3.0.1
         version: 3.0.1
       '@eslint/config-inspector':
         specifier: 1.5.0
