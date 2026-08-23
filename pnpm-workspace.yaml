@@ -23,7 +23,7 @@ overrides:
   fast-uri: ^4.1.2
   handlebars@>=4.0.0 <4.7.9: ^4.7.9
   lodash: ^4.17.23
-  picomatch@>=2.3.1 <2.3.2: ^2.3.2
+  picomatch@>=2.3.1 <2.3.2: ^4.0.0
   picomatch@>=4.0.3 <4.0.4: ^4.0.4
   read-pkg-up@^11: npm:read-package-up
   undici@<6.24.0: ^8.0.0
