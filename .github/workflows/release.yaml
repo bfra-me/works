@@ -58,6 +58,7 @@ jobs:
         env:
           GH_REPO: ${{ github.repository }}
           GH_TOKEN: ${{ env.USE_APP_TOKEN == 'true' && steps.get-app-token.outputs.token || secrets.GITHUB_TOKEN }}
+          WORKFLOW_RUN_SHA: ${{ github.event.workflow_run.head_sha }}
         run: |
           PR_NUMBER=$(gh pr list \
             --head "changeset-release/main" \
@@ -79,6 +80,22 @@ jobs:
           else
             echo "pr-exists=false" >> "$GITHUB_OUTPUT"
           fi
+
+          if [ "$GITHUB_EVENT_NAME" = "workflow_run" ]; then
+            MERGED_PR_NUMBER=$(gh pr list \
+              --head "changeset-release/main" \
+              --json number,mergeCommit \
+              --jq 'map(select(.mergeCommit.oid == "'"$WORKFLOW_RUN_SHA"'")) | .[0].number // empty' \
+              --state merged)
+            if [ -n "$MERGED_PR_NUMBER" ]; then
+              echo "release-pr-merged=true" >> "$GITHUB_OUTPUT"
+              echo "Release PR #$MERGED_PR_NUMBER merged in workflow run commit $WORKFLOW_RUN_SHA"
+            else
+              echo "release-pr-merged=false" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "release-pr-merged=false" >> "$GITHUB_OUTPUT"
+          fi
         shell: 'bash -Eeux {0}'
 
       - name: Checkout repository
@@ -94,7 +111,12 @@ jobs:
 
       - id: check-changesets
         name: Check for uncommitted changesets
-        if: github.event_name == 'workflow_run' && steps.check-pr.outputs.pr-exists == 'true'
+        if: |
+          github.event_name == 'workflow_run' &&
+          (
+            steps.check-pr.outputs.pr-exists == 'true' ||
+            steps.check-pr.outputs.release-pr-merged == 'true'
+          )
         run: |
           # Check for pending changeset files (*.md excluding README.md)
           CHANGESET_COUNT=$(find .changeset -maxdepth 1 -name '*.md' ! -name 'README.md' -type f 2>/dev/null | wc -l | tr -d ' ')
@@ -121,7 +143,8 @@ jobs:
             exit 1
           fi
 
-      - name: Force publish packages to npm
+      - id: force-publish
+        name: Force publish packages to npm
         if: github.event_name == 'workflow_dispatch' && inputs.force-release == true
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -180,6 +203,29 @@ jobs:
           setupGitUser: false
           title: 'chore(🦋📦): publish packages'
           version: pnpm version-changesets
+
+      - name: Verify expected publish
+        if: |
+          (github.event_name == 'workflow_dispatch' && inputs.force-release == true) ||
+          (
+            github.event_name == 'workflow_run' &&
+            steps.check-pr.outputs.release-pr-merged == 'true' &&
+            steps.check-changesets.outputs.has-changesets == 'false'
+          )
+        env:
+          FORCE_PUBLISH_OUTCOME: ${{ steps.force-publish.outcome }}
+          CHANGESETS_OUTCOME: ${{ steps.changesets.outcome }}
+          CHANGESETS_PUBLISHED: ${{ steps.changesets.outputs.published }}
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            if [ "$FORCE_PUBLISH_OUTCOME" != "success" ]; then
+              echo "::error::Expected the force publish path to execute successfully for workflow_dispatch with force-release=true, but its outcome was '$FORCE_PUBLISH_OUTCOME'."
+              exit 1
+            fi
+          elif [ "$CHANGESETS_PUBLISHED" != "true" ]; then
+            echo "::error::Expected changesets/action to publish after the release PR merged, but its outcome was '$CHANGESETS_OUTCOME' and its published output was '$CHANGESETS_PUBLISHED'."
+            exit 1
+          fi
 
   trigger-org-renovate:
     if: github.repository == 'bfra-me/works' && needs.manage-release.outputs.published == 'true'
