@@ -158,8 +158,7 @@ export type PluginConfigFor<TPlugin extends PluginName> = TPlugin extends keyof 
  * Plugin specification that can be either a plugin name or a tuple of [name, config].
  */
 export type PluginSpec<TPlugin extends PluginName = PluginName> =
-  | TPlugin
-  | readonly [TPlugin, PluginConfigFor<TPlugin>]
+  TPlugin | readonly [TPlugin, PluginConfigFor<TPlugin>]
 
 /**
  * Utility type to extract plugin name from a plugin specification.
