@@ -212,7 +212,7 @@ overrides:
   picomatch@>=4.0.3 <4.0.4: ^4.0.4
   read-pkg-up@^11: npm:read-package-up
   undici@<6.24.0: ^8.0.0
-  undici@>=7.17.0 <7.24.0: ^7.24.0
+  undici@>=7.17.0 <7.24.0: ^8.0.0
 
 packageExtensionsChecksum: sha256-i9hTx/29Y1lrHwzmZFu5g1e7Gb9/n4mRMNNUhOzLKpo=
 
@@ -6667,10 +6667,6 @@ packages:
   undici-types@7.18.2:
     resolution: {integrity: sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w==}
 
-  undici@7.29.0:
-    resolution: {integrity: sha512-IDxfleLmmbSskfWSUATiN1nfn2rDuvnMOqb5CWR92iIfojA0Ud+ulOAAEQ57LPr9rWmsreUyf5lwyao+7GNNVw==}
-    engines: {node: '>=20.18.1'}
-
   undici@8.10.0:
     resolution: {integrity: sha512-HvltHd7avK13QIw/oLe4qoOLyoVSoafqJ2jYOrtMRBkbYT31eiBQ8O0ehRKZiEZCMEyLFQNIADpgCWC5fALvYQ==}
     engines: {node: '>=22.19.0'}
@@ -8920,7 +8916,7 @@ snapshots:
       p-filter: 4.1.0
       semantic-release: 25.0.9(supports-color@8.1.1)(typescript@6.0.3)
       tinyglobby: 0.2.17
-      undici: 7.29.0
+      undici: 8.10.0
       url-join: 5.0.0
     transitivePeerDependencies:
       - kerberos
@@ -10537,7 +10533,7 @@ snapshots:
       package-json: 10.0.1
       semver: 7.8.5
       synckit: 0.11.13
-      undici: 7.29.0
+      undici: 8.10.0
     transitivePeerDependencies:
       - '@eslint/json'
 
@@ -14212,8 +14208,6 @@ snapshots:
   uncrypto@0.1.3: {}
 
   undici-types@7.18.2: {}
-
-  undici@7.29.0: {}
 
   undici@8.10.0: {}
 
