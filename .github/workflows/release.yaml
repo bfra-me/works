@@ -141,6 +141,18 @@ jobs:
             exit 1
           fi
 
+      - name: Configure npm authentication
+        if: |
+          inputs.force-release != true &&
+          (
+            steps.check-pr.outputs.pr-exists == 'false' ||
+            steps.check-pr.outputs.mergeable == 'false' ||
+            (github.event_name == 'workflow_run' && steps.check-pr.outputs.pr-exists == 'true' && steps.check-changesets.outputs.has-changesets == 'true')
+          )
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: printf '%s\n' "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > "$HOME/.npmrc"
+
       - name: Force publish packages to npm
         if: github.event_name == 'workflow_dispatch' && inputs.force-release == true
         env:
@@ -202,6 +214,7 @@ jobs:
 
       - name: Verify expected publish
         if: |
+          !cancelled() &&
           github.event_name == 'workflow_run' &&
           steps.check-pr.outputs.release-pr-merged == 'true' &&
           steps.check-changesets.outputs.has-changesets == 'false'
