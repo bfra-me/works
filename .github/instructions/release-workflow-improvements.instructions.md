@@ -164,7 +164,7 @@ bfra-me[bot] reopened this 4 minutes ago
 
 This happens because:
 
-1. The `changesets/action` with `commitMode: github-api` force-pushes to update the branch
+1. The `changesets/action` GitHub API push mode force-pushes to update the branch
 2. GitHub automatically closes PRs when their branch is force-pushed
 3. The action then calls `octokit.rest.pulls.update(..., state: "open")` to reopen it
 4. This entire cycle happens even when there are no actual changes to make

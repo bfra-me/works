@@ -58,6 +58,7 @@ jobs:
         env:
           GH_REPO: ${{ github.repository }}
           GH_TOKEN: ${{ env.USE_APP_TOKEN == 'true' && steps.get-app-token.outputs.token || secrets.GITHUB_TOKEN }}
+          WORKFLOW_RUN_SHA: ${{ github.event.workflow_run.head_sha }}
         run: |
           PR_NUMBER=$(gh pr list \
             --head "changeset-release/main" \
@@ -79,6 +80,20 @@ jobs:
           else
             echo "pr-exists=false" >> "$GITHUB_OUTPUT"
           fi
+
+          if [ "$GITHUB_EVENT_NAME" = "workflow_run" ]; then
+            MERGED_PR_NUMBER=$(gh api \
+              "repos/${GH_REPO}/commits/${WORKFLOW_RUN_SHA}/pulls" \
+              --jq 'map(select(.head.ref == "changeset-release/main" and .merged_at != null)) | .[0].number // empty')
+            if [ -n "$MERGED_PR_NUMBER" ]; then
+              echo "release-pr-merged=true" >> "$GITHUB_OUTPUT"
+              echo "Release PR #$MERGED_PR_NUMBER merged in workflow run commit $WORKFLOW_RUN_SHA"
+            else
+              echo "release-pr-merged=false" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "release-pr-merged=false" >> "$GITHUB_OUTPUT"
+          fi
         shell: 'bash -Eeux {0}'
 
       - name: Checkout repository
@@ -94,7 +109,12 @@ jobs:
 
       - id: check-changesets
         name: Check for uncommitted changesets
-        if: github.event_name == 'workflow_run' && steps.check-pr.outputs.pr-exists == 'true'
+        if: |
+          github.event_name == 'workflow_run' &&
+          (
+            steps.check-pr.outputs.pr-exists == 'true' ||
+            steps.check-pr.outputs.release-pr-merged == 'true'
+          )
         run: |
           # Check for pending changeset files (*.md excluding README.md)
           CHANGESET_COUNT=$(find .changeset -maxdepth 1 -name '*.md' ! -name 'README.md' -type f 2>/dev/null | wc -l | tr -d ' ')
@@ -152,11 +172,11 @@ jobs:
           GH_TOKEN: ${{ env.USE_APP_TOKEN == 'true' && steps.get-app-token.outputs.token || secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ steps.check-pr.outputs.pr-number }}
         run: |
-          # commitMode: github-api force-pushes, which makes GitHub consider the
+          # GitHub API push mode force-pushes, which makes GitHub consider the
           # branch "recreated". GitHub then rejects PR updates with:
           # "state cannot be changed. The changeset-release/main branch was force-pushed or recreated."
           # Workaround: close the old PR and delete the branch so the action creates a fresh PR.
-          echo "Closing PR #$PR_NUMBER before changesets action runs (workaround for commitMode: github-api)"
+          echo "Closing PR #$PR_NUMBER before changesets action runs (workaround for GitHub API push mode)"
           gh pr close "$PR_NUMBER" --delete-branch || true
 
       - id: changesets
@@ -174,12 +194,25 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         uses: changesets/action@8488615a623b1b9c987934bb89eae8af6a946ac1 # v2.1.1
         with:
-          commit: 'chore(changesets): publish packages'
-          commitMode: github-api
-          publish: pnpm publish-changesets
-          setupGitUser: false
-          title: 'chore(🦋📦): publish packages'
-          version: pnpm version-changesets
+          github-token: ${{ env.USE_APP_TOKEN == 'true' && steps.get-app-token.outputs.token || secrets.GITHUB_TOKEN }}
+          publish-script: pnpm publish-changesets
+          version-script: pnpm version-changesets
+          commit-message: 'chore(changesets): publish packages'
+          pr-title: 'chore(🦋📦): publish packages'
+
+      - name: Verify expected publish
+        if: |
+          github.event_name == 'workflow_run' &&
+          steps.check-pr.outputs.release-pr-merged == 'true' &&
+          steps.check-changesets.outputs.has-changesets == 'false'
+        env:
+          CHANGESETS_OUTCOME: ${{ steps.changesets.outcome }}
+          CHANGESETS_PUBLISHED: ${{ steps.changesets.outputs.published }}
+        run: |
+          if [ "$CHANGESETS_PUBLISHED" != "true" ]; then
+            echo "::error::Expected changesets/action to publish after the release PR merged, but its outcome was '$CHANGESETS_OUTCOME' and its published output was '$CHANGESETS_PUBLISHED'."
+            exit 1
+          fi
 
   trigger-org-renovate:
     if: github.repository == 'bfra-me/works' && needs.manage-release.outputs.published == 'true'
