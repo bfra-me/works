@@ -128,18 +128,20 @@ jobs:
           GH_TOKEN: ${{ env.USE_APP_TOKEN == 'true' && steps.get-app-token.outputs.token || secrets.GITHUB_TOKEN }}
         run: |
           printf '%s\n' "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > "$HOME/.npmrc"
-          if pnpm publish-changesets; then
-            AUTH_HEADER=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 | tr -d '\n')
-            TAG_REFS=()
-            while IFS= read -r TAG; do
-              TAG_REFS+=("refs/tags/${TAG}:refs/tags/${TAG}")
-            done < <(git tag -l '@bfra.me/*@*')
-            if [ "${#TAG_REFS[@]}" -gt 0 ]; then
-              git -c "http.extraheader=AUTHORIZATION: basic ${AUTH_HEADER}" push "https://github.com/${GITHUB_REPOSITORY}.git" "${TAG_REFS[@]}"
-            fi
-          else
-            exit 1
+          set +e
+          pnpm publish-changesets
+          PUBLISH_STATUS=$?
+          set -e
+
+          AUTH_HEADER=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 | tr -d '\n')
+          TAG_REFS=()
+          while IFS= read -r TAG; do
+            TAG_REFS+=("refs/tags/${TAG}:refs/tags/${TAG}")
+          done < <(git tag -l '@bfra.me/*@*')
+          if [ "${#TAG_REFS[@]}" -gt 0 ]; then
+            git -c "http.extraheader=AUTHORIZATION: basic ${AUTH_HEADER}" push "https://github.com/${GITHUB_REPOSITORY}.git" "${TAG_REFS[@]}"
           fi
+          exit "$PUBLISH_STATUS"
 
       - name: Close stale release PR before force-push
         if: |
