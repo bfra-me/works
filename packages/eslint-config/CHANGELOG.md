@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.51.3
+
+### Patch Changes
+
+- Updated dependency `eslint-plugin-erasable-syntax-only` to `0.7.1`. ([#4301](https://github.com/bfra-me/works/pull/4301))
+
 ## 0.51.2
 ### Patch Changes
 
