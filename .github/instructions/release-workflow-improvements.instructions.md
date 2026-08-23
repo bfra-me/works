@@ -95,14 +95,22 @@ When the workflow used `push` as a trigger alongside `schedule`, the `USE_APP_TO
 USE_APP_TOKEN: ${{ contains('["push", "schedule"]', github.event_name) }}
 ```
 
-After switching to `workflow_run`, the push-triggered path is gone, but `workflow_run` events do need the app token (to commit changesets with a bot identity so branch protection doesn't block the commit and so CI re-triggers). Update accordingly:
+After switching to `workflow_run`, the push-triggered path is gone, but `workflow_run` events and manual publish paths still need the app token. `workflow_run` uses it to commit changesets with a bot identity so branch protection doesn't block the commit and so CI re-triggers. `workflow_dispatch` uses it to configure a git identity before Changesets creates annotated tags and to retain the required repository write access. Update accordingly:
 
 ```yaml
 # After
-USE_APP_TOKEN: ${{ contains('["schedule", "workflow_run"]', github.event_name) }}
+USE_APP_TOKEN: ${{ contains('["schedule", "workflow_run", "workflow_dispatch"]', github.event_name) }}
 ```
 
-**Rule of thumb**: App tokens are needed when the workflow will be creating commits or PRs under a bot identity — typically all automated triggers. `workflow_dispatch` (human-initiated) can usually rely on the actor's `GITHUB_TOKEN`.
+**Rule of thumb**: Use an App token whenever the job needs a git identity or elevated repository access, including commits, PRs, or annotated tags. Human initiation does not make `GITHUB_TOKEN` sufficient; manual publish paths may need the same App token as automated paths.
+
+### Problem: Changesets can hide tag creation failures
+
+Changesets logs `New tag:` before running `git tag <name> -m <name>` and does not surface a failed tag command. If no git identity is configured, annotated tag creation fails while the workflow can still report success, leaving packages published with no tags.
+
+### Solution: Configure identity before publishing
+
+Ensure every publish path that can create annotated tags runs `Setup Git user` before Changesets publishes.
 
 ---
 
@@ -245,7 +253,7 @@ Avoid adding an auto-merge step to the release workflow. A scheduled auto-merge 
 
 - [ ] Does the workflow trigger only after CI passes? Use `workflow_run` + success guard.
 - [ ] Is `cancel-in-progress` disabled? Canceling a release mid-publish can corrupt state.
-- [ ] Does the app token scope match the triggering events that need bot commits?
+- [ ] Does App token selection cover every trigger that needs a git identity or elevated repository access, including manual publish dispatches?
 - [ ] Are `checkout` and dependency install skipped when the publish step would be skipped?
 - [ ] Does the changesets action check for uncommitted changesets before running on `workflow_run`?
 - [ ] Does the workflow avoid making release decisions from transient PR check conclusions?
