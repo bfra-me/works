@@ -34,6 +34,7 @@ import {
   yaml,
 } from './configs'
 import {jsx} from './configs/jsx'
+import {GLOB_JS, GLOB_JSX} from './globs'
 
 // These are merged into the Options interface
 type AllowedConfigForOptions = Omit<Config, 'files'>
@@ -142,7 +143,14 @@ export async function defineConfig<C extends Config = Config, CN extends ConfigN
   }
 
   if (enableUnicorn) {
-    configs.push(unicorn({overrides: getOverrides(options, 'unicorn')}))
+    const unicornOptions = resolveSubOptions(options, 'unicorn')
+    configs.push(
+      unicorn({
+        ...unicornOptions,
+        files: unicornOptions.files ?? (enableTypeScript ? undefined : [GLOB_JS, GLOB_JSX]),
+        overrides: getOverrides(options, 'unicorn'),
+      }),
+    )
   }
 
   if (enableJsx) {

@@ -134,5 +134,5 @@ export async function hasAnyFileChanged(
   files: readonly string[],
 ): Promise<boolean> {
   const results = await Promise.all(files.map(async file => detector.hasChanged(file)))
-  return results.some(changed => changed)
+  return results.includes(true)
 }
