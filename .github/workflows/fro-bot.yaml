@@ -283,7 +283,7 @@ env:
     number(s) when available, root-cause diagnosis, and exact proposed change
     so a human can act on the report.
 
-    Project conventions (MUST follow for code changes):
+    Project conventions to check against and honor in proposed changes:
     - TypeScript strict mode: no `any`, no `@ts-ignore`, no `@ts-expect-error`
     - Pure ESM only: no `require()`, no `module.exports`
     - Named exports preferred over default exports
