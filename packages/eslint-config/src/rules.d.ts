@@ -10,11 +10,6 @@ export interface Rules {
    */
   '@bfra.me/missing-module-for-config'?: Linter.RuleEntry<BfraMeMissingModuleForConfig>
   /**
-   * Disallows higher order functions that define components or hooks inside them.
-   * @see https://eslint-react.xyz/docs/rules/component-hook-factories
-   */
-  '@eslint-react/component-hook-factories'?: Linter.RuleEntry<[]>
-  /**
    * Disallows DOM elements from using 'dangerouslySetInnerHTML'.
    * @see https://eslint-react.xyz/docs/rules/dom-no-dangerously-set-innerhtml
    */
@@ -95,11 +90,6 @@ export interface Rules {
    */
   '@eslint-react/dom-no-void-elements-with-children'?: Linter.RuleEntry<[]>
   /**
-   * Enforces importing React DOM via a namespace import.
-   * @see https://eslint-react.xyz/docs/rules/dom-prefer-namespace-import
-   */
-  '@eslint-react/dom-prefer-namespace-import'?: Linter.RuleEntry<[]>
-  /**
    * Validates usage of Error Boundaries instead of try/catch for errors in child components.
    * @see https://eslint-react.xyz/docs/rules/error-boundaries
    */
@@ -110,52 +100,57 @@ export interface Rules {
    */
   '@eslint-react/exhaustive-deps'?: Linter.RuleEntry<EslintReactExhaustiveDeps>
   /**
-   * Validates against mutating props, state, and other values that are immutable.
+   * Validates against assignment/mutation of globals during render, part of ensuring that side effects must run outside of render.
+   * @see https://eslint-react.xyz/docs/rules/globals
+   */
+  '@eslint-react/globals'?: Linter.RuleEntry<[]>
+  /**
+   * Validates against passing functions that mutate captured local variables into frozen contexts such as JSX props, hook arguments, and hook return values.
    * @see https://eslint-react.xyz/docs/rules/immutability
    */
   '@eslint-react/immutability'?: Linter.RuleEntry<[]>
   /**
    * Disallows passing 'children' as a prop.
-   * @see https://eslint-react.xyz/docs/rules/no-children-prop
+   * @see https://eslint-react.xyz/docs/rules/jsx-no-children-prop
    */
   '@eslint-react/jsx-no-children-prop'?: Linter.RuleEntry<[]>
   /**
    * Disallows passing 'children' as a prop when children are also passed as nested content.
-   * @see https://eslint-react.xyz/docs/rules/no-children-prop-with-children
+   * @see https://eslint-react.xyz/docs/rules/jsx-no-children-prop-with-children
    */
   '@eslint-react/jsx-no-children-prop-with-children'?: Linter.RuleEntry<[]>
   /**
    * Prevents comment strings from being accidentally inserted into a JSX element's text nodes.
-   * @see https://eslint-react.xyz/docs/rules/no-comment-textnodes
+   * @see https://eslint-react.xyz/docs/rules/jsx-no-comment-textnodes
    */
   '@eslint-react/jsx-no-comment-textnodes'?: Linter.RuleEntry<[]>
   /**
    * Prevent patterns that cause deoptimization when using the automatic JSX runtime.
-   * @see https://eslint-react.xyz/docs/rules/no-key-after-spread
+   * @see https://eslint-react.xyz/docs/rules/jsx-no-key-after-spread
    */
   '@eslint-react/jsx-no-key-after-spread'?: Linter.RuleEntry<[]>
   /**
    * Catches `$` before `{expr}` in JSX — typically from template literal `${expr}` being copy-pasted into JSX without removing the `$`. The `$` "leaks" into the rendered output.
-   * @see https://eslint-react.xyz/docs/rules/no-leaked-dollar
+   * @see https://eslint-react.xyz/docs/rules/jsx-no-leaked-dollar
    */
   '@eslint-react/jsx-no-leaked-dollar'?: Linter.RuleEntry<[]>
   /**
    * Catches `;` at the start of JSX text nodes — typically from accidentally placing a statement-ending `;` inside JSX. The `;` "leaks" into the rendered output.
-   * @see https://eslint-react.xyz/docs/rules/no-leaked-semicolon
+   * @see https://eslint-react.xyz/docs/rules/jsx-no-leaked-semicolon
    */
   '@eslint-react/jsx-no-leaked-semicolon'?: Linter.RuleEntry<[]>
   /**
    * Disallow JSX namespace syntax, as React does not support them.
-   * @see https://eslint-react.xyz/docs/rules/no-namespace
+   * @see https://eslint-react.xyz/docs/rules/jsx-no-namespace
    */
   '@eslint-react/jsx-no-namespace'?: Linter.RuleEntry<[]>
   /**
    * Disallows useless fragment elements.
-   * @see https://eslint-react.xyz/docs/rules/no-useless-fragment
+   * @see https://eslint-react.xyz/docs/rules/jsx-no-useless-fragment
    */
   '@eslint-react/jsx-no-useless-fragment'?: Linter.RuleEntry<EslintReactJsxNoUselessFragment>
   /**
-   * Enforces the context name to be a valid component name with the suffix 'Context'.
+   * Enforces identifier names assigned from `createContext` calls to be a valid component name with the suffix `Context`.
    * @see https://eslint-react.xyz/docs/rules/naming-convention-context-name
    */
   '@eslint-react/naming-convention-context-name'?: Linter.RuleEntry<[]>
@@ -235,7 +230,7 @@ export interface Rules {
    */
   '@eslint-react/no-context-provider'?: Linter.RuleEntry<[]>
   /**
-   * Disallows 'createRef' in function components.
+   * Disallows 'createRef' in function components and Hooks.
    * @see https://eslint-react.xyz/docs/rules/no-create-ref
    */
   '@eslint-react/no-create-ref'?: Linter.RuleEntry<[]>
@@ -305,11 +300,6 @@ export interface Rules {
    */
   '@eslint-react/no-nested-lazy-component-declarations'?: Linter.RuleEntry<[]>
   /**
-   * Disallows 'shouldComponentUpdate' when extending 'React.PureComponent'.
-   * @see https://eslint-react.xyz/docs/rules/no-redundant-should-component-update
-   */
-  '@eslint-react/no-redundant-should-component-update'?: Linter.RuleEntry<[]>
-  /**
    * Disallows calling 'this.setState' in 'componentDidMount' outside functions such as callbacks.
    * @see https://eslint-react.xyz/docs/rules/no-set-state-in-component-did-mount
    */
@@ -324,16 +314,6 @@ export interface Rules {
    * @see https://eslint-react.xyz/docs/rules/no-set-state-in-component-will-update
    */
   '@eslint-react/no-set-state-in-component-will-update'?: Linter.RuleEntry<[]>
-  /**
-   * Disallows unnecessary usage of 'useCallback'.
-   * @see https://eslint-react.xyz/docs/rules/no-unnecessary-use-callback
-   */
-  '@eslint-react/no-unnecessary-use-callback'?: Linter.RuleEntry<[]>
-  /**
-   * Disallows unnecessary usage of 'useMemo'.
-   * @see https://eslint-react.xyz/docs/rules/no-unnecessary-use-memo
-   */
-  '@eslint-react/no-unnecessary-use-memo'?: Linter.RuleEntry<[]>
   /**
    * Enforces that a function with the 'use' prefix uses at least one Hook inside it.
    * @see https://eslint-react.xyz/docs/rules/no-unnecessary-use-prefix
@@ -375,7 +355,7 @@ export interface Rules {
    */
   '@eslint-react/no-unused-props'?: Linter.RuleEntry<[]>
   /**
-   * Warns about unused class component state.
+   * Warns about state variables that are defined but never used.
    * @see https://eslint-react.xyz/docs/rules/no-unused-state
    */
   '@eslint-react/no-unused-state'?: Linter.RuleEntry<[]>
@@ -384,16 +364,6 @@ export interface Rules {
    * @see https://eslint-react.xyz/docs/rules/no-use-context
    */
   '@eslint-react/no-use-context'?: Linter.RuleEntry<[]>
-  /**
-   * Enforces destructuring assignment for component props and context.
-   * @see https://eslint-react.xyz/docs/rules/prefer-destructuring-assignment
-   */
-  '@eslint-react/prefer-destructuring-assignment'?: Linter.RuleEntry<[]>
-  /**
-   * Enforces importing React via a namespace import.
-   * @see https://eslint-react.xyz/docs/rules/prefer-namespace-import
-   */
-  '@eslint-react/prefer-namespace-import'?: Linter.RuleEntry<[]>
   /**
    * Validates that components and hooks are pure by checking that they do not call known-impure functions during render.
    * @see https://eslint-react.xyz/docs/rules/purity
@@ -406,7 +376,7 @@ export interface Rules {
   '@eslint-react/refs'?: Linter.RuleEntry<[]>
   /**
    * Validates and transforms React Client/Server Function definitions.
-   * @see https://eslint-react.xyz/docs/rules/function-definition
+   * @see https://eslint-react.xyz/docs/rules/rsc-function-definition
    */
   '@eslint-react/rsc-function-definition'?: Linter.RuleEntry<[]>
   /**
@@ -424,6 +394,11 @@ export interface Rules {
    * @see https://eslint-react.xyz/docs/rules/set-state-in-render
    */
   '@eslint-react/set-state-in-render'?: Linter.RuleEntry<[]>
+  /**
+   * Validates that components are static, not recreated every render.
+   * @see https://eslint-react.xyz/docs/rules/static-components
+   */
+  '@eslint-react/static-components'?: Linter.RuleEntry<[]>
   /**
    * Validates against syntax that React Compiler does not support.
    * @see https://eslint-react.xyz/docs/rules/unsupported-syntax
@@ -445,6 +420,16 @@ export interface Rules {
    */
   '@eslint-react/web-api-no-leaked-event-listener'?: Linter.RuleEntry<[]>
   /**
+   * Enforces that every 'fetch' in a component or custom hook has a corresponding 'AbortController' abort in the cleanup function.
+   * @see https://eslint-react.xyz/docs/rules/web-api-no-leaked-fetch
+   */
+  '@eslint-react/web-api-no-leaked-fetch'?: Linter.RuleEntry<[]>
+  /**
+   * Enforces that every 'IntersectionObserver' created in a component or custom hook has a corresponding 'IntersectionObserver.disconnect()'.
+   * @see https://eslint-react.xyz/docs/rules/web-api-no-leaked-intersection-observer
+   */
+  '@eslint-react/web-api-no-leaked-intersection-observer'?: Linter.RuleEntry<[]>
+  /**
    * Enforces that every 'setInterval' in a component or custom hook has a corresponding 'clearInterval'.
    * @see https://eslint-react.xyz/docs/rules/web-api-no-leaked-interval
    */
@@ -460,11 +445,6 @@ export interface Rules {
    */
   '@eslint-react/web-api-no-leaked-timeout'?: Linter.RuleEntry<[]>
   /**
-   * Disallows higher order functions that define components or hooks inside them.
-   * @see https://eslint-react.xyz/docs/rules/component-hook-factories
-   */
-  '@eslint-react/x-component-hook-factories'?: Linter.RuleEntry<[]>
-  /**
    * Validates usage of Error Boundaries instead of try/catch for errors in child components.
    * @see https://eslint-react.xyz/docs/rules/error-boundaries
    */
@@ -475,7 +455,12 @@ export interface Rules {
    */
   '@eslint-react/x-exhaustive-deps'?: Linter.RuleEntry<EslintReactXExhaustiveDeps>
   /**
-   * Validates against mutating props, state, and other values that are immutable.
+   * Validates against assignment/mutation of globals during render, part of ensuring that side effects must run outside of render.
+   * @see https://eslint-react.xyz/docs/rules/globals
+   */
+  '@eslint-react/x-globals'?: Linter.RuleEntry<[]>
+  /**
+   * Validates against passing functions that mutate captured local variables into frozen contexts such as JSX props, hook arguments, and hook return values.
    * @see https://eslint-react.xyz/docs/rules/immutability
    */
   '@eslint-react/x-immutability'?: Linter.RuleEntry<[]>
@@ -545,7 +530,7 @@ export interface Rules {
    */
   '@eslint-react/x-no-context-provider'?: Linter.RuleEntry<[]>
   /**
-   * Disallows 'createRef' in function components.
+   * Disallows 'createRef' in function components and Hooks.
    * @see https://eslint-react.xyz/docs/rules/no-create-ref
    */
   '@eslint-react/x-no-create-ref'?: Linter.RuleEntry<[]>
@@ -615,11 +600,6 @@ export interface Rules {
    */
   '@eslint-react/x-no-nested-lazy-component-declarations'?: Linter.RuleEntry<[]>
   /**
-   * Disallows 'shouldComponentUpdate' when extending 'React.PureComponent'.
-   * @see https://eslint-react.xyz/docs/rules/no-redundant-should-component-update
-   */
-  '@eslint-react/x-no-redundant-should-component-update'?: Linter.RuleEntry<[]>
-  /**
    * Disallows calling 'this.setState' in 'componentDidMount' outside functions such as callbacks.
    * @see https://eslint-react.xyz/docs/rules/no-set-state-in-component-did-mount
    */
@@ -634,16 +614,6 @@ export interface Rules {
    * @see https://eslint-react.xyz/docs/rules/no-set-state-in-component-will-update
    */
   '@eslint-react/x-no-set-state-in-component-will-update'?: Linter.RuleEntry<[]>
-  /**
-   * Disallows unnecessary usage of 'useCallback'.
-   * @see https://eslint-react.xyz/docs/rules/no-unnecessary-use-callback
-   */
-  '@eslint-react/x-no-unnecessary-use-callback'?: Linter.RuleEntry<[]>
-  /**
-   * Disallows unnecessary usage of 'useMemo'.
-   * @see https://eslint-react.xyz/docs/rules/no-unnecessary-use-memo
-   */
-  '@eslint-react/x-no-unnecessary-use-memo'?: Linter.RuleEntry<[]>
   /**
    * Enforces that a function with the 'use' prefix uses at least one Hook inside it.
    * @see https://eslint-react.xyz/docs/rules/no-unnecessary-use-prefix
@@ -685,7 +655,7 @@ export interface Rules {
    */
   '@eslint-react/x-no-unused-props'?: Linter.RuleEntry<[]>
   /**
-   * Warns about unused class component state.
+   * Warns about state variables that are defined but never used.
    * @see https://eslint-react.xyz/docs/rules/no-unused-state
    */
   '@eslint-react/x-no-unused-state'?: Linter.RuleEntry<[]>
@@ -694,16 +664,6 @@ export interface Rules {
    * @see https://eslint-react.xyz/docs/rules/no-use-context
    */
   '@eslint-react/x-no-use-context'?: Linter.RuleEntry<[]>
-  /**
-   * Enforces destructuring assignment for component props and context.
-   * @see https://eslint-react.xyz/docs/rules/prefer-destructuring-assignment
-   */
-  '@eslint-react/x-prefer-destructuring-assignment'?: Linter.RuleEntry<[]>
-  /**
-   * Enforces importing React via a namespace import.
-   * @see https://eslint-react.xyz/docs/rules/prefer-namespace-import
-   */
-  '@eslint-react/x-prefer-namespace-import'?: Linter.RuleEntry<[]>
   /**
    * Validates that components and hooks are pure by checking that they do not call known-impure functions during render.
    * @see https://eslint-react.xyz/docs/rules/purity
@@ -729,6 +689,11 @@ export interface Rules {
    * @see https://eslint-react.xyz/docs/rules/set-state-in-render
    */
   '@eslint-react/x-set-state-in-render'?: Linter.RuleEntry<[]>
+  /**
+   * Validates that components are static, not recreated every render.
+   * @see https://eslint-react.xyz/docs/rules/static-components
+   */
+  '@eslint-react/x-static-components'?: Linter.RuleEntry<[]>
   /**
    * Validates against syntax that React Compiler does not support.
    * @see https://eslint-react.xyz/docs/rules/unsupported-syntax
