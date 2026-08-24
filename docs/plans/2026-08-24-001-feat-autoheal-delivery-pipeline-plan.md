@@ -105,13 +105,29 @@ Phase 1 removed the contradiction and the unused credential. The workflow is now
 
 - Should the agent own publication with verification after the fact? No. Verification follows the dangerous operation and cannot contain an agent that has already pushed.
 - Should the existing PAT be replaced with an App token? Yes, for the publisher. The agent job needs no credential beyond read access.
+- What scopes does autoheal actually read, and does any of it require a PAT? Nothing it reads requires one. Every resource the autoheal and maintenance prompts touch is available to a read-scoped `GITHUB_TOKEN`:
+
+  | Resource                                          | Permission                   |
+  | ------------------------------------------------- | ---------------------------- |
+  | Repository contents, file inspection, `git blame` | `contents: read`             |
+  | Issues and issue metadata                         | `issues: read`               |
+  | Pull requests, diffs, review state                | `pull-requests: read`        |
+  | Check runs and CI status                          | `checks: read`               |
+  | Workflow run logs                                 | `actions: read`              |
+  | Code scanning alerts                              | `security-events: read`      |
+  | Dependabot alerts                                 | `vulnerability-alerts: read` |
+
+  `vulnerability-alerts` is a distinct key from `security-events`. GitHub's documentation states Dependabot alerts cannot be read with `security-events`, which is easily misread as requiring a PAT or GitHub App; it does not.
+
+  A PAT or App token remains genuinely necessary for interactive `@fro-bot` mention replies, because `GITHUB_TOKEN` posts as `@github-actions` and the action requires the responding identity to match the mention. That constraint applies to the interactive paths, not to scheduled autoheal.
 
 ### Deferred to Implementation
 
 - The exact policy denylist (paths, file types, size limits): needs calibration against what autoheal actually proposes over a few runs.
 - Whether patch transfer between jobs uses artifacts or job outputs: depends on observed patch sizes.
 - Whether the reporter should update the existing rolling issue or open per-run issues: current behavior is a rolling issue (#3397) and should be preserved unless it proves unworkable.
-- How the new jobs learn the resolved mode: `fro-bot.yaml` currently defines a single job handling review, maintenance, autoheal, and interactive dispatch, with the mode resolved as a step output rather than a job output. The publisher and reporter must run only for autoheal, which likely means promoting the mode to a job-level output and gating on it — or splitting scheduled autoheal into its own workflow, which is already deferred above.
+- How the new jobs learn the resolved mode: `fro-bot.yaml` currently defines a single job handling review, maintenance, autoheal, and interactive dispatch, with the mode resolved as a step output rather than a job output. The publisher and reporter must run only for autoheal.
+- How autoheal gets a read-scoped credential while the write-capable modes keep theirs: the scopes are settled (above), but the mechanism is not. Because one job serves modes with different credential needs, the token cannot be downgraded job-wide. Before choosing an approach, review how `bfra-me/.github` and `marcusrbrown/mrbro.dev` configure fro-bot credentials — those repositories have established patterns for this, and this workflow should follow them rather than invent a third.
 
 ## High-Level Technical Design
 
@@ -149,7 +165,7 @@ flowchart TD
 
 - Replace the `github-token` input on the agent step for autoheal runs. It currently receives `secrets.FRO_BOT_PAT` (`.github/workflows/fro-bot.yaml:461`) unconditionally, which is push-capable. `persist-credentials: false` on checkout only prevents git from storing the credential; it does not affect a token handed to the agent as an action input, which the agent can use directly.
 - Supply a read-scoped token instead, sufficient for reading issues, pull requests, and check logs, and incapable of pushing, opening pull requests, or writing issues. Under this design the agent never needs write access: publication belongs to Unit 3 and issue updates to Unit 4.
-- Confirm at implementation time what the action requires of `github-token`, and what scopes autoheal genuinely reads. If a read-only token proves insufficient for some diagnostic path, narrow that path rather than restoring write capability.
+- The required scopes are settled — see Open Questions. No PAT is needed for anything autoheal reads. What remains open is the mechanism for giving this one job different credentials per mode.
 - Keep `output-mode: working-dir`, `persist-credentials: false`, and `permissions: contents: read` unchanged.
 - After the agent step, capture the working-tree diff and the agent's findings as an artifact.
 - Emit base SHA alongside the patch so the publisher can verify it applies to the expected tree.
