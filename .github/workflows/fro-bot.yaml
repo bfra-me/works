@@ -87,6 +87,9 @@ env:
   MAINTENANCE_PROMPT: |
     Perform daily repository maintenance and update a SINGLE rolling issue
     titled "Daily Maintenance Report" in this repository.
+    This run is report-only for repository files. Do not modify files, create
+    branches, commit, push, or open pull requests. The only permitted GitHub-side
+    writes are maintaining the single rolling maintenance issue described below.
 
     Search for an issue with this exact title. If multiple matches exist,
     use the most recently updated one. If no open issue exists, create it.
@@ -133,34 +136,34 @@ env:
     monorepo providing shared ESLint, Prettier, and TypeScript configurations,
     ES utilities, a project creation CLI, and other development tooling.
     All packages target ES2022+/Node.js 20+ with ESM throughout.
-    Read AGENTS.md for full project conventions before making changes.
+    Read AGENTS.md for full project conventions before analyzing.
 
     EXECUTION MODEL
-    Analyze all categories independently, but perform write actions serially.
-    Do not keep multiple branches checked out at once. Complete one mutation,
-    return to a clean working tree, then continue.
+    Analyze all categories independently. This is a diagnosis-only run.
+    Do not modify repository files, create branches, switch branches, commit,
+    push, or open or update pull requests or issues for findings. Keep the
+    working tree clean throughout the run. The only permitted GitHub-side write
+    is maintaining the single summary issue described in OUTPUT FORMAT.
 
     DEDUPLICATION (applies to ALL categories)
-    Before creating any new PR or issue, search for an existing open
-    bot-authored PR/issue for the same root cause. Reuse or update the
-    existing item instead of creating a duplicate.
+    Before reporting a finding, search for an existing open bot-authored
+    PR/issue for the same root cause. Reference the existing item in the
+    summary instead of creating or updating another item.
 
     SCOPE CAP
     If the smallest safe fix is not clearly minimal and reversible (e.g.,
-    broad refactor, architecture change, or many-file edit), do not
-    auto-heal it. Open or update an issue and log it under "Needs Human
-    Attention".
+    broad refactor, architecture change, or many-file edit), do not apply it.
+    Diagnose it and log the proposed change under "Needs Human Attention".
 
     DEPENDENCY OWNERSHIP
-    Renovate owns routine dependency/version bumps. You may change dependency
-    versions only when remediating a confirmed security advisory
-    (critical/high) or repairing an existing security-update PR. Do not
-    create non-security version-bump PRs, and do not batch unrelated
-    dependency changes into a security fix. Do NOT modify package.json
-    versions outside category 2 security remediation.
+    Renovate owns routine dependency/version bumps. Do not change dependency
+    versions in this run. For a confirmed critical/high security advisory,
+    diagnose the required remediation and report the affected files and
+    proposed version change. Do not create non-security version-bump PRs or
+    batch unrelated dependency changes into a security fix.
 
     TRUSTED AUTHORS
-    Trusted PR authors for branch repair are repository
+    Trusted PR authors for diagnosis are repository
     owner/collaborator with write access, or approved automation bots:
     - renovate[bot]
     - dependabot[bot]
@@ -169,32 +172,35 @@ env:
     1. ERRORED PRs
        Find open PRs with failing CI checks. Skip dependency/security update
        PRs here; handle them only in category 2.
-       Only fix PRs whose head branch is in this repository, writable by
-       this token, and authored by a trusted source (repository
+       Only analyze PRs whose head branch is in this repository and is
+       writable by this token, and authored by a trusted source (repository
        owner/collaborator with write access, or an approved automation bot
        such as Renovate/Dependabot). If author trust cannot be established,
        skip the PR and log it under "Needs Human Attention".
        If the PR touches workflows, automation prompts, package-manager
        config, lockfiles, or execution scripts, do not run project commands
-       from that branch. Skip it and log why.
-       For each fixable PR:
-       a. Check out the PR branch.
-       b. Read the failing check logs to diagnose the root cause.
-       c. Fix the issue (type errors, lint failures, test regressions,
-          build breaks).
-       d. Run `pnpm validate` to confirm the fix passes locally.
-       e. Commit with a clear message and push to the PR branch.
-       f. Comment on the PR explaining what failed and what was fixed.
-       g. Never modify .github/workflows/ or this prompt while repairing
-          an errored PR. If the failing run appears caused by the Fro Bot
-          workflow itself, skip the PR and log it under "Needs Human Attention".
+       against it. Diagnose it from metadata, diffs, and logs, and report why
+       local validation was skipped.
+       For each eligible PR:
+       a. Inspect the PR metadata, diff, and failing check logs without checking
+          out or switching to the PR branch.
+       b. Diagnose the root cause (type errors, lint failures, test regressions,
+          or build breaks).
+       c. Run `pnpm validate` only when it is safe and non-mutating; otherwise
+          report that local validation was unavailable.
+       d. Report the evidence, affected file paths and line numbers, and the
+          exact proposed change. Do not modify, commit, push, or comment on the
+          PR. If the failing run appears caused by the Fro Bot workflow itself,
+          log it under "Needs Human Attention".
 
     2. SECURITY
-       Review Dependabot/Renovate alerts and open PRs for vulnerable deps.
+       Review Dependabot/Renovate alerts and existing open PRs for vulnerable deps.
        - If a security update PR exists but has conflicts or failures,
-         fix and push to that PR branch.
+         diagnose the conflict or failure and report the proposed change,
+         including affected file paths and line numbers where applicable.
        - For unaddressed critical/high advisories with no existing PR,
-         create a new PR with the remediation.
+         report the advisory, evidence, and exact proposed remediation. Do not
+         create a PR or modify dependency files.
        - Do NOT bulk-update unrelated deps in a security PR.
        If security advisory/alert data is unavailable to the token or CLI,
        skip this category and note "security alerts unavailable" under
@@ -204,60 +210,58 @@ env:
        This category is primarily report-only. Focus on things only a
        code-aware agent can catch:
        - Run `pnpm build` and verify all packages build without errors.
-         If a package fails, open or update a single issue with the
-         failing package, error output, and likely root cause.
+         If a package fails, report the failing package, error output, likely
+         root cause, and proposed change.
        - Run `pnpm type-coverage` and verify coverage thresholds are met.
-         If coverage drops, open or update a single issue with the
-         failing metrics and the top contributing files.
+         If coverage drops, report the failing metrics, top contributing files,
+         and proposed change.
        - Scan for stale TODO/FIXME/HACK annotations older than 90 days
-         (use git blame). Collect them into a single issue or update an
-         existing "Stale TODOs" issue.
+         (use git blame). List them in the summary with file paths, line
+         numbers, age, and a proposed next step.
        - Verify convention compliance: no barrel exports outside
          src/index.ts files, no CommonJS require() calls, no `any` type
          annotations/assertions, explicit named exports only.
-         Report findings but put actual code fixes into category 4.
+         Report findings with file paths, line numbers, and proposed changes.
        - Check that AGENTS.md accurately reflects the current directory
          structure, package listing, and available commands. If drift is
-         found, open a PR with corrections.
+         found, report the exact proposed corrections.
        - Run `pnpm analyze` (workspace-analyzer) and flag any new warnings
-         or regressions.
+         or regressions with evidence and proposed changes.
 
     4. DEVELOPER EXPERIENCE
        Ensure consistent linting, formatting, and static analysis.
-       Run `pnpm lint` and fix any failures.
-       Run `pnpm type-check` and resolve type errors.
+       Run `pnpm lint` and diagnose any failures without applying auto-fixes.
+       Run `pnpm type-check` and diagnose type errors without editing files.
        Verify ESLint, Prettier, and TypeScript configs are consistent across
-       all packages. Fix any drift.
-       Open a PR for all fixes — never commit directly to the default
-       branch. Group related lint/format/convention fixes into a single PR.
-       Use a clear conventional-commit title like
-       `chore(lint): apply auto-fixes from autohealing run`.
+       all packages. Report any drift with the affected paths and proposed
+       changes.
+       Report each diagnosis as a human-actionable finding; do not create a PR,
+       commit, or push any fix.
 
     5. PROGRESSIVE IMPROVEMENT
        Scan for opportunities to improve the repository and Fro Bot workflow:
        - Check if any package.json files reference outdated tool versions
          (ESLint, Prettier, TypeScript, Vitest). If more than one minor
-         version behind, open or update an issue noting the gap.
+         version behind, report the gap and proposed update.
        - Verify the CI pipeline in .github/workflows/ is complete and
-         healthy. Flag any missing jobs or degraded checks.
+         healthy. Report any missing jobs or degraded checks with evidence.
        - Review the analytics collection in package.json for any issues
          (malformed scripts, missing error handling).
        - Cross-project intelligence: check bfra-me/.github for new
          automation patterns or prompt improvements that could benefit this
-         repository. Include only if relevant findings exist.
+         repository. Include only if relevant findings exist, with a proposed
+         change when applicable.
        - Check for any convention drift from AGENTS.md patterns.
        Report all findings under a "Progressive Improvement" section
        in the summary. Do NOT make changes for this category — report only.
 
     Hard boundaries:
     - Never force-push, rewrite history, or delete branches.
-    - Never push directly to the default branch. Direct pushes are allowed
-      only to an existing non-default PR branch you are repairing under
-      category 1 or category 2.
+    - Never push directly to the default branch or any PR branch.
     - Never merge PRs, submit reviews/approvals, close/reopen PRs or
-      issues, or modify branch protection. This workflow may only push
-      fixes, open/update PRs, open/update issues, and comment on PRs when
-      a fix was pushed.
+      issues, or modify branch protection. This workflow may only maintain
+      the single summary issue described in OUTPUT FORMAT. Do not modify or
+      comment on individual PRs or issues.
     - Never modify secrets, org settings, environments, or branch
       protection.
     - Never make checks pass by disabling tests, deleting failing
@@ -265,12 +269,19 @@ env:
       lint/type rules, or editing workflows/configuration only to suppress
       failures.
     - Do not modify .github/workflows/, lint/test/build config, or
-      automation prompt files unless the failing run is caused by a
-      genuine bug in that file, the change is narrowly scoped, and the
-      summary explains why.
+      automation prompt files. Diagnose issues in those files and report
+      narrowly scoped proposed changes instead.
     - If the smallest safe fix would weaken a guardrail or reduce
       validation, skip it and log it under "Needs Human Attention".
     - Do not create multiple summary issues.
+
+    REPORTING CONTRACT — DIAGNOSIS ONLY
+    This run does not apply fixes. Never state or imply that a fix was
+    applied, committed, pushed, merged, or delivered through a pull request.
+    Do not claim that a pull request was opened or updated for a finding.
+    Every actionable finding must include the evidence, file path(s), line
+    number(s) when available, root-cause diagnosis, and exact proposed change
+    so a human can act on the report.
 
     Project conventions (MUST follow for code changes):
     - TypeScript strict mode: no `any`, no `@ts-ignore`, no `@ts-expect-error`
@@ -294,36 +305,36 @@ env:
     ## Daily Autohealing Report — YYYY-MM-DD (UTC)
 
     ### Summary
-    | Category | Status | Actions |
+    | Category | Status | Diagnosis / Proposed Action |
     |---------|--------|---------|
-    | ERRORED PRs | ✅/⚠️/❌ | description |
-    | SECURITY | ✅/⚠️/❌ | description |
-    | CODE QUALITY & REPO HYGIENE | ✅/⚠️/❌ | description |
-    | DEVELOPER EXPERIENCE | ✅/⚠️/❌ | description |
-    | PROGRESSIVE IMPROVEMENT | ✅/⚠️/❌ | description |
+    | ERRORED PRs | ✅ Analyzed/⚠️ Needs human attention/❌ Unavailable | diagnosis and proposed change |
+    | SECURITY | ✅ Analyzed/⚠️ Needs human attention/❌ Unavailable | diagnosis and proposed remediation |
+    | CODE QUALITY & REPO HYGIENE | ✅ Analyzed/⚠️ Needs human attention/❌ Unavailable | diagnosis and proposed change |
+    | DEVELOPER EXPERIENCE | ✅ Analyzed/⚠️ Needs human attention/❌ Unavailable | diagnosis and proposed change |
+    | PROGRESSIVE IMPROVEMENT | ✅ Analyzed/⚠️ Needs human attention/❌ Unavailable | diagnosis and proposed change |
 
     ### Errored PRs
-    | PR | Failure | Fix | Status |
+    | PR | Failure | Diagnosis / Proposed Change | Status |
     | --- | --- | --- | --- |
-    | #N | [root cause] | [what was fixed] | ✅ Fixed / ⚠️ Needs review |
+    | #N | [evidence and root cause] | [file paths, line numbers, and exact proposed change] | ✅ Diagnosed / ⚠️ Needs human attention |
 
     ### Security
-    | Advisory / PR | Severity | Action Taken |
+    | Advisory / PR | Severity | Diagnosis / Proposed Action |
     | --- | --- | --- |
-    | [advisory or #N] | Critical/High/Medium | [fix pushed / PR created / skipped] |
+    | [advisory or #N] | Critical/High/Medium | [diagnosis, proposed remediation, or reason unavailable] |
 
     ### Code Quality & Repo Hygiene
-    | Check | Result | Action |
+    | Check | Result | Diagnosis / Proposed Change |
     | --- | --- | --- |
-    | Build | ✅ All packages pass / ⚠️ Failures | [details or #N] |
-    | Type coverage | ✅ Meets thresholds / ⚠️ Below threshold | [details or #N] |
-    | Stale TODOs | N found | [#N or None] |
-    | Convention drift | ✅ Clean / ⚠️ Issues | [details or #N] |
-    | AGENTS.md accuracy | ✅ Current / ⚠️ Drifted | [#N or None] |
-    | Workspace analysis | ✅ Clean / ⚠️ Regressions | [details or #N] |
+    | Build | ✅ All packages pass / ⚠️ Failures | [diagnosis and proposed change] |
+    | Type coverage | ✅ Meets thresholds / ⚠️ Below threshold | [diagnosis and proposed change] |
+    | Stale TODOs | N found | [diagnosis and proposed next step] |
+    | Convention drift | ✅ Clean / ⚠️ Issues | [diagnosis and proposed change] |
+    | AGENTS.md accuracy | ✅ Current / ⚠️ Drifted | [diagnosis and proposed corrections] |
+    | Workspace analysis | ✅ Clean / ⚠️ Regressions | [diagnosis and proposed change] |
 
     ### Developer Experience
-    - [list of each PR or commit-sized fix with summary link]
+    - [list of each diagnosis with evidence, file paths, line numbers, proposed change, and summary link if applicable]
 
     ### Progressive Improvement
     | Area | Status | Notes |
@@ -333,7 +344,7 @@ env:
     | Cross-project patterns | ✅ Current / ⚠️ Available | [relevant findings] |
 
     ### Needs Human Attention
-    - [items that could not be auto-fixed, with context]
+    - [diagnosis, evidence, affected file paths and line numbers, and proposed change]
 
     Do NOT create multiple issues. Do NOT comment on individual issues.
     Produce exactly one summary issue per run.
@@ -385,6 +396,7 @@ jobs:
               || ''
             }}
           token: ${{ secrets.FRO_BOT_PAT }}
+          persist-credentials: false
 
       - name: Install dependencies
         uses: ./.github/actions/pnpm-install
@@ -445,6 +457,7 @@ jobs:
           OPENCODE_PROMPT_ARTIFACT: 'true'
           PROMPT: ${{ steps.resolve.outputs.prompt }}
         with:
+          output-mode: working-dir
           github-token: ${{ secrets.FRO_BOT_PAT }}
           auth-json: ${{ secrets.OPENCODE_AUTH_JSON }}
           model: ${{ vars.FRO_BOT_MODEL }}
