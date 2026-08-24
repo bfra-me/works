@@ -75,6 +75,12 @@ export async function vitest(options: VitestOptions = {}): Promise<Config[]> {
             // Disabled rules
             ...{
               '@typescript-eslint/explicit-function-return-type': 'off',
+              ...(isTypeAware
+                ? {
+                    '@typescript-eslint/unbound-method': 'off',
+                    'vitest/unbound-method': 'error',
+                  }
+                : {}),
               'no-unused-expressions': 'off',
               'node/prefer-global/process': 'off',
             },
