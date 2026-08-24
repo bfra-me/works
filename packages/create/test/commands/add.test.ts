@@ -125,21 +125,15 @@ describe('add command', () => {
         'export function hello() { return "world" }',
       )
 
-      // Mock process.cwd to return our test directory
-      const originalCwd = process.cwd
-      process.cwd = () => projectDir
-
-      try {
-        const options: AddCommandOptions = {
-          feature: 'eslint',
-          verbose: true,
-          dryRun: true,
-        }
-
-        await expect(handleAddCommand(options)).resolves.not.toThrow()
-      } finally {
-        process.cwd = originalCwd
+      const cwdSpy = vi.spyOn(process, 'cwd').mockReturnValue(projectDir)
+      const options: AddCommandOptions = {
+        feature: 'eslint',
+        verbose: true,
+        dryRun: true,
       }
+
+      await expect(handleAddCommand(options)).resolves.not.toThrow()
+      expect(cwdSpy).toHaveReturnedWith(projectDir)
     })
 
     it('should handle feature with skipConfirm option', async () => {
@@ -171,22 +165,16 @@ describe('add command', () => {
         'export function hello() { return "world" }',
       )
 
-      // Mock process.cwd to return our test directory
-      const originalCwd = process.cwd
-      process.cwd = () => projectDir
-
-      try {
-        const options: AddCommandOptions = {
-          feature: 'eslint',
-          verbose: false,
-          dryRun: true,
-          skipConfirm: true,
-        }
-
-        await expect(handleAddCommand(options)).resolves.not.toThrow()
-      } finally {
-        process.cwd = originalCwd
+      const cwdSpy = vi.spyOn(process, 'cwd').mockReturnValue(projectDir)
+      const options: AddCommandOptions = {
+        feature: 'eslint',
+        verbose: false,
+        dryRun: true,
+        skipConfirm: true,
       }
+
+      await expect(handleAddCommand(options)).resolves.not.toThrow()
+      expect(cwdSpy).toHaveReturnedWith(projectDir)
     })
   })
 
