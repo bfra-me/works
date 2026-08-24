@@ -2246,6 +2246,12 @@ export interface Rules {
    */
   'astro/no-exports-from-components'?: Linter.RuleEntry<[]>
   /**
+   * disallow omitted end tags
+   * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/no-omitted-end-tags/
+   * @deprecated
+   */
+  'astro/no-omitted-end-tags'?: Linter.RuleEntry<[]>
+  /**
    * disallow `prerender` export outside of pages/ directory
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/no-prerender-export-outside-pages/
    */
@@ -2303,6 +2309,7 @@ export interface Rules {
   /**
    * disallow warnings when compiling.
    * @see https://ota-meshi.github.io/eslint-plugin-astro/rules/valid-compile/
+   * @deprecated
    */
   'astro/valid-compile'?: Linter.RuleEntry<[]>
   /**
