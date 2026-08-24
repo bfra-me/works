@@ -1,5 +1,13 @@
 # @bfra.me/eslint-config
 
+## 0.51.4
+
+### Patch Changes
+
+- Updated dependency `@eslint/config-inspector` to `3.3.0`. ([#4308](https://github.com/bfra-me/works/pull/4308))
+
+- Updated dependency `@eslint-react/eslint-plugin` to `^4.2.3 || ^5.0.0`. ([#4325](https://github.com/bfra-me/works/pull/4325))
+
 ## 0.51.3
 
 ### Patch Changes
