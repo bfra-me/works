@@ -111,6 +111,7 @@ Phase 1 removed the contradiction and the unused credential. The workflow is now
 - The exact policy denylist (paths, file types, size limits): needs calibration against what autoheal actually proposes over a few runs.
 - Whether patch transfer between jobs uses artifacts or job outputs: depends on observed patch sizes.
 - Whether the reporter should update the existing rolling issue or open per-run issues: current behavior is a rolling issue (#3397) and should be preserved unless it proves unworkable.
+- How the new jobs learn the resolved mode: `fro-bot.yaml` currently defines a single job handling review, maintenance, autoheal, and interactive dispatch, with the mode resolved as a step output rather than a job output. The publisher and reporter must run only for autoheal, which likely means promoting the mode to a job-level output and gating on it — or splitting scheduled autoheal into its own workflow, which is already deferred above.
 
 ## High-Level Technical Design
 
@@ -146,6 +147,9 @@ flowchart TD
 
 **Approach:**
 
+- Replace the `github-token` input on the agent step for autoheal runs. It currently receives `secrets.FRO_BOT_PAT` (`.github/workflows/fro-bot.yaml:461`) unconditionally, which is push-capable. `persist-credentials: false` on checkout only prevents git from storing the credential; it does not affect a token handed to the agent as an action input, which the agent can use directly.
+- Supply a read-scoped token instead, sufficient for reading issues, pull requests, and check logs, and incapable of pushing, opening pull requests, or writing issues. Under this design the agent never needs write access: publication belongs to Unit 3 and issue updates to Unit 4.
+- Confirm at implementation time what the action requires of `github-token`, and what scopes autoheal genuinely reads. If a read-only token proves insufficient for some diagnostic path, narrow that path rather than restoring write capability.
 - Keep `output-mode: working-dir`, `persist-credentials: false`, and `permissions: contents: read` unchanged.
 - After the agent step, capture the working-tree diff and the agent's findings as an artifact.
 - Emit base SHA alongside the patch so the publisher can verify it applies to the expected tree.
@@ -160,10 +164,13 @@ flowchart TD
 - Happy path: agent modifies files → artifact contains a non-empty patch, findings, and the base SHA.
 - Edge case: agent modifies nothing → no artifact is produced and the job succeeds.
 - Edge case: agent modifies only ignored or generated paths → patch is captured as-is; filtering is the publisher's responsibility, not the agent's.
+- Error path: agent attempts a push or pull-request creation → the operation fails on credentials, not on instructions alone.
+- Integration: the token available to the agent process cannot mutate the repository, verified by attempting a write rather than by reading the configuration.
 
 **Verification:**
 
 - A scheduled run that produces changes leaves a downloadable artifact; a run that produces none does not.
+- No credential reachable from the agent job can write to the repository.
 
 - [ ] **Unit 2: Publisher job validates a candidate without write access**
 
