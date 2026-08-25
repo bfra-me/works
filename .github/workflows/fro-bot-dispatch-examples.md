@@ -2,96 +2,98 @@
 
 Use these as inputs to the `workflow_dispatch` prompt. Each example includes the intent and expected outcome. Adjust scope and package names as needed.
 
+The supported dispatch modes are `review` and `autoheal`. Autoheal may update eligible existing PR branches or open focused PRs; unsafe or non-minimal work is reported for human attention.
+
 ## PR Failure Analysis
 
-- **Prompt**: `Analyze failing CI in @bfra.me/create: diagnose logs, identify minimal fixes, run pnpm validate if non-mutating, and summarize.`
+- **Prompt**: `Analyze failing CI in @bfra.me/create: diagnose logs, identify the smallest safe fix, run pnpm validate, and deliver the fix if the PR is trusted.`
   - **Intent**: Diagnose failing checks on PRs related to a specific package.
-  - **Expected outcome**: A report with the root cause, affected paths, proposed minimal fixes, and any safe validation results; PR branches remain unchanged.
+  - **Expected outcome**: The eligible PR branch is updated with the minimal fix, validated, committed, and pushed, with a PR comment explaining the failure and fix; unsafe cases are reported with evidence.
 
-- **Prompt**: `Find PRs failing due to tests in packages/es: diagnose the root cause, run pnpm validate if non-mutating, and report each finding concisely.`
+- **Prompt**: `Find PRs failing due to tests in packages/es: diagnose each root cause, run pnpm validate, and repair trusted PRs with minimal fixes.`
   - **Intent**: Target failing tests in a specific package.
-  - **Expected outcome**: A report with each test failure's diagnosis, affected paths, proposed minimal change, and safe validation results; PRs remain unchanged.
+  - **Expected outcome**: Trusted PRs receive committed and pushed fixes with validation evidence and comments; skipped or unsafe PRs receive concise deferred notes.
 
-- **Prompt**: `Analyze the oldest PR with failing checks: identify the failure, propose a minimal fix, run pnpm validate if non-mutating, and report the diagnosis.`
+- **Prompt**: `Analyze the oldest PR with failing checks: identify the failure, apply the smallest safe fix, run pnpm validate, and update the trusted PR.`
   - **Intent**: Prioritize the oldest failing PR to reduce backlog.
-  - **Expected outcome**: A report with the selected PR's failure diagnosis, proposed minimal change, and safe validation results; the PR remains unchanged.
+  - **Expected outcome**: The selected trusted PR is updated, validated, committed, and pushed, with the PR number and commit SHA recorded in the autohealing report.
 
 ## Security
 
-- **Prompt**: `Audit security vulnerabilities across the repo: prioritize runtime deps, avoid unrelated bumps, and report clear remediation notes.`
+- **Prompt**: `Audit security vulnerabilities across the repo: prioritize runtime deps, repair existing security PRs, open focused PRs for confirmed critical/high advisories, and avoid unrelated bumps.`
   - **Intent**: Identify known security issues and propose minimal dependency updates.
-  - **Expected outcome**: Vulnerable dependencies, evidence, and proposed remediations are reported; dependency files remain unchanged.
+  - **Expected outcome**: Existing security PRs are repaired or focused PRs are opened for confirmed critical/high advisories, with validation, evidence, and PR/commit references; routine bumps remain owned by Renovate.
 
-- **Prompt**: `Check for high/critical vulnerabilities: propose minimal upgrades, run pnpm validate if non-mutating, and report the findings.`
+- **Prompt**: `Check for high/critical vulnerabilities: make the minimal security-only upgrade, run pnpm validate, and open or update the focused PR.`
   - **Intent**: Focus only on the most severe vulnerabilities.
-  - **Expected outcome**: A report with the affected dependencies, evidence, proposed upgrades, and safe validation results; the report is the only output.
+  - **Expected outcome**: A focused security PR is opened or updated with the validated remediation, affected dependencies, evidence, and PR/commit references; unavailable data is reported without guessing.
 
 - **Prompt**: `Audit dependencies for risky/abandoned packages: propose replacements and report whether a scoped change appears safe.`
   - **Intent**: Identify risky/abandoned dependencies.
-  - **Expected outcome**: A report with evidence and recommended replacements; dependency files remain unchanged.
+  - **Expected outcome**: Evidence and replacement options are reported; only a clearly minimal, reversible non-routine remediation is delivered through a PR.
 
-## Health Checks & Maintenance
+## Repository Health
 
 - **Prompt**: `Assess major versions of dev tooling (eslint, vitest, tsup): identify compatibility risks, run pnpm validate if non-mutating, and document breakages.`
   - **Intent**: Evaluate whether dev tooling is current and compatible.
-  - **Expected outcome**: A report with compatibility risks, affected paths, proposed upgrades, and any safe validation results; dependencies remain unchanged.
+  - **Expected outcome**: Compatibility risks and validation results are reported, with a PR for any clearly minimal mechanical fix; routine dependency bumps remain with Renovate.
 
 - **Prompt**: `Analyze deprecations and warnings across the repo: diagnose root causes, run pnpm validate if non-mutating, and summarize proposed changes.`
   - **Intent**: Identify the causes of deprecation warnings in build/test/lint.
-  - **Expected outcome**: A report with warning evidence, root-cause diagnoses, proposed config or dependency changes, and safe validation results.
+  - **Expected outcome**: Warning evidence and root causes are reported, and clearly minimal code or documentation fixes are committed and pushed through a PR with validation.
 
 - **Prompt**: `Audit package metadata and version alignment across configs: identify mismatches and report proposed standardization of fields, scripts, and engines.`
   - **Intent**: Check package metadata for consistency.
-  - **Expected outcome**: A report with metadata mismatches and proposed standardization; package files remain unchanged.
+  - **Expected outcome**: Clearly mechanical metadata corrections are delivered through a validated PR; broad standardization is deferred with exact paths and verification steps.
 
 ## DX (Developer Experience)
 
 - **Prompt**: `Audit linting/formatting rules across packages: identify ESLint/Prettier drift and report proposed alignment.`
   - **Intent**: Diagnose inconsistencies in lint/format configs.
-  - **Expected outcome**: A report with the affected configs, rule drift diagnosis, and proposed alignment; files remain unchanged.
+  - **Expected outcome**: Minimal alignment fixes are committed and pushed through a PR when safe; otherwise the report includes affected paths and a cold-start deferred note.
 
 - **Prompt**: `Analyze static analysis consistency (type coverage, lint-packages): diagnose failures and report corrective changes without weakening thresholds.`
   - **Intent**: Diagnose inconsistencies in static analysis signals.
-  - **Expected outcome**: A report with failure evidence, affected paths, and proposed corrective changes; tooling and thresholds remain unchanged.
+  - **Expected outcome**: Corrective fixes that preserve thresholds are delivered through a validated PR; weakening thresholds is never attempted and is reported as skipped.
 
 - **Prompt**: `Audit scripts in package.json (lint, test, build) across packages: identify drift from root conventions and report proposed alignment.`
   - **Intent**: Align developer workflows.
-  - **Expected outcome**: A report with script mismatches and proposed alignment or documentation updates; package files remain unchanged.
+  - **Expected outcome**: Minimal script or documentation alignment is delivered through a PR with validation; broader workflow changes are deferred.
 
 ## Targeted Scope
 
 - **Prompt**: `Analyze only packages/workspace-analyzer for failing checks: diagnose, run pnpm validate if non-mutating, and report the minimal proposed patch.`
   - **Intent**: Contain diagnosis to one package.
-  - **Expected outcome**: A report limited to that package with failure evidence, diagnosis, proposed change, and safe validation results; files remain unchanged.
+  - **Expected outcome**: A report limited to that package, with any safe minimal fix committed and pushed through a PR and recorded with its PR number and commit SHA.
 
 - **Prompt**: `Focus on docs/ validation: run docs validation, diagnose failing docs tests, and summarize proposed changes.`
   - **Intent**: Limit scope to the documentation site.
-  - **Expected outcome**: A report with failing docs tests, diagnosis, proposed fixes, and validation results; documentation files remain unchanged.
+  - **Expected outcome**: Documentation fixes that are minimal and reversible are committed and pushed through a PR; remaining failures include exact paths and verification instructions.
 
 ## Docs / Metadata
 
 - **Prompt**: `Audit README badges and version references across docs: identify mismatches and validate docs without modifying files.`
   - **Intent**: Ensure documentation reflects current package versions.
-  - **Expected outcome**: A report with mismatched badges or references, proposed updates, and validation results; docs remain unchanged.
+  - **Expected outcome**: Mechanical documentation corrections are committed and pushed through a PR after validation, with mismatches and evidence recorded.
 
 - **Prompt**: `Audit contribution docs against current tooling and scripts: identify drift from pnpm workflows and report proposed updates.`
   - **Intent**: Keep contributor guidance current.
-  - **Expected outcome**: A report with documentation drift and proposed updates; docs remain unchanged.
+  - **Expected outcome**: Clear documentation drift is corrected through a validated PR; ambiguous or broad changes are deferred with exact paths and constraints.
 
 ## Modernization / Beyond Maintenance
 
-- **Prompt**: `Assess the workspace against latest stable Node 20+ tooling: identify tsup/vitest/tsconfig compatibility risks and report proposed changes.`
+- **Prompt**: `Assess the workspace against Node.js 22+ tooling: identify tsup/vitest/tsconfig compatibility risks and report proposed changes.`
   - **Intent**: Evaluate the repo's tooling baselines.
-  - **Expected outcome**: A report with compatibility risks, affected paths, proposed tooling changes, and any safe validation results; files remain unchanged.
+  - **Expected outcome**: A report with compatibility risks and validation results, plus a PR for any clearly minimal and reversible fix.
 
 - **Prompt**: `Assess the next major TypeScript upgrade: identify config and strictness risks, and report proposed per-package changes if needed.`
   - **Intent**: Reduce risk of future TypeScript upgrades by identifying issues early.
-  - **Expected outcome**: A report with package-specific risks, affected paths, and proposed changes; no repository changes are made.
+  - **Expected outcome**: Package-specific risks are reported; only clearly minimal, reversible compatibility fixes are delivered through a PR.
 
 - **Prompt**: `Analyze developer feedback loops: identify safe ways to speed up pnpm validate through caching or script restructuring without changing behavior.`
   - **Intent**: Evaluate dev workflow performance without altering outputs.
-  - **Expected outcome**: A report with measured or reasoned bottlenecks and proposed optimizations; scripts remain unchanged.
+  - **Expected outcome**: Measured or reasoned bottlenecks are reported, and a PR is opened only for a clearly safe mechanical optimization that preserves behavior.
 
 - **Prompt**: `Audit release readiness: inspect changeset setup and package exports, diagnose release blockers, and report proposed changes.`
   - **Intent**: Identify release regressions before they occur.
-  - **Expected outcome**: A report with release-blocker evidence, affected paths, and proposed changes; no repository changes are made.
+  - **Expected outcome**: Release blockers receive minimal validated fixes through a PR when safe; broad or risky changes are deferred with exact verification steps.
