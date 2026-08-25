@@ -1,5 +1,15 @@
 # @bfra.me/eslint-config
 
+## 0.52.0
+
+### Minor Changes
+
+- Declare the Node.js engine requirement; Node.js 22.22.2+ is now required. ([#4339](https://github.com/bfra-me/works/pull/4339))
+
+### Patch Changes
+
+- Updated dependency `eslint-plugin-n` to `18.3.0`. ([#4335](https://github.com/bfra-me/works/pull/4335))
+
 ## 0.51.4
 
 ### Patch Changes
