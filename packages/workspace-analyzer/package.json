@@ -69,7 +69,7 @@
   "devDependencies": {
     "@bfra.me/works": "workspace:*",
     "memfs": "4.68.1",
-    "ts-morph": "27.0.2",
+    "ts-morph": "28.0.0",
     "typescript": "6.0.3"
   },
   "peerDependencies": {
