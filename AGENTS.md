@@ -16,7 +16,7 @@ TypeScript-centric monorepo providing reusable tooling for modern JavaScript/Typ
 - **@bfra.me/doc-sync** – Documentation synchronization utilities
 - **@bfra.me/workspace-analyzer** – Comprehensive monorepo static analysis with CLI and API
 
-Packages generally target ES2022+/Node.js 20+, while `@bfra.me/eslint-config` requires Node.js 22.22.2+; the repository uses pnpm 11+ workspaces with ESM throughout.
+Packages generally target ES2022+/Node.js 20+, while `@bfra.me/eslint-config` requires Node.js 22.22.2+ and `@bfra.me/create` requires Node.js 22+; the repository uses pnpm 11+ workspaces with ESM throughout.
 
 ## Setup Commands
 
