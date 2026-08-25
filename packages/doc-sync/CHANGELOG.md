@@ -1,5 +1,11 @@
 # @bfra.me/doc-sync
 
+## 0.1.11
+
+### Patch Changes
+
+- Updated dependency `ts-morph` to `28.0.0`. ([#4362](https://github.com/bfra-me/works/pull/4362))
+
 ## 0.1.10
 ### Patch Changes
 

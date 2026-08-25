@@ -1,5 +1,27 @@
 # @bfra.me/eslint-config
 
+## 0.52.0
+
+### Minor Changes
+
+- Declare the Node.js engine requirement; Node.js 22.22.2+ is now required. ([#4339](https://github.com/bfra-me/works/pull/4339))
+
+### Patch Changes
+
+- Updated dependency `eslint` to `10.9.0`. ([#4357](https://github.com/bfra-me/works/pull/4357))
+
+- Updated dependency `eslint-plugin-command` to `4.0.0`. ([#4333](https://github.com/bfra-me/works/pull/4333))
+
+- Updated dependency `@next/eslint-plugin-next` to `16.3.2`. ([#4345](https://github.com/bfra-me/works/pull/4345))
+
+- Updated dependency `eslint-plugin-jsdoc` to `64.2.1`. ([#4334](https://github.com/bfra-me/works/pull/4334))
+
+- Updated dependency `astro-eslint-parser` to `^1.2.2 || ^3.0.0`. ([#4342](https://github.com/bfra-me/works/pull/4342))
+  Updated dependency `eslint-plugin-astro` to `^1.3.1 || ^3.0.0`.
+- Updated dependency `eslint-plugin-n` to `18.3.0`. ([#4335](https://github.com/bfra-me/works/pull/4335))
+
+- Updated dependency `sort-package-json` to `4.0.0`. ([#4338](https://github.com/bfra-me/works/pull/4338))
+
 ## 0.51.4
 
 ### Patch Changes
