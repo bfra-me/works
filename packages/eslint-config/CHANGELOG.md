@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.52.1
+
+### Patch Changes
+
+- Updated dependency `eslint-plugin-jsonc` to `3.4.2`. ([#4367](https://github.com/bfra-me/works/pull/4367))
+
 ## 0.52.0
 
 ### Minor Changes
