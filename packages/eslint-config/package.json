@@ -54,7 +54,7 @@
     "eslint-merge-processors": "2.0.0",
     "eslint-plugin-command": "4.0.0",
     "eslint-plugin-import-x": "4.17.1",
-    "eslint-plugin-jsdoc": "62.9.0",
+    "eslint-plugin-jsdoc": "64.2.1",
     "eslint-plugin-json-schema-validator": "6.3.1",
     "eslint-plugin-jsonc": "3.4.1",
     "eslint-plugin-n": "18.3.0",
