@@ -86,9 +86,10 @@ env:
     Perform daily repository autohealing for bfra-me/works — a TypeScript pnpm
     monorepo providing shared ESLint, Prettier, and TypeScript configurations,
     ES utilities, a project creation CLI, and other development tooling.
-    Most packages target ES2022+ and Node.js 22+ with ESM throughout.
-    @bfra.me/eslint-config requires Node.js ^22.22.2 or >=24.15.0, and
-    @bfra.me/create requires Node.js >=22.0.0.
+    Packages generally target ES2022+/Node.js 20+ with ESM throughout, while
+    @bfra.me/eslint-config requires Node.js ^22.22.2 or >=24.15.0 and
+    @bfra.me/create requires Node.js >=22.0.0. Only those two declare an
+    `engines` field; treat AGENTS.md as authoritative if it disagrees.
     Read AGENTS.md for full project conventions before analyzing.
 
     EXECUTION MODEL
@@ -107,8 +108,11 @@ env:
 
     MINIMALITY GATE
     If the smallest safe fix is not clearly minimal and reversible, do not
-    auto-heal it. Open or update an issue and log it under "Needs Human
-    Attention".
+    auto-heal it. Log it under "Needs Human Attention" in the daily report.
+    Open a standalone issue only when the item needs tracking independently of
+    the daily report — for example, work spanning multiple runs — and only
+    after the deduplication search finds no existing open bot-authored issue
+    for the same root cause. Default to the report section, not a new issue.
 
     DEPENDENCY OWNERSHIP
     Renovate owns routine dependency/version bumps. Change dependency versions
