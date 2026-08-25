@@ -427,8 +427,8 @@ importers:
         specifier: 11.0.0
         version: 11.0.0(supports-color@8.1.1)
       ts-morph:
-        specifier: 27.0.2
-        version: 27.0.2
+        specifier: 28.0.0
+        version: 28.0.0
       unified:
         specifier: 11.0.5
         version: 11.0.5
@@ -668,8 +668,8 @@ importers:
         specifier: 4.68.1
         version: 4.68.1
       ts-morph:
-        specifier: 27.0.2
-        version: 27.0.2
+        specifier: 28.0.0
+        version: 28.0.0
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -2452,8 +2452,8 @@ packages:
     engines: {node: ^14.13.1 || ^16.0.0 || >=18}
     deprecated: unmaintained
 
-  '@ts-morph/common@0.28.1':
-    resolution: {integrity: sha512-W74iWf7ILp1ZKNYXY5qbddNaml7e9Sedv5lvU1V8lftlitkc9Pq1A+jlH23ltDgWYeZFFEqGCD1Ies9hqu3O+g==}
+  '@ts-morph/common@0.29.0':
+    resolution: {integrity: sha512-35oUmphHbJvQ/+UTwFNme/t2p3FoKiGJ5auTjjpNTop2dyREspirjMy82PLSC1pnDJ8ah1GU98hwpVt64YXQsg==}
 
   '@tybys/wasm-util@0.10.3':
     resolution: {integrity: sha512-F3fo1MYrRJYL3zER0OUOmkutjr1Vp23m7OsSgp7nq4SP6OqX6C/56XFIPAl5bt3zaBRjmW7SGz3u/6LwFpYcOg==}
@@ -6540,8 +6540,8 @@ packages:
   ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
 
-  ts-morph@27.0.2:
-    resolution: {integrity: sha512-fhUhgeljcrdZ+9DZND1De1029PrE+cMkIP7ooqkLRTrRLTqcki2AstsyJm0vRNbTbVCNJ0idGlbBrfqc7/nA8w==}
+  ts-morph@28.0.0:
+    resolution: {integrity: sha512-Wp3tnZ2bzwxyTZMtgWVzXDfm7lB1Drz+y9DmmYH/L702PQhPyVrp3pkou3yIz4qjS14GY9kcpmLiOOMvl8oG1g==}
 
   ts-pattern@5.9.0:
     resolution: {integrity: sha512-6s5V71mX8qBUmlgbrfL33xDUwO0fq48rxAu2LBE11WBeGdpCPOsXksQbZJHvHwhrd3QjUusd3mAOM5Gg0mFBLg==}
@@ -9103,7 +9103,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@ts-morph/common@0.28.1':
+  '@ts-morph/common@0.29.0':
     dependencies:
       minimatch: 10.2.6
       path-browserify: 1.0.1
@@ -14054,9 +14054,9 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
-  ts-morph@27.0.2:
+  ts-morph@28.0.0:
     dependencies:
-      '@ts-morph/common': 0.28.1
+      '@ts-morph/common': 0.29.0
       code-block-writer: 13.0.3
 
   ts-pattern@5.9.0: {}
