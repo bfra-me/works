@@ -1,5 +1,15 @@
 # @bfra.me/create
 
+## 0.8.0
+
+### Minor Changes
+
+- `@bfra.me/create` now requires Node.js 22 or newer. ([#4351](https://github.com/bfra-me/works/pull/4351))
+
+### Patch Changes
+
+- Updated dependency `openai` to `7.5.0`. ([#4337](https://github.com/bfra-me/works/pull/4337))
+
 ## 0.7.17
 
 ### Patch Changes
