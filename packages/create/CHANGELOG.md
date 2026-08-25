@@ -1,5 +1,11 @@
 # @bfra.me/create
 
+## 0.7.18
+
+### Patch Changes
+
+- Updated dependency `openai` to `7.5.0`. ([#4337](https://github.com/bfra-me/works/pull/4337))
+
 ## 0.7.17
 
 ### Patch Changes
