@@ -1,5 +1,13 @@
 # @bfra.me/eslint-config
 
+## 0.52.1
+
+### Patch Changes
+
+- Restored `unicorn/filename-case` behavior from before Unicorn 73 by no longer reporting on directory names, including common conventions such as `__tests__` and `__snapshots__`. Filename checking remains unchanged. ([#4370](https://github.com/bfra-me/works/pull/4370))
+
+- Updated dependency `eslint-plugin-jsonc` to `3.4.2`. ([#4367](https://github.com/bfra-me/works/pull/4367))
+
 ## 0.52.0
 
 ### Minor Changes
