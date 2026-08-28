@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.52.2
+
+### Patch Changes
+
+- Updated dependency `eslint` to `10.9.1`. ([#4380](https://github.com/bfra-me/works/pull/4380))
+
 ## 0.52.1
 
 ### Patch Changes
