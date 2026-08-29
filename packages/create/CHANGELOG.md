@@ -1,5 +1,13 @@
 # @bfra.me/create
 
+## 0.8.1
+
+### Patch Changes
+
+- Updated dependency `happy-dom` to `20.11.8`. ([#4403](https://github.com/bfra-me/works/pull/4403))
+
+- Updated dependency `openai` to `7.6.0`. ([#4407](https://github.com/bfra-me/works/pull/4407))
+
 ## 0.8.0
 
 ### Minor Changes
