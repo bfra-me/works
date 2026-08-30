@@ -477,8 +477,8 @@ importers:
         specifier: 5.10.0
         version: 5.10.0(eslint@10.9.1(jiti@2.7.0)(supports-color@8.1.1))
       eslint-config-flat-gitignore:
-        specifier: 2.3.0
-        version: 2.3.0(eslint@10.9.1(jiti@2.7.0)(supports-color@8.1.1))
+        specifier: 2.4.0
+        version: 2.4.0(eslint@10.9.1(jiti@2.7.0)(supports-color@8.1.1))
       eslint-flat-config-utils:
         specifier: 3.2.0
         version: 3.2.0
@@ -3572,8 +3572,8 @@ packages:
     peerDependencies:
       eslint: '>=6.0.0'
 
-  eslint-config-flat-gitignore@2.3.0:
-    resolution: {integrity: sha512-bg4ZLGgoARg1naWfsINUUb/52Ksw/K22K+T16D38Y8v+/sGwwIYrGvH/JBjOin+RQtxxC9tzNNiy4shnGtGyyQ==}
+  eslint-config-flat-gitignore@2.4.0:
+    resolution: {integrity: sha512-JhYC+V7qEDiCDsbJcVP8fxNc62fk4+i91YLP/YvmVHlkaQ8Xo99olYN8MO5COdxl7onGlsrfZVONe5NYsZP1UA==}
     peerDependencies:
       eslint: ^9.5.0 || ^10.0.0
 
@@ -10285,7 +10285,7 @@ snapshots:
       eslint: 10.9.1(jiti@2.7.0)(supports-color@8.1.1)
       semver: 7.8.5
 
-  eslint-config-flat-gitignore@2.3.0(eslint@10.9.1(jiti@2.7.0)(supports-color@8.1.1)):
+  eslint-config-flat-gitignore@2.4.0(eslint@10.9.1(jiti@2.7.0)(supports-color@8.1.1)):
     dependencies:
       '@eslint/compat': 2.1.0(eslint@10.9.1(jiti@2.7.0)(supports-color@8.1.1))
       eslint: 10.9.1(jiti@2.7.0)(supports-color@8.1.1)
