@@ -1,5 +1,29 @@
 # @bfra.me/create
 
+## 0.8.1
+
+### Patch Changes
+
+- Updated dependency `happy-dom` to `20.11.8`. ([#4403](https://github.com/bfra-me/works/pull/4403))
+
+- Updated dependency `openai` to `7.8.0`. ([#4426](https://github.com/bfra-me/works/pull/4426))
+
+- Updated dependency `openai` to `7.6.0`. ([#4407](https://github.com/bfra-me/works/pull/4407))
+
+- Updated dependency `openai` to `7.7.0`. ([#4413](https://github.com/bfra-me/works/pull/4413))
+
+- Updated dependency `@anthropic-ai/sdk` to `0.122.0`. ([#4433](https://github.com/bfra-me/works/pull/4433))
+
+- Updated dependency `happy-dom` to `20.11.13`. ([#4442](https://github.com/bfra-me/works/pull/4442))
+
+- Updated dependency `happy-dom` to `20.11.12`. ([#4425](https://github.com/bfra-me/works/pull/4425))
+
+- Updated dependency `happy-dom` to `20.11.10`. ([#4419](https://github.com/bfra-me/works/pull/4419))
+
+- Updated dependency `happy-dom` to `20.11.15`. ([#4446](https://github.com/bfra-me/works/pull/4446))
+
+- Updated dependency `@anthropic-ai/sdk` to `0.121.0`. ([#4406](https://github.com/bfra-me/works/pull/4406))
+
 ## 0.8.0
 
 ### Minor Changes
