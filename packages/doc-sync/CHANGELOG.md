@@ -1,5 +1,15 @@
 # @bfra.me/doc-sync
 
+## 0.1.12
+
+### Patch Changes
+
+- Updated dependency `zod` to `4.5.1`. ([#4444](https://github.com/bfra-me/works/pull/4444))
+
+- Updated dependency `zod` to `4.5.2`. ([#4447](https://github.com/bfra-me/works/pull/4447))
+
+- Updated dependency `memfs` to `4.68.2`. ([#4451](https://github.com/bfra-me/works/pull/4451))
+
 ## 0.1.11
 
 ### Patch Changes
