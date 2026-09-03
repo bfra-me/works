@@ -110,10 +110,10 @@ importers:
         version: 0.9.10(prettier@3.9.6)(typescript@6.0.3)
       '@astrojs/starlight':
         specifier: ^0.41.4
-        version: 0.41.10(@astrojs/markdown-remark@7.2.4(supports-color@8.1.1))(astro@7.2.9(@astrojs/markdown-remark@7.2.4(supports-color@8.1.1))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))(supports-color@8.1.1)(typescript@6.0.3)
+        version: 0.41.10(astro@7.2.10(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))(supports-color@8.1.1)(typescript@6.0.3)
       astro:
         specifier: ^7.0.0
-        version: 7.2.9(@astrojs/markdown-remark@7.2.4(supports-color@8.1.1))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
+        version: 7.2.10(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
       sharp:
         specifier: ^0.35.0
         version: 0.35.4(@types/node@24.13.3)
@@ -590,6 +590,9 @@ packages:
   '@astrojs/internal-helpers@0.10.4':
     resolution: {integrity: sha512-nozZSy/mKYLqe4YrqbKtdOszedAfXYCtw3wZ0d+CAjz4GqQ4L9rl1ltIL5BlgwmYVinJg/RZ0MgGuWOdlyRZlA==}
 
+  '@astrojs/internal-helpers@0.11.0':
+    resolution: {integrity: sha512-3rzxJ+xbo0+8YyqOzLziIN32wmsHdCjEVz2sGOpRxJ+Ben/KiLph4ItxBy1abEL+E8fkRzqjg0rfXmaHJGw9JA==}
+
   '@astrojs/language-server@2.16.15':
     resolution: {integrity: sha512-hy7nMT1YGDAaRi9Q/SgywovZ8ThBgaRniMUaIT2/lBkFlJyolLjVxDGkhn3qT+zFUQ7GC/yrEBjsb7Xnj+yeaA==}
     hasBin: true
@@ -607,6 +610,9 @@ packages:
 
   '@astrojs/markdown-satteri@0.3.8':
     resolution: {integrity: sha512-n8ItpFTCmlDsVR5+rwDmehSf+jFCYLWmZiisZNGuF7xILqYhsVeBfcha4qgS2Seq3fAc9Tm58ZVrvqFQ6RQgRQ==}
+
+  '@astrojs/markdown-satteri@0.4.0':
+    resolution: {integrity: sha512-wykOOW9KsUVcZweOpY/CeXpdKcCKZy6fQbdcteWFuI75+sQCiqxYM7VKsGa5b+aGl3cYQscFY37rsbbyal5MRw==}
 
   '@astrojs/mdx@7.0.8':
     resolution: {integrity: sha512-RNuwq2ccTSi7NX9YqlR0noaWoVdOrZuJvdfWXotAzdhMVB0b0zEMLnNU+xar7le0GwTMlTObD/QAu8jeHA/3nA==}
@@ -2723,12 +2729,12 @@ packages:
     peerDependencies:
       astro: ^4.0.0-beta || ^5.0.0-beta || ^3.3.0 || ^6.0.0-beta || ^7.0.0
 
-  astro@7.2.9:
-    resolution: {integrity: sha512-o5nZFo/bieF6rp4x9sQSLhI7GO7Bahpld38Y4LvX27nFoxNiuttjI+Hea81w5ksORLHgdPUlQpU9obPz5QRa8g==}
+  astro@7.2.10:
+    resolution: {integrity: sha512-uPtD+nK6kQXugyq4kiMPwj9OI3Sae6HSerA5X+fuv2CPaDwxmokFPPFlGRKIAXH0QAKu+zot2q6yrLG61wFmqg==}
     engines: {node: '>=22.12.0', npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
     peerDependencies:
-      '@astrojs/markdown-remark': 7.2.4
+      '@astrojs/markdown-remark': ^7.3.0
     peerDependenciesMeta:
       '@astrojs/markdown-remark':
         optional: true
@@ -7082,6 +7088,17 @@ snapshots:
       smol-toml: 1.8.0
       unified: 11.0.5
 
+  '@astrojs/internal-helpers@0.11.0':
+    dependencies:
+      '@types/hast': 3.0.5
+      '@types/mdast': 4.0.4
+      js-yaml: 4.3.2
+      picomatch: 4.0.7
+      retext-smartypants: 6.2.0
+      shiki: 4.4.3
+      smol-toml: 1.8.0
+      unified: 11.0.5
+
   '@astrojs/language-server@2.16.15(prettier@3.9.6)(typescript@6.0.3)':
     dependencies:
       '@astrojs/compiler': 2.13.1
@@ -7136,13 +7153,20 @@ snapshots:
       github-slugger: 2.0.0
       satteri: 0.10.5
 
-  '@astrojs/mdx@7.0.8(@astrojs/markdown-satteri@0.3.8)(astro@7.2.9(@astrojs/markdown-remark@7.2.4(supports-color@8.1.1))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))(supports-color@8.1.1)':
+  '@astrojs/markdown-satteri@0.4.0':
+    dependencies:
+      '@astrojs/internal-helpers': 0.11.0
+      '@astrojs/prism': 4.0.2
+      github-slugger: 2.0.0
+      satteri: 0.10.5
+
+  '@astrojs/mdx@7.0.8(@astrojs/markdown-satteri@0.3.8)(astro@7.2.10(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))(supports-color@8.1.1)':
     dependencies:
       '@astrojs/internal-helpers': 0.10.4
       '@astrojs/markdown-remark': 7.2.4(supports-color@8.1.1)
       '@mdx-js/mdx': 3.1.1(supports-color@8.1.1)
       acorn: 8.18.0
-      astro: 7.2.9(@astrojs/markdown-remark@7.2.4(supports-color@8.1.1))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
+      astro: 7.2.10(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
       es-module-lexer: 2.3.2
       estree-util-visit: 2.0.0
       hast-util-to-html: 9.0.5
@@ -7168,17 +7192,17 @@ snapshots:
       stream-replace-string: 2.0.0
       zod: 4.5.3
 
-  '@astrojs/starlight@0.41.10(@astrojs/markdown-remark@7.2.4(supports-color@8.1.1))(astro@7.2.9(@astrojs/markdown-remark@7.2.4(supports-color@8.1.1))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))(supports-color@8.1.1)(typescript@6.0.3)':
+  '@astrojs/starlight@0.41.10(astro@7.2.10(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))(supports-color@8.1.1)(typescript@6.0.3)':
     dependencies:
       '@astrojs/markdown-satteri': 0.3.8
-      '@astrojs/mdx': 7.0.8(@astrojs/markdown-satteri@0.3.8)(astro@7.2.9(@astrojs/markdown-remark@7.2.4(supports-color@8.1.1))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))(supports-color@8.1.1)
+      '@astrojs/mdx': 7.0.8(@astrojs/markdown-satteri@0.3.8)(astro@7.2.10(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))(supports-color@8.1.1)
       '@astrojs/sitemap': 3.7.3
       '@pagefind/default-ui': 1.5.2
       '@types/hast': 3.0.5
       '@types/js-yaml': 4.0.9
       '@types/mdast': 4.0.4
-      astro: 7.2.9(@astrojs/markdown-remark@7.2.4(supports-color@8.1.1))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
-      astro-expressive-code: 0.44.1(astro@7.2.9(@astrojs/markdown-remark@7.2.4(supports-color@8.1.1))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
+      astro: 7.2.10(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
+      astro-expressive-code: 0.44.1(astro@7.2.10(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0))
       bcp-47: 2.1.1
       hast-util-from-html: 2.0.3
       hast-util-select: 6.0.4
@@ -7200,8 +7224,6 @@ snapshots:
       unified: 11.0.5
       unist-util-visit: 5.1.0
       vfile: 6.0.3
-    optionalDependencies:
-      '@astrojs/markdown-remark': 7.2.4(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -9342,17 +9364,17 @@ snapshots:
       - '@emnapi/runtime'
       - supports-color
 
-  astro-expressive-code@0.44.1(astro@7.2.9(@astrojs/markdown-remark@7.2.4(supports-color@8.1.1))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)):
+  astro-expressive-code@0.44.1(astro@7.2.10(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)):
     dependencies:
-      astro: 7.2.9(@astrojs/markdown-remark@7.2.4(supports-color@8.1.1))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
+      astro: 7.2.10(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0)
       rehype-expressive-code: 0.44.1
       url-extras: 0.1.0
 
-  astro@7.2.9(@astrojs/markdown-remark@7.2.4(supports-color@8.1.1))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0):
+  astro@7.2.10(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@types/node@24.13.3)(jiti@2.7.0)(tsx@4.23.13)(yaml@2.9.0):
     dependencies:
       '@astrojs/compiler-rs': 0.4.0(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)
-      '@astrojs/internal-helpers': 0.10.4
-      '@astrojs/markdown-satteri': 0.3.8
+      '@astrojs/internal-helpers': 0.11.0
+      '@astrojs/markdown-satteri': 0.4.0
       '@astrojs/telemetry': 3.3.3
       '@capsizecss/unpack': 4.0.1
       '@clack/prompts': 1.7.0
@@ -9404,7 +9426,6 @@ snapshots:
       yargs-parser: 22.0.0
       zod: 4.5.3
     optionalDependencies:
-      '@astrojs/markdown-remark': 7.2.4(supports-color@8.1.1)
       sharp: 0.35.4(@types/node@24.13.3)
     transitivePeerDependencies:
       - '@azure/app-configuration'
