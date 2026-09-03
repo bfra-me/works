@@ -10308,7 +10308,10 @@ type TypescriptEslintNoMeaninglessVoidOperator = []|[{
 // ----- @typescript-eslint/no-misused-promises -----
 type TypescriptEslintNoMisusedPromises = []|[{
   
-  checksConditionals?: boolean
+  checksConditionals?: (boolean | {
+    
+    flagUnions?: ("all" | "strict" | "none")
+  })
   
   checksSpreads?: boolean
   
