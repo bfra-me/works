@@ -5194,6 +5194,11 @@ export interface Rules {
    */
   'pnpm/json-valid-catalog'?: Linter.RuleEntry<PnpmJsonValidCatalog>
   /**
+   * Require blank lines around multi-line entries in `pnpm-workspace.yaml`, and disallow them between single-line entries
+   * @see https://github.com/antfu/pnpm-workspace-utils/tree/main/packages/eslint-plugin-pnpm/src/rules/yaml/yaml-blank-lines.test.ts
+   */
+  'pnpm/yaml-blank-lines'?: Linter.RuleEntry<[]>
+  /**
    * Enforce settings in `pnpm-workspace.yaml`
    * @see https://github.com/antfu/pnpm-workspace-utils/tree/main/packages/eslint-plugin-pnpm/src/rules/yaml/yaml-enforce-settings.test.ts
    */
