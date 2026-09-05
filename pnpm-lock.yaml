@@ -405,8 +405,8 @@ importers:
         specifier: 7.1.1
         version: 7.1.1(eslint@10.9.1(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)
       eslint-plugin-react-refresh:
-        specifier: 0.5.5
-        version: 0.5.5(eslint@10.9.1(jiti@2.7.0)(supports-color@8.1.1))
+        specifier: 0.5.6
+        version: 0.5.6(eslint@10.9.1(jiti@2.7.0)(supports-color@8.1.1))
       eslint-typegen:
         specifier: 2.3.1
         version: 2.3.1(eslint@10.9.1(jiti@2.7.0)(supports-color@8.1.1))
@@ -3578,8 +3578,8 @@ packages:
       eslint: '*'
       typescript: '*'
 
-  eslint-plugin-react-refresh@0.5.5:
-    resolution: {integrity: sha512-vG7yLURXNvCHy0FBdbZRwIu0BLPJMlUUJS2Ep7ud9w1YCLftFZtuEjyjhym0Qq9yuZ6LJUitNlu/hMk0gakXAw==}
+  eslint-plugin-react-refresh@0.5.6:
+    resolution: {integrity: sha512-uZnh24On2bk478AkaDAKcpRiYhS3qFSaSNvpXxV6/Ek/BBDICkWGG7MnBSfjnIlCVBei5vsLlIeQYxbF22+Udg==}
     peerDependencies:
       eslint: ^9 || ^10
 
@@ -10410,7 +10410,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-react-refresh@0.5.5(eslint@10.9.1(jiti@2.7.0)(supports-color@8.1.1)):
+  eslint-plugin-react-refresh@0.5.6(eslint@10.9.1(jiti@2.7.0)(supports-color@8.1.1)):
     dependencies:
       eslint: 10.9.1(jiti@2.7.0)(supports-color@8.1.1)
 
