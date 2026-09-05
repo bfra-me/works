@@ -1,5 +1,41 @@
 # @bfra.me/eslint-config
 
+## 0.52.2
+
+### Patch Changes
+
+- Updated dependency `@next/eslint-plugin-next` to `16.3.4`. ([#4484](https://github.com/bfra-me/works/pull/4484))
+
+- Updated dependency `@eslint-react/eslint-plugin` to `5.18.7`. ([#4510](https://github.com/bfra-me/works/pull/4510))
+
+- Updated dependency `eslint-plugin-jsdoc` to `64.3.1`. ([#4463](https://github.com/bfra-me/works/pull/4463))
+
+- Updated dependency `eslint-plugin-jsdoc` to `64.3.3`. ([#4488](https://github.com/bfra-me/works/pull/4488))
+
+- Updated dependency `@next/eslint-plugin-next` to `16.3.3`. ([#4391](https://github.com/bfra-me/works/pull/4391))
+
+- Updated dependency `globals` to `17.12.0`. ([#4490](https://github.com/bfra-me/works/pull/4490))
+
+- Updated dependency `@typescript-eslint/types` to `8.69.0`. ([#4481](https://github.com/bfra-me/works/pull/4481))
+  Updated dependency `typescript-eslint` to `8.69.0`.
+- Updated dependency `eslint-config-flat-gitignore` to `2.4.0`. ([#4417](https://github.com/bfra-me/works/pull/4417))
+
+- Updated dependency `eslint-plugin-jsdoc` to `64.3.4`. ([#4498](https://github.com/bfra-me/works/pull/4498))
+
+- Updated dependency `@typescript-eslint/types` to `8.68.0`. ([#4383](https://github.com/bfra-me/works/pull/4383))
+  Updated dependency `typescript-eslint` to `8.68.0`.
+- Updated dependency `eslint` to `10.9.1`. ([#4380](https://github.com/bfra-me/works/pull/4380))
+
+- Updated dependency `eslint-plugin-perfectionist` to `5.11.0`. ([#4478](https://github.com/bfra-me/works/pull/4478))
+
+- Updated dependency `eslint-plugin-pnpm` to `1.9.1`. ([#4511](https://github.com/bfra-me/works/pull/4511))
+
+- Updated dependency `eslint-plugin-jsdoc` to `64.3.2`. ([#4471](https://github.com/bfra-me/works/pull/4471))
+
+- Updated dependency `eslint-plugin-react-refresh` to `0.5.5`. ([#4400](https://github.com/bfra-me/works/pull/4400))
+
+- Updated dependency `@eslint/config-inspector` to `3.4.0`. ([#4519](https://github.com/bfra-me/works/pull/4519))
+
 ## 0.52.1
 
 ### Patch Changes
