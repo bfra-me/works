@@ -11246,10 +11246,12 @@ type EslintCommentsDisableEnablePair = []|[{
 type EslintCommentsNoRestrictedDisable = string[]
 // ----- eslint-comments/no-use -----
 type EslintCommentsNoUse = []|[{
-  allow?: ("eslint" | "eslint-disable" | "eslint-disable-line" | "eslint-disable-next-line" | "eslint-enable" | "eslint-env" | "exported" | "global" | "globals")[]
+  additionalDirectives?: string[]
+  allow?: string[]
 }]
 // ----- eslint-comments/require-description -----
 type EslintCommentsRequireDescription = []|[{
+  additionalDirectives?: string[]
   ignore?: ("eslint" | "eslint-disable" | "eslint-disable-line" | "eslint-disable-next-line" | "eslint-enable" | "eslint-env" | "exported" | "global" | "globals")[]
 }]
 // ----- func-call-spacing -----
