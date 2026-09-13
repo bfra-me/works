@@ -1,5 +1,65 @@
 # @bfra.me/create
 
+## 0.8.1
+
+### Patch Changes
+
+- Updated dependency `happy-dom` to `20.11.8`. ([#4403](https://github.com/bfra-me/works/pull/4403))
+
+- Updated dependency `memfs` to `4.69.0`. ([#4530](https://github.com/bfra-me/works/pull/4530))
+
+- Updated dependency `openai` to `7.8.0`. ([#4426](https://github.com/bfra-me/works/pull/4426))
+
+- Updated dependency `openai` to `7.6.0`. ([#4407](https://github.com/bfra-me/works/pull/4407))
+
+- Updated dependency `happy-dom` to `20.13.2`. ([#4529](https://github.com/bfra-me/works/pull/4529))
+
+- Updated dependency `memfs` to `4.69.1`. ([#4533](https://github.com/bfra-me/works/pull/4533))
+
+- Updated dependency `openai` to `7.7.0`. ([#4413](https://github.com/bfra-me/works/pull/4413))
+
+- Updated dependency `@anthropic-ai/sdk` to `0.123.0`. ([#4507](https://github.com/bfra-me/works/pull/4507))
+
+- Updated dependency `@anthropic-ai/sdk` to `0.124.0`. ([#4567](https://github.com/bfra-me/works/pull/4567))
+
+- Updated dependency `happy-dom` to `20.12.0`. ([#4454](https://github.com/bfra-me/works/pull/4454))
+
+- Updated dependency `memfs` to `4.70.0`. ([#4556](https://github.com/bfra-me/works/pull/4556))
+
+- Updated dependency `@anthropic-ai/sdk` to `0.122.0`. ([#4433](https://github.com/bfra-me/works/pull/4433))
+
+- Updated dependency `happy-dom` to `20.12.2`. ([#4504](https://github.com/bfra-me/works/pull/4504))
+
+- Updated dependency `happy-dom` to `20.13.1`. ([#4526](https://github.com/bfra-me/works/pull/4526))
+
+- Updated dependency `memfs` to `4.71.0`. ([#4563](https://github.com/bfra-me/works/pull/4563))
+
+- Updated dependency `happy-dom` to `20.11.13`. ([#4442](https://github.com/bfra-me/works/pull/4442))
+
+- Updated dependency `openai` to `7.9.0`. ([#4513](https://github.com/bfra-me/works/pull/4513))
+
+- Updated dependency `openai` to `7.12.1`. ([#4607](https://github.com/bfra-me/works/pull/4607))
+
+- Updated dependency `openai` to `7.10.0`. ([#4544](https://github.com/bfra-me/works/pull/4544))
+
+- Updated dependency `happy-dom` to `20.13.0`. ([#4524](https://github.com/bfra-me/works/pull/4524))
+
+- Updated dependency `happy-dom` to `20.11.12`. ([#4425](https://github.com/bfra-me/works/pull/4425))
+
+- Updated dependency `memfs` to `4.68.2`. ([#4451](https://github.com/bfra-me/works/pull/4451))
+
+- Updated dependency `happy-dom` to `20.11.10`. ([#4419](https://github.com/bfra-me/works/pull/4419))
+
+- Updated dependency `happy-dom` to `20.11.15`. ([#4446](https://github.com/bfra-me/works/pull/4446))
+
+- Updated dependency `openai` to `7.13.0`. ([#4611](https://github.com/bfra-me/works/pull/4611))
+
+- Updated dependency `@anthropic-ai/sdk` to `0.121.0`. ([#4406](https://github.com/bfra-me/works/pull/4406))
+
+- Updated dependency `happy-dom` to `20.14.3`. ([#4616](https://github.com/bfra-me/works/pull/4616))
+
+- Updated dependency `happy-dom` to `20.14.0`. ([#4547](https://github.com/bfra-me/works/pull/4547))
+
 ## 0.8.0
 
 ### Minor Changes
