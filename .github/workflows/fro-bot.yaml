@@ -419,7 +419,7 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
       - name: Run Fro Bot
-        uses: fro-bot/agent@5494812ab3b9a96573e9807e99f7fdfdd5d92e81 # v0.112.0
+        uses: fro-bot/agent@8822ad5502fd1f3e18748f28e4d62ead4e93a39e # v0.112.1
         env:
           OPENCODE_PROMPT_ARTIFACT: 'true'
           PROMPT: ${{ steps.resolve.outputs.prompt }}
