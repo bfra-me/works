@@ -1,5 +1,19 @@
 # @bfra.me/create
 
+## 0.8.2
+
+### Patch Changes
+
+- Updated dependency `memfs` to `4.78.0`. ([#4681](https://github.com/bfra-me/works/pull/4681))
+
+- Updated dependency `memfs` to `4.75.0`. ([#4647](https://github.com/bfra-me/works/pull/4647))
+
+- Updated dependency `memfs` to `4.76.0`. ([#4660](https://github.com/bfra-me/works/pull/4660))
+
+- Updated dependency `happy-dom` to `20.14.5`. ([#4654](https://github.com/bfra-me/works/pull/4654))
+
+- Updated dependency `memfs` to `4.77.0`. ([#4678](https://github.com/bfra-me/works/pull/4678))
+
 ## 0.8.1
 
 ### Patch Changes
