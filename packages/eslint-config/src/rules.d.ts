@@ -19157,6 +19157,7 @@ type ReactRefreshOnlyExportComponents = []|[{
   extraHOCs?: string[]
   allowExportNames?: string[]
   allowConstantExport?: boolean
+  allowCompoundComponents?: boolean
   checkJS?: boolean
 }]
 // ----- regexp/hexadecimal-escape -----
