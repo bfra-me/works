@@ -1,5 +1,25 @@
 # @bfra.me/create
 
+## 0.8.2
+
+### Patch Changes
+
+- Updated dependency `memfs` to `4.78.0`. ([#4681](https://github.com/bfra-me/works/pull/4681))
+
+- Updated dependency `openai` to `7.17.0`. ([#4722](https://github.com/bfra-me/works/pull/4722))
+
+- Updated dependency `@anthropic-ai/sdk` to `0.126.0`. ([#4706](https://github.com/bfra-me/works/pull/4706))
+
+- Updated dependency `memfs` to `4.75.0`. ([#4647](https://github.com/bfra-me/works/pull/4647))
+
+- Updated dependency `memfs` to `4.76.0`. ([#4660](https://github.com/bfra-me/works/pull/4660))
+
+- Updated dependency `openai` to `7.16.0`. ([#4719](https://github.com/bfra-me/works/pull/4719))
+
+- Updated dependency `happy-dom` to `20.14.5`. ([#4654](https://github.com/bfra-me/works/pull/4654))
+
+- Updated dependency `memfs` to `4.77.0`. ([#4678](https://github.com/bfra-me/works/pull/4678))
+
 ## 0.8.1
 
 ### Patch Changes
