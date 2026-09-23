@@ -1,5 +1,53 @@
 # @bfra.me/eslint-config
 
+## 0.52.3
+
+### Patch Changes
+
+- Updated dependency `eslint-plugin-astro` to `3.2.0`. ([#4716](https://github.com/bfra-me/works/pull/4716))
+
+- Updated dependency `eslint-plugin-jsdoc` to `64.3.10`. ([#4659](https://github.com/bfra-me/works/pull/4659))
+
+- Updated dependency `eslint-plugin-regexp` to `3.3.1`. ([#4760](https://github.com/bfra-me/works/pull/4760))
+
+- Updated dependency `eslint-plugin-astro` to `3.2.1`. ([#4725](https://github.com/bfra-me/works/pull/4725))
+
+- Updated dependency `eslint-plugin-react-refresh` to `0.5.7`. ([#4693](https://github.com/bfra-me/works/pull/4693))
+
+- Updated dependency `eslint-plugin-jsdoc` to `64.4.0`. ([#4687](https://github.com/bfra-me/works/pull/4687))
+
+- Updated dependency `@eslint-react/eslint-plugin` to `5.20.1`. ([#4763](https://github.com/bfra-me/works/pull/4763))
+
+- Updated dependency `eslint-plugin-jsdoc` to `64.5.0`. ([#4700](https://github.com/bfra-me/works/pull/4700))
+
+- Updated dependency `@eslint/config-inspector` to `3.5.0`. ([#4711](https://github.com/bfra-me/works/pull/4711))
+
+- Updated dependency `eslint-plugin-perfectionist` to `5.11.1`. ([#4699](https://github.com/bfra-me/works/pull/4699))
+
+- Updated dependency `@next/eslint-plugin-next` to `16.3.5`. ([#4650](https://github.com/bfra-me/works/pull/4650))
+
+- Updated dependency `eslint-plugin-jsdoc` to `64.5.1`. ([#4710](https://github.com/bfra-me/works/pull/4710))
+
+- Updated dependency `@eslint-community/eslint-plugin-eslint-comments` to `4.8.1`. ([#4668](https://github.com/bfra-me/works/pull/4668))
+
+- Updated dependency `eslint-plugin-jsdoc` to `64.5.2`. ([#4715](https://github.com/bfra-me/works/pull/4715))
+
+- Updated dependency `@eslint-react/eslint-plugin` to `5.20.0`. ([#4753](https://github.com/bfra-me/works/pull/4753))
+
+- Updated dependency `eslint-plugin-erasable-syntax-only` to `0.7.2`. ([#4772](https://github.com/bfra-me/works/pull/4772))
+
+- Updated dependency `eslint-plugin-jsdoc` to `64.5.3`. ([#4741](https://github.com/bfra-me/works/pull/4741))
+
+- Updated dependency `@eslint-react/eslint-plugin` to `5.19.1`. ([#4690](https://github.com/bfra-me/works/pull/4690))
+
+- Updated dependency `eslint-plugin-jsdoc` to `64.5.4`. ([#4752](https://github.com/bfra-me/works/pull/4752))
+
+- Updated dependency `@eslint-react/eslint-plugin` to `5.20.2`. ([#4767](https://github.com/bfra-me/works/pull/4767))
+
+- Updated dependency `eslint-plugin-jsdoc` to `64.5.0`. ([#4702](https://github.com/bfra-me/works/pull/4702))
+
+- Updated dependency `eslint` to `10.11.0`. ([#4745](https://github.com/bfra-me/works/pull/4745))
+
 ## 0.52.2
 
 ### Patch Changes
