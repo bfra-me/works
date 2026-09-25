@@ -314,18 +314,6 @@ async function createNonInteractiveSetup(
 }
 
 /**
- * Helper function to handle graceful cancellation
- */
-export function handleCancel<T>(result: T | symbol): T {
-  // isCancel narrows to `typeof CANCEL_SYMBOL` since @clack/core 1.5; typeof narrows the rest to T.
-  if (isCancel(result) || typeof result === 'symbol') {
-    cancel('Operation cancelled')
-    throw new Error('Process exit called')
-  }
-  return result
-}
-
-/**
  * Helper function to show progress during long operations
  */
 export async function withProgress<T>(message: string, operation: () => Promise<T>): Promise<T> {
