@@ -11,6 +11,7 @@ import type {CAC, Command as CacCommand} from 'cac'
 import type {BaseCommandOptions, CreateCommandOptions} from '../types.js'
 import process from 'node:process'
 import {err, ok} from '@bfra.me/es/result'
+import {isNumber, isString} from '@bfra.me/es/types'
 import {
   AddCommandOptionDefinitions,
   CommonOptions,
@@ -20,6 +21,7 @@ import {
 } from '../utils/command-options.js'
 import {CLIErrorCode, createCLIError, isBaseError} from '../utils/errors.js'
 import {logDebug, logError} from '../utils/logger.js'
+import {validatePackageManager} from '../utils/validation-factory.js'
 
 /**
  * Command context containing shared state and utilities
@@ -101,38 +103,124 @@ export function registerAddCommandOptions(command: CacCommand): CacCommand {
     .option(opts.list.flags, opts.list.description)
 }
 
+// cac coerces numeric-looking values (`--template 123`) to numbers.
+function toOptionalString(value: unknown): string | undefined {
+  if (isString(value)) {
+    return value
+  }
+  return isNumber(value) ? String(value) : undefined
+}
+
+// cac leaves `--skip-prompts false` (multi-word flags) as the string "false".
+function toOptionalBoolean(value: unknown): boolean | undefined {
+  if (typeof value === 'boolean') {
+    return value
+  }
+  if (value === 'true') {
+    return true
+  }
+  if (value === 'false') {
+    return false
+  }
+  return undefined
+}
+
+const PRESETS = ['minimal', 'standard', 'full'] as const
+const PRESET_LIST: readonly string[] = PRESETS
+
+function isPreset(value: string): value is (typeof PRESETS)[number] {
+  return PRESET_LIST.includes(value)
+}
+
 /**
- * Normalizes raw CLI options into CreateCommandOptions
+ * Narrows an unknown raw option value to a known configuration preset.
+ *
+ * A provided-but-invalid value resolves to the same `Invalid preset: ...
+ * Must be one of: ...` error that `validateCreateOptions`/
+ * `validateCreateCommandOptions` produce, so a typo like `--preset stadnard`
+ * still fails validation instead of silently narrowing to `undefined` and
+ * falling back to defaults.
+ */
+function resolvePreset(value: unknown): Result<'minimal' | 'standard' | 'full' | undefined, Error> {
+  const stringValue = toOptionalString(value)
+  if (stringValue === undefined) {
+    return ok(undefined)
+  }
+  if (!isPreset(stringValue)) {
+    return err(
+      createCLIError(
+        `Invalid preset: ${stringValue}. Must be one of: ${PRESETS.join(', ')}`,
+        CLIErrorCode.INVALID_INPUT,
+      ),
+    )
+  }
+  return ok(stringValue)
+}
+
+/**
+ * Narrows an unknown raw option value to a known package manager.
+ *
+ * Reuses `validatePackageManager` so casing/whitespace (`--package-manager
+ * PNPM`) is normalized exactly like the rest of the validation pipeline, and
+ * a provided-but-invalid value resolves to the same validation error instead
+ * of silently narrowing to `undefined`.
+ */
+function resolvePackageManager(
+  value: unknown,
+): Result<'npm' | 'yarn' | 'pnpm' | 'bun' | undefined, Error> {
+  const stringValue = toOptionalString(value)
+  if (stringValue === undefined) {
+    return ok(undefined)
+  }
+  return validatePackageManager(stringValue)
+}
+
+/**
+ * Normalizes raw CLI options into CreateCommandOptions.
+ *
+ * Returns an `Err` with the same message the existing validators produce
+ * when `preset` or `packageManager` is provided but invalid, rather than
+ * throwing -- invalid user input is an expected error, not an exceptional one.
  */
 export function normalizeCreateOptions(
   projectName: string | undefined,
   rawOptions: Record<string, unknown>,
-): CreateCommandOptions {
-  const features = parseFeatures(rawOptions.features as string | undefined)
+): Result<CreateCommandOptions, Error> {
+  const features = parseFeatures(toOptionalString(rawOptions.features))
 
-  return {
+  const packageManagerResult = resolvePackageManager(rawOptions.packageManager)
+  if (!packageManagerResult.success) {
+    return packageManagerResult
+  }
+
+  const presetResult = resolvePreset(rawOptions.preset)
+  if (!presetResult.success) {
+    return presetResult
+  }
+
+  return ok({
     name: projectName,
-    template: rawOptions.template as string | undefined,
-    description: rawOptions.description as string | undefined,
-    author: rawOptions.author as string | undefined,
-    version: rawOptions.version as string | undefined,
-    outputDir: rawOptions.outputDir as string | undefined,
-    packageManager: rawOptions.packageManager as 'npm' | 'yarn' | 'pnpm' | 'bun' | undefined,
-    skipPrompts: rawOptions.skipPrompts as boolean | undefined,
-    force: rawOptions.force as boolean | undefined,
+    template: toOptionalString(rawOptions.template),
+    description: toOptionalString(rawOptions.description),
+    author: toOptionalString(rawOptions.author),
+    version: toOptionalString(rawOptions.version),
+    outputDir: toOptionalString(rawOptions.outputDir),
+    packageManager: packageManagerResult.data,
+    skipPrompts: toOptionalBoolean(rawOptions.skipPrompts),
+    force: toOptionalBoolean(rawOptions.force),
     interactive: rawOptions.interactive !== false,
-    verbose: rawOptions.verbose as boolean | undefined,
-    dryRun: rawOptions.dryRun as boolean | undefined,
-    cwd: rawOptions.cwd as string | undefined,
-    templateRef: rawOptions.templateRef as string | undefined,
-    templateSubdir: rawOptions.templateSubdir as string | undefined,
+    verbose: toOptionalBoolean(rawOptions.verbose),
+    dryRun: toOptionalBoolean(rawOptions.dryRun),
+    cwd: toOptionalString(rawOptions.cwd),
+    templateRef: toOptionalString(rawOptions.templateRef),
+    templateSubdir: toOptionalString(rawOptions.templateSubdir),
     features: features.join(','),
     git: rawOptions.git !== false,
     install: rawOptions.install !== false,
-    preset: rawOptions.preset as 'minimal' | 'standard' | 'full' | undefined,
-    ai: rawOptions.ai as boolean | undefined,
-    describe: rawOptions.describe as string | undefined,
-  }
+    preset: presetResult.data,
+    ai: toOptionalBoolean(rawOptions.ai),
+    describe: toOptionalString(rawOptions.describe),
+  })
 }
 
 /**
@@ -205,7 +293,10 @@ export function validateAndTransformOptions(
   projectName?: string,
 ): Result<CreateCommandOptions, Error> {
   const normalized = normalizeCreateOptions(projectName, rawOptions)
-  return validateCreateCommandOptions(normalized)
+  if (!normalized.success) {
+    return normalized
+  }
+  return validateCreateCommandOptions(normalized.data)
 }
 
 /**

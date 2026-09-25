@@ -21,6 +21,16 @@ import {isRetryableError, promptRetry, retry} from './utils/retry.js'
 import {logger} from './utils/ui.js'
 
 /**
+ * Displays a validation failure the same way regardless of which stage
+ * (option normalization or the validation pipeline) produced it, then exits.
+ */
+function exitWithValidationError(message: string, verbose?: boolean): never {
+  const validationError = new Error(`Validation failed: ${message}`)
+  displayError(validationError, {verbose})
+  process.exit(1)
+}
+
+/**
  * Apply configuration preset to provide sensible defaults
  */
 function applyConfigurationPreset(
@@ -77,15 +87,17 @@ createCommand.action(
       const presetConfig = applyConfigurationPreset(options.preset)
 
       // Normalize options using shared infrastructure
-      const createOptions = normalizeCreateOptions(projectName, {...presetConfig, ...options})
+      const normalizedOptions = normalizeCreateOptions(projectName, {...presetConfig, ...options})
+      if (isErr(normalizedOptions)) {
+        exitWithValidationError(normalizedOptions.error.message, options.verbose)
+      }
+      const createOptions = normalizedOptions.data
 
       // Validate options using the validation pipeline
       const validationResult = validateCreateOptions(createOptions)
       if (!validationResult.success) {
         const errorMessages = validationResult.errors.map(e => e.message).join(', ')
-        const validationError = new Error(`Validation failed: ${errorMessages}`)
-        displayError(validationError, {verbose: options.verbose})
-        process.exit(1)
+        exitWithValidationError(errorMessages, options.verbose)
       }
 
       // Show configuration summary if verbose
