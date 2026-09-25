@@ -26,7 +26,7 @@ import type {SemanticReleasePlugins} from './plugin/semantic-release.d.ts'
  */
 export interface CustomPluginConfig {}
 
-type WrapPlugin<T extends {[key: string]: any}> = {
+type WrapPlugin<T extends object> = {
   [K in keyof T]: T[K] extends PluginSpec ? T[K] : PluginSpec<[K, T[K]]>
 }
 

@@ -76,7 +76,7 @@ export interface EnvironmentTransformations {
   /**
    * Plugin configuration transformations.
    */
-  plugins?: (string | [string, any])[]
+  plugins?: (string | [string, unknown])[]
 }
 
 /**
