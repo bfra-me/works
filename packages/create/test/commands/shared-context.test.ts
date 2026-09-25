@@ -51,34 +51,75 @@ describe('normalizeCreateOptions', () => {
     })
   })
 
-  it('drops non-string values for string fields instead of leaking the wrong type', () => {
+  it('drops genuinely non-string, non-numeric values for string fields instead of leaking the wrong type', () => {
     const result = normalizeCreateOptions(undefined, {
-      template: 123,
       description: {nested: true},
       author: ['not', 'a', 'string'],
       cwd: null,
     })
 
-    expect(result.template).toBeUndefined()
     expect(result.description).toBeUndefined()
     expect(result.author).toBeUndefined()
     expect(result.cwd).toBeUndefined()
   })
 
-  it('drops non-boolean values for boolean fields instead of leaking the wrong type', () => {
+  it('keeps numeric CLI values (coerced by cac/mri) as strings for string fields', () => {
+    // cac's mri parser coerces numeric-looking option values to numbers before
+    // this code ever sees them, e.g. `--template 123` yields `{template: 123}`.
+    const result = normalizeCreateOptions(undefined, {
+      template: 123,
+      version: 1,
+      description: 2024,
+      author: 42,
+      outputDir: 1,
+      cwd: 5,
+      templateRef: 2,
+      templateSubdir: 3,
+      describe: 6,
+    })
+
+    expect(result.template).toBe('123')
+    expect(result.version).toBe('1')
+    expect(result.description).toBe('2024')
+    expect(result.author).toBe('42')
+    expect(result.outputDir).toBe('1')
+    expect(result.cwd).toBe('5')
+    expect(result.templateRef).toBe('2')
+    expect(result.templateSubdir).toBe('3')
+    expect(result.describe).toBe('6')
+  })
+
+  it('drops genuinely non-boolean values for boolean fields instead of leaking the wrong type', () => {
     const result = normalizeCreateOptions(undefined, {
       skipPrompts: 'yes',
       force: 1,
-      verbose: 'true',
       dryRun: 0,
       ai: 'enabled',
     })
 
     expect(result.skipPrompts).toBeUndefined()
     expect(result.force).toBeUndefined()
-    expect(result.verbose).toBeUndefined()
     expect(result.dryRun).toBeUndefined()
     expect(result.ai).toBeUndefined()
+  })
+
+  it('coerces "true"/"false" string values to real booleans for boolean fields', () => {
+    // cac only coerces "true"/"false" strings to real booleans for single-word
+    // boolean flags (e.g. `--force false`); hyphenated multi-word flags like
+    // `--skip-prompts false` and `--dry-run false` are left as literal strings.
+    const result = normalizeCreateOptions(undefined, {
+      skipPrompts: 'false',
+      dryRun: 'true',
+      verbose: 'true',
+      force: 'false',
+      ai: 'true',
+    })
+
+    expect(result.skipPrompts).toBe(false)
+    expect(result.dryRun).toBe(true)
+    expect(result.verbose).toBe(true)
+    expect(result.force).toBe(false)
+    expect(result.ai).toBe(true)
   })
 
   it('drops an unrecognized packageManager value instead of leaking it through', () => {

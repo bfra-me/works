@@ -11,7 +11,7 @@ import type {CAC, Command as CacCommand} from 'cac'
 import type {BaseCommandOptions, CreateCommandOptions} from '../types.js'
 import process from 'node:process'
 import {err, ok} from '@bfra.me/es/result'
-import {isString} from '@bfra.me/es/types'
+import {isNumber, isString} from '@bfra.me/es/types'
 import {
   AddCommandOptionDefinitions,
   CommonOptions,
@@ -105,16 +105,38 @@ export function registerAddCommandOptions(command: CacCommand): CacCommand {
 
 /**
  * Narrows an unknown raw option value to a string, dropping anything else.
+ *
+ * cac (via mri) coerces numeric-looking option values (e.g. `--template 123`)
+ * to numbers before we ever see them, so a finite number is stringified back
+ * rather than dropped. Note this is lossy for values like `007`, which mri has
+ * already turned into `7` by this point -- that can't be recovered here.
  */
 function toOptionalString(value: unknown): string | undefined {
-  return isString(value) ? value : undefined
+  if (isString(value)) {
+    return value
+  }
+  return isNumber(value) ? String(value) : undefined
 }
 
 /**
  * Narrows an unknown raw option value to a boolean, dropping anything else.
+ *
+ * cac only coerces `"true"`/`"false"` string values to real booleans for
+ * single-word boolean flags (e.g. `--force false`); hyphenated flags declared
+ * with multiple words (e.g. `--skip-prompts false`, `--dry-run false`) are
+ * left as the literal string, so we coerce those explicitly too.
  */
 function toOptionalBoolean(value: unknown): boolean | undefined {
-  return typeof value === 'boolean' ? value : undefined
+  if (typeof value === 'boolean') {
+    return value
+  }
+  if (value === 'true') {
+    return true
+  }
+  if (value === 'false') {
+    return false
+  }
+  return undefined
 }
 
 /**
