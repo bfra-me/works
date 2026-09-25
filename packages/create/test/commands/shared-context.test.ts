@@ -1,5 +1,8 @@
 import {describe, expect, it} from 'vitest'
-import {normalizeCreateOptions} from '../../src/commands/shared-context.js'
+import {
+  normalizeCreateOptions,
+  validateAndTransformOptions,
+} from '../../src/commands/shared-context.js'
 
 describe('normalizeCreateOptions', () => {
   it('normalizes well-formed raw CLI options', () => {
@@ -122,20 +125,23 @@ describe('normalizeCreateOptions', () => {
     expect(result.ai).toBe(true)
   })
 
-  it('drops an unrecognized packageManager value instead of leaking it through', () => {
-    const result = normalizeCreateOptions(undefined, {
-      packageManager: 'nom',
-    })
-
-    expect(result.packageManager).toBeUndefined()
+  it('throws the existing validation error for an unrecognized packageManager value instead of silently dropping it', () => {
+    expect(() => normalizeCreateOptions(undefined, {packageManager: 'nom'})).toThrow(
+      'Invalid package manager. Must be one of: npm, yarn, pnpm, bun',
+    )
   })
 
-  it('drops an unrecognized preset value instead of leaking it through', () => {
-    const result = normalizeCreateOptions(undefined, {
-      preset: 'extreme',
-    })
+  it('throws the existing validation error for an unrecognized preset value instead of silently dropping it', () => {
+    expect(() => normalizeCreateOptions(undefined, {preset: 'extreme'})).toThrow(
+      'Invalid preset: extreme. Must be one of: minimal, standard, full',
+    )
+  })
 
-    expect(result.preset).toBeUndefined()
+  it('normalizes packageManager casing and whitespace the same way validatePackageManager does', () => {
+    expect(normalizeCreateOptions(undefined, {packageManager: 'PNPM'}).packageManager).toBe('pnpm')
+    expect(normalizeCreateOptions(undefined, {packageManager: ' pnpm '}).packageManager).toBe(
+      'pnpm',
+    )
   })
 
   it('treats any non-false value as truthy for interactive/git/install flags', () => {
@@ -154,5 +160,41 @@ describe('normalizeCreateOptions', () => {
     const result = normalizeCreateOptions(undefined, {})
 
     expect(result.features).toBe('')
+  })
+})
+
+describe('validateAndTransformOptions', () => {
+  it('returns the existing Invalid preset validation error for a typo in preset', () => {
+    const result = validateAndTransformOptions({preset: 'stadnard'})
+
+    expect(result).toMatchObject({
+      success: false,
+      error: expect.objectContaining({
+        message: 'Invalid preset: stadnard. Must be one of: minimal, standard, full',
+      }),
+    })
+  })
+
+  it('returns the existing Invalid package manager validation error for a typo in packageManager', () => {
+    const result = validateAndTransformOptions({packageManager: 'nom'})
+
+    expect(result).toMatchObject({
+      success: false,
+      error: expect.objectContaining({
+        message: 'Invalid package manager. Must be one of: npm, yarn, pnpm, bun',
+      }),
+    })
+  })
+
+  it('resolves a mixed-case/whitespace packageManager to its normalized form', () => {
+    const result = validateAndTransformOptions({packageManager: 'PNPM'})
+
+    expect(result).toMatchObject({success: true, data: {packageManager: 'pnpm'}})
+  })
+
+  it('resolves a valid preset successfully', () => {
+    const result = validateAndTransformOptions({preset: 'standard'})
+
+    expect(result).toMatchObject({success: true, data: {preset: 'standard'}})
   })
 })
