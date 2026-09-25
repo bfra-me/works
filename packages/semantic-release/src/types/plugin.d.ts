@@ -35,7 +35,10 @@ type CustomPlugins = WrapPlugin<CustomPluginConfig>
 export interface KnownPlugins extends CustomPlugins, SemanticReleasePlugins {}
 
 // Extract the TConfig type from a PluginNameAndConfig
-export type PluginConfig<TSpec extends PluginSpec> = TSpec extends [string, infer TConfig]
+export type PluginConfig<TSpec extends string | readonly [string, unknown]> = TSpec extends [
+  string,
+  infer TConfig,
+]
   ? TConfig
   : never
 
@@ -45,4 +48,6 @@ export type Plugin<TLookup = PluginName> = TLookup extends keyof KnownPlugins
   ? PluginSpec<[TLookup, PluginConfig<KnownPlugins[TLookup]>]>
   : TLookup extends string
     ? PluginSpec<[TLookup, {[key: string]: unknown}]>
-    : PluginSpec<TLookup>
+    : TLookup extends unknown[]
+      ? PluginSpec<TLookup>
+      : never

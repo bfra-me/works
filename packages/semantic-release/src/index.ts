@@ -20,6 +20,7 @@ export {
 } from './config/versioning.js'
 export * from './plugins/index.js'
 export type * from './types.js'
+export type {BranchSpec, GlobalConfig, PluginSpec} from './types/core.js'
 // Export validation functions with explicit names to avoid conflicts
 export {
   branchSpecSchema,
