@@ -103,14 +103,7 @@ export function registerAddCommandOptions(command: CacCommand): CacCommand {
     .option(opts.list.flags, opts.list.description)
 }
 
-/**
- * Narrows an unknown raw option value to a string, dropping anything else.
- *
- * cac (via mri) coerces numeric-looking option values (e.g. `--template 123`)
- * to numbers before we ever see them, so a finite number is stringified back
- * rather than dropped. Note this is lossy for values like `007`, which mri has
- * already turned into `7` by this point -- that can't be recovered here.
- */
+// cac coerces numeric-looking values (`--template 123`) to numbers.
 function toOptionalString(value: unknown): string | undefined {
   if (isString(value)) {
     return value
@@ -118,14 +111,7 @@ function toOptionalString(value: unknown): string | undefined {
   return isNumber(value) ? String(value) : undefined
 }
 
-/**
- * Narrows an unknown raw option value to a boolean, dropping anything else.
- *
- * cac only coerces `"true"`/`"false"` string values to real booleans for
- * single-word boolean flags (e.g. `--force false`); hyphenated flags declared
- * with multiple words (e.g. `--skip-prompts false`, `--dry-run false`) are
- * left as the literal string, so we coerce those explicitly too.
- */
+// cac leaves `--skip-prompts false` (multi-word flags) as the string "false".
 function toOptionalBoolean(value: unknown): boolean | undefined {
   if (typeof value === 'boolean') {
     return value
