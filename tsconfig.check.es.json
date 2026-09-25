@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json.schemastore.org/tsconfig",
+  "extends": "./tsconfig.check.json",
+  "compilerOptions": {
+    "exactOptionalPropertyTypes": true
+  },
+  "include": [
+    "packages/es/src/**/*.ts",
+    "packages/es/src/**/*.tsx",
+    "packages/es/test/**/*.ts",
+    "packages/es/test/**/*.tsx"
+  ]
+}

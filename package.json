@@ -33,7 +33,7 @@
     "prepare": "pnpm --filter docs astro sync && husky",
     "publish-changesets": "changeset publish",
     "test": "vitest run",
-    "type-check": "tsc --noEmit --project tsconfig.check.json",
+    "type-check": "tsc --noEmit --project tsconfig.check.json && tsc --noEmit --project tsconfig.check.es.json",
     "type-coverage": "type-coverage --project tsconfig.type-coverage.json",
     "type-coverage:detail": "type-coverage --detail --project tsconfig.type-coverage.json",
     "type-coverage:report": "type-coverage --detail --reportSemanticError --project tsconfig.type-coverage.json",
