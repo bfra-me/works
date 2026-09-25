@@ -46,7 +46,7 @@
   },
   "prettier": "./packages/prettier-config/prettier.config.cjs",
   "typeCoverage": {
-    "atLeast": 99.63,
+    "atLeast": 99.71,
     "exactOptionalPropertyTypes": true,
     "ignoreNonNullAssertion": false,
     "ignoreEmpty": false,
