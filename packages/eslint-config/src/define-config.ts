@@ -1,6 +1,8 @@
 import type {Config, ConfigNames, FlatConfigComposer, ResolvableFlatConfig} from './config'
 import type {Options} from './options'
 import {isPackageExists} from 'local-pkg'
+// Relative on purpose: the root ESLint config loads this source via require before @bfra.me/es
+// is built, and its exports have no require condition.
 import {isInEditorEnv} from '../../es/src/env'
 import {composeConfig} from './compose-config'
 import {

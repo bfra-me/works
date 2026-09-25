@@ -3,6 +3,8 @@ import {isPackageExists} from 'local-pkg'
 
 const scopeUrl = fileURLToPath(new URL('.', import.meta.url))
 
+// Relative on purpose: the root ESLint config loads this source via require before @bfra.me/es
+// is built, and its exports have no require condition.
 export {interopDefault} from '../../es/src/module'
 
 /**
