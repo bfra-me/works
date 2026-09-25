@@ -28,11 +28,12 @@ async function lintFilename(eslint: ESLint, filename: string) {
 }
 
 describe('unicorn', () => {
+  // First test pays the cold eslint-plugin-unicorn import.
   it('only applies rules to source files', async () => {
     const [config] = await unicorn()
 
     expect(config?.files).toEqual([GLOB_SRC])
-  })
+  }, 30_000)
 
   it('does not configure TypeScript files when TypeScript is disabled', async () => {
     const config = await defineConfig({prettier: false, typescript: false})
