@@ -1,9 +1,10 @@
 import type {Config} from '../config'
 import type {Flatten, OptionsIsInEditor, OptionsOverrides} from '../options'
 import process from 'node:process'
+import {isPackageExists} from 'local-pkg'
 import {GLOB_EXT_IN_MARKDOWN_FILES, GLOB_MARKDOWN_FILES, GLOB_TOML_FILES} from '../globs'
 import {requireOf} from '../require-of'
-import {interopDefault, isPackageInScope} from '../utils'
+import {interopDefault} from '../utils'
 import {fallback} from './fallback'
 
 function getConfigRules(configs: unknown): OptionsOverrides['overrides'] | undefined {
@@ -95,7 +96,9 @@ export async function prettier(options: PrettierOptions = {}): Promise<Config[]>
           files: GLOB_TOML_FILES,
           rules: {
             // Pass the plugin explicitly: consumers may not list it in their Prettier config.
-            'prettier/prettier': isPackageInScope('prettier-plugin-toml')
+            // Resolve from the consumer's project root (not this package's install dir), since
+            // Prettier plugins are expected to live in the consumer's node_modules.
+            'prettier/prettier': isPackageExists('prettier-plugin-toml')
               ? [isInEditor ? 'warn' : 'error', {parser: 'toml', plugins: ['prettier-plugin-toml']}]
               : 'off',
           },
