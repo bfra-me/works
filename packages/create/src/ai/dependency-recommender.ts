@@ -111,7 +111,7 @@ export class DependencyRecommender {
     projectAnalysis: ProjectAnalysis,
     existingDependencies?: string[],
   ): string {
-    const parts = []
+    const parts: string[] = []
 
     parts.push('Recommend npm packages for the following project:')
     parts.push(`Project Type: ${projectAnalysis.projectType}`)
@@ -156,7 +156,7 @@ export class DependencyRecommender {
     projectType: ProjectAnalysis['projectType'],
     existingDependencies?: string[],
   ): string {
-    const parts = []
+    const parts: string[] = []
 
     parts.push(`Recommend packages to implement these features in a ${projectType} project:`)
     parts.push(`Features: ${features.join(', ')}`)
@@ -175,7 +175,7 @@ export class DependencyRecommender {
     currentDependencies: Record<string, string>,
     projectType: ProjectAnalysis['projectType'],
   ): string {
-    const parts = []
+    const parts: string[] = []
 
     parts.push(`Analyze these dependencies for a ${projectType} project:`)
     parts.push(JSON.stringify(currentDependencies, null, 2))

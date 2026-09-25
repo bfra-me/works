@@ -237,7 +237,7 @@ export class CodeGenerator {
   }
 
   private buildGenerationPrompt(request: CodeGenerationRequest): string {
-    const parts = []
+    const parts: string[] = []
 
     parts.push(`Generate ${request.type} code with the following specifications:`)
     parts.push(`Description: ${request.description}`)

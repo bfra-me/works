@@ -6,7 +6,22 @@ import type {
   TemplateRecommendation,
   TemplateSource,
 } from '../types.js'
+import {isObject, isString} from '@bfra.me/es/types'
 import {LLMClient} from './llm-client.js'
+
+function toStringRecord(value: unknown): Record<string, string> {
+  if (!isObject(value)) {
+    return {}
+  }
+
+  const result: Record<string, string> = {}
+  for (const [key, entryValue] of Object.entries(value)) {
+    if (isString(entryValue)) {
+      result[key] = entryValue
+    }
+  }
+  return result
+}
 
 /**
  * Input for project analysis.
@@ -145,7 +160,9 @@ export class ProjectAnalyzer {
     }
 
     try {
-      return this.parseAnalysisResponse(response.content, {name: packageJson?.name as string})
+      return this.parseAnalysisResponse(response.content, {
+        name: isString(packageJson?.name) ? packageJson.name : undefined,
+      })
     } catch (error) {
       console.warn('Failed to parse existing project analysis:', error)
       return this.createFallbackAnalysisForExisting(packageJson)
@@ -159,7 +176,7 @@ export class ProjectAnalyzer {
     requirements?: string[]
     preferences?: Record<string, unknown>
   }): string {
-    const parts = []
+    const parts: string[] = []
 
     parts.push('Please analyze the following project requirements and provide recommendations:')
 
@@ -243,7 +260,7 @@ Respond in the same JSON format as for new projects.
   }
 
   private buildProjectContext(_projectPath: string, packageJson?: Record<string, unknown>): string {
-    const parts = []
+    const parts: string[] = []
 
     if (packageJson) {
       parts.push('Package.json:')
@@ -425,8 +442,8 @@ Focus on practical improvements that provide clear value without unnecessary com
   private createFallbackAnalysisForExisting(
     packageJson?: Record<string, unknown>,
   ): ProjectAnalysis {
-    const dependencies = (packageJson?.dependencies as Record<string, string>) ?? {}
-    const devDependencies = (packageJson?.devDependencies as Record<string, string>) ?? {}
+    const dependencies = toStringRecord(packageJson?.dependencies)
+    const devDependencies = toStringRecord(packageJson?.devDependencies)
 
     let projectType: ProjectAnalysis['projectType'] = 'other'
 
