@@ -5,6 +5,15 @@ import path from 'node:path'
 import process from 'node:process'
 import {consola} from 'consola'
 
+/** Single source of the navigation entry format, so removal always matches insertion. */
+function buildNavigationEntry(packageName: string): string {
+  return `        {
+          label: '${packageName}',
+          link: '/packages/${packageName}',
+        },
+      `
+}
+
 /**
  * Configuration for documentation integration.
  */
@@ -359,10 +368,7 @@ This package is part of the bfra.me Works project and is licensed under the [MIT
     }
 
     const packagesSection = match[1]
-    const newEntry = `        {
-          label: '${packageName}',
-          link: '/packages/${packageName}',
-        },`
+    const newEntry = buildNavigationEntry(packageName)
 
     // Insert the new entry at the end of the packages array (before the closing bracket)
     const closingBracketIndex = packagesSection.lastIndexOf(']')
@@ -373,7 +379,6 @@ This package is part of the bfra.me Works project and is licensed under the [MIT
     const updatedPackagesSection = [
       packagesSection.slice(0, closingBracketIndex),
       newEntry,
-      '\n      ',
       packagesSection.slice(closingBracketIndex),
     ].join('')
 
@@ -405,6 +410,43 @@ npm install @bfra.me/{{name}}
 import { /* exports */ } from '@bfra.me/{{name}}'
 \`\`\`
 `
+  }
+
+  /**
+   * Remove a package's navigation entry that was previously added by
+   * addPackageToNavigation/updateNavigation.
+   */
+  async removePackageFromNavigation(
+    packageName: string,
+    options: {verbose?: boolean} = {},
+  ): Promise<{success: boolean; removed: boolean; error?: string}> {
+    try {
+      if (!existsSync(this.config.navigationPath)) {
+        return {
+          success: false,
+          removed: false,
+          error: `Navigation config not found: ${this.config.navigationPath}`,
+        }
+      }
+
+      const navContent = await readFile(this.config.navigationPath, 'utf8')
+      const entry = buildNavigationEntry(packageName)
+
+      if (!navContent.includes(entry)) {
+        return {success: true, removed: false}
+      }
+
+      await writeFile(this.config.navigationPath, navContent.replace(entry, ''), 'utf8')
+
+      if (options.verbose) {
+        consola.success(`Removed navigation entry for package: ${packageName}`)
+      }
+
+      return {success: true, removed: true}
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error)
+      return {success: false, removed: false, error: errorMessage}
+    }
   }
 
   /**

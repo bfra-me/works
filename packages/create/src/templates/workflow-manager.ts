@@ -184,7 +184,7 @@ export class WorkflowManager {
             type: 'documentation',
             description: 'Remove generated documentation files',
             operation: async () => {
-              await this.rollbackDocumentationIntegration(outputPath, context, options)
+              await this.rollbackDocumentationIntegration(outputPath, context, docResult, options)
             },
           })
         }
@@ -204,7 +204,7 @@ export class WorkflowManager {
             type: 'workspace',
             description: 'Rollback workspace integration changes',
             operation: async () => {
-              await this.rollbackWorkspaceIntegration(outputPath, context, options)
+              await this.rollbackWorkspaceIntegration(outputPath, context, workspaceResult, options)
             },
           })
         }
@@ -666,17 +666,16 @@ export class WorkflowManager {
   private async rollbackDocumentationIntegration(
     _packagePath: string,
     context: TemplateContext,
+    docResult: {mdxGenerated: boolean; navigationUpdated: boolean},
     options: CreateCommandOptions,
   ): Promise<void> {
     try {
       const documentationIntegrator = createDocumentationIntegrator()
 
       if (documentationIntegrator.isAvailable()) {
-        // Calculate the path where the MDX file would have been created
         const docsDir = path.join(process.cwd(), 'docs', 'src', 'content', 'docs')
         const mdxPath = path.join(docsDir, `${context.projectName}.mdx`)
 
-        // Remove generated MDX file if it exists
         if (existsSync(mdxPath)) {
           await rm(mdxPath, {force: true})
           if (options.verbose) {
@@ -684,10 +683,14 @@ export class WorkflowManager {
           }
         }
 
-        // TODO: Implement navigation rollback when navigation auto-update is implemented
-        // For now, log that manual navigation cleanup may be needed
-        if (options.verbose) {
-          consola.warn('Manual navigation cleanup may be required in docs configuration')
+        if (docResult.navigationUpdated) {
+          const navResult = await documentationIntegrator.removePackageFromNavigation(
+            context.projectName,
+            options,
+          )
+          if ((!navResult.success || !navResult.removed) && options.verbose) {
+            consola.warn(navResult.error ?? 'Could not locate navigation entry to roll back')
+          }
         }
       }
     } catch (error) {
@@ -702,8 +705,9 @@ export class WorkflowManager {
    * Removes package from workspace configuration and cleans up dependencies.
    */
   private async rollbackWorkspaceIntegration(
-    _packagePath: string,
+    packagePath: string,
     context: TemplateContext,
+    workspaceResult: {dependenciesInstalled: boolean; pnpmWorkspaceUpdated: boolean},
     options: CreateCommandOptions,
   ): Promise<void> {
     try {
@@ -713,12 +717,21 @@ export class WorkflowManager {
       })
 
       if (workspaceIntegrator.isAvailable()) {
-        // The workspace integrator doesn't have a built-in rollback method
-        // so we need to manually handle the rollback operations
-
-        // TODO: Implement pnpm-workspace.yaml rollback
-        // For now, log that manual workspace cleanup may be needed
-        consola.warn('Manual workspace configuration cleanup may be required')
+        if (workspaceResult.pnpmWorkspaceUpdated) {
+          const workspaceRollbackResult = await workspaceIntegrator.removePackageFromWorkspace(
+            packagePath,
+            options,
+          )
+          if (
+            (!workspaceRollbackResult.success || !workspaceRollbackResult.removed) &&
+            options.verbose
+          ) {
+            consola.warn(
+              workspaceRollbackResult.message ??
+                'Could not locate pnpm-workspace.yaml entry to roll back',
+            )
+          }
+        }
 
         if (options.verbose) {
           consola.info('Consider running: pnpm install to refresh workspace after rollback')
