@@ -1,5 +1,11 @@
 # @bfra.me/semantic-release
 
+## 0.3.9
+
+### Patch Changes
+
+- Replace `any` in plugin type constraints with `object`/`unknown`. ([#4810](https://github.com/bfra-me/works/pull/4810))
+
 ## 0.3.8
 ### Patch Changes
 
