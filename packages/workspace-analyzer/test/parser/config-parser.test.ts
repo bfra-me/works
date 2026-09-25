@@ -115,6 +115,38 @@ describe('config-parser', () => {
   })
 
   describe('parsePackageJsonContent', () => {
+    it.concurrent('should drop malformed fields instead of passing them through', () => {
+      // main is a number instead of a string: the malformed value is dropped
+      // rather than mislabeled as a string.
+      const content = JSON.stringify({
+        name: 'test-pkg',
+        version: '1.0.0',
+        main: 123,
+        type: 'esm', // not a recognized package type
+        files: ['a.ts', 42], // mixed-type array is dropped entirely
+      })
+
+      const result = parsePackageJsonContent(content, '/path/to/package.json')
+
+      expect(result.success).toBe(true)
+      expect(result.success && result.data.main).toBeUndefined()
+      expect(result.success && result.data.type).toBeUndefined()
+      expect(result.success && result.data.files).toBeUndefined()
+    })
+
+    it.concurrent('should filter malformed entries out of dependency records', () => {
+      const content = JSON.stringify({
+        name: 'test-pkg',
+        version: '1.0.0',
+        dependencies: {lodash: '^4.17.0', broken: 123},
+      })
+
+      const result = parsePackageJsonContent(content, '/path/to/package.json')
+
+      expect(result.success).toBe(true)
+      expect(result.success && result.data.dependencies).toEqual({lodash: '^4.17.0'})
+    })
+
     it.concurrent('should parse package.json from string content', () => {
       const content = JSON.stringify({
         name: 'test-pkg',
@@ -228,6 +260,34 @@ describe('config-parser', () => {
   })
 
   describe('parseTsConfigContent', () => {
+    it.concurrent('should drop compiler options with the wrong type', () => {
+      // strict is a string instead of a boolean: the malformed value is
+      // dropped rather than mislabeled as a boolean.
+      const content = JSON.stringify({
+        compilerOptions: {
+          target: 'ES2022',
+          strict: 'true',
+        },
+      })
+
+      const result = parseTsConfigContent(content, '/path/to/tsconfig.json')
+
+      expect(result.success).toBe(true)
+      expect(result.success && result.data.compilerOptions?.target).toBe('ES2022')
+      expect(result.success && result.data.compilerOptions?.strict).toBeUndefined()
+    })
+
+    it.concurrent('should filter malformed project references', () => {
+      const content = JSON.stringify({
+        references: [{path: '../valid'}, {path: 123}, {notPath: '../missing-path'}],
+      })
+
+      const result = parseTsConfigContent(content, '/path/to/tsconfig.json')
+
+      expect(result.success).toBe(true)
+      expect(result.success && result.data.references).toEqual([{path: '../valid'}])
+    })
+
     it.concurrent('should parse tsconfig from string content', () => {
       const content = JSON.stringify({
         compilerOptions: {

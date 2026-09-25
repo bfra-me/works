@@ -157,13 +157,13 @@ export function createCacheManager(options: CacheManagerOptions): CacheManager {
       }
       return ok(content.toString('utf-8'))
     } catch (error) {
-      if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+      if (isErrnoException(error) && error.code === 'ENOENT') {
         return err({code: 'CACHE_NOT_FOUND', message: 'Cache file not found'})
       }
       return err({
         code: 'CACHE_READ_FAILED',
-        message: `Failed to read cache file: ${(error as Error).message}`,
-        cause: error as Error,
+        message: `Failed to read cache file: ${errorMessage(error)}`,
+        cause: toError(error),
       })
     }
   }
@@ -178,8 +178,8 @@ export function createCacheManager(options: CacheManagerOptions): CacheManager {
     } catch (error) {
       return err({
         code: 'CACHE_WRITE_FAILED',
-        message: `Failed to write cache file: ${(error as Error).message}`,
-        cause: error as Error,
+        message: `Failed to write cache file: ${errorMessage(error)}`,
+        cause: toError(error),
       })
     }
   }
@@ -227,8 +227,8 @@ export function createCacheManager(options: CacheManagerOptions): CacheManager {
       } catch (error) {
         return err({
           code: 'CACHE_CORRUPTED',
-          message: `Failed to parse cache file: ${(error as Error).message}`,
-          cause: error as Error,
+          message: `Failed to parse cache file: ${errorMessage(error)}`,
+          cause: toError(error),
         })
       }
     },
@@ -323,8 +323,8 @@ export function createCacheManager(options: CacheManagerOptions): CacheManager {
       } catch (error) {
         return err({
           code: 'CACHE_WRITE_FAILED',
-          message: `Failed to update cache for file ${path}: ${(error as Error).message}`,
-          cause: error as Error,
+          message: `Failed to update cache for file ${path}: ${errorMessage(error)}`,
+          cause: toError(error),
         })
       }
     },
@@ -361,8 +361,8 @@ export function createCacheManager(options: CacheManagerOptions): CacheManager {
       } catch (error) {
         return err({
           code: 'CACHE_WRITE_FAILED',
-          message: `Failed to update cache for package ${packageName}: ${(error as Error).message}`,
-          cause: error as Error,
+          message: `Failed to update cache for package ${packageName}: ${errorMessage(error)}`,
+          cause: toError(error),
         })
       }
     },
@@ -374,8 +374,8 @@ export function createCacheManager(options: CacheManagerOptions): CacheManager {
       } catch (error) {
         return err({
           code: 'CACHE_WRITE_FAILED',
-          message: `Failed to clear cache: ${(error as Error).message}`,
-          cause: error as Error,
+          message: `Failed to clear cache: ${errorMessage(error)}`,
+          cause: toError(error),
         })
       }
     },
@@ -417,6 +417,27 @@ export function createCacheManager(options: CacheManagerOptions): CacheManager {
       return true
     },
   }
+}
+
+/**
+ * Type guard for Node.js errors with a `code` property.
+ */
+function isErrnoException(error: unknown): error is NodeJS.ErrnoException {
+  return error instanceof Error && 'code' in error
+}
+
+/**
+ * Extracts a human-readable message from an unknown thrown value.
+ */
+function errorMessage(error: unknown): string {
+  return error instanceof Error ? error.message : String(error)
+}
+
+/**
+ * Narrows an unknown thrown value to an Error, wrapping non-Error throws.
+ */
+function toError(error: unknown): Error {
+  return error instanceof Error ? error : new Error(String(error))
 }
 
 /**
