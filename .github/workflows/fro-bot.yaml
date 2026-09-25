@@ -209,8 +209,6 @@ env:
     documentation, and operational guidance:
     - bfra-me/renovate-action
     - bfra-me/.github
-    - marcusrbrown/infra
-    - marcusrbrown/mothership
     - Fro Bot upstream (fro-bot/agent)
     Do not clone, modify, or create changes in sibling repositories. For every
     observation, include source attribution, observed evidence, local
@@ -427,6 +425,8 @@ jobs:
           github-token: ${{ secrets.FRO_BOT_PAT }}
           auth-json: ${{ secrets.OPENCODE_AUTH_JSON }}
           model: ${{ vars.FRO_BOT_MODEL }}
+          # Omitted or auto resolves to working-dir for schedule/workflow_dispatch, which discards fixes.
+          output-mode: ${{ steps.resolve.outputs.mode == 'autoheal' && 'branch-pr' || 'auto' }}
           omo-providers: ${{ secrets.OMO_PROVIDERS }}
           opencode-config: ${{ secrets.OPENCODE_CONFIG }}
           prompt: ${{ env.PROMPT }}
