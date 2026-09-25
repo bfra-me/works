@@ -3,7 +3,7 @@ import type {Flatten, OptionsIsInEditor, OptionsOverrides} from '../options'
 import process from 'node:process'
 import {GLOB_EXT_IN_MARKDOWN_FILES, GLOB_MARKDOWN_FILES, GLOB_TOML_FILES} from '../globs'
 import {requireOf} from '../require-of'
-import {interopDefault} from '../utils'
+import {interopDefault, isPackageInScope} from '../utils'
 import {fallback} from './fallback'
 
 function getConfigRules(configs: unknown): OptionsOverrides['overrides'] | undefined {
@@ -94,9 +94,10 @@ export async function prettier(options: PrettierOptions = {}): Promise<Config[]>
           name: '@bfra.me/prettier/toml',
           files: GLOB_TOML_FILES,
           rules: {
-            // TODO: Detect if the TOML plugin for Prettier is installed
-            // and if so, use the Prettier rules
-            'prettier/prettier': 'off',
+            // Pass the plugin explicitly: consumers may not list it in their Prettier config.
+            'prettier/prettier': isPackageInScope('prettier-plugin-toml')
+              ? [isInEditor ? 'warn' : 'error', {parser: 'toml', plugins: ['prettier-plugin-toml']}]
+              : 'off',
           },
         },
         {
