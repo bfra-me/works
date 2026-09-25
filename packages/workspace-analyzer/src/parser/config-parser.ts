@@ -11,6 +11,7 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 
 import {err, ok} from '@bfra.me/es/result'
+import {isArray, isObject, isString} from '@bfra.me/es/types'
 
 /**
  * Error codes for configuration parsing.
@@ -199,23 +200,23 @@ export function parsePackageJsonContent(
     })
   }
 
-  const pkg = raw as Record<string, unknown>
+  const pkg = raw
 
   return ok({
-    name: pkg.name as string,
-    version: pkg.version as string,
-    description: pkg.description as string | undefined,
-    main: pkg.main as string | undefined,
-    module: pkg.module as string | undefined,
-    types: pkg.types as string | undefined,
-    exports: pkg.exports as Record<string, unknown> | undefined,
-    dependencies: pkg.dependencies as Record<string, string> | undefined,
-    devDependencies: pkg.devDependencies as Record<string, string> | undefined,
-    peerDependencies: pkg.peerDependencies as Record<string, string> | undefined,
-    optionalDependencies: pkg.optionalDependencies as Record<string, string> | undefined,
-    type: pkg.type as 'module' | 'commonjs' | undefined,
-    scripts: pkg.scripts as Record<string, string> | undefined,
-    files: pkg.files as string[] | undefined,
+    name: pkg.name,
+    version: pkg.version,
+    description: asOptionalString(pkg.description),
+    main: asOptionalString(pkg.main),
+    module: asOptionalString(pkg.module),
+    types: asOptionalString(pkg.types),
+    exports: isObject(pkg.exports) ? pkg.exports : undefined,
+    dependencies: asStringRecord(pkg.dependencies),
+    devDependencies: asStringRecord(pkg.devDependencies),
+    peerDependencies: asStringRecord(pkg.peerDependencies),
+    optionalDependencies: asStringRecord(pkg.optionalDependencies),
+    type: asPackageType(pkg.type),
+    scripts: asStringRecord(pkg.scripts),
+    files: asStringArray(pkg.files),
     raw: pkg,
   })
 }
@@ -286,7 +287,7 @@ export function parseTsConfigContent(
     })
   }
 
-  if (typeof raw !== 'object' || raw === null) {
+  if (!isObject(raw)) {
     return err({
       code: 'INVALID_CONFIG',
       message: 'tsconfig.json must be an object',
@@ -294,14 +295,14 @@ export function parseTsConfigContent(
     })
   }
 
-  const config = raw as Record<string, unknown>
+  const config = raw
 
   return ok({
-    extends: config.extends as string | string[] | undefined,
-    compilerOptions: config.compilerOptions as TsCompilerOptions | undefined,
-    include: config.include as string[] | undefined,
-    exclude: config.exclude as string[] | undefined,
-    references: config.references as TsProjectReference[] | undefined,
+    extends: asStringOrStringArray(config.extends),
+    compilerOptions: asCompilerOptions(config.compilerOptions),
+    include: asStringArray(config.include),
+    exclude: asStringArray(config.exclude),
+    references: asProjectReferences(config.references),
     filePath,
     raw: config,
   })
@@ -367,11 +368,11 @@ export async function resolveTsConfigExtends(
     }
 
     let extendsPath: string | undefined
-    if (Array.isArray(extendsValue)) {
-      const firstExtends: unknown = extendsValue[0]
-      extendsPath = typeof firstExtends === 'string' ? firstExtends : undefined
-    } else if (typeof extendsValue === 'string') {
+    if (isString(extendsValue)) {
       extendsPath = extendsValue
+    } else {
+      const firstExtends = extendsValue[0]
+      extendsPath = isString(firstExtends) ? firstExtends : undefined
     }
 
     if (extendsPath === undefined) {
@@ -406,13 +407,130 @@ function resolveExtendsPath(extendsValue: string, configDir: string): string {
 /**
  * Type guard for valid package.json.
  */
-function isValidPackageJson(value: unknown): boolean {
-  if (typeof value !== 'object' || value === null) {
-    return false
+function isValidPackageJson(
+  value: unknown,
+): value is Record<string, unknown> & {name: string; version: string} {
+  return isObject(value) && isString(value.name) && isString(value.version)
+}
+
+/**
+ * Narrows a value to a string, dropping it otherwise.
+ */
+function asOptionalString(value: unknown): string | undefined {
+  return isString(value) ? value : undefined
+}
+
+/**
+ * Narrows a value to a boolean, dropping it otherwise.
+ */
+function asOptionalBoolean(value: unknown): boolean | undefined {
+  return typeof value === 'boolean' ? value : undefined
+}
+
+/**
+ * Narrows a value to an array of strings, dropping it entirely if any
+ * element is not a string.
+ */
+function asStringArray(value: unknown): string[] | undefined {
+  return isArray(value) && value.every(isString) ? value : undefined
+}
+
+/**
+ * Narrows a value to a string-keyed record of strings, dropping entries
+ * whose value is not a string.
+ */
+function asStringRecord(value: unknown): Record<string, string> | undefined {
+  if (!isObject(value)) {
+    return undefined
   }
 
-  const obj = value as Record<string, unknown>
-  return typeof obj.name === 'string' && typeof obj.version === 'string'
+  const result: Record<string, string> = {}
+  for (const [key, entryValue] of Object.entries(value)) {
+    if (isString(entryValue)) {
+      result[key] = entryValue
+    }
+  }
+  return result
+}
+
+/**
+ * Narrows a value to a string-keyed record of string arrays, dropping
+ * entries that are not arrays of strings.
+ */
+function asStringArrayRecord(value: unknown): Record<string, readonly string[]> | undefined {
+  if (!isObject(value)) {
+    return undefined
+  }
+
+  const result: Record<string, readonly string[]> = {}
+  for (const [key, entryValue] of Object.entries(value)) {
+    if (isArray(entryValue) && entryValue.every(isString)) {
+      result[key] = entryValue
+    }
+  }
+  return result
+}
+
+/**
+ * Narrows a value to the package.json `type` field, dropping unrecognized values.
+ */
+function asPackageType(value: unknown): 'module' | 'commonjs' | undefined {
+  return value === 'module' || value === 'commonjs' ? value : undefined
+}
+
+/**
+ * Narrows a value to the tsconfig `extends` field shape.
+ */
+function asStringOrStringArray(value: unknown): string | string[] | undefined {
+  if (isString(value)) {
+    return value
+  }
+  return asStringArray(value)
+}
+
+/**
+ * Narrows a value to tsconfig compiler options, dropping fields with the wrong type.
+ */
+function asCompilerOptions(value: unknown): TsCompilerOptions | undefined {
+  if (!isObject(value)) {
+    return undefined
+  }
+
+  return {
+    target: asOptionalString(value.target),
+    module: asOptionalString(value.module),
+    moduleResolution: asOptionalString(value.moduleResolution),
+    paths: asStringArrayRecord(value.paths),
+    baseUrl: asOptionalString(value.baseUrl),
+    rootDir: asOptionalString(value.rootDir),
+    outDir: asOptionalString(value.outDir),
+    strict: asOptionalBoolean(value.strict),
+    declaration: asOptionalBoolean(value.declaration),
+    sourceMap: asOptionalBoolean(value.sourceMap),
+    esModuleInterop: asOptionalBoolean(value.esModuleInterop),
+    allowSyntheticDefaultImports: asOptionalBoolean(value.allowSyntheticDefaultImports),
+    skipLibCheck: asOptionalBoolean(value.skipLibCheck),
+    resolveJsonModule: asOptionalBoolean(value.resolveJsonModule),
+    isolatedModules: asOptionalBoolean(value.isolatedModules),
+  }
+}
+
+/**
+ * Narrows a value to an array of tsconfig project references, dropping
+ * entries that don't have a string `path`.
+ */
+function asProjectReferences(value: unknown): TsProjectReference[] | undefined {
+  if (!isArray(value)) {
+    return undefined
+  }
+
+  const references: TsProjectReference[] = []
+  for (const entry of value) {
+    if (isObject(entry) && isString(entry.path)) {
+      references.push({path: entry.path})
+    }
+  }
+  return references
 }
 
 /**
