@@ -33,10 +33,10 @@
     "prepare": "pnpm --filter docs astro sync && husky",
     "publish-changesets": "changeset publish",
     "test": "vitest run",
-    "type-check": "tsc --noEmit",
-    "type-coverage": "type-coverage --project .",
-    "type-coverage:detail": "type-coverage --detail --project .",
-    "type-coverage:report": "type-coverage --detail --reportSemanticError --project .",
+    "type-check": "tsc --noEmit --project tsconfig.check.json",
+    "type-coverage": "type-coverage --project tsconfig.type-coverage.json",
+    "type-coverage:detail": "type-coverage --detail --project tsconfig.type-coverage.json",
+    "type-coverage:report": "type-coverage --detail --reportSemanticError --project tsconfig.type-coverage.json",
     "validate": "pnpm run type-check && pnpm run lint && pnpm run test && pnpm run build && pnpm run type-coverage",
     "version-changesets": "pnpm run clean-changesets && changeset version && pnpm bootstrap --no-frozen-lockfile && pnpm build && pnpm --filter docs sync-versions",
     "watch": "pnpm run build --watch"
@@ -45,6 +45,29 @@
     "*": "eslint --cache --fix --ignore-pattern 'packages/create/templates/**' --ignore-pattern '**/fixtures/input/**' --no-warn-ignored"
   },
   "prettier": "./packages/prettier-config/prettier.config.cjs",
+  "typeCoverage": {
+    "atLeast": 99.63,
+    "exactOptionalPropertyTypes": true,
+    "ignoreNonNullAssertion": false,
+    "ignoreEmpty": false,
+    "reportSemanticError": true,
+    "ignoreCatch": false,
+    "ignoreUnread": true,
+    "strict": true,
+    "ignoreFiles": [
+      "**/node_modules/**",
+      "**/test/fixtures/**",
+      "**/test/_fixtures/**",
+      "**/*.d.ts",
+      "**/lib/**",
+      "**/dist/**",
+      "**/.turbo/**",
+      "coverage/**"
+    ],
+    "showRelativePath": true,
+    "cache": true,
+    "debug": false
+  },
   "devDependencies": {
     "@changesets/cli": "3.0.3",
     "@eslint/config-inspector": "3.5.0",

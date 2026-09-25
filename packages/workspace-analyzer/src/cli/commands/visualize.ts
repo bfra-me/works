@@ -60,8 +60,8 @@ async function promptVisualizeOptions(
   const outputPath = await p.text({
     message: 'Output path for the visualization file:',
     initialValue: defaultOutput,
-    validate(value: string) {
-      if (value.trim().length === 0) {
+    validate(value: string | undefined) {
+      if (value == null || value.trim().length === 0) {
         return 'Output path is required'
       }
       return undefined
@@ -100,7 +100,7 @@ async function promptVisualizeOptions(
   const maxNodesInput = await p.text({
     message: 'Maximum nodes to render (for performance):',
     initialValue: String(defaultMaxNodes),
-    validate(value: string) {
+    validate(value: string | undefined) {
       const num = Number(value)
       if (Number.isNaN(num) || num < 1) {
         return 'Must be a positive number'

@@ -118,7 +118,7 @@ describe('cLI interaction prompts', () => {
       const invalidNames = ['', '   ', 'Invalid Name', 'invalid_name', 'INVALID']
 
       vi.mocked(text).mockImplementation(async ({validate}) => {
-        if (!validate) {
+        if (typeof validate !== 'function') {
           return 'valid-project-name'
         }
 
