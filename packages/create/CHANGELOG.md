@@ -1,5 +1,21 @@
 # @bfra.me/create
 
+## 0.8.3
+
+### Patch Changes
+
+- Normalize CLI option types: numeric values are kept as strings, `--skip-prompts false` and `--dry-run false` are respected, `packageManager` is case-insensitive, and invalid `preset`/`packageManager` values report a validation error instead of being ignored. ([#4835](https://github.com/bfra-me/works/pull/4835))
+
+- Updated dependency `dotenv` to `18.0.2`. ([#4841](https://github.com/bfra-me/works/pull/4841))
+
+- Updated dependency `openai` to `7.22.0`. ([#4861](https://github.com/bfra-me/works/pull/4861))
+
+- Updated dependency `@anthropic-ai/sdk` to `0.128.0`. ([#4857](https://github.com/bfra-me/works/pull/4857))
+
+- Updated dependency `memfs` to `4.79.0`. ([#4853](https://github.com/bfra-me/works/pull/4853))
+
+- Updated dependency `dotenv` to `18.0.3`. ([#4849](https://github.com/bfra-me/works/pull/4849))
+
 ## 0.8.2
 
 ### Patch Changes

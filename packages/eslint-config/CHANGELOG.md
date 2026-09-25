@@ -1,5 +1,17 @@
 # @bfra.me/eslint-config
 
+## 0.54.0
+
+### Minor Changes
+
+- Update eslint-plugin-unicorn to v76. Breaking: requires ESLint 10.4 or later; ESLint 9 is no longer supported. ([#4834](https://github.com/bfra-me/works/pull/4834))
+
+### Patch Changes
+
+- Updated dependency `eslint-plugin-perfectionist` to `5.12.0`. ([#4854](https://github.com/bfra-me/works/pull/4854))
+
+- Updated dependency `@next/eslint-plugin-next` to `16.3.6`. ([#4847](https://github.com/bfra-me/works/pull/4847))
+
 ## 0.53.0
 
 ### Minor Changes
