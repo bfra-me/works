@@ -276,6 +276,22 @@ describe('ProjectAnalyzer', () => {
 
       expect(result.projectType).toBe('library')
     })
+
+    it('ignores non-string package.json fields when building the fallback analysis', async () => {
+      mockIsAIAvailable.mockReturnValue(false)
+      const analyzer = new ProjectAnalyzer()
+
+      const result = await analyzer.analyzeExistingProject('/test', {
+        name: 123,
+        dependencies: {react: 123, vue: '^3.0.0'},
+        devDependencies: 'not-an-object',
+      })
+
+      expect(result.projectType).toBe('library')
+      expect(result.features).toContain('vue')
+      expect(result.features).not.toContain('react')
+      expect(mockComplete).not.toHaveBeenCalled()
+    })
   })
 
   describe('fallback keyword-based classification', () => {
