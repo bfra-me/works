@@ -7,7 +7,7 @@
  * equivalent hand-written function chains to ensure minimal performance overhead.
  */
 
-import {bench, describe} from 'vitest'
+import {describe, expect, it} from 'vitest'
 
 import {compose} from '../../src/functional/compose'
 import {pipe} from '../../src/functional/pipe'
@@ -36,48 +36,72 @@ describe('pipe() vs hand-written - numeric operations', () => {
   const input = 10
 
   describe('2-function chain', () => {
-    bench('hand-written (baseline)', () => {
-      results.value = double(addOne(input))
+    it('hand-written (baseline)', async ({bench}) => {
+      const result = await bench('hand-written (baseline)', () => {
+        results.value = double(addOne(input))
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
 
-    bench('pipe()', () => {
-      const fn = pipe(addOne, double)
-      results.value = fn(input)
+    it('pipe()', async ({bench}) => {
+      const result = await bench('pipe()', () => {
+        const fn = pipe(addOne, double)
+        results.value = fn(input)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 
   describe('3-function chain', () => {
-    bench('hand-written (baseline)', () => {
-      results.value = square(double(addOne(input)))
+    it('hand-written (baseline)', async ({bench}) => {
+      const result = await bench('hand-written (baseline)', () => {
+        results.value = square(double(addOne(input)))
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
 
-    bench('pipe()', () => {
-      const fn = pipe(addOne, double, square)
-      results.value = fn(input)
+    it('pipe()', async ({bench}) => {
+      const result = await bench('pipe()', () => {
+        const fn = pipe(addOne, double, square)
+        results.value = fn(input)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 
   describe('5-function chain', () => {
-    bench('hand-written (baseline)', () => {
-      results.value = negate(half(square(double(addOne(input)))))
+    it('hand-written (baseline)', async ({bench}) => {
+      const result = await bench('hand-written (baseline)', () => {
+        results.value = negate(half(square(double(addOne(input)))))
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
 
-    bench('pipe()', () => {
-      const fn = pipe(addOne, double, square, half, negate)
-      results.value = fn(input)
+    it('pipe()', async ({bench}) => {
+      const result = await bench('pipe()', () => {
+        const fn = pipe(addOne, double, square, half, negate)
+        results.value = fn(input)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 
   describe('10-function chain', () => {
-    bench('hand-written (baseline)', () => {
-      results.value = double(
-        addOne(negate(half(square(double(addOne(negate(half(addOne(input))))))))),
-      )
+    it('hand-written (baseline)', async ({bench}) => {
+      const result = await bench('hand-written (baseline)', () => {
+        results.value = double(
+          addOne(negate(half(square(double(addOne(negate(half(addOne(input))))))))),
+        )
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
 
-    bench('pipe()', () => {
-      const fn = pipe(addOne, half, negate, addOne, double, square, half, negate, addOne, double)
-      results.value = fn(input)
+    it('pipe()', async ({bench}) => {
+      const result = await bench('pipe()', () => {
+        const fn = pipe(addOne, half, negate, addOne, double, square, half, negate, addOne, double)
+        results.value = fn(input)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 })
@@ -86,35 +110,53 @@ describe('compose() vs hand-written - numeric operations', () => {
   const input = 10
 
   describe('2-function chain', () => {
-    bench('hand-written (baseline)', () => {
-      results.value = double(addOne(input))
+    it('hand-written (baseline)', async ({bench}) => {
+      const result = await bench('hand-written (baseline)', () => {
+        results.value = double(addOne(input))
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
 
-    bench('compose()', () => {
-      const fn = compose(double, addOne)
-      results.value = fn(input)
+    it('compose()', async ({bench}) => {
+      const result = await bench('compose()', () => {
+        const fn = compose(double, addOne)
+        results.value = fn(input)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 
   describe('3-function chain', () => {
-    bench('hand-written (baseline)', () => {
-      results.value = square(double(addOne(input)))
+    it('hand-written (baseline)', async ({bench}) => {
+      const result = await bench('hand-written (baseline)', () => {
+        results.value = square(double(addOne(input)))
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
 
-    bench('compose()', () => {
-      const fn = compose(square, double, addOne)
-      results.value = fn(input)
+    it('compose()', async ({bench}) => {
+      const result = await bench('compose()', () => {
+        const fn = compose(square, double, addOne)
+        results.value = fn(input)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 
   describe('5-function chain', () => {
-    bench('hand-written (baseline)', () => {
-      results.value = negate(half(square(double(addOne(input)))))
+    it('hand-written (baseline)', async ({bench}) => {
+      const result = await bench('hand-written (baseline)', () => {
+        results.value = negate(half(square(double(addOne(input)))))
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
 
-    bench('compose()', () => {
-      const fn = compose(negate, half, square, double, addOne)
-      results.value = fn(input)
+    it('compose()', async ({bench}) => {
+      const result = await bench('compose()', () => {
+        const fn = compose(negate, half, square, double, addOne)
+        results.value = fn(input)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 })
@@ -123,24 +165,36 @@ describe('pipe() vs hand-written - string operations', () => {
   const input = '  hello world  '
 
   describe('3-function chain', () => {
-    bench('hand-written (baseline)', () => {
-      results.value = addPrefix(toUpperCase(trim(input)))
+    it('hand-written (baseline)', async ({bench}) => {
+      const result = await bench('hand-written (baseline)', () => {
+        results.value = addPrefix(toUpperCase(trim(input)))
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
 
-    bench('pipe()', () => {
-      const fn = pipe(trim, toUpperCase, addPrefix)
-      results.value = fn(input)
+    it('pipe()', async ({bench}) => {
+      const result = await bench('pipe()', () => {
+        const fn = pipe(trim, toUpperCase, addPrefix)
+        results.value = fn(input)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 
   describe('5-function chain', () => {
-    bench('hand-written (baseline)', () => {
-      results.value = reverse(addSuffix(addPrefix(toUpperCase(trim(input)))))
+    it('hand-written (baseline)', async ({bench}) => {
+      const result = await bench('hand-written (baseline)', () => {
+        results.value = reverse(addSuffix(addPrefix(toUpperCase(trim(input)))))
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
 
-    bench('pipe()', () => {
-      const fn = pipe(trim, toUpperCase, addPrefix, addSuffix, reverse)
-      results.value = fn(input)
+    it('pipe()', async ({bench}) => {
+      const result = await bench('pipe()', () => {
+        const fn = pipe(trim, toUpperCase, addPrefix, addSuffix, reverse)
+        results.value = fn(input)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 })
@@ -152,13 +206,19 @@ describe('pipe() - pre-composed vs inline composition', () => {
   const preComposedPipe = pipe(addOne, double, square, half, negate)
 
   describe('5-function chain', () => {
-    bench('pre-composed pipe (reused function)', () => {
-      results.value = preComposedPipe(input)
+    it('pre-composed pipe (reused function)', async ({bench}) => {
+      const result = await bench('pre-composed pipe (reused function)', () => {
+        results.value = preComposedPipe(input)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
 
-    bench('inline composition (recreated each call)', () => {
-      const fn = pipe(addOne, double, square, half, negate)
-      results.value = fn(input)
+    it('inline composition (recreated each call)', async ({bench}) => {
+      const result = await bench('inline composition (recreated each call)', () => {
+        const fn = pipe(addOne, double, square, half, negate)
+        results.value = fn(input)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 })
@@ -167,29 +227,44 @@ describe('composition overhead analysis', () => {
   const input = 10
 
   describe('single function baseline', () => {
-    bench('direct call', () => {
-      results.value = addOne(input)
+    it('direct call', async ({bench}) => {
+      const result = await bench('direct call', () => {
+        results.value = addOne(input)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
 
-    bench('pipe (1 function)', () => {
-      const fn = pipe(addOne)
-      results.value = fn(input)
+    it('pipe (1 function)', async ({bench}) => {
+      const result = await bench('pipe (1 function)', () => {
+        const fn = pipe(addOne)
+        results.value = fn(input)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 
   describe('measuring reduce() overhead', () => {
-    bench('hand-written nested calls', () => {
-      results.value = square(double(addOne(input)))
+    it('hand-written nested calls', async ({bench}) => {
+      const result = await bench('hand-written nested calls', () => {
+        results.value = square(double(addOne(input)))
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
 
-    bench('array.reduce() simulation', () => {
-      const fns = [addOne, double, square] as const
-      results.value = fns.reduce((acc, fn) => fn(acc), input)
+    it('array.reduce() simulation', async ({bench}) => {
+      const result = await bench('array.reduce() simulation', () => {
+        const fns = [addOne, double, square] as const
+        results.value = fns.reduce((acc, fn) => fn(acc), input)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
 
-    bench('pipe() implementation', () => {
-      const fn = pipe(addOne, double, square)
-      results.value = fn(input)
+    it('pipe() implementation', async ({bench}) => {
+      const result = await bench('pipe() implementation', () => {
+        const fn = pipe(addOne, double, square)
+        results.value = fn(input)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 })
@@ -212,13 +287,19 @@ describe('real-world transformation scenarios', () => {
   const testUser: User = {name: 'John Doe', age: 30, email: 'John.Doe@Example.COM'}
 
   describe('object transformation pipeline', () => {
-    bench('hand-written (baseline)', () => {
-      results.value = addTimestamp(uppercaseName(incrementAge(normalizeEmail(testUser))))
+    it('hand-written (baseline)', async ({bench}) => {
+      const result = await bench('hand-written (baseline)', () => {
+        results.value = addTimestamp(uppercaseName(incrementAge(normalizeEmail(testUser))))
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
 
-    bench('pipe()', () => {
-      const fn = pipe(normalizeEmail, incrementAge, uppercaseName, addTimestamp)
-      results.value = fn(testUser)
+    it('pipe()', async ({bench}) => {
+      const result = await bench('pipe()', () => {
+        const fn = pipe(normalizeEmail, incrementAge, uppercaseName, addTimestamp)
+        results.value = fn(testUser)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 })
@@ -232,13 +313,19 @@ describe('array transformation scenarios', () => {
   const sum = (arr: number[]): number => arr.reduce((a, b) => a + b, 0)
 
   describe('array processing pipeline', () => {
-    bench('hand-written (baseline)', () => {
-      results.value = sum(take10(mapDouble(filterEven(numbers))))
+    it('hand-written (baseline)', async ({bench}) => {
+      const result = await bench('hand-written (baseline)', () => {
+        results.value = sum(take10(mapDouble(filterEven(numbers))))
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
 
-    bench('pipe()', () => {
-      const fn = pipe(filterEven, mapDouble, take10, sum)
-      results.value = fn(numbers)
+    it('pipe()', async ({bench}) => {
+      const result = await bench('pipe()', () => {
+        const fn = pipe(filterEven, mapDouble, take10, sum)
+        results.value = fn(numbers)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 })

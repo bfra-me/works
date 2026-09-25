@@ -34,10 +34,6 @@ export default defineConfig({
       },
     },
     pool: 'forks', // Better isolation for file system tests
-    poolOptions: {
-      forks: {
-        singleFork: true, // Prevent race conditions in file tests
-      },
-    },
+    maxWorkers: 1, // Prevent race conditions in file tests (was poolOptions.forks.singleFork)
   },
 } as ViteUserConfig)
