@@ -75,7 +75,7 @@ describe('confirmation', () => {
     })
 
     it('should exit when user cancels', async () => {
-      vi.mocked(clackPrompts.confirm).mockResolvedValueOnce(Symbol.for('cancel'))
+      vi.mocked(clackPrompts.confirm).mockResolvedValueOnce(clackPrompts.CANCEL_SYMBOL)
       vi.mocked(clackPrompts.isCancel).mockReturnValue(true)
 
       const {confirmationStep} = await import('../../src/prompts/confirmation.js')
@@ -319,7 +319,7 @@ describe('confirmation', () => {
     })
 
     it('should exit when user cancels modification', async () => {
-      vi.mocked(clackPrompts.confirm).mockResolvedValueOnce(Symbol.for('cancel'))
+      vi.mocked(clackPrompts.confirm).mockResolvedValueOnce(clackPrompts.CANCEL_SYMBOL)
       vi.mocked(clackPrompts.isCancel).mockReturnValue(true)
 
       const {confirmModification} = await import('../../src/prompts/confirmation.js')
@@ -379,7 +379,7 @@ describe('confirmation', () => {
     })
 
     it('should exit when user cancels feature addition', async () => {
-      vi.mocked(clackPrompts.confirm).mockResolvedValueOnce(Symbol.for('cancel'))
+      vi.mocked(clackPrompts.confirm).mockResolvedValueOnce(clackPrompts.CANCEL_SYMBOL)
       vi.mocked(clackPrompts.isCancel).mockReturnValue(true)
 
       const {confirmFeatureAddition} = await import('../../src/prompts/confirmation.js')

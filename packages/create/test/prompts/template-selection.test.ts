@@ -221,7 +221,7 @@ describe('template-selection', () => {
     })
 
     it('should handle cancellation during interactive selection', async () => {
-      vi.mocked(clackPrompts.select).mockResolvedValueOnce(Symbol.for('cancel'))
+      vi.mocked(clackPrompts.select).mockResolvedValueOnce(clackPrompts.CANCEL_SYMBOL)
       vi.mocked(clackPrompts.isCancel).mockReturnValue(true)
 
       const {templateSelection} = await import('../../src/prompts/template-selection.js')
@@ -261,7 +261,7 @@ describe('template-selection', () => {
     it('should handle cancellation during custom template input', async () => {
       vi.mocked(clackPrompts.select).mockResolvedValueOnce('custom')
       vi.mocked(clackPrompts.isCancel).mockReturnValueOnce(false).mockReturnValueOnce(true)
-      vi.mocked(clackPrompts.text).mockResolvedValueOnce(Symbol.for('cancel'))
+      vi.mocked(clackPrompts.text).mockResolvedValueOnce(clackPrompts.CANCEL_SYMBOL)
 
       const {templateSelection} = await import('../../src/prompts/template-selection.js')
 
