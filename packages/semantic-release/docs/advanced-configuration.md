@@ -1173,7 +1173,7 @@ export default createProgressiveConfig()
 
 ```typescript
 // Custom plugin with full TypeScript support
-import { PluginContext, PluginSpec } from '@bfra.me/semantic-release'
+import { defineConfig, PluginSpec } from '@bfra.me/semantic-release'
 
 interface CustomPluginConfig {
   webhookUrl: string
