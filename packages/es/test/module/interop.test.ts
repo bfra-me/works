@@ -342,7 +342,8 @@ describe('@bfra.me/es/module', () => {
     })
 
     it.concurrent('should work with scoped packages', () => {
-      expect(isPackageInScope('@vitest/expect')).toBe(true)
+      // `@vitest/coverage-v8` is a direct devDependency; `@vitest/expect` is only a phantom transitive one.
+      expect(isPackageInScope('@vitest/coverage-v8')).toBe(true)
     })
 
     it.concurrent('should return false for malformed scoped package', () => {

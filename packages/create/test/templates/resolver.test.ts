@@ -1,5 +1,5 @@
 import path from 'node:path'
-import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {beforeEach, describe, expect, it} from 'vitest'
 import {TemplateResolver} from '../../src/templates/resolver.js'
 import {testUtils} from '../test-utils.js'
 
@@ -402,22 +402,3 @@ describe('template resolver', () => {
     })
   })
 })
-
-// Mock GitHub API responses for testing
-export const mockGitHubApi = {
-  validRepository: {
-    setup() {
-      // This would be implemented with MSW or similar for actual API mocking
-      vi.mock('giget', () => ({
-        downloadTemplate: vi.fn().mockResolvedValue({
-          dir: '/tmp/mocked-template',
-          cleanup: vi.fn(),
-        }),
-      }))
-    },
-
-    teardown() {
-      vi.clearAllMocks()
-    },
-  },
-}

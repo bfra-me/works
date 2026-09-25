@@ -15,17 +15,18 @@ import {
   withSpinner,
 } from '../../src/utils/progress.js'
 
+vi.mock('consola', () => ({
+  consola: {
+    start: vi.fn(),
+    success: vi.fn(),
+    error: vi.fn(),
+    info: vi.fn(),
+    warn: vi.fn(),
+  },
+}))
+
 describe('Progress Utilities', () => {
   beforeEach(() => {
-    vi.mock('consola', () => ({
-      consola: {
-        start: vi.fn(),
-        success: vi.fn(),
-        error: vi.fn(),
-        info: vi.fn(),
-        warn: vi.fn(),
-      },
-    }))
     vi.spyOn(process.stdout, 'write').mockImplementation(() => true)
   })
 
