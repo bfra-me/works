@@ -1,3 +1,21 @@
+import {isArray} from '../../types/guards'
+
+/**
+ * Narrows an unknown value to a `Map` while preserving unknown key/value types,
+ * avoiding the implicit `any` widening that a bare `instanceof Map` check produces.
+ */
+function isMap(value: unknown): value is Map<unknown, unknown> {
+  return value instanceof Map
+}
+
+/**
+ * Narrows an unknown value to a `Set` while preserving an unknown element type,
+ * avoiding the implicit `any` widening that a bare `instanceof Set` check produces.
+ */
+function isSet(value: unknown): value is Set<unknown> {
+  return value instanceof Set
+}
+
 /**
  * Options for customizing cache key generation.
  */
@@ -67,7 +85,7 @@ export function createKeyResolver(args: unknown[], options: KeyResolverOptions =
       return '[fn]'
     }
 
-    if (Array.isArray(value)) {
+    if (isArray(value)) {
       const items = value.map(item => serialize(item, depth + 1))
       return `[${items.join(',')}]`
     }
@@ -80,14 +98,14 @@ export function createKeyResolver(args: unknown[], options: KeyResolverOptions =
       return value.toString()
     }
 
-    if (value instanceof Map) {
+    if (isMap(value)) {
       const entries = [...value.entries()]
         .sort(([a], [b]) => String(a).localeCompare(String(b)))
         .map(([k, v]) => `${serialize(k, depth + 1)}:${serialize(v, depth + 1)}`)
       return `Map{${entries.join(',')}}`
     }
 
-    if (value instanceof Set) {
+    if (isSet(value)) {
       const items = [...value].map(item => serialize(item, depth + 1)).sort()
       return `Set{${items.join(',')}}`
     }
