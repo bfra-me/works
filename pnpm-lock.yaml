@@ -184,9 +184,6 @@ importers:
       package-manager-detector:
         specifier: 1.8.0
         version: 1.8.0
-      semver:
-        specifier: 7.8.5
-        version: 7.8.5
     devDependencies:
       '@bfra.me/works':
         specifier: workspace:*
