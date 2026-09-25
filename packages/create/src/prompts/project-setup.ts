@@ -317,7 +317,8 @@ async function createNonInteractiveSetup(
  * Helper function to handle graceful cancellation
  */
 export function handleCancel<T>(result: T | symbol): T {
-  if (isCancel(result)) {
+  // isCancel narrows to `typeof CANCEL_SYMBOL` since @clack/core 1.5; typeof narrows the rest to T.
+  if (isCancel(result) || typeof result === 'symbol') {
     cancel('Operation cancelled')
     throw new Error('Process exit called')
   }
