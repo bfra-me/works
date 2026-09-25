@@ -1,5 +1,11 @@
 # @bfra.me/workspace-analyzer
 
+## 0.2.13
+
+### Patch Changes
+
+- Ignore `package.json` and `tsconfig.json` fields whose values have the wrong type instead of passing them through. ([#4836](https://github.com/bfra-me/works/pull/4836))
+
 ## 0.2.12
 
 ### Patch Changes
