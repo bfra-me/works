@@ -346,15 +346,23 @@ export class WorkspaceIntegrator {
   }
 
   /**
-   * Check if a package is already included in the workspace configuration.
+   * Locates the workspace entry line for a given package path, if present.
+   * Shared by isPackageInWorkspace and removePackageFromWorkspace.
    */
-  private isPackageInWorkspace(workspaceContent: string, packagePath: string): boolean {
+  private findPackageLineIndex(workspaceContent: string, packagePath: string): number {
     const lines = workspaceContent.split('\n')
-    return lines.some(
+    return lines.findIndex(
       line =>
         line.trim().startsWith('-') &&
         (line.includes(`"${packagePath}"`) || line.includes(`'${packagePath}'`)),
     )
+  }
+
+  /**
+   * Check if a package is already included in the workspace configuration.
+   */
+  private isPackageInWorkspace(workspaceContent: string, packagePath: string): boolean {
+    return this.findPackageLineIndex(workspaceContent, packagePath) !== -1
   }
 
   /**
@@ -403,6 +411,46 @@ export class WorkspaceIntegrator {
     lines.splice(insertIndex, 0, `  - "${packagePath}"`)
 
     return lines.join('\n')
+  }
+
+  /**
+   * Remove a package's entry from pnpm-workspace.yaml that was previously
+   * added by addPackageToWorkspace/updatePnpmWorkspace.
+   */
+  async removePackageFromWorkspace(
+    packagePath: string,
+    options: {verbose?: boolean} = {},
+  ): Promise<{success: boolean; removed: boolean; message?: string}> {
+    try {
+      if (!existsSync(this.config.pnpmWorkspace)) {
+        return {success: true, removed: false, message: 'pnpm-workspace.yaml not found'}
+      }
+
+      const relativePath = path.relative(this.config.workspaceRoot, packagePath)
+      const workspaceContent = await readFile(this.config.pnpmWorkspace, 'utf8')
+      const lineIndex = this.findPackageLineIndex(workspaceContent, relativePath)
+
+      if (lineIndex === -1) {
+        return {
+          success: true,
+          removed: false,
+          message: 'Package not found in workspace configuration',
+        }
+      }
+
+      const lines = workspaceContent.split('\n')
+      lines.splice(lineIndex, 1)
+      await writeFile(this.config.pnpmWorkspace, lines.join('\n'), 'utf8')
+
+      if (options.verbose) {
+        consola.success(`Removed ${relativePath} from pnpm-workspace.yaml`)
+      }
+
+      return {success: true, removed: true}
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error)
+      return {success: false, removed: false, message: errorMessage}
+    }
   }
 
   /**
