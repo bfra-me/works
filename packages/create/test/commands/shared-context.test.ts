@@ -30,27 +30,30 @@ describe('normalizeCreateOptions', () => {
     })
 
     expect(result).toMatchObject({
-      name: 'my-project',
-      template: 'library',
-      description: 'A test project',
-      author: 'Test Author',
-      version: '1.0.0',
-      outputDir: './my-project',
-      packageManager: 'pnpm',
-      skipPrompts: true,
-      force: false,
-      interactive: true,
-      verbose: false,
-      dryRun: false,
-      cwd: '/tmp/my-project',
-      templateRef: 'main',
-      templateSubdir: 'templates/library',
-      features: 'typescript,eslint',
-      git: true,
-      install: true,
-      preset: 'standard',
-      ai: true,
-      describe: 'A TypeScript library',
+      success: true,
+      data: {
+        name: 'my-project',
+        template: 'library',
+        description: 'A test project',
+        author: 'Test Author',
+        version: '1.0.0',
+        outputDir: './my-project',
+        packageManager: 'pnpm',
+        skipPrompts: true,
+        force: false,
+        interactive: true,
+        verbose: false,
+        dryRun: false,
+        cwd: '/tmp/my-project',
+        templateRef: 'main',
+        templateSubdir: 'templates/library',
+        features: 'typescript,eslint',
+        git: true,
+        install: true,
+        preset: 'standard',
+        ai: true,
+        describe: 'A TypeScript library',
+      },
     })
   })
 
@@ -61,9 +64,10 @@ describe('normalizeCreateOptions', () => {
       cwd: null,
     })
 
-    expect(result.description).toBeUndefined()
-    expect(result.author).toBeUndefined()
-    expect(result.cwd).toBeUndefined()
+    expect(result).toMatchObject({
+      success: true,
+      data: {description: undefined, author: undefined, cwd: undefined},
+    })
   })
 
   it('keeps numeric CLI values (coerced by cac/mri) as strings for string fields', () => {
@@ -81,15 +85,20 @@ describe('normalizeCreateOptions', () => {
       describe: 6,
     })
 
-    expect(result.template).toBe('123')
-    expect(result.version).toBe('1')
-    expect(result.description).toBe('2024')
-    expect(result.author).toBe('42')
-    expect(result.outputDir).toBe('1')
-    expect(result.cwd).toBe('5')
-    expect(result.templateRef).toBe('2')
-    expect(result.templateSubdir).toBe('3')
-    expect(result.describe).toBe('6')
+    expect(result).toMatchObject({
+      success: true,
+      data: {
+        template: '123',
+        version: '1',
+        description: '2024',
+        author: '42',
+        outputDir: '1',
+        cwd: '5',
+        templateRef: '2',
+        templateSubdir: '3',
+        describe: '6',
+      },
+    })
   })
 
   it('drops genuinely non-boolean values for boolean fields instead of leaking the wrong type', () => {
@@ -100,10 +109,10 @@ describe('normalizeCreateOptions', () => {
       ai: 'enabled',
     })
 
-    expect(result.skipPrompts).toBeUndefined()
-    expect(result.force).toBeUndefined()
-    expect(result.dryRun).toBeUndefined()
-    expect(result.ai).toBeUndefined()
+    expect(result).toMatchObject({
+      success: true,
+      data: {skipPrompts: undefined, force: undefined, dryRun: undefined, ai: undefined},
+    })
   })
 
   it('coerces "true"/"false" string values to real booleans for boolean fields', () => {
@@ -118,30 +127,43 @@ describe('normalizeCreateOptions', () => {
       ai: 'true',
     })
 
-    expect(result.skipPrompts).toBe(false)
-    expect(result.dryRun).toBe(true)
-    expect(result.verbose).toBe(true)
-    expect(result.force).toBe(false)
-    expect(result.ai).toBe(true)
+    expect(result).toMatchObject({
+      success: true,
+      data: {skipPrompts: false, dryRun: true, verbose: true, force: false, ai: true},
+    })
   })
 
-  it('throws the existing validation error for an unrecognized packageManager value instead of silently dropping it', () => {
-    expect(() => normalizeCreateOptions(undefined, {packageManager: 'nom'})).toThrow(
-      'Invalid package manager. Must be one of: npm, yarn, pnpm, bun',
-    )
+  it('returns the existing validation error for an unrecognized packageManager value instead of silently dropping it', () => {
+    const result = normalizeCreateOptions(undefined, {packageManager: 'nom'})
+
+    expect(result).toMatchObject({
+      success: false,
+      error: expect.objectContaining({
+        message: 'Invalid package manager. Must be one of: npm, yarn, pnpm, bun',
+      }),
+    })
   })
 
-  it('throws the existing validation error for an unrecognized preset value instead of silently dropping it', () => {
-    expect(() => normalizeCreateOptions(undefined, {preset: 'extreme'})).toThrow(
-      'Invalid preset: extreme. Must be one of: minimal, standard, full',
-    )
+  it('returns the existing validation error for an unrecognized preset value instead of silently dropping it', () => {
+    const result = normalizeCreateOptions(undefined, {preset: 'extreme'})
+
+    expect(result).toMatchObject({
+      success: false,
+      error: expect.objectContaining({
+        message: 'Invalid preset: extreme. Must be one of: minimal, standard, full',
+      }),
+    })
   })
 
   it('normalizes packageManager casing and whitespace the same way validatePackageManager does', () => {
-    expect(normalizeCreateOptions(undefined, {packageManager: 'PNPM'}).packageManager).toBe('pnpm')
-    expect(normalizeCreateOptions(undefined, {packageManager: ' pnpm '}).packageManager).toBe(
-      'pnpm',
-    )
+    expect(normalizeCreateOptions(undefined, {packageManager: 'PNPM'})).toMatchObject({
+      success: true,
+      data: {packageManager: 'pnpm'},
+    })
+    expect(normalizeCreateOptions(undefined, {packageManager: ' pnpm '})).toMatchObject({
+      success: true,
+      data: {packageManager: 'pnpm'},
+    })
   })
 
   it('treats any non-false value as truthy for interactive/git/install flags', () => {
@@ -151,15 +173,16 @@ describe('normalizeCreateOptions', () => {
       install: 0,
     })
 
-    expect(result.interactive).toBe(true)
-    expect(result.git).toBe(true)
-    expect(result.install).toBe(true)
+    expect(result).toMatchObject({
+      success: true,
+      data: {interactive: true, git: true, install: true},
+    })
   })
 
   it('normalizes an empty features string to an empty string', () => {
     const result = normalizeCreateOptions(undefined, {})
 
-    expect(result.features).toBe('')
+    expect(result).toMatchObject({success: true, data: {features: ''}})
   })
 })
 

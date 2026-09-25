@@ -135,23 +135,26 @@ function isPreset(value: string): value is (typeof PRESETS)[number] {
 /**
  * Narrows an unknown raw option value to a known configuration preset.
  *
- * A provided-but-invalid value throws the same `Invalid preset: ... Must be
- * one of: ...` error that `validateCreateOptions`/`validateCreateCommandOptions`
- * produce, so a typo like `--preset stadnard` still fails validation instead
- * of silently narrowing to `undefined` and falling back to defaults.
+ * A provided-but-invalid value resolves to the same `Invalid preset: ...
+ * Must be one of: ...` error that `validateCreateOptions`/
+ * `validateCreateCommandOptions` produce, so a typo like `--preset stadnard`
+ * still fails validation instead of silently narrowing to `undefined` and
+ * falling back to defaults.
  */
-function resolvePreset(value: unknown): 'minimal' | 'standard' | 'full' | undefined {
+function resolvePreset(value: unknown): Result<'minimal' | 'standard' | 'full' | undefined, Error> {
   const stringValue = toOptionalString(value)
   if (stringValue === undefined) {
-    return undefined
+    return ok(undefined)
   }
   if (!isPreset(stringValue)) {
-    throw createCLIError(
-      `Invalid preset: ${stringValue}. Must be one of: ${PRESETS.join(', ')}`,
-      CLIErrorCode.INVALID_INPUT,
+    return err(
+      createCLIError(
+        `Invalid preset: ${stringValue}. Must be one of: ${PRESETS.join(', ')}`,
+        CLIErrorCode.INVALID_INPUT,
+      ),
     )
   }
-  return stringValue
+  return ok(stringValue)
 }
 
 /**
@@ -159,38 +162,50 @@ function resolvePreset(value: unknown): 'minimal' | 'standard' | 'full' | undefi
  *
  * Reuses `validatePackageManager` so casing/whitespace (`--package-manager
  * PNPM`) is normalized exactly like the rest of the validation pipeline, and
- * a provided-but-invalid value throws the same validation error instead of
- * silently narrowing to `undefined`.
+ * a provided-but-invalid value resolves to the same validation error instead
+ * of silently narrowing to `undefined`.
  */
-function resolvePackageManager(value: unknown): 'npm' | 'yarn' | 'pnpm' | 'bun' | undefined {
+function resolvePackageManager(
+  value: unknown,
+): Result<'npm' | 'yarn' | 'pnpm' | 'bun' | undefined, Error> {
   const stringValue = toOptionalString(value)
   if (stringValue === undefined) {
-    return undefined
+    return ok(undefined)
   }
-  const result = validatePackageManager(stringValue)
-  if (!result.success) {
-    throw result.error
-  }
-  return result.data
+  return validatePackageManager(stringValue)
 }
 
 /**
- * Normalizes raw CLI options into CreateCommandOptions
+ * Normalizes raw CLI options into CreateCommandOptions.
+ *
+ * Returns an `Err` with the same message the existing validators produce
+ * when `preset` or `packageManager` is provided but invalid, rather than
+ * throwing -- invalid user input is an expected error, not an exceptional one.
  */
 export function normalizeCreateOptions(
   projectName: string | undefined,
   rawOptions: Record<string, unknown>,
-): CreateCommandOptions {
+): Result<CreateCommandOptions, Error> {
   const features = parseFeatures(toOptionalString(rawOptions.features))
 
-  return {
+  const packageManagerResult = resolvePackageManager(rawOptions.packageManager)
+  if (!packageManagerResult.success) {
+    return packageManagerResult
+  }
+
+  const presetResult = resolvePreset(rawOptions.preset)
+  if (!presetResult.success) {
+    return presetResult
+  }
+
+  return ok({
     name: projectName,
     template: toOptionalString(rawOptions.template),
     description: toOptionalString(rawOptions.description),
     author: toOptionalString(rawOptions.author),
     version: toOptionalString(rawOptions.version),
     outputDir: toOptionalString(rawOptions.outputDir),
-    packageManager: resolvePackageManager(rawOptions.packageManager),
+    packageManager: packageManagerResult.data,
     skipPrompts: toOptionalBoolean(rawOptions.skipPrompts),
     force: toOptionalBoolean(rawOptions.force),
     interactive: rawOptions.interactive !== false,
@@ -202,10 +217,10 @@ export function normalizeCreateOptions(
     features: features.join(','),
     git: rawOptions.git !== false,
     install: rawOptions.install !== false,
-    preset: resolvePreset(rawOptions.preset),
+    preset: presetResult.data,
     ai: toOptionalBoolean(rawOptions.ai),
     describe: toOptionalString(rawOptions.describe),
-  }
+  })
 }
 
 /**
@@ -277,12 +292,11 @@ export function validateAndTransformOptions(
   rawOptions: Record<string, unknown>,
   projectName?: string,
 ): Result<CreateCommandOptions, Error> {
-  try {
-    const normalized = normalizeCreateOptions(projectName, rawOptions)
-    return validateCreateCommandOptions(normalized)
-  } catch (error) {
-    return err(error instanceof Error ? error : new Error(String(error)))
+  const normalized = normalizeCreateOptions(projectName, rawOptions)
+  if (!normalized.success) {
+    return normalized
   }
+  return validateCreateCommandOptions(normalized.data)
 }
 
 /**
