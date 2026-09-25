@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json.schemastore.org/tsconfig",
+  "extends": "./packages/tsconfig/tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@bfra.me/badge-config": ["./packages/badge-config/src"],
+      "@bfra.me/badge-config/*": ["./packages/badge-config/src/*"],
+      "@bfra.me/create": ["./packages/create/src"],
+      "@bfra.me/create/*": ["./packages/create/src/*"],
+      "@bfra.me/doc-sync": ["./packages/doc-sync/src"],
+      "@bfra.me/doc-sync/*": ["./packages/doc-sync/src/*"],
+      "@bfra.me/es": ["./packages/es/src"],
+      "@bfra.me/es/*": ["./packages/es/src/*"],
+      "@bfra.me/eslint-config": ["./packages/eslint-config/src"],
+      "@bfra.me/eslint-config/*": ["./packages/eslint-config/src/*"],
+      "@bfra.me/prettier-config": ["./packages/prettier-config/src"],
+      "@bfra.me/prettier-config/*": ["./packages/prettier-config/src/*"],
+      "@bfra.me/semantic-release": ["./packages/semantic-release/src"],
+      "@bfra.me/semantic-release/*": ["./packages/semantic-release/src/*"],
+      "@bfra.me/workspace-analyzer": ["./packages/workspace-analyzer/src"],
+      "@bfra.me/workspace-analyzer/*": ["./packages/workspace-analyzer/src/*"]
+    },
+    "noEmit": true
+  },
+  "include": [
+    "packages/*/src/**/*.ts",
+    "packages/*/src/**/*.tsx",
+    "packages/*/test/**/*.ts",
+    "packages/*/test/**/*.tsx",
+    "scripts/src/**/*.ts",
+    "scripts/test/**/*.ts"
+  ],
+  "exclude": [
+    "**/node_modules/**",
+    "**/lib/**",
+    "**/dist/**",
+    "**/test/fixtures/**",
+    "**/test/_fixtures/**"
+  ]
+}

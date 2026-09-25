@@ -136,7 +136,7 @@ describe('@bfra.me/es/patterns - Best Practices Validation', () => {
 
       it.concurrent('should pass through Err with map', () => {
         const result: Result<number, string> = err('failed')
-        const doubled = map(result, x => x * 2)
+        const doubled = map(result, (x: number) => x * 2)
 
         expect(isErr(doubled) && doubled.error).toBe('failed')
       })

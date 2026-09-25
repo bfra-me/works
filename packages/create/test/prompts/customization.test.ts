@@ -224,10 +224,13 @@ describe('projectCustomization', () => {
       expect(callParams?.validate).toBeDefined()
 
       const validateFn = callParams?.validate
-      expect(validateFn?.('invalid')).toBe('Version must follow semver format (e.g., 1.0.0)')
-      expect(validateFn?.('')).toBe('Version is required')
-      expect(validateFn?.('1.0.0')).toBeUndefined()
-      expect(validateFn?.('2.1.0-beta.1')).toBeUndefined()
+      if (typeof validateFn !== 'function') {
+        throw new TypeError('Expected validate to be a function')
+      }
+      expect(validateFn('invalid')).toBe('Version must follow semver format (e.g., 1.0.0)')
+      expect(validateFn('')).toBe('Version is required')
+      expect(validateFn('1.0.0')).toBeUndefined()
+      expect(validateFn('2.1.0-beta.1')).toBeUndefined()
     })
 
     it('should use default version when not provided', async () => {
@@ -460,9 +463,12 @@ describe('projectCustomization', () => {
       expect(callParams?.validate).toBeDefined()
 
       const validateFn = callParams?.validate
-      expect(validateFn?.('')).toBe('Output directory is required')
-      expect(validateFn?.('   ')).toBe('Output directory is required')
-      expect(validateFn?.('./valid-dir')).toBeUndefined()
+      if (typeof validateFn !== 'function') {
+        throw new TypeError('Expected validate to be a function')
+      }
+      expect(validateFn('')).toBe('Output directory is required')
+      expect(validateFn('   ')).toBe('Output directory is required')
+      expect(validateFn('./valid-dir')).toBeUndefined()
     })
 
     it('should handle user cancellation in output directory prompt', async () => {

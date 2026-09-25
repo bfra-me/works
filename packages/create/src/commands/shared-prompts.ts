@@ -89,6 +89,9 @@ export async function promptText(config: TextPromptConfig): Promise<Result<strin
       if (required && (value == null || value.trim().length === 0)) {
         return 'This field is required'
       }
+      if (value == null) {
+        return undefined
+      }
       return validate?.(value)
     },
   })
@@ -111,6 +114,9 @@ export async function promptTextOrExit(config: TextPromptConfig): Promise<string
     validate: value => {
       if (config.required && (value == null || value.trim().length === 0)) {
         return 'This field is required'
+      }
+      if (value == null) {
+        return undefined
       }
       return config.validate?.(value)
     },
