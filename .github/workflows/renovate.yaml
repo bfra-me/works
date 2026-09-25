@@ -26,6 +26,9 @@ on:
     branches: [main]
     types: [completed]
 
+permissions:
+  contents: read
+
 jobs:
   renovate:
     if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'

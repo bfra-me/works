@@ -6,11 +6,17 @@ on:
   pull_request_target:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   create-changeset:
     name: Create Renovate Changeset
     runs-on: ubuntu-latest
     if: github.repository == 'bfra-me/works' && ( github.actor == 'bfra-me[bot]' || github.actor == 'renovate[bot]' || github.event_name == 'workflow_dispatch' )
+    permissions:
+      contents: read
+      pull-requests: read
     steps:
       - id: get-workflow-access-token
         name: Get Workflow Access Token
