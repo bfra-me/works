@@ -18,6 +18,7 @@ import type {
   ReExport,
   SyncError,
 } from '../types'
+import {isArray} from '@bfra.me/es/types'
 
 export function isParseError(value: unknown): value is ParseError {
   if (typeof value !== 'object' || value === null) {
@@ -97,16 +98,14 @@ export function isJSDocInfo(value: unknown): value is JSDocInfo {
 
   return (
     (obj.description === undefined || typeof obj.description === 'string') &&
-    (obj.params === undefined || (Array.isArray(obj.params) && obj.params.every(isJSDocParam))) &&
+    (obj.params === undefined || (isArray(obj.params) && obj.params.every(isJSDocParam))) &&
     (obj.returns === undefined || typeof obj.returns === 'string') &&
     (obj.examples === undefined ||
-      (Array.isArray(obj.examples) && obj.examples.every(e => typeof e === 'string'))) &&
+      (isArray(obj.examples) && obj.examples.every(e => typeof e === 'string'))) &&
     (obj.deprecated === undefined || typeof obj.deprecated === 'string') &&
     (obj.since === undefined || typeof obj.since === 'string') &&
-    (obj.see === undefined ||
-      (Array.isArray(obj.see) && obj.see.every(s => typeof s === 'string'))) &&
-    (obj.customTags === undefined ||
-      (Array.isArray(obj.customTags) && obj.customTags.every(isJSDocTag)))
+    (obj.see === undefined || (isArray(obj.see) && obj.see.every(s => typeof s === 'string'))) &&
+    (obj.customTags === undefined || (isArray(obj.customTags) && obj.customTags.every(isJSDocTag)))
   )
 }
 
@@ -122,7 +121,7 @@ export function isExportedFunction(value: unknown): value is ExportedFunction {
     typeof obj.signature === 'string' &&
     typeof obj.isAsync === 'boolean' &&
     typeof obj.isGenerator === 'boolean' &&
-    Array.isArray(obj.parameters) &&
+    isArray(obj.parameters) &&
     typeof obj.returnType === 'string' &&
     typeof obj.isDefault === 'boolean'
   )
@@ -153,8 +152,7 @@ export function isReExport(value: unknown): value is ReExport {
 
   return (
     typeof obj.from === 'string' &&
-    (obj.exports === '*' ||
-      (Array.isArray(obj.exports) && obj.exports.every(e => typeof e === 'string')))
+    (obj.exports === '*' || (isArray(obj.exports) && obj.exports.every(e => typeof e === 'string')))
   )
 }
 
@@ -166,11 +164,11 @@ export function isPackageAPI(value: unknown): value is PackageAPI {
   const obj = value as Record<string, unknown>
 
   return (
-    Array.isArray(obj.functions) &&
+    isArray(obj.functions) &&
     obj.functions.every(isExportedFunction) &&
-    Array.isArray(obj.types) &&
+    isArray(obj.types) &&
     obj.types.every(isExportedType) &&
-    Array.isArray(obj.reExports) &&
+    isArray(obj.reExports) &&
     obj.reExports.every(isReExport)
   )
 }
@@ -187,8 +185,7 @@ export function isDocConfigSource(value: unknown): value is DocConfigSource {
     (obj.description === undefined || typeof obj.description === 'string') &&
     (obj.sidebar === undefined || typeof obj.sidebar === 'object') &&
     (obj.excludeSections === undefined ||
-      (Array.isArray(obj.excludeSections) &&
-        obj.excludeSections.every(s => typeof s === 'string'))) &&
+      (isArray(obj.excludeSections) && obj.excludeSections.every(s => typeof s === 'string'))) &&
     (obj.frontmatter === undefined || typeof obj.frontmatter === 'object')
   )
 }
@@ -207,7 +204,7 @@ export function isPackageInfo(value: unknown): value is PackageInfo {
     typeof obj.srcPath === 'string' &&
     (obj.description === undefined || typeof obj.description === 'string') &&
     (obj.keywords === undefined ||
-      (Array.isArray(obj.keywords) && obj.keywords.every(k => typeof k === 'string'))) &&
+      (isArray(obj.keywords) && obj.keywords.every(k => typeof k === 'string'))) &&
     (obj.readmePath === undefined || typeof obj.readmePath === 'string') &&
     (obj.docsConfig === undefined || isDocConfigSource(obj.docsConfig))
   )
@@ -226,7 +223,7 @@ export function isReadmeSection(value: unknown): value is ReadmeSection {
     obj.level >= 1 &&
     obj.level <= 6 &&
     typeof obj.content === 'string' &&
-    Array.isArray(obj.children) &&
+    isArray(obj.children) &&
     obj.children.every(isReadmeSection)
   )
 }
@@ -241,7 +238,7 @@ export function isReadmeContent(value: unknown): value is ReadmeContent {
   return (
     (obj.title === undefined || typeof obj.title === 'string') &&
     (obj.preamble === undefined || typeof obj.preamble === 'string') &&
-    Array.isArray(obj.sections) &&
+    isArray(obj.sections) &&
     obj.sections.every(isReadmeSection) &&
     typeof obj.raw === 'string'
   )
