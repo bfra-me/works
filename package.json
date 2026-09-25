@@ -76,7 +76,7 @@
     "@svitejs/changesets-changelog-github-compact": "1.2.0",
     "@types/fs-extra": "11.0.4",
     "@types/node": "24.13.4",
-    "@vitest/coverage-v8": "4.1.11",
+    "@vitest/coverage-v8": "5.0.1",
     "eslint": "10.11.0",
     "execa": "10.0.1",
     "fast-glob": "3.3.3",
@@ -94,7 +94,7 @@
     "type-fest": "5.10.0",
     "typescript": "6.0.3",
     "vite-tsconfig-paths": "6.1.1",
-    "vitest": "4.1.11",
+    "vitest": "5.0.1",
     "zod": "4.6.5"
   },
   "packageManager": "pnpm@12.6.0",
