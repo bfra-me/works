@@ -72,7 +72,7 @@
     "@changesets/cli": "3.0.3",
     "@eslint/config-inspector": "3.5.0",
     "@manypkg/cli": "0.25.1",
-    "@microsoft/api-extractor": "7.59.1",
+    "@microsoft/api-extractor": "7.59.2",
     "@svitejs/changesets-changelog-github-compact": "1.2.0",
     "@types/fs-extra": "11.0.4",
     "@types/node": "24.13.4",
