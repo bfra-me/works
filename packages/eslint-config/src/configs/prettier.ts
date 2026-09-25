@@ -1,6 +1,7 @@
 import type {Config} from '../config'
 import type {Flatten, OptionsIsInEditor, OptionsOverrides} from '../options'
 import process from 'node:process'
+import {isPackageExists} from 'local-pkg'
 import {GLOB_EXT_IN_MARKDOWN_FILES, GLOB_MARKDOWN_FILES, GLOB_TOML_FILES} from '../globs'
 import {requireOf} from '../require-of'
 import {interopDefault} from '../utils'
@@ -94,9 +95,12 @@ export async function prettier(options: PrettierOptions = {}): Promise<Config[]>
           name: '@bfra.me/prettier/toml',
           files: GLOB_TOML_FILES,
           rules: {
-            // TODO: Detect if the TOML plugin for Prettier is installed
-            // and if so, use the Prettier rules
-            'prettier/prettier': 'off',
+            // Pass the plugin explicitly: consumers may not list it in their Prettier config.
+            // Resolve from the consumer's project root (not this package's install dir), since
+            // Prettier plugins are expected to live in the consumer's node_modules.
+            'prettier/prettier': isPackageExists('prettier-plugin-toml')
+              ? [isInEditor ? 'warn' : 'error', {parser: 'toml', plugins: ['prettier-plugin-toml']}]
+              : 'off',
           },
         },
         {
