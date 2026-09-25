@@ -98,8 +98,7 @@ describe('projectCustomization', () => {
     })
 
     it('should handle user cancellation in description prompt', async () => {
-      const cancelSymbol = Symbol('cancel')
-      vi.mocked(clackPrompts.text).mockResolvedValueOnce(cancelSymbol)
+      vi.mocked(clackPrompts.text).mockResolvedValueOnce(clackPrompts.CANCEL_SYMBOL)
       vi.mocked(clackPrompts.isCancel).mockReturnValueOnce(true)
       vi.mocked(clackPrompts.cancel).mockImplementation(() => undefined)
 
@@ -163,9 +162,8 @@ describe('projectCustomization', () => {
     })
 
     it('should handle user cancellation in author prompt', async () => {
-      const cancelSymbol = Symbol('cancel')
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('Description')
-      vi.mocked(clackPrompts.text).mockResolvedValueOnce(cancelSymbol)
+      vi.mocked(clackPrompts.text).mockResolvedValueOnce(clackPrompts.CANCEL_SYMBOL)
       vi.mocked(clackPrompts.isCancel).mockReturnValueOnce(false).mockReturnValueOnce(true)
       vi.mocked(clackPrompts.cancel).mockImplementation(() => undefined)
 
@@ -252,10 +250,9 @@ describe('projectCustomization', () => {
     })
 
     it('should handle user cancellation in version prompt', async () => {
-      const cancelSymbol = Symbol('cancel')
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('Description')
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('Author')
-      vi.mocked(clackPrompts.text).mockResolvedValueOnce(cancelSymbol)
+      vi.mocked(clackPrompts.text).mockResolvedValueOnce(clackPrompts.CANCEL_SYMBOL)
       vi.mocked(clackPrompts.isCancel)
         .mockReturnValueOnce(false)
         .mockReturnValueOnce(false)
@@ -370,12 +367,11 @@ describe('projectCustomization', () => {
     })
 
     it('should handle user cancellation in package manager prompt', async () => {
-      const cancelSymbol = Symbol('cancel')
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('Description')
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('Author')
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('1.0.0')
       vi.mocked(packageManagerDetector.detect).mockResolvedValue({name: 'npm'} as never)
-      vi.mocked(clackPrompts.select).mockResolvedValue(cancelSymbol)
+      vi.mocked(clackPrompts.select).mockResolvedValue(clackPrompts.CANCEL_SYMBOL)
       vi.mocked(clackPrompts.isCancel)
         .mockReturnValueOnce(false)
         .mockReturnValueOnce(false)
@@ -472,11 +468,10 @@ describe('projectCustomization', () => {
     })
 
     it('should handle user cancellation in output directory prompt', async () => {
-      const cancelSymbol = Symbol('cancel')
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('Description')
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('Author')
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('1.0.0')
-      vi.mocked(clackPrompts.text).mockResolvedValueOnce(cancelSymbol)
+      vi.mocked(clackPrompts.text).mockResolvedValueOnce(clackPrompts.CANCEL_SYMBOL)
       vi.mocked(packageManagerDetector.detect).mockResolvedValue({name: 'npm'} as never)
       vi.mocked(clackPrompts.isCancel)
         .mockReturnValueOnce(false)
@@ -563,14 +558,13 @@ describe('projectCustomization', () => {
     })
 
     it('should handle user cancellation in features selection', async () => {
-      const cancelSymbol = Symbol('cancel')
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('Description')
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('Author')
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('1.0.0')
       vi.mocked(clackPrompts.text).mockResolvedValueOnce('./test-project')
       vi.mocked(packageManagerDetector.detect).mockResolvedValue({name: 'npm'} as never)
       vi.mocked(clackPrompts.select).mockResolvedValue('npm')
-      vi.mocked(clackPrompts.multiselect).mockResolvedValue(cancelSymbol)
+      vi.mocked(clackPrompts.multiselect).mockResolvedValue(clackPrompts.CANCEL_SYMBOL)
       vi.mocked(clackPrompts.isCancel)
         .mockReturnValueOnce(false)
         .mockReturnValueOnce(false)

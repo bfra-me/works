@@ -1,31 +1,45 @@
 import type {CreateCommandOptions} from '../../src/types.js'
 import {ok} from '@bfra.me/es/result'
-import {confirm, intro, isCancel, multiselect, outro, select, text} from '@clack/prompts'
+import {
+  CANCEL_SYMBOL,
+  confirm,
+  intro,
+  isCancel,
+  multiselect,
+  outro,
+  select,
+  text,
+} from '@clack/prompts'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest'
 import {projectSetup} from '../../src/prompts/project-setup.js'
 import {testUtils} from '../test-utils.js'
 
-// Mock @clack/prompts
-vi.mock('@clack/prompts', () => ({
-  intro: vi.fn(),
-  outro: vi.fn(),
-  confirm: vi.fn(),
-  text: vi.fn(),
-  select: vi.fn(),
-  multiselect: vi.fn(),
-  isCancel: vi.fn(),
-  cancel: vi.fn(),
-  spinner: vi.fn(() => ({
-    start: vi.fn(),
-    stop: vi.fn(),
-    message: vi.fn(),
-  })),
-  log: {
-    info: vi.fn(),
-    warn: vi.fn(),
-    error: vi.fn(),
-  },
-}))
+// Mock @clack/prompts, preserving the real CANCEL_SYMBOL so mocked prompt
+// results stay correctly typed and behave like an actual cancellation.
+vi.mock('@clack/prompts', async () => {
+  const actual = await vi.importActual<typeof import('@clack/prompts')>('@clack/prompts')
+  return {
+    intro: vi.fn(),
+    outro: vi.fn(),
+    confirm: vi.fn(),
+    text: vi.fn(),
+    select: vi.fn(),
+    multiselect: vi.fn(),
+    isCancel: vi.fn(),
+    cancel: vi.fn(),
+    spinner: vi.fn(() => ({
+      start: vi.fn(),
+      stop: vi.fn(),
+      message: vi.fn(),
+    })),
+    log: {
+      info: vi.fn(),
+      warn: vi.fn(),
+      error: vi.fn(),
+    },
+    CANCEL_SYMBOL: actual.CANCEL_SYMBOL,
+  }
+})
 
 // Mock project-specific modules
 vi.mock('../../src/prompts/template-selection.js', () => ({
@@ -161,7 +175,7 @@ describe('cLI interaction prompts', () => {
     })
 
     it('handles cancellation in project name prompt', async () => {
-      vi.mocked(text).mockResolvedValue(Symbol('CANCEL'))
+      vi.mocked(text).mockResolvedValue(CANCEL_SYMBOL)
       vi.mocked(isCancel).mockReturnValue(true)
 
       await expect(projectSetup({interactive: true})).rejects.toThrow('Process exit called')
