@@ -122,7 +122,6 @@ interface GlobalConfig {
 
 - Comprehensive plugin-specific TypeScript interfaces
 - Runtime validation for plugin configurations
-- Plugin registry with discovery and validation
 
 ## Migration Steps
 

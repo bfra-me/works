@@ -13,7 +13,7 @@ A comprehensive guide to developing semantic-release plugins with TypeScript sup
 - [Plugin Testing](#plugin-testing)
 - [Advanced Plugin Patterns](#advanced-plugin-patterns)
 - [Configuration and Validation](#configuration-and-validation)
-- [Plugin Registry Integration](#plugin-registry-integration)
+- [Plugin Metadata](#plugin-metadata)
 - [Publishing and Distribution](#publishing-and-distribution)
 - [Real-World Examples](#real-world-examples)
 - [Best Practices](#best-practices)
@@ -392,18 +392,6 @@ const plugin: PluginDefinition<MyPluginConfig> = {
 
 export default plugin
 export type { MyPluginConfig }
-```
-
-### Step 3: Add Type Declarations
-
-Create type declarations for integration with `@bfra.me/semantic-release`. Create `src/index.d.ts`:
-
-```typescript
-declare module '@bfra.me/semantic-release' {
-  export interface CustomPluginRegistry {
-    'semantic-release-my-plugin': import('./types.js').MyPluginConfig
-  }
-}
 ```
 
 ## Using the Template Generator
@@ -928,59 +916,9 @@ function getAuthHeaders(auth: PluginConfig['auth']) {
 }
 ```
 
-## Plugin Registry Integration
+## Plugin Metadata
 
-### Registering Your Plugin Types
-
-Create type declarations for seamless integration:
-
-```typescript
-// src/types.d.ts
-declare module '@bfra.me/semantic-release' {
-  export interface CustomPluginRegistry {
-    'semantic-release-my-plugin': {
-      apiUrl: string
-      apiKey: string
-      timeout?: number
-      retries?: number
-      auth: {
-        type: 'bearer' | 'basic' | 'custom'
-        credentials?: string
-        customHeaders?: Record<string, string>
-      }
-      publishing: {
-        enabled?: boolean
-        targets: Array<{
-          name: string
-          url: string
-          format: 'json' | 'xml' | 'form'
-          headers?: Record<string, string>
-        }>
-        notifications?: {
-          slack?: {
-            webhook: string
-            channel?: string
-          }
-          email?: {
-            recipients: string[]
-            template?: string
-          }
-        }
-      }
-      environments?: Record<string, Partial<{
-        apiUrl: string
-        timeout: number
-        publishing: {
-          enabled: boolean
-          targets: string[]
-        }
-      }>>
-    }
-  }
-}
-```
-
-### Plugin Discovery and Metadata
+Attach discovery metadata to your plugin definition so tooling and consumers can identify it:
 
 ```typescript
 import type { PluginDefinition } from '@bfra.me/semantic-release/plugins'
