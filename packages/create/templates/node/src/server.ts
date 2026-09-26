@@ -1,3 +1,5 @@
+import {pathToFileURL} from 'node:url'
+
 import Fastify from 'fastify'
 
 /**
@@ -24,6 +26,6 @@ async function start(): Promise<void> {
   }
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] !== undefined && import.meta.url === pathToFileURL(process.argv[1]).href) {
   void start()
 }

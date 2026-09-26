@@ -112,7 +112,7 @@ describe('create command', () => {
         packageManager: 'npm',
         author: 'Node Developer',
         description: 'Test Node.js application',
-        features: 'typescript,express',
+        features: 'typescript,fastify',
       }
 
       const result = await createPackage(options)
