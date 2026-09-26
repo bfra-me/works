@@ -1,5 +1,31 @@
 # @bfra.me/create
 
+## 0.8.3
+
+### Patch Changes
+
+- Fix the `cli` template's `cac` dependency, which pinned a version that doesn't exist on npm. ([#4868](https://github.com/bfra-me/works/pull/4868))
+
+- Fix the `library` template's `eslint.config.ts` and the ESLint feature generator (`generateESLintConfig` in `src/features/eslint.ts`), both of which set `typescript.typeAware: true` even though `@bfra.me/eslint-config`'s `typeAware` option only accepts an overrides object, not a boolean. Providing `tsconfigPath` already enables type-aware linting, so the invalid option is removed from both. ([#4877](https://github.com/bfra-me/works/pull/4877))
+
+- Fix the `node` template server to use Fastify, its declared dependency. ([#4875](https://github.com/bfra-me/works/pull/4875))
+
+- Normalize CLI option types: numeric values are kept as strings, `--skip-prompts false` and `--dry-run false` are respected, `packageManager` is case-insensitive, and invalid `preset`/`packageManager` values report a validation error instead of being ignored. ([#4835](https://github.com/bfra-me/works/pull/4835))
+
+- Scaffolded projects use Vitest 5. ([#4869](https://github.com/bfra-me/works/pull/4869))
+
+- Updated dependency `dotenv` to `18.0.2`. ([#4841](https://github.com/bfra-me/works/pull/4841))
+
+- Updated dependency `openai` to `7.22.0`. ([#4863](https://github.com/bfra-me/works/pull/4863))
+
+- Updated dependency `openai` to `7.22.0`. ([#4861](https://github.com/bfra-me/works/pull/4861))
+
+- Updated dependency `@anthropic-ai/sdk` to `0.128.0`. ([#4857](https://github.com/bfra-me/works/pull/4857))
+
+- Updated dependency `memfs` to `4.79.0`. ([#4853](https://github.com/bfra-me/works/pull/4853))
+
+- Updated dependency `dotenv` to `18.0.3`. ([#4849](https://github.com/bfra-me/works/pull/4849))
+
 ## 0.8.2
 
 ### Patch Changes
