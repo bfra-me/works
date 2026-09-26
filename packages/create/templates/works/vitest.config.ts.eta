@@ -54,9 +54,6 @@ export default defineConfig({
         'src/**/*.spec.ts'
       ]
     },
-    // Dependency handling: `deps.inline` moved under `server.deps.inline` in
-    // Vitest 4+ (the top-level `test.deps.inline`/`test.deps.external` keys
-    // were removed; `test.deps` now only covers dependency optimization).
     server: {
       deps: {
         inline: [
@@ -64,12 +61,7 @@ export default defineConfig({
         ]
       }
     },
-    // Browser configuration for component testing. Vitest 4+'s Browser
-    // Provider Rework moved the browser name/engine selection into
-    // `instances` (each with its own `provider`); the old flat `name` field
-    // is no longer part of `BrowserConfigOptions`, so it's dropped here.
-    // `enabled`/`headless` are unaffected and still apply once `instances`
-    // and a `provider` (e.g. `@vitest/browser-playwright`) are configured.
+    // Browser configuration for component testing
     browser: {
       enabled: false, // Enable if needed for browser tests
       headless: true
