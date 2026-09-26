@@ -1,0 +1,82 @@
+# Weekly performance regression check for @bfra.me/es benchmarks.
+---
+name: Benchmarks
+
+on:
+  schedule:
+    - cron: '0 6 * * 1' # Every Monday at 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  benchmark:
+    name: Run es benchmarks
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      actions: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Prepare job
+        uses: ./.github/actions/pnpm-install
+
+      - name: Find previous baseline
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          BASELINE_DIR: ${{ runner.temp }}/baseline
+        run: |
+          mkdir -p "$BASELINE_DIR"
+
+          run_id="$(gh run list \
+            --repo "$REPOSITORY" \
+            --workflow benchmarks.yaml \
+            --branch main \
+            --status success \
+            --json databaseId \
+            --jq '.[0].databaseId // empty')"
+
+          if [ -z "$run_id" ]; then
+            echo "No previous successful run of benchmarks.yaml on main; nothing to download."
+            exit 0
+          fi
+
+          if ! gh run download "$run_id" \
+            --repo "$REPOSITORY" \
+            --name es-bench-baseline \
+            --dir "$BASELINE_DIR"; then
+            echo "Run $run_id has no es-bench-baseline artifact; nothing to download."
+          fi
+        shell: 'bash -Eeuo pipefail {0}'
+
+      - name: Run benchmarks
+        env:
+          BASELINE_PATH: ${{ runner.temp }}/baseline/baseline.json
+          OUTPUT_DIR: ${{ runner.temp }}/output
+        run: |
+          mkdir -p "$OUTPUT_DIR"
+          pnpm --filter @bfra.me/es bench:ci \
+            --report-only \
+            --baseline "$BASELINE_PATH" \
+            --write-baseline "$OUTPUT_DIR/baseline.json"
+        shell: 'bash -Eeuo pipefail {0}'
+
+      - if: github.ref == 'refs/heads/main'
+        name: Upload baseline artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: es-bench-baseline
+          path: ${{ runner.temp }}/output/baseline.json
+          retention-days: 90

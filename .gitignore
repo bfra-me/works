@@ -42,3 +42,6 @@ semantic-release-presets/Custom Local Preset.preset.json
 **/test-temp-pm-*
 test-add-project/
 test-dry-run/
+
+# Generated locally; CI fetches the last known-good baseline as an artifact
+packages/es/test/benchmarks/baselines/baseline.json
