@@ -9,6 +9,7 @@ import {Eta} from 'eta'
 import {glob} from 'glob'
 import {createTemplateError, TemplateErrorCode} from '../utils/errors.js'
 import {createLogger} from '../utils/logger.js'
+import {camelCase, kebabCase, pascalCase, snakeCase} from './context-helpers.js'
 
 /**
  * Template processor configuration.
@@ -390,39 +391,10 @@ export class TemplateProcessor {
 
       // Helper functions
       helpers: {
-        /**
-         * Convert string to kebab-case
-         */
-        kebabCase: (str: string) =>
-          str
-            .replaceAll(/([a-z])([A-Z])/g, '$1-$2')
-            .replaceAll(/[\s_]+/g, '-')
-            .toLowerCase(),
-
-        /**
-         * Convert string to camelCase
-         */
-        camelCase: (str: string) =>
-          str
-            .replaceAll(/^\w|[A-Z]|\b\w/g, (word, index) =>
-              index === 0 ? word.toLowerCase() : word.toUpperCase(),
-            )
-            .replaceAll(/\s+/g, ''),
-
-        /**
-         * Convert string to PascalCase
-         */
-        pascalCase: (str: string) =>
-          str.replaceAll(/^\w|[A-Z]|\b\w/g, word => word.toUpperCase()).replaceAll(/\s+/g, ''),
-
-        /**
-         * Convert string to snake_case
-         */
-        snakeCase: (str: string) =>
-          str
-            .replaceAll(/([a-z])([A-Z])/g, '$1_$2')
-            .replaceAll(/[\s-]+/g, '_')
-            .toLowerCase(),
+        kebabCase,
+        camelCase,
+        pascalCase,
+        snakeCase,
 
         /**
          * Convert string to SCREAMING_SNAKE_CASE
@@ -533,24 +505,10 @@ function buildEtaContext(context: TemplateContext): Record<string, unknown> {
     ...context,
     ...context.variables,
     helpers: {
-      kebabCase: (str: string) =>
-        str
-          .replaceAll(/([a-z])([A-Z])/g, '$1-$2')
-          .replaceAll(/[\s_]+/g, '-')
-          .toLowerCase(),
-      camelCase: (str: string) =>
-        str
-          .replaceAll(/^\w|[A-Z]|\b\w/g, (word, index) =>
-            index === 0 ? word.toLowerCase() : word.toUpperCase(),
-          )
-          .replaceAll(/\s+/g, ''),
-      pascalCase: (str: string) =>
-        str.replaceAll(/^\w|[A-Z]|\b\w/g, word => word.toUpperCase()).replaceAll(/\s+/g, ''),
-      snakeCase: (str: string) =>
-        str
-          .replaceAll(/([a-z])([A-Z])/g, '$1_$2')
-          .replaceAll(/[\s-]+/g, '_')
-          .toLowerCase(),
+      kebabCase,
+      camelCase,
+      pascalCase,
+      snakeCase,
       screamingSnakeCase: (str: string) =>
         str
           .replaceAll(/([a-z])([A-Z])/g, '$1_$2')

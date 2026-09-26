@@ -10,6 +10,7 @@ import {err, isErr, ok, type Result} from '@bfra.me/es/result'
 import {consola} from 'consola'
 import {createProjectAnalyzer} from './ai/project-analyzer.js'
 import {projectSetup} from './prompts/project-setup.js'
+import {buildTemplateContext} from './templates/context-helpers.js'
 import {templateFetcher} from './templates/fetcher.js'
 import {templateProcessor} from './templates/processor.js'
 import {templateResolver} from './templates/resolver.js'
@@ -206,39 +207,13 @@ export async function createPackage(
       consola.info('Template fetched:', {templatePath, metadata})
     }
 
-    const context: TemplateContext = {
+    const context: TemplateContext = buildTemplateContext({
       projectName,
       description,
       author,
       version,
       packageManager: finalOptions.packageManager || 'npm',
-      variables: {
-        name: projectName,
-        description,
-        author,
-        version,
-        year: new Date().getFullYear(),
-        date: new Date().toISOString().split('T')[0],
-        kebabCase: (str: string) =>
-          str
-            .replaceAll(/([a-z])([A-Z])/g, '$1-$2')
-            .replaceAll(/[\s_]+/g, '-')
-            .toLowerCase(),
-        camelCase: (str: string) =>
-          str
-            .replaceAll(/^\w|[A-Z]|\b\w/g, (word, index) =>
-              index === 0 ? word.toLowerCase() : word.toUpperCase(),
-            )
-            .replaceAll(/\s+/g, ''),
-        pascalCase: (str: string) =>
-          str.replaceAll(/^\w|[A-Z]|\b\w/g, word => word.toUpperCase()).replaceAll(/\s+/g, ''),
-        snakeCase: (str: string) =>
-          str
-            .replaceAll(/([a-z])([A-Z])/g, '$1_$2')
-            .replaceAll(/[\s-]+/g, '_')
-            .toLowerCase(),
-      },
-    }
+    })
 
     const contextValidation = templateProcessor.validateContext(
       context,
