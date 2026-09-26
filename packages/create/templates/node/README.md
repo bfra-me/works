@@ -2,7 +2,7 @@
 
 <%= it.description %>
 
-A Node.js application built with TypeScript and Express.
+A Node.js application built with TypeScript and Fastify.
 
 ## Installation
 
