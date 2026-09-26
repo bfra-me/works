@@ -3,20 +3,29 @@
  * Benchmark regression detection script for CI.
  *
  * This script runs the Vitest benchmarks, collects results, and compares
- * them against stored baselines to detect performance regressions.
+ * them against a stored baseline to detect performance regressions.
  *
  * Usage:
- *   pnpm bench:ci           # Run benchmarks and compare against baseline
- *   pnpm bench:ci --update  # Update the baseline with current results
+ *   pnpm bench:ci                        # Run benchmarks and compare against the default baseline
+ *   pnpm bench:ci --update               # Also write results as the default baseline
+ *   pnpm bench:ci --baseline <path>       # Compare against a baseline at a custom path
+ *   pnpm bench:ci --write-baseline <path> # Write results as a baseline at a custom path
+ *   pnpm bench:ci --report-only          # Compare and report, but always exit 0
+ *
+ * A missing baseline is never treated as an error: the script reports that
+ * there is nothing to compare against and continues (still writing a new
+ * baseline when `--update`/`--write-baseline` is given).
  *
  * Exit codes:
- *   0 - All benchmarks passed regression threshold
- *   1 - One or more benchmarks exceeded regression threshold
+ *   0 - No baseline to compare, all benchmarks passed the regression
+ *       threshold, or `--report-only`/`--update`/`--write-baseline` was given
+ *   1 - One or more benchmarks exceeded the regression threshold
  */
 
 import type {JsonTestResults} from 'vitest/node'
+import type {BaselineBenchmark, BaselineComparisonSummary} from './baselines'
 import {execSync} from 'node:child_process'
-import {mkdtemp, readFile, rm} from 'node:fs/promises'
+import {appendFile, mkdtemp, readFile, rm} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import {dirname, join} from 'node:path'
 import process from 'node:process'
@@ -24,16 +33,14 @@ import {fileURLToPath} from 'node:url'
 import {
   compareBaseline,
   createBaseline,
+  DEFAULT_BASELINE_PATH,
   formatComparisonSummary,
   loadBaseline,
   saveBaseline,
-  type BaselineBenchmark,
 } from './baselines'
 
 const currentDir = dirname(fileURLToPath(import.meta.url))
 const packageRoot = join(currentDir, '..', '..')
-const baselinesDir = join(currentDir, 'baselines')
-const baselinePath = join(baselinesDir, 'baseline.json')
 
 /**
  * Nanoseconds per millisecond conversion factor.
@@ -51,12 +58,37 @@ const NS_PER_MS = 1_000_000
  */
 const REGRESSION_THRESHOLD = 10
 
-function parseArgs(): {update: boolean; help: boolean} {
-  const args = process.argv.slice(2)
-  return {
-    update: args.includes('--update') || args.includes('-u'),
-    help: args.includes('--help') || args.includes('-h'),
+interface CliArgs {
+  help: boolean
+  reportOnly: boolean
+  baselinePath: string
+  writeBaselinePath: string | null
+}
+
+/** Read the value following a flag, e.g. `--baseline <path>`. */
+function readFlagValue(args: string[], flag: string): string | undefined {
+  const index = args.indexOf(flag)
+  if (index === -1) {
+    return undefined
   }
+  const value = args[index + 1]
+  if (value == null) {
+    throw new Error(`Missing value for ${flag}`)
+  }
+  return value
+}
+
+function parseArgs(): CliArgs {
+  const args = process.argv.slice(2)
+  const help = args.includes('--help') || args.includes('-h')
+  const reportOnly = args.includes('--report-only')
+  const update = args.includes('--update') || args.includes('-u')
+
+  const baselinePath = readFlagValue(args, '--baseline') ?? DEFAULT_BASELINE_PATH
+  const explicitWriteBaselinePath = readFlagValue(args, '--write-baseline')
+  const writeBaselinePath = explicitWriteBaselinePath ?? (update ? DEFAULT_BASELINE_PATH : null)
+
+  return {help, reportOnly, baselinePath, writeBaselinePath}
 }
 
 function showHelp(): void {
@@ -64,20 +96,31 @@ function showHelp(): void {
 Benchmark Regression Detection Script
 
 Usage:
-  pnpm bench:ci           Run benchmarks and compare against baseline
-  pnpm bench:ci --update  Update the baseline with current results
-  pnpm bench:ci --help    Show this help message
+  pnpm bench:ci                          Run benchmarks and compare against the default baseline
+  pnpm bench:ci --update                 Also write results as the default baseline
+  pnpm bench:ci --baseline <path>        Compare against a baseline at <path>
+  pnpm bench:ci --write-baseline <path>  Write results as a baseline at <path>
+  pnpm bench:ci --report-only            Compare and report, but always exit 0
+  pnpm bench:ci --help                   Show this help message
 
 Options:
-  -u, --update  Update the baseline file with current benchmark results
-  -h, --help    Show this help message
+  --baseline <path>        Path to read the baseline from (default: ${DEFAULT_BASELINE_PATH})
+  --write-baseline <path>  Write current results as a baseline to <path>
+  -u, --update             Alias for --write-baseline ${DEFAULT_BASELINE_PATH}
+  --report-only            Report regressions but always exit 0
+  -h, --help               Show this help message
+
+A missing baseline is never an error: the script reports that there is
+nothing to compare and continues.
 
 Exit Codes:
-  0  All benchmarks passed regression threshold (≤${REGRESSION_THRESHOLD}%)
-  1  One or more benchmarks exceeded regression threshold
+  0  Nothing to compare, all benchmarks passed the regression threshold
+     (≤${REGRESSION_THRESHOLD}%), or --report-only was given
+  1  One or more benchmarks exceeded the regression threshold
 
 Environment:
-  REGRESSION_THRESHOLD  Override the default threshold (default: ${REGRESSION_THRESHOLD}%)
+  REGRESSION_THRESHOLD  Override the default threshold (default: ${REGRESSION_THRESHOLD})
+  GITHUB_STEP_SUMMARY   When set, a Markdown summary is appended to this file
 `)
 }
 
@@ -157,6 +200,96 @@ function log(message: string): void {
   console.log(message)
 }
 
+/** Append a Markdown section to `GITHUB_STEP_SUMMARY`, when it's set. */
+async function appendStepSummary(markdown: string): Promise<void> {
+  const summaryPath = process.env.GITHUB_STEP_SUMMARY
+  if (summaryPath == null || summaryPath === '') {
+    return
+  }
+  await appendFile(summaryPath, `${markdown}\n`, 'utf-8')
+}
+
+function formatMissingBaselineSummary(baselinePath: string): string {
+  return [
+    '## Benchmark Results',
+    '',
+    `No baseline found at \`${baselinePath}\`; nothing to compare.`,
+  ].join('\n')
+}
+
+function formatComparisonRow(result: BaselineComparisonSummary['results'][number]): string {
+  const baselineNs = result.baseline?.avgTimeNs.toFixed(2) ?? 'n/a'
+  const diff = result.differencePercent
+  const diffLabel = diff == null ? 'n/a' : `${diff >= 0 ? '+' : ''}${diff.toFixed(2)}%`
+  return `| ${result.name} | ${baselineNs} | ${result.current.avgTimeNs.toFixed(2)} | ${diffLabel} |`
+}
+
+function formatStepSummaryMarkdown(
+  summary: BaselineComparisonSummary,
+  thresholdPercent: number,
+): string {
+  const lines: string[] = [
+    '## Benchmark Results',
+    '',
+    `- Total: ${summary.total}`,
+    `- Passed: ${summary.passed}`,
+    `- Failed: ${summary.failed}`,
+    `- New (no baseline): ${summary.newBenchmarks}`,
+    `- Removed (in baseline but not current): ${summary.removedBenchmarks}`,
+    `- Overall: ${summary.overallPassed ? '✓ passed' : '✗ failed'} (threshold: ≤${thresholdPercent}%)`,
+  ]
+
+  const regressions = summary.results.filter(
+    result => !result.isNew && result.differencePercent != null && !result.passed,
+  )
+  const improvements = summary.results.filter(
+    result =>
+      !result.isNew &&
+      result.differencePercent != null &&
+      result.differencePercent <= -thresholdPercent,
+  )
+
+  if (regressions.length > 0) {
+    lines.push(
+      '',
+      '### Regressions',
+      '',
+      '| Benchmark | Baseline (ns/op) | Current (ns/op) | Change |',
+      '| --- | --- | --- | --- |',
+    )
+    for (const result of regressions) {
+      lines.push(formatComparisonRow(result))
+    }
+  }
+
+  if (improvements.length > 0) {
+    lines.push(
+      '',
+      '### Improvements',
+      '',
+      '| Benchmark | Baseline (ns/op) | Current (ns/op) | Change |',
+      '| --- | --- | --- | --- |',
+    )
+    for (const result of improvements) {
+      lines.push(formatComparisonRow(result))
+    }
+  }
+
+  return lines.join('\n')
+}
+
+/** Print `::warning::` annotations for regressions, for `--report-only` runs. */
+function printRegressionAnnotations(summary: BaselineComparisonSummary): void {
+  for (const result of summary.results) {
+    if (result.isNew || result.passed || result.differencePercent == null) {
+      continue
+    }
+    log(
+      `::warning::Benchmark regression: "${result.name}" is ${result.differencePercent.toFixed(2)}% slower than baseline (threshold: ≤${result.thresholdPercent}%)`,
+    )
+  }
+}
+
 /** Main entry point */
 async function main(): Promise<void> {
   const args = parseArgs()
@@ -183,30 +316,37 @@ async function main(): Promise<void> {
     process.exit(1)
   }
 
-  if (args.update) {
-    const commitSha = getGitSha()
-    const packageVersion = await getPackageVersion()
-    const baseline = createBaseline(benchmarks, commitSha, packageVersion)
-
-    await saveBaseline(baseline)
-    log(`✓ Baseline updated with ${benchmarks.length} benchmarks`)
-    log(`  Commit: ${commitSha.slice(0, 8)}`)
-    log(`  File: ${baselinePath}`)
-    process.exit(0)
-  }
-
-  const baseline = await loadBaseline()
+  const baseline = await loadBaseline(args.baselinePath)
+  let summary: BaselineComparisonSummary | null = null
 
   if (baseline == null) {
-    log('No baseline found. Run with --update to create one.')
-    log(`Expected baseline path: ${baselinePath}`)
+    log(`No baseline found at ${args.baselinePath}; nothing to compare.`)
+    await appendStepSummary(formatMissingBaselineSummary(args.baselinePath))
+  } else {
+    summary = compareBaseline(baseline, benchmarks, {thresholdPercent: threshold})
+    log(formatComparisonSummary(summary))
+    await appendStepSummary(formatStepSummaryMarkdown(summary, threshold))
+    if (args.reportOnly) {
+      printRegressionAnnotations(summary)
+    }
+  }
+
+  if (args.writeBaselinePath != null) {
+    const commitSha = getGitSha()
+    const packageVersion = await getPackageVersion()
+    const newBaseline = createBaseline(benchmarks, commitSha, packageVersion)
+
+    await saveBaseline(newBaseline, args.writeBaselinePath)
+    log(`✓ Baseline written with ${benchmarks.length} benchmarks`)
+    log(`  Commit: ${commitSha.slice(0, 8)}`)
+    log(`  File: ${args.writeBaselinePath}`)
+  }
+
+  if (args.reportOnly || args.writeBaselinePath != null) {
     process.exit(0)
   }
 
-  const summary = compareBaseline(baseline, benchmarks, {thresholdPercent: threshold})
-  log(formatComparisonSummary(summary))
-
-  process.exit(summary.overallPassed ? 0 : 1)
+  process.exit(summary == null || summary.overallPassed ? 0 : 1)
 }
 
 main().catch(error => {
