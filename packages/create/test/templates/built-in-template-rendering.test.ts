@@ -1,18 +1,17 @@
 /* eslint-disable no-console */
 import type {TemplateContext} from '../../src/types.js'
 import {existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync} from 'node:fs'
-import {createRequire} from 'node:module'
 import path from 'node:path'
 import {fileURLToPath} from 'node:url'
 import ts from 'typescript'
 import {afterAll, beforeAll, describe, expect, it} from 'vitest'
+import {buildTemplateContext} from '../../src/templates/context-helpers.js'
 import {TemplateProcessor} from '../../src/templates/processor.js'
 
 const CURRENT_DIRNAME = path.dirname(fileURLToPath(import.meta.url))
 const PACKAGE_ROOT = path.resolve(CURRENT_DIRNAME, '..', '..')
 const TEMPLATES_DIR = path.join(PACKAGE_ROOT, 'templates')
 const RENDER_ROOT = path.join(PACKAGE_ROOT, '.tmp', 'built-in-template-rendering-test')
-const nodeRequire = createRequire(import.meta.url)
 
 /**
  * The set of built-in templates that ship in `dist/templates` is defined by
@@ -60,54 +59,18 @@ function getRenderedDir(renderedDirs: Map<string, string>, templateName: string)
 }
 
 /**
- * Mirrors the TemplateContext that `createPackage()` in src/index.ts builds
- * for a real invocation (including the helper functions it exposes on
- * `it.variables`), so this test renders through the exact same Eta context
- * shape a real `create` run would use.
+ * Uses the exact same context-building function `createPackage()` in
+ * src/index.ts calls for a real invocation, so this test renders through
+ * the exact same Eta context shape a real `create` run would use.
  */
 function buildRealTemplateContext(projectName: string): TemplateContext {
-  const kebabCase = (str: string) =>
-    str
-      .replaceAll(/([a-z])([A-Z])/g, '$1-$2')
-      .replaceAll(/[\s_]+/g, '-')
-      .toLowerCase()
-  const camelCase = (str: string) =>
-    str
-      .replaceAll(/^\w|[A-Z]|\b\w/g, (word, index) =>
-        index === 0 ? word.toLowerCase() : word.toUpperCase(),
-      )
-      .replaceAll(/\s+/g, '')
-  const pascalCase = (str: string) =>
-    str.replaceAll(/^\w|[A-Z]|\b\w/g, word => word.toUpperCase()).replaceAll(/\s+/g, '')
-  const snakeCase = (str: string) =>
-    str
-      .replaceAll(/([a-z])([A-Z])/g, '$1_$2')
-      .replaceAll(/[\s-]+/g, '_')
-      .toLowerCase()
-
-  const description = 'A sample project generated for template rendering tests'
-  const author = 'Test Author'
-  const version = '0.1.0'
-
-  return {
+  return buildTemplateContext({
     projectName,
-    description,
-    author,
-    version,
+    description: 'A sample project generated for template rendering tests',
+    author: 'Test Author',
+    version: '0.1.0',
     packageManager: 'pnpm',
-    variables: {
-      name: projectName,
-      description,
-      author,
-      version,
-      year: new Date().getFullYear(),
-      date: new Date().toISOString().split('T')[0],
-      kebabCase,
-      camelCase,
-      pascalCase,
-      snakeCase,
-    },
-  }
+  })
 }
 
 interface DuplicateKey {
@@ -211,28 +174,24 @@ function findDuplicateJsonKeys(text: string): DuplicateKey[] {
 const CONFIG_FILE_PATTERN = /\.config\.tsx?$/i
 const MISSING_MODULE_CODES = new Set([2307, 2792])
 
-/**
- * Some shipped templates depend on packages this monorepo never installs
- * (e.g. the react template's `@vitejs/plugin-react`, since nothing here
- * builds React apps). Type-checking those files will always report the
- * import as unresolvable. Rather than hardcode a package allowlist, treat a
- * "cannot find module" diagnostic as expected/ignorable only when the
- * specifier genuinely does not resolve from this repo's node_modules -
- * a real regression (e.g. a typo'd import of a package we DO have) still
- * fails the test.
- */
-function unresolvableSpecifier(diagnostic: ts.Diagnostic): string | undefined {
+/** Modules a template's rendered config is expected not to resolve from this monorepo. */
+const EXPECTED_UNRESOLVED_IMPORTS: Record<string, string[]> = {
+  react: ['@vitejs/plugin-react'],
+}
+
+function unresolvableSpecifier(
+  diagnostic: ts.Diagnostic,
+  renderedDirs: Map<string, string>,
+): string | undefined {
   if (diagnostic.file == null || !MISSING_MODULE_CODES.has(diagnostic.code)) return undefined
   const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n')
   const match = /Cannot find module '([^']+)'/.exec(message)
   if (match == null || match[1] == null || match[1].length === 0) return undefined
   const specifier = match[1]
-  try {
-    nodeRequire.resolve(specifier, {paths: [path.dirname(diagnostic.file.fileName)]})
-    return undefined
-  } catch {
-    return specifier
-  }
+  const fileName = diagnostic.file.fileName
+  const templateName = [...renderedDirs.entries()].find(([, dir]) => fileName.startsWith(dir))?.[0]
+  const expected = templateName == null ? undefined : EXPECTED_UNRESOLVED_IMPORTS[templateName]
+  return expected?.includes(specifier) === true ? specifier : undefined
 }
 
 function formatDiagnostic(diagnostic: ts.Diagnostic): string {
@@ -329,7 +288,6 @@ describe('built-in template rendering', () => {
   })
 
   it('kebab-cases the project name for the cli template bin entry', () => {
-    if (!renderedDirs.has('cli')) return
     const dir = getRenderedDir(renderedDirs, 'cli')
     const packageJson = JSON.parse(readFileSync(path.join(dir, 'package.json'), 'utf-8')) as {
       bin?: Record<string, string>
@@ -371,7 +329,7 @@ describe('built-in template rendering', () => {
       const sourceFile = program.getSourceFile(file)
       const diagnostics = ts.getPreEmitDiagnostics(program, sourceFile)
       for (const diagnostic of diagnostics) {
-        const unresolvable = unresolvableSpecifier(diagnostic)
+        const unresolvable = unresolvableSpecifier(diagnostic, renderedDirs)
         if (unresolvable != null) {
           skipped.push(`${path.relative(PACKAGE_ROOT, file)} -> ${unresolvable}`)
           continue
