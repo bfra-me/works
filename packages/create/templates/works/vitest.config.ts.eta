@@ -8,12 +8,8 @@ export default defineConfig({
     setupFiles: ['test/setup.ts'],<% } %>
     // Enable concurrent testing for performance
     pool: 'threads',
-    poolOptions: {
-      threads: {
-        minThreads: 1,
-        maxThreads: 4
-      }
-    },
+    minWorkers: 1,
+    maxWorkers: 4,
     // Test timeouts
     testTimeout: 10000,
     hookTimeout: 10000,
@@ -58,16 +54,24 @@ export default defineConfig({
         'src/**/*.spec.ts'
       ]
     },
-    // Mock configuration
-    deps: {
-      inline: [
-        // Inline dependencies for better performance
-      ]
+    // Dependency handling: `deps.inline` moved under `server.deps.inline` in
+    // Vitest 4+ (the top-level `test.deps.inline`/`test.deps.external` keys
+    // were removed; `test.deps` now only covers dependency optimization).
+    server: {
+      deps: {
+        inline: [
+          // Inline dependencies for better performance
+        ]
+      }
     },
-    // Browser configuration for component testing
+    // Browser configuration for component testing. Vitest 4+'s Browser
+    // Provider Rework moved the browser name/engine selection into
+    // `instances` (each with its own `provider`); the old flat `name` field
+    // is no longer part of `BrowserConfigOptions`, so it's dropped here.
+    // `enabled`/`headless` are unaffected and still apply once `instances`
+    // and a `provider` (e.g. `@vitest/browser-playwright`) are configured.
     browser: {
       enabled: false, // Enable if needed for browser tests
-      name: 'chrome',
       headless: true
     }
   },

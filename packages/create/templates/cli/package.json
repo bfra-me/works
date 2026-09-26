@@ -28,7 +28,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "cac": "^7.0.1",
+    "cac": "^7.0.0",
     "consola": "^3.2.3"
   },
   "devDependencies": {
@@ -36,7 +36,7 @@
     "eslint": "^9.18.0",
     "tsup": "^8.5.0",
     "typescript": "^5.8.3",
-    "vitest": "^4.1.8"
+    "vitest": "^5.0.1"
   },
   "engines": {
     "node": ">=18"

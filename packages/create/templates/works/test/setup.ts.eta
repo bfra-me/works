@@ -1,5 +1,5 @@
 // Test setup configuration for <%= it.packageName %>
-import {beforeEach, afterEach, vi} from 'vitest'
+import {beforeEach, afterEach, expect, vi} from 'vitest'
 import {setupMocks, teardownMocks} from './__mocks__/index.js'
 
 // Global test setup
