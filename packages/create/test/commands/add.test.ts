@@ -12,6 +12,18 @@ import {
 } from '../../src/commands/add.js'
 import {testUtils} from '../test-utils.js'
 
+// Mock prompts to skip interactive mode
+vi.mock('@clack/prompts', () => ({
+  intro: vi.fn(),
+  outro: vi.fn(),
+  spinner: vi.fn(() => ({
+    start: vi.fn(),
+    stop: vi.fn(),
+  })),
+  select: vi.fn(),
+  isCancel: vi.fn(() => false),
+}))
+
 interface PackageJson {
   name: string
   version: string
@@ -43,18 +55,6 @@ describe('add command', () => {
 
     // Create the project directory explicitly
     mkdirSync(projectDir, {recursive: true})
-
-    // Mock prompts to skip interactive mode
-    vi.mock('@clack/prompts', () => ({
-      intro: vi.fn(),
-      outro: vi.fn(),
-      spinner: vi.fn(() => ({
-        start: vi.fn(),
-        stop: vi.fn(),
-      })),
-      select: vi.fn(),
-      isCancel: vi.fn(() => false),
-    }))
   })
 
   afterEach(() => {

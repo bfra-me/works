@@ -14,13 +14,13 @@
  *   1 - One or more benchmarks exceeded regression threshold
  */
 
-import type {Task} from '@vitest/runner'
+import type {JsonTestResults} from 'vitest/node'
 import {execSync} from 'node:child_process'
-import {readFile} from 'node:fs/promises'
+import {mkdtemp, readFile, rm} from 'node:fs/promises'
+import {tmpdir} from 'node:os'
 import {dirname, join} from 'node:path'
 import process from 'node:process'
 import {fileURLToPath} from 'node:url'
-import {startVitest} from 'vitest/node'
 import {
   compareBaseline,
   createBaseline,
@@ -31,11 +31,19 @@ import {
 } from './baselines'
 
 const currentDir = dirname(fileURLToPath(import.meta.url))
+const packageRoot = join(currentDir, '..', '..')
 const baselinesDir = join(currentDir, 'baselines')
 const baselinePath = join(baselinesDir, 'baseline.json')
 
-/** Nanoseconds per second conversion factor */
-const NS_PER_SECOND = 1_000_000_000
+/**
+ * Nanoseconds per millisecond conversion factor.
+ *
+ * Vitest 5's benchmark fixture reports `latency` statistics (from tinybench)
+ * in milliseconds -- see `throughput.mean` being derived as `1000 / latency.mean`
+ * in tinybench's own docs -- unlike the `mean`-in-seconds shape the removed
+ * `TaskResult.benchmark` used in Vitest 4.
+ */
+const NS_PER_MS = 1_000_000
 
 /**
  * Threshold for performance regression detection (percentage).
@@ -92,58 +100,55 @@ async function getPackageVersion(): Promise<string> {
   }
 }
 
-// Helper to build full task name from task hierarchy
-function buildTaskName(task: Task): string {
-  const parts: string[] = []
-  let current: Task | undefined = task
-
-  while (current != null) {
-    if (current.name !== '') {
-      parts.unshift(current.name)
-    }
-    current = current.suite
-  }
-
-  return parts.join(' > ')
-}
-
 async function runBenchmarks(): Promise<BaselineBenchmark[]> {
+  const reportDir = await mkdtemp(join(tmpdir(), 'bfra-me-es-bench-'))
+  const reportPath = join(reportDir, 'benchmarks.json')
+
   try {
-    const vitest = await startVitest('benchmark', [], {
-      run: true,
-      watch: false,
+    // Running `vitest bench --reporter=json --outputFile=<path>` is the
+    // documented way to capture benchmark results programmatically under
+    // Vitest 5 (see the "Benchmarking API Rewrite" section of the migration
+    // guide) -- the CLI's `bench` subcommand is what correctly scopes the run
+    // to only the benchmark project, which the public `startVitest()` API
+    // has no supported way to do on its own (the internal `benchmarkOnly`
+    // CLI flag it relies on is not part of `CliOptions`).
+    execSync(`vitest bench --reporter=json --outputFile=${JSON.stringify(reportPath)}`, {
+      cwd: packageRoot,
+      stdio: 'inherit',
     })
 
-    if (vitest == null) {
-      throw new Error('Failed to initialize Vitest')
-    }
-
-    // Run the benchmarks and wait for completion
-    await vitest.start()
+    const raw = await readFile(reportPath, 'utf-8')
+    const report = JSON.parse(raw) as JsonTestResults
 
     const benchmarks: BaselineBenchmark[] = []
 
-    // Extract benchmark results from state idMap
-    for (const task of vitest.state.idMap.values()) {
-      if (task.type === 'test' && task.result?.benchmark != null) {
-        const {benchmark: result} = task.result
-        benchmarks.push({
-          name: buildTaskName(task),
-          metrics: {
-            avgTimeNs: result.mean * NS_PER_SECOND,
-            opsPerSec: result.hz,
-            stdDevNs: Math.sqrt(result.variance) * NS_PER_SECOND,
-            iterations: result.sampleCount,
-          },
-        })
+    // Each assertion result (one per `it()`/`test()` that used the `bench`
+    // fixture) carries a `benchmarks` array: one entry per `bench()`
+    // registration, each with one `tasks` entry per run/comparison branch.
+    for (const testResult of report.testResults) {
+      for (const assertion of testResult.assertionResults) {
+        for (const registration of assertion.benchmarks) {
+          for (const result of registration.tasks) {
+            benchmarks.push({
+              name: registration.name,
+              metrics: {
+                avgTimeNs: result.latency.mean * NS_PER_MS,
+                opsPerSec: result.throughput.mean,
+                stdDevNs: result.latency.sd * NS_PER_MS,
+                iterations: result.latency.samplesCount,
+              },
+            })
+          }
+        }
       }
     }
 
-    await vitest.close()
     return benchmarks
   } catch (error) {
     console.error('Error running benchmarks:', error)
     throw error
+  } finally {
+    await rm(reportDir, {recursive: true, force: true})
   }
 }
 
@@ -173,22 +178,7 @@ async function main(): Promise<void> {
     log('This indicates either:')
     log('  1. No benchmark files match pattern: test/benchmarks/**/*.bench.ts')
     log('  2. Benchmarks failed to execute')
-    log('  3. Vitest initialization failed')
-
-    if (process.env.DEBUG_BENCHMARKS === 'true') {
-      log('\nRunning benchmarks in simple mode (DEBUG_BENCHMARKS=true)...')
-      try {
-        execSync('vitest bench', {
-          cwd: join(currentDir, '..', '..'),
-          stdio: 'inherit',
-        })
-      } catch (error) {
-        log(`Simple mode also failed: ${String(error)}`)
-      }
-    } else {
-      log('\nSet DEBUG_BENCHMARKS=true to see raw benchmark output.')
-    }
-
+    log('  3. The `vitest bench` JSON report contained no benchmark entries')
     log('\nCannot proceed with regression detection without results.')
     process.exit(1)
   }

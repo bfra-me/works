@@ -8,7 +8,7 @@
  * different cache strategies and various cache sizes.
  */
 
-import {bench, describe} from 'vitest'
+import {describe, expect, it} from 'vitest'
 
 import {memoize} from '../../src/functional/memoize'
 
@@ -25,8 +25,11 @@ describe('memoize cache hit performance', () => {
     // Prime the cache
     memoized(42)
 
-    bench('cache hit - single argument', () => {
-      results.value = memoized(42)
+    it('cache hit - single argument', async ({bench}) => {
+      const result = await bench('cache hit - single argument', () => {
+        results.value = memoized(42)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 
@@ -37,8 +40,11 @@ describe('memoize cache hit performance', () => {
     // Prime the cache
     memoized(42)
 
-    bench('cache hit - single argument', () => {
-      results.value = memoized(42)
+    it('cache hit - single argument', async ({bench}) => {
+      const result = await bench('cache hit - single argument', () => {
+        results.value = memoized(42)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 
@@ -49,8 +55,11 @@ describe('memoize cache hit performance', () => {
     // Prime the cache
     memoized(42)
 
-    bench('cache hit - single argument', () => {
-      results.value = memoized(42)
+    it('cache hit - single argument', async ({bench}) => {
+      const result = await bench('cache hit - single argument', () => {
+        results.value = memoized(42)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 })
@@ -65,8 +74,11 @@ describe('memoize cache miss performance', () => {
     }
     const memoized = memoize(expensiveFn)
 
-    bench('cache miss - unique arguments', () => {
-      results.value = memoized(callCount)
+    it('cache miss - unique arguments', async ({bench}) => {
+      const result = await bench('cache miss - unique arguments', () => {
+        results.value = memoized(callCount)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 
@@ -77,8 +89,11 @@ describe('memoize cache miss performance', () => {
     }
     const memoized = memoize(expensiveFn, {strategy: 'lru', maxSize: 10})
 
-    bench('cache miss with eviction', () => {
-      results.value = memoized(callCount)
+    it('cache miss with eviction', async ({bench}) => {
+      const result = await bench('cache miss with eviction', () => {
+        results.value = memoized(callCount)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 })
@@ -91,8 +106,11 @@ describe('memoize with multiple arguments', () => {
     // Prime the cache
     memoized(1, 2)
 
-    bench('cache hit - two numeric arguments', () => {
-      results.value = memoized(1, 2)
+    it('cache hit - two numeric arguments', async ({bench}) => {
+      const result = await bench('cache hit - two numeric arguments', () => {
+        results.value = memoized(1, 2)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 
@@ -103,8 +121,11 @@ describe('memoize with multiple arguments', () => {
     // Prime the cache
     memoized(1, 2, 3)
 
-    bench('cache hit - three numeric arguments', () => {
-      results.value = memoized(1, 2, 3)
+    it('cache hit - three numeric arguments', async ({bench}) => {
+      const result = await bench('cache hit - three numeric arguments', () => {
+        results.value = memoized(1, 2, 3)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 
@@ -116,8 +137,11 @@ describe('memoize with multiple arguments', () => {
     // Prime the cache
     memoized('John', 30, true)
 
-    bench('cache hit - mixed types (string, number, boolean)', () => {
-      results.value = memoized('John', 30, true)
+    it('cache hit - mixed types (string, number, boolean)', async ({bench}) => {
+      const result = await bench('cache hit - mixed types (string, number, boolean)', () => {
+        results.value = memoized('John', 30, true)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 })
@@ -132,12 +156,18 @@ describe('memoize key resolution overhead', () => {
     memoizedNumber(42)
     memoizedString('hello')
 
-    bench('number key', () => {
-      results.value = memoizedNumber(42)
+    it('number key', async ({bench}) => {
+      const result = await bench('number key', () => {
+        results.value = memoizedNumber(42)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
 
-    bench('string key', () => {
-      results.value = memoizedString('hello')
+    it('string key', async ({bench}) => {
+      const result = await bench('string key', () => {
+        results.value = memoizedString('hello')
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 
@@ -151,12 +181,18 @@ describe('memoize key resolution overhead', () => {
     memoizedArray(arr)
     memoizedObject(obj)
 
-    bench('array key (same reference)', () => {
-      results.value = memoizedArray(arr)
+    it('array key (same reference)', async ({bench}) => {
+      const result = await bench('array key (same reference)', () => {
+        results.value = memoizedArray(arr)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
 
-    bench('object key (same reference)', () => {
-      results.value = memoizedObject(obj)
+    it('object key (same reference)', async ({bench}) => {
+      const result = await bench('object key (same reference)', () => {
+        results.value = memoizedObject(obj)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 
@@ -177,12 +213,18 @@ describe('memoize key resolution overhead', () => {
     memoizedDefault(user)
     memoizedCustom(user)
 
-    bench('default key resolver (full serialization)', () => {
-      results.value = memoizedDefault(user)
+    it('default key resolver (full serialization)', async ({bench}) => {
+      const result = await bench('default key resolver (full serialization)', () => {
+        results.value = memoizedDefault(user)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
 
-    bench('custom key resolver (id only)', () => {
-      results.value = memoizedCustom(user)
+    it('custom key resolver (id only)', async ({bench}) => {
+      const result = await bench('custom key resolver (id only)', () => {
+        results.value = memoizedCustom(user)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 })
@@ -195,8 +237,11 @@ describe('lru cache eviction performance', () => {
     // Fill cache
     for (let i = 0; i < 10; i++) memoized(i)
 
-    bench('access causing eviction', () => {
-      results.value = memoized(Date.now())
+    it('access causing eviction', async ({bench}) => {
+      const result = await bench('access causing eviction', () => {
+        results.value = memoized(Date.now())
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 
@@ -209,8 +254,11 @@ describe('lru cache eviction performance', () => {
 
     let counter = 100
 
-    bench('access causing eviction', () => {
-      results.value = memoized(counter++)
+    it('access causing eviction', async ({bench}) => {
+      const result = await bench('access causing eviction', () => {
+        results.value = memoized(counter++)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 
@@ -223,8 +271,11 @@ describe('lru cache eviction performance', () => {
 
     let counter = 1000
 
-    bench('access causing eviction', () => {
-      results.value = memoized(counter++)
+    it('access causing eviction', async ({bench}) => {
+      const result = await bench('access causing eviction', () => {
+        results.value = memoized(counter++)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 })
@@ -233,15 +284,21 @@ describe('memoize vs no memoization', () => {
   describe('cheap function', () => {
     const cheapFn = (x: number): number => x + 1
 
-    bench('direct call (baseline)', () => {
-      results.value = cheapFn(42)
+    it('direct call (baseline)', async ({bench}) => {
+      const result = await bench('direct call (baseline)', () => {
+        results.value = cheapFn(42)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
 
     const memoized = memoize(cheapFn)
     memoized(42)
 
-    bench('memoized call (cache hit)', () => {
-      results.value = memoized(42)
+    it('memoized call (cache hit)', async ({bench}) => {
+      const result = await bench('memoized call (cache hit)', () => {
+        results.value = memoized(42)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 
@@ -254,15 +311,21 @@ describe('memoize vs no memoization', () => {
       return result
     }
 
-    bench('direct call (baseline)', () => {
-      results.value = moderateFn(42)
+    it('direct call (baseline)', async ({bench}) => {
+      const result = await bench('direct call (baseline)', () => {
+        results.value = moderateFn(42)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
 
     const memoized = memoize(moderateFn)
     memoized(42)
 
-    bench('memoized call (cache hit)', () => {
-      results.value = memoized(42)
+    it('memoized call (cache hit)', async ({bench}) => {
+      const result = await bench('memoized call (cache hit)', () => {
+        results.value = memoized(42)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 
@@ -275,15 +338,21 @@ describe('memoize vs no memoization', () => {
       return result
     }
 
-    bench('direct call (baseline)', () => {
-      results.value = expensiveFn(42)
+    it('direct call (baseline)', async ({bench}) => {
+      const result = await bench('direct call (baseline)', () => {
+        results.value = expensiveFn(42)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
 
     const memoized = memoize(expensiveFn)
     memoized(42)
 
-    bench('memoized call (cache hit)', () => {
-      results.value = memoized(42)
+    it('memoized call (cache hit)', async ({bench}) => {
+      const result = await bench('memoized call (cache hit)', () => {
+        results.value = memoized(42)
+      }).run()
+      expect(result.latency.samplesCount).toBeGreaterThan(0)
     })
   })
 })
@@ -295,43 +364,58 @@ describe('cache statistics overhead', () => {
   // Prime cache
   memoized(42)
 
-  bench('memoized call without stats access', () => {
-    results.value = memoized(42)
+  it('memoized call without stats access', async ({bench}) => {
+    const result = await bench('memoized call without stats access', () => {
+      results.value = memoized(42)
+    }).run()
+    expect(result.latency.samplesCount).toBeGreaterThan(0)
   })
 
-  bench('memoized call + getStats()', () => {
-    results.value = memoized(42)
-    memoized.getStats()
+  it('memoized call + getStats()', async ({bench}) => {
+    const result = await bench('memoized call + getStats()', () => {
+      results.value = memoized(42)
+      memoized.getStats()
+    }).run()
+    expect(result.latency.samplesCount).toBeGreaterThan(0)
   })
 })
 
 describe('100K iteration stress test', () => {
-  bench('100K cache hits (map strategy)', () => {
-    const fn = (x: number): number => x * 2
-    const memoized = memoize(fn)
-    memoized(42)
+  it('100K cache hits (map strategy)', async ({bench}) => {
+    const result = await bench('100K cache hits (map strategy)', () => {
+      const fn = (x: number): number => x * 2
+      const memoized = memoize(fn)
+      memoized(42)
 
-    for (let i = 0; i < 100_000; i++) {
-      results.value = memoized(42)
-    }
+      for (let i = 0; i < 100_000; i++) {
+        results.value = memoized(42)
+      }
+    }).run()
+    expect(result.latency.samplesCount).toBeGreaterThan(0)
   })
 
-  bench('100K cache hits (lru strategy)', () => {
-    const fn = (x: number): number => x * 2
-    const memoized = memoize(fn, {strategy: 'lru', maxSize: 100})
-    memoized(42)
+  it('100K cache hits (lru strategy)', async ({bench}) => {
+    const result = await bench('100K cache hits (lru strategy)', () => {
+      const fn = (x: number): number => x * 2
+      const memoized = memoize(fn, {strategy: 'lru', maxSize: 100})
+      memoized(42)
 
-    for (let i = 0; i < 100_000; i++) {
-      results.value = memoized(42)
-    }
+      for (let i = 0; i < 100_000; i++) {
+        results.value = memoized(42)
+      }
+    }).run()
+    expect(result.latency.samplesCount).toBeGreaterThan(0)
   })
 
-  bench('100K alternating hits/misses', () => {
-    const fn = (x: number): number => x * 2
-    const memoized = memoize(fn)
+  it('100K alternating hits/misses', async ({bench}) => {
+    const result = await bench('100K alternating hits/misses', () => {
+      const fn = (x: number): number => x * 2
+      const memoized = memoize(fn)
 
-    for (let i = 0; i < 100_000; i++) {
-      results.value = memoized(i % 10)
-    }
+      for (let i = 0; i < 100_000; i++) {
+        results.value = memoized(i % 10)
+      }
+    }).run()
+    expect(result.latency.samplesCount).toBeGreaterThan(0)
   })
 })
