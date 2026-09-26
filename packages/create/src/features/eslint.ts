@@ -90,7 +90,6 @@ export default defineConfig({
   name: '${framework?.toLowerCase() ?? projectType}',
   typescript: {
     tsconfigPath: './tsconfig.json',
-    typeAware: true,
   },${isReact ? '\n  react: true,' : ''}
   prettier: true,
   vitest: true,
