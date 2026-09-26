@@ -18,7 +18,7 @@
  *
  * Exit codes:
  *   0 - No baseline to compare, all benchmarks passed the regression
- *       threshold, or `--report-only` was given
+ *       threshold, or `--report-only`/`--update`/`--write-baseline` was given
  *   1 - One or more benchmarks exceeded the regression threshold
  */
 
@@ -342,7 +342,7 @@ async function main(): Promise<void> {
     log(`  File: ${args.writeBaselinePath}`)
   }
 
-  if (args.reportOnly) {
+  if (args.reportOnly || args.writeBaselinePath != null) {
     process.exit(0)
   }
 
