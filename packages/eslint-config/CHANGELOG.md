@@ -1,5 +1,11 @@
 # @bfra.me/eslint-config
 
+## 0.54.1
+
+### Patch Changes
+
+- Updated dependency `@eslint-react/eslint-plugin` to `5.20.6`. ([#4894](https://github.com/bfra-me/works/pull/4894))
+
 ## 0.54.0
 
 ### Minor Changes
