@@ -1,7 +1,8 @@
 ---
-status: shipped
+status: obsolete
 source: .ai/plan/feature-works-package-template-1.md
 completion: 48/53
+reason: CLI integration was abandoned in #1718 and the template was removed.
 ---
 
 # Introduction
