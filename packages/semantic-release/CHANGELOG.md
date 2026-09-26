@@ -1,5 +1,11 @@
 # @bfra.me/semantic-release
 
+## 0.3.10
+
+### Patch Changes
+
+- Fix `PluginConfig` and `Plugin` type resolution under `skipLibCheck: false`, and export `GlobalConfig`, `BranchSpec`, and `PluginSpec` from the package root. ([#4831](https://github.com/bfra-me/works/pull/4831))
+
 ## 0.3.9
 
 ### Patch Changes
