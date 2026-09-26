@@ -1,14 +1,31 @@
-import express from 'express'
+import {pathToFileURL} from 'node:url'
 
-const app = express()
-const port = process.env.PORT || 3000
+import Fastify from 'fastify'
 
-app.use(express.json())
+/**
+ * Creates the Fastify server instance for <%= it.name %>.
+ */
+export function createServer() {
+  const app = Fastify()
 
-app.get('/', (req, res) => {
-  res.json({ message: 'Hello from <%= it.name %>!' })
-})
+  app.get('/', async () => ({message: 'Hello from <%= it.name %>!'}))
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`)
-})
+  return app
+}
+
+async function start(): Promise<void> {
+  const app = createServer()
+  const port = Number(process.env.PORT) || 3000
+
+  try {
+    await app.listen({port})
+    app.log.info(`Server running on port ${port}`)
+  } catch (error) {
+    app.log.error(error)
+    process.exit(1)
+  }
+}
+
+if (process.argv[1] !== undefined && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  void start()
+}

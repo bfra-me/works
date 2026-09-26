@@ -24,6 +24,6 @@
       "required": false
     }
   ],
-  "dependencies": ["fastify", "consola"],
+  "dependencies": ["fastify"],
   "nodeVersion": ">=18"
 }

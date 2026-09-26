@@ -22,7 +22,6 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "consola": "^3.2.3",
     "fastify": "^5.2.0"
   },
   "devDependencies": {
