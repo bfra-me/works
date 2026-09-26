@@ -111,4 +111,3 @@ Built with a focus on consistency, quality, and developer experience, it enables
 - [Semantic Release Presets Dir](packages/semantic-release/semantic-release-presets/): Preset configuration files for different release strategies
 - [ESLint Config Scripts](packages/eslint-config/scripts/): Type generation scripts for ESLint config
 - [Create Templates React](packages/create/templates/react/): React project template with TypeScript
-- [Create Templates Works](packages/create/templates/works/): Full monorepo template matching this project structure
