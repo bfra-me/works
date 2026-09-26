@@ -8,7 +8,6 @@ export default defineConfig({
     setupFiles: ['test/setup.ts'],<% } %>
     // Enable concurrent testing for performance
     pool: 'threads',
-    minWorkers: 1,
     maxWorkers: 4,
     // Test timeouts
     testTimeout: 10000,
