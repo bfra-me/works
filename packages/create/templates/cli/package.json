@@ -28,7 +28,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "cac": "^7.0.1",
+    "cac": "^7.0.0",
     "consola": "^3.2.3"
   },
   "devDependencies": {
