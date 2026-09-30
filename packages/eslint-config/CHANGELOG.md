@@ -1,5 +1,23 @@
 # @bfra.me/eslint-config
 
+## 0.54.1
+
+### Patch Changes
+
+- Updated dependency `@eslint-react/eslint-plugin` to `5.20.7`. ([#4896](https://github.com/bfra-me/works/pull/4896))
+
+- Updated dependency `eslint-plugin-perfectionist` to `5.12.1`. ([#4904](https://github.com/bfra-me/works/pull/4904))
+
+- Updated dependency `@eslint-react/eslint-plugin` to `5.21.0`. ([#4931](https://github.com/bfra-me/works/pull/4931))
+
+- Updated dependency `@eslint-react/eslint-plugin` to `5.20.6`. ([#4894](https://github.com/bfra-me/works/pull/4894))
+
+- Updated dependency `eslint-plugin-n` to `18.4.0`. ([#4925](https://github.com/bfra-me/works/pull/4925))
+
+- Updated dependency `@eslint-react/eslint-plugin` to `5.20.8`. ([#4898](https://github.com/bfra-me/works/pull/4898))
+
+- Updated dependency `astro-eslint-parser` to `3.2.0`. ([#4906](https://github.com/bfra-me/works/pull/4906))
+
 ## 0.54.0
 
 ### Minor Changes
