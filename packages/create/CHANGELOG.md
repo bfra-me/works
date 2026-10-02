@@ -1,5 +1,13 @@
 # @bfra.me/create
 
+## 0.8.4
+
+### Patch Changes
+
+- Updated dependency `dotenv` to `18.0.4`. ([#4920](https://github.com/bfra-me/works/pull/4920))
+
+- Updated dependency `@anthropic-ai/sdk` to `0.129.0`. ([#4949](https://github.com/bfra-me/works/pull/4949))
+
 ## 0.8.3
 
 ### Patch Changes
