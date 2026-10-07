@@ -1,5 +1,27 @@
 # @bfra.me/create
 
+## 0.8.4
+
+### Patch Changes
+
+- Updated dependency `dotenv` to `18.0.4`. ([#4920](https://github.com/bfra-me/works/pull/4920))
+
+- Updated dependency `@anthropic-ai/sdk` to `0.131.0`. ([#4978](https://github.com/bfra-me/works/pull/4978))
+
+- Updated dependency `openai` to `7.26.0`. ([#4988](https://github.com/bfra-me/works/pull/4988))
+
+- Updated dependency `memfs` to `4.80.0`. ([#4966](https://github.com/bfra-me/works/pull/4966))
+
+- Updated dependency `openai` to `7.25.0`. ([#4963](https://github.com/bfra-me/works/pull/4963))
+
+- Updated dependency `openai` to `7.27.0`. ([#4991](https://github.com/bfra-me/works/pull/4991))
+
+- Updated dependency `@anthropic-ai/sdk` to `0.129.0`. ([#4949](https://github.com/bfra-me/works/pull/4949))
+
+- Updated dependency `openai` to `7.28.0`. ([#5029](https://github.com/bfra-me/works/pull/5029))
+
+- Updated dependency `dotenv` to `18.0.5`. ([#4973](https://github.com/bfra-me/works/pull/4973))
+
 ## 0.8.3
 
 ### Patch Changes
