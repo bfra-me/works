@@ -67,7 +67,7 @@
     "globals": "17.13.0",
     "is-in-ci": "2.0.0",
     "local-pkg": "1.2.1",
-    "package-manager-detector": "1.8.0",
+    "package-manager-detector": "1.9.0",
     "sort-package-json": "4.0.0",
     "typescript-eslint": "8.71.0"
   },
