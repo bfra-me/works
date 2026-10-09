@@ -8450,7 +8450,9 @@ export interface Rules {
 type BfraMeMissingModuleForConfig = []|[string[]]
 // ----- @eslint-react/dom-no-unknown-property -----
 type EslintReactDomNoUnknownProperty = []|[{
+  
   ignore?: string[]
+  
   requireDataLowercase?: boolean
 }]
 // ----- @eslint-react/exhaustive-deps -----
