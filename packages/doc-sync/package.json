@@ -84,7 +84,7 @@
   "dependencies": {
     "@bfra.me/es": "workspace:*",
     "@clack/prompts": "1.8.1",
-    "cac": "7.0.1",
+    "cac": "7.1.0",
     "consola": "3.4.2",
     "escape-html": "^1.0.3",
     "fast-glob": "3.3.3",
