@@ -78,7 +78,7 @@ export interface Rules {
    * Disallows 'target="_blank"' without 'rel="noreferrer noopener"'.
    * @see https://eslint-react.xyz/docs/rules/dom-no-unsafe-target-blank
    */
-  '@eslint-react/dom-no-unsafe-target-blank'?: Linter.RuleEntry<[]>
+  '@eslint-react/dom-no-unsafe-target-blank'?: Linter.RuleEntry<EslintReactDomNoUnsafeTargetBlank>
   /**
    * Replaces usage of 'useFormState' with 'useActionState'.
    * @see https://eslint-react.xyz/docs/rules/dom-no-use-form-state
@@ -8454,6 +8454,11 @@ type EslintReactDomNoUnknownProperty = []|[{
   ignore?: string[]
   
   requireDataLowercase?: boolean
+}]
+// ----- @eslint-react/dom-no-unsafe-target-blank -----
+type EslintReactDomNoUnsafeTargetBlank = []|[{
+  
+  allowReferrer?: boolean
 }]
 // ----- @eslint-react/exhaustive-deps -----
 type EslintReactExhaustiveDeps = []|[{
