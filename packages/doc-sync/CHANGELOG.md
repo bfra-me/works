@@ -1,5 +1,17 @@
 # @bfra.me/doc-sync
 
+## 0.1.15
+
+### Patch Changes
+
+- Updated dependency `cac` to `7.0.1`. ([#5081](https://github.com/bfra-me/works/pull/5081))
+
+- Updated dependency `memfs` to `4.80.0`. ([#4966](https://github.com/bfra-me/works/pull/4966))
+
+- Updated dependency `cac` to `7.1.0`. ([#5143](https://github.com/bfra-me/works/pull/5143))
+
+- Updated dependency `zod` to `4.6.6`. ([#5137](https://github.com/bfra-me/works/pull/5137))
+
 ## 0.1.14
 
 ### Patch Changes
