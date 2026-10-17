@@ -337,8 +337,8 @@ importers:
         specifier: 13.0.6
         version: 13.0.6
       openai:
-        specifier: 7.32.0
-        version: 7.32.0(undici@8.11.2)(ws@8.22.0)(zod@4.6.7)
+        specifier: 7.33.0
+        version: 7.33.0(undici@8.11.2)(ws@8.22.0)(zod@4.6.7)
       package-manager-detector:
         specifier: 1.9.0
         version: 1.9.0
@@ -5396,8 +5396,8 @@ packages:
     resolution: {integrity: sha512-++Zlftm0kVLPmzC06t6epuWmcRMDbI4z5P3NNX979WA/k23+NtSOynEGzsVfZwguKw2mi5umVgnBlJQMwRz4Pg==}
     engines: {node: '>=20'}
 
-  openai@7.32.0:
-    resolution: {integrity: sha512-avqxu/jl1gsVBCBgFNPr9sTh+wZppQphuhhFy1zEvAJxEaJ4t0ery6hZdOT9kws/EcNTARoQcZs2IT3bliE1SA==}
+  openai@7.33.0:
+    resolution: {integrity: sha512-OtC8xefTzjyamDjagrVvuZzoB8YiT/xhg9QbBo8cFt+FtaL5wj2eX5CuQcAS2DqNEYqzXIhV3+q4GG2dweYgiw==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
       '@aws-sdk/credential-provider-node': '>=3.972.0 <4'
@@ -12427,7 +12427,7 @@ snapshots:
       powershell-utils: 0.2.1
       wsl-utils: 1.0.1
 
-  openai@7.32.0(undici@8.11.2)(ws@8.22.0)(zod@4.6.7):
+  openai@7.33.0(undici@8.11.2)(ws@8.22.0)(zod@4.6.7):
     optionalDependencies:
       undici: 8.11.2
       ws: 8.22.0
