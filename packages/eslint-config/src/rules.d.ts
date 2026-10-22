@@ -1320,7 +1320,7 @@ export interface Rules {
    * Disallow awaiting a value that is not a Thenable
    * @see https://typescript-eslint.io/rules/await-thenable
    */
-  '@typescript-eslint/await-thenable'?: Linter.RuleEntry<[]>
+  '@typescript-eslint/await-thenable'?: Linter.RuleEntry<TypescriptEslintAwaitThenable>
   /**
    * Disallow `@ts-<directive>` comments or require descriptions after directives
    * @see https://typescript-eslint.io/rules/ban-ts-comment
@@ -9777,6 +9777,11 @@ type TypescriptEslintArrayType = []|[{
   default?: ("array" | "generic" | "array-simple")
   
   readonly?: ("array" | "generic" | "array-simple")
+}]
+// ----- @typescript-eslint/await-thenable -----
+type TypescriptEslintAwaitThenable = []|[{
+  
+  allowMixedPromiseArrays?: boolean
 }]
 // ----- @typescript-eslint/ban-ts-comment -----
 type TypescriptEslintBanTsComment = []|[{
