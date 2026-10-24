@@ -165,7 +165,7 @@ settings:
 overrides:
   esbuild: ^0.28.1
   fast-uri: ^4.1.2
-  handlebars@>=4.0.0 <4.7.9: ^4.7.9
+  handlebars@>=4.0.0 <4.7.10: ^4.7.10
   lodash: ^4.17.23
   picomatch@>=2.3.1 <2.3.2: ^4.0.0
   picomatch@>=4.0.3 <4.0.4: ^4.0.4
@@ -4200,8 +4200,8 @@ packages:
       ocache:
         optional: true
 
-  handlebars@4.7.9:
-    resolution: {integrity: sha512-4E71E0rpOaQuJR2A3xDZ+GM1HyWYv1clR58tC8emQNeQe3RH7MAzSbat+V0wG78LQBo6m6bzSG/L4pBuCsgnUQ==}
+  handlebars@4.7.10:
+    resolution: {integrity: sha512-P5VJMVM7qgBn6vjXMw8WG9uVI+ncf2pi72j4de4yz5ZULLj2RGqLYaKOYGsgyrViQ0tePOVlN1tDCCXXtFqXKg==}
     engines: {node: '>=0.4.7'}
     hasBin: true
 
@@ -9685,7 +9685,7 @@ snapshots:
     dependencies:
       '@simple-libs/stream-utils': 1.2.0
       conventional-commits-filter: 5.0.0
-      handlebars: 4.7.9
+      handlebars: 4.7.10
       meow: 13.2.0
       semver: 7.8.5
 
@@ -10987,7 +10987,7 @@ snapshots:
     optionalDependencies:
       crossws: 0.4.12(srvx@1.0.5)
 
-  handlebars@4.7.9:
+  handlebars@4.7.10:
     dependencies:
       minimist: 1.2.8
       neo-async: 2.6.2
