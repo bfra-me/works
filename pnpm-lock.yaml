@@ -172,6 +172,7 @@ overrides:
   read-pkg-up@^11: npm:read-package-up
   undici@<6.24.0: ^8.0.0
   undici@>=7.17.0 <7.24.0: ^8.0.0
+  undici@>=8.0.0 <8.12.2: ^8.12.2
 
 packageExtensionsChecksum: sha256-i9hTx/29Y1lrHwzmZFu5g1e7Gb9/n4mRMNNUhOzLKpo=
 
@@ -338,7 +339,7 @@ importers:
         version: 13.0.6
       openai:
         specifier: 7.39.0
-        version: 7.39.0(undici@8.11.2)(ws@8.22.0)(zod@4.6.7)
+        version: 7.39.0(undici@8.12.3)(ws@8.22.0)(zod@4.6.7)
       package-manager-detector:
         specifier: 1.9.0
         version: 1.9.0
@@ -6507,8 +6508,8 @@ packages:
   undici-types@8.9.0:
     resolution: {integrity: sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg==}
 
-  undici@8.11.2:
-    resolution: {integrity: sha512-u4UB2/IrKdU6lFxumHmmo1a3fCQO5tzQllRorfoRS63txhrB7xTpSn1PftwC4qEHkOaqP95fCWW4lJzwErwzhQ==}
+  undici@8.12.3:
+    resolution: {integrity: sha512-+fdndUTwBP86cVjihTp21hZHo7d6oj1c/47XPA3lL8mM0XHs+C4EkcjmgRsFnFk2f/UONGDy9ItBItmXsLOQHw==}
     engines: {node: '>=22.19.0'}
 
   unicode-emoji-modifier-base@1.0.0:
@@ -7055,7 +7056,7 @@ snapshots:
   '@actions/http-client@4.0.1':
     dependencies:
       tunnel: 0.0.6
-      undici: 8.11.2
+      undici: 8.12.3
 
   '@actions/io@3.0.2': {}
 
@@ -8724,7 +8725,7 @@ snapshots:
       p-filter: 4.1.0
       semantic-release: 25.0.9(supports-color@8.1.1)(typescript@6.0.3)
       tinyglobby: 0.2.17
-      undici: 8.11.2
+      undici: 8.12.3
       url-join: 5.0.0
     transitivePeerDependencies:
       - kerberos
@@ -10276,7 +10277,7 @@ snapshots:
       npm-package-arg: 13.0.2
       package-json: 10.0.1
       synckit: 0.12.3
-      undici: 8.11.2
+      undici: 8.12.3
       verkit: 0.5.0
     transitivePeerDependencies:
       - '@eslint/json'
@@ -12437,9 +12438,9 @@ snapshots:
       powershell-utils: 0.2.1
       wsl-utils: 1.0.1
 
-  openai@7.39.0(undici@8.11.2)(ws@8.22.0)(zod@4.6.7):
+  openai@7.39.0(undici@8.12.3)(ws@8.22.0)(zod@4.6.7):
     optionalDependencies:
-      undici: 8.11.2
+      undici: 8.12.3
       ws: 8.22.0
       zod: 4.6.7
 
@@ -13650,7 +13651,7 @@ snapshots:
 
   undici-types@8.9.0: {}
 
-  undici@8.11.2: {}
+  undici@8.12.3: {}
 
   unicode-emoji-modifier-base@1.0.0: {}
 
@@ -13675,7 +13676,7 @@ snapshots:
       css-tree: 3.2.1
       fnv1a-64: 0.1.2
       std-env: 4.3.0
-      undici: 8.11.2
+      undici: 8.12.3
 
   unique-string@3.0.0:
     dependencies:
