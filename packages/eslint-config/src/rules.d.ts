@@ -75,7 +75,7 @@ export interface Rules {
    */
   '@eslint-react/dom-no-unsafe-iframe-sandbox'?: Linter.RuleEntry<[]>
   /**
-   * Disallows 'target="_blank"' without 'rel="noreferrer noopener"'.
+   * Disallows 'target="_blank"' without 'rel="noreferrer"'.
    * @see https://eslint-react.xyz/docs/rules/dom-no-unsafe-target-blank
    */
   '@eslint-react/dom-no-unsafe-target-blank'?: Linter.RuleEntry<EslintReactDomNoUnsafeTargetBlank>
