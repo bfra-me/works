@@ -427,7 +427,6 @@ jobs:
           model: ${{ vars.FRO_BOT_MODEL }}
           # Omitted or auto resolves to working-dir for schedule/workflow_dispatch, which discards fixes.
           output-mode: ${{ steps.resolve.outputs.mode == 'autoheal' && 'branch-pr' || 'auto' }}
-          omo-providers: ${{ secrets.OMO_PROVIDERS }}
           opencode-config: ${{ secrets.OPENCODE_CONFIG }}
           prompt: ${{ env.PROMPT }}
           timeout: 0
