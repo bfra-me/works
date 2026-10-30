@@ -72,13 +72,13 @@
     "@changesets/cli": "3.0.3",
     "@eslint/config-inspector": "3.5.0",
     "@manypkg/cli": "0.25.1",
-    "@microsoft/api-extractor": "7.59.4",
+    "@microsoft/api-extractor": "7.60.0",
     "@svitejs/changesets-changelog-github-compact": "1.2.0",
     "@types/fs-extra": "11.0.4",
     "@types/node": "24.19.2",
     "@vitest/coverage-v8": "5.0.5",
     "eslint": "10.13.0",
-    "execa": "10.2.0",
+    "execa": "10.2.1",
     "fast-glob": "3.3.3",
     "flatted": "3.4.4",
     "fs-extra": "11.4.1",
@@ -97,7 +97,7 @@
     "vitest": "5.0.5",
     "zod": "4.6.7"
   },
-  "packageManager": "pnpm@12.15.0",
+  "packageManager": "pnpm@12.16.0",
   "manypkg": {
     "workspaceProtocol": "require"
   }

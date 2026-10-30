@@ -417,7 +417,7 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
       - name: Run Fro Bot
-        uses: fro-bot/agent@28d957e47602fd317df8e48606b2ade29b54ff90 # v0.125.5
+        uses: fro-bot/agent@d372d013549f9e43b9a0d82d244f1232ac57269a # v0.129.0
         env:
           OPENCODE_PROMPT_ARTIFACT: 'true'
           PROMPT: ${{ steps.resolve.outputs.prompt }}
@@ -427,7 +427,6 @@ jobs:
           model: ${{ vars.FRO_BOT_MODEL }}
           # Omitted or auto resolves to working-dir for schedule/workflow_dispatch, which discards fixes.
           output-mode: ${{ steps.resolve.outputs.mode == 'autoheal' && 'branch-pr' || 'auto' }}
-          omo-providers: ${{ secrets.OMO_PROVIDERS }}
           opencode-config: ${{ secrets.OPENCODE_CONFIG }}
           prompt: ${{ env.PROMPT }}
           timeout: 0
