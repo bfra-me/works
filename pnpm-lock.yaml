@@ -451,8 +451,8 @@ importers:
         specifier: 64.5.4
         version: 64.5.4(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
       eslint-plugin-json-schema-validator:
-        specifier: 6.3.1
-        version: 6.3.1(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)
+        specifier: 6.3.2
+        version: 6.3.2(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)
       eslint-plugin-jsonc:
         specifier: 3.4.2
         version: 3.4.2(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))
@@ -3633,8 +3633,8 @@ packages:
       typescript:
         optional: true
 
-  eslint-plugin-json-schema-validator@6.3.1:
-    resolution: {integrity: sha512-bAhCCMI00K9hTeAwMUIlWbFOEFeqXk7aDC2OTCueZOAnBg0Ga19tM21PNKxSW9puCH9aoa/BsOjd7QKIhScZTQ==}
+  eslint-plugin-json-schema-validator@6.3.2:
+    resolution: {integrity: sha512-NFusAIhUSQxEBHMKdRfEAO08Xi7Hzd/8t5EiMQ6EuzgGVSQyzGxkbc66d2WzmnQlr9rnnD3V0Uk6J0W5PKiHhg==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
     peerDependencies:
       eslint: '>=9.38.0'
@@ -10220,7 +10220,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-json-schema-validator@6.3.1(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1):
+  eslint-plugin-json-schema-validator@6.3.2(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1):
     dependencies:
       '@eslint-community/eslint-utils': 4.10.1(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))
       ajv: 8.20.0
@@ -10231,7 +10231,7 @@ snapshots:
       json-schema-migrate-x: 2.1.0
       jsonc-eslint-parser: 3.3.0
       minimatch: 10.2.6
-      synckit: 0.11.13
+      synckit: 0.12.3
       toml-eslint-parser: 1.0.3
       tunnel-agent: 0.6.0
       yaml-eslint-parser: 2.1.0
