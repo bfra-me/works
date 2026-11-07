@@ -28,6 +28,7 @@ overrides:
   read-pkg-up@^11: npm:read-package-up
   undici@<6.24.0: ^8.0.0
   undici@>=7.17.0 <7.24.0: ^8.0.0
+  undici@>=8.0.0 <8.12.2: ^8.12.2
 
 packageExtensions:
   eslint-plugin-jsx-a11y:
