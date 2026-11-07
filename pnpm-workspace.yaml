@@ -21,7 +21,7 @@ onlyBuiltDependencies:
 overrides:
   esbuild: ^0.28.1
   fast-uri: ^4.1.2
-  handlebars@>=4.0.0 <4.7.9: ^4.7.9
+  handlebars@>=4.0.0 <4.7.10: ^4.7.10
   lodash: ^4.17.23
   picomatch@>=2.3.1 <2.3.2: ^4.0.0
   picomatch@>=4.0.3 <4.0.4: ^4.0.4
