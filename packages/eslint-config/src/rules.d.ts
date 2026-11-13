@@ -400,6 +400,11 @@ export interface Rules {
    */
   '@eslint-react/static-components'?: Linter.RuleEntry<[]>
   /**
+   * Verifies the list of dependencies for Hooks like 'useEffect' and similar, with support for custom Hooks and stable Hook results.
+   * @see https://eslint-react.xyz/docs/rules/unstable-exhaustive-deps
+   */
+  '@eslint-react/unstable-exhaustive-deps'?: Linter.RuleEntry<EslintReactUnstableExhaustiveDeps>
+  /**
    * Validates against syntax that React Compiler does not support.
    * @see https://eslint-react.xyz/docs/rules/unsupported-syntax
    */
@@ -8506,16 +8511,33 @@ type EslintReactJsxNoUselessFragment = []|[{
 }]
 // ----- @eslint-react/no-unstable-default-props -----
 type EslintReactNoUnstableDefaultProps = []|[{
+  
   safeDefaultProps?: string[]
 }]
 // ----- @eslint-react/rules-of-hooks -----
 type EslintReactRulesOfHooks = []|[{
   additionalHooks?: string
 }]
+// ----- @eslint-react/unstable-exhaustive-deps -----
+type EslintReactUnstableExhaustiveDeps = []|[{
+  additionalHooks?: string
+  enableDangerousAutofixThisMayCauseInfiniteLoops?: boolean
+  experimental_autoDependenciesHooks?: string[]
+  hooks?: {
+    name: string
+    closureIndex?: number
+    dependenciesIndex?: number
+    stableResult?: (boolean | number | [number, ...(number)[]])
+  }[]
+  requireExplicitEffectDeps?: boolean
+}]
 // ----- @eslint-react/use-state -----
 type EslintReactUseState = []|[{
+  
   enforceAssignment?: boolean
+  
   enforceLazyInitialization?: boolean
+  
   enforceSetterName?: boolean
 }]
 // ----- @eslint-react/x-exhaustive-deps -----
@@ -8527,6 +8549,7 @@ type EslintReactXExhaustiveDeps = []|[{
 }]
 // ----- @eslint-react/x-no-unstable-default-props -----
 type EslintReactXNoUnstableDefaultProps = []|[{
+  
   safeDefaultProps?: string[]
 }]
 // ----- @eslint-react/x-rules-of-hooks -----
@@ -8535,8 +8558,11 @@ type EslintReactXRulesOfHooks = []|[{
 }]
 // ----- @eslint-react/x-use-state -----
 type EslintReactXUseState = []|[{
+  
   enforceAssignment?: boolean
+  
   enforceLazyInitialization?: boolean
+  
   enforceSetterName?: boolean
 }]
 // ----- @next/next/no-html-link-for-pages -----
