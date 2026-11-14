@@ -57,7 +57,7 @@
     "dotenv": "18.0.10",
     "eta": "4.6.0",
     "giget": "3.3.1",
-    "glob": "14.0.4",
+    "glob": "14.0.5",
     "openai": "7.55.0",
     "package-manager-detector": "1.9.0"
   },
