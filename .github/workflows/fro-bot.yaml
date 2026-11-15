@@ -422,6 +422,7 @@ jobs:
           OPENCODE_PROMPT_ARTIFACT: 'true'
           PROMPT: ${{ steps.resolve.outputs.prompt }}
         with:
+          isolate-agent: true
           github-token: ${{ secrets.FRO_BOT_PAT }}
           auth-json: ${{ secrets.OPENCODE_AUTH_JSON }}
           model: ${{ vars.FRO_BOT_MODEL }}
