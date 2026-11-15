@@ -1,6 +1,5 @@
 ---
 '@bfra.me/doc-sync': patch
-'@bfra.me/workspace-analyzer': patch
 '@bfra.me/create': patch
 ---
 
