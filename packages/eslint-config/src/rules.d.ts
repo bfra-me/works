@@ -15285,9 +15285,9 @@ type PerfectionistSortClasses = {
         flags?: string
       } | string))
       
-      modifiers?: ("async" | "protected" | "private" | "public" | "static" | "abstract" | "override" | "readonly" | "decorated" | "declare" | "optional")[]
+      modifiers?: ("static" | "declare" | "abstract" | "decorated" | "override" | "readonly" | "protected" | "private" | "public" | "optional" | "async")[]
       
-      selector?: ("accessor-property" | "index-signature" | "constructor" | "static-block" | "get-method" | "set-method" | "function-property" | "property" | "method")
+      selector?: ("function-property" | "accessor-property" | "property" | "constructor" | "get-method" | "set-method" | "method" | "index-signature" | "static-block")
       
       decoratorNamePattern?: (({
         
@@ -15326,9 +15326,9 @@ type PerfectionistSortClasses = {
         flags?: string
       } | string))
       
-      modifiers?: ("async" | "protected" | "private" | "public" | "static" | "abstract" | "override" | "readonly" | "decorated" | "declare" | "optional")[]
+      modifiers?: ("static" | "declare" | "abstract" | "decorated" | "override" | "readonly" | "protected" | "private" | "public" | "optional" | "async")[]
       
-      selector?: ("accessor-property" | "index-signature" | "constructor" | "static-block" | "get-method" | "set-method" | "function-property" | "property" | "method")
+      selector?: ("function-property" | "accessor-property" | "property" | "constructor" | "get-method" | "set-method" | "method" | "index-signature" | "static-block")
       
       decoratorNamePattern?: (({
         
@@ -15382,9 +15382,9 @@ type PerfectionistSortClasses = {
       flags?: string
     } | string))
     
-    modifiers?: ("async" | "protected" | "private" | "public" | "static" | "abstract" | "override" | "readonly" | "decorated" | "declare" | "optional")[]
+    modifiers?: ("static" | "declare" | "abstract" | "decorated" | "override" | "readonly" | "protected" | "private" | "public" | "optional" | "async")[]
     
-    selector?: ("accessor-property" | "index-signature" | "constructor" | "static-block" | "get-method" | "set-method" | "function-property" | "property" | "method")
+    selector?: ("function-property" | "accessor-property" | "property" | "constructor" | "get-method" | "set-method" | "method" | "index-signature" | "static-block")
     
     decoratorNamePattern?: (({
       
@@ -17058,9 +17058,9 @@ type PerfectionistSortImports = {
         flags?: string
       } | string))
       
-      modifiers?: ("default" | "multiline" | "named" | "require" | "side-effect" | "singleline" | "ts-equals" | "type" | "value" | "wildcard")[]
+      modifiers?: ("side-effect" | "type" | "value" | "ts-equals" | "require" | "default" | "wildcard" | "named" | "multiline" | "singleline")[]
       
-      selector?: ("side-effect-style" | "tsconfig-path" | "side-effect" | "external" | "internal" | "builtin" | "sibling" | "subpath" | "import" | "parent" | "index" | "style" | "type")
+      selector?: ("type" | "side-effect-style" | "side-effect" | "style" | "tsconfig-path" | "index" | "sibling" | "parent" | "subpath" | "internal" | "builtin" | "external" | "import")
     }, ...({
       
       elementNamePattern?: (({
@@ -17075,9 +17075,9 @@ type PerfectionistSortImports = {
         flags?: string
       } | string))
       
-      modifiers?: ("default" | "multiline" | "named" | "require" | "side-effect" | "singleline" | "ts-equals" | "type" | "value" | "wildcard")[]
+      modifiers?: ("side-effect" | "type" | "value" | "ts-equals" | "require" | "default" | "wildcard" | "named" | "multiline" | "singleline")[]
       
-      selector?: ("side-effect-style" | "tsconfig-path" | "side-effect" | "external" | "internal" | "builtin" | "sibling" | "subpath" | "import" | "parent" | "index" | "style" | "type")
+      selector?: ("type" | "side-effect-style" | "side-effect" | "style" | "tsconfig-path" | "index" | "sibling" | "parent" | "subpath" | "internal" | "builtin" | "external" | "import")
     })[]]
   } | {
     
@@ -17109,9 +17109,9 @@ type PerfectionistSortImports = {
       flags?: string
     } | string))
     
-    modifiers?: ("default" | "multiline" | "named" | "require" | "side-effect" | "singleline" | "ts-equals" | "type" | "value" | "wildcard")[]
+    modifiers?: ("side-effect" | "type" | "value" | "ts-equals" | "require" | "default" | "wildcard" | "named" | "multiline" | "singleline")[]
     
-    selector?: ("side-effect-style" | "tsconfig-path" | "side-effect" | "external" | "internal" | "builtin" | "sibling" | "subpath" | "import" | "parent" | "index" | "style" | "type")
+    selector?: ("type" | "side-effect-style" | "side-effect" | "style" | "tsconfig-path" | "index" | "sibling" | "parent" | "subpath" | "internal" | "builtin" | "external" | "import")
   })[]
   newlinesInside?: (("ignore" | number) | "newlinesBetween")
   
@@ -17259,9 +17259,9 @@ type PerfectionistSortInterfaces = {
         flags?: string
       } | string))
       
-      modifiers?: ("optional" | "required" | "multiline")[]
+      modifiers?: ("multiline" | "optional" | "required")[]
       
-      selector?: ("index-signature" | "member" | "method" | "property")
+      selector?: ("index-signature" | "method" | "property" | "member")
       
       elementValuePattern?: (({
         
@@ -17288,9 +17288,9 @@ type PerfectionistSortInterfaces = {
         flags?: string
       } | string))
       
-      modifiers?: ("optional" | "required" | "multiline")[]
+      modifiers?: ("multiline" | "optional" | "required")[]
       
-      selector?: ("index-signature" | "member" | "method" | "property")
+      selector?: ("index-signature" | "method" | "property" | "member")
       
       elementValuePattern?: (({
         
@@ -17334,9 +17334,9 @@ type PerfectionistSortInterfaces = {
       flags?: string
     } | string))
     
-    modifiers?: ("optional" | "required" | "multiline")[]
+    modifiers?: ("multiline" | "optional" | "required")[]
     
-    selector?: ("index-signature" | "member" | "method" | "property")
+    selector?: ("index-signature" | "method" | "property" | "member")
     
     elementValuePattern?: (({
       
@@ -18059,7 +18059,7 @@ type PerfectionistSortModules = []|[{
         flags?: string
       } | string))
       
-      modifiers?: ("async" | "declare" | "decorated" | "default" | "export")[]
+      modifiers?: ("arrow" | "declare" | "default" | "async" | "decorated" | "export")[]
       
       selector?: ("enum" | "function" | "interface" | "type" | "class")
       
@@ -18088,7 +18088,7 @@ type PerfectionistSortModules = []|[{
         flags?: string
       } | string))
       
-      modifiers?: ("async" | "declare" | "decorated" | "default" | "export")[]
+      modifiers?: ("arrow" | "declare" | "default" | "async" | "decorated" | "export")[]
       
       selector?: ("enum" | "function" | "interface" | "type" | "class")
       
@@ -18132,7 +18132,7 @@ type PerfectionistSortModules = []|[{
       flags?: string
     } | string))
     
-    modifiers?: ("async" | "declare" | "decorated" | "default" | "export")[]
+    modifiers?: ("arrow" | "declare" | "default" | "async" | "decorated" | "export")[]
     
     selector?: ("enum" | "function" | "interface" | "type" | "class")
     
@@ -18172,6 +18172,8 @@ type PerfectionistSortModules = []|[{
   newlinesBetween?: ("ignore" | number)
   
   additionalModuleBlockTypes?: string[]
+  
+  sortArrowFunctions?: boolean
   
   useExperimentalDependencyDetection?: boolean
   newlinesBetweenOverloadSignatures?: ("ignore" | number)
@@ -18649,9 +18651,9 @@ type PerfectionistSortObjectTypes = {
         flags?: string
       } | string))
       
-      modifiers?: ("optional" | "required" | "multiline")[]
+      modifiers?: ("multiline" | "optional" | "required")[]
       
-      selector?: ("index-signature" | "member" | "method" | "property")
+      selector?: ("index-signature" | "method" | "property" | "member")
       
       elementValuePattern?: (({
         
@@ -18678,9 +18680,9 @@ type PerfectionistSortObjectTypes = {
         flags?: string
       } | string))
       
-      modifiers?: ("optional" | "required" | "multiline")[]
+      modifiers?: ("multiline" | "optional" | "required")[]
       
-      selector?: ("index-signature" | "member" | "method" | "property")
+      selector?: ("index-signature" | "method" | "property" | "member")
       
       elementValuePattern?: (({
         
@@ -18724,9 +18726,9 @@ type PerfectionistSortObjectTypes = {
       flags?: string
     } | string))
     
-    modifiers?: ("optional" | "required" | "multiline")[]
+    modifiers?: ("multiline" | "optional" | "required")[]
     
-    selector?: ("index-signature" | "member" | "method" | "property")
+    selector?: ("index-signature" | "method" | "property" | "member")
     
     elementValuePattern?: (({
       
@@ -18909,7 +18911,7 @@ type PerfectionistSortObjects = {
       
       modifiers?: ("multiline")[]
       
-      selector?: ("member" | "method" | "property")
+      selector?: ("method" | "property" | "member")
       
       elementValuePattern?: (({
         
@@ -18938,7 +18940,7 @@ type PerfectionistSortObjects = {
       
       modifiers?: ("multiline")[]
       
-      selector?: ("member" | "method" | "property")
+      selector?: ("method" | "property" | "member")
       
       elementValuePattern?: (({
         
@@ -18984,7 +18986,7 @@ type PerfectionistSortObjects = {
     
     modifiers?: ("multiline")[]
     
-    selector?: ("member" | "method" | "property")
+    selector?: ("method" | "property" | "member")
     
     elementValuePattern?: (({
       
