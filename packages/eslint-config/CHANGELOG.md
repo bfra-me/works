@@ -1,5 +1,12 @@
 # @bfra.me/eslint-config
 
+## 0.54.2
+
+### Patch Changes
+
+- Updated dependency `typescript-eslint` to `8.73.0`. ([#5568](https://github.com/bfra-me/works/pull/5568))
+  Updated dependency `@typescript-eslint/types` to `8.73.0`.
+
 ## 0.54.1
 
 ### Patch Changes
