@@ -1,0 +1,7 @@
+---
+'@bfra.me/create': patch
+'@bfra.me/workspace-analyzer': patch
+'@bfra.me/doc-sync': patch
+---
+
+Updated dependency `cac` to `7.1.1`.
