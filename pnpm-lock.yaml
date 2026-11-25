@@ -6,6 +6,9 @@ importers:
   .:
     configDependencies: {}
     packageManagerDependencies:
+      '@pnpm/exe':
+        specifier: 12.22.0
+        version: 12.22.0
       pnpm:
         specifier: 12.22.0
         version: 12.22.0
@@ -94,6 +97,11 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@pnpm/exe@12.22.0':
+    resolution: {integrity: sha512-WRo/YKEo/bkvlZ/w6yDpF40xcM502lwsLAxZsiVYaW/OBCELnCQM5i9jlpQ825DP0FCXU6CRrUitM5Gq4drkIQ==}
+    engines: {node: '>=18'}
+    hasBin: true
+
   pnpm@12.22.0:
     resolution: {integrity: sha512-iUlAo9mlffpv03OZD7TkHgnC8tdtmC7R11J105Jn+Yj7Ti1AkAy+mSHGjZfGeqGhCW0nZjPbJI97NJJ6yd23pA==}
     engines: {node: '>=18'}
@@ -145,6 +153,24 @@ snapshots:
 
   '@pnpm/exe.win32-x64@12.22.0':
     optional: true
+
+  '@pnpm/exe@12.22.0':
+    optionalDependencies:
+      '@pnpm/exe.android-arm64': 12.22.0
+      '@pnpm/exe.android-x64': 12.22.0
+      '@pnpm/exe.darwin-arm64': 12.22.0
+      '@pnpm/exe.darwin-x64': 12.22.0
+      '@pnpm/exe.freebsd-x64': 12.22.0
+      '@pnpm/exe.linux-arm64': 12.22.0
+      '@pnpm/exe.linux-arm64-musl': 12.22.0
+      '@pnpm/exe.linux-ppc64': 12.22.0
+      '@pnpm/exe.linux-riscv64': 12.22.0
+      '@pnpm/exe.linux-s390x': 12.22.0
+      '@pnpm/exe.linux-x64': 12.22.0
+      '@pnpm/exe.linux-x64-musl': 12.22.0
+      '@pnpm/exe.netbsd-x64': 12.22.0
+      '@pnpm/exe.win32-arm64': 12.22.0
+      '@pnpm/exe.win32-x64': 12.22.0
 
   pnpm@12.22.0:
     optionalDependencies:
