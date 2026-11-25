@@ -1,5 +1,11 @@
 # @bfra.me/doc-sync
 
+## 0.1.16
+
+### Patch Changes
+
+- Updated dependency `cac` to `7.1.1`. ([#5596](https://github.com/bfra-me/works/pull/5596))
+
 ## 0.1.15
 
 ### Patch Changes
