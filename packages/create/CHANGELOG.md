@@ -1,5 +1,19 @@
 # @bfra.me/create
 
+## 0.8.5
+
+### Patch Changes
+
+- Updated dependency `openai` to `7.61.0`. ([#5587](https://github.com/bfra-me/works/pull/5587))
+
+- Updated dependency `openai` to `7.60.0`. ([#5581](https://github.com/bfra-me/works/pull/5581))
+
+- Updated dependency `cac` to `7.1.1`. ([#5596](https://github.com/bfra-me/works/pull/5596))
+
+- Updated dependency `openai` to `7.59.0`. ([#5575](https://github.com/bfra-me/works/pull/5575))
+
+- Updated dependency `openai` to `7.62.0`. ([#5590](https://github.com/bfra-me/works/pull/5590))
+
 ## 0.8.4
 
 ### Patch Changes
