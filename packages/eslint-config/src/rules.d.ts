@@ -1315,7 +1315,7 @@ export interface Rules {
    * Require that function overload signatures be consecutive
    * @see https://typescript-eslint.io/rules/adjacent-overload-signatures
    */
-  '@typescript-eslint/adjacent-overload-signatures'?: Linter.RuleEntry<[]>
+  '@typescript-eslint/adjacent-overload-signatures'?: Linter.RuleEntry<TypescriptEslintAdjacentOverloadSignatures>
   /**
    * Require consistently using either `T[]` or `Array<T>` for arrays
    * @see https://typescript-eslint.io/rules/array-type
@@ -9832,6 +9832,11 @@ type StylisticYieldStarSpacing = []|[(("before" | "after" | "both" | "neither") 
   before?: boolean
   after?: boolean
 })]
+// ----- @typescript-eslint/adjacent-overload-signatures -----
+type TypescriptEslintAdjacentOverloadSignatures = []|[{
+  
+  ignoreAccessors?: boolean
+}]
 // ----- @typescript-eslint/array-type -----
 type TypescriptEslintArrayType = []|[{
   
