@@ -1,5 +1,23 @@
 # @bfra.me/eslint-config
 
+## 0.54.2
+
+### Patch Changes
+
+- Updated dependency `typescript-eslint` to `8.74.0`. ([#5618](https://github.com/bfra-me/works/pull/5618))
+  Updated dependency `@typescript-eslint/types` to `8.74.0`.
+- Updated dependency `eslint-plugin-erasable-syntax-only` to `0.7.3`. ([#5622](https://github.com/bfra-me/works/pull/5622))
+
+- Updated dependency `typescript-eslint` to `8.73.0`. ([#5568](https://github.com/bfra-me/works/pull/5568))
+  Updated dependency `@typescript-eslint/types` to `8.73.0`.
+- Updated dependency `eslint-plugin-n` to `18.6.0`. ([#5632](https://github.com/bfra-me/works/pull/5632))
+
+- Updated dependency `@eslint-react/eslint-plugin` to `5.30.4`. ([#5572](https://github.com/bfra-me/works/pull/5572))
+
+- Updated dependency `@eslint-react/eslint-plugin` to `5.30.5`. ([#5584](https://github.com/bfra-me/works/pull/5584))
+
+- Updated dependency `@eslint-react/eslint-plugin` to `5.30.6`. ([#5603](https://github.com/bfra-me/works/pull/5603))
+
 ## 0.54.1
 
 ### Patch Changes
